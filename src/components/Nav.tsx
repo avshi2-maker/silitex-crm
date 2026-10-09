@@ -1,7 +1,8 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 09.10.2026 09:10 (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 09.10.2026 09:40 (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { OWNER } from "@/config/app";
 const ITEMS = [
   { href: "/", he: "לוח בקרה", icon: "📊" },
   { href: "/products", he: "קטלוג מוצרים", icon: "🧪" },
@@ -28,7 +29,7 @@ export default function Nav() {
         })}
       </nav>
       <div className="mt-8 text-[11px] text-blue-200 leading-5">
-        אבשי ספיר · 050-5231042<br />Silitex S.r.l. — Italy
+        {OWNER.name} · {OWNER.phone}<br />Silitex S.r.l. — Italy
       </div>
     </aside>
   );

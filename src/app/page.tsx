@@ -1,7 +1,7 @@
 "use client";
-// page.tsx (src/app/page.tsx) · updated 09.10.2026 09:10 (Asia/Jerusalem) — dashboard
+// page.tsx (src/app/page.tsx) · updated 09.10.2026 09:40 (Asia/Jerusalem) — dashboard
 import Link from "next/link";
-import { useStore, STAGES } from "@/lib/store";
+import { useStore, STAGES, isClosed } from "@/lib/store";
 import { PRODUCTS, OFFSETS } from "@/lib/data";
 import { Card, H1, Stat, Badge } from "@/components/ui";
 import { fmtUsd, todayIso, fmtDate } from "@/lib/format";
@@ -9,7 +9,7 @@ export default function Dashboard() {
   const { state, ready } = useStore();
   if (!ready) return null;
   const today = todayIso();
-  const open = state.leads.filter((l) => !["won", "lost"].includes(l.stage));
+  const open = state.leads.filter((l) => !isClosed(l.stage));
   const pipelineUsd = open.reduce((a, l) => a + l.value_usd, 0);
   const due = state.tasks.filter((t) => !t.done && t.due <= today);
   return (

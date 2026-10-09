@@ -1,8 +1,8 @@
 "use client";
-// page.tsx (src/app/leads/page.tsx) · updated 09.10.2026 09:10 (Asia/Jerusalem) — potential customers list + new lead
+// page.tsx (src/app/leads/page.tsx) · updated 09.10.2026 09:40 (Asia/Jerusalem) — potential customers list + new lead
 import Link from "next/link";
 import { useState } from "react";
-import { useStore, STAGES } from "@/lib/store";
+import { useStore, stageHe } from "@/lib/store";
 import { Card, H1, Badge, inputCls, btnPrimary } from "@/components/ui";
 import { fmtUsd, uid } from "@/lib/format";
 import type { Lead } from "@/lib/types";
@@ -36,7 +36,7 @@ export default function LeadsPage() {
       <Card className="p-0 overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-slate-50"><tr><th className="p-2 text-right">חברה</th><th className="p-2 text-right">תעשייה</th><th className="p-2 text-right">התאמת מוצר</th><th className="p-2 text-right">Tier</th><th className="p-2 text-right">פוטנציאל / שנה</th><th className="p-2 text-right">שלב</th></tr></thead>
-          <tbody>{list.map((l) => (<tr key={l.id} className="border-t hover:bg-slate-50"><td className="p-2"><Link href={"/leads/" + l.id} className="font-medium text-brand-700 hover:underline">{l.name}</Link><div className="text-xs text-slate-500 line-clamp-1">{l.sub_industry}</div></td><td className="p-2">{l.industry}</td><td className="p-2 text-xs">{l.product_match}</td><td className="p-2"><Badge tone={/Tier 1/.test(l.tier) ? "green" : "amber"}>{l.tier}</Badge></td><td className="p-2 whitespace-nowrap">{fmtUsd(l.value_usd)}<div className="text-xs text-slate-500">{l.volume_tons} טון</div></td><td className="p-2"><Badge tone="blue">{STAGES.find((s) => s.key === l.stage)?.he}</Badge></td></tr>))}</tbody>
+          <tbody>{list.map((l) => (<tr key={l.id} className="border-t hover:bg-slate-50"><td className="p-2"><Link href={"/leads/" + l.id} className="font-medium text-brand-700 hover:underline">{l.name}</Link><div className="text-xs text-slate-500 line-clamp-1">{l.sub_industry}</div></td><td className="p-2">{l.industry}</td><td className="p-2 text-xs">{l.product_match}</td><td className="p-2"><Badge tone={/Tier 1/.test(l.tier) ? "green" : "amber"}>{l.tier}</Badge></td><td className="p-2 whitespace-nowrap">{fmtUsd(l.value_usd)}<div className="text-xs text-slate-500">{l.volume_tons} טון</div></td><td className="p-2"><Badge tone="blue">{stageHe(l.stage)}</Badge></td></tr>))}</tbody>
         </table>
       </Card>
     </div>

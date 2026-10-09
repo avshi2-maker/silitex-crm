@@ -1,9 +1,9 @@
-// layout.tsx (src/app/layout.tsx) · updated 09.10.2026 09:10 (Asia/Jerusalem)
+// layout.tsx (src/app/layout.tsx) · updated 09.10.2026 09:40 (Asia/Jerusalem)
 import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/components/Nav";
+import { BUILD } from "@/config/app";
 export const metadata: Metadata = { title: "Silitex CRM — הפצה ומכירות", description: "CRM לקידום מוצרי Silitex בישראל" };
-const BUILD = "v0.1.1 · 09/10/2026";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="he" dir="rtl">

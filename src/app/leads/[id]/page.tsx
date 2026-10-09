@@ -1,11 +1,12 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 09:10 (Asia/Jerusalem) — lead file: intake form, stage, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 09:40 (Asia/Jerusalem) — lead file: intake form, stage, timeline, AI pitch
 import { use, useState } from "react";
 import { useStore, STAGES } from "@/lib/store";
 import { PRODUCTS, industriesOf, INDUSTRIES } from "@/lib/data";
 import { Card, H1, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui";
 import AiPanel from "@/components/AiPanel";
-import { fmtUsd, fmtDateTime, fmtDate, todayIso } from "@/lib/format";
+import { fmtDateTime, fmtDate, todayIso } from "@/lib/format";
+import { pitchContext, pitchPrompt } from "@/prompts/pitch";
 import type { Lead, Stage } from "@/lib/types";
 export default function LeadPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -18,8 +19,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
   const tasks = state.tasks.filter((t) => t.lead_id === id && !t.done);
   const indKeys = INDUSTRIES.filter((i) => i.match.test(lead.industry + " " + lead.use_case + " " + lead.product_match)).map((i) => i.key);
   const matches = PRODUCTS.filter((p) => industriesOf(p).some((k) => indKeys.includes(k))).slice(0, 8);
-  const ctx = "לקוח: " + lead.name + "\nתעשייה: " + lead.industry + " — " + lead.sub_industry + "\nצורך: " + lead.use_case + "\nהתאמה: " + lead.product_match + "\nפוטנציאל: " + lead.volume_tons + " טון / " + fmtUsd(lead.value_usd) + "\nאיש קשר: " + (lead.contact_name || lead.contact_role) + " (" + lead.department + ")\nהערות: " + (lead.notes || "—") +
-    "\n\nמוצרי Silitex מתאימים:\n" + matches.map((p) => "- " + p.product_name + " | " + p.category_sector + " | " + p.application_field + " | " + p.active_content_pct + " | " + p.food_grade_certifications + " | מחליף: " + p.dow_corning_offset_benchmark).join("\n");
+  const ctx = pitchContext(lead, matches);
   return (
     <div className="space-y-4">
       <H1 sub={lead.industry + " · " + lead.tier}>{lead.name}</H1>
@@ -31,7 +31,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
           </Card>
           <Card>
             <AiPanel title={"הצעת פנייה / פיץ' ל-" + lead.name} buttonLabel="צור פיץ' עם Claude" sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} onResult={() => addActivity(id, "ai", "נוצר פיץ' AI")}
-              buildPrompt={() => ({ context: ctx, prompt: "כתוב מייל פנייה ראשונה בעברית ל-" + (lead.contact_name || lead.contact_role) + " ב-" + lead.name + ". כלול: הבנת הצורך, 2–3 מוצרי Silitex מומלצים (עם המקבילה שהם מחליפים), יתרון מפיץ מקומי, הצעת דגימה חינם וקריאה לפגישה. עד 180 מילים + שורת נושא." })} />
+              buildPrompt={() => ({ context: ctx, prompt: pitchPrompt(lead) })} />
           </Card>
           <Card>
             <h3 className="font-bold mb-2">מוצרים מותאמים ({matches.length})</h3>

@@ -1,4 +1,4 @@
-# Silitex CRM — mockup (v0.1.0 · 09/10/2026)
+# Silitex CRM — mockup (v0.2.0 · 09/10/2026) — see docs/SILITEX_ATLAS.md first
 
 Hebrew RTL CRM for promoting **Silitex S.r.l. (Italy)** silicone products in Israel as official distributor.
 

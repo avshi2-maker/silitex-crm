@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/kb/page.tsx) · updated 09.10.2026 09:10 (Asia/Jerusalem) — knowledge base: upload TDS / MSDS / sales specs → ask questions (RAG)
+// page.tsx (src/app/kb/page.tsx) · updated 09.10.2026 09:40 (Asia/Jerusalem) — knowledge base: upload TDS / MSDS / sales specs → ask questions (RAG)
 import { useState } from "react";
 import { useStore } from "@/lib/store";
 import { PRODUCTS } from "@/lib/data";
@@ -7,6 +7,7 @@ import { scoreChunks } from "@/lib/rag";
 import { Card, H1, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui";
 import AiPanel from "@/components/AiPanel";
 import { fmtDate, uid } from "@/lib/format";
+import { ragContext, ragPrompt } from "@/prompts/rag";
 import type { KbDoc, KbChunk } from "@/lib/types";
 export default function KbPage() {
   const { state, ready, addKbDoc, removeKbDoc, addSpend } = useStore();
@@ -45,7 +46,7 @@ export default function KbPage() {
         <div className="flex gap-2"><input className={inputCls} placeholder="שאלה: למשל 'מה המינון המומלץ של SILIFOOD 1600 בשטיפת פירות?'" value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && search()} /><button className={btnGhost} onClick={search}>🔎 אחזר</button></div>
         {hits.length > 0 && <div className="text-xs text-slate-500">{hits.length} מקטעים רלוונטיים: {Array.from(new Set(hits.map((h) => h.title))).join(" · ")}</div>}
         <AiPanel title={"תשובה ממסמכי Silitex"} buttonLabel="ענה עם Claude (RAG)" sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)}
-          buildPrompt={() => { const h = hits.length ? hits : scoreChunks(q, state.kbChunks); return { context: h.length ? h.map((c, i) => "[" + (i + 1) + "] " + c.title + " (" + c.doc_type + (c.product_ref ? " · " + c.product_ref : "") + ")\n" + c.text).join("\n\n") : "(אין מסמכים במאגר — ענה מהקטלוג הכללי בלבד וציין זאת)", prompt: "ענה על השאלה בהסתמך על המקטעים בלבד, עם ציון מקור [n]. שאלה: " + q }; }} />
+          buildPrompt={() => { const h = hits.length ? hits : scoreChunks(q, state.kbChunks); return { context: ragContext(h), prompt: ragPrompt(q) }; }} />
       </Card>
     </div>
   );

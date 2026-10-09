@@ -1,12 +1,10 @@
-// ai.ts (src/lib/ai.ts) · updated 09.10.2026 09:10 (Asia/Jerusalem)  — server only
+// ai.ts (src/lib/ai.ts) · updated 09.10.2026 09:40 (Asia/Jerusalem)  — server only
 // One Claude entry point. Without ANTHROPIC_API_KEY it returns a deterministic demo answer with simulated usage so the meter + export bar still work.
 import Anthropic from "@anthropic-ai/sdk";
 import { MODEL, costUsd } from "./pricing";
 import type { Usage } from "./types";
 
-export const SYSTEM = `אתה עוזר מכירות של מפיץ רשמי בישראל למוצרי Silitex S.r.l. (איטליה) — אמולסיות סיליקון, נוגדי קצף, מרככים, שעוות, חומרי איטום.
-כתוב בעברית מקצועית, תמציתית, ממוקדת לקוח תעשייתי. ציין שמות מוצרים באנגלית. אל תמציא נתונים טכניים — אם חסר, אמור זאת.
-חתימה: אבשי ספיר · 050-5231042 · Marble Art / Silitex Israel.`;
+import { SYSTEM } from "@/prompts/system";
 
 export async function ask(prompt: string, context?: string, maxTokens = 1200): Promise<{ text: string; usage: Usage }> {
   const key = process.env.ANTHROPIC_API_KEY;
