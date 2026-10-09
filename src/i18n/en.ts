@@ -1,6 +1,7 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 10:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "חזרה ללוח הבקרה": "Back to dashboard",
   "2 דקות · 1 = נמוך, 5 = מצוין": "2 minutes · 1 = low, 5 = excellent",
   "50 שאלות ותשובות": "50 Q&A",
   "50 שאלות ותשובות מתוך silitex.it והקטלוג — שקיפות מלאה, עם מקור לכל תשובה ·": "50 Q&A built from silitex.it and the catalog — full transparency, a source for every answer ·",

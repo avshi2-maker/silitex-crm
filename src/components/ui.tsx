@@ -1,10 +1,11 @@
-// ui.tsx (src/components/ui.tsx) · updated 09.10.2026 09:10 (Asia/Jerusalem)
+// ui.tsx (src/components/ui.tsx) · updated 09.10.2026 13:40 (Asia/Jerusalem)
 import type { ReactNode } from "react";
+import BackLink from "./BackLink";
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={"bg-white border rounded-xl p-4 shadow-sm " + className}>{children}</div>;
 }
 export function H1({ children, sub }: { children: ReactNode; sub?: string }) {
-  return (<div className="mb-4"><h1 className="text-2xl font-bold text-brand-900">{children}</h1>{sub && <p className="text-sm text-slate-500">{sub}</p>}</div>);
+  return (<div className="mb-4"><BackLink /><h1 className="text-2xl font-bold text-brand-900">{children}</h1>{sub && <p className="text-sm text-slate-500">{sub}</p>}</div>);
 }
 export function Badge({ children, tone = "slate" }: { children: ReactNode; tone?: string }) {
   const tones: Record<string, string> = { slate: "bg-slate-100 text-slate-700", green: "bg-emerald-100 text-emerald-800", blue: "bg-blue-100 text-blue-800", amber: "bg-amber-100 text-amber-800", red: "bg-red-100 text-red-800", purple: "bg-purple-100 text-purple-800" };

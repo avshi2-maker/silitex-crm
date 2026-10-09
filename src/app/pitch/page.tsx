@@ -8,6 +8,7 @@ import Counter from "@/components/pitch/Counter";
 import IsraelMap from "@/components/pitch/IsraelMap";
 import Timeline from "@/components/pitch/Timeline";
 import ExportBar from "@/components/ExportBar";
+import BackLink from "@/components/BackLink";
 import { fmtDate } from "@/lib/format";
 export default function PitchPage() {
   const { state, ready } = useStore();
@@ -17,6 +18,7 @@ export default function PitchPage() {
   const summary = PITCH.title + "\n" + PITCH.subtitle + "\n\n" + state.leads.length + " accounts · " + INDUSTRIES.length + " industries · $" + potential.toLocaleString() + " / yr · " + tons + " t/yr\n\n" + PITCH.phases.map((p) => "Phase " + p.n + " (" + p.months + "): " + p.title + " — " + p.text).join("\n") + "\n\n" + PITCH.model.title + ":\n" + PITCH.model.lines.map((l) => "- " + l).join("\n") + "\n\nWhat Silitex gets:\n" + PITCH.gets.map((g) => "- " + g[0] + ": " + g[1]).join("\n") + "\n\nWhat we need:\n" + PITCH.needs.map((n) => "- " + n).join("\n");
   return (
     <div className="space-y-8" dir="ltr">
+      <BackLink />
       <section className="rounded-2xl bg-ink-900 text-white p-8 relative overflow-hidden">
         <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-brand-500/30 blur-3xl" />
         <div className="bg-white rounded-lg inline-block px-3 py-1 mb-4"><img src="/silitex-logo.png" alt="Silitex" className="h-12" /></div>
