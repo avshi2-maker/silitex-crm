@@ -1,0 +1,58 @@
+{
+ "updated": "09/10/2026",
+ "disclaimer": "Starter formulations are reference guides published by third parties (NuSil CareSil™, 2013). Silitex substitutions are catalog cross-references for lab evaluation only — not Silitex-validated formulas. Verify each substitution on the Silitex TDS/SDS.",
+ "silitex_map": {
+  "Phenyl Trimethicone": { "silitex": "Silitex DM Series (dimethicone 50–350 cSt) — functional alternative; phenyl fluid: ask Silitex lab", "note": "No phenyl-modified fluid in the current extract. DM fluids give slip and water barrier; refractive-index match needs Silitex confirmation.", "d5free": true },
+  "Cyclopentasiloxane": { "silitex": "Silitex CM 040 / Volatile D5 Fluid (identical) — D5-free: Silitex DM 5 / DM 10 (low-viscosity linear dimethicone)", "note": "For REACH-sensitive cosmetics prefer DM 5/10 or reduce to <0.1% cyclics; see REACH banner.", "d5free": false },
+  "Cyclopentasiloxane (and) Dimethicone Crosspolymer": { "silitex": "Silitex SG 9040 (D5 carrier) or SG 9041 / Velvet Gel D5-free (dimethicone carrier)", "note": "Same crosspolymer gel function: silky feel, thickening, oil-phase structure.", "d5free": true },
+  "Cyclopentasiloxane (and) Cyclohexasiloxane (and) Dimethicone Crosspolymer": { "silitex": "Silitex SG 9040 / SG 9041 Velvet Gel (D5-free version recommended)", "note": "D5/D6 carrier blend → replace with dimethicone-carrier gel for REACH.", "d5free": true }
+ },
+ "items": [
+  {
+   "id": "F-001", "code": "729-AAL-55", "name": "Anti-Aging Day Cream (SPF 10)", "category": "Personal care · face", "type": "O/W emulsion",
+   "source": "NuSil CareSil™ Formulation Data Sheet, Feb 2013", "pdf": "/assets/formulations/CareSil_Day_Cream_729-AAL-55.pdf",
+   "hero_ingredient": "CPF-3300 (Phenyl Trimethicone) — water barrier, reduces tackiness, adds emolliency",
+   "claims": ["Light white creamy O/W emulsion", "Smooth, silky, non-greasy, non-tacky", "Anti-aging", "Good spreadability", "SPF 10"],
+   "properties": { "appearance": "White cream", "viscosity": "4500–5000 cP (Brookfield RV, sp. 6, 50 rpm, 25°C)", "ph": "5.0 ± 0.5", "stability": "≥ 3 months at RT and 50°C" },
+   "procedure": ["Phase B: heat water to 70°C; add Carbopol Ultrez 10 slowly at 600 rpm until hydrated; add KOH solution", "Heat Phase A to 70°C, gentle mixing until melted", "Add Phase C to Phase B", "Add Phase A to B/C, mix until uniform", "Cool to 50°C (keep mixing); add Phase D below 50°C", "Add Phase E below 40°C", "Homogenize with rotor-stator at 3000 rpm"],
+   "phases": [
+    { "phase": "A", "rows": [["Cetyl Alcohol (and) Glyceryl Stearate (and) PEG-75 Stearate (and) Ceteth-20 (and) Steareth-20", 4, "Emulium Delta / Gattefossé"], ["Cetyl Alcohol (and) Isostearyl Isostearate (and) Potassium Cetyl Phosphate (and) Cetyl Behenate (and) Behenic Acid", 2.5, "Duraquench IQ / Croda"], ["C12-15 Alkyl Benzoate", 3, "Liponate NEB / Lipo Chemicals"], ["Tocopheryl Acetate", 0.5, "Vitamin E / Protameen"], ["Echium Plantagineum Seed Oil", 3, "RevitElix / Croda"], ["Phenyl Trimethicone", 3, "CPF-3300 / NuSil"], ["Cetearyl Ethylhexanoate (and) Isopropyl Myristate", 2, "PCL Liquid / Symrise"], ["Ethylhexyl Methoxycinnamate", 5, "Neo Heliopan AV / Symrise"], ["Octocrylene", 3, "Neo Heliopan 303 / Symrise"]] },
+    { "phase": "B", "rows": [["Water", 64.9, "—"], ["Carbomer", 0.2, "Carbopol Ultrez 10 / Lubrizol"], ["Potassium Hydroxide (18% sol.)", 0.5, "—"]] },
+    { "phase": "C", "rows": [["Glycerin", 3, "—"], ["Disodium EDTA", 0.1, "—"]] },
+    { "phase": "D", "rows": [["Water (and) Juglans Regia (Walnut) Seed Extract", 2, "Gatuline Age Defense 2 / Gattefossé"], ["Butylene Glycol (and) Actinidia Chinensis (Kiwi) Fruit Water (and) Alcohol (and) Sophora Angustifolia Root Extract", 1, "Synerlight 2 / Gattefossé"], ["Helianthus Annuus (Sunflower) Sprout Extract (and) Sodium Benzoate (and) Water", 2, "Shoot Active Flower / Mibelle"], ["DMDM Hydantoin", 0.2, "Glydant 2000 / Lonza"]] },
+    { "phase": "E", "rows": [["Perfume", 0.1, "Fleuri frais / MLW"]] }
+   ]
+  },
+  {
+   "id": "F-002", "code": "729-AAL-67", "name": "Anti-Aging Night Cream", "category": "Personal care · face", "type": "W/O emulsion",
+   "source": "NuSil CareSil™ Formulation Data Sheet, Feb 2013", "pdf": "/assets/formulations/CareSil_Night_Cream_729-AAL-67.pdf",
+   "hero_ingredient": "CXG-1101 (Cyclopentasiloxane (and) Dimethicone Crosspolymer) — smoothness, silkiness, thickener",
+   "claims": ["White creamy W/O emulsion", "Rich and nourishing feel", "Smooth, non-tacky after-feel", "Anti-aging", "Quick absorption"],
+   "properties": { "appearance": "White cream", "viscosity": "9000–9500 cP (Brookfield RV, sp. 6, 50 rpm, 25°C)", "ph": "5.0 ± 0.5", "stability": "≥ 3 months at RT and 50°C" },
+   "procedure": ["Heat Phase A to 70°C while mixing", "Heat Phase B to 70°C, gentle mixing until melted", "Add Phase A to Phase B", "Cool A/B to 50°C, keep mixing", "Mix Phase C at 2000 rpm; add slowly in small portions to A/B", "Mix Phase D; add to A/B/C below 40°C", "Add Phase E", "Homogenize with rotor-stator at 3000 rpm"],
+   "phases": [
+    { "phase": "A", "rows": [["Water", 59.4, "—"], ["Glycerin", 2, "—"], ["Propylene Glycol", 1, "—"], ["Panthenol (and) Propylene Glycol", 1, "D-Panthenol 50P / BASF"]] },
+    { "phase": "B", "rows": [["Cetyl Alcohol (and) Isostearyl Isostearate (and) Potassium Cetyl Phosphate (and) Cetyl Behenate (and) Behenic Acid", 5, "Duraquench IQ / Croda"], ["Paraffinum Liquidum", 1, "Klearol / Sonneborn"], ["Shea Butter", 0.5, "NaturaSoft Shea / Natura-Tec"], ["Cetyl Alcohol", 1, "Crodacol C90 / Croda"], ["Caprylic/Capric Triglyceride", 3, "Neobee M5 / Stepan"], ["Tocopheryl Acetate", 0.5, "Vitamin E / Protameen"], ["Methyl Glucose Sesquistearate", 2.5, "Glucate SS / Lubrizol"], ["PEG-20 Methyl Glucose Sesquistearate", 0.5, "Glucamate SSE-20 / Lubrizol"]] },
+    { "phase": "C", "rows": [["Cyclopentasiloxane (and) Dimethicone Crosspolymer", 8, "CXG-1101 / NuSil"], ["Isopropyl Myristate", 6, "Crodamol IPM / Croda"], ["Cyclopentasiloxane", 4, "CSV-3000 / NuSil"]] },
+    { "phase": "D", "rows": [["Water (and) Fagus Sylvatica Bud Extract", 1, "Gatuline RC Bio / Gattefossé"], ["Propylene Glycol (and) Hydrolyzed RNA (and) Hydrolyzed DNA", 1, "BioPlex RNA / Lonza"], ["Dipropylene Glycol (and) Centella Asiatica Extract (and) Echinacea Angustifolia Leaf Extract (and) Rosmarinus Officinalis Leaf Extract (and) Ganoderma Lucidum Extract (and) SD Alcohol 40-B", 2, "Actifirm AGE / Active Organics"]] },
+    { "phase": "E", "rows": [["Phenoxyethanol (and) Ethylhexylglycerin", 0.5, "Euxyl PE 9010 / Schülke & Mayr"], ["Perfume", 0.1, "Rose Noire / Luzi"]] }
+   ]
+  },
+  {
+   "id": "F-003", "code": "729-AAL-69", "name": "Moisturizing Hand Cream", "category": "Personal care · hands", "type": "O/W emulsion",
+   "source": "NuSil CareSil™ Formulation Data Sheet, Feb 2013", "pdf": "/assets/formulations/CareSil_Hand_Cream_729-AAL-69.pdf",
+   "hero_ingredient": "CXG-1103 (Cyclopentasiloxane (and) Cyclohexasiloxane (and) Dimethicone Crosspolymer) — emolliency and smoothness",
+   "claims": ["Pale yellow creamy O/W emulsion", "Smooth, nourishing, moisturizing", "Quick absorption", "Non-tacky after-feel"],
+   "properties": { "appearance": "Pale yellow cream", "viscosity": "5500–6000 cP (Brookfield RV, sp. 6, 50 rpm, 25°C)", "ph": "5.0 ± 0.5", "stability": "≥ 2 months at RT and 50°C" },
+   "procedure": ["Heat Phase A to 70°C while mixing", "Heat Phase B to 70°C, gentle mixing until melted", "Add Phase B to Phase A", "Cool A/B to 50°C, keep mixing", "Mix Phase C at 2000 rpm; add slowly in small portions to A/B", "Phase D: heat water to 70°C; add Pemulen TR-1 slowly at 600 rpm until hydrated; add KOH; add remaining D ingredients", "Add Phase D to A/B/C below 40°C", "Homogenize with rotor-stator at 3000 rpm"],
+   "phases": [
+    { "phase": "A", "rows": [["Water", 40, "—"], ["Glycerin", 5, "—"]] },
+    { "phase": "B", "rows": [["Steareth-2", 1.5, "Brij S2 / Croda"], ["Steareth-21", 1.5, "Brij S721 / Croda"], ["Tangerine Butter", 3, "Biochemica"], ["C10-30 Cholesterol/Lanosterol Esters", 1, "Super Sterol Ester / Croda"], ["Cetyl Alcohol (and) Isostearyl Isostearate (and) Potassium Cetyl Phosphate (and) Cetyl Behenate (and) Behenic Acid", 3, "Duraquench IQ / Croda"], ["Petrolatum", 1, "White Fonoline H / Sonneborn"], ["Cetyl/Stearyl Alcohol", 1, "Hydrenol D / BASF"], ["Cetearyl Ethylhexanoate", 2, "Luvitol EHO / BASF"]] },
+    { "phase": "C", "rows": [["Cyclopentasiloxane (and) Cyclohexasiloxane (and) Dimethicone Crosspolymer", 8, "CXG-1103 / NuSil"], ["Cyclopentasiloxane", 6, "CSV-3000 / NuSil"]] },
+    { "phase": "D", "rows": [["Lentinus Edodes (Shiitake) Extract (and) Mucor Miehei Extract (and) Butylene Glycol", 1, "ActiMatrix M / Active Organics"], ["Alcohol (and) Water (and) Onopordum Acanthium Flower/Leaf/Stem Extract", 3, "Gatuline Skin Repair Bio / Gattefossé"], ["Water", 19.1, "—"], ["Acrylates/C10-30 Alkyl Acrylate Crosspolymer", 0.2, "Pemulen TR-1 / Lubrizol"], ["Potassium Hydroxide (18% sol.)", 0.5, "—"], ["DMDM Hydantoin", 0.2, "Glydant 2000 / Lonza"], ["Alcohol Denat.", 3, "—"]] }
+   ]
+  }
+ ],
+ "cases": [],
+ "notebooklm_prompt": "You are a cosmetic formulation chemist. From the sources in this notebook (supplier formulation guides, TDS, SDS), extract every STARTER FORMULATION for personal care / cosmetics and output ONE JSON array. For each formulation give: id, code (supplier reference), name, category (e.g. 'Personal care · face'), type (O/W, W/O, anhydrous, gel, serum…), source (document + date), hero_ingredient (the silicone that defines the formula and its function), claims (array), properties {appearance, viscosity, ph, stability}, procedure (array of steps in order), phases (array of {phase, rows:[[INCI name, wt%, trade name / supplier], …]}). Keep INCI names exact, percentages numeric, sum ≈ 100. Then add silicone_ingredients: for every silicone INCI used, list its trade name, supplier, function in the formula, and whether it contains cyclic siloxanes (D4/D5/D6). Do not invent values; write null where the source is silent. Output JSON only."
+}

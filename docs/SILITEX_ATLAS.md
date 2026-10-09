@@ -1,4 +1,4 @@
-# SILITEX CRM — ATLAS (read first every session) · v0.9.0 · 09/10/2026
+# SILITEX CRM — ATLAS (read first every session) · v0.10.0 · 09/10/2026
 
 Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / React 19 / Tailwind 3 / Supabase (optional) / Claude API. Repo `avshi2-maker/silitex-crm`, folder `C:\silitex-crm`, Vercel project `silitex-crm`.
 
@@ -46,6 +46,7 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | Public-page header/footer | `src/components/PublicShell.tsx` (sidebar hides itself on /request, /survey in Nav.tsx) |
 | Version · commit · build-time stamp under the clock | `src/components/VersionStamp.tsx` (commit via VERCEL_GIT_COMMIT_SHA in next.config.ts) |
 | Pitch "Commercial model" block | `src/config/pitch.ts` → `model` |
+| Starter formulations + Silitex substitution map + case studies + NotebookLM prompt | `src/data/formulations.json`; lib `src/lib/formulations.ts`; page `src/app/formulations/page.tsx`; card `components/formulations/FormulaCard.tsx`; prompt `src/prompts/formulation.ts`; PDFs `public/assets/formulations/` |
 | DB tables | `supabase/schema.sql` |
 | Offset Sniper matching rules | `src/lib/sniper.ts` (prompt: `src/prompts/sniper.ts`) |
 | Daily brief wording / which 5 calls | `src/prompts/brief.ts`; pipeline `src/lib/brief.ts` |
@@ -65,7 +66,7 @@ src/lib/store/   state.ts (persist) · cadence.ts (pure scheduler) · useStore.t
 src/components/  Nav · ui · ExportBar · TokenMeter · AiPanel · PlanCard · PrioritiesCard · CrawlPanel
 src/app/         page (dashboard) · products · offsets · leads · leads/[id] · pipeline · schedule · campaign · kb · sniper · brief
 src/app/api/     ai · rag/extract · rag/crawl · brief · cron/daily-brief · cron/crawl
-src/data/        products.json (45, v2 — Dow Corning / DuPont / XIAMETER benchmark names) · offsets.json (37×25, from full_offset…-v5.csv; Dow Corning/DOWSIL/XIAMETER names) · food_grade.json (9) · leads.json (19, with plan_* from action-plan CSV) · priorities.json (5)
+src/data/        products.json (45, v2 — Dow Corning / DuPont / XIAMETER benchmark names) · offsets.json (37×26, from full_offset…-v6.csv; incl. NuSil/Avantor column) · food_grade.json (9) · leads.json (19, with plan_* from action-plan CSV) · priorities.json (5)
 supabase/        schema.sql
 ```
 

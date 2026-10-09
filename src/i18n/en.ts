@@ -1,6 +1,15 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 10:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "נוסחאות ומקרי בוחן": "Formulations & case studies",
+  "נוסחאות התחלה לקוסמטיקה עם מקבילות Silitex לכל רכיב סיליקון ·": "Starter formulations for personal care with a Silitex equivalent for every silicone ingredient ·",
+  "נוסחאות": "Formulations",
+  "מקרי בוחן": "Case studies",
+  "יתווספו ממסמכי Silitex לאחר החוזה (תוצאות מעבדה אצל לקוחות ישראלים).": "To be added from Silitex documents after the agreement (lab results at Israeli customers).",
+  "גרסת Silitex + גרסה ללא D4/D5 — ": "Silitex version + D4/D5-free version — ",
+  "התאם ל-Silitex עם Claude": "Adapt to Silitex with Claude",
+  "פרומפט להפקת נוסחאות נוספות": "prompt to extract more formulations",
+  "העתק": "Copy",
   "טלפרומפטר (הערות דובר)": "Teleprompter (speaker notes)",
   "שביעות רצון והמלצות": "Satisfaction & testimonials",
   "שביעות רצון והמלצות לקוחות": "Customer satisfaction & testimonials",

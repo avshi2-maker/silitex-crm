@@ -8,13 +8,13 @@ import ReachNote from "@/components/ReachNote";
 import { useLang } from "@/i18n";
 export default function OffsetsPage() {
   const { t: tr } = useLang();
-  const [q, setQ] = useState(""); const [prod, setProd] = useState(OFFSETS.producers.slice(0, 6));
+  const [q, setQ] = useState(""); const [prod, setProd] = useState([...OFFSETS.producers.slice(0, 4), "NuSil (Avantor NuSil Technology)"]);
   const rows = useMemo(() => OFFSETS.rows.filter((r) => !q || (r.family + r.inci + r.silitex_product + r.dow_corning + Object.values(r.offsets).join(" ")).toLowerCase().includes(q.toLowerCase())), [q]);
   const toggle = (p: string) => setProd((s) => (s.includes(p) ? s.filter((x) => x !== p) : [...s, p]));
   const exportText = rows.map((r) => r.category_id + " " + r.family + " | Silitex: " + r.silitex_product.split(" - ")[0] + " | Dow: " + r.dow_corning + " | " + prod.map((p) => p + ": " + r.offsets[p]).join(", ")).join("\n");
   return (
     <div className="space-y-4">
-      <H1 sub={tr("איזה מוצר Silitex מחליף את מה שהלקוח קונה היום מ-Dow / Wacker / Momentive / Evonik…")}>{tr("מקבילות עולמיות — ")}{OFFSETS.rows.length}{tr(" קטגוריות")} <span className="text-xs text-slate-400 font-normal">v5 · {OFFSETS.updated}</span></H1>
+      <H1 sub={tr("איזה מוצר Silitex מחליף את מה שהלקוח קונה היום מ-Dow / Wacker / Momentive / Evonik…")}>{tr("מקבילות עולמיות — ")}{OFFSETS.rows.length}{tr(" קטגוריות")} <span className="text-xs text-slate-400 font-normal">v6 · {OFFSETS.updated}</span></H1>
       <ReachNote />
       <Card className="space-y-2">
         <input className={inputCls} placeholder={tr("חיפוש: שם מוצר של מתחרה (למשל SAG 30, SILFOAM, Xiameter)…")} value={q} onChange={(e) => setQ(e.target.value)} />

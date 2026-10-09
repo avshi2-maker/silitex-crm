@@ -1,6 +1,15 @@
 // it.ts (src/i18n/it.ts) · updated 09.10.2026 16:40 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "נוסחאות ומקרי בוחן": "Formulazioni e casi studio",
+  "נוסחאות התחלה לקוסמטיקה עם מקבילות Silitex לכל רכיב סיליקון ·": "Formulazioni di partenza per il personal care con un equivalente Silitex per ogni silicone ·",
+  "נוסחאות": "Formulazioni",
+  "מקרי בוחן": "Casi studio",
+  "יתווספו ממסמכי Silitex לאחר החוזה (תוצאות מעבדה אצל לקוחות ישראלים).": "Da aggiungere dai documenti Silitex dopo l'accordo (risultati di laboratorio presso clienti israeliani).",
+  "גרסת Silitex + גרסה ללא D4/D5 — ": "Versione Silitex + versione senza D4/D5 — ",
+  "התאם ל-Silitex עם Claude": "Adatta a Silitex con Claude",
+  "פרומפט להפקת נוסחאות נוספות": "prompt per estrarre altre formulazioni",
+  "העתק": "Copia",
   "טלפרומפטר (הערות דובר)": "Teleprompter (note del relatore)",
   "שביעות רצון והמלצות": "Soddisfazione e testimonianze",
   "שביעות רצון והמלצות לקוחות": "Soddisfazione clienti e testimonianze",

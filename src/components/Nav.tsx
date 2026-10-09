@@ -21,6 +21,7 @@ const ITEMS = [
   { href: "/sniper", he: "Offset Sniper", icon: "🎯" },
   { href: "/brief", he: "תדריך יומי (בוט)", icon: "🤖" },
   { href: "/faq", he: "50 שאלות ותשובות", icon: "❓" },
+  { href: "/formulations", he: "נוסחאות ומקרי בוחן", icon: "🧴" },
   { href: "/kb", he: "מאגר ידע (RAG)", icon: "📚" },
   { href: "/satisfaction", he: "שביעות רצון והמלצות", icon: "⭐" },
   { href: "/report", he: "דוח ליצרן", icon: "📑" },
