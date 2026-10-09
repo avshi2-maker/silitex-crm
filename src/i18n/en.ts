@@ -1,6 +1,9 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 10:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "מדריך תבניות — תפקיד הסיליקון לפי סוג מוצר": "Pattern guide — silicone role by product type",
+  "טיוטת נוסחה חדשה (צעצוע AI)": "Draft a new starter formula (AI toy)",
+  "צור טיוטה עם Claude": "Draft with Claude",
   "נוסחאות ומקרי בוחן": "Formulations & case studies",
   "נוסחאות התחלה לקוסמטיקה עם מקבילות Silitex לכל רכיב סיליקון ·": "Starter formulations for personal care with a Silitex equivalent for every silicone ingredient ·",
   "נוסחאות": "Formulations",

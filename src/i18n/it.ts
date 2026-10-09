@@ -1,6 +1,9 @@
 // it.ts (src/i18n/it.ts) · updated 09.10.2026 16:40 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "מדריך תבניות — תפקיד הסיליקון לפי סוג מוצר": "Guida ai pattern — ruolo del silicone per tipo di prodotto",
+  "טיוטת נוסחה חדשה (צעצוע AI)": "Bozza di nuova formulazione (toy IA)",
+  "צור טיוטה עם Claude": "Crea bozza con Claude",
   "נוסחאות ומקרי בוחן": "Formulazioni e casi studio",
   "נוסחאות התחלה לקוסמטיקה עם מקבילות Silitex לכל רכיב סיליקון ·": "Formulazioni di partenza per il personal care con un equivalente Silitex per ogni silicone ·",
   "נוסחאות": "Formulazioni",

@@ -5,13 +5,16 @@ import { useStore } from "@/lib/store";
 import { FORMULATIONS, FORM_META, formulationText } from "@/lib/formulations";
 import { formulationContext, FORMULATION_PROMPT } from "@/prompts/formulation";
 import FormulaCard from "@/components/formulations/FormulaCard";
+import PatternGuide from "@/components/formulations/PatternGuide";
+import { draftContext, draftPrompt } from "@/prompts/draft";
+import { inputCls } from "@/components/ui";
 import { Card, H1, Badge, btnGhost } from "@/components/ui";
 import AiPanel from "@/components/AiPanel";
 import ExportBar from "@/components/ExportBar";
 import { useLang } from "@/i18n";
 export default function FormulationsPage() {
   const { t: tr } = useLang(); const { state, ready, addSpend } = useStore();
-  const [sel, setSel] = useState(FORMULATIONS[0]); const [copied, setCopied] = useState(false);
+  const [sel, setSel] = useState(FORMULATIONS[0]); const [copied, setCopied] = useState(false); const [brief, setBrief] = useState("Light dry-touch body lotion, O/W, D4/D5-free, Silitex only");
   if (!ready) return null;
   return (
     <div className="space-y-4">
@@ -31,6 +34,12 @@ export default function FormulationsPage() {
         </Card>
       </div>
       <Card><AiPanel title={tr("גרסת Silitex + גרסה ללא D4/D5 — ") + sel.name} buttonLabel={tr("התאם ל-Silitex עם Claude")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} buildPrompt={() => ({ context: formulationContext(sel), prompt: FORMULATION_PROMPT })} /></Card>
+      <Card><h3 className="font-bold mb-2">{tr("מדריך תבניות — תפקיד הסיליקון לפי סוג מוצר")}</h3><PatternGuide /></Card>
+      <Card>
+        <h3 className="font-bold mb-2">{tr("טיוטת נוסחה חדשה (צעצוע AI)")}</h3>
+        <input className={inputCls + " mb-2"} value={brief} onChange={(e) => setBrief(e.target.value)} placeholder="e.g. hair serum, anhydrous, shine + detangling, D5-free" dir="ltr" />
+        <AiPanel title={"AI draft — " + brief} buttonLabel={tr("צור טיוטה עם Claude")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} buildPrompt={() => ({ context: draftContext(), prompt: draftPrompt(brief) })} />
+      </Card>
       <Card>
         <div className="flex items-center justify-between mb-2"><h3 className="font-bold">NotebookLM — {tr("פרומפט להפקת נוסחאות נוספות")}</h3><button className={btnGhost} onClick={() => { navigator.clipboard?.writeText(FORM_META.notebooklm_prompt); setCopied(true); setTimeout(() => setCopied(false), 1500); }}>{copied ? "✓" : "📋"} {tr("העתק")}</button></div>
         <p className="text-xs text-slate-500 mb-2" dir="ltr">Upload supplier formulation guides (NuSil CareSil, Dow, Wacker, Evonik…) to a NotebookLM notebook → paste this prompt → send me the JSON → I import it here with Silitex substitutions.</p>
