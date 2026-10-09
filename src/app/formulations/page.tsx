@@ -1,6 +1,7 @@
 "use client";
-// page.tsx (src/app/formulations/page.tsx) · updated 09.10.2026 18:00 (Asia/Jerusalem) — starter formulations (personal care) with Silitex substitutions + case studies + NotebookLM prompt
-import { useState } from "react";
+// page.tsx (src/app/formulations/page.tsx) · updated 09.10.2026 18:40 (Asia/Jerusalem) — starter formulations (personal care) with Silitex substitutions + case studies + NotebookLM prompt
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { FORMULATIONS, FORM_META, formulationText } from "@/lib/formulations";
 import { formulationContext, FORMULATION_PROMPT } from "@/prompts/formulation";
@@ -15,6 +16,7 @@ import { useLang } from "@/i18n";
 export default function FormulationsPage() {
   const { t: tr } = useLang(); const { state, ready, addSpend } = useStore();
   const [sel, setSel] = useState(FORMULATIONS[0]); const [copied, setCopied] = useState(false); const [brief, setBrief] = useState("Light dry-touch body lotion, O/W, D4/D5-free, Silitex only");
+  useEffect(() => { try { const b = new URLSearchParams(window.location.search).get("brief"); if (b) { setBrief(b); document.getElementById("draft")?.scrollIntoView({ behavior: "smooth" }); } } catch {} }, []);
   if (!ready) return null;
   return (
     <div className="space-y-4">
@@ -35,8 +37,9 @@ export default function FormulationsPage() {
       </div>
       <Card><AiPanel title={tr("גרסת Silitex + גרסה ללא D4/D5 — ") + sel.name} buttonLabel={tr("התאם ל-Silitex עם Claude")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} buildPrompt={() => ({ context: formulationContext(sel), prompt: FORMULATION_PROMPT })} /></Card>
       <Card><h3 className="font-bold mb-2">{tr("מדריך תבניות — תפקיד הסיליקון לפי סוג מוצר")}</h3><PatternGuide /></Card>
-      <Card>
-        <h3 className="font-bold mb-2">{tr("טיוטת נוסחה חדשה (צעצוע AI)")}</h3>
+      <Card><div id="draft" />
+        <h3 className="font-bold mb-1">{tr("טיוטת נוסחה חדשה (צעצוע AI)")}</h3>
+        <div className="text-xs text-slate-500 mb-2">{tr("תיבה זו ממציאה מתכון מלא (אחוזים, שלבים, בדיקות) עם מוצרי Silitex — טיוטה לאימות במעבדה בלבד. לעובדות עם מקורות:")} <Link href="/ask" className="underline text-brand-600">{tr("שאל את Silitex")}</Link></div>
         <input className={inputCls + " mb-2"} value={brief} onChange={(e) => setBrief(e.target.value)} placeholder="e.g. hair serum, anhydrous, shine + detangling, D5-free" dir="ltr" />
         <AiPanel title={"AI draft — " + brief} buttonLabel={tr("צור טיוטה עם Claude")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} buildPrompt={() => ({ context: draftContext(), prompt: draftPrompt(brief) })} />
       </Card>

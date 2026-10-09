@@ -1,6 +1,10 @@
 // it.ts (src/i18n/it.ts) · updated 09.10.2026 16:40 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "תיבה זו עונה מעובדות עם מקורות [n] בלבד — היא לא ממציאה מתכונים או אחוזים.": "Questa casella risponde solo con fatti documentati [n] — non inventa ricette o percentuali.",
+  "מחפש נוסחת התחלה? כאן תקבל רק עובדות ממסמכים. לטיוטת מתכון מלאה עם מוצרי Silitex השתמש בכלי הטיוטה.": "Cerchi una formulazione di partenza? Qui trovi solo fatti documentati. Per una bozza completa con prodotti Silitex usa lo strumento bozza.",
+  "פתח כלי טיוטה →": "Apri strumento bozza →",
+  "תיבה זו ממציאה מתכון מלא (אחוזים, שלבים, בדיקות) עם מוצרי Silitex — טיוטה לאימות במעבדה בלבד. לעובדות עם מקורות:": "Questa casella genera una ricetta completa (percentuali, fasi, controlli) con prodotti Silitex — bozza da validare in laboratorio. Per fatti documentati:",
   "מדריך תבניות — תפקיד הסיליקון לפי סוג מוצר": "Guida ai pattern — ruolo del silicone per tipo di prodotto",
   "טיוטת נוסחה חדשה (צעצוע AI)": "Bozza di nuova formulazione (toy IA)",
   "צור טיוטה עם Claude": "Crea bozza con Claude",

@@ -1,6 +1,10 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 10:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "תיבה זו עונה מעובדות עם מקורות [n] בלבד — היא לא ממציאה מתכונים או אחוזים.": "This box answers from sourced facts [n] only — it never invents recipes or percentages.",
+  "מחפש נוסחת התחלה? כאן תקבל רק עובדות ממסמכים. לטיוטת מתכון מלאה עם מוצרי Silitex השתמש בכלי הטיוטה.": "Looking for a starter formulation? Here you get documented facts only. For a full draft recipe with Silitex products use the draft tool.",
+  "פתח כלי טיוטה →": "Open draft tool →",
+  "תיבה זו ממציאה מתכון מלא (אחוזים, שלבים, בדיקות) עם מוצרי Silitex — טיוטה לאימות במעבדה בלבד. לעובדות עם מקורות:": "This box invents a complete recipe (percentages, steps, checks) with Silitex products — a draft for lab validation only. For sourced facts:",
   "מדריך תבניות — תפקיד הסיליקון לפי סוג מוצר": "Pattern guide — silicone role by product type",
   "טיוטת נוסחה חדשה (צעצוע AI)": "Draft a new starter formula (AI toy)",
   "צור טיוטה עם Claude": "Draft with Claude",
