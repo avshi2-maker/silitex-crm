@@ -16,6 +16,7 @@ export const PITCH = {
     ["Regulatory handling", "Kosher & FDA line positioned for food, water and agro; Israeli Standards Institute and MoH import files handled locally."],
     ["Full visibility", "Monthly principal report: pipeline by stage, samples in field, forecast tons, wins — generated from live CRM data."],
     ["Daily discipline", "Automated daily call plan, weekly review, sample tracker, AI-drafted outreach in Hebrew and English."],
+    ["REACH-ready portfolio", "D4/D5-free amino emulsions (MACROAMISIL E1386, MICROAMISIL E1352, IDROAMISIL 250 E1453), linear PDMS carriers and 100% bio-based alternatives — the regulatory argument Israeli formulators following ECHA need to drop legacy cyclic-siloxane products."],
     ["Local stock & service", "Tel Aviv warehouse, 2-day delivery, Hebrew technical support — the pain point with current agents of global brands."],
   ],
   model: {
@@ -26,5 +27,5 @@ export const PITCH = {
       "Commission scales with volume and product class; terms in the agency agreement, not on this page.",
     ],
   },
-  needs: ["Exclusive distribution for Israel (12-month performance-based)", "TDS / MSDS pack for the 45 focus SKUs", "Sample kits: 2 kg × 19 accounts (Phase 1)", "Distributor price list (EUR, FCA Italy) + MOQ", "Kosher / FDA / HACCP certificates (current)", "Joint technical visit in Month 3"],
+  needs: ["Exclusive distribution for Israel — 24 months, with a 36-month renewal option", "TDS / MSDS pack for the 45 focus SKUs", "Sample kits: 2 kg × 19 accounts (Phase 1)", "Distributor price list (EUR, FCA Italy) + MOQ", "Kosher / FDA / HACCP certificates (current)", "Joint technical visit in Month 3"],
 };

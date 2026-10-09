@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { OFFSETS, FOOD_GRADE } from "@/lib/data";
 import { Card, H1, Badge, inputCls } from "@/components/ui";
 import ExportBar from "@/components/ExportBar";
+import ReachNote from "@/components/ReachNote";
 import { useLang } from "@/i18n";
 export default function OffsetsPage() {
   const { t: tr } = useLang();
@@ -14,6 +15,7 @@ export default function OffsetsPage() {
   return (
     <div className="space-y-4">
       <H1 sub={tr("איזה מוצר Silitex מחליף את מה שהלקוח קונה היום מ-Dow / Wacker / Momentive / Evonik…")}>{tr("מקבילות עולמיות — ")}{OFFSETS.rows.length}{tr(" קטגוריות")} <span className="text-xs text-slate-400 font-normal">v5 · {OFFSETS.updated}</span></H1>
+      <ReachNote />
       <Card className="space-y-2">
         <input className={inputCls} placeholder={tr("חיפוש: שם מוצר של מתחרה (למשל SAG 30, SILFOAM, Xiameter)…")} value={q} onChange={(e) => setQ(e.target.value)} />
         <div className="flex flex-wrap gap-1">{OFFSETS.producers.map((p) => (<button key={p} onClick={() => toggle(p)} className={"text-xs px-2 py-1 rounded-full border " + (prod.includes(p) ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{p}</button>))}</div>

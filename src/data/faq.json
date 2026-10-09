@@ -1,56 +1,362 @@
 {
  "built": "09/10/2026",
- "sources": ["https://www.silitex.it/en/company", "https://www.silitex.it/en/products/range-of-products", "silitex_products_web_filter_dataset-v2.csv", "full_offset_silicone_products_with_silitex-v5.csv", "Silitex_Master_Product_Catalog_and_Global_Offsets_v2.xlsx"],
+ "sources": [
+  "https://www.silitex.it/en/company",
+  "https://www.silitex.it/en/products/range-of-products",
+  "silitex_products_web_filter_dataset-v2.csv",
+  "full_offset_silicone_products_with_silitex-v5.csv",
+  "Silitex_Master_Product_Catalog_and_Global_Offsets_v2.xlsx"
+ ],
  "items": [
-  {"n": 1, "cat": "Company", "q": "Who is Silitex S.r.l.?", "a": "An Italian specialty-chemicals producer in Cologna Veneta (Verona) describing itself as 'alta tecnologia dell'emulsione' — high emulsion technology. The group includes Silitex, Unispray and Silitex Chemicals and sells in more than 30 countries through selected distributors, with regional technical support.", "src": "silitex.it/en/company"},
-  {"n": 2, "cat": "Company", "q": "Where is Silitex located and how is it reached?", "a": "Viale Industria 34, 37044 Cologna Veneta (VR), Italy — tel. +39 0442 411561. The site is published in Italian, English, French and German.", "src": "silitex.it/en/company"},
-  {"n": 3, "cat": "Company", "q": "What product families does Silitex make?", "a": "35 published categories: silicone and silicone-free antifoams (food-grade, high-temperature, polyether, vegetal, powdered, solvent), wetting/levelling additives, cationic and silicone softeners, emulsions/micro/nano-emulsions, leather finishes, mould-release and welding detaching agents, antistatics for offset, wax emulsions, sewing-yarn lubricants, water/stain repellents, silicone rubbers, pastes and greases, linear fluids, resins, polyelectrolytes, de-emulsifiers, detergents and aerosols.", "src": "silitex.it/en/products/range-of-products"},
-  {"n": 4, "cat": "Company", "q": "Which management-system certifications does Silitex hold?", "a": "The master catalog lists ISO 9001:2015, ISO 14001:2015 and ISO 45001:2023, plus a HACCP-certified facility for the food-grade line (January 2025) and GOTS-ICEA approval for organic textile auxiliaries.", "src": "Master catalog v2 — Executive Summary"},
-  {"n": 5, "cat": "Company", "q": "Does Silitex work with distributors or sell direct?", "a": "Silitex states it is present in 30+ countries 'through selected, highly qualified distributors', supported by regional technical teams — the model this Israel proposal fits into.", "src": "silitex.it/en/company"},
-  {"n": 6, "cat": "Antifoams", "q": "What is the difference between an antifoam and a defoamer?", "a": "Both are the same chemistry used differently: an antifoam is dosed before foam forms (prevention), a defoamer is added to collapse existing foam (knock-down). Silitex emulsions such as BERETEX, DYNAPAN and ANTISCHIUMA 3 do both; the product sheet usually states 'immediate knock-down and lasting effect'.", "src": "products dataset"},
-  {"n": 7, "cat": "Antifoams", "q": "Which Silitex antifoam replaces Dow Corning Antifoam A / DC 1520 / XIAMETER AFE-1520?", "a": "ANTISCHIUMA 3 (10–30% active, FDA/BfR/EPA, food contact) and the BERETEX 350/500/750 series (35/50/75% active PDMS emulsions) are the direct cross-reference in the master catalog.", "src": "offsets v5, CAT-04"},
-  {"n": 8, "cat": "Antifoams", "q": "What does the number in BERETEX 350 / 500 / 750 mean?", "a": "Active silicone content in the emulsion: 35%, 50% and 75%. Higher active = lower dosage and smaller drums, but needs more dilution control; 350 is 'ready to use or pre-dilutable', 750 is the concentrate for low-dosage automated systems.", "src": "products dataset"},
-  {"n": 9, "cat": "Antifoams", "q": "Which antifoam survives pH 14 caustic cleaning?", "a": "DYNAKOS 130 E — a caustic-stable silicone emulsion rated pH 1–14, positioned for extreme alkaline cleaners, pulp bleaching and CIP caustic systems.", "src": "products dataset SIL-ANT-017"},
-  {"n": 10, "cat": "Antifoams", "q": "What is a polyether-silicone antifoam and when do I need it?", "a": "A silicone modified with PEG/PPG chains (DYNAWEED MS 4, 200 E, 260 E) that stays dispersible across pH 1–13 and survives thermal shock up to ~130 °C — the choice for high-temperature jet dyeing, bleaching baths and alkaline CIP where plain PDMS emulsions break.", "src": "products dataset"},
-  {"n": 11, "cat": "Antifoams", "q": "Do you have a 100% active antifoam compound for slurries?", "a": "STHOR 1000 — anhydrous dimethicone/silica compound, 2000–5000 cSt, for mineral slurries, wastewater sludge, mining and drilling where a water emulsion would be diluted away.", "src": "products dataset SIL-ANT-018"},
-  {"n": 12, "cat": "Antifoams", "q": "Which antifoam is best for automated dosing pumps?", "a": "BERETEX 1000 AD — low viscosity (100–300 cSt) emulsion designed for pumpability in automated dosing of liquid detergents and chemical washing lines.", "src": "products dataset SIL-ANT-006"},
-  {"n": 13, "cat": "Antifoams", "q": "What replaces Momentive SAG 30 or Wacker SILFOAM SE 2?", "a": "SAG 30 → BERETEX 350 / DYNAPAN 30 D; SILFOAM SE 2 → ANTISCHIUMA 3. The Offset Sniper page resolves any competitor code to the Silitex equivalent.", "src": "offsets v5"},
-  {"n": 14, "cat": "Food grade", "q": "What does 'E900' mean on SILIFOOD products?", "a": "E900 is the EU food-additive number for dimethylpolysiloxane (simethicone). SILIFOOD 1600 and 3000 K are E900 water emulsions approved for direct food contact under FDA 21 CFR 173.340 and EU rules.", "src": "food-grade line"},
-  {"n": 15, "cat": "Food grade", "q": "Which Silitex products are Kosher certified?", "a": "SILIFOOD 30, SILIFOOD 1600, SILIFOOD 2500, SILIFOOD 3000 K, CPL 350 and CPL 350 ET carry Kosher certificates (SILIFOOD line also Halal). ANTISCHIUMA 3 and CPL 2907 are food-contact compliant.", "src": "Master catalog — Kosher & FDA sheet"},
-  {"n": 16, "cat": "Food grade", "q": "What is the recommended dosage of SILIFOOD in food processing?", "a": "Typically 10–50 ppm: SILIFOOD 30 10–50 ppm, SILIFOOD 1600 10–30 ppm, SILIFOOD 2500 10–40 ppm, SILIFOOD 3000 K 10–50 ppm. CPL 350 / 350 ET 2–30 ppm. Always confirm with the TDS and local food law.", "src": "Master catalog — Kosher & FDA sheet"},
-  {"n": 17, "cat": "Food grade", "q": "Is there a silicone-free, plant-based antifoam for yeast and fermentation?", "a": "CPL 350 / CPL 350 ET — anhydrous, 100% active, fully vegetal fatty-acid compounds; 350 ET is self-emulsifying in cold water and formulated for bio-fermentation and commercial yeast. Both Kosher certified, FDA direct food additive.", "src": "food-grade line"},
-  {"n": 18, "cat": "Food grade", "q": "What is the added value of a Silitex antifoam in the food industry?", "a": "Four things: regulatory cover (E900, FDA 21 CFR, Kosher/Halal, HACCP plant), process yield (less foam = fuller tanks, faster bottling, fewer overflows), very low dosage (10–50 ppm) and thermal/pH stability (ANTISCHIUMA 3 survives thermal treatment). For Israel the Kosher certificate is a hard requirement most global brands cannot show on the drum.", "src": "food-grade line + products dataset"},
-  {"n": 19, "cat": "Food grade", "q": "Which antifoam for sugar refining and fruit washing?", "a": "SILIFOOD 1600 (16% E900 emulsion) is positioned for sugar refining, fruit washing and bottling; DYNAPAN 30 F for food & beverage and sugar refining when a higher active (30%) is wanted.", "src": "products dataset"},
-  {"n": 20, "cat": "Food grade", "q": "Which antifoam is FDA-approved for food-contact paper and packaging?", "a": "CPL 2907 — 100% active self-emulsifying fatty-alcohol compound, silicone-free, FDA 21 CFR approved for paper & cardboard in direct food contact; dosage 0.1–0.5 kg/ton pulp.", "src": "Master catalog"},
-  {"n": 21, "cat": "Green", "q": "What is FISIOREX 1000?", "a": "Silitex's 100% plant-based, highly biodegradable antifoam/adjuvant with zero synthetic silicone — for eco-label detergents, green paints, organic agrochemicals and waterborne coatings. It replaces synthetic non-ionic surfactants and products like SEPPIC Green or Lexfeel N.", "src": "products dataset BIO-ANT-001"},
-  {"n": 22, "cat": "Green", "q": "Do you have D4/D5-free (cyclic-free) silicone softeners?", "a": "Yes — MACROAMISIL (E1386) and MICROAMISIL (E1352) are made without cyclic siloxanes; IDROAMISIL 250 (E1453) is the cyclic-free hydrophilic version. Relevant for REACH restrictions on D4/D5/D6 in wash-off products.", "src": "silitex.it softeners page"},
-  {"n": 23, "cat": "Green", "q": "Which products are GOTS-ICEA approved for organic textiles?", "a": "The GOTS-ICEA certified textile auxiliary line including MACROAMISIL (E1386) and MICROAMISIL (41/C/E1352); the master catalog lists the whole group under CAT-19.", "src": "offsets v5 CAT-19"},
-  {"n": 24, "cat": "Green", "q": "Is there a plant-based softener for eco-label textiles?", "a": "EVEROIL 35 / EVERIX 35 — 100% plant-based emollient and eco-softener water emulsions (35% active), biodegradable, suitable for EU Eco-Label formulations, natural cosmetics and sustainable tissue.", "src": "products dataset BIO-SOFT-001"},
-  {"n": 25, "cat": "Softeners", "q": "What is the difference between a macro-, micro- and nano-emulsion softener?", "a": "Particle size. Macroemulsions (MACROAMISIL, milky) sit on the fibre surface for a silky, hydrophobic hand. Microemulsions (MICROAMISIL, STONIX — translucent) penetrate yarns for wash-fast softness. Nanoemulsions (NANOAMISIL HR, <30 nm, water-clear) penetrate deepest — for microfibre, technical yarns and premium hand feel.", "src": "products dataset + silitex.it"},
-  {"n": 26, "cat": "Softeners", "q": "Which softener gives hydrophilic (rewetting) towels?", "a": "IDROAMISIL / IDROAMISIL 1000 (hydrophilic modified silicone, soft hand without water repellency) or AMINOQUAT 250/350 (quaternary silicone microemulsions for bath towels with high wash resistance). SILQUAT 350/500/700 X are the fibre-swelling hydrophilic variants.", "src": "products dataset + silitex.it"},
-  {"n": 27, "cat": "Softeners", "q": "What replaces Dow Corning 2-8566 / XIAMETER MEM-0863?", "a": "MACROAMISIL (E1386), STONIX 5000/6000 and BIRDYSIL LR — the amino-functional silicone emulsions in CAT-06, CAT-25 and CAT-33 of the cross-reference.", "src": "offsets v5"},
-  {"n": 28, "cat": "Softeners", "q": "Is there a softener with anti-pilling and restructuring effect?", "a": "STENATEX C — a microemulsion with strong softening, anti-peeling, fibre restructuring and wash-resistant effects.", "src": "silitex.it softeners page"},
-  {"n": 29, "cat": "Softeners", "q": "Do you have a silicone treatment for down and feathers?", "a": "MICROPIUMA — a silicone microemulsion for down-feather treatment that restores swelling, softness and resilience.", "src": "silitex.it softeners page"},
-  {"n": 30, "cat": "Paper", "q": "What does Silitex offer the paper and tissue industry?", "a": "VOLUMEX / VOLUSOFT nano-dispersions for fibre softening and bulking (BfR XXXVI compliant), ANTIGAP ester-quat softeners, CPL 2907 FDA pulp defoamer, EVERSIL sliding/anti-static emulsions, POLYEMUL paraffin and CARTASAR hydro-repellent dispersions for paper and board.", "src": "products dataset + silitex.it"},
-  {"n": 31, "cat": "Emulsions", "q": "What is EVERSIL and what viscosities exist?", "a": "The signature PDMS water-emulsion range — EVERSIL 3.5 / 6.0 / 35 / 45 / 60 / 350 / 3500 — 35–60% active, used for mould release, anti-static paper finishing, textile softening and automotive polish. Cross-reference: Dow Corning 36 Emulsion / XIAMETER MEM-0036 / Wacker E 10.", "src": "products dataset + offsets v5 CAT-15"},
-  {"n": 32, "cat": "Emulsions", "q": "Which mould release can be painted or printed over afterwards?", "a": "EVALAR 55 / 55 HP / 55 HT — alkyl-aryl modified silicone emulsions that allow subsequent painting, bonding or silk-screen printing without cleaning, and PROMET 400 / DISTAC 200, which are 100% silicone-free and fully over-paintable.", "src": "products dataset SP-PLT"},
-  {"n": 33, "cat": "Emulsions", "q": "Do you have a silicone-free antifoam for jet dyeing and paint booths?", "a": "SUREVAT 160 W / 679 — 100% active, silicone-free, self-emulsifying antifoams for high-temperature jet dyeing, paint booths and degreasing lines where silicone spotting is unacceptable.", "src": "offsets v5 CAT-34"},
-  {"n": 34, "cat": "Building", "q": "What is 'Idrorepellenti' and which products treat masonry?", "a": "Silitex's water-repellent line: silane/siloxane microemulsions (Idrorepellenti SH/1300), BRILSAR 100/500/1000 (1000 is the mortar and concrete admixture), BRILLER nano-dispersions, SILWALL PRF 100 (100% reactive siloxane, solvent-free) and IDROREX 50/210 for stone and cotto. Cross-reference: Wacker SILRES BS, Dow Corning IE-6683, Evonik TEGOPHOB.", "src": "silitex.it water-repellents page + offsets v5 CAT-37"},
-  {"n": 35, "cat": "Building", "q": "Which product gives a 'wet look' anti-stain finish on stone?", "a": "AGUAREX R — a water emulsion with strong hydro-repellent and anti-stain effect that tonalizes colour (wet look). CONSOLIDANTE PER AGUAREX is the matching consolidating polymer for surface restructuring.", "src": "silitex.it water-repellents page"},
-  {"n": 36, "cat": "Building", "q": "Is there a hydrophobic additive for dry-mix mortars?", "a": "BRILSAR 1000 — hydro-repellent additive for mortar and cement/concrete admixtures, dispersible in both water and solvent systems; the Idrorepellenti SH/1300 microemulsions are the alternative for renders and facades.", "src": "silitex.it water-repellents page"},
-  {"n": 37, "cat": "Specialty", "q": "What does Silitex offer the automotive-care market?", "a": "BEAUTY CAR and BEAUTY CAR CONCENTRATO — modified-silicone emulsions for body shine, tire renewal and hydrophobic coating; Silitex also sponsors Mazzoli Garage racing cars which use its silicones on bodywork, tires and interiors.", "src": "products dataset + silitex.it/en/company"},
-  {"n": 38, "cat": "Specialty", "q": "Which lubricant is used for sewing thread?", "a": "LUBROFIL 4500 — water-based silicone-wax emulsion that reduces needle friction and thread breakage at high sewing speeds.", "src": "products dataset SP-LUB-002"},
-  {"n": 39, "cat": "Specialty", "q": "Do you have an assembly lubricant for rubber gaskets and electronics?", "a": "REOGUM 500 — silicone fluid lubricant emulsion that prevents gasket tearing during assembly with zero interaction with electronic parts. Cross-reference: Dow Corning 555 / DOWSIL 555.", "src": "products dataset SP-LUB-003"},
-  {"n": 40, "cat": "Specialty", "q": "Which natural wax emulsions are available?", "a": "CARNAUBEX (C / 442) carnauba wax, WASPER D beeswax, POLYEMUL (TS / 800/38) paraffin and the IDROCER family of polyethylene-wax nano-emulsions (SH = high melting point, transparent film).", "src": "silitex.it water-repellents page + products dataset"},
-  {"n": 41, "cat": "Specialty", "q": "What silicone raw materials does Silitex supply?", "a": "Linear PDMS fluids from 5 cSt to 2,000,000 cSt (Silitex DM series — cross-ref Dow Corning 200 / XIAMETER PMX-200), volatile D5 (CM 040 — cross-ref XIAMETER PMX-0245), methylhydrogen fluids H 160 / H 180, MQ resins, elastomer gels (SG 9040/9041) and 5225C-type emulsifiers.", "src": "offsets v5 CAT-11/12/20/31/36/37"},
-  {"n": 42, "cat": "Regulatory", "q": "Are Silitex products REACH compliant?", "a": "The dataset marks the textile softener and wax lines REACH compliant; the cyclic-free (D4/D5-free) grades exist specifically because of REACH Annex XVII restrictions. Specific registration numbers come with each SDS.", "src": "products dataset"},
-  {"n": 43, "cat": "Regulatory", "q": "Which documents accompany a Silitex product?", "a": "Technical Data Sheet (TDS), Safety Data Sheet (SDS/MSDS, EU CLP format), certificates where applicable (Kosher, Halal, FDA/BfR statements, GOTS-ICEA) and ISO 9001/14001/45001 company certificates. In this CRM they are stored in the Knowledge Base and searchable from 'Ask Silitex'.", "src": "Master catalog"},
-  {"n": 44, "cat": "Regulatory", "q": "What is BfR XXXVI and which products comply?", "a": "German BfR Recommendation XXXVI covers paper and board for food contact. VOLUMEX / VOLUSOFT (paper softeners) and IDROCER PE-wax emulsions are listed as BfR / FDA packaging compliant.", "src": "products dataset"},
-  {"n": 45, "cat": "Israel", "q": "Why is Israel a good market for Silitex?", "a": "A dense industrial base within 2 hours' drive: fertilizers and agrochemicals (ICL, Adama, Haifa Group), national water (Mekorot, GES), paper (Infinya), paints (Tambour, Nirlat), detergents (Sano, Cleano-Kal), textiles (Delta Galil, Tefron), plastics (Keter, Polyram), metal (Iscar), refining (Bazan) — 19 mapped accounts, ~1,000 t/yr and $5.25M annual potential, currently served by Dow/Wacker/Momentive agents with long lead times.", "src": "leads dataset"},
-  {"n": 46, "cat": "Israel", "q": "Which Silitex families have the highest potential in Israel?", "a": "1) Water repellents & building protection (~130 t, $650k), 2) industrial process antifoams (~320 t, $1.6M), 3) Kosher/FDA food-grade antifoams (~90 t, $450k), 4) green chemistry (FISIOREX, EVEROIL — ~110 t, $550k), 5) GOTS-ICEA textile softeners (~80 t, $450k).", "src": "priorities dataset"},
-  {"n": 47, "cat": "Israel", "q": "Why does Kosher certification matter commercially in Israel?", "a": "Most Israeli food, beverage, yeast and sugar producers require Kosher supervision on every processing aid that touches product; a Kosher-certified E900 antifoam (SILIFOOD line, CPL 350) is specified by the rabbinate, not just by R&D — it removes the main objection to switching supplier.", "src": "food-grade line"},
-  {"n": 48, "cat": "Israel", "q": "How will Silitex see what the Israeli distributor is doing?", "a": "This CRM generates a monthly principal report (pipeline by stage, samples in field, lab results, wins, 90-day forecast) from live data, plus a daily call plan and sample tracker — full transparency by design.", "src": "CRM /report"},
-  {"n": 49, "cat": "Israel", "q": "How is a competitor's purchase list converted into a Silitex offer?", "a": "The Offset Sniper: paste Dow Corning / DOWSIL / XIAMETER, Wacker, Momentive or Evonik product codes; it maps each line to the Silitex equivalent via the 37-category cross-reference and drafts a replacement quote.", "src": "CRM /sniper"},
-  {"n": 50, "cat": "Israel", "q": "What is the proposed 12-month plan for Israel?", "a": "Phase 1 (months 1–2) account reactivation with intro binders and 2 kg samples; Phase 2 (3–5) lab qualification with chief chemists; Phase 3 (6–8) commercial pilots (1-ton drums / IBC); Phase 4 (9–12) annual supply contracts with local stock in Tel Aviv.", "src": "CRM /pitch"}
+  {
+   "n": 1,
+   "cat": "Company",
+   "q": "Who is Silitex S.r.l.?",
+   "a": "An Italian specialty-chemicals producer in Cologna Veneta (Verona) describing itself as 'alta tecnologia dell'emulsione' — high emulsion technology. The group includes Silitex, Unispray and Silitex Chemicals and sells in more than 30 countries through selected distributors, with regional technical support.",
+   "src": "silitex.it/en/company"
+  },
+  {
+   "n": 2,
+   "cat": "Company",
+   "q": "Where is Silitex located and how is it reached?",
+   "a": "Viale Industria 34, 37044 Cologna Veneta (VR), Italy — tel. +39 0442 411561. The site is published in Italian, English, French and German.",
+   "src": "silitex.it/en/company"
+  },
+  {
+   "n": 3,
+   "cat": "Company",
+   "q": "What product families does Silitex make?",
+   "a": "35 published categories: silicone and silicone-free antifoams (food-grade, high-temperature, polyether, vegetal, powdered, solvent), wetting/levelling additives, cationic and silicone softeners, emulsions/micro/nano-emulsions, leather finishes, mould-release and welding detaching agents, antistatics for offset, wax emulsions, sewing-yarn lubricants, water/stain repellents, silicone rubbers, pastes and greases, linear fluids, resins, polyelectrolytes, de-emulsifiers, detergents and aerosols.",
+   "src": "silitex.it/en/products/range-of-products"
+  },
+  {
+   "n": 4,
+   "cat": "Company",
+   "q": "Which management-system certifications does Silitex hold?",
+   "a": "The master catalog lists ISO 9001:2015, ISO 14001:2015 and ISO 45001:2023, plus a HACCP-certified facility for the food-grade line (January 2025) and GOTS-ICEA approval for organic textile auxiliaries.",
+   "src": "Master catalog v2 — Executive Summary"
+  },
+  {
+   "n": 5,
+   "cat": "Company",
+   "q": "Does Silitex work with distributors or sell direct?",
+   "a": "Silitex states it is present in 30+ countries 'through selected, highly qualified distributors', supported by regional technical teams — the model this Israel proposal fits into.",
+   "src": "silitex.it/en/company"
+  },
+  {
+   "n": 6,
+   "cat": "Antifoams",
+   "q": "What is the difference between an antifoam and a defoamer?",
+   "a": "Both are the same chemistry used differently: an antifoam is dosed before foam forms (prevention), a defoamer is added to collapse existing foam (knock-down). Silitex emulsions such as BERETEX, DYNAPAN and ANTISCHIUMA 3 do both; the product sheet usually states 'immediate knock-down and lasting effect'.",
+   "src": "products dataset"
+  },
+  {
+   "n": 7,
+   "cat": "Antifoams",
+   "q": "Which Silitex antifoam replaces Dow Corning Antifoam A / DC 1520 / XIAMETER AFE-1520?",
+   "a": "ANTISCHIUMA 3 (10–30% active, FDA/BfR/EPA, food contact) and the BERETEX 350/500/750 series (35/50/75% active PDMS emulsions) are the direct cross-reference in the master catalog.",
+   "src": "offsets v5, CAT-04"
+  },
+  {
+   "n": 8,
+   "cat": "Antifoams",
+   "q": "What does the number in BERETEX 350 / 500 / 750 mean?",
+   "a": "Active silicone content in the emulsion: 35%, 50% and 75%. Higher active = lower dosage and smaller drums, but needs more dilution control; 350 is 'ready to use or pre-dilutable', 750 is the concentrate for low-dosage automated systems.",
+   "src": "products dataset"
+  },
+  {
+   "n": 9,
+   "cat": "Antifoams",
+   "q": "Which antifoam survives pH 14 caustic cleaning?",
+   "a": "DYNAKOS 130 E — a caustic-stable silicone emulsion rated pH 1–14, positioned for extreme alkaline cleaners, pulp bleaching and CIP caustic systems.",
+   "src": "products dataset SIL-ANT-017"
+  },
+  {
+   "n": 10,
+   "cat": "Antifoams",
+   "q": "What is a polyether-silicone antifoam and when do I need it?",
+   "a": "A silicone modified with PEG/PPG chains (DYNAWEED MS 4, 200 E, 260 E) that stays dispersible across pH 1–13 and survives thermal shock up to ~130 °C — the choice for high-temperature jet dyeing, bleaching baths and alkaline CIP where plain PDMS emulsions break.",
+   "src": "products dataset"
+  },
+  {
+   "n": 11,
+   "cat": "Antifoams",
+   "q": "Do you have a 100% active antifoam compound for slurries?",
+   "a": "STHOR 1000 — anhydrous dimethicone/silica compound, 2000–5000 cSt, for mineral slurries, wastewater sludge, mining and drilling where a water emulsion would be diluted away.",
+   "src": "products dataset SIL-ANT-018"
+  },
+  {
+   "n": 12,
+   "cat": "Antifoams",
+   "q": "Which antifoam is best for automated dosing pumps?",
+   "a": "BERETEX 1000 AD — low viscosity (100–300 cSt) emulsion designed for pumpability in automated dosing of liquid detergents and chemical washing lines.",
+   "src": "products dataset SIL-ANT-006"
+  },
+  {
+   "n": 13,
+   "cat": "Antifoams",
+   "q": "What replaces Momentive SAG 30 or Wacker SILFOAM SE 2?",
+   "a": "SAG 30 → BERETEX 350 / DYNAPAN 30 D; SILFOAM SE 2 → ANTISCHIUMA 3. The Offset Sniper page resolves any competitor code to the Silitex equivalent.",
+   "src": "offsets v5"
+  },
+  {
+   "n": 14,
+   "cat": "Food grade",
+   "q": "What does 'E900' mean on SILIFOOD products?",
+   "a": "E900 is the EU food-additive number for dimethylpolysiloxane (simethicone). SILIFOOD 1600 and 3000 K are E900 water emulsions approved for direct food contact under FDA 21 CFR 173.340 and EU rules.",
+   "src": "food-grade line"
+  },
+  {
+   "n": 15,
+   "cat": "Food grade",
+   "q": "Which Silitex products are Kosher certified?",
+   "a": "SILIFOOD 30, SILIFOOD 1600, SILIFOOD 2500, SILIFOOD 3000 K, CPL 350 and CPL 350 ET carry Kosher certificates (SILIFOOD line also Halal). ANTISCHIUMA 3 and CPL 2907 are food-contact compliant.",
+   "src": "Master catalog — Kosher & FDA sheet"
+  },
+  {
+   "n": 16,
+   "cat": "Food grade",
+   "q": "What is the recommended dosage of SILIFOOD in food processing?",
+   "a": "Typically 10–50 ppm: SILIFOOD 30 10–50 ppm, SILIFOOD 1600 10–30 ppm, SILIFOOD 2500 10–40 ppm, SILIFOOD 3000 K 10–50 ppm. CPL 350 / 350 ET 2–30 ppm. Always confirm with the TDS and local food law.",
+   "src": "Master catalog — Kosher & FDA sheet"
+  },
+  {
+   "n": 17,
+   "cat": "Food grade",
+   "q": "Is there a silicone-free, plant-based antifoam for yeast and fermentation?",
+   "a": "CPL 350 / CPL 350 ET — anhydrous, 100% active, fully vegetal fatty-acid compounds; 350 ET is self-emulsifying in cold water and formulated for bio-fermentation and commercial yeast. Both Kosher certified, FDA direct food additive.",
+   "src": "food-grade line"
+  },
+  {
+   "n": 18,
+   "cat": "Food grade",
+   "q": "What is the added value of a Silitex antifoam in the food industry?",
+   "a": "Four things: regulatory cover (E900, FDA 21 CFR, Kosher/Halal, HACCP plant), process yield (less foam = fuller tanks, faster bottling, fewer overflows), very low dosage (10–50 ppm) and thermal/pH stability (ANTISCHIUMA 3 survives thermal treatment). For Israel the Kosher certificate is a hard requirement most global brands cannot show on the drum.",
+   "src": "food-grade line + products dataset"
+  },
+  {
+   "n": 19,
+   "cat": "Food grade",
+   "q": "Which antifoam for sugar refining and fruit washing?",
+   "a": "SILIFOOD 1600 (16% E900 emulsion) is positioned for sugar refining, fruit washing and bottling; DYNAPAN 30 F for food & beverage and sugar refining when a higher active (30%) is wanted.",
+   "src": "products dataset"
+  },
+  {
+   "n": 20,
+   "cat": "Food grade",
+   "q": "Which antifoam is FDA-approved for food-contact paper and packaging?",
+   "a": "CPL 2907 — 100% active self-emulsifying fatty-alcohol compound, silicone-free, FDA 21 CFR approved for paper & cardboard in direct food contact; dosage 0.1–0.5 kg/ton pulp.",
+   "src": "Master catalog"
+  },
+  {
+   "n": 21,
+   "cat": "Green",
+   "q": "What is FISIOREX 1000?",
+   "a": "Silitex's 100% plant-based, highly biodegradable antifoam/adjuvant with zero synthetic silicone — for eco-label detergents, green paints, organic agrochemicals and waterborne coatings. It replaces synthetic non-ionic surfactants and products like SEPPIC Green or Lexfeel N.",
+   "src": "products dataset BIO-ANT-001"
+  },
+  {
+   "n": 22,
+   "cat": "Green",
+   "q": "Does Silitex have D4 in its products, and how does it replace cyclic siloxanes?",
+   "a": "Under EU REACH (Annex XVII, entries 70 and extensions) the cyclic siloxanes D4, D5 and D6 are restricted in wash-off and, progressively, leave-on and industrial uses; D4 is classified PBT/vPvB and reprotoxic. Silitex addresses this in three ways: (1) dedicated non-cyclic amino emulsions manufactured without cyclic siloxanes — MACROAMISIL (E1386), MICROAMISIL (E1352) and the hydrophilic IDROAMISIL 250 (E1453) — drop-in replacements for soft hand, swelling and durable water repellency; (2) linear PDMS as carrier instead of volatile cyclics — the Silitex DM fluid series (5 to 5,000 cSt), the EVERSIL emulsions, and elastomer gels on a 'Dimethicone (and) Dimethicone Crosspolymer' base; (3) silicone-free, 100% bio-based alternatives — FISIOREX 1000, EVEROIL 35 / EVERIX 35. Products that still carry a cyclic carrier (e.g. Silitex CM 040 / Volatile D5 fluid for cosmetics) are clearly identified. Confirm the cyclic content on each SDS section 3 before specifying.",
+   "src": "silitex.it softeners page + products dataset + REACH Annex XVII"
+  },
+  {
+   "n": 23,
+   "cat": "Green",
+   "q": "Which products are GOTS-ICEA approved for organic textiles?",
+   "a": "The GOTS-ICEA certified textile auxiliary line including MACROAMISIL (E1386) and MICROAMISIL (41/C/E1352); the master catalog lists the whole group under CAT-19.",
+   "src": "offsets v5 CAT-19"
+  },
+  {
+   "n": 24,
+   "cat": "Green",
+   "q": "Is there a plant-based softener for eco-label textiles?",
+   "a": "EVEROIL 35 / EVERIX 35 — 100% plant-based emollient and eco-softener water emulsions (35% active), biodegradable, suitable for EU Eco-Label formulations, natural cosmetics and sustainable tissue.",
+   "src": "products dataset BIO-SOFT-001"
+  },
+  {
+   "n": 25,
+   "cat": "Softeners",
+   "q": "What is the difference between a macro-, micro- and nano-emulsion softener?",
+   "a": "Particle size. Macroemulsions (MACROAMISIL, milky) sit on the fibre surface for a silky, hydrophobic hand. Microemulsions (MICROAMISIL, STONIX — translucent) penetrate yarns for wash-fast softness. Nanoemulsions (NANOAMISIL HR, <30 nm, water-clear) penetrate deepest — for microfibre, technical yarns and premium hand feel.",
+   "src": "products dataset + silitex.it"
+  },
+  {
+   "n": 26,
+   "cat": "Softeners",
+   "q": "Which softener gives hydrophilic (rewetting) towels?",
+   "a": "IDROAMISIL / IDROAMISIL 1000 (hydrophilic modified silicone, soft hand without water repellency) or AMINOQUAT 250/350 (quaternary silicone microemulsions for bath towels with high wash resistance). SILQUAT 350/500/700 X are the fibre-swelling hydrophilic variants.",
+   "src": "products dataset + silitex.it"
+  },
+  {
+   "n": 27,
+   "cat": "Softeners",
+   "q": "What replaces Dow Corning 2-8566 / XIAMETER MEM-0863?",
+   "a": "MACROAMISIL (E1386), STONIX 5000/6000 and BIRDYSIL LR — the amino-functional silicone emulsions in CAT-06, CAT-25 and CAT-33 of the cross-reference.",
+   "src": "offsets v5"
+  },
+  {
+   "n": 28,
+   "cat": "Softeners",
+   "q": "Is there a softener with anti-pilling and restructuring effect?",
+   "a": "STENATEX C — a microemulsion with strong softening, anti-peeling, fibre restructuring and wash-resistant effects.",
+   "src": "silitex.it softeners page"
+  },
+  {
+   "n": 29,
+   "cat": "Softeners",
+   "q": "Do you have a silicone treatment for down and feathers?",
+   "a": "MICROPIUMA — a silicone microemulsion for down-feather treatment that restores swelling, softness and resilience.",
+   "src": "silitex.it softeners page"
+  },
+  {
+   "n": 30,
+   "cat": "Paper",
+   "q": "What does Silitex offer the paper and tissue industry?",
+   "a": "VOLUMEX / VOLUSOFT nano-dispersions for fibre softening and bulking (BfR XXXVI compliant), ANTIGAP ester-quat softeners, CPL 2907 FDA pulp defoamer, EVERSIL sliding/anti-static emulsions, POLYEMUL paraffin and CARTASAR hydro-repellent dispersions for paper and board.",
+   "src": "products dataset + silitex.it"
+  },
+  {
+   "n": 31,
+   "cat": "Emulsions",
+   "q": "What is EVERSIL and what viscosities exist?",
+   "a": "The signature PDMS water-emulsion range — EVERSIL 3.5 / 6.0 / 35 / 45 / 60 / 350 / 3500 — 35–60% active, used for mould release, anti-static paper finishing, textile softening and automotive polish. Cross-reference: Dow Corning 36 Emulsion / XIAMETER MEM-0036 / Wacker E 10.",
+   "src": "products dataset + offsets v5 CAT-15"
+  },
+  {
+   "n": 32,
+   "cat": "Emulsions",
+   "q": "Which mould release can be painted or printed over afterwards?",
+   "a": "EVALAR 55 / 55 HP / 55 HT — alkyl-aryl modified silicone emulsions that allow subsequent painting, bonding or silk-screen printing without cleaning, and PROMET 400 / DISTAC 200, which are 100% silicone-free and fully over-paintable.",
+   "src": "products dataset SP-PLT"
+  },
+  {
+   "n": 33,
+   "cat": "Emulsions",
+   "q": "Do you have a silicone-free antifoam for jet dyeing and paint booths?",
+   "a": "SUREVAT 160 W / 679 — 100% active, silicone-free, self-emulsifying antifoams for high-temperature jet dyeing, paint booths and degreasing lines where silicone spotting is unacceptable.",
+   "src": "offsets v5 CAT-34"
+  },
+  {
+   "n": 34,
+   "cat": "Building",
+   "q": "What is 'Idrorepellenti' and which products treat masonry?",
+   "a": "Silitex's water-repellent line: silane/siloxane microemulsions (Idrorepellenti SH/1300), BRILSAR 100/500/1000 (1000 is the mortar and concrete admixture), BRILLER nano-dispersions, SILWALL PRF 100 (100% reactive siloxane, solvent-free) and IDROREX 50/210 for stone and cotto. Cross-reference: Wacker SILRES BS, Dow Corning IE-6683, Evonik TEGOPHOB.",
+   "src": "silitex.it water-repellents page + offsets v5 CAT-37"
+  },
+  {
+   "n": 35,
+   "cat": "Building",
+   "q": "Which product gives a 'wet look' anti-stain finish on stone?",
+   "a": "AGUAREX R — a water emulsion with strong hydro-repellent and anti-stain effect that tonalizes colour (wet look). CONSOLIDANTE PER AGUAREX is the matching consolidating polymer for surface restructuring.",
+   "src": "silitex.it water-repellents page"
+  },
+  {
+   "n": 36,
+   "cat": "Building",
+   "q": "Is there a hydrophobic additive for dry-mix mortars?",
+   "a": "BRILSAR 1000 — hydro-repellent additive for mortar and cement/concrete admixtures, dispersible in both water and solvent systems; the Idrorepellenti SH/1300 microemulsions are the alternative for renders and facades.",
+   "src": "silitex.it water-repellents page"
+  },
+  {
+   "n": 37,
+   "cat": "Specialty",
+   "q": "What does Silitex offer the automotive-care market?",
+   "a": "BEAUTY CAR and BEAUTY CAR CONCENTRATO — modified-silicone emulsions for body shine, tire renewal and hydrophobic coating; Silitex also sponsors Mazzoli Garage racing cars which use its silicones on bodywork, tires and interiors.",
+   "src": "products dataset + silitex.it/en/company"
+  },
+  {
+   "n": 38,
+   "cat": "Specialty",
+   "q": "Which lubricant is used for sewing thread?",
+   "a": "LUBROFIL 4500 — water-based silicone-wax emulsion that reduces needle friction and thread breakage at high sewing speeds.",
+   "src": "products dataset SP-LUB-002"
+  },
+  {
+   "n": 39,
+   "cat": "Specialty",
+   "q": "Do you have an assembly lubricant for rubber gaskets and electronics?",
+   "a": "REOGUM 500 — silicone fluid lubricant emulsion that prevents gasket tearing during assembly with zero interaction with electronic parts. Cross-reference: Dow Corning 555 / DOWSIL 555.",
+   "src": "products dataset SP-LUB-003"
+  },
+  {
+   "n": 40,
+   "cat": "Specialty",
+   "q": "Which natural wax emulsions are available?",
+   "a": "CARNAUBEX (C / 442) carnauba wax, WASPER D beeswax, POLYEMUL (TS / 800/38) paraffin and the IDROCER family of polyethylene-wax nano-emulsions (SH = high melting point, transparent film).",
+   "src": "silitex.it water-repellents page + products dataset"
+  },
+  {
+   "n": 41,
+   "cat": "Specialty",
+   "q": "What silicone raw materials does Silitex supply?",
+   "a": "Linear PDMS fluids from 5 cSt to 2,000,000 cSt (Silitex DM series — cross-ref Dow Corning 200 / XIAMETER PMX-200), volatile D5 (CM 040 — cross-ref XIAMETER PMX-0245), methylhydrogen fluids H 160 / H 180, MQ resins, elastomer gels (SG 9040/9041) and 5225C-type emulsifiers.",
+   "src": "offsets v5 CAT-11/12/20/31/36/37"
+  },
+  {
+   "n": 42,
+   "cat": "Regulatory",
+   "q": "Why is the D4/D5-free portfolio a commercial argument in Israel?",
+   "a": "Israeli paint, detergent, textile and cosmetics manufacturers follow EU REACH and ECHA guidance closely because they export to the EU. Many legacy competitor softeners and emulsions still ride on cyclic-siloxane (D4/D5) carriers. Offering a certified non-cyclic alternative (MACROAMISIL E1386, MICROAMISIL E1352, IDROAMISIL 250 E1453) plus linear-PDMS and bio-based options lets the distributor open the conversation on compliance, not price — and a REACH survey of the customer's current products is the natural first technical service.",
+   "src": "products dataset; REACH Annex XVII"
+  },
+  {
+   "n": 43,
+   "cat": "Regulatory",
+   "q": "Which documents accompany a Silitex product?",
+   "a": "Technical Data Sheet (TDS), Safety Data Sheet (SDS/MSDS, EU CLP format), certificates where applicable (Kosher, Halal, FDA/BfR statements, GOTS-ICEA) and ISO 9001/14001/45001 company certificates. In this CRM they are stored in the Knowledge Base and searchable from 'Ask Silitex'.",
+   "src": "Master catalog"
+  },
+  {
+   "n": 44,
+   "cat": "Regulatory",
+   "q": "What is BfR XXXVI and which products comply?",
+   "a": "German BfR Recommendation XXXVI covers paper and board for food contact. VOLUMEX / VOLUSOFT (paper softeners) and IDROCER PE-wax emulsions are listed as BfR / FDA packaging compliant.",
+   "src": "products dataset"
+  },
+  {
+   "n": 45,
+   "cat": "Israel",
+   "q": "Why is Israel a good market for Silitex?",
+   "a": "A dense industrial base within 2 hours' drive: fertilizers and agrochemicals (ICL, Adama, Haifa Group), national water (Mekorot, GES), paper (Infinya), paints (Tambour, Nirlat), detergents (Sano, Cleano-Kal), textiles (Delta Galil, Tefron), plastics (Keter, Polyram), metal (Iscar), refining (Bazan) — 19 mapped accounts, ~1,000 t/yr and $5.25M annual potential, currently served by Dow/Wacker/Momentive agents with long lead times.",
+   "src": "leads dataset"
+  },
+  {
+   "n": 46,
+   "cat": "Israel",
+   "q": "Which Silitex families have the highest potential in Israel?",
+   "a": "1) Water repellents & building protection (~130 t, $650k), 2) industrial process antifoams (~320 t, $1.6M), 3) Kosher/FDA food-grade antifoams (~90 t, $450k), 4) green chemistry (FISIOREX, EVEROIL — ~110 t, $550k), 5) GOTS-ICEA textile softeners (~80 t, $450k).",
+   "src": "priorities dataset"
+  },
+  {
+   "n": 47,
+   "cat": "Israel",
+   "q": "Why does Kosher certification matter commercially in Israel?",
+   "a": "Most Israeli food, beverage, yeast and sugar producers require Kosher supervision on every processing aid that touches product; a Kosher-certified E900 antifoam (SILIFOOD line, CPL 350) is specified by the rabbinate, not just by R&D — it removes the main objection to switching supplier.",
+   "src": "food-grade line"
+  },
+  {
+   "n": 48,
+   "cat": "Israel",
+   "q": "How will Silitex see what the Israeli distributor is doing?",
+   "a": "This CRM generates a monthly principal report (pipeline by stage, samples in field, lab results, wins, 90-day forecast) from live data, plus a daily call plan and sample tracker — full transparency by design.",
+   "src": "CRM /report"
+  },
+  {
+   "n": 49,
+   "cat": "Israel",
+   "q": "How is a competitor's purchase list converted into a Silitex offer?",
+   "a": "The Offset Sniper: paste Dow Corning / DOWSIL / XIAMETER, Wacker, Momentive or Evonik product codes; it maps each line to the Silitex equivalent via the 37-category cross-reference and drafts a replacement quote.",
+   "src": "CRM /sniper"
+  },
+  {
+   "n": 50,
+   "cat": "Israel",
+   "q": "What is the proposed 12-month plan for Israel?",
+   "a": "Phase 1 (months 1–2) account reactivation with intro binders and 2 kg samples; Phase 2 (3–5) lab qualification with chief chemists; Phase 3 (6–8) commercial pilots (1-ton drums / IBC); Phase 4 (9–12) annual supply contracts with local stock in Tel Aviv.",
+   "src": "CRM /pitch"
+  }
  ]
 }
