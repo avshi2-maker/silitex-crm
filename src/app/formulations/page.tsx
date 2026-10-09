@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/formulations/page.tsx) · updated 09.10.2026 18:40 (Asia/Jerusalem) — starter formulations (personal care) with Silitex substitutions + case studies + NotebookLM prompt
+// page.tsx (src/app/formulations/page.tsx) · updated 09.10.2026 18:05 (Asia/Jerusalem) — starter formulations (personal care) with Silitex substitutions + case studies
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -9,13 +9,13 @@ import FormulaCard from "@/components/formulations/FormulaCard";
 import PatternGuide from "@/components/formulations/PatternGuide";
 import { draftContext, draftPrompt } from "@/prompts/draft";
 import { inputCls } from "@/components/ui";
-import { Card, H1, Badge, btnGhost } from "@/components/ui";
+import { Card, H1 } from "@/components/ui";
 import AiPanel from "@/components/AiPanel";
 import ExportBar from "@/components/ExportBar";
 import { useLang } from "@/i18n";
 export default function FormulationsPage() {
   const { t: tr } = useLang(); const { state, ready, addSpend } = useStore();
-  const [sel, setSel] = useState(FORMULATIONS[0]); const [copied, setCopied] = useState(false); const [brief, setBrief] = useState("Light dry-touch body lotion, O/W, D4/D5-free, Silitex only");
+  const [sel, setSel] = useState(FORMULATIONS[0]); const [brief, setBrief] = useState("Light dry-touch body lotion, O/W, D4/D5-free, Silitex only");
   useEffect(() => { try { const b = new URLSearchParams(window.location.search).get("brief"); if (b) { setBrief(b); document.getElementById("draft")?.scrollIntoView({ behavior: "smooth" }); } } catch {} }, []);
   if (!ready) return null;
   return (
@@ -42,12 +42,6 @@ export default function FormulationsPage() {
         <div className="text-xs text-slate-500 mb-2">{tr("תיבה זו ממציאה מתכון מלא (אחוזים, שלבים, בדיקות) עם מוצרי Silitex — טיוטה לאימות במעבדה בלבד. לעובדות עם מקורות:")} <Link href="/ask" className="underline text-brand-600">{tr("שאל את Silitex")}</Link></div>
         <input className={inputCls + " mb-2"} value={brief} onChange={(e) => setBrief(e.target.value)} placeholder="e.g. hair serum, anhydrous, shine + detangling, D5-free" dir="ltr" />
         <AiPanel title={"AI draft — " + brief} buttonLabel={tr("צור טיוטה עם Claude")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} buildPrompt={() => ({ context: draftContext(), prompt: draftPrompt(brief) })} />
-      </Card>
-      <Card>
-        <div className="flex items-center justify-between mb-2"><h3 className="font-bold">NotebookLM — {tr("פרומפט להפקת נוסחאות נוספות")}</h3><button className={btnGhost} onClick={() => { navigator.clipboard?.writeText(FORM_META.notebooklm_prompt); setCopied(true); setTimeout(() => setCopied(false), 1500); }}>{copied ? "✓" : "📋"} {tr("העתק")}</button></div>
-        <p className="text-xs text-slate-500 mb-2" dir="ltr">Upload supplier formulation guides (NuSil CareSil, Dow, Wacker, Evonik…) to a NotebookLM notebook → paste this prompt → send me the JSON → I import it here with Silitex substitutions.</p>
-        <pre className="text-xs whitespace-pre-wrap bg-slate-50 border rounded-lg p-3" dir="ltr">{FORM_META.notebooklm_prompt}</pre>
-        <div className="mt-2"><Badge tone="slate">NuSil → Silitex cross-reference: see /offsets (new NuSil column, v6)</Badge></div>
       </Card>
     </div>
   );
