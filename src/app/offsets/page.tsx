@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/offsets/page.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem) — global producers cross-reference matrix (37 categories × 24 producers)
+// page.tsx (src/app/offsets/page.tsx) · updated 09.10.2026 11:20 (Asia/Jerusalem) — global producers cross-reference matrix (37 categories × 24 producers)
 import { useMemo, useState } from "react";
 import { OFFSETS, FOOD_GRADE } from "@/lib/data";
 import { Card, H1, Badge, inputCls } from "@/components/ui";
@@ -20,7 +20,7 @@ export default function OffsetsPage() {
       </Card>
       <Card className="overflow-x-auto p-0">
         <table className="text-xs w-full">
-          <thead className="bg-slate-50"><tr><th className="p-2 text-start">{tr("קט'")}</th><th className="p-2 text-start">{tr("משפחה / INCI")}</th><th className="p-2 text-start">Silitex</th><th className="p-2 text-start">Dow Corning</th>{prod.map((p) => <th key={p} className="p-2 text-start">{p}</th>)}<th className="p-2">{tr("אישורים")}</th></tr></thead>
+          <thead className="bg-slate-50"><tr><th className="p-2 text-start">{tr("קט'")}</th><th className="p-2 text-start">{tr("משפחה / INCI")}</th><th className="p-2 text-start">Silitex</th><th className="p-2 text-start">Dow Corning / DOWSIL / XIAMETER</th>{prod.map((p) => <th key={p} className="p-2 text-start">{p}</th>)}<th className="p-2">{tr("אישורים")}</th></tr></thead>
           <tbody>{rows.map((r) => (<tr key={r.category_id} className="border-t align-top hover:bg-slate-50"><td className="p-2 text-slate-500">{r.category_id}</td><td className="p-2"><div className="font-medium">{r.family}</div><div className="text-slate-500">{r.inci}</div></td><td className="p-2 font-medium text-brand-700">{r.silitex_product.split(" - ")[0]}</td><td className="p-2">{r.dow_corning}</td>{prod.map((p) => <td key={p} className="p-2">{r.offsets[p]}</td>)}<td className="p-2 space-x-1 whitespace-nowrap">{/yes/i.test(r.kosher) && <Badge tone="purple">{tr("כשר")}</Badge>}{/yes/i.test(r.fda) && <Badge tone="green">FDA</Badge>}</td></tr>))}</tbody>
         </table>
       </Card>

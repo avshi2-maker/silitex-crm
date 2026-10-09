@@ -1,4 +1,4 @@
-// data.ts (src/lib/data.ts) · updated 09.10.2026 10:05 (Asia/Jerusalem)
+// data.ts (src/lib/data.ts) · updated 09.10.2026 11:20 (Asia/Jerusalem)
 // Bundled assets (src/data/*.json) — the read-only catalog layer. Mutable CRM state lives in store.ts.
 import products from "@/data/products.json";
 import offsets from "@/data/offsets.json";
@@ -8,7 +8,7 @@ import priorities from "@/data/priorities.json";
 import type { Product, OffsetRow, FoodGrade, Lead, Priority } from "./types";
 
 export const PRODUCTS = products as Product[];
-export const OFFSETS = offsets as { producers: string[]; rows: OffsetRow[] };
+export const OFFSETS = offsets as { producers: string[]; rows: OffsetRow[]; source?: string; updated?: string };
 export const FOOD_GRADE = foodGrade as FoodGrade[];
 export const LEADS_SEED = leadsSeed as Lead[];
 export const PRIORITIES = priorities as Priority[];
