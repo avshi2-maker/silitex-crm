@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/ask/page.tsx) · updated 09.10.2026 18:40 (Asia/Jerusalem) — "Ask Silitex": search all assets (index + KB) → Claude answer with citations, token meter, export bar
+// page.tsx (src/app/ask/page.tsx) · updated 09.10.2026 18:30 (Asia/Jerusalem) — "Ask Silitex": search all assets (index + KB) → Claude answer with citations, token meter, export bar
 import { useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -27,7 +27,7 @@ export default function AskPage() {
       </Card>
       <div className="text-xs text-slate-500 -mt-2">{tr("תיבה זו עונה מעובדות עם מקורות [n] בלבד — היא לא ממציאה מתכונים או אחוזים.")}</div>
       {RECIPE.test(q) && (<div className="border border-amber-300 bg-amber-50 rounded-xl p-3 text-sm flex flex-wrap items-center justify-between gap-2"><span>🧴 {tr("מחפש נוסחת התחלה? כאן תקבל רק עובדות ממסמכים. לטיוטת מתכון מלאה עם מוצרי Silitex השתמש בכלי הטיוטה.")}</span><Link href={"/formulations?brief=" + encodeURIComponent(q) + "&lang=" + lang} className="px-3 py-1.5 rounded-lg bg-brand-500 text-white text-sm whitespace-nowrap">{tr("פתח כלי טיוטה →")}</Link></div>)}
-      {hits.length > 0 && (<Card><h3 className="font-bold mb-2">{tr("מקורות")} ({hits.length})</h3><ul className="text-sm space-y-1">{hits.map((h, i) => (<li key={h.id} className="flex gap-2 items-start"><span className="text-slate-400 w-6">[{i + 1}]</span><Badge tone={h.doc_type === "product" ? "blue" : h.doc_type === "lead" ? "green" : h.doc_type === "food_grade" ? "purple" : "slate"}>{tr(TYPE_HE[h.doc_type] || h.doc_type)}</Badge><span className="font-medium">{h.title}</span><span className="text-slate-400 truncate">{h.text.slice(0, 90)}…</span></li>))}</ul></Card>)}
+      {hits.length > 0 && (<Card><div className="flex flex-wrap items-center gap-2 mb-2"><h3 className="font-bold">{tr("מקורות")} ({hits.length})</h3>{Object.entries(hits.reduce<Record<string, number>>((m, h) => ({ ...m, [h.doc_type]: (m[h.doc_type] || 0) + 1 }), {})).map(([k, n]) => <Badge key={k} tone={k === "product" ? "blue" : k === "lead" ? "green" : k === "food_grade" ? "purple" : k === "kb" ? "amber" : "slate"}>{tr(TYPE_HE[k] || k)} {n}</Badge>)}</div><ul className="text-sm space-y-1">{hits.map((h, i) => (<li key={h.id} className="flex gap-2 items-start"><span className="text-slate-400 w-6">[{i + 1}]</span><Badge tone={h.doc_type === "product" ? "blue" : h.doc_type === "lead" ? "green" : h.doc_type === "food_grade" ? "purple" : "slate"}>{tr(TYPE_HE[h.doc_type] || h.doc_type)}</Badge><span className="font-medium">{h.title}</span><span className="text-slate-400 truncate">{h.text.slice(0, 90)}…</span></li>))}</ul></Card>)}
       <Card><AiPanel title={q || tr("שאל את Silitex")} buttonLabel={tr("ענה עם Claude")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} buildPrompt={() => { const h = hits.length ? hits : searchAll(q, state.kbChunks); if (!hits.length) setHits(h); return { context: askContext(h), prompt: askPrompt(q) }; }} /></Card>
     </div>
   );

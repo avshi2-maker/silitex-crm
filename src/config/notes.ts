@@ -1,4 +1,4 @@
-// notes.ts (src/config/notes.ts) · updated 09.10.2026 16:55 (Asia/Jerusalem)
+// notes.ts (src/config/notes.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Teleprompter script for the Silitex meeting (English). Open /notes on a second screen or phone — never on the shared screen.
 export type Cue = { t: string; min: string; say: string[]; show?: string };
 export const NOTES: Cue[] = [
@@ -22,6 +22,9 @@ export const NOTES: Cue[] = [
   { t: "Daily discipline", min: "10–13", show: "/leads/LEAD-001 → action plan → sample tracker → Generate pitch", say: [
     "Each account carries its phase, next action, recommended SKU and the incumbent it replaces. Samples are tracked from shipment to lab result.",
     "A bot writes my call list every morning. Nothing waits in a mailbox." ] },
+  { t: "How I run a sale + who does what", min: "—", show: "/team?lang=en (team cards + 9-step process)", say: [
+    "Three people and a system. I own the accounts, the offers and your report. Back-office runs data sheets, samples from Tel Aviv stock, import files and invoicing. An external formulation chemist joins the lab-qualification visits and routes open chemistry to your laboratory — I never answer those myself.",
+    "Every sale follows nine steps, each with an owner and a screen: lead in with company, name and mobile mandatory; intake; TDS pack; sample; RFQ; price offer in EUR per kg with validity; negotiation; order; follow-up. A follow-up task is created automatically two days after a data sheet and three days after an offer. The daily brief bot tells me what to do each morning." ] },
   { t: "Visibility", min: "13–15", show: "/report → Generate", say: [
     "This is what you receive monthly — pipeline by stage, samples in field, wins, forecast — generated from live data, not from my memory.",
     "Later we add a gated portal where your export, lab and invoicing people each see their own threads with us." ] },

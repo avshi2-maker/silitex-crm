@@ -1,4 +1,4 @@
-# SILITEX CRM — ATLAS (read first every session) · v0.10.0 · 09/10/2026
+# SILITEX CRM — ATLAS (read first every session) · v0.12.0 · 09/10/2026
 
 Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / React 19 / Tailwind 3 / Supabase (optional) / Claude API. Repo `avshi2-maker/silitex-crm`, folder `C:\silitex-crm`, Vercel project `silitex-crm`.
 
@@ -14,7 +14,7 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | Want to change… | File |
 |---|---|
 | Add / rename an industry (filters, campaign, lead matching) | `src/config/industries.ts` |
-| Pipeline stages, order, closed stages | `src/config/stages.ts` |
+| Pipeline stages, order, closed stages (prospect → contacted → sample → rfq → quote → negotiation → won/lost) | `src/config/stages.ts` |
 | Daily task wording per stage, weekly cadence | `src/config/cadence.ts` |
 | Promo channels + their writing rules | `src/config/channels.ts` |
 | Version, owner name/phone/signature | `src/config/app.ts` |
@@ -47,7 +47,16 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | Version · commit · build-time stamp under the clock | `src/components/VersionStamp.tsx` (commit via VERCEL_GIT_COMMIT_SHA in next.config.ts) |
 | Pitch "Commercial model" block | `src/config/pitch.ts` → `model` |
 | Starter formulations + Silitex substitution map + case studies + NotebookLM prompt | `src/data/formulations.json`; lib `src/lib/formulations.ts`; page `src/app/formulations/page.tsx`; card `components/formulations/FormulaCard.tsx`; prompt `src/prompts/formulation.ts`; PDFs `public/assets/formulations/` |
-| DB tables | `supabase/schema.sql` |
+| Sales process A–Z (9 steps), follow-up delays per document, lead sources, offer defaults / incoterms | `src/config/sales.ts` |
+| Sapirim team (names, bios, roles, photos) | `src/config/team.ts`; page `src/app/team/page.tsx` (also shown on /pitch) |
+| CRM intake (mandatory company + contact + mobile) | `src/components/leads/NewLeadForm.tsx`; website inbox → lead `components/leads/InboxCard.tsx` (needs Supabase) |
+| Documents sent / price offers per lead | `components/leads/DocsCard.tsx` (list + status + stage moves), `TdsPanel.tsx` (TDS/MSDS cover note), `OfferPanel.tsx` (lines, EUR/kg, validity → AI draft); store `addDoc` (auto follow-up task) / `setDocStatus`; prompts `prompts/offer.ts`, `prompts/datasheet.ts` |
+| Transcript box (WhatsApp / phone → summary → log + task + stage) | `components/leads/TranscriptCard.tsx`; prompt `prompts/transcript.ts` (`NEXT:` line parsed) |
+| Open offers on dashboard | `components/OffersCard.tsx` |
+| Funnel KPIs on /report | `components/FunnelStats.tsx` (`funnel()`); report context includes offers |
+| "Grill me" rehearsal bot on /notes | `components/GrillPanel.tsx`; prompt `prompts/grill.ts` |
+| Source-type counts on /ask | inline badges in `src/app/ask/page.tsx` |
+| DB tables | `supabase/schema.sql` (incl. `docs`, `leads.source`) |
 | Offset Sniper matching rules | `src/lib/sniper.ts` (prompt: `src/prompts/sniper.ts`) |
 | Daily brief wording / which 5 calls | `src/prompts/brief.ts`; pipeline `src/lib/brief.ts` |
 | WhatsApp provider (Twilio / webhook / wa.me fallback) | `src/lib/whatsapp.ts` |
@@ -64,7 +73,7 @@ src/prompts/     system.ts · pitch.ts · campaign.ts · rag.ts · sniper.ts · 
 src/lib/         types.ts · format.ts · pricing.ts · data.ts · supabase.ts · rag.ts · sniper.ts · [server] ai.ts · brief.ts · whatsapp.ts · crawl.ts · server-data.ts
 src/lib/store/   state.ts (persist) · cadence.ts (pure scheduler) · useStore.ts (hook) · index.ts
 src/components/  Nav · ui · ExportBar · TokenMeter · AiPanel · PlanCard · PrioritiesCard · CrawlPanel
-src/app/         page (dashboard) · products · offsets · leads · leads/[id] · pipeline · schedule · campaign · kb · sniper · brief
+src/app/         page (dashboard) · team · products · offsets · leads · leads/[id] · pipeline · schedule · campaign · kb · sniper · brief
 src/app/api/     ai · rag/extract · rag/crawl · brief · cron/daily-brief · cron/crawl
 src/data/        products.json (45, v2 — Dow Corning / DuPont / XIAMETER benchmark names) · offsets.json (37×26, from full_offset…-v6.csv; incl. NuSil/Avantor column) · food_grade.json (9) · leads.json (19, with plan_* from action-plan CSV) · priorities.json (5)
 supabase/        schema.sql

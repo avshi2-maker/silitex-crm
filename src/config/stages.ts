@@ -1,10 +1,11 @@
-// stages.ts (src/config/stages.ts) · updated 09.10.2026 09:40 (Asia/Jerusalem)
+// stages.ts (src/config/stages.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Sales pipeline stages, in order. Add a stage here → kanban, dashboard, lead page all follow.
 import type { Stage } from "@/lib/types";
 export const STAGES: { key: Stage; he: string; closed?: boolean }[] = [
   { key: "prospect", he: "פרוספקט" },
   { key: "contacted", he: "נוצר קשר" },
   { key: "sample", he: "דגימה נשלחה" },
+  { key: "rfq", he: "RFQ התקבל" },
   { key: "quote", he: "הצעת מחיר" },
   { key: "negotiation", he: "משא ומתן" },
   { key: "won", he: "נסגר ✓", closed: true },

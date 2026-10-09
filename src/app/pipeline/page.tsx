@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/pipeline/page.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem) — kanban by stage
+// page.tsx (src/app/pipeline/page.tsx) · updated 09.10.2026 18:30 (Asia/Jerusalem) — kanban by stage
 import Link from "next/link";
 import { useStore, STAGES } from "@/lib/store";
 import { H1 } from "@/components/ui";
@@ -13,7 +13,7 @@ export default function PipelinePage() {
   return (
     <div className="space-y-4">
       <H1 sub={tr("גרור לקוח בין שלבים (או השתמש בחצים)")}>{tr("צנרת מכירות")}</H1>
-      <div className="grid grid-cols-7 gap-2 min-w-[1100px]">
+      <div className="grid gap-2 min-w-[1200px]" style={{ gridTemplateColumns: "repeat(" + STAGES.length + ", minmax(0, 1fr))" }}>
         {STAGES.map((s, si) => {
           const items = state.leads.filter((l) => l.stage === s.key);
           const sum = items.reduce((a, l) => a + l.value_usd, 0);

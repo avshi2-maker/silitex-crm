@@ -1,4 +1,4 @@
-// pitch.ts (src/config/pitch.ts) · updated 09.10.2026 12:30 (Asia/Jerusalem)
+// pitch.ts (src/config/pitch.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // All copy for the /pitch executive page (English — audience is Silitex management). Edit text here only.
 export const PITCH = {
   title: "Israel — Exclusive Distribution Proposal",
@@ -27,5 +27,6 @@ export const PITCH = {
       "Commission scales with volume and product class; terms in the agency agreement, not on this page.",
     ],
   },
+  process: { title: "How we run every sale", sub: "Nine steps, each with an owner and a screen in the CRM — see /team for the people." },
   needs: ["Exclusive distribution for Israel — 24 months, with a 36-month renewal option", "TDS / MSDS pack for the 45 focus SKUs", "Sample kits: 2 kg × 19 accounts (Phase 1)", "Distributor price list (EUR, FCA Italy) + MOQ", "Kosher / FDA / HACCP certificates (current)", "Joint technical visit in Month 3"],
 };

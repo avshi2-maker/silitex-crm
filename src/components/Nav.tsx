@@ -1,5 +1,5 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 09.10.2026 12:30 (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
@@ -11,6 +11,7 @@ const ITEMS = [
   { href: "/", he: "לוח בקרה", icon: "📊" },
   { href: "/pitch", he: "הצעת הפצה (Pitch)", icon: "🏁" },
   { href: "/notes", he: "טלפרומפטר (הערות דובר)", icon: "🎙️" },
+  { href: "/team", he: "הצוות ותהליך המכירה", icon: "👥" },
   { href: "/ask", he: "שאל את Silitex", icon: "🔎" },
   { href: "/products", he: "קטלוג מוצרים", icon: "🧪" },
   { href: "/offsets", he: "מקבילות עולמיות", icon: "🌍" },

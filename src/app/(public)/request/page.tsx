@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/(public)/request/page.tsx) · updated 09.10.2026 13:20 (Asia/Jerusalem) — customer quick form: technical / sample / price → /api/forms → email + DB
+// page.tsx (src/app/(public)/request/page.tsx) · updated 09.10.2026 18:30 (Asia/Jerusalem) — customer quick form: technical / sample / price → /api/forms → email + DB
 import { useState } from "react";
 import PublicShell from "@/components/PublicShell";
 import { Text, Area, Select } from "@/components/FormField";
@@ -27,7 +27,7 @@ export default function RequestPage() {
       <div className="flex gap-2 mb-4">{KINDS.map((k) => <button key={k.k} type="button" onClick={() => setKind(k.k)} className={"flex-1 border rounded-xl p-3 text-sm " + (kind === k.k ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{k.icon} {tr(k.he)}</button>)}</div>
       <form onSubmit={submit}><Card className="grid md:grid-cols-2 gap-3">
         <Text label={tr("חברה")} value={f.company} onChange={set("company")} required /><Text label={tr("שם מלא")} value={f.name} onChange={set("name")} required />
-        <Text label={tr("אימייל")} value={f.email} onChange={set("email")} type="email" required /><Text label={tr("טלפון")} value={f.phone} onChange={set("phone")} type="tel" />
+        <Text label={tr("אימייל")} value={f.email} onChange={set("email")} type="email" required /><Text label={tr("נייד")} value={f.phone} onChange={set("phone")} type="tel" required />
         <Select label={tr("מוצר")} value={f.product} onChange={set("product")} options={PRODUCTS.map((p) => p.product_name)} />
         <Text label={kind === "sample" ? tr("כמות דגימה (ק\"ג)") : tr("כמות שנתית משוערת (טון)")} value={f.qty} onChange={set("qty")} />
         <div className="md:col-span-2"><Text label={tr("יישום / תהליך")} value={f.application} onChange={set("application")} placeholder={tr("למשל: קצף במיכלי תסיסה, pH 4, 35°C")} /></div>

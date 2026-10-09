@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 12:30 (Asia/Jerusalem) — lead file: intake form, stage, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 18:30 (Asia/Jerusalem) — lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState } from "react";
 import { useStore, STAGES } from "@/lib/store";
 import { PRODUCTS, industriesOf, INDUSTRIES } from "@/lib/data";
@@ -7,6 +7,8 @@ import { Card, H1, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui
 import AiPanel from "@/components/AiPanel";
 import PlanCard from "@/components/PlanCard";
 import SampleCard from "@/components/SampleCard";
+import DocsCard from "@/components/leads/DocsCard";
+import TranscriptCard from "@/components/leads/TranscriptCard";
 import { fmtDateTime, fmtDate, todayIso } from "@/lib/format";
 import { pitchContext, pitchPrompt } from "@/prompts/pitch";
 import type { Lead, Stage } from "@/lib/types";
@@ -14,7 +16,7 @@ import { useLang } from "@/i18n";
 export default function LeadPage({ params }: { params: Promise<{ id: string }> }) {
   const { t: tr } = useLang();
   const { id } = use(params);
-  const { state, ready, upsertLead, setStage, addActivity, addTask, addSpend, addSample, setSampleStatus } = useStore();
+  const { state, ready, upsertLead, setStage, addActivity, addTask, addSpend, addSample, setSampleStatus, addDoc, setDocStatus } = useStore();
   const [note, setNote] = useState("");
   if (!ready) return null;
   const lead = state.leads.find((l) => l.id === id);
@@ -26,7 +28,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
   const ctx = pitchContext(lead, matches);
   return (
     <div className="space-y-4">
-      <H1 sub={lead.industry + " · " + lead.tier}>{lead.name}</H1>
+      <H1 sub={lead.industry + " · " + lead.tier + (lead.source ? " · " + tr(lead.source) : "") + (lead.contact_phone ? " · 📱 " + lead.contact_phone : "")}>{lead.name}</H1>
       <div className="grid lg:grid-cols-[1fr_380px] gap-4 items-start">
         <div className="space-y-4">
           <Card>
@@ -37,6 +39,8 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
             <AiPanel title={tr("הצעת פנייה / פיץ' ל-") + lead.name} buttonLabel={tr("צור פיץ' עם Claude")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} onResult={() => addActivity(id, "ai", tr("נוצר פיץ' AI"))}
               buildPrompt={() => ({ context: ctx, prompt: pitchPrompt(lead) })} />
           </Card>
+          <DocsCard lead={lead} docs={state.docs.filter((d) => d.lead_id === id)} matches={matches} onAdd={addDoc} onStatus={setDocStatus} onStage={(s) => setStage(id, s)} spend={state.spend} addSpend={addSpend} />
+          <TranscriptCard lead={lead} spend={state.spend} addSpend={addSpend} onLog={(t) => addActivity(id, "transcript", t)} onTask={(title, due) => addTask({ lead_id: id, lead_name: lead.name, title, due, cadence: "once", kind: "followup" })} onStage={(s) => setStage(id, s)} />
           <Card>
             <h3 className="font-bold mb-2">{tr("מוצרים מותאמים (")}{matches.length})</h3>
             <div className="flex flex-wrap gap-1">{matches.map((p) => <Badge key={p.id} tone="blue">{p.product_name}</Badge>)}</div>
@@ -64,17 +68,17 @@ function Intake({ lead, onSave }: { lead: Lead; onSave: (l: Lead) => void }) {
   const { t: tr } = useLang();
   const [f, setF] = useState<Lead>(lead);
   const set = (k: keyof Lead, v: string) => setF({ ...f, [k]: v });
-  const field = (k: keyof Lead, label: string, type = "text") => (<label className="text-xs text-slate-500">{label}<input type={type} className={inputCls + " mt-1"} value={(f[k] as string) || ""} onChange={(e) => set(k, e.target.value)} /></label>);
+  const field = (k: keyof Lead, label: string, type = "text", req = false) => (<label className="text-xs text-slate-500">{label}{req && " *"}<input type={type} className={inputCls + " mt-1"} value={(f[k] as string) || ""} onChange={(e) => set(k, e.target.value)} /></label>);
   return (
     <div>
       <h3 className="font-bold mb-2">{tr("טופס קליטה (Intake)")}</h3>
       <div className="grid md:grid-cols-3 gap-2">
-        {field("contact_name", tr("שם איש קשר"))}{field("contact_role", tr("תפקיד"))}{field("department", tr("מחלקה"))}
-        {field("contact_phone", tr("טלפון"), "tel")}{field("contact_email", tr("אימייל"), "email")}{field("next_action_at", tr("פעולה הבאה (תאריך)"), "date")}
+        {field("contact_name", tr("שם איש קשר"), "text", true)}{field("contact_role", tr("תפקיד"))}{field("department", tr("מחלקה"))}
+        {field("contact_phone", tr("נייד"), "tel", true)}{field("contact_email", tr("אימייל"), "email")}{field("next_action_at", tr("פעולה הבאה (תאריך)"), "date")}
         <label className="text-xs text-slate-500 md:col-span-3">{tr("צורך / יישום")}<textarea className={inputCls + " mt-1"} rows={2} value={f.use_case} onChange={(e) => set("use_case", e.target.value)} /></label>
         <label className="text-xs text-slate-500 md:col-span-3">{tr("הערות (ספק נוכחי, כמויות, מחירים, דרישות רגולציה)")}<textarea className={inputCls + " mt-1"} rows={3} value={f.notes || ""} onChange={(e) => set("notes", e.target.value)} /></label>
       </div>
-      <div className="flex justify-between items-center mt-2 text-xs text-slate-500"><span>{tr("פעולה הבאה: ")}{fmtDate(f.next_action_at)}</span><button className={btnPrimary} onClick={() => onSave(f)}>{tr("שמור טופס")}</button></div>
+      <div className="flex justify-between items-center mt-2 text-xs text-slate-500"><span>{tr("פעולה הבאה: ")}{fmtDate(f.next_action_at)}</span><button className={btnPrimary} onClick={() => { if (!f.contact_name || !f.contact_phone) return alert(tr("חובה: שם איש קשר + נייד")); onSave(f); }}>{tr("שמור טופס")}</button></div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-// types.ts (src/lib/types.ts) · updated 09.10.2026 12:30 (Asia/Jerusalem)
+// types.ts (src/lib/types.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 export type Product = {
   id: string; product_name: string; brand_family: string; category_sector: string;
   application_field: string; appearance: string; active_content_pct: string; active_matter_type: string;
@@ -10,7 +10,7 @@ export type OffsetRow = {
   kosher: string; fda: string; eco_certs: string; offsets: Record<string, string>;
 };
 export type FoodGrade = { trade_name: string; composition: string; kosher: string; fda: string; application: string; dosage: string; performance: string };
-export type Stage = "prospect" | "contacted" | "sample" | "quote" | "negotiation" | "won" | "lost";
+export type Stage = "prospect" | "contacted" | "sample" | "rfq" | "quote" | "negotiation" | "won" | "lost";
 export type Lead = {
   id: string; name: string; industry: string; sub_industry: string; product_match: string; use_case: string;
   volume_tons: number; value_usd: number; tier: string; department: string; contact_role: string;
@@ -19,7 +19,11 @@ export type Lead = {
   // from sales action plan CSV
   recommended_sku?: string; competitor_offset?: string; plan_phase?: string; plan_next_action?: string; plan_stage?: string; plan_target_stage?: Stage;
   city?: string; lat?: number; lon?: number;
+  source?: string; // website form / cold call / referral / exhibition / silitex
 };
+export type DocKind = "tds" | "msds" | "offer" | "other";
+export type DocStatus = "sent" | "accepted" | "rejected" | "expired";
+export type Doc = { id: string; lead_id: string; lead_name: string; kind: DocKind; title: string; sent_at: string; via: string; status: DocStatus; amount_eur?: number; valid_until?: string; body?: string };
 export type SampleStatus = "requested" | "shipped" | "in_lab" | "passed" | "failed";
 export type Sample = { id: string; lead_id: string; lead_name: string; sku: string; kg: number; sent_at: string; status: SampleStatus; result?: string; followup_at?: string };
 export type Priority = { rank: number; family: string; skus: string; specs: string; targets: string; use_case: string; offsets: string; volume_tons: number; value_usd: number };

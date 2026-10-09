@@ -9,6 +9,9 @@ create table if not exists leads (
 );
 create table if not exists activities (id text primary key, lead_id text references leads(id) on delete cascade, at timestamptz default now(), kind text, text text);
 create table if not exists tasks (id text primary key, lead_id text, lead_name text, title text, due date, cadence text, done boolean default false, kind text);
+create table if not exists docs (id text primary key, lead_id text, lead_name text, kind text, title text, sent_at date, via text, status text, amount_eur numeric, valid_until date, body text);
+alter table docs enable row level security; create policy "all" on docs for all using (true) with check (true);
+alter table leads add column if not exists source text;
 create table if not exists samples (id text primary key, lead_id text, lead_name text, sku text, kg numeric, sent_at date, status text, result text, followup_at date);
 alter table samples enable row level security; create policy "all" on samples for all using (true) with check (true);
 create table if not exists form_submissions (id bigserial primary key, created_at timestamptz default now(), kind text, company text, name text, email text, phone text, product text, message text, fields jsonb default '{}', lang text);
