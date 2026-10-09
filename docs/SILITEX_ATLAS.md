@@ -1,4 +1,4 @@
-# SILITEX CRM — ATLAS (read first every session) · v0.7.0 · 09/10/2026
+# SILITEX CRM — ATLAS (read first every session) · v0.9.0 · 09/10/2026
 
 Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / React 19 / Tailwind 3 / Supabase (optional) / Claude API. Repo `avshi2-maker/silitex-crm`, folder `C:\silitex-crm`, Vercel project `silitex-crm`.
 
@@ -77,6 +77,9 @@ RAG: upload → `/api/rag/extract` (unpdf) → chunks in store → `scoreChunks(
 
 ## Env
 `ANTHROPIC_API_KEY` (required for real AI) · `ANTHROPIC_MODEL` (optional) · `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` (optional, client) · `SUPABASE_SERVICE_ROLE_KEY` (bots need it to read/write real data) · `CRON_SECRET` (Vercel sets) · `BRIEF_TO_WHATSAPP` · Twilio trio or `WHATSAPP_WEBHOOK_URL` · `RESEND_API_KEY` + `FORMS_TO` + `FORMS_FROM` (customer forms → email).
+
+## Access (Phase 1 gate)
+`src/middleware.ts` + `src/lib/gate.ts`: everything is PIN-gated (env `ACCESS_PIN`) except `/request`, `/survey`, `/login`, forms API, assets. Cookie 30 days; 🔒 in sidebar = logout. `X-Robots-Tag: noindex` + robots.txt on all. Phase 2 = Supabase Auth + roles (owner / silitex_* / customer), route groups, public vs internal search index.
 
 ## Presentation
 `/pitch?lang=en&demo=1` — English, demo pipeline loaded. `?lang=en` on any URL forces English. ⚙ on dashboard: load demo / copy link / reset.
