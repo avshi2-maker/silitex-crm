@@ -1,6 +1,12 @@
 // it.ts (src/i18n/it.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "כל התפקידים": "Tutti i ruoli",
+  "R&D / כימאי ראשי": "R&D / chimico capo",
+  "רכש / קניין": "Acquisti",
+  "איכות / רגולציה": "Qualità / regolatorio",
+  "תפעול / ייצור": "Operations / produzione",
+  "הנהלה / בעלים": "Direzione / titolare",
   "נוצר": "Creato",
   "עודכן": "Aggiornato",
   "מאגר": "base",

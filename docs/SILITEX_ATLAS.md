@@ -50,6 +50,7 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | Sales process A–Z (9 steps), follow-up delays per document, lead sources, offer defaults / incoterms | `src/config/sales.ts` |
 | Sapirim team (names, bios, roles, photos) | `src/config/team.ts`; page `src/app/team/page.tsx` (also shown on /pitch) |
 | Fact-finding intake: 8 sections, fields, options, guidance | `src/config/intake.ts`; form `components/leads/IntakeForm.tsx`; helpers `lib/intake.ts` (`intakeOf`, `intakePct`, `intakeSummary` → feeds pitch/offer/datasheet/transcript prompts); seed records for 10 accounts `src/data/intake_records.json` (NotebookLM, SKUs corrected to catalog) |
+| Contact role groups (filter on /leads, suggestions in forms) | `src/config/roles.ts` |
 | CRM intake (mandatory company + contact + mobile) | `src/components/leads/NewLeadForm.tsx`; website inbox → lead `components/leads/InboxCard.tsx` (needs Supabase) |
 | Documents sent / price offers per lead | `components/leads/DocsCard.tsx` (list + status + stage moves), `TdsPanel.tsx` (TDS/MSDS cover note), `OfferPanel.tsx` (lines, EUR/kg, validity → AI draft); store `addDoc` (auto follow-up task) / `setDocStatus`; prompts `prompts/offer.ts`, `prompts/datasheet.ts` |
 | Transcript box (WhatsApp / phone → summary → log + task + stage) | `components/leads/TranscriptCard.tsx`; prompt `prompts/transcript.ts` (`NEXT:` line parsed) |

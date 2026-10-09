@@ -1,10 +1,11 @@
 "use client";
-// IntakeForm.tsx (src/components/leads/IntakeForm.tsx) · updated 09.10.2026 19:30 (Asia/Jerusalem) — fact-finding form: core identity (mandatory) + 8 config-driven sections (config/intake.ts) stored in lead.intake
+// IntakeForm.tsx (src/components/leads/IntakeForm.tsx) · updated 09.10.2026 19:20 (Asia/Jerusalem) — fact-finding form: core identity (mandatory) + 8 config-driven sections (config/intake.ts) stored in lead.intake
 import { useState } from "react";
 import { inputCls, btnPrimary, Badge } from "@/components/ui";
 import { INTAKE, type IntakeField } from "@/config/intake";
 import { intakeOf, intakePct } from "@/lib/intake";
 import { fmtDate } from "@/lib/format";
+import { ROLE_SUGGESTIONS } from "@/config/roles";
 import { useLang } from "@/i18n";
 import type { Lead } from "@/lib/types";
 export default function IntakeForm({ lead, onSave }: { lead: Lead; onSave: (l: Lead) => void }) {
@@ -21,7 +22,7 @@ export default function IntakeForm({ lead, onSave }: { lead: Lead; onSave: (l: L
       <div className="flex items-center justify-between mb-2"><h3 className="font-bold">{tr("טופס קליטה — בירור טכני")}</h3><Badge tone={pct >= 80 ? "green" : pct >= 40 ? "amber" : "red"}>{tr("שלמות")} {pct}%</Badge></div>
       <div className="grid md:grid-cols-3 gap-2">
         {core("name", tr("חברה"), "text", true)}{core("industry", tr("תעשייה"))}{core("sub_industry", tr("תת-תעשייה / תיאור"))}
-        {core("contact_name", tr("שם איש קשר"), "text", true)}{core("contact_role", tr("תפקיד"))}{core("department", tr("מחלקה"))}
+        {core("contact_name", tr("שם איש קשר"), "text", true)}<label className="text-xs text-slate-500">{tr("תפקיד")}<input list="roles2" className={inputCls + " mt-1"} value={f.contact_role || ""} onChange={(e) => set("contact_role", e.target.value)} /><datalist id="roles2">{ROLE_SUGGESTIONS.map((r) => <option key={r} value={r} />)}</datalist></label>{core("department", tr("מחלקה"))}
         {core("contact_phone", tr("נייד"), "tel", true)}{core("contact_email", tr("אימייל"), "email")}{core("next_action_at", tr("פעולה הבאה (תאריך)"), "date")}
         <label className="text-xs text-slate-500 md:col-span-3">{tr("צורך / יישום")}<textarea className={inputCls + " mt-1"} rows={2} value={f.use_case} onChange={(e) => set("use_case", e.target.value)} /></label>
       </div>

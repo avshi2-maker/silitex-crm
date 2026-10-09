@@ -1,6 +1,12 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "כל התפקידים": "All roles",
+  "R&D / כימאי ראשי": "R&D / chief chemist",
+  "רכש / קניין": "Procurement / buyer",
+  "איכות / רגולציה": "QA / regulatory",
+  "תפעול / ייצור": "Operations / production",
+  "הנהלה / בעלים": "Management / owner",
   "טופס קליטה — בירור טכני": "Intake — technical fact-finding",
   "שלמות": "Complete",
   "קליטה": "Intake",
