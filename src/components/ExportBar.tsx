@@ -1,9 +1,11 @@
 "use client";
-// ExportBar.tsx (src/components/ExportBar.tsx) · updated 09.10.2026 09:10 (Asia/Jerusalem)
+// ExportBar.tsx (src/components/ExportBar.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem)
 // Standing 5-button export bar: Print / Outlook / Gmail / WhatsApp / Save. Attach under every AI output.
 import { useState } from "react";
+import { useLang } from "@/i18n";
 type Props = { title: string; text: string; filename?: string };
 export default function ExportBar({ title, text, filename }: Props) {
+  const { t: tr } = useLang();
   const [saved, setSaved] = useState(false);
   const enc = encodeURIComponent;
   const body = title + "\n\n" + text;
@@ -20,11 +22,11 @@ export default function ExportBar({ title, text, filename }: Props) {
   const btn = "px-3 py-1.5 rounded-lg border text-sm bg-white hover:bg-slate-50 transition";
   return (
     <div className="flex flex-wrap gap-2 mt-3 print:hidden">
-      <button className={btn} onClick={print}>🖨️ הדפסה</button>
+      <button className={btn} onClick={print}>{tr("🖨️ הדפסה")}</button>
       <a className={btn} href={"mailto:?subject=" + enc(title) + "&body=" + enc(body)}>📧 Outlook</a>
       <a className={btn} target="_blank" rel="noreferrer" href={"https://mail.google.com/mail/?view=cm&su=" + enc(title) + "&body=" + enc(body)}>✉️ Gmail</a>
       <a className={btn} target="_blank" rel="noreferrer" href={"https://wa.me/?text=" + enc(body)}>💬 WhatsApp</a>
-      <button className={btn} onClick={save}>{saved ? "✓ נשמר" : "💾 שמירה"}</button>
+      <button className={btn} onClick={save}>{saved ? tr("✓ נשמר") : tr("💾 שמירה")}</button>
     </div>
   );
 }

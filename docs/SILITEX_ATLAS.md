@@ -1,4 +1,4 @@
-# SILITEX CRM — ATLAS (read first every session) · v0.3.0 · 09/10/2026
+# SILITEX CRM — ATLAS (read first every session) · v0.4.0 · 09/10/2026
 
 Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / React 19 / Tailwind 3 / Supabase (optional) / Claude API. Repo `avshi2-maker/silitex-crm`, folder `C:\silitex-crm`, Vercel project `silitex-crm`.
 
@@ -6,6 +6,7 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 - Many small files (≤ ~150 lines). One concern per file. Never grow a page — extract a component.
 - Every AI output = `AiPanel` → carries `TokenMeter` + `ExportBar` automatically. Never call `/api/ai` from elsewhere.
 - Dates on screen via `fmtDate` (dd/mm/yyyy). Never raw ISO.
+- i18n: write UI strings in Hebrew wrapped in `tr("…")` (`const { t: tr } = useLang()`), add the English line to `src/i18n/en.ts`. Use logical CSS (`text-start`, `ms-auto`, `ps-2`) so LTR works. AI calls carry `lang` → Claude answers in English when EN is selected.
 - In-file stamp header `// <file> (<path>) · updated DD.MM.YYYY HH:MM (Asia/Jerusalem)` on every changed file.
 - Version stamp: bump `src/config/app.ts` (APP_VERSION / APP_DATE) on every release — footer shows it.
 
@@ -30,6 +31,7 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | Token/cost meter UI | `src/components/TokenMeter.tsx` |
 | Sidebar menu items | `src/components/Nav.tsx` |
 | Shared UI atoms (Card, Badge, Stat, button classes) | `src/components/ui.tsx` |
+| English translations (HE source string → EN) | `src/i18n/en.ts`; provider/switch `src/i18n/index.tsx`, `components/LangSwitch.tsx` |
 | DB tables | `supabase/schema.sql` |
 | Offset Sniper matching rules | `src/lib/sniper.ts` (prompt: `src/prompts/sniper.ts`) |
 | Daily brief wording / which 5 calls | `src/prompts/brief.ts`; pipeline `src/lib/brief.ts` |
