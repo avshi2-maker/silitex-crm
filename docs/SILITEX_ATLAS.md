@@ -1,4 +1,4 @@
-# SILITEX CRM — ATLAS (read first every session) · v0.6.0 · 09/10/2026
+# SILITEX CRM — ATLAS (read first every session) · v0.7.0 · 09/10/2026
 
 Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / React 19 / Tailwind 3 / Supabase (optional) / Claude API. Repo `avshi2-maker/silitex-crm`, folder `C:\silitex-crm`, Vercel project `silitex-crm`.
 
@@ -32,7 +32,7 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | Sidebar menu items | `src/components/Nav.tsx` |
 | Live clock in header | `src/components/Clock.tsx` |
 | Shared UI atoms (Card, Badge, Stat, button classes) | `src/components/ui.tsx` |
-| English translations (HE source string → EN) | `src/i18n/en.ts`; provider/switch `src/i18n/index.tsx`, `components/LangSwitch.tsx` |
+| English / Italian translations (HE source string → EN / IT) | `src/i18n/en.ts`, `src/i18n/it.ts`; provider/switch `src/i18n/index.tsx`, `components/LangSwitch.tsx`; `?lang=he|en|it` |
 | Pitch page copy (title, phases, gets, needs) | `src/config/pitch.ts`; page `src/app/pitch/page.tsx`; parts `components/pitch/*` |
 | Israel map outline / pin colors | `src/components/pitch/IsraelMap.tsx` (coords: `city/lat/lon` in leads.json) |
 | Demo state for presentations | `src/data/demo.ts` (load: ⚙ on dashboard or `?demo=1`) |

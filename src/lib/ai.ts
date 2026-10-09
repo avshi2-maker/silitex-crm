@@ -6,8 +6,8 @@ import type { Usage } from "./types";
 
 import { SYSTEM } from "@/prompts/system";
 
-export async function ask(prompt: string, context?: string, maxTokens = 1200, lang: "he" | "en" = "he"): Promise<{ text: string; usage: Usage }> {
-  const system = lang === "en" ? SYSTEM + "\n\nIMPORTANT: respond in English (the reader is an international partner)." : SYSTEM;
+export async function ask(prompt: string, context?: string, maxTokens = 1200, lang: "he" | "en" | "it" = "he"): Promise<{ text: string; usage: Usage }> {
+  const system = lang === "en" ? SYSTEM + "\n\nIMPORTANT: respond in English (the reader is an international partner)." : lang === "it" ? SYSTEM + "\n\nIMPORTANTE: rispondi in italiano (il lettore è il personale Silitex in Italia)." : SYSTEM;
   const key = process.env.ANTHROPIC_API_KEY;
   const user = context ? "הקשר:\n" + context + "\n\n---\nמשימה:\n" + prompt : prompt;
   if (!key) {
@@ -21,7 +21,8 @@ export async function ask(prompt: string, context?: string, maxTokens = 1200, la
   return { text, usage: { input_tokens: u.input_tokens, output_tokens: u.output_tokens, cost_usd: costUsd(MODEL, u.input_tokens, u.output_tokens), model: MODEL } };
 }
 
-function demo(prompt: string, lang: "he" | "en"): string {
+function demo(prompt: string, lang: "he" | "en" | "it"): string {
+  if (lang === "it") return "[Modalità demo — manca ANTHROPIC_API_KEY]\n\nClaude risponderebbe alla richiesta:\n«" + prompt.slice(0, 160) + "»";
   if (lang === "en") return "[Demo mode — no ANTHROPIC_API_KEY in .env.local]\n\nClaude would answer the request:\n«" + prompt.slice(0, 160) + (prompt.length > 160 ? "…" : "") + "»\n\n1. Opening tailored to the customer's industry\n2. 2–3 recommended Silitex products + the Dow/Wacker product they replace\n3. Commercial edge: local stock, price, FDA/Kosher approvals\n4. CTA: free sample / technical meeting\n\nAvshi Sapir · 050-5231042";
   return "[מצב דמו — אין ANTHROPIC_API_KEY ב-.env.local]\n\n" +
     "להלן מבנה התשובה שייווצר על ידי Claude עבור הבקשה:\n«" + prompt.slice(0, 160) + (prompt.length > 160 ? "…" : "") + "»\n\n" +

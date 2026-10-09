@@ -6,5 +6,5 @@ import { useLang } from "@/i18n";
 export default function BackLink() {
   const path = usePathname(); const { t: tr, lang } = useLang();
   if (path === "/" || path.startsWith("/request") || path.startsWith("/survey")) return null;
-  return <Link href={"/" + (lang === "en" ? "?lang=en" : "")} className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-brand-600 mb-1 print:hidden"><span>{lang === "en" ? "←" : "→"}</span>{tr("חזרה ללוח הבקרה")}</Link>;
+  return <Link href={"/" + (lang !== "he" ? "?lang=" + lang : "")} className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-brand-600 mb-1 print:hidden"><span>{lang === "he" ? "→" : "←"}</span>{tr("חזרה ללוח הבקרה")}</Link>;
 }

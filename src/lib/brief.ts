@@ -6,7 +6,7 @@ import { sendWhatsApp, type SendResult } from "./whatsapp";
 import { briefContext, BRIEF_PROMPT } from "@/prompts/brief";
 import { todayIso } from "./format";
 import type { Usage } from "./types";
-export async function runDailyBrief(send: boolean, lang: "he" | "en" = "he"): Promise<{ text: string; usage: Usage; source: string; delivery?: SendResult }> {
+export async function runDailyBrief(send: boolean, lang: "he" | "en" | "it" = "he"): Promise<{ text: string; usage: Usage; source: string; delivery?: SendResult }> {
   const { leads, tasks, source } = await getLeadsAndTasks();
   const { text, usage } = await ask(BRIEF_PROMPT, briefContext(leads, tasks, todayIso()), 700, lang);
   const delivery = send ? await sendWhatsApp(text) : undefined;
