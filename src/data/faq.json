@@ -172,9 +172,9 @@
   {
    "n": 24,
    "cat": "Green",
-   "q": "Is there a plant-based softener for eco-label textiles?",
-   "a": "EVEROIL 35 / EVERIX 35 — 100% plant-based emollient and eco-softener water emulsions (35% active), biodegradable, suitable for EU Eco-Label formulations, natural cosmetics and sustainable tissue.",
-   "src": "products dataset BIO-SOFT-001"
+   "q": "What is Silitex's approach to the non-silicone trend in personal care and cosmetics?",
+   "a": "Three tracks. (1) 100% plant-based emollients — EVEROIL 35 / EVERIX 35 (vegetal emollient and softener emulsions for eco-label toiletries and natural skin/hair care) plus natural wax emulsions CARNAUBEX (carnauba) and WASPER D (beeswax) to replace silicone films. (2) Dedicated silicone-free lines — FISIOREX 1000 (100% vegetable fatty-acid active, zero synthetic silicone oil or solvent) and whole catalog categories of non-silicone fluids and silicone-free antifoams/de-aerators. (3) Where silicone performance is still required: D4/D5-free non-cyclic emulsions (MACROAMISIL E1386, MICROAMISIL E1352, IDROAMISIL 250 E1453) and linear dimethicone carriers instead of cyclics. Comparison for R&D — EVEROIL/EVERIX vs. EVERSIL/BODYSIL: origin 100% vegetal vs. linear PDMS; cyclics none vs. non-cyclic PDMS but subject to REACH purity limits; certifications EU Eco-Label / natural-cosmetic compliant vs. standard; feel natural non-greasy velvet softness vs. intense slip, high gloss, hydrophobic film; biodegradability high (fatty-acid structure) vs. inert slow-degrading polymer. Dual-track selling: lead with EVEROIL/EVERIX for clean-beauty, Eco-Label or vegan claims; recommend EVERSIL 35 / BODYSIL when the customer needs maximum shine, slip and water repellency.",
+   "src": "silitex.it range of products + products dataset"
   },
   {
    "n": 25,
