@@ -1,11 +1,12 @@
 "use client";
-// page.tsx (src/app/leads/page.tsx) · updated 09.10.2026 19:05 (Asia/Jerusalem) — potential customers list + CRM intake (NewLeadForm) + website inbox
+// page.tsx (src/app/leads/page.tsx) · updated 09.10.2026 19:30 (Asia/Jerusalem) — potential customers list + CRM intake (NewLeadForm) + website inbox
 import Link from "next/link";
 import { useState } from "react";
 import { useStore, stageHe } from "@/lib/store";
 import { Card, H1, Badge, inputCls, btnPrimary } from "@/components/ui";
 import { fmtUsd, fmtDate } from "@/lib/format";
 import RowActions from "@/components/leads/RowActions";
+import { intakePct } from "@/lib/intake";
 import NewLeadForm from "@/components/leads/NewLeadForm";
 import InboxCard from "@/components/leads/InboxCard";
 import { useLang } from "@/i18n";
@@ -29,8 +30,8 @@ export default function LeadsPage() {
       <InboxCard existing={state.leads.map((l) => l.name)} onImport={(sb) => { setPrefill({ name: sb.company, contact_name: sb.name, contact_phone: sb.phone || "", contact_email: sb.email, source: "טופס אתר", use_case: [sb.product, sb.fields?.application, sb.message].filter(Boolean).join(" · ") }); setShowNew(true); window.scrollTo({ top: 0, behavior: "smooth" }); }} />
       <Card className="p-0 overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="bg-slate-50"><tr><th className="p-2 text-start">{tr("חברה")}</th><th className="p-2 text-start">{tr("תעשייה")}</th><th className="p-2 text-start">{tr("התאמת מוצר")}</th><th className="p-2 text-start">Tier</th><th className="p-2 text-start">{tr("פוטנציאל / שנה")}</th><th className="p-2 text-start">{tr("שלב")}</th><th className="p-2 text-start">{tr("נוצר")}</th><th className="p-2"></th></tr></thead>
-          <tbody>{list.map((l) => (<tr key={l.id} className="border-t hover:bg-slate-50"><td className="p-2"><Link href={"/leads/" + l.id} className="font-medium text-brand-700 hover:underline">{l.name}</Link><div className="text-xs text-slate-500 line-clamp-1">{l.sub_industry}</div></td><td className="p-2">{l.industry}</td><td className="p-2 text-xs">{l.product_match}</td><td className="p-2"><Badge tone={/Tier 1/.test(l.tier) ? "green" : "amber"}>{l.tier}</Badge></td><td className="p-2 whitespace-nowrap">{fmtUsd(l.value_usd)}<div className="text-xs text-slate-500">{l.volume_tons}{tr(" טון")}</div></td><td className="p-2"><Badge tone="blue">{tr(stageHe(l.stage))}</Badge></td><td className="p-2 text-xs text-slate-500 whitespace-nowrap">{l.created_at ? fmtDate(l.created_at) : tr("מאגר")}</td><td className="p-2"><RowActions id={l.id} name={l.name} onDelete={() => removeLead(l.id)} /></td></tr>))}</tbody>
+          <thead className="bg-slate-50"><tr><th className="p-2 text-start">{tr("חברה")}</th><th className="p-2 text-start">{tr("תעשייה")}</th><th className="p-2 text-start">{tr("התאמת מוצר")}</th><th className="p-2 text-start">Tier</th><th className="p-2 text-start">{tr("פוטנציאל / שנה")}</th><th className="p-2 text-start">{tr("שלב")}</th><th className="p-2 text-start">{tr("קליטה")}</th><th className="p-2 text-start">{tr("נוצר")}</th><th className="p-2"></th></tr></thead>
+          <tbody>{list.map((l) => (<tr key={l.id} className="border-t hover:bg-slate-50"><td className="p-2"><Link href={"/leads/" + l.id} className="font-medium text-brand-700 hover:underline">{l.name}</Link><div className="text-xs text-slate-500 line-clamp-1">{l.sub_industry}</div></td><td className="p-2">{l.industry}</td><td className="p-2 text-xs">{l.product_match}</td><td className="p-2"><Badge tone={/Tier 1/.test(l.tier) ? "green" : "amber"}>{l.tier}</Badge></td><td className="p-2 whitespace-nowrap">{fmtUsd(l.value_usd)}<div className="text-xs text-slate-500">{l.volume_tons}{tr(" טון")}</div></td><td className="p-2"><Badge tone="blue">{tr(stageHe(l.stage))}</Badge></td><td className="p-2">{(() => { const p = intakePct(l); return <Badge tone={p >= 80 ? "green" : p >= 40 ? "amber" : "red"}>{p}%</Badge>; })()}</td><td className="p-2 text-xs text-slate-500 whitespace-nowrap">{l.created_at ? fmtDate(l.created_at) : tr("מאגר")}</td><td className="p-2"><RowActions id={l.id} name={l.name} onDelete={() => removeLead(l.id)} /></td></tr>))}</tbody>
         </table>
       </Card>
     </div>

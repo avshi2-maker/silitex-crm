@@ -13,6 +13,7 @@ create table if not exists docs (id text primary key, lead_id text, lead_name te
 alter table docs enable row level security; create policy "all" on docs for all using (true) with check (true);
 alter table leads add column if not exists source text;
 alter table leads add column if not exists created_at timestamptz default now();
+alter table leads add column if not exists intake jsonb default '{}';
 create table if not exists samples (id text primary key, lead_id text, lead_name text, sku text, kg numeric, sent_at date, status text, result text, followup_at date);
 alter table samples enable row level security; create policy "all" on samples for all using (true) with check (true);
 create table if not exists form_submissions (id bigserial primary key, created_at timestamptz default now(), kind text, company text, name text, email text, phone text, product text, message text, fields jsonb default '{}', lang text);

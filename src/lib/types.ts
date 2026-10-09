@@ -1,4 +1,4 @@
-// types.ts (src/lib/types.ts) · updated 09.10.2026 19:05 (Asia/Jerusalem)
+// types.ts (src/lib/types.ts) · updated 09.10.2026 19:30 (Asia/Jerusalem)
 export type Product = {
   id: string; product_name: string; brand_family: string; category_sector: string;
   application_field: string; appearance: string; active_content_pct: string; active_matter_type: string;
@@ -20,6 +20,7 @@ export type Lead = {
   recommended_sku?: string; competitor_offset?: string; plan_phase?: string; plan_next_action?: string; plan_stage?: string; plan_target_stage?: Stage;
   city?: string; lat?: number; lon?: number;
   created_at?: string; updated_at?: string;
+  intake?: Record<string, string>; // 8-section fact-finding form (config/intake.ts)
   source?: string; // website form / cold call / referral / exhibition / silitex
 };
 export type DocKind = "tds" | "msds" | "offer" | "other";

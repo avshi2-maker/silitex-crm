@@ -1,0 +1,31 @@
+﻿Section,Field_ID,Field_Name,Field_Type,Mandatory,Guidance_Notes_for_Sales_Rep,Sample_Value_Agrochemicals,Sample_Value_Paints,Sample_Value_Construction
+1. Company Profile,ACC_001,Company Name,Text,Yes,Legal registered company name in Israel,Adama Agricultural Solutions Ltd.,Tambour Ltd.,Inrom Construction / Termokir
+1. Company Profile,ACC_002,Industry Sector,Dropdown,Yes,"Agrochemicals, Paints, Construction, Detergents, Water, Paper, Textile, Plastics, Refining",Agrochemicals & Crop Protection,"Paints, Coatings & Varnishes",Water Repellents & Building Protection
+1. Company Profile,ACC_003,Israeli Reg / Tax ID,Text,No,Israeli Company ID number for credit checks,510001234,510098765,510055443
+1. Company Profile,ACC_004,Manufacturing Plant Location,Text,Yes,Factory / delivery address in Israel,Neot Hovav Industrial Zone,Akko Paint Plant,Tirat Zvi & Ashkelon
+2. Contact Details,CON_001,Primary Technical Contact Name,Text,Yes,"Name of Chief Chemist, R&D Lead, or Formulator",Dr. Eli Cohen (VP R&D),Chief Paint Chemist,Chief Materials Engineer
+2. Contact Details,CON_002,Technical Title / Role,Text,Yes,Target technical decision-maker role,Head of Agrochemical Formulations,Head of Exterior Coatings R&D,Dry Mortars & QC Director
+2. Contact Details,CON_003,Direct Phone & Email,Text,Yes,Direct mobile number and work email,Technical R&D Lead,Paint Formulations Lead,QC Director
+3. Technical Application,APP_001,Target End-Product / Application,Text,Yes,Specific end-use formulation,Organosilicone spray tank adjuvant,Exterior acrylic wall paint,Dry-mix mortar & render waterproofing
+3. Technical Application,APP_002,Operating pH Range,Text/Numeric,Yes,Specify operational pH (Acidic / Neutral / Alkaline),pH 4.5 - 8.5,pH 8.0 - 10.5 (Alkaline),pH 11.0 - 13.0 (Highly Alkaline)
+3. Technical Application,APP_003,Operating Temperature Range (C),Text/Numeric,Yes,Specify process or storage temperature,Ambient (15C - 45C field use),Ambient (10C - 40C application),Ambient (10C - 50C job site)
+3. Technical Application,APP_004,Carrier / Matrix System,Dropdown,Yes,"Water-based Emulsion, Anhydrous / Solvent-free, Solvent-based, Polyol",Water-soluble liquid concentrate,Water-based acrylic emulsion,Dry powder / Water-dilutable additive
+3. Technical Application,APP_005,Key Performance Function Needed,Multi-select,Yes,"Super-spreading, Defoaming, Water Repellency, Softening, High Slip, Mold Release",Super-spreading (<22 mN/m) & Rainfastness,Hydrophobic water bead & Anti-cratering,Deep masonry penetration & Water barrier
+4. Incumbent Benchmark,BEN_001,Incumbent Supplier / Brand,Text,Yes,"Current supplier (Dow Corning/XIAMETER, Wacker, Momentive, Evonik)",Momentive / Evonik,Dow Corning / Wacker,Wacker SILRES / Evonik TEGOPHOB
+4. Incumbent Benchmark,BEN_002,Incumbent SKU / Product Grade,Text,Yes,Trade name currently purchased,Silwet L-77 / TEGO Wet 500,Dow Corning IE-6683 / Wacker Belsil,Wacker SILRES BS 1306 / TEGOPHOB
+4. Incumbent Benchmark,BEN_003,Primary Reason for Alternative,Multi-select,Yes,"Cost Reduction, Lead Time, REACH/D4-D5 Restrictions, Technical Issue, Single Source",Cost reduction & REACH D4/D5 compliance,Cost optimization & European agility,"Local support, pricing, & drop-ship reliability"
+5. Regulatory & Compliance,REG_001,D4 / D5 / D6 Cyclic Restriction,Boolean/Select,Yes,Is D4/D5-Free required? (Strict EU REACH <0.1% limit),Yes - Strict EU REACH D4/D5 <0.1%,Yes - Strict EU REACH <0.1%,Preferred for Eco-Renders
+5. Regulatory & Compliance,REG_002,Food Contact / FDA Required?,Boolean/Select,Yes,FDA 21 CFR / E900 Food Contact required?,No,No,No
+5. Regulatory & Compliance,REG_003,Kosher / Halal Required?,Boolean/Select,Yes,Kosher Badatz / Chief Rabbinate required?,Preferred,No,No
+5. Regulatory & Compliance,REG_004,Eco / Green Certifications Needed?,Multi-select,No,"100% Bio-based (FISIOREX), GOTS-ICEA Organic, EU Eco-Label, Zero VOC",100% Biodegradable / FISIOREX line,EU Eco-Label / Zero VOC compliant,Green Building Council compliant
+6. Silitex Matching,SIL_001,Recommended Silitex Family,Dropdown,Auto-Matched,"FISIOREX 1000, BERETEX, Idrorepellenti, SILIFOOD, EVERSIL, MICROAMISIL, Silitex DM",Silitex PE 193 / FISIOREX 1000,Silitex Silatex D / Idrorepellenti,Silitex Idrorepellenti SH / 1300
+6. Silitex Matching,SIL_002,Lab Sample Size Requested,Text,Yes,"Standard 1kg, 2kg, or 5kg lab evaluation sample",2 kg lab evaluation sample,5 kg paint lab trial sample,2 kg mortar test sample
+6. Silitex Matching,SIL_003,Required Sample Documentation,Checkboxes,Yes,"TDS, SDS Section 3, Certificate of Analysis (CoA), Regulatory Binder","TDS, SDS, REACH D4/D5 Statement","TDS, SDS Sec 3, Certificate of Analysis","TDS, SDS Sec 3, Water Absorption Data"
+7. Commercial & Logistics,COM_001,Est. Annual Volume (Tons),Numeric,Yes,Estimated annual metric tons required,60 Tons / Year,55 Tons / Year,65 Tons / Year
+7. Commercial & Logistics,COM_002,Preferred Packaging Unit,Dropdown,Yes,"25kg Pails, 200kg Steel Drums, 1000L IBC Totes, Bulk Tanker","1000L IBC Totes (1,000 kg)",200kg Steel Drums / 1000L IBC Totes,1000L IBC Totes
+7. Commercial & Logistics,COM_003,Delivery Model & Incoterms,Dropdown,Yes,Direct Drop Shipment per firm PO (DDP Plant or CIF Port),Direct Drop Shipment per PO (DDP Neot Hovav),Direct Drop Shipment per PO (DDP Akko),Direct Drop Shipment per PO (DDP Tirat Zvi)
+7. Commercial & Logistics,COM_004,Target Payment Terms,Dropdown,Yes,"CAD (Cash Against Documents), Irrevocable LC, Net 30, Net 60",Net 60 Days / CAD,Net 60 Days,Net 60 Days
+8. Pipeline Tracking,TRK_001,Target Qualification Timeline,Date/Timeline,Yes,Target date for lab evaluation results,Target Lab Results: Q4 2026,Target Lab Results: Q4 2026,Target Lab Results: Q4 2026
+8. Pipeline Tracking,TRK_002,Initial Pilot PO Order Size,Numeric,Yes,First commercial trial order quantity per PO,1x 1000L IBC Tote (1 Ton Pilot),5x 200kg Drums (1 Ton Pilot),1x 1000L IBC Tote (1 Ton Pilot)
+8. Pipeline Tracking,TRK_003,CRM Pipeline Stage,Dropdown,Yes,"Stage 1: Intake/Discovery, Stage 2: Sample Sent, Stage 3: Lab Testing, Stage 4: Pilot PO",Stage 1: Intake & Sample Dispatch,Stage 1: Intake & Sample Dispatch,Stage 1: Intake & Sample Dispatch
+8. Pipeline Tracking,TRK_004,Assigned Sales Representative,Text,Yes,Assigned Sapirim Sales Representative,Avshi Sapir (Sapirim),Avshi Sapir (Sapirim),Avshi Sapir (Sapirim)

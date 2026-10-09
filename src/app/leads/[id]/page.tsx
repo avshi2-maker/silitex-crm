@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 19:05 (Asia/Jerusalem) — lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 19:30 (Asia/Jerusalem) — lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState } from "react";
 import { useStore, STAGES } from "@/lib/store";
 import { PRODUCTS, industriesOf, INDUSTRIES } from "@/lib/data";
@@ -11,6 +11,8 @@ import DocsCard from "@/components/leads/DocsCard";
 import TranscriptCard from "@/components/leads/TranscriptCard";
 import { fmtDateTime, fmtDate, todayIso } from "@/lib/format";
 import RowActions from "@/components/leads/RowActions";
+import IntakeForm from "@/components/leads/IntakeForm";
+import { intakeOf } from "@/lib/intake";
 import { useRouter } from "next/navigation";
 import { pitchContext, pitchPrompt } from "@/prompts/pitch";
 import type { Lead, Stage } from "@/lib/types";
@@ -29,6 +31,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
   const indKeys = INDUSTRIES.filter((i) => i.match.test(lead.industry + " " + lead.use_case + " " + lead.product_match)).map((i) => i.key);
   const matches = PRODUCTS.filter((p) => industriesOf(p).some((k) => indKeys.includes(k))).slice(0, 8);
   const ctx = pitchContext(lead, matches);
+  const sil = intakeOf(lead).SIL_001;
   return (
     <div className="space-y-4">
       <div className="flex items-start justify-between gap-2">
@@ -39,7 +42,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
         <div className="space-y-4">
           <Card>
             <div className="flex flex-wrap gap-1 mb-3">{STAGES.map((s) => (<button key={s.key} onClick={() => setStage(id, s.key as Stage)} className={"text-xs px-2 py-1 rounded-full border " + (lead.stage === s.key ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{tr(s.he)}</button>))}</div>
-            <Intake lead={lead} onSave={(l) => { upsertLead(l); addActivity(id, "intake", tr("טופס קליטה עודכן")); }} />
+            <IntakeForm lead={lead} onSave={(l) => { upsertLead(l); addActivity(id, "intake", tr("טופס קליטה עודכן")); }} />
           </Card>
           <Card>
             <AiPanel title={tr("הצעת פנייה / פיץ' ל-") + lead.name} buttonLabel={tr("צור פיץ' עם Claude")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} onResult={() => addActivity(id, "ai", tr("נוצר פיץ' AI"))}
@@ -54,7 +57,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
         </div>
         <div className="space-y-4">
           <PlanCard lead={lead} onTask={(title) => addTask({ lead_id: id, lead_name: lead.name, title, due: todayIso(), cadence: "once", kind: "plan" })} />
-          <SampleCard leadId={id} leadName={lead.name} samples={state.samples.filter((x) => x.lead_id === id)} defaultSku={(lead.recommended_sku || "").split(/[&,/]/)[0].trim() || undefined} onAdd={addSample} onStatus={setSampleStatus} />
+          <SampleCard leadId={id} leadName={lead.name} samples={state.samples.filter((x) => x.lead_id === id)} defaultSku={((sil && !sil.startsWith("—") ? sil : lead.recommended_sku) || "").split(/[&,/]/)[0].trim() || undefined} onAdd={addSample} onStatus={setSampleStatus} />
           <Card>
             <h3 className="font-bold mb-2">{tr("משימות פתוחות (")}{tasks.length})</h3>
             <ul className="text-sm space-y-1">{tasks.map((t) => <li key={t.id}>• {fmtDate(t.due)} — {t.title}</li>)}</ul>
@@ -67,25 +70,6 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
           </Card>
         </div>
       </div>
-    </div>
-  );
-}
-function Intake({ lead, onSave }: { lead: Lead; onSave: (l: Lead) => void }) {
-  const { t: tr } = useLang();
-  const [f, setF] = useState<Lead>(lead);
-  const set = (k: keyof Lead, v: string) => setF({ ...f, [k]: v });
-  const field = (k: keyof Lead, label: string, type = "text", req = false) => (<label className="text-xs text-slate-500">{label}{req && " *"}<input type={type} className={inputCls + " mt-1"} value={(f[k] as string) || ""} onChange={(e) => set(k, e.target.value)} /></label>);
-  return (
-    <div>
-      <h3 className="font-bold mb-2">{tr("טופס קליטה (Intake)")}</h3>
-      <div className="grid md:grid-cols-3 gap-2">
-        {field("name", tr("חברה"), "text", true)}{field("industry", tr("תעשייה"))}{field("sub_industry", tr("תת-תעשייה / תיאור"))}
-        {field("contact_name", tr("שם איש קשר"), "text", true)}{field("contact_role", tr("תפקיד"))}{field("department", tr("מחלקה"))}
-        {field("contact_phone", tr("נייד"), "tel", true)}{field("contact_email", tr("אימייל"), "email")}{field("next_action_at", tr("פעולה הבאה (תאריך)"), "date")}
-        <label className="text-xs text-slate-500 md:col-span-3">{tr("צורך / יישום")}<textarea className={inputCls + " mt-1"} rows={2} value={f.use_case} onChange={(e) => set("use_case", e.target.value)} /></label>
-        <label className="text-xs text-slate-500 md:col-span-3">{tr("הערות (ספק נוכחי, כמויות, מחירים, דרישות רגולציה)")}<textarea className={inputCls + " mt-1"} rows={3} value={f.notes || ""} onChange={(e) => set("notes", e.target.value)} /></label>
-      </div>
-      <div className="flex justify-between items-center mt-2 text-xs text-slate-500"><span>{tr("פעולה הבאה: ")}{fmtDate(f.next_action_at)}</span><button className={btnPrimary} onClick={() => { if (!f.name || !f.contact_name || !f.contact_phone) return alert(tr("חובה: חברה, שם איש קשר, נייד")); onSave(f); }}>{tr("שמור טופס")}</button></div>
     </div>
   );
 }
