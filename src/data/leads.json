@@ -12,7 +12,13 @@
   "department": "Agrochemical R&D & Procurement",
   "contact_role": "VP R&D / Procurement Lead",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "Silitex Surfactant PE 193 & BERETEX 500",
+  "competitor_offset": "Dow Corning 193 / XIAMETER OFX-0193 / SAG 10",
+  "plan_phase": "Phase 1: Months 1-2 (Account Reactivation)",
+  "plan_next_action": "Send introductory re-entry binder & dispatch 2kg PE 193 sample for lab evaluation",
+  "plan_stage": "1. Discovery & Outreach",
+  "plan_target_stage": "prospect"
  },
  {
   "id": "LEAD-002",
@@ -27,7 +33,13 @@
   "department": "Agrochemical R&D & Procurement",
   "contact_role": "VP R&D / Procurement Lead",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "FISIOREX 1000 & Silitex Ag-Spreaders",
+  "competitor_offset": "Synthetic Non-Ionic Surfactants / Break-Thru",
+  "plan_phase": "Phase 1: Months 1-2 (Account Reactivation)",
+  "plan_next_action": "Present FISIOREX 1000 eco-data sheet & schedule technical R&D review",
+  "plan_stage": "1. Discovery & Outreach",
+  "plan_target_stage": "prospect"
  },
  {
   "id": "LEAD-003",
@@ -42,7 +54,13 @@
   "department": "Agrochemical R&D & Procurement",
   "contact_role": "VP R&D / Procurement Lead",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "SILIFOOD 3000 K & BERETEX 350",
+  "competitor_offset": "Dow Corning Antifoam A / Wacker SILFOAM",
+  "plan_phase": "Phase 1: Months 1-2 (Account Reactivation)",
+  "plan_next_action": "Submit Kosher/FDA compliance certificate for SILIFOOD series",
+  "plan_stage": "1. Discovery & Outreach",
+  "plan_target_stage": "prospect"
  },
  {
   "id": "LEAD-004",
@@ -57,7 +75,13 @@
   "department": "Dry Mortars & QC Division",
   "contact_role": "Chief Materials Engineer",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "Silitex Idrorepellenti SH / 1300 & Silane-Siloxane Microemulsion",
+  "competitor_offset": "Wacker SILRES BS / Dow Corning IE-6683",
+  "plan_phase": "Phase 1: Months 1-2 (Account Reactivation)",
+  "plan_next_action": "Deliver Idrorepellenti 1300 technical dossier & request water absorption lab test",
+  "plan_stage": "1. Discovery & Outreach",
+  "plan_target_stage": "prospect"
  },
  {
   "id": "LEAD-005",
@@ -72,7 +96,13 @@
   "department": "Dry Mortars & QC Division",
   "contact_role": "Chief Materials Engineer",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "Silitex Idrorepellenti MQ & EVERSIL 35 Emulsion",
+  "competitor_offset": "Wacker SILRES / Dow Corning 36 Emulsion",
+  "plan_phase": "Phase 1: Months 1-2 (Account Reactivation)",
+  "plan_next_action": "Initiate contact with Infrastructure QC lead & dispatch EVERSIL 35 release sample",
+  "plan_stage": "1. Discovery & Outreach",
+  "plan_target_stage": "prospect"
  },
  {
   "id": "LEAD-006",
@@ -87,7 +117,13 @@
   "department": "Paint Formulations & Sourcing",
   "contact_role": "Chief Paint Chemist",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "Silitex Silatex D, DM 350 & Polyether Leveling Agents",
+  "competitor_offset": "XIAMETER PMX-200 / Wacker-Belsil DM / BYK 333",
+  "plan_phase": "Phase 2: Months 3-5 (Lab Qualification)",
+  "plan_next_action": "Schedule in-person technical lab meeting with Chief Paint Chemist & dispatch 5kg trial sample",
+  "plan_stage": "2. Technical Lab Qualification",
+  "plan_target_stage": "sample"
  },
  {
   "id": "LEAD-007",
@@ -102,7 +138,13 @@
   "department": "Paint Formulations & Sourcing",
   "contact_role": "Chief Paint Chemist",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "FISIOREX 1000 & Silitex Eco-Resin Emulsions",
+  "competitor_offset": "TEGO Foamex / Evonik / TEGOPHOB",
+  "plan_phase": "Phase 2: Months 3-5 (Lab Qualification)",
+  "plan_next_action": "Present FISIOREX 1000 plant-based defoamer as drop-in replacement for synthetic defoamers",
+  "plan_stage": "2. Technical Lab Qualification",
+  "plan_target_stage": "sample"
  },
  {
   "id": "LEAD-008",
@@ -117,7 +159,13 @@
   "department": "Detergent R&D & Sourcing",
   "contact_role": "Detergent R&D Director",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "BERETEX 750, ANTISCHIUMA 3 & MACROAMISIL",
+  "competitor_offset": "Dow Corning Antifoam A / ABIL Quat 3272",
+  "plan_phase": "Phase 2: Months 3-5 (Lab Qualification)",
+  "plan_next_action": "Dispatch 1kg BERETEX 750 sample to laundry lab for foam knock-down testing",
+  "plan_stage": "2. Technical Lab Qualification",
+  "plan_target_stage": "sample"
  },
  {
   "id": "LEAD-009",
@@ -132,7 +180,13 @@
   "department": "Detergent R&D & Sourcing",
   "contact_role": "Detergent R&D Director",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "BERETEX 350 & BEAUTY CAR Emulsion",
+  "competitor_offset": "Momentive SAG 30 / Wacker SILFOAM SE",
+  "plan_phase": "Phase 2: Months 3-5 (Lab Qualification)",
+  "plan_next_action": "Demonstrate BERETEX high-pH stability for CIP industrial cleaning solutions",
+  "plan_stage": "2. Technical Lab Qualification",
+  "plan_target_stage": "sample"
  },
  {
   "id": "LEAD-010",
@@ -147,7 +201,13 @@
   "department": "Wastewater & Chemical Services",
   "contact_role": "Chief Water Quality Engineer",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "Silitex Depurazione Series & SILIFOOD 1600 (Kosher/FDA)",
+  "competitor_offset": "Dow Corning AFE-1520 / Clariant Antimussol",
+  "plan_phase": "Phase 3: Months 6-8 (Commercial Pilots)",
+  "plan_next_action": "Submit SILIFOOD 1600 FDA/Kosher certificate package & quote 1-ton pilot drum order",
+  "plan_stage": "3. Commercial Pilot Trial",
+  "plan_target_stage": "quote"
  },
  {
   "id": "LEAD-011",
@@ -162,7 +222,13 @@
   "department": "Wastewater & Chemical Services",
   "contact_role": "Chief Water Quality Engineer",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "Silitex Depurazione 30% Active & Process Antifoams",
+  "competitor_offset": "Evonik TEGO Antifoam / Wacker SE 39",
+  "plan_phase": "Phase 3: Months 6-8 (Commercial Pilots)",
+  "plan_next_action": "Quote 1000L IBC tote pilot for industrial effluent treatment facility in Ramat Hovav",
+  "plan_stage": "3. Commercial Pilot Trial",
+  "plan_target_stage": "quote"
  },
  {
   "id": "LEAD-012",
@@ -177,7 +243,13 @@
   "department": "Injection Molding & Compounding",
   "contact_role": "Polymer Tooling & R&D Lead",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "Silitex EVERSIL 35 & Gomma Plastica Release Agents",
+  "competitor_offset": "Dow Corning 36 Emulsion / XIAMETER MEM-0036",
+  "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
+  "plan_next_action": "Submit annual pricing proposal for EVERSIL 35 drum supply to Yokneam plant",
+  "plan_stage": "4. Annual Contract Negotiation",
+  "plan_target_stage": "negotiation"
  },
  {
   "id": "LEAD-013",
@@ -192,7 +264,13 @@
   "department": "Injection Molding & Compounding",
   "contact_role": "Polymer Tooling & R&D Lead",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "Silitex DM 12500 & High-Viscosity Dimethicone Fluids",
+  "competitor_offset": "Momentive SF96 / Wacker AK Series",
+  "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
+  "plan_next_action": "Provide sample kit of high-viscosity DM fluids for compounding trial",
+  "plan_stage": "4. Annual Contract Negotiation",
+  "plan_target_stage": "negotiation"
  },
  {
   "id": "LEAD-014",
@@ -207,7 +285,13 @@
   "department": "Coolants & Lubricants R&D",
   "contact_role": "Chemical Coolants Lead",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "Silitex Lavorazione Metalli Antifoams & REOGUM 500",
+  "competitor_offset": "Wacker SILFOAM / Momentive SAG",
+  "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
+  "plan_next_action": "Initiate joint R&D trial with cutting fluid formulation group in Tefen",
+  "plan_stage": "4. Annual Contract Negotiation",
+  "plan_target_stage": "negotiation"
  },
  {
   "id": "LEAD-015",
@@ -222,7 +306,13 @@
   "department": "Paper Mill Chemical Operations",
   "contact_role": "Paper Mill Operations Director",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "CPL 2907 (FDA), VOLUMEX & ANTIGAP 100",
+  "competitor_offset": "Clariant / Nalco Paper Defoamers",
+  "plan_phase": "Phase 3: Months 6-8 (Commercial Pilots)",
+  "plan_next_action": "Conduct trial run of CPL 2907 FDA-approved defoamer on pulp recycling line #3",
+  "plan_stage": "3. Commercial Pilot Trial",
+  "plan_target_stage": "quote"
  },
  {
   "id": "LEAD-016",
@@ -237,7 +327,13 @@
   "department": "Textile Finishing R&D",
   "contact_role": "Director of Textile Finishing",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "Silitex GOTS-ICEA Softeners, MICROAMISIL & STONIX",
+  "competitor_offset": "Evonik TEGO Textile / Clariant Siligen",
+  "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
+  "plan_next_action": "Deliver GOTS-ICEA certificate package & quote FCL container supply for Caesarea facility",
+  "plan_stage": "4. Annual Contract Negotiation",
+  "plan_target_stage": "negotiation"
  },
  {
   "id": "LEAD-017",
@@ -252,7 +348,13 @@
   "department": "Textile Finishing R&D",
   "contact_role": "Director of Textile Finishing",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "NANOAMISIL HR, IDROAMISIL 1000 & FISIOREX 1000",
+  "competitor_offset": "Dow Corning 2-8566 / XIAMETER MEM-0863",
+  "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
+  "plan_next_action": "Schedule fabric hand-feel evaluation with Misgav finishing team",
+  "plan_stage": "4. Annual Contract Negotiation",
+  "plan_target_stage": "negotiation"
  },
  {
   "id": "LEAD-018",
@@ -267,6 +369,33 @@
   "department": "Refinery Process Operations",
   "contact_role": "Refinery Chemical Lead",
   "status": "new",
-  "stage": "prospect"
+  "stage": "prospect",
+  "recommended_sku": "Silitex Refinery Antifoam Series & High-Temp Fluid Blends",
+  "competitor_offset": "Dow Corning / Baker Hughes Antifoams",
+  "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
+  "plan_next_action": "Submit technical dossier on high-temperature stability to Haifa Bay refinery team",
+  "plan_stage": "4. Annual Contract Negotiation",
+  "plan_target_stage": "negotiation"
+ },
+ {
+  "id": "LEAD-019",
+  "name": "Israeli Commercial Yeast & Fermentation Producers",
+  "industry": "Food & Bio-Fermentation",
+  "sub_industry": "Commercial Bakers Yeast & Beverage Processing",
+  "product_match": "Kosher & FDA Food-Grade Bio-Defoamers",
+  "use_case": "Kosher-certified 100% vegetal defoamer for bio-fermentation & yeast growth",
+  "volume_tons": 60,
+  "value_usd": 300000,
+  "tier": "Tier 1 - High Volume",
+  "department": "Fermentation & Quality Control",
+  "contact_role": "Head of Fermentation Operations",
+  "status": "new",
+  "stage": "prospect",
+  "recommended_sku": "CPL 350 / CPL 350 ET (100% Vegetal) & SILIFOOD 3000 K",
+  "competitor_offset": "Trans-Chem / Birko Food Antifoams",
+  "plan_phase": "Phase 3: Months 6-8 (Commercial Pilots)",
+  "plan_next_action": "Present CPL 350 Kosher Certificate & schedule 200kg trial batch for fermentation tanks",
+  "plan_stage": "3. Commercial Pilot Trial",
+  "plan_target_stage": "quote"
  }
 ]

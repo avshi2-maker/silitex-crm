@@ -1,11 +1,12 @@
 "use client";
-// page.tsx (src/app/kb/page.tsx) · updated 09.10.2026 09:40 (Asia/Jerusalem) — knowledge base: upload TDS / MSDS / sales specs → ask questions (RAG)
+// page.tsx (src/app/kb/page.tsx) · updated 09.10.2026 10:05 (Asia/Jerusalem) — knowledge base: upload TDS / MSDS / sales specs → ask questions (RAG)
 import { useState } from "react";
 import { useStore } from "@/lib/store";
 import { PRODUCTS } from "@/lib/data";
 import { scoreChunks } from "@/lib/rag";
 import { Card, H1, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui";
 import AiPanel from "@/components/AiPanel";
+import CrawlPanel from "@/components/CrawlPanel";
 import { fmtDate, uid } from "@/lib/format";
 import { ragContext, ragPrompt } from "@/prompts/rag";
 import type { KbDoc, KbChunk } from "@/lib/types";
@@ -37,6 +38,7 @@ export default function KbPage() {
         <button className={btnPrimary + " md:col-span-4"} disabled={!file || busy} onClick={ingest}>{busy ? "מחלץ טקסט…" : "📥 קלוט למאגר"}</button>
         {msg && <div className="text-sm md:col-span-4">{msg}</div>}
       </Card>
+      <Card><CrawlPanel existingTitles={state.kbDocs.map((d) => d.title)} onDoc={addKbDoc} /></Card>
       <Card>
         <h3 className="font-bold mb-2">מסמכים ({state.kbDocs.length}) · {state.kbChunks.length} מקטעים</h3>
         {state.kbDocs.length === 0 && <p className="text-sm text-slate-400">אין מסמכים. העלה TDS / MSDS של Silitex.</p>}

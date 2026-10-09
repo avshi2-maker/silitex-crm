@@ -1,10 +1,11 @@
 "use client";
-// page.tsx (src/app/page.tsx) · updated 09.10.2026 09:40 (Asia/Jerusalem) — dashboard
+// page.tsx (src/app/page.tsx) · updated 09.10.2026 10:05 (Asia/Jerusalem) — dashboard
 import Link from "next/link";
 import { useStore, STAGES, isClosed } from "@/lib/store";
 import { PRODUCTS, OFFSETS } from "@/lib/data";
 import { Card, H1, Stat, Badge } from "@/components/ui";
 import { fmtUsd, todayIso, fmtDate } from "@/lib/format";
+import PrioritiesCard from "@/components/PrioritiesCard";
 export default function Dashboard() {
   const { state, ready } = useStore();
   if (!ready) return null;
@@ -35,6 +36,7 @@ export default function Dashboard() {
           <ul className="space-y-1 text-sm">{due.slice(0, 8).map((t) => (<li key={t.id} className="flex gap-2"><Badge tone={t.cadence === "weekly" ? "amber" : "blue"}>{t.cadence === "weekly" ? "שבועי" : "יומי"}</Badge><Link href={"/leads/" + t.lead_id} className="hover:underline">{t.lead_name}</Link><span className="text-slate-500 truncate">— {t.title}</span></li>))}</ul>
         </Card>
       </div>
+      <PrioritiesCard />
       <Card>
         <h3 className="font-bold mb-2">לקוחות Tier 1 — פנייה מיידית</h3>
         <div className="grid md:grid-cols-3 gap-2">

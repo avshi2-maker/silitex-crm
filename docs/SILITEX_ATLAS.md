@@ -1,4 +1,4 @@
-# SILITEX CRM — ATLAS (read first every session) · v0.2.0 · 09/10/2026
+# SILITEX CRM — ATLAS (read first every session) · v0.3.0 · 09/10/2026
 
 Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / React 19 / Tailwind 3 / Supabase (optional) / Claude API. Repo `avshi2-maker/silitex-crm`, folder `C:\silitex-crm`, Vercel project `silitex-crm`.
 
@@ -31,17 +31,25 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | Sidebar menu items | `src/components/Nav.tsx` |
 | Shared UI atoms (Card, Badge, Stat, button classes) | `src/components/ui.tsx` |
 | DB tables | `supabase/schema.sql` |
+| Offset Sniper matching rules | `src/lib/sniper.ts` (prompt: `src/prompts/sniper.ts`) |
+| Daily brief wording / which 5 calls | `src/prompts/brief.ts`; pipeline `src/lib/brief.ts` |
+| WhatsApp provider (Twilio / webhook / wa.me fallback) | `src/lib/whatsapp.ts` |
+| Cron schedules | `vercel.json` (daily-brief 04:00 UTC = 07:00 IL; crawl Sun 01:30 UTC) |
+| silitex.it categories to crawl, limits | `src/config/crawl.ts`; parser `src/lib/crawl.ts` |
+| Server-side data for bots (Supabase service role or seed) | `src/lib/server-data.ts` |
+| Lead action plan card (phase / next action / SKU) | `src/components/PlanCard.tsx` (data: `plan_*` fields in leads.json) |
+| Priority product families on dashboard | `src/components/PrioritiesCard.tsx` (data: `src/data/priorities.json`) |
 
 ## File registry
 ```
-src/config/      app.ts · industries.ts · stages.ts · cadence.ts · channels.ts
-src/prompts/     system.ts · pitch.ts · campaign.ts · rag.ts
-src/lib/         types.ts · format.ts · pricing.ts · data.ts · supabase.ts · ai.ts (server) · rag.ts
+src/config/      app.ts · industries.ts · stages.ts · cadence.ts · channels.ts · crawl.ts
+src/prompts/     system.ts · pitch.ts · campaign.ts · rag.ts · sniper.ts · brief.ts
+src/lib/         types.ts · format.ts · pricing.ts · data.ts · supabase.ts · rag.ts · sniper.ts · [server] ai.ts · brief.ts · whatsapp.ts · crawl.ts · server-data.ts
 src/lib/store/   state.ts (persist) · cadence.ts (pure scheduler) · useStore.ts (hook) · index.ts
-src/components/  Nav · ui · ExportBar · TokenMeter · AiPanel
-src/app/         page (dashboard) · products · offsets · leads · leads/[id] · pipeline · schedule · campaign · kb
-src/app/api/     ai/route.ts · rag/extract/route.ts
-src/data/        products.json (45) · offsets.json (37×24) · food_grade.json (9) · leads.json (18)
+src/components/  Nav · ui · ExportBar · TokenMeter · AiPanel · PlanCard · PrioritiesCard · CrawlPanel
+src/app/         page (dashboard) · products · offsets · leads · leads/[id] · pipeline · schedule · campaign · kb · sniper · brief
+src/app/api/     ai · rag/extract · rag/crawl · brief · cron/daily-brief · cron/crawl
+src/data/        products.json (45) · offsets.json (37×24) · food_grade.json (9) · leads.json (19, with plan_* from action-plan CSV) · priorities.json (5)
 supabase/        schema.sql
 ```
 
@@ -52,7 +60,12 @@ AI: page builds `{context, prompt}` from `src/prompts/*` → `AiPanel` → `POST
 RAG: upload → `/api/rag/extract` (unpdf) → chunks in store → `scoreChunks()` → `prompts/rag.ts` → `AiPanel`.
 
 ## Env
-`ANTHROPIC_API_KEY` (required for real AI) · `ANTHROPIC_MODEL` (optional) · `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` (optional).
+`ANTHROPIC_API_KEY` (required for real AI) · `ANTHROPIC_MODEL` (optional) · `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` (optional, client) · `SUPABASE_SERVICE_ROLE_KEY` (bots need it to read/write real data) · `CRON_SECRET` (Vercel sets) · `BRIEF_TO_WHATSAPP` · Twilio trio or `WHATSAPP_WEBHOOK_URL`.
+
+## Bots
+- **Daily brief** `/brief` (manual) + cron → `runDailyBrief()` → Claude → WhatsApp. Without a provider: text + wa.me link (ExportBar WhatsApp button).
+- **Offset Sniper** `/sniper` — pure matching on numbers/tokens vs `dow_corning_offset_benchmark` + offsets matrix; ≥2 token overlap.
+- **Crawler** `/kb` panel (per category, into browser/Supabase via store) + weekly cron (needs service role, writes Supabase directly, dedupes by title). silitex.it has no TDS/MSDS PDFs — those stay manual uploads.
 
 ## Roadmap candidates
-pgvector embeddings · Supabase auth · WhatsApp Business API send · Cloudinary attachments on lead · weekly digest cron (Vercel cron → `/api/cron/weekly`).
+pgvector embeddings · Supabase auth · Cloudinary attachments on lead · quote PDF generator.

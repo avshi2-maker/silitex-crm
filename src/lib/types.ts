@@ -1,4 +1,4 @@
-// types.ts (src/lib/types.ts) · updated 09.10.2026 09:10 (Asia/Jerusalem)
+// types.ts (src/lib/types.ts) · updated 09.10.2026 10:05 (Asia/Jerusalem)
 export type Product = {
   id: string; product_name: string; brand_family: string; category_sector: string;
   application_field: string; appearance: string; active_content_pct: string; active_matter_type: string;
@@ -16,7 +16,11 @@ export type Lead = {
   volume_tons: number; value_usd: number; tier: string; department: string; contact_role: string;
   status: string; stage: Stage;
   contact_name?: string; contact_phone?: string; contact_email?: string; notes?: string; next_action_at?: string;
+  // from sales action plan CSV
+  recommended_sku?: string; competitor_offset?: string; plan_phase?: string; plan_next_action?: string; plan_stage?: string; plan_target_stage?: Stage;
 };
+export type Priority = { rank: number; family: string; skus: string; specs: string; targets: string; use_case: string; offsets: string; volume_tons: number; value_usd: number };
+export type SniperHit = { query: string; product: string; family: string; category: string; via: string; score: number };
 export type Task = { id: string; lead_id: string; lead_name: string; title: string; due: string; cadence: "daily" | "weekly" | "once"; done: boolean; kind: string };
 export type Activity = { id: string; lead_id: string; at: string; kind: string; text: string };
 export type KbDoc = { id: string; title: string; doc_type: "TDS" | "MSDS" | "SALES" | "OTHER"; product_ref: string; created_at: string; chunks: number };
