@@ -1,11 +1,12 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem) — lead file: intake form, stage, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 12:30 (Asia/Jerusalem) — lead file: intake form, stage, timeline, AI pitch
 import { use, useState } from "react";
 import { useStore, STAGES } from "@/lib/store";
 import { PRODUCTS, industriesOf, INDUSTRIES } from "@/lib/data";
 import { Card, H1, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui";
 import AiPanel from "@/components/AiPanel";
 import PlanCard from "@/components/PlanCard";
+import SampleCard from "@/components/SampleCard";
 import { fmtDateTime, fmtDate, todayIso } from "@/lib/format";
 import { pitchContext, pitchPrompt } from "@/prompts/pitch";
 import type { Lead, Stage } from "@/lib/types";
@@ -13,7 +14,7 @@ import { useLang } from "@/i18n";
 export default function LeadPage({ params }: { params: Promise<{ id: string }> }) {
   const { t: tr } = useLang();
   const { id } = use(params);
-  const { state, ready, upsertLead, setStage, addActivity, addTask, addSpend } = useStore();
+  const { state, ready, upsertLead, setStage, addActivity, addTask, addSpend, addSample, setSampleStatus } = useStore();
   const [note, setNote] = useState("");
   if (!ready) return null;
   const lead = state.leads.find((l) => l.id === id);
@@ -43,6 +44,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
         </div>
         <div className="space-y-4">
           <PlanCard lead={lead} onTask={(title) => addTask({ lead_id: id, lead_name: lead.name, title, due: todayIso(), cadence: "once", kind: "plan" })} />
+          <SampleCard leadId={id} leadName={lead.name} samples={state.samples.filter((x) => x.lead_id === id)} defaultSku={(lead.recommended_sku || "").split(/[&,/]/)[0].trim() || undefined} onAdd={addSample} onStatus={setSampleStatus} />
           <Card>
             <h3 className="font-bold mb-2">{tr("משימות פתוחות (")}{tasks.length})</h3>
             <ul className="text-sm space-y-1">{tasks.map((t) => <li key={t.id}>• {fmtDate(t.due)} — {t.title}</li>)}</ul>

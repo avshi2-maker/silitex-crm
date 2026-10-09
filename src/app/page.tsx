@@ -1,27 +1,31 @@
 "use client";
-// page.tsx (src/app/page.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem) — dashboard
+// page.tsx (src/app/page.tsx) · updated 09.10.2026 12:30 (Asia/Jerusalem) — dashboard
 import Link from "next/link";
 import { useStore, STAGES, isClosed } from "@/lib/store";
 import { PRODUCTS, OFFSETS } from "@/lib/data";
 import { Card, H1, Stat, Badge } from "@/components/ui";
 import { fmtUsd, todayIso, fmtDate } from "@/lib/format";
 import PrioritiesCard from "@/components/PrioritiesCard";
+import DemoMenu from "@/components/DemoMenu";
 import { useLang } from "@/i18n";
 export default function Dashboard() {
   const { t: tr } = useLang();
-  const { state, ready } = useStore();
+  const { state, ready, loadDemo, reset } = useStore();
   if (!ready) return null;
   const today = todayIso();
   const open = state.leads.filter((l) => !isClosed(l.stage));
   const pipelineUsd = open.reduce((a, l) => a + l.value_usd, 0);
   const due = state.tasks.filter((t) => !t.done && t.due <= today);
+  const inField = state.samples.filter((x) => ["shipped", "in_lab"].includes(x.status)).length;
+  const won = state.leads.filter((l) => l.stage === "won");
   return (
     <div className="space-y-6">
-      <H1 sub={tr("היום ") + fmtDate(new Date())}>{tr("לוח בקרה — Silitex ישראל")}</H1>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="flex items-start justify-between"><H1 sub={tr("היום ") + fmtDate(new Date())}>{tr("לוח בקרה — Silitex ישראל")}</H1><DemoMenu demo={state.demo} onLoad={loadDemo} onReset={reset} /></div>
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <Stat label={tr("מוצרים בקטלוג")} value={PRODUCTS.length} hint={OFFSETS.rows.length + tr(" קטגוריות מקבילות")} />
         <Stat label={tr("לקוחות פוטנציאליים פתוחים")} value={open.length} hint={state.leads.length + tr(" סה״כ")} />
-        <Stat label={tr("פוטנציאל שנתי בצנרת")} value={fmtUsd(pipelineUsd)} />
+        <Stat label={tr("פוטנציאל שנתי בצנרת")} value={fmtUsd(pipelineUsd)} hint={tr("לפי חשבונות (19)")} />
+        <Stat label={tr("דגימות בשטח")} value={inField} hint={won.length + " " + tr("נסגרו ✓")} />
         <Stat label={tr("משימות להיום")} value={due.length} hint={state.tasks.filter((t) => !t.done).length + tr(" פתוחות")} />
       </div>
       <div className="grid md:grid-cols-2 gap-4">

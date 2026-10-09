@@ -1,5 +1,5 @@
 "use client";
-// PrioritiesCard.tsx (src/components/PrioritiesCard.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem) — 5 priority product families (from priorities CSV)
+// PrioritiesCard.tsx (src/components/PrioritiesCard.tsx) · updated 09.10.2026 12:30 (Asia/Jerusalem) — 5 priority product families (from priorities CSV)
 import { PRIORITIES } from "@/lib/data";
 import { Card, Badge } from "./ui";
 import { fmtUsd } from "@/lib/format";
@@ -9,7 +9,7 @@ export default function PrioritiesCard() {
   const total = PRIORITIES.reduce((a, p) => a + p.value_usd, 0);
   return (
     <Card>
-      <div className="flex items-center justify-between mb-2"><h3 className="font-bold">{tr("סדרי עדיפויות — משפחות מוצר")}</h3><Badge tone="green">{tr("פוטנציאל ")}{fmtUsd(total)}{tr(" / שנה")}</Badge></div>
+      <div className="flex items-center justify-between mb-2"><h3 className="font-bold">{tr("סדרי עדיפויות — משפחות מוצר")}</h3><Badge tone="green">{tr("פוטנציאל ")}{fmtUsd(total)}{tr(" / שנה")} · {tr("לפי משפחה")}</Badge></div>
       <div className="space-y-2">
         {PRIORITIES.map((p) => (
           <div key={p.rank} className="border rounded-lg p-2 text-sm">

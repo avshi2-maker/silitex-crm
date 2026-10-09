@@ -8,9 +8,9 @@ export default function Clock() {
   if (!now) return <div className="h-10" />;
   const hh = String(now.getHours()).padStart(2, "0"), mi = String(now.getMinutes()).padStart(2, "0"), ss = String(now.getSeconds()).padStart(2, "0");
   return (
-    <div className="font-mono text-center bg-brand-700/60 rounded-lg px-2 py-1 leading-tight" dir="ltr">
-      <div className="text-lg tracking-widest tabular-nums">{hh}:{mi}<span className="text-blue-300 text-sm">:{ss}</span></div>
-      <div className="text-[11px] text-blue-200 tabular-nums">{fmtDate(now)}</div>
+    <div className="font-mono text-center bg-ink-700 rounded-lg px-2 py-1 leading-tight" dir="ltr">
+      <div className="text-lg tracking-widest tabular-nums">{hh}:{mi}<span className="text-brand-500 text-sm">:{ss}</span></div>
+      <div className="text-[11px] text-slate-300 tabular-nums">{fmtDate(now)}</div>
     </div>
   );
 }

@@ -1,12 +1,13 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 09.10.2026 09:40 (Asia/Jerusalem)
+// useStore.ts (src/lib/store/useStore.ts) · updated 09.10.2026 12:30 (Asia/Jerusalem)
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, type State } from "./state";
 import { buildSchedule } from "./cadence";
 import { stageHe } from "@/config/stages";
 import { uid, todayIso } from "@/lib/format";
-import type { Lead, Task, Activity, KbDoc, KbChunk, Stage } from "@/lib/types";
+import type { Lead, Task, Activity, KbDoc, KbChunk, Stage, Sample } from "@/lib/types";
+import { buildDemo } from "@/data/demo";
 
 export function useStore() {
   const [state, setState] = useState<State>(EMPTY);
@@ -32,7 +33,10 @@ export function useStore() {
   const addKbDoc = (doc: KbDoc, chunks: KbChunk[]) => { update((s) => ({ ...s, kbDocs: [doc, ...s.kbDocs], kbChunks: [...chunks, ...s.kbChunks] })); sync("kb_docs", doc); chunks.forEach((c) => sync("kb_chunks", c)); };
   const removeKbDoc = (id: string) => update((s) => ({ ...s, kbDocs: s.kbDocs.filter((d) => d.id !== id), kbChunks: s.kbChunks.filter((c) => c.doc_id !== id) }));
   const generateSchedule = () => update((s) => ({ ...s, tasks: [...s.tasks, ...buildSchedule(s.leads, s.tasks, todayIso())] }));
+  const addSample = (sm: Omit<Sample, "id">) => { const sample: Sample = { ...sm, id: uid("smp") }; update((s) => ({ ...s, samples: [sample, ...s.samples] })); sync("samples", sample); addActivity(sm.lead_id, "sample", "Sample: " + sm.sku + " " + sm.kg + " kg"); };
+  const setSampleStatus = (id: string, status: Sample["status"], result?: string) => update((s) => ({ ...s, samples: s.samples.map((x) => (x.id === id ? { ...x, status, result: result ?? x.result } : x)) }));
+  const loadDemo = () => update((s) => ({ ...s, ...buildDemo(), demo: true }));
   const reset = () => { clearState(); setState(EMPTY); };
 
-  return { state, ready, upsertLead, addActivity, setStage, addTask, toggleTask, addSpend, addKbDoc, removeKbDoc, generateSchedule, reset };
+  return { state, ready, upsertLead, addActivity, setStage, addTask, toggleTask, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, loadDemo, reset };
 }

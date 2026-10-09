@@ -1,5 +1,5 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 09.10.2026 11:30 (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 09.10.2026 12:30 (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
@@ -8,6 +8,8 @@ import Clock from "./Clock";
 import { useLang } from "@/i18n";
 const ITEMS = [
   { href: "/", he: "לוח בקרה", icon: "📊" },
+  { href: "/pitch", he: "הצעת הפצה (Pitch)", icon: "🏁" },
+  { href: "/ask", he: "שאל את Silitex", icon: "🔎" },
   { href: "/products", he: "קטלוג מוצרים", icon: "🧪" },
   { href: "/offsets", he: "מקבילות עולמיות", icon: "🌍" },
   { href: "/leads", he: "לקוחות פוטנציאליים", icon: "🏭" },
@@ -17,25 +19,27 @@ const ITEMS = [
   { href: "/sniper", he: "Offset Sniper", icon: "🎯" },
   { href: "/brief", he: "תדריך יומי (בוט)", icon: "🤖" },
   { href: "/kb", he: "מאגר ידע (RAG)", icon: "📚" },
+  { href: "/report", he: "דוח ליצרן", icon: "📑" },
 ];
 export default function Nav() {
   const { t: tr } = useLang();
   const path = usePathname();
   return (
-    <aside className="w-60 shrink-0 bg-brand-900 text-white min-h-screen p-4 print:hidden">
+    <aside className="w-60 shrink-0 bg-ink-900 text-white min-h-screen p-4 print:hidden">
       <div className="mb-6">
-        <div className="text-lg font-bold">Silitex CRM</div>
-        <div className="flex items-center justify-between"><div className="text-xs text-blue-200">{tr("הפצה רשמית · ישראל")}</div><LangSwitch /></div>
+        <div className="bg-white rounded-lg px-2 py-1 mb-2 inline-block"><img src="/silitex-logo.png" alt="Silitex" className="h-9" /></div>
+        <div className="text-sm font-bold">Silitex CRM · Israel</div>
+        <div className="flex items-center justify-between"><div className="text-xs text-slate-300">{tr("הפצה רשמית · ישראל")}</div><LangSwitch /></div>
         <div className="mt-3"><Clock /></div>
       </div>
       <nav className="flex flex-col gap-1">
         {ITEMS.map((it) => {
           const active = it.href === "/" ? path === "/" : path.startsWith(it.href);
-          const cls = "flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (active ? "bg-brand-500" : "hover:bg-brand-700");
+          const cls = "flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (active ? "bg-brand-500" : "hover:bg-ink-700");
           return (<Link key={it.href} href={it.href} className={cls}><span>{it.icon}</span><span>{tr(it.he)}</span></Link>);
         })}
       </nav>
-      <div className="mt-8 text-[11px] text-blue-200 leading-5">
+      <div className="mt-8 text-[11px] text-slate-300 leading-5">
         {tr(OWNER.name)} · {OWNER.phone}<br />Silitex S.r.l. — Italy
       </div>
     </aside>

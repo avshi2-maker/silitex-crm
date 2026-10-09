@@ -9,6 +9,8 @@ create table if not exists leads (
 );
 create table if not exists activities (id text primary key, lead_id text references leads(id) on delete cascade, at timestamptz default now(), kind text, text text);
 create table if not exists tasks (id text primary key, lead_id text, lead_name text, title text, due date, cadence text, done boolean default false, kind text);
+create table if not exists samples (id text primary key, lead_id text, lead_name text, sku text, kg numeric, sent_at date, status text, result text, followup_at date);
+alter table samples enable row level security; create policy "all" on samples for all using (true) with check (true);
 create table if not exists kb_docs (id text primary key, title text, doc_type text, product_ref text, created_at timestamptz default now(), chunks int default 0);
 create table if not exists kb_chunks (id text primary key, doc_id text references kb_docs(id) on delete cascade, title text, doc_type text, product_ref text, text text);
 create table if not exists ai_usage (id bigserial primary key, at timestamptz default now(), feature text, model text, input_tokens int, output_tokens int, cost_usd numeric);

@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/brief/page.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem) — daily brief: run now, send to WhatsApp
+// page.tsx (src/app/brief/page.tsx) · updated 09.10.2026 12:30 (Asia/Jerusalem) — daily brief: run now, send to WhatsApp
 import { useState } from "react";
 import { useStore } from "@/lib/store";
 import { Card, H1, Badge, btnPrimary, btnGhost } from "@/components/ui";
@@ -32,9 +32,9 @@ export default function BriefPage() {
       <TokenMeter usage={r?.usage} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} busy={busy} />
       {err && <div className="text-sm text-red-600">{err}</div>}
       {r && (<Card><pre className="whitespace-pre-wrap text-sm leading-6 font-[inherit]">{r.text}</pre><ExportBar title={tr("תדריך יומי ") + fmtDate(new Date())} text={r.text} /></Card>)}
-      <Card className="text-xs text-slate-500 leading-5">
+      <details className="text-xs text-slate-500 leading-5 print:hidden"><summary className="cursor-pointer">⚙</summary>
         <b>{tr("הפעלת הבוט:")}</b>{tr(" Vercel cron מוגדר ב-vercel.json (04:00 UTC = 07:00 ישראל). משתני סביבה: ")}<code>CRON_SECRET</code>{tr(" (Vercel מוסיף אוטומטית), ")}<code>BRIEF_TO_WHATSAPP</code>{tr(" (972…), ושולח: Twilio (")}<code>TWILIO_ACCOUNT_SID</code>, <code>TWILIO_AUTH_TOKEN</code>, <code>TWILIO_WHATSAPP_FROM</code>{tr(") או webhook כללי (")}<code>WHATSAPP_WEBHOOK_URL</code>). ללא ספק — התדריך נוצר ומחכה כאן.
-      </Card>
+      </details>
     </div>
   );
 }

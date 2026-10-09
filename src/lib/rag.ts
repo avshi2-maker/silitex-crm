@@ -1,4 +1,4 @@
-// rag.ts (src/lib/rag.ts) · updated 09.10.2026 09:10 (Asia/Jerusalem)
+// rag.ts (src/lib/rag.ts) · updated 09.10.2026 12:30 (Asia/Jerusalem)
 // Chunking + lightweight keyword retrieval (BM25-style) over the knowledge base. Swap scoreChunks for pgvector when embeddings are added.
 import type { KbChunk } from "./types";
 export function chunkText(text: string, size = 900, overlap = 150): string[] {
@@ -7,14 +7,15 @@ export function chunkText(text: string, size = 900, overlap = 150): string[] {
   while (i < text.length) { out.push(text.slice(i, i + size)); i += size - overlap; }
   return out.filter((c) => c.trim().length > 40);
 }
+const STOP = new Set(["the","of","a","an","in","on","for","to","and","or","is","are","what","which","using","use","with","by","it","as","at","be","this","that","how","do","does","i","we","my","our","אם","של","את","על","עם","מה","איזה","זה","יש","הוא","היא","ב","ל","או"]);
 function tokens(s: string): string[] {
-  return s.toLowerCase().replace(/[^\p{L}\p{N}%.\-]+/gu, " ").split(" ").filter((t) => t.length > 1);
+  return s.toLowerCase().replace(/[^\p{L}\p{N}%.\-]+/gu, " ").split(" ").filter((t) => t.length > 1 && !STOP.has(t));
 }
 export function scoreChunks(query: string, chunks: KbChunk[], k = 6): KbChunk[] {
   const q = tokens(query); if (!q.length || !chunks.length) return [];
   const N = chunks.length;
   const df = new Map<string, number>();
-  const docs = chunks.map((c) => { const t = tokens(c.text + " " + c.title + " " + c.product_ref); new Set(t).forEach((w) => df.set(w, (df.get(w) || 0) + 1)); return t; });
+  const docs = chunks.map((c) => { const t = tokens(c.text + " " + c.title + " " + c.title + " " + c.product_ref + " " + c.product_ref); new Set(t).forEach((w) => df.set(w, (df.get(w) || 0) + 1)); return t; });
   const avg = docs.reduce((a, d) => a + d.length, 0) / N;
   const scored = chunks.map((c, i) => {
     const d = docs[i]; let s = 0;

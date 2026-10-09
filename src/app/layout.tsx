@@ -1,10 +1,10 @@
-// layout.tsx (src/app/layout.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem)
+// layout.tsx (src/app/layout.tsx) · updated 09.10.2026 12:30 (Asia/Jerusalem)
 import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import { BUILD } from "@/config/app";
 import { LangProvider } from "@/i18n";
-export const metadata: Metadata = { title: "Silitex CRM — הפצה ומכירות", description: "CRM לקידום מוצרי Silitex בישראל" };
+export const metadata: Metadata = { title: "Silitex CRM · Israel", description: "Silitex S.r.l. — Israel distribution CRM", icons: { icon: "/favicon.png" } };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="he" dir="rtl">

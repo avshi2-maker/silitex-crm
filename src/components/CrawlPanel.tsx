@@ -34,7 +34,7 @@ export default function CrawlPanel({ existingTitles, onDoc }: Props) {
       <div className="flex items-center justify-between"><h3 className="font-bold">{tr("סריקת silitex.it → מאגר ידע")}</h3><div className="flex gap-2"><button className={btnGhost} onClick={() => setSel(cats)}>{tr("הכל")}</button><button className={btnGhost} onClick={() => setSel([])}>{tr("נקה")}</button><button className={btnPrimary} disabled={busy || !sel.length} onClick={run}>{busy ? tr("סורק…") : tr("סרוק ") + sel.length + tr(" קטגוריות")}</button></div></div>
       <div className="flex flex-wrap gap-1 max-h-40 overflow-auto">{cats.map((c) => (<button key={c} onClick={() => toggle(c)} className={"text-xs px-2 py-1 rounded-full border " + (sel.includes(c) ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{c}</button>))}</div>
       {log.length > 0 && <pre className={inputCls + " text-xs whitespace-pre-wrap"}>{log.join("\n")}</pre>}
-      <p className="text-xs text-slate-500">{tr("הבוט השבועי (vercel.json, יום א' 04:30) סורק את כל הקטגוריות ישירות ל-Supabase כשמוגדר SUPABASE_SERVICE_ROLE_KEY.")}</p>
+      <details className="text-xs text-slate-500"><summary className="cursor-pointer">⚙</summary>{tr("הבוט השבועי (vercel.json, יום א' 04:30) סורק את כל הקטגוריות ישירות ל-Supabase כשמוגדר SUPABASE_SERVICE_ROLE_KEY.")}</details>
     </div>
   );
 }

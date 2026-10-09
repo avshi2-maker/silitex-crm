@@ -1,4 +1,4 @@
-# SILITEX CRM — ATLAS (read first every session) · v0.4.2 · 09/10/2026
+# SILITEX CRM — ATLAS (read first every session) · v0.5.0 · 09/10/2026
 
 Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / React 19 / Tailwind 3 / Supabase (optional) / Claude API. Repo `avshi2-maker/silitex-crm`, folder `C:\silitex-crm`, Vercel project `silitex-crm`.
 
@@ -33,6 +33,13 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | Live clock in header | `src/components/Clock.tsx` |
 | Shared UI atoms (Card, Badge, Stat, button classes) | `src/components/ui.tsx` |
 | English translations (HE source string → EN) | `src/i18n/en.ts`; provider/switch `src/i18n/index.tsx`, `components/LangSwitch.tsx` |
+| Pitch page copy (title, phases, gets, needs) | `src/config/pitch.ts`; page `src/app/pitch/page.tsx`; parts `components/pitch/*` |
+| Israel map outline / pin colors | `src/components/pitch/IsraelMap.tsx` (coords: `city/lat/lon` in leads.json) |
+| Demo state for presentations | `src/data/demo.ts` (load: ⚙ on dashboard or `?demo=1`) |
+| Sample tracker | `src/components/SampleCard.tsx`; store `addSample/setSampleStatus` |
+| Principal report wording | `src/prompts/report.ts`; page `src/app/report/page.tsx` |
+| "Ask Silitex" search index (all assets) | `scripts/build-index.mjs` → `src/data/search_index.json` (auto on `npm run build`; manual `npm run index`); search `src/lib/search.ts`; prompt `src/prompts/ask.ts` |
+| Brand palette | `tailwind.config.ts` (brand = Silitex magenta, ink = sidebar); logo `public/silitex-logo.png` |
 | DB tables | `supabase/schema.sql` |
 | Offset Sniper matching rules | `src/lib/sniper.ts` (prompt: `src/prompts/sniper.ts`) |
 | Daily brief wording / which 5 calls | `src/prompts/brief.ts`; pipeline `src/lib/brief.ts` |
@@ -64,6 +71,9 @@ RAG: upload → `/api/rag/extract` (unpdf) → chunks in store → `scoreChunks(
 
 ## Env
 `ANTHROPIC_API_KEY` (required for real AI) · `ANTHROPIC_MODEL` (optional) · `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` (optional, client) · `SUPABASE_SERVICE_ROLE_KEY` (bots need it to read/write real data) · `CRON_SECRET` (Vercel sets) · `BRIEF_TO_WHATSAPP` · Twilio trio or `WHATSAPP_WEBHOOK_URL`.
+
+## Presentation
+`/pitch?lang=en&demo=1` — English, demo pipeline loaded. `?lang=en` on any URL forces English. ⚙ on dashboard: load demo / copy link / reset.
 
 ## Bots
 - **Daily brief** `/brief` (manual) + cron → `runDailyBrief()` → Claude → WhatsApp. Without a provider: text + wa.me link (ExportBar WhatsApp button).

@@ -18,7 +18,10 @@
   "plan_phase": "Phase 1: Months 1-2 (Account Reactivation)",
   "plan_next_action": "Send introductory re-entry binder & dispatch 2kg PE 193 sample for lab evaluation",
   "plan_stage": "1. Discovery & Outreach",
-  "plan_target_stage": "prospect"
+  "plan_target_stage": "prospect",
+  "city": "Tel Aviv / Haifa",
+  "lat": 32.08,
+  "lon": 34.78
  },
  {
   "id": "LEAD-002",
@@ -39,7 +42,10 @@
   "plan_phase": "Phase 1: Months 1-2 (Account Reactivation)",
   "plan_next_action": "Present FISIOREX 1000 eco-data sheet & schedule technical R&D review",
   "plan_stage": "1. Discovery & Outreach",
-  "plan_target_stage": "prospect"
+  "plan_target_stage": "prospect",
+  "city": "Airport City",
+  "lat": 31.99,
+  "lon": 34.9
  },
  {
   "id": "LEAD-003",
@@ -60,7 +66,10 @@
   "plan_phase": "Phase 1: Months 1-2 (Account Reactivation)",
   "plan_next_action": "Submit Kosher/FDA compliance certificate for SILIFOOD series",
   "plan_stage": "1. Discovery & Outreach",
-  "plan_target_stage": "prospect"
+  "plan_target_stage": "prospect",
+  "city": "Haifa",
+  "lat": 32.79,
+  "lon": 34.99
  },
  {
   "id": "LEAD-004",
@@ -81,7 +90,10 @@
   "plan_phase": "Phase 1: Months 1-2 (Account Reactivation)",
   "plan_next_action": "Deliver Idrorepellenti 1300 technical dossier & request water absorption lab test",
   "plan_stage": "1. Discovery & Outreach",
-  "plan_target_stage": "prospect"
+  "plan_target_stage": "prospect",
+  "city": "Holon",
+  "lat": 32.01,
+  "lon": 34.77
  },
  {
   "id": "LEAD-005",
@@ -102,7 +114,10 @@
   "plan_phase": "Phase 1: Months 1-2 (Account Reactivation)",
   "plan_next_action": "Initiate contact with Infrastructure QC lead & dispatch EVERSIL 35 release sample",
   "plan_stage": "1. Discovery & Outreach",
-  "plan_target_stage": "prospect"
+  "plan_target_stage": "prospect",
+  "city": "Tel Aviv",
+  "lat": 32.07,
+  "lon": 34.79
  },
  {
   "id": "LEAD-006",
@@ -123,7 +138,10 @@
   "plan_phase": "Phase 2: Months 3-5 (Lab Qualification)",
   "plan_next_action": "Schedule in-person technical lab meeting with Chief Paint Chemist & dispatch 5kg trial sample",
   "plan_stage": "2. Technical Lab Qualification",
-  "plan_target_stage": "sample"
+  "plan_target_stage": "sample",
+  "city": "Akko",
+  "lat": 32.92,
+  "lon": 35.08
  },
  {
   "id": "LEAD-007",
@@ -144,7 +162,10 @@
   "plan_phase": "Phase 2: Months 3-5 (Lab Qualification)",
   "plan_next_action": "Present FISIOREX 1000 plant-based defoamer as drop-in replacement for synthetic defoamers",
   "plan_stage": "2. Technical Lab Qualification",
-  "plan_target_stage": "sample"
+  "plan_target_stage": "sample",
+  "city": "Netanya",
+  "lat": 32.33,
+  "lon": 34.86
  },
  {
   "id": "LEAD-008",
@@ -165,7 +186,10 @@
   "plan_phase": "Phase 2: Months 3-5 (Lab Qualification)",
   "plan_next_action": "Dispatch 1kg BERETEX 750 sample to laundry lab for foam knock-down testing",
   "plan_stage": "2. Technical Lab Qualification",
-  "plan_target_stage": "sample"
+  "plan_target_stage": "sample",
+  "city": "Hod HaSharon",
+  "lat": 32.15,
+  "lon": 34.89
  },
  {
   "id": "LEAD-009",
@@ -186,7 +210,10 @@
   "plan_phase": "Phase 2: Months 3-5 (Lab Qualification)",
   "plan_next_action": "Demonstrate BERETEX high-pH stability for CIP industrial cleaning solutions",
   "plan_stage": "2. Technical Lab Qualification",
-  "plan_target_stage": "sample"
+  "plan_target_stage": "sample",
+  "city": "Kiryat Gat",
+  "lat": 31.61,
+  "lon": 34.76
  },
  {
   "id": "LEAD-010",
@@ -207,7 +234,10 @@
   "plan_phase": "Phase 3: Months 6-8 (Commercial Pilots)",
   "plan_next_action": "Submit SILIFOOD 1600 FDA/Kosher certificate package & quote 1-ton pilot drum order",
   "plan_stage": "3. Commercial Pilot Trial",
-  "plan_target_stage": "quote"
+  "plan_target_stage": "quote",
+  "city": "Tel Aviv",
+  "lat": 32.09,
+  "lon": 34.8
  },
  {
   "id": "LEAD-011",
@@ -228,7 +258,10 @@
   "plan_phase": "Phase 3: Months 6-8 (Commercial Pilots)",
   "plan_next_action": "Quote 1000L IBC tote pilot for industrial effluent treatment facility in Ramat Hovav",
   "plan_stage": "3. Commercial Pilot Trial",
-  "plan_target_stage": "quote"
+  "plan_target_stage": "quote",
+  "city": "Ramat Hovav",
+  "lat": 31.13,
+  "lon": 34.8
  },
  {
   "id": "LEAD-012",
@@ -249,7 +282,10 @@
   "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
   "plan_next_action": "Submit annual pricing proposal for EVERSIL 35 drum supply to Yokneam plant",
   "plan_stage": "4. Annual Contract Negotiation",
-  "plan_target_stage": "negotiation"
+  "plan_target_stage": "negotiation",
+  "city": "Herzliya / Yokneam",
+  "lat": 32.66,
+  "lon": 35.11
  },
  {
   "id": "LEAD-013",
@@ -270,7 +306,10 @@
   "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
   "plan_next_action": "Provide sample kit of high-viscosity DM fluids for compounding trial",
   "plan_stage": "4. Annual Contract Negotiation",
-  "plan_target_stage": "negotiation"
+  "plan_target_stage": "negotiation",
+  "city": "Ramat Yishai",
+  "lat": 32.7,
+  "lon": 35.17
  },
  {
   "id": "LEAD-014",
@@ -291,7 +330,10 @@
   "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
   "plan_next_action": "Initiate joint R&D trial with cutting fluid formulation group in Tefen",
   "plan_stage": "4. Annual Contract Negotiation",
-  "plan_target_stage": "negotiation"
+  "plan_target_stage": "negotiation",
+  "city": "Tefen",
+  "lat": 32.97,
+  "lon": 35.26
  },
  {
   "id": "LEAD-015",
@@ -312,7 +354,10 @@
   "plan_phase": "Phase 3: Months 6-8 (Commercial Pilots)",
   "plan_next_action": "Conduct trial run of CPL 2907 FDA-approved defoamer on pulp recycling line #3",
   "plan_stage": "3. Commercial Pilot Trial",
-  "plan_target_stage": "quote"
+  "plan_target_stage": "quote",
+  "city": "Hadera",
+  "lat": 32.44,
+  "lon": 34.92
  },
  {
   "id": "LEAD-016",
@@ -333,7 +378,10 @@
   "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
   "plan_next_action": "Deliver GOTS-ICEA certificate package & quote FCL container supply for Caesarea facility",
   "plan_stage": "4. Annual Contract Negotiation",
-  "plan_target_stage": "negotiation"
+  "plan_target_stage": "negotiation",
+  "city": "Caesarea",
+  "lat": 32.5,
+  "lon": 34.9
  },
  {
   "id": "LEAD-017",
@@ -354,7 +402,10 @@
   "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
   "plan_next_action": "Schedule fabric hand-feel evaluation with Misgav finishing team",
   "plan_stage": "4. Annual Contract Negotiation",
-  "plan_target_stage": "negotiation"
+  "plan_target_stage": "negotiation",
+  "city": "Misgav",
+  "lat": 32.86,
+  "lon": 35.25
  },
  {
   "id": "LEAD-018",
@@ -375,7 +426,10 @@
   "plan_phase": "Phase 4: Months 9-12 (Annual Supply Contracts)",
   "plan_next_action": "Submit technical dossier on high-temperature stability to Haifa Bay refinery team",
   "plan_stage": "4. Annual Contract Negotiation",
-  "plan_target_stage": "negotiation"
+  "plan_target_stage": "negotiation",
+  "city": "Haifa Bay",
+  "lat": 32.8,
+  "lon": 35.05
  },
  {
   "id": "LEAD-019",
@@ -396,6 +450,9 @@
   "plan_phase": "Phase 3: Months 6-8 (Commercial Pilots)",
   "plan_next_action": "Present CPL 350 Kosher Certificate & schedule 200kg trial batch for fermentation tanks",
   "plan_stage": "3. Commercial Pilot Trial",
-  "plan_target_stage": "quote"
+  "plan_target_stage": "quote",
+  "city": "Haifa Bay",
+  "lat": 32.83,
+  "lon": 35.07
  }
 ]
