@@ -1,0 +1,21 @@
+-- schema.sql (supabase/schema.sql) · Silitex CRM · 09/10/2026
+-- Run once in Supabase SQL editor. The app mirrors browser state into these tables when NEXT_PUBLIC_SUPABASE_* are set.
+create table if not exists leads (
+  id text primary key, name text not null, industry text, sub_industry text, product_match text, use_case text,
+  volume_tons numeric default 0, value_usd numeric default 0, tier text, department text, contact_role text,
+  status text default 'new', stage text default 'prospect',
+  contact_name text, contact_phone text, contact_email text, notes text, next_action_at date,
+  updated_at timestamptz default now()
+);
+create table if not exists activities (id text primary key, lead_id text references leads(id) on delete cascade, at timestamptz default now(), kind text, text text);
+create table if not exists tasks (id text primary key, lead_id text, lead_name text, title text, due date, cadence text, done boolean default false, kind text);
+create table if not exists kb_docs (id text primary key, title text, doc_type text, product_ref text, created_at timestamptz default now(), chunks int default 0);
+create table if not exists kb_chunks (id text primary key, doc_id text references kb_docs(id) on delete cascade, title text, doc_type text, product_ref text, text text);
+create table if not exists ai_usage (id bigserial primary key, at timestamptz default now(), feature text, model text, input_tokens int, output_tokens int, cost_usd numeric);
+-- mockup: open RLS (single user). Lock down before multi-user.
+alter table leads enable row level security; create policy "all" on leads for all using (true) with check (true);
+alter table activities enable row level security; create policy "all" on activities for all using (true) with check (true);
+alter table tasks enable row level security; create policy "all" on tasks for all using (true) with check (true);
+alter table kb_docs enable row level security; create policy "all" on kb_docs for all using (true) with check (true);
+alter table kb_chunks enable row level security; create policy "all" on kb_chunks for all using (true) with check (true);
+-- next step: pgvector — alter table kb_chunks add column embedding vector(1024); (Voyage/OpenAI embeddings) and swap lib/rag.ts scoring.

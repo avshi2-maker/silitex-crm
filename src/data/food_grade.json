@@ -1,0 +1,83 @@
+[
+ {
+  "trade_name": "SILIFOOD 30",
+  "composition": "Dimethylpolysiloxane E900 in water emulsion (30% active)",
+  "kosher": "Certified KOSHER & HALAL",
+  "fda": "FDA 21 CFR Compliant / Direct Food Contact / E900",
+  "application": "Food & beverage processing, broth, fruit washing, sugar refining",
+  "dosage": "10 to 50 ppm",
+  "performance": "Fast bubble knockdown, high temperature resistance, direct food contact approved"
+ },
+ {
+  "trade_name": "SILIFOOD 1600",
+  "composition": "Dimethylpolysiloxane E900 in water emulsion",
+  "kosher": "Certified KOSHER & HALAL",
+  "fda": "FDA 21 CFR Compliant / Direct Food Contact",
+  "application": "Beverage processing, liquid food packaging, fermentation tanks",
+  "dosage": "10 to 30 ppm",
+  "performance": "High stability in diluted aqueous food media"
+ },
+ {
+  "trade_name": "SILIFOOD 2500",
+  "composition": "Simethicone in water emulsion",
+  "kosher": "Certified KOSHER & HALAL",
+  "fda": "FDA Compliant / Direct Food Additive",
+  "application": "Food processing, pharmaceutical & nutraceutical bio-fermentation",
+  "dosage": "10 to 40 ppm",
+  "performance": "Excellent long-lasting foam suppression in protein-rich media"
+ },
+ {
+  "trade_name": "SILIFOOD 3000 K",
+  "composition": "Simethicone & specialty food surfactant emulsion",
+  "kosher": "Certified KOSHER & HALAL",
+  "fda": "FDA Compliant / E900 Food Grade",
+  "application": "Agrochemical dissolution, fertilizer tank mixing, food processing",
+  "dosage": "10 to 50 ppm",
+  "performance": "Rapidly breaks down foam during dissolution of solid powders"
+ },
+ {
+  "trade_name": "CPL 350 (KOSHER certificate)",
+  "composition": "Anhydrous fatty acid compound (100% active, fully vegetal)",
+  "kosher": "Certified KOSHER",
+  "fda": "FDA Direct Food Additive Compliant",
+  "application": "Meat extracts, broths, vegetable oil processing, yeast manufacturing",
+  "dosage": "2 to 30 ppm",
+  "performance": "100% bio-based vegetal origin, water insoluble, zero mineral oil"
+ },
+ {
+  "trade_name": "CPL 350 ET (KOSHER certificate)",
+  "composition": "Anhydrous fatty acids EO/PO adduct (100% active self-emulsifying)",
+  "kosher": "Certified KOSHER",
+  "fda": "FDA Approved Direct Contact & Food Additive",
+  "application": "Bio-fermentation processes, commercial yeast production, ethanol",
+  "dosage": "2 to 30 ppm",
+  "performance": "Self-emulsifying in cold water, high efficiency in bio-reactors"
+ },
+ {
+  "trade_name": "ANTISCHIUMA 3",
+  "composition": "High-performance Dimethicone & Silica water emulsion",
+  "kosher": "Compliant Food Contact",
+  "fda": "FDA Indirect Food Contact Compliant",
+  "application": "Thermal food processing, bottle washing, industrial water systems",
+  "dosage": "20 to 100 ppm",
+  "performance": "Very high thermal stability, resistant to extreme pH conditions"
+ },
+ {
+  "trade_name": "CPL 2907",
+  "composition": "100% Active self-emulsifying fatty alcohol compound",
+  "kosher": "Compliant Food Contact",
+  "fda": "FDA 21 CFR Approved for Paper & Pulp Food Contact",
+  "application": "Paper & cardboard packaging for direct food contact, pulp washing",
+  "dosage": "0.1 to 0.5 kg/ton",
+  "performance": "FDA-approved for food packaging paper manufacturing, silicone-free"
+ },
+ {
+  "trade_name": "BIOTECH",
+  "composition": "100% Active Bio Compound prepared with full bio raw materials",
+  "kosher": "Certified Bio / Kosher Suitable",
+  "fda": "FDA Compliant Bio-Based Additive",
+  "application": "Organic agriculture, bio-fermentation, eco-friendly food processing",
+  "dosage": "5 to 30 ppm",
+  "performance": "100% renewable bio-derived raw materials, zero synthetic residues"
+ }
+]
