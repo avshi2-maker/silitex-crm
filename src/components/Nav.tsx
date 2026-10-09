@@ -10,6 +10,7 @@ import { useLang } from "@/i18n";
 const ITEMS = [
   { href: "/", he: "לוח בקרה", icon: "📊" },
   { href: "/pitch", he: "הצעת הפצה (Pitch)", icon: "🏁" },
+  { href: "/notes", he: "טלפרומפטר (הערות דובר)", icon: "🎙️" },
   { href: "/ask", he: "שאל את Silitex", icon: "🔎" },
   { href: "/products", he: "קטלוג מוצרים", icon: "🧪" },
   { href: "/offsets", he: "מקבילות עולמיות", icon: "🌍" },
@@ -27,7 +28,7 @@ const ITEMS = [
 export default function Nav() {
   const { t: tr } = useLang();
   const path = usePathname();
-  if (path.startsWith("/request") || path.startsWith("/survey")) return null;
+  if (path.startsWith("/request") || path.startsWith("/survey") || path.startsWith("/notes")) return null;
   return (
     <aside className="w-60 shrink-0 bg-ink-900 text-white min-h-screen p-4 print:hidden">
       <div className="mb-6">

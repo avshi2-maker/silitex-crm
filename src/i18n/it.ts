@@ -1,6 +1,7 @@
 // it.ts (src/i18n/it.ts) · updated 09.10.2026 16:40 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "טלפרומפטר (הערות דובר)": "Teleprompter (note del relatore)",
   "שביעות רצון והמלצות": "Soddisfazione e testimonianze",
   "שביעות רצון והמלצות לקוחות": "Soddisfazione clienti e testimonianze",
   "המלצות לקוחות (ממליצים 8+)": "Testimonianze clienti (promotori 8+)",

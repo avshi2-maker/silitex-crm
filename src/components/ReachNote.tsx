@@ -10,7 +10,7 @@ export default function ReachNote() {
         <li><b>Linear PDMS carriers</b> — Silitex DM fluids (5–5,000 cSt), EVERSIL emulsions, gels on dimethicone crosspolymer</li>
         <li><b>Silicone-free / bio-based</b> — FISIOREX 1000, EVEROIL 35 / EVERIX 35</li>
       </ul>
-      <p className="text-xs text-amber-800 mt-2">Products with a cyclic carrier (e.g. CM 040 / Volatile D5 fluid, cosmetics) are flagged in the catalog. Always verify SDS §3 (constituents, CAS, impurity %; D4 < 0.1%). If challenged: acknowledge the legacy SKU → point to SDS §3 → pivot to the non-cyclic / vegetal upgrade. <Link href="/faq" className="underline">Q&A 22, 42</Link></p>
+      <p className="text-xs text-amber-800 mt-2">Products with a cyclic carrier (e.g. CM 040 / Volatile D5 fluid, cosmetics) are flagged in the catalog. Always verify SDS §3 (constituents, CAS, impurity %; D4 &lt; 0.1%). If challenged: acknowledge the legacy SKU → point to SDS §3 → pivot to the non-cyclic / vegetal upgrade. <Link href="/faq" className="underline">Q&A 22, 42</Link></p>
     </div>
   );
 }

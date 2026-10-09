@@ -1,6 +1,7 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 10:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "טלפרומפטר (הערות דובר)": "Teleprompter (speaker notes)",
   "שביעות רצון והמלצות": "Satisfaction & testimonials",
   "שביעות רצון והמלצות לקוחות": "Customer satisfaction & testimonials",
   "המלצות לקוחות (ממליצים 8+)": "Customer testimonials (promoters 8+)",
