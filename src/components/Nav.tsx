@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
 import LangSwitch from "./LangSwitch";
 import Clock from "./Clock";
+import VersionStamp from "./VersionStamp";
 import { useLang } from "@/i18n";
 const ITEMS = [
   { href: "/", he: "לוח בקרה", icon: "📊" },
@@ -18,19 +19,22 @@ const ITEMS = [
   { href: "/campaign", he: "קמפיין", icon: "🚀" },
   { href: "/sniper", he: "Offset Sniper", icon: "🎯" },
   { href: "/brief", he: "תדריך יומי (בוט)", icon: "🤖" },
+  { href: "/faq", he: "50 שאלות ותשובות", icon: "❓" },
   { href: "/kb", he: "מאגר ידע (RAG)", icon: "📚" },
+  { href: "/satisfaction", he: "שביעות רצון ופניות", icon: "⭐" },
   { href: "/report", he: "דוח ליצרן", icon: "📑" },
 ];
 export default function Nav() {
   const { t: tr } = useLang();
   const path = usePathname();
+  if (path.startsWith("/request") || path.startsWith("/survey")) return null;
   return (
     <aside className="w-60 shrink-0 bg-ink-900 text-white min-h-screen p-4 print:hidden">
       <div className="mb-6">
         <div className="bg-white rounded-lg px-2 py-1 mb-2 inline-block"><img src="/silitex-logo.png" alt="Silitex" className="h-9" /></div>
         <div className="text-sm font-bold">Silitex CRM · Israel</div>
         <div className="flex items-center justify-between"><div className="text-xs text-slate-300">{tr("הפצה רשמית · ישראל")}</div><LangSwitch /></div>
-        <div className="mt-3"><Clock /></div>
+        <div className="mt-3"><Clock /><VersionStamp /></div>
       </div>
       <nav className="flex flex-col gap-1">
         {ITEMS.map((it) => {

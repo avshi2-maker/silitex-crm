@@ -1,4 +1,4 @@
-# SILITEX CRM — ATLAS (read first every session) · v0.5.0 · 09/10/2026
+# SILITEX CRM — ATLAS (read first every session) · v0.6.0 · 09/10/2026
 
 Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / React 19 / Tailwind 3 / Supabase (optional) / Claude API. Repo `avshi2-maker/silitex-crm`, folder `C:\silitex-crm`, Vercel project `silitex-crm`.
 
@@ -40,6 +40,12 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | Principal report wording | `src/prompts/report.ts`; page `src/app/report/page.tsx` |
 | "Ask Silitex" search index (all assets) | `scripts/build-index.mjs` → `src/data/search_index.json` (auto on `npm run build`; manual `npm run index`); search `src/lib/search.ts`; prompt `src/prompts/ask.ts` |
 | Brand palette | `tailwind.config.ts` (brand = Silitex magenta, ink = sidebar); logo `public/silitex-logo.png` |
+| 50 Q&A content | `src/data/faq.json` (also indexed into Ask Silitex); page `src/app/faq/page.tsx` |
+| Public forms (technical / sample / price) | `src/app/(public)/request/page.tsx` → `POST /api/forms` → `lib/forms.ts` (Resend email + Supabase form_submissions) |
+| Customer satisfaction survey (public) + criteria | `src/app/(public)/survey/page.tsx`; criteria `src/config/survey.ts`; internal view `src/app/satisfaction/page.tsx`; AI prompt `src/prompts/satisfaction.ts` |
+| Public-page header/footer | `src/components/PublicShell.tsx` (sidebar hides itself on /request, /survey in Nav.tsx) |
+| Version · commit · build-time stamp under the clock | `src/components/VersionStamp.tsx` (commit via VERCEL_GIT_COMMIT_SHA in next.config.ts) |
+| Pitch "Commercial model" block | `src/config/pitch.ts` → `model` |
 | DB tables | `supabase/schema.sql` |
 | Offset Sniper matching rules | `src/lib/sniper.ts` (prompt: `src/prompts/sniper.ts`) |
 | Daily brief wording / which 5 calls | `src/prompts/brief.ts`; pipeline `src/lib/brief.ts` |
@@ -70,7 +76,7 @@ AI: page builds `{context, prompt}` from `src/prompts/*` → `AiPanel` → `POST
 RAG: upload → `/api/rag/extract` (unpdf) → chunks in store → `scoreChunks()` → `prompts/rag.ts` → `AiPanel`.
 
 ## Env
-`ANTHROPIC_API_KEY` (required for real AI) · `ANTHROPIC_MODEL` (optional) · `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` (optional, client) · `SUPABASE_SERVICE_ROLE_KEY` (bots need it to read/write real data) · `CRON_SECRET` (Vercel sets) · `BRIEF_TO_WHATSAPP` · Twilio trio or `WHATSAPP_WEBHOOK_URL`.
+`ANTHROPIC_API_KEY` (required for real AI) · `ANTHROPIC_MODEL` (optional) · `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` (optional, client) · `SUPABASE_SERVICE_ROLE_KEY` (bots need it to read/write real data) · `CRON_SECRET` (Vercel sets) · `BRIEF_TO_WHATSAPP` · Twilio trio or `WHATSAPP_WEBHOOK_URL` · `RESEND_API_KEY` + `FORMS_TO` + `FORMS_FROM` (customer forms → email).
 
 ## Presentation
 `/pitch?lang=en&demo=1` — English, demo pipeline loaded. `?lang=en` on any URL forces English. ⚙ on dashboard: load demo / copy link / reset.

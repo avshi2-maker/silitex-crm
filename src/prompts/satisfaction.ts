@@ -1,0 +1,2 @@
+// satisfaction.ts (src/prompts/satisfaction.ts) · updated 09.10.2026 13:20 (Asia/Jerusalem) — AI read of survey results
+export const SAT_PROMPT = "Analyse the customer-satisfaction responses: average per criterion, NPS (promoters 9–10 minus detractors 0–6), top 3 strengths, top 3 gaps, 3 concrete actions for the distributor and 2 requests to Silitex (documentation / supply / support). Quote customer comments where useful. Max 250 words.";

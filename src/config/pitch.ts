@@ -18,5 +18,13 @@ export const PITCH = {
     ["Daily discipline", "Automated daily call plan, weekly review, sample tracker, AI-drafted outreach in Hebrew and English."],
     ["Local stock & service", "Tel Aviv warehouse, 2-day delivery, Hebrew technical support — the pain point with current agents of global brands."],
   ],
+  model: {
+    title: "Commercial model",
+    lines: [
+      "Sapirim acts as Silitex's agent of record for Israel: exclusive territory, customer-of-record protection, non-circumvention.",
+      "Logistics by customer preference: (A) consolidated DDP deliveries via our forwarder from local stock, or (B) direct Silitex invoicing with customer-nominated forwarder for container-scale volumes.",
+      "Commission scales with volume and product class; terms in the agency agreement, not on this page.",
+    ],
+  },
   needs: ["Exclusive distribution for Israel (12-month performance-based)", "TDS / MSDS pack for the 45 focus SKUs", "Sample kits: 2 kg × 19 accounts (Phase 1)", "Distributor price list (EUR, FCA Italy) + MOQ", "Kosher / FDA / HACCP certificates (current)", "Joint technical visit in Month 3"],
 };
