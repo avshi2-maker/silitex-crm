@@ -1,9 +1,10 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 09.10.2026 11:30 (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
 import LangSwitch from "./LangSwitch";
+import Clock from "./Clock";
 import { useLang } from "@/i18n";
 const ITEMS = [
   { href: "/", he: "לוח בקרה", icon: "📊" },
@@ -25,6 +26,7 @@ export default function Nav() {
       <div className="mb-6">
         <div className="text-lg font-bold">Silitex CRM</div>
         <div className="flex items-center justify-between"><div className="text-xs text-blue-200">{tr("הפצה רשמית · ישראל")}</div><LangSwitch /></div>
+        <div className="mt-3"><Clock /></div>
       </div>
       <nav className="flex flex-col gap-1">
         {ITEMS.map((it) => {

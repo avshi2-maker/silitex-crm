@@ -1,4 +1,4 @@
-# SILITEX CRM — ATLAS (read first every session) · v0.4.1 · 09/10/2026
+# SILITEX CRM — ATLAS (read first every session) · v0.4.2 · 09/10/2026
 
 Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / React 19 / Tailwind 3 / Supabase (optional) / Claude API. Repo `avshi2-maker/silitex-crm`, folder `C:\silitex-crm`, Vercel project `silitex-crm`.
 
@@ -30,6 +30,7 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | Export buttons (print/outlook/gmail/whatsapp/save) | `src/components/ExportBar.tsx` |
 | Token/cost meter UI | `src/components/TokenMeter.tsx` |
 | Sidebar menu items | `src/components/Nav.tsx` |
+| Live clock in header | `src/components/Clock.tsx` |
 | Shared UI atoms (Card, Badge, Stat, button classes) | `src/components/ui.tsx` |
 | English translations (HE source string → EN) | `src/i18n/en.ts`; provider/switch `src/i18n/index.tsx`, `components/LangSwitch.tsx` |
 | DB tables | `supabase/schema.sql` |
@@ -51,7 +52,7 @@ src/lib/store/   state.ts (persist) · cadence.ts (pure scheduler) · useStore.t
 src/components/  Nav · ui · ExportBar · TokenMeter · AiPanel · PlanCard · PrioritiesCard · CrawlPanel
 src/app/         page (dashboard) · products · offsets · leads · leads/[id] · pipeline · schedule · campaign · kb · sniper · brief
 src/app/api/     ai · rag/extract · rag/crawl · brief · cron/daily-brief · cron/crawl
-src/data/        products.json (45) · offsets.json (37×25, from full_offset…-v5.csv; Dow Corning/DOWSIL/XIAMETER names) · food_grade.json (9) · leads.json (19, with plan_* from action-plan CSV) · priorities.json (5)
+src/data/        products.json (45, v2 — Dow Corning / DuPont / XIAMETER benchmark names) · offsets.json (37×25, from full_offset…-v5.csv; Dow Corning/DOWSIL/XIAMETER names) · food_grade.json (9) · leads.json (19, with plan_* from action-plan CSV) · priorities.json (5)
 supabase/        schema.sql
 ```
 
