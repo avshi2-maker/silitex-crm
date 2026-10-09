@@ -1,4 +1,4 @@
-// state.ts (src/lib/store/state.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
+// state.ts (src/lib/store/state.ts) · updated 09.10.2026 19:05 (Asia/Jerusalem)
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
@@ -13,6 +13,10 @@ export function loadState(): State {
 }
 export function saveState(s: State) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {} }
 export function clearState() { try { localStorage.removeItem(STORAGE_KEY); } catch {} }
+export function remove(table: string, id: string) {
+  const sb = supabase(); if (!sb) return;
+  sb.from(table).delete().eq("id", id).then(({ error }) => { if (error) console.warn("supabase delete", table, error.message); });
+}
 export function sync(table: string, row: object) {
   const sb = supabase(); if (!sb) return;
   sb.from(table).upsert(row).then(({ error }) => { if (error) console.warn("supabase", table, error.message); });

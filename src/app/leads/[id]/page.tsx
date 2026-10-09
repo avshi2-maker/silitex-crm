@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 18:30 (Asia/Jerusalem) — lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 19:05 (Asia/Jerusalem) — lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState } from "react";
 import { useStore, STAGES } from "@/lib/store";
 import { PRODUCTS, industriesOf, INDUSTRIES } from "@/lib/data";
@@ -10,13 +10,16 @@ import SampleCard from "@/components/SampleCard";
 import DocsCard from "@/components/leads/DocsCard";
 import TranscriptCard from "@/components/leads/TranscriptCard";
 import { fmtDateTime, fmtDate, todayIso } from "@/lib/format";
+import RowActions from "@/components/leads/RowActions";
+import { useRouter } from "next/navigation";
 import { pitchContext, pitchPrompt } from "@/prompts/pitch";
 import type { Lead, Stage } from "@/lib/types";
 import { useLang } from "@/i18n";
 export default function LeadPage({ params }: { params: Promise<{ id: string }> }) {
   const { t: tr } = useLang();
   const { id } = use(params);
-  const { state, ready, upsertLead, setStage, addActivity, addTask, addSpend, addSample, setSampleStatus, addDoc, setDocStatus } = useStore();
+  const { state, ready, upsertLead, setStage, addActivity, addTask, addSpend, addSample, setSampleStatus, addDoc, setDocStatus, removeLead } = useStore();
+  const router = useRouter();
   const [note, setNote] = useState("");
   if (!ready) return null;
   const lead = state.leads.find((l) => l.id === id);
@@ -28,7 +31,10 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
   const ctx = pitchContext(lead, matches);
   return (
     <div className="space-y-4">
-      <H1 sub={lead.industry + " · " + lead.tier + (lead.source ? " · " + tr(lead.source) : "") + (lead.contact_phone ? " · 📱 " + lead.contact_phone : "")}>{lead.name}</H1>
+      <div className="flex items-start justify-between gap-2">
+        <H1 sub={lead.industry + " · " + lead.tier + (lead.source ? " · " + tr(lead.source) : "") + (lead.contact_phone ? " · 📱 " + lead.contact_phone : "")}>{lead.name}</H1>
+        <div className="text-end text-xs text-slate-500"><div>{tr("נוצר")}: {lead.created_at ? fmtDateTime(lead.created_at) : tr("מאגר")}</div><div>{tr("עודכן")}: {lead.updated_at ? fmtDateTime(lead.updated_at) : "—"}</div><div className="mt-1"><RowActions id={id} name={lead.name} hideEdit onDelete={() => { removeLead(id); router.push("/leads"); }} /></div></div>
+      </div>
       <div className="grid lg:grid-cols-[1fr_380px] gap-4 items-start">
         <div className="space-y-4">
           <Card>
@@ -73,12 +79,13 @@ function Intake({ lead, onSave }: { lead: Lead; onSave: (l: Lead) => void }) {
     <div>
       <h3 className="font-bold mb-2">{tr("טופס קליטה (Intake)")}</h3>
       <div className="grid md:grid-cols-3 gap-2">
+        {field("name", tr("חברה"), "text", true)}{field("industry", tr("תעשייה"))}{field("sub_industry", tr("תת-תעשייה / תיאור"))}
         {field("contact_name", tr("שם איש קשר"), "text", true)}{field("contact_role", tr("תפקיד"))}{field("department", tr("מחלקה"))}
         {field("contact_phone", tr("נייד"), "tel", true)}{field("contact_email", tr("אימייל"), "email")}{field("next_action_at", tr("פעולה הבאה (תאריך)"), "date")}
         <label className="text-xs text-slate-500 md:col-span-3">{tr("צורך / יישום")}<textarea className={inputCls + " mt-1"} rows={2} value={f.use_case} onChange={(e) => set("use_case", e.target.value)} /></label>
         <label className="text-xs text-slate-500 md:col-span-3">{tr("הערות (ספק נוכחי, כמויות, מחירים, דרישות רגולציה)")}<textarea className={inputCls + " mt-1"} rows={3} value={f.notes || ""} onChange={(e) => set("notes", e.target.value)} /></label>
       </div>
-      <div className="flex justify-between items-center mt-2 text-xs text-slate-500"><span>{tr("פעולה הבאה: ")}{fmtDate(f.next_action_at)}</span><button className={btnPrimary} onClick={() => { if (!f.contact_name || !f.contact_phone) return alert(tr("חובה: שם איש קשר + נייד")); onSave(f); }}>{tr("שמור טופס")}</button></div>
+      <div className="flex justify-between items-center mt-2 text-xs text-slate-500"><span>{tr("פעולה הבאה: ")}{fmtDate(f.next_action_at)}</span><button className={btnPrimary} onClick={() => { if (!f.name || !f.contact_name || !f.contact_phone) return alert(tr("חובה: חברה, שם איש קשר, נייד")); onSave(f); }}>{tr("שמור טופס")}</button></div>
     </div>
   );
 }

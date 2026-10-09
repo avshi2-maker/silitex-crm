@@ -1,6 +1,13 @@
 // it.ts (src/i18n/it.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "נוצר": "Creato",
+  "עודכן": "Aggiornato",
+  "מאגר": "base",
+  "✏️ ערוך": "✏️ Modifica",
+  "למחוק את": "Eliminare",
+  "כן, מחק": "Sì, elimina",
+  "תת-תעשייה / תיאור": "Sottosettore / descrizione",
   "RFQ התקבל": "RFQ ricevuta",
   "להכין ולשלוח הצעת מחיר ל-RFQ": "Preparare e inviare l'offerta per la RFQ",
   "חובה: חברה, שם איש קשר, נייד": "Obbligatori: azienda, referente, cellulare",

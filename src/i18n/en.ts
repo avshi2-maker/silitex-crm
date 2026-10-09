@@ -1,6 +1,14 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "נוצר": "Created",
+  "עודכן": "Updated",
+  "מאגר": "seed",
+  "✏️ ערוך": "✏️ Edit",
+  "🗑️": "🗑️",
+  "למחוק את": "Delete",
+  "כן, מחק": "Yes, delete",
+  "תת-תעשייה / תיאור": "Sub-industry / description",
   "RFQ התקבל": "RFQ received",
   "להכין ולשלוח הצעת מחיר ל-RFQ": "Prepare and send the price offer for the RFQ",
   "חובה: חברה, שם איש קשר, נייד": "Required: company, contact name, mobile",

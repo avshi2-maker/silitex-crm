@@ -1,8 +1,8 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
+// useStore.ts (src/lib/store/useStore.ts) · updated 09.10.2026 19:05 (Asia/Jerusalem)
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
-import { EMPTY, loadState, saveState, clearState, sync, type State } from "./state";
+import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
 import { buildSchedule } from "./cadence";
 import { stageHe } from "@/config/stages";
 import { uid, todayIso, addDays } from "@/lib/format";
@@ -20,9 +20,14 @@ export function useStore() {
     const a: Activity = { id: uid("act"), lead_id, at: new Date().toISOString(), kind, text };
     update((s) => ({ ...s, activities: [a, ...s.activities] })); sync("activities", a);
   };
-  const upsertLead = (lead: Lead) => {
+  const upsertLead = (raw: Lead) => {
+    const now = new Date().toISOString(); const lead: Lead = { ...raw, created_at: raw.created_at || now, updated_at: now };
     update((s) => ({ ...s, leads: s.leads.some((l) => l.id === lead.id) ? s.leads.map((l) => (l.id === lead.id ? lead : l)) : [lead, ...s.leads] }));
     sync("leads", lead);
+  };
+  const removeLead = (id: string) => {
+    update((s) => ({ ...s, leads: s.leads.filter((l) => l.id !== id), tasks: s.tasks.filter((t) => t.lead_id !== id), activities: s.activities.filter((a) => a.lead_id !== id), samples: s.samples.filter((x) => x.lead_id !== id), docs: s.docs.filter((d) => d.lead_id !== id) }));
+    ["tasks", "activities", "samples", "docs"].forEach((t) => state[t as "tasks"].filter((r) => r.lead_id === id).forEach((r) => remove(t, r.id))); remove("leads", id);
   };
   const setStage = (id: string, stage: Stage) => {
     update((s) => ({ ...s, leads: s.leads.map((l) => (l.id === id ? { ...l, stage } : l)) }));
@@ -50,5 +55,5 @@ export function useStore() {
   const loadDemo = () => update((s) => ({ ...s, ...buildDemo(), demo: true }));
   const reset = () => { clearState(); setState(EMPTY); };
 
-  return { state, ready, upsertLead, addActivity, setStage, addTask, toggleTask, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, loadDemo, reset };
+  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, loadDemo, reset };
 }
