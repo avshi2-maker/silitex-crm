@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/hub/page.tsx) · updated 10.10.2026 07:10 (Asia/Jerusalem) — Silitex Hub: department boxes → threads (filter dept/status/ref) → thread view; paste-mail intake; Graph ingest sync (Phase B)
+// page.tsx (src/app/hub/page.tsx) · updated 10.10.2026 07:15 (Asia/Jerusalem) — Silitex Hub: department boxes → threads (filter dept/status/ref) → thread view; paste-mail intake; Graph ingest sync (Phase B)
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
 import { Card, H1, Badge, inputCls, btnGhost } from "@/components/ui";
@@ -37,7 +37,7 @@ export default function HubPage() {
           {list.map((t) => { const d = DEPTS.find((x) => x.key === t.dept); const st = THREAD_STATUS.find((s) => s.key === t.status); const n = state.msgs.filter((m) => m.thread_id === t.id).length; return (
             <button key={t.id} onClick={() => setSel(t.id)} className={"w-full text-start p-2 text-sm hover:bg-slate-50 " + (sel === t.id ? "bg-brand-50" : "")}>
               <div className="flex items-center gap-1"><span>{d?.icon}</span><span className="font-medium truncate flex-1">{t.subject}</span>{isLate(t) && <Badge tone="red">⏰{waitingDays(t)}</Badge>}<Badge tone={st?.tone}>{tr(st?.he || t.status)}</Badge></div>
-              <div className="text-xs text-slate-500 truncate">{[t.refs.shipment_ref, t.refs.lead_name, t.refs.po && "P/O " + t.refs.po, t.refs.sku].filter(Boolean).join(" · ") || tr("ללא קישור")} · {n} · {fmtDate(t.last_at)}</div>
+              <div className="text-xs text-slate-500 truncate">{[state.contacts.find((c) => c.id === t.contact_id)?.name, t.refs.shipment_ref, t.refs.lead_name, t.refs.po && "P/O " + t.refs.po, t.refs.sku].filter(Boolean).join(" · ") || tr("ללא קישור")} · {n} · {fmtDate(t.last_at)}</div>
             </button>); })}
           {list.length === 0 && <div className="p-3 text-xs text-slate-400">{tr("אין שרשורים. הדבק מייל למעלה — או חבר את Outlook (שלב B).")}</div>}
         </Card>
