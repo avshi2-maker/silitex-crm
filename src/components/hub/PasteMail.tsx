@@ -1,15 +1,15 @@
 "use client";
-// PasteMail.tsx (src/components/hub/PasteMail.tsx) · updated 10.10.2026 05:50 (Asia/Jerusalem) — paste an Outlook email (headers + body) → parsed, auto-matched (dept, shipment, lead, SKU, P/O) → new thread or append to selected thread
+// PasteMail.tsx (src/components/hub/PasteMail.tsx) · updated 10.10.2026 07:10 (Asia/Jerusalem) — paste an Outlook email (headers + body) → parsed, auto-matched (dept, shipment, lead, SKU, P/O) → new thread or append to selected thread
 import { useState } from "react";
 import { Card, inputCls, btnPrimary, btnGhost, Badge } from "@/components/ui";
 import { DEPTS } from "@/config/hub";
 import { parseEmail, matchRefs, guessDept, isOutbound } from "@/lib/hub";
 import { useLang } from "@/i18n";
-import type { Lead, Shipment, Thread, HubMsg } from "@/lib/types";
-type Props = { leads: Lead[]; shipments: Shipment[]; threads: Thread[]; current?: Thread; onNewThread: (t: Omit<Thread, "id">, m: Omit<HubMsg, "id" | "thread_id">) => void; onAppend: (threadId: string, m: Omit<HubMsg, "id" | "thread_id">) => void };
-export default function PasteMail({ leads, shipments, threads, current, onNewThread, onAppend }: Props) {
+import type { Lead, Shipment, Thread, HubMsg, SilitexContact } from "@/lib/types";
+type Props = { contacts?: SilitexContact[]; leads: Lead[]; shipments: Shipment[]; threads: Thread[]; current?: Thread; onNewThread: (t: Omit<Thread, "id">, m: Omit<HubMsg, "id" | "thread_id">) => void; onAppend: (threadId: string, m: Omit<HubMsg, "id" | "thread_id">) => void };
+export default function PasteMail({ contacts = [], leads, shipments, threads, current, onNewThread, onAppend }: Props) {
   const { t: tr } = useLang(); const [raw, setRaw] = useState(""); const [target, setTarget] = useState<string>("new");
-  const p = raw ? parseEmail(raw) : null; const refs = p ? matchRefs(p.subject + " " + p.body, leads, shipments) : {}; const dept = p ? guessDept(p.subject, p.body) : "";
+  const p = raw ? parseEmail(raw) : null; const refs = p ? matchRefs(p.subject + " " + p.body, leads, shipments) : {}; const ct = p ? contacts.find((c) => c.email && !/^info@/i.test(c.email) && (p.from + " " + p.to).toLowerCase().includes(c.email.toLowerCase())) : undefined; const dept = p ? ct?.dept || guessDept(p.subject, p.body) : "";
   const norm = p ? p.subject.replace(/^(re|fw|fwd|r|i)\s*:\s*/gi, "").trim() : "";
   const existing = p ? threads.find((t) => t.subject.toLowerCase() === norm.toLowerCase()) : undefined;
   const save = () => {
