@@ -1,27 +1,21 @@
-// whatsapp.ts (src/lib/whatsapp.ts) · updated 10.10.2026 09:50 (Asia/Jerusalem)
-// Parse a WhatsApp chat export (Android "dd/mm/yyyy, hh:mm - Name: text" · iPhone "[dd/mm/yyyy, hh:mm:ss] Name: text"; multi-line; LRM marks) and match senders to prospects / Silitex contacts / us.
-import type { Lead, SilitexContact } from "./types";
-export type WaMsg = { at: string; sender: string; text: string };
-const LINE = /^‎?\[?(\d{1,2})[./](\d{1,2})[./](\d{2,4}),?\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(?:[AP]M)?\]?\s*[-–]?\s*([^:]{1,60}?):\s([\s\S]*)$/;
-export function parseWhatsApp(raw: string): WaMsg[] {
-  const out: WaMsg[] = []; const lines = raw.replace(/\r/g, "").replace(/[‎‏‪-‮]/g, "").split("\n");
-  for (const line of lines) {
-    const m = line.match(LINE);
-    if (m) { const [, d, mo, y, h, mi, s, sender, text] = m; const yy = y.length === 2 ? "20" + y : y; const at = new Date(Date.UTC(+yy, +mo - 1, +d, +h - 3, +mi, +(s || 0))).toISOString(); out.push({ at, sender: sender.trim(), text }); }
-    else if (out.length && line.trim()) out[out.length - 1].text += "\n" + line;
-  }
-  return out.filter((m) => m.text.trim() && !/^<Media omitted>|^‎?image omitted|^Messages and calls are end-to-end encrypted/i.test(m.text.trim())).map((m) => ({ ...m, text: m.text.trim() }));
+// whatsapp.ts (src/lib/whatsapp.ts) · updated 09.10.2026 10:05 (Asia/Jerusalem) — server only
+// Outbound WhatsApp. Provider by env: Twilio (TWILIO_ACCOUNT_SID/TWILIO_AUTH_TOKEN/TWILIO_WHATSAPP_FROM) or generic webhook (WHATSAPP_WEBHOOK_URL, POST {to,text}).
+// Recipient: BRIEF_TO_WHATSAPP (E.164, e.g. 972505231042). No provider → returns a wa.me link for manual send.
+export type SendResult = { sent: boolean; provider: string; link: string; error?: string };
+export async function sendWhatsApp(text: string): Promise<SendResult> {
+  const to = process.env.BRIEF_TO_WHATSAPP || "972505231042";
+  const link = "https://wa.me/" + to + "?text=" + encodeURIComponent(text);
+  const { TWILIO_ACCOUNT_SID: sid, TWILIO_AUTH_TOKEN: tok, TWILIO_WHATSAPP_FROM: from, WHATSAPP_WEBHOOK_URL: hook } = process.env;
+  try {
+    if (sid && tok && from) {
+      const body = new URLSearchParams({ From: "whatsapp:" + from, To: "whatsapp:+" + to, Body: text });
+      const r = await fetch("https://api.twilio.com/2010-04-01/Accounts/" + sid + "/Messages.json", { method: "POST", headers: { Authorization: "Basic " + Buffer.from(sid + ":" + tok).toString("base64"), "Content-Type": "application/x-www-form-urlencoded" }, body });
+      return { sent: r.ok, provider: "twilio", link, error: r.ok ? undefined : await r.text() };
+    }
+    if (hook) {
+      const r = await fetch(hook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ to, text }) });
+      return { sent: r.ok, provider: "webhook", link, error: r.ok ? undefined : await r.text() };
+    }
+  } catch (e: unknown) { return { sent: false, provider: "error", link, error: e instanceof Error ? e.message : "send failed" }; }
+  return { sent: false, provider: "none", link };
 }
-const clean = (s: string) => s.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu, " ").replace(/\s+/g, " ").trim();
-export const normPhone = (p?: string | null) => String(p || "").replace(/\D/g, "").replace(/^972/, "0").replace(/^00972/, "0");
-export const OUR_NAMES = ["avshi", "אבשי", "sapir", "ספיר", "sapirim", "you", "את/ה", "אתה"];
-export const isUs = (sender: string) => { const c = clean(sender); return OUR_NAMES.some((n) => c === n || c.includes(n)); };
-const nameHit = (a: string, b?: string | null) => { if (!b) return false; const x = clean(a), y = clean(b); if (!x || !y) return false; if (x === y || x.includes(y) || y.includes(x)) return true; const fx = x.split(" ")[0], fy = y.split(" ")[0]; return fx.length > 2 && fx === fy; };
-export function matchLeadBySenders(senders: string[], raw: string, leads: Lead[]): Lead | undefined {
-  const others = senders.filter((s) => !isUs(s)); const phones = (raw.match(/\+?\d[\d\s-]{7,}\d/g) || []).map(normPhone);
-  return leads.find((l) => l.contact_phone && phones.includes(normPhone(l.contact_phone))) || leads.find((l) => others.some((s) => nameHit(s, l.contact_name))) || leads.find((l) => others.some((s) => nameHit(s, l.name.split(" (")[0])));
-}
-export function matchContactBySenders(senders: string[], contacts: SilitexContact[]): SilitexContact | undefined {
-  const others = senders.filter((s) => !isUs(s)); return contacts.find((c) => others.some((s) => nameHit(s, c.name)));
-}
-export const senderList = (msgs: WaMsg[]) => Array.from(new Set(msgs.map((m) => m.sender)));

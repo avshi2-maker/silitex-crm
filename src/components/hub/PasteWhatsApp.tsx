@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Card, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui";
 import { DEPTS } from "@/config/hub";
-import { parseWhatsApp, senderList, isUs, matchLeadBySenders, matchContactBySenders } from "@/lib/whatsapp";
+import { parseWhatsApp, senderList, isUs, matchLeadBySenders, matchContactBySenders } from "@/lib/whatsapp-import";
 import { fmtDate } from "@/lib/format";
 import { useLang } from "@/i18n";
 import type { Lead, SilitexContact, Thread, HubMsg } from "@/lib/types";
