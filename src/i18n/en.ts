@@ -1,6 +1,14 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "הדבק הודעה שהעתקת מוואטסאפ (לחיצה ארוכה → העתק) ובחר ממי היא — או הדבק ייצוא צ'אט שלם (⋮ → עוד → ייצוא צ'אט → ללא מדיה) והמערכת תזהה שולחים ואיש קשר לבד.": "Paste a message copied from WhatsApp (long-press → Copy) and pick who it's from — or paste a whole chat export (⋮ → More → Export chat → Without media) and senders/contact are detected automatically.",
+  "הדבק כאן הודעה אחת או ייצוא צ'אט שלם…": "Paste one message or a whole chat export here…",
+  "הודעה בודדת (ללא תאריכים) — בחר למי שייכת וממי נשלחה:": "Single message (no dates) — pick whose it is and who sent it:",
+  "ממי": "From",
+  "מהם → אליי": "them → me",
+  "ממני → אליהם": "me → them",
+  "שמור הודעה": "Save message",
+  "נוסף לשרשור: ": "Added to thread: ",
   "ייבוא שיחת WhatsApp": "Import WhatsApp chat",
   "בוואטסאפ: פתח את השיחה → ⋮ → עוד → ייצוא צ'אט → ללא מדיה → שתף לעצמך/מייל, והדבק כאן את הטקסט. המערכת מזהה את איש הקשר לפי שם/טלפון מרשימת הלקוחות ואנשי הקשר.": "In WhatsApp: open the chat → ⋮ → More → Export chat → Without media → share to yourself/email, then paste the text here. The contact is matched by name/phone against your prospects and Silitex contacts.",
   "שייך ל-": "Belongs to",

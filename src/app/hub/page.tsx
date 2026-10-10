@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/hub/page.tsx) · updated 10.10.2026 09:50 (Asia/Jerusalem) — Silitex Hub: department boxes → threads (filter dept/status/ref) → thread view; paste-mail intake; Graph ingest sync (Phase B)
+// page.tsx (src/app/hub/page.tsx) · updated 10.10.2026 10:05 (Asia/Jerusalem) — Silitex Hub: department boxes → threads (filter dept/status/ref) → thread view; paste-mail intake; Graph ingest sync (Phase B)
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
 import { Card, H1, Badge, inputCls, btnGhost } from "@/components/ui";
@@ -32,7 +32,7 @@ export default function HubPage() {
       {synced && <div className="text-xs text-emerald-700">{synced}</div>}
       <DeptBoxes contacts={state.contacts} leadsWithEmail={state.leads.filter((l) => l.contact_email).length} threads={state.threads} sel={dept} onSel={setDept} onSave={upsertContact} onRemove={removeContact} />
       <PasteMail contacts={state.contacts} leads={state.leads} shipments={state.shipments} threads={state.threads} current={cur} onNewThread={(t, m) => { const th = addThread(t); addMsg({ ...m, thread_id: th.id }); setSel(th.id); }} onAppend={(tid, m) => { addMsg({ ...m, thread_id: tid }); setSel(tid); }} />
-      <PasteWhatsApp leads={state.leads} contacts={state.contacts} presetLeadId={waLead || undefined} onSave={(t, ms) => { const th = addThread(t); ms.forEach((m) => addMsg({ ...m, thread_id: th.id })); setSel(th.id); }} />
+      <PasteWhatsApp leads={state.leads} contacts={state.contacts} threads={state.threads} presetLeadId={waLead || undefined} onSave={(t, ms) => { const th = addThread(t); ms.forEach((m) => addMsg({ ...m, thread_id: th.id })); setSel(th.id); }} onAppend={(tid, ms) => { ms.forEach((m) => addMsg({ ...m, thread_id: tid })); const last = ms[ms.length - 1]; updateThread(tid, { last_at: last.at, status: last.direction === "in" ? "waiting_us" : "waiting_silitex" }); setSel(tid); }} />
       <Card className="flex flex-wrap gap-2 items-center"><input className={inputCls + " flex-1 min-w-[200px]"} placeholder={tr("חיפוש נושא / SHP / P/O / לקוח")} value={q} onChange={(e) => setQ(e.target.value)} /><select className={inputCls + " w-48"} value={status} onChange={(e) => setStatus(e.target.value)}><option value="">{tr("כל הסטטוסים")}</option>{THREAD_STATUS.map((s) => <option key={s.key} value={s.key}>{tr(s.he)}</option>)}</select>{dept && <button className={btnGhost} onClick={() => setDept("")}>{tr("כל המחלקות")} ✕</button>}</Card>
       <div className="grid lg:grid-cols-[360px_1fr] gap-4 items-start">
         <Card className="p-0 divide-y max-h-[70vh] overflow-auto">

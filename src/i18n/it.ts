@@ -1,6 +1,14 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "הדבק הודעה שהעתקת מוואטסאפ (לחיצה ארוכה → העתק) ובחר ממי היא — או הדבק ייצוא צ'אט שלם (⋮ → עוד → ייצוא צ'אט → ללא מדיה) והמערכת תזהה שולחים ואיש קשר לבד.": "Incolla un messaggio copiato da WhatsApp (pressione lunga → Copia) e scegli da chi arriva — oppure incolla un'esportazione chat completa e mittenti/contatto vengono riconosciuti da soli.",
+  "הדבק כאן הודעה אחת או ייצוא צ'אט שלם…": "Incolla qui un messaggio o un'esportazione chat completa…",
+  "הודעה בודדת (ללא תאריכים) — בחר למי שייכת וממי נשלחה:": "Messaggio singolo (senza date) — scegli a chi appartiene e chi l'ha inviato:",
+  "ממי": "Da",
+  "מהם → אליי": "loro → me",
+  "ממני → אליהם": "me → loro",
+  "שמור הודעה": "Salva messaggio",
+  "נוסף לשרשור: ": "Aggiunto alla conversazione: ",
   "ייבוא שיחת WhatsApp": "Importa chat WhatsApp",
   "בוואטסאפ: פתח את השיחה → ⋮ → עוד → ייצוא צ'אט → ללא מדיה → שתף לעצמך/מייל, והדבק כאן את הטקסט. המערכת מזהה את איש הקשר לפי שם/טלפון מרשימת הלקוחות ואנשי הקשר.": "In WhatsApp: apri la chat → ⋮ → Altro → Esporta chat → Senza media → condividi con te stesso/email, poi incolla qui il testo. Il contatto viene abbinato per nome/telefono ai prospect e ai contatti Silitex.",
   "הודעות": "messaggi",
