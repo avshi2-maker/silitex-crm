@@ -22,6 +22,8 @@ create table if not exists hub_messages (id text primary key, thread_id text ref
 alter table silitex_contacts enable row level security; create policy "all" on silitex_contacts for all using (true) with check (true);
 alter table threads enable row level security; create policy "all" on threads for all using (true) with check (true);
 alter table hub_messages enable row level security; create policy "all" on hub_messages for all using (true) with check (true);
+create table if not exists hub_tokens (id text primary key, refresh_token text, account text, last_sync timestamptz, last_result text, updated_at timestamptz default now());
+alter table hub_tokens enable row level security;
 create table if not exists samples (id text primary key, lead_id text, lead_name text, sku text, kg numeric, sent_at date, status text, result text, followup_at date);
 alter table samples enable row level security; create policy "all" on samples for all using (true) with check (true);
 create table if not exists form_submissions (id bigserial primary key, created_at timestamptz default now(), kind text, company text, name text, email text, phone text, product text, message text, fields jsonb default '{}', lang text);

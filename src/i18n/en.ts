@@ -1,6 +1,20 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "Outlook חובר: ": "Outlook connected: ",
+  "שגיאת חיבור: ": "Connection error: ",
+  "סונכרן: ": "Synced: ",
+  " מיילים, ": " emails, ",
+  " חדשים": " new",
+  "שגיאה: ": "Error: ",
+  "לא מוגדר — חסרים MS_CLIENT_ID / MS_CLIENT_SECRET ב-Vercel": "Not configured — MS_CLIENT_ID / MS_CLIENT_SECRET missing in Vercel",
+  "לא מחובר. מושך רק מיילים מ/אל ": "Not connected. Pulls only emails from/to ",
+  "חבר Outlook": "Connect Outlook",
+  "סנכרון אחרון": "last sync",
+  "אוטומטי כל 15 דק'": "auto every 15 min",
+  "מסנכרן…": "Syncing…",
+  "🔄 סנכרן עכשיו": "🔄 Sync now",
+  "חבר מחדש": "Reconnect",
   "Silitex Hub — התכתבויות": "Silitex Hub — correspondence",
   "כל ההתכתבות עם Silitex לפי מחלקה, מקושרת להזמנות, משלוחים ולקוחות — במקום לרדוף אחרי מיילים. ": "All correspondence with Silitex by department, linked to orders, shipments and accounts — instead of chasing emails. ",
   " שרשורים · ": " threads · ",
