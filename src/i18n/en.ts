@@ -1,6 +1,12 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "WhatsApp — מספרים לא מזוהים": "WhatsApp — unmatched numbers",
+  "שייך ל…": "Assign to…",
+  "שייך": "Assign",
+  "צור לקוח פוטנציאלי": "Create prospect",
+  "התעלם": "Ignore",
+  "חסום מספר": "Block number",
   "הדבק הודעה שהעתקת מוואטסאפ (לחיצה ארוכה → העתק) ובחר ממי היא — או הדבק ייצוא צ'אט שלם (⋮ → עוד → ייצוא צ'אט → ללא מדיה) והמערכת תזהה שולחים ואיש קשר לבד.": "Paste a message copied from WhatsApp (long-press → Copy) and pick who it's from — or paste a whole chat export (⋮ → More → Export chat → Without media) and senders/contact are detected automatically.",
   "הדבק כאן הודעה אחת או ייצוא צ'אט שלם…": "Paste one message or a whole chat export here…",
   "הודעה בודדת (ללא תאריכים) — בחר למי שייכת וממי נשלחה:": "Single message (no dates) — pick whose it is and who sent it:",

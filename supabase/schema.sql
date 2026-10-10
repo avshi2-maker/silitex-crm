@@ -39,3 +39,9 @@ alter table tasks enable row level security; create policy "all" on tasks for al
 alter table kb_docs enable row level security; create policy "all" on kb_docs for all using (true) with check (true);
 alter table kb_chunks enable row level security; create policy "all" on kb_chunks for all using (true) with check (true);
 -- next step: pgvector — alter table kb_chunks add column embedding vector(1024); (Voyage/OpenAI embeddings) and swap lib/rag.ts scoring.
+
+-- 10.10.2026 WhatsApp Cloud API inbound (v0.20.0): unknown numbers wait here; blocklist = never store
+create table if not exists wa_unmatched (id text primary key, phone text, name text, at timestamptz, body text, created_at timestamptz default now());
+create table if not exists wa_blocklist (phone text primary key, created_at timestamptz default now());
+alter table wa_unmatched enable row level security; create policy "all" on wa_unmatched for all using (true) with check (true);
+alter table wa_blocklist enable row level security; create policy "all" on wa_blocklist for all using (true) with check (true);

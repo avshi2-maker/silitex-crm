@@ -1,6 +1,12 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "WhatsApp — מספרים לא מזוהים": "WhatsApp — numeri non riconosciuti",
+  "שייך ל…": "Assegna a…",
+  "שייך": "Assegna",
+  "צור לקוח פוטנציאלי": "Crea prospect",
+  "התעלם": "Ignora",
+  "חסום מספר": "Blocca numero",
   "הדבק הודעה שהעתקת מוואטסאפ (לחיצה ארוכה → העתק) ובחר ממי היא — או הדבק ייצוא צ'אט שלם (⋮ → עוד → ייצוא צ'אט → ללא מדיה) והמערכת תזהה שולחים ואיש קשר לבד.": "Incolla un messaggio copiato da WhatsApp (pressione lunga → Copia) e scegli da chi arriva — oppure incolla un'esportazione chat completa e mittenti/contatto vengono riconosciuti da soli.",
   "הדבק כאן הודעה אחת או ייצוא צ'אט שלם…": "Incolla qui un messaggio o un'esportazione chat completa…",
   "הודעה בודדת (ללא תאריכים) — בחר למי שייכת וממי נשלחה:": "Messaggio singolo (senza date) — scegli a chi appartiene e chi l'ha inviato:",
