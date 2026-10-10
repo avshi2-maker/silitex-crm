@@ -10,7 +10,7 @@ export const configured = () => !!process.env.MS_CLIENT_ID;
 const b64url = (b: Buffer) => b.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 export const newVerifier = () => b64url(randomBytes(32));
 const challenge = (v: string) => b64url(createHash("sha256").update(v).digest());
-export const redirectUri = (origin: string) => origin + "/api/hub/outlook/callback";
+export const redirectUri = (origin: string) => origin + "/api/hub/outlook/cb";
 export function authUrl(origin: string, state: string, verifier: string): string {
   const q = new URLSearchParams({ client_id: process.env.MS_CLIENT_ID || "", response_type: "code", redirect_uri: redirectUri(origin), response_mode: "query", scope: SCOPE, state, prompt: "select_account", code_challenge: challenge(verifier), code_challenge_method: "S256" });
   return "https://login.microsoftonline.com/" + T() + "/oauth2/v2.0/authorize?" + q;

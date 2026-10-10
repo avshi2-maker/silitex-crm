@@ -1,4 +1,4 @@
-// route.ts (src/app/api/hub/outlook/callback/route.ts) · updated 10.10.2026 06:40 (Asia/Jerusalem) — OAuth callback (PKCE): code + verifier → refresh token → Supabase hub_tokens → back to /hub
+// route.ts (src/app/api/hub/outlook/cb/route.ts) · updated 10.10.2026 06:40 (Asia/Jerusalem) — OAuth callback (PKCE): code + verifier → refresh token → Supabase hub_tokens → back to /hub
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { exchangeCode, saveToken, me } from "@/lib/outlook";
