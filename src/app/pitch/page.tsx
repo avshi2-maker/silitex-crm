@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/pitch/page.tsx) · updated 09.10.2026 18:30 (Asia/Jerusalem) — executive story for Silitex management (English, print-ready). Copy lives in config/pitch.ts.
+// page.tsx (src/app/pitch/page.tsx) · updated 10.10.2026 07:40 (Asia/Jerusalem) — executive story for Silitex management (English, print-ready). Copy lives in config/pitch.ts.
 import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { PRODUCTS, OFFSETS, PRIORITIES, INDUSTRIES } from "@/lib/data";
@@ -28,9 +28,9 @@ export default function PitchPage() {
         <p className="text-slate-300 mt-2 text-lg">{PITCH.subtitle}</p>
         <div className="text-sm text-slate-400 mt-4">{PITCH.presenter} · {fmtDate(new Date())}</div>
       </section>
-      <section className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        {[["Target accounts", state.leads.length, "", ""], ["Industries", INDUSTRIES.length, "", ""], ["Annual potential", potential / 1e6, "$", "M"], ["Volume potential", tons, "", " t/yr"], ["Cross-ref categories", OFFSETS.rows.length, "", ""]].map(([k, v, p, s]) => (
-          <div key={k as string} className="bg-white border rounded-xl p-4 shadow-sm"><div className="text-xs text-slate-500">{k}</div><div className="text-3xl font-bold text-brand-500"><Counter to={v as number} prefix={p as string} suffix={s as string} decimals={s === "M" ? 2 : 0} /></div></div>
+      <section className="grid grid-cols-2 md:grid-cols-6 gap-4">
+        {[["Target accounts", state.leads.length, "", ""], ["Industries", INDUSTRIES.length, "", ""], ["Year-1 target", potential / 1e3, "$", "k"], ["Year-1 volume", tons, "", " t"], ["Market capacity (TAM)", state.leads.reduce((a, l) => a + (l.tam_tons || 0), 0), "", " t/yr"], ["Cross-ref categories", OFFSETS.rows.length, "", ""]].map(([k, v, p, s]) => (
+          <div key={k as string} className="bg-white border rounded-xl p-4 shadow-sm"><div className="text-xs text-slate-500">{k}</div><div className="text-3xl font-bold text-brand-500"><Counter to={v as number} prefix={p as string} suffix={s as string} decimals={0} /></div></div>
         ))}
       </section>
       <section className="grid lg:grid-cols-[auto_1fr] gap-8 bg-white border rounded-2xl p-6 shadow-sm">
