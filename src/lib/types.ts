@@ -1,4 +1,4 @@
-// types.ts (src/lib/types.ts) · updated 10.10.2026 05:30 (Asia/Jerusalem)
+// types.ts (src/lib/types.ts) · updated 10.10.2026 05:50 (Asia/Jerusalem)
 export type Product = {
   id: string; product_name: string; brand_family: string; category_sector: string;
   application_field: string; appearance: string; active_content_pct: string; active_matter_type: string;
@@ -37,3 +37,7 @@ export type KbChunk = { id: string; doc_id: string; title: string; doc_type: str
 export type Usage = { input_tokens: number; output_tokens: number; cost_usd: number; model: string; mock?: boolean };
 export type ShipLine = { sku: string; kg: number; pack: string };
 export type Shipment = { id: string; ref: string; lead_id?: string; lead_name: string; consignee: "sapirim" | "customer"; mode: "sea" | "air"; lines: ShipLine[]; values: Record<string, string>; docs: Record<string, boolean>; status: string; created_at: string; eta?: string; notes?: string };
+export type SilitexContact = { id: string; dept: string; name: string; role: string; email: string; phone?: string; mobile?: string; notes?: string };
+export type ThreadRefs = { shipment_id?: string; shipment_ref?: string; lead_id?: string; lead_name?: string; sku?: string; po?: string; invoice?: string; lot?: string };
+export type Thread = { id: string; dept: string; contact_id?: string; subject: string; topic: string; refs: ThreadRefs; due?: string; owner: "sapirim" | "silitex"; status: string; next?: string; created_at: string; last_at: string; conversation_id?: string };
+export type HubMsg = { id: string; thread_id: string; at: string; from: string; to: string; direction: "in" | "out"; body: string; source: "paste" | "graph" | "manual"; external_id?: string };

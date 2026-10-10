@@ -1,6 +1,7 @@
 "use client";
 // page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 19:30 (Asia/Jerusalem) — lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState } from "react";
+import Link from "next/link";
 import { useStore, STAGES } from "@/lib/store";
 import { PRODUCTS, industriesOf, INDUSTRIES } from "@/lib/data";
 import { Card, H1, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui";
@@ -64,7 +65,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
             <button className={btnGhost + " mt-2"} onClick={() => addTask({ lead_id: id, lead_name: lead.name, title: tr("מעקב"), due: todayIso(), cadence: "once", kind: "followup" })}>{tr("+ משימה להיום")}</button>
           </Card>
           <Card>
-            <h3 className="font-bold mb-2">{tr("יומן פעילות")}</h3>
+            <div className="flex items-center justify-between mb-2"><h3 className="font-bold">{tr("יומן פעילות")}</h3><Link href={"/hub?lead=" + encodeURIComponent(lead.name.split(" (")[0])} className="text-xs text-brand-600 underline">📬 {tr("התכתבות Silitex")} ({state.threads.filter((t) => t.refs.lead_id === id).length})</Link></div>
             <div className="flex gap-2 mb-2"><input className={inputCls} placeholder={tr("הערה / שיחה / פגישה…")} value={note} onChange={(e) => setNote(e.target.value)} /><button className={btnPrimary} onClick={() => { if (note) { addActivity(id, "note", note); setNote(""); } }}>{tr("הוסף")}</button></div>
             <ul className="text-xs space-y-2">{acts.map((a) => (<li key={a.id} className="border-s-2 border-brand-100 ps-2"><div className="text-slate-400">{fmtDateTime(a.at)} · {a.kind}</div><div>{a.text}</div></li>))}{acts.length === 0 && <li className="text-slate-400">{tr("אין פעילות עדיין.")}</li>}</ul>
           </Card>

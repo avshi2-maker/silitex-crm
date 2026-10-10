@@ -1,12 +1,12 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 10.10.2026 05:30 (Asia/Jerusalem)
+// useStore.ts (src/lib/store/useStore.ts) · updated 10.10.2026 05:50 (Asia/Jerusalem)
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
 import { buildSchedule } from "./cadence";
 import { stageHe } from "@/config/stages";
 import { uid, todayIso, addDays } from "@/lib/format";
-import type { Lead, Task, Activity, KbDoc, KbChunk, Stage, Sample, Doc, Shipment } from "@/lib/types";
+import type { Lead, Task, Activity, KbDoc, KbChunk, Stage, Sample, Doc, Shipment, SilitexContact, Thread, HubMsg } from "@/lib/types";
 import { FOLLOWUP_DAYS } from "@/config/sales";
 import { buildDemo } from "@/data/demo";
 
@@ -55,8 +55,14 @@ export function useStore() {
   const addShipment = (sh: Omit<Shipment, "id">) => { const s: Shipment = { ...sh, id: uid("shp") }; update((st) => ({ ...st, shipments: [s, ...st.shipments] })); sync("shipments", s); if (s.lead_id) addActivity(s.lead_id, "shipment", "משלוח " + s.ref + " — בקשת נתונים נשלחה ל-Silitex"); return s; };
   const updateShipment = (id: string, patch: Partial<Shipment>) => { update((st) => ({ ...st, shipments: st.shipments.map((x) => (x.id === id ? { ...x, ...patch } : x)) })); const cur = state.shipments.find((x) => x.id === id); if (cur) sync("shipments", { ...cur, ...patch }); };
   const removeShipment = (id: string) => { update((st) => ({ ...st, shipments: st.shipments.filter((x) => x.id !== id) })); remove("shipments", id); };
+  const upsertContact = (c: SilitexContact) => { update((st) => ({ ...st, contacts: st.contacts.some((x) => x.id === c.id) ? st.contacts.map((x) => (x.id === c.id ? c : x)) : [...st.contacts, c] })); sync("silitex_contacts", c); };
+  const removeContact = (id: string) => { update((st) => ({ ...st, contacts: st.contacts.filter((x) => x.id !== id) })); remove("silitex_contacts", id); };
+  const addThread = (t: Omit<Thread, "id"> & { id?: string }) => { const th: Thread = { ...t, id: t.id || uid("thr") }; update((st) => ({ ...st, threads: [th, ...st.threads] })); sync("threads", th); if (th.refs.lead_id) addActivity(th.refs.lead_id, "hub", "התכתבות Silitex: " + th.subject); return th; };
+  const updateThread = (id: string, patch: Partial<Thread>) => { update((st) => ({ ...st, threads: st.threads.map((x) => (x.id === id ? { ...x, ...patch } : x)) })); const cur = state.threads.find((x) => x.id === id); if (cur) sync("threads", { ...cur, ...patch }); };
+  const removeThread = (id: string) => { update((st) => ({ ...st, threads: st.threads.filter((x) => x.id !== id), msgs: st.msgs.filter((m) => m.thread_id !== id) })); state.msgs.filter((m) => m.thread_id === id).forEach((m) => remove("hub_messages", m.id)); remove("threads", id); };
+  const addMsg = (m: Omit<HubMsg, "id"> & { id?: string }) => { const msg: HubMsg = { ...m, id: m.id || uid("msg") }; update((st) => ({ ...st, msgs: [...st.msgs, msg], threads: st.threads.map((t) => (t.id === m.thread_id ? { ...t, last_at: m.at, status: t.status === "closed" ? "open" : m.direction === "in" ? "waiting_us" : "waiting_silitex" } : t)) })); sync("hub_messages", msg); return msg; };
   const loadDemo = () => update((s) => ({ ...s, ...buildDemo(), demo: true }));
   const reset = () => { clearState(); setState(EMPTY); };
 
-  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, addShipment, updateShipment, removeShipment, loadDemo, reset };
+  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, addShipment, updateShipment, removeShipment, upsertContact, removeContact, addThread, updateThread, removeThread, addMsg, loadDemo, reset };
 }

@@ -59,6 +59,8 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | "Grill me" rehearsal bot on /notes | `components/GrillPanel.tsx`; prompt `prompts/grill.ts` |
 | Source-type counts on /ask | inline badges in `src/app/ask/page.tsx` |
 | Logistics: shipment data-request checklist (7 sections, who-fills, defaults, HS, DG), docs list, statuses, importer identity | `src/config/shipping.ts`; helpers `lib/shipping.ts` (prefill, EN/IT text, CSV); page `src/app/logistics/page.tsx`; `components/logistics/ShipmentForm.tsx`, `ShipmentCard.tsx`; prompt `prompts/shipping.ts`; store `addShipment/updateShipment/removeShipment`; table `shipments` |
+| Silitex Hub: departments (roles, phones, keywords → auto-routing), topics, statuses, waiting alert | `src/config/hub.ts`; helpers `lib/hub.ts` (parseEmail, matchRefs, waitingDays); page `src/app/hub/page.tsx`; `components/hub/DeptBoxes.tsx` (contacts), `PasteMail.tsx`, `ThreadView.tsx`; prompts `prompts/hub.ts` (summary → FIELDS line parsed into the thread); store `upsertContact/addThread/updateThread/addMsg`; tables `silitex_contacts`, `threads`, `hub_messages` |
+| Outlook → Hub feed (Phase B) | `POST /api/hub/ingest` (header `x-hub-secret` = env `HUB_SECRET`; body `{messages:[{id,from,to,subject,at,body,conversationId}]}`) — dedup by external_id, thread by conversationId/subject; `GET` returns server threads for the page to merge. Feed it from a Microsoft Graph cron or a forwarding webhook. |
 | DB tables | `supabase/schema.sql` (incl. `docs`, `leads.source`) |
 | Offset Sniper matching rules | `src/lib/sniper.ts` (prompt: `src/prompts/sniper.ts`) |
 | Daily brief wording / which 5 calls | `src/prompts/brief.ts`; pipeline `src/lib/brief.ts` |
@@ -76,7 +78,7 @@ src/prompts/     system.ts · pitch.ts · campaign.ts · rag.ts · sniper.ts · 
 src/lib/         types.ts · format.ts · pricing.ts · data.ts · supabase.ts · rag.ts · sniper.ts · [server] ai.ts · brief.ts · whatsapp.ts · crawl.ts · server-data.ts
 src/lib/store/   state.ts (persist) · cadence.ts (pure scheduler) · useStore.ts (hook) · index.ts
 src/components/  Nav · ui · ExportBar · TokenMeter · AiPanel · PlanCard · PrioritiesCard · CrawlPanel
-src/app/         page (dashboard) · team · logistics · products · offsets · leads · leads/[id] · pipeline · schedule · campaign · kb · sniper · brief
+src/app/         page (dashboard) · team · logistics · hub · products · offsets · leads · leads/[id] · pipeline · schedule · campaign · kb · sniper · brief
 src/app/api/     ai · rag/extract · rag/crawl · brief · cron/daily-brief · cron/crawl
 src/data/        products.json (45, v2 — Dow Corning / DuPont / XIAMETER benchmark names) · offsets.json (37×26, from full_offset…-v6.csv; incl. NuSil/Avantor column) · food_grade.json (9) · leads.json (19, with plan_* from action-plan CSV) · priorities.json (5)
 supabase/        schema.sql
