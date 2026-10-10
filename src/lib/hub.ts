@@ -1,6 +1,6 @@
-// hub.ts (src/lib/hub.ts) · updated 10.10.2026 05:50 (Asia/Jerusalem)
+// hub.ts (src/lib/hub.ts) · updated 10.10.2026 07:30 (Asia/Jerusalem)
 // Hub helpers: parse a pasted email, auto-match department / shipment / lead / SKU / P/O, waiting-alert, thread text.
-import { deptOf, WAITING_ALERT_DAYS, DEPTS } from "@/config/hub";
+import { deptOf, WAITING_ALERT_DAYS, DEPTS, THREAD_STATUS } from "@/config/hub";
 import { PRODUCTS } from "@/lib/data";
 import { fmtDateTime } from "@/lib/format";
 import type { Lead, Shipment, Thread, HubMsg } from "@/lib/types";
@@ -23,7 +23,8 @@ export function matchRefs(text: string, leads: Lead[], shipments: Shipment[]): {
   return out;
 }
 export const guessDept = (subject: string, body: string) => deptOf(subject + " " + body.slice(0, 600));
-export const isOutbound = (from: string) => !/silitex\.it/i.test(from);
+export const isOutbound = (from: string) => /sapirim\.com|marble-art\.co\.il/i.test(from) || !/silitex\.it/i.test(from);
+export const statusHe = (th: Pick<Thread, "dept" | "status">) => th.dept === "il" && th.status === "waiting_silitex" ? "ממתין ללקוח" : THREAD_STATUS.find((s) => s.key === th.status)?.he || th.status;
 export function waitingDays(th: Thread): number { if (th.status !== "waiting_silitex" && th.status !== "waiting_us") return 0; return Math.floor((Date.now() - new Date(th.last_at).getTime()) / 864e5); }
 export const isLate = (th: Thread) => waitingDays(th) >= WAITING_ALERT_DAYS;
 export function threadText(th: Thread, msgs: HubMsg[]): string {

@@ -1,6 +1,10 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "לקוחות פוטנציאליים — ישראל": "Prospect — Israele",
+  " לקוחות פוטנציאליים עם אימייל · מסונכרן אוטומטית": " prospect con email · sincronizzato automaticamente",
+  "ממתין ללקוח": "In attesa del cliente",
+  "התכתבות": "Corrispondenza",
   "עריכת איש קשר": "Modifica contatto",
   "איש קשר חדש": "Nuovo contatto",
   "הדבק חתימת מייל — השדות יתמלאו אוטומטית": "Incolla una firma email — i campi si compilano da soli",

@@ -1,13 +1,13 @@
 "use client";
-// ThreadView.tsx (src/components/hub/ThreadView.tsx) · updated 10.10.2026 05:50 (Asia/Jerusalem) — one thread: structured fields (dept, topic, refs, due, owner, status, next), messages, AI summary → fills fields, AI reply EN/IT
-import { useState } from "react";
+// ThreadView.tsx (src/components/hub/ThreadView.tsx) · updated 10.10.2026 07:30 (Asia/Jerusalem) — one thread: structured fields (dept, topic, refs, due, owner, status, next), messages, AI summary → fills fields, AI reply EN/IT
+import {  useState } from "react";
 import Link from "next/link";
 import { Card, Badge, inputCls, btnGhost } from "@/components/ui";
 import AiPanel from "@/components/AiPanel";
 import ExportBar from "@/components/ExportBar";
 import { DEPTS, TOPICS, TOPIC_HE, THREAD_STATUS } from "@/config/hub";
 import { PRODUCTS } from "@/lib/data";
-import { threadText, waitingDays } from "@/lib/hub";
+import { threadText, waitingDays, statusHe } from "@/lib/hub";
 import { hubContext, HUB_SUMMARY, hubReply, parseFields } from "@/prompts/hub";
 import { fmtDateTime, fmtDate } from "@/lib/format";
 import { useLang } from "@/i18n";
@@ -22,7 +22,7 @@ export default function ThreadView({ th, msgs, leads, shipments, spend, addSpend
     <Card className="space-y-3">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div><div className="font-bold text-lg">{th.subject}</div><div className="text-xs text-slate-500">{DEPTS.find((d) => d.key === th.dept)?.icon} {tr(DEPTS.find((d) => d.key === th.dept)?.he || th.dept)} · {msgs.length} {tr("הודעות")} · {tr("אחרון")} {fmtDateTime(th.last_at)}{wd >= 2 && <Badge tone="red"> ⏰ {wd} {tr("ימים ממתין")}</Badge>}</div></div>
-        <div className="flex items-center gap-1"><Badge tone={st?.tone}>{tr(st?.he || th.status)}</Badge>{!arm ? <button className={btnGhost} onClick={() => { setArm(true); setTimeout(() => setArm(false), 4000); }}>🗑️</button> : <button className="text-xs px-2 py-1 rounded-lg bg-red-600 text-white" onClick={onDelete}>{tr("כן, מחק")}</button>}</div>
+        <div className="flex items-center gap-1"><Badge tone={st?.tone}>{tr(statusHe(th))}</Badge>{!arm ? <button className={btnGhost} onClick={() => { setArm(true); setTimeout(() => setArm(false), 4000); }}>🗑️</button> : <button className="text-xs px-2 py-1 rounded-lg bg-red-600 text-white" onClick={onDelete}>{tr("כן, מחק")}</button>}</div>
       </div>
       <div className="grid md:grid-cols-4 gap-2 text-xs">
         <label className="text-slate-500">{tr("מחלקה")}<select className={inputCls + " mt-1"} value={th.dept} onChange={(e) => onUpdate({ dept: e.target.value })}>{DEPTS.map((d) => <option key={d.key} value={d.key}>{d.icon} {tr(d.he)}</option>)}</select></label>
