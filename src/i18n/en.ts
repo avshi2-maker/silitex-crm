@@ -1,6 +1,13 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "עריכת איש קשר": "Edit contact",
+  "איש קשר חדש": "New contact",
+  "הדבק חתימת מייל — השדות יתמלאו אוטומטית": "Paste an email signature — fields fill automatically",
+  "מלא מהחתימה": "Fill from signature",
+  "כתובת": "Address",
+  "למחוק את איש הקשר?": "Delete this contact?",
+  "מחק": "Delete",
   "Outlook חובר: ": "Outlook connected: ",
   "שגיאת חיבור: ": "Connection error: ",
   "סונכרן: ": "Synced: ",

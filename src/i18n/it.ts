@@ -1,6 +1,14 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "עריכת איש קשר": "Modifica contatto",
+  "איש קשר חדש": "Nuovo contatto",
+  "הדבק חתימת מייל — השדות יתמלאו אוטומטית": "Incolla una firma email — i campi si compilano da soli",
+  "מלא מהחתימה": "Compila dalla firma",
+  "כתובת": "Indirizzo",
+  "למחוק את איש הקשר?": "Eliminare questo contatto?",
+  "מחק": "Elimina",
+  "+ איש קשר": "+ Contatto",
   "כל ההתכתבות עם Silitex לפי מחלקה, מקושרת להזמנות, משלוחים ולקוחות — במקום לרדוף אחרי מיילים. ": "Tutta la corrispondenza con Silitex per reparto, collegata a ordini, spedizioni e clienti — invece di inseguire le email. ",
   " שרשורים · ": " conversazioni · ",
   " ממתינים מעל 2 ימים": " in attesa da oltre 2 giorni",
