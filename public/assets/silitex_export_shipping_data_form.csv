@@ -1,0 +1,43 @@
+﻿Category,Data Field (English),Description / Requirement,Value to be Filled by Silitex / Forwarder,Israeli Customs / Transport Relevance
+Shipper Information,Exporter Legal Entity Name,Full registered company name of manufacturer/shipper,Silitex S.r.l.,Mandatory on Commercial Invoice & Customs Declaration
+Shipper Information,Exporter Full Address,"Street address, Postal code, City, Country",Italy,Required for Bill of Lading / Air Waybill (AWB)
+Shipper Information,Exporter Contact Person,"Name, direct phone, and email of logistics/export contact",,Coordination with Italian forwarder for pickup
+Shipper Information,Exporter VAT / EORI Number,Italian Tax ID / EORI Number for EU export clearance,,Mandatory for EU export customs clearance
+Shipper Information,Pickup / Warehouse Address,Exact warehouse address if different from head office,,Ground collection by forwarder
+Consignee Information,Importer Legal Entity Name,Registered business name in Israel,Avshalom Sapir – Sapirim,Israeli Customs import declaration
+Consignee Information,Importer Israeli Tax / VAT ID,Israeli VAT / Authorized Dealer number,52866969,Mandatory for Israeli Customs entry and clearance
+Consignee Information,Importer Address,Physical registered business address in Israel,"Kfar Shmaryahu, Israel",Required on AWB / Bill of Lading & Commercial Invoice
+Consignee Information,Importer Contact Person,"Contact person name, phone, email",Avshi Sapir (avshi@sapirim.com),Customs broker notification in Israel
+Product Details,Commercial / Brand Product Name,Exact trade name as shown on label & invoice,,Must match MSDS and Technical Data Sheet (TDS) exactly
+Product Details,Chemical / INCI Name,INCI nomenclature or chemical formulation description,,Required for Israeli regulatory and import clearance
+Product Details,CAS Number(s),Chemical Abstracts Service registry numbers of ingredients,,Essential for chemical classification & import permits
+Product Details,Harmonized System (HS) Code,"6-digit to 8-digit international customs tariff code (e.g., 3910.00)",,"Determines customs duties, purchase tax, and import approvals in Israel"
+Product Details,Country of Origin,Country of manufacture,Italy,Determines EUR.1 / EU preferential duty eligibility
+Product Details,Batch / Lot Number,Production batch or lot number(s),,Required for Certificate of Analysis (CoA) matching
+Product Details,Manufacturing Date,Date of production (DD/MM/YYYY),,Required for chemical shelf-life tracking
+Product Details,Expiry / Shelf Life Date,Expiration date or stated shelf life,,Regulatory requirement for Israeli port health/chemical control
+Hazard & Transport Safety,Transport Classification (Hazardous vs Non-Hazardous),Is the material classified as Dangerous Goods (DG)? (Yes / No),,"Dictates carrier acceptance, packaging group, and airline/ocean vessel stowage"
+Hazard & Transport Safety,UN Number (if Dangerous Goods),4-digit UN identifier (or 'Non-Regulated' if non-haz),,Mandatory for DGD (Dangerous Goods Declaration) if hazardous
+Hazard & Transport Safety,Proper Shipping Name (PSN),Official transport shipping name according to IATA/IMDG,,Required on shipping declaration and labels
+Hazard & Transport Safety,IMO/IMDG Class (Sea),"Hazard class for sea transport (e.g., Class 3, 8, 9 or Non-Haz)",,Ocean carrier booking & stowage compliance
+Hazard & Transport Safety,IATA Class (Air),"Hazard class for air transport (e.g., Non-Restricted or DG Class)",,Crucial for airline booking and freight acceptance
+Hazard & Transport Safety,Packing Group (PG),"I, II, III (or Not Applicable)",,Packaging certification requirement
+Hazard & Transport Safety,Flash Point (°C),Flash point temperature in Celsius,,Mandatory for all liquid chemical ocean/air shipments
+Hazard & Transport Safety,Emergency Contact Phone (24/7),24/7 chemical emergency response phone number (if DG),,Mandatory on DG transport paperwork
+Packaging & Weights,Type of Inner / Outer Packaging,"Pails / Drums / IBC / Bottles (e.g., 3 x 25 kg plastic/metal pails)",,Packing List and AWB / B/L cargo description
+Packaging & Weights,Number of Packages,Total count of individual containers,,Must tally exactly with physical units
+Packaging & Weights,Net Weight per Package (kg),Weight of chemical contents per pail/container,,Customs valuation and chemical accounting
+Packaging & Weights,Total Net Weight (kg),Combined weight of product excluding packaging,,Customs clearance assessment in Israel
+Packaging & Weights,Gross Weight per Package (kg),Weight of container including chemical contents,,Freight rate calculation
+Packaging & Weights,Total Gross Weight including Pallet (kg),Total gross weight ready for transport,,Crucial for Air Waybill (AWB) and ocean weight (VGM)
+Packaging & Weights,Pallet Type & Treatment,Standard EUR-pallet / Heat-treated wooden (ISPM 15) / Plastic,,Israeli Plant Protection service strictly requires ISPM 15 stamp on wood
+Packaging & Weights,Pallet Dimensions (L x W x H in cm),"Total footprint and height of packed pallet (e.g., 120 x 80 x 60 cm)",,Volumetric/chargeable weight calculation for air/ocean forwarder
+Packaging & Weights,Total Shipment Volume (CBM),"Cubic meters calculation (L x W x H / 1,000,000)",,Determines sea freight LCL or air freight chargeable weight
+Packaging & Weights,Stackability,Is the cargo stackable? (Yes / No),,Critical for airline freight and warehouse consolidation
+Documentation & Commercials,Incoterms 2020,"Agreed Incoterm (e.g., EXW Italy, FCA Milan, FOB Genoa)",,"Defines insurance, pickup obligation, and customs value computation"
+Documentation & Commercials,Commercial Invoice Value & Currency,Total invoice amount & currency (EUR),,Basis for Israeli Customs duty & import VAT calculation
+Documentation & Commercials,Safety Data Sheet (MSDS / SDS),16-section SDS in English compliant with REACH/GHS (Attached? Yes/No),,Mandatory for Israeli Ministry of Environmental Protection clearance
+Documentation & Commercials,Technical Data Sheet (TDS),TDS confirming chemical properties (Attached? Yes/No),,Technical verification by importer & regulatory bodies
+Documentation & Commercials,Certificate of Analysis (CoA),Batch-specific analysis certificate (Attached? Yes/No),,Mandatory quality document for clearance in Israel
+Documentation & Commercials,Preferential Origin Declaration (EUR.1 / Invoice Declaration),Statement on invoice with Approved Exporter # or EUR.1 certificate,,Exempts or discounts Israeli customs duties under Israel-EU Free Trade Agreement
+Documentation & Commercials,Non-Dangerous Goods Declaration (if non-haz),Letter confirming product is non-hazardous for air/ocean transport,,Allows smooth airline acceptance without DG delays and surcharges

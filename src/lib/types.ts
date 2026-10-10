@@ -1,4 +1,4 @@
-// types.ts (src/lib/types.ts) · updated 09.10.2026 19:30 (Asia/Jerusalem)
+// types.ts (src/lib/types.ts) · updated 10.10.2026 05:30 (Asia/Jerusalem)
 export type Product = {
   id: string; product_name: string; brand_family: string; category_sector: string;
   application_field: string; appearance: string; active_content_pct: string; active_matter_type: string;
@@ -35,3 +35,5 @@ export type Activity = { id: string; lead_id: string; at: string; kind: string; 
 export type KbDoc = { id: string; title: string; doc_type: "TDS" | "MSDS" | "SALES" | "OTHER"; product_ref: string; created_at: string; chunks: number };
 export type KbChunk = { id: string; doc_id: string; title: string; doc_type: string; product_ref: string; text: string };
 export type Usage = { input_tokens: number; output_tokens: number; cost_usd: number; model: string; mock?: boolean };
+export type ShipLine = { sku: string; kg: number; pack: string };
+export type Shipment = { id: string; ref: string; lead_id?: string; lead_name: string; consignee: "sapirim" | "customer"; mode: "sea" | "air"; lines: ShipLine[]; values: Record<string, string>; docs: Record<string, boolean>; status: string; created_at: string; eta?: string; notes?: string };

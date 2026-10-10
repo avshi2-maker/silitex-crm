@@ -1,5 +1,5 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 09.10.2026 18:30 (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 10.10.2026 05:30 (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
@@ -18,6 +18,7 @@ const ITEMS = [
   { href: "/leads", he: "לקוחות פוטנציאליים", icon: "🏭" },
   { href: "/pipeline", he: "צנרת מכירות", icon: "🧭" },
   { href: "/schedule", he: "יומן יומי/שבועי", icon: "📅" },
+  { href: "/logistics", he: "לוגיסטיקה ומשלוחים", icon: "🚢" },
   { href: "/campaign", he: "קמפיין", icon: "🚀" },
   { href: "/sniper", he: "Offset Sniper", icon: "🎯" },
   { href: "/brief", he: "תדריך יומי (בוט)", icon: "🤖" },

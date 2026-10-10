@@ -1,12 +1,12 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 09.10.2026 19:05 (Asia/Jerusalem)
+// useStore.ts (src/lib/store/useStore.ts) · updated 10.10.2026 05:30 (Asia/Jerusalem)
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
 import { buildSchedule } from "./cadence";
 import { stageHe } from "@/config/stages";
 import { uid, todayIso, addDays } from "@/lib/format";
-import type { Lead, Task, Activity, KbDoc, KbChunk, Stage, Sample, Doc } from "@/lib/types";
+import type { Lead, Task, Activity, KbDoc, KbChunk, Stage, Sample, Doc, Shipment } from "@/lib/types";
 import { FOLLOWUP_DAYS } from "@/config/sales";
 import { buildDemo } from "@/data/demo";
 
@@ -52,8 +52,11 @@ export function useStore() {
     update((s) => ({ ...s, docs: s.docs.map((x) => (x.id === id ? { ...x, status } : x)) }));
     const d = state.docs.find((x) => x.id === id); if (d) { addActivity(d.lead_id, d.kind, d.title + " → " + status); sync("docs", { ...d, status }); }
   };
+  const addShipment = (sh: Omit<Shipment, "id">) => { const s: Shipment = { ...sh, id: uid("shp") }; update((st) => ({ ...st, shipments: [s, ...st.shipments] })); sync("shipments", s); if (s.lead_id) addActivity(s.lead_id, "shipment", "משלוח " + s.ref + " — בקשת נתונים נשלחה ל-Silitex"); return s; };
+  const updateShipment = (id: string, patch: Partial<Shipment>) => { update((st) => ({ ...st, shipments: st.shipments.map((x) => (x.id === id ? { ...x, ...patch } : x)) })); const cur = state.shipments.find((x) => x.id === id); if (cur) sync("shipments", { ...cur, ...patch }); };
+  const removeShipment = (id: string) => { update((st) => ({ ...st, shipments: st.shipments.filter((x) => x.id !== id) })); remove("shipments", id); };
   const loadDemo = () => update((s) => ({ ...s, ...buildDemo(), demo: true }));
   const reset = () => { clearState(); setState(EMPTY); };
 
-  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, loadDemo, reset };
+  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, addShipment, updateShipment, removeShipment, loadDemo, reset };
 }

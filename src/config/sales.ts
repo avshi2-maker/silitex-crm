@@ -1,4 +1,4 @@
-// sales.ts (src/config/sales.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
+// sales.ts (src/config/sales.ts) · updated 10.10.2026 05:30 (Asia/Jerusalem)
 // A–Z sales process: steps shown on /pitch + /team, follow-up delays per document, lead sources, offer defaults. Edit here only.
 import type { DocKind } from "@/lib/types";
 export const FOLLOWUP_DAYS: Record<DocKind, number> = { tds: 2, msds: 2, offer: 3, other: 3 };
@@ -13,6 +13,6 @@ export const SALES_PROCESS: { n: number; title: string; owner: string; text: str
   { n: 5, title: "RFQ", owner: "GM", text: "Customer requests quantities and price; call / WhatsApp transcript pasted and summarised.", tool: "Transcript box → next action" },
   { n: 6, title: "Price offer", owner: "GM", text: "Offer in EUR per kg, incoterm, validity, payment terms — drafted by AI from the lead file, logged with amount.", tool: "Lead file → Documents → Price offer" },
   { n: 7, title: "Negotiation", owner: "GM + chemist", text: "Technical objections routed to Silitex lab / external chemist; commercial terms closed.", tool: "Pipeline · activity log" },
-  { n: 8, title: "Order & delivery", owner: "Back-office", text: "P/O received, DDP from Tel Aviv stock or direct Silitex invoicing; delivery in 2 days.", tool: "Stage → Won · principal report" },
+  { n: 8, title: "Order & delivery", owner: "Back-office", text: "P/O received, DDP from Tel Aviv stock or direct Silitex invoicing; delivery in 2 days.", tool: "/logistics → Shipment data request (EN/IT) → forwarder → customs" },
   { n: 9, title: "Follow-up & re-order", owner: "Bot", text: "Daily WhatsApp brief, weekly review, satisfaction survey after first delivery, re-order reminder.", tool: "/brief · /schedule · /survey" },
 ];

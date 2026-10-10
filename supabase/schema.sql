@@ -14,6 +14,8 @@ alter table docs enable row level security; create policy "all" on docs for all 
 alter table leads add column if not exists source text;
 alter table leads add column if not exists created_at timestamptz default now();
 alter table leads add column if not exists intake jsonb default '{}';
+create table if not exists shipments (id text primary key, ref text, lead_id text, lead_name text, consignee text, mode text, lines jsonb default '[]', "values" jsonb default '{}', docs jsonb default '{}', status text, created_at timestamptz default now(), eta date, notes text);
+alter table shipments enable row level security; create policy "all" on shipments for all using (true) with check (true);
 create table if not exists samples (id text primary key, lead_id text, lead_name text, sku text, kg numeric, sent_at date, status text, result text, followup_at date);
 alter table samples enable row level security; create policy "all" on samples for all using (true) with check (true);
 create table if not exists form_submissions (id bigserial primary key, created_at timestamptz default now(), kind text, company text, name text, email text, phone text, product text, message text, fields jsonb default '{}', lang text);
