@@ -1,21 +1,25 @@
-// outlook.ts (src/lib/outlook.ts) · updated 10.10.2026 06:00 (Asia/Jerusalem) — server only
+// outlook.ts (src/lib/outlook.ts) · updated 10.10.2026 06:40 (Asia/Jerusalem) — server only · PKCE public client (no client secret)
 // Microsoft Graph (delegated, single mailbox): OAuth URLs, token refresh (stored in Supabase hub_tokens), pull messages to/from HUB_MAIL_DOMAIN since last sync.
+import { createHash, randomBytes } from "crypto";
 import { serviceClient } from "./server-data";
 import type { InMsg } from "./hub-ingest";
 const T = () => process.env.MS_TENANT_ID || "common";
 const SCOPE = "offline_access User.Read Mail.Read";
 export const DOMAIN = () => (process.env.HUB_MAIL_DOMAIN || "silitex.it").toLowerCase();
-export const configured = () => !!(process.env.MS_CLIENT_ID && process.env.MS_CLIENT_SECRET);
+export const configured = () => !!process.env.MS_CLIENT_ID;
+const b64url = (b: Buffer) => b.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+export const newVerifier = () => b64url(randomBytes(32));
+const challenge = (v: string) => b64url(createHash("sha256").update(v).digest());
 export const redirectUri = (origin: string) => origin + "/api/hub/outlook/callback";
-export function authUrl(origin: string, state: string): string {
-  const q = new URLSearchParams({ client_id: process.env.MS_CLIENT_ID || "", response_type: "code", redirect_uri: redirectUri(origin), response_mode: "query", scope: SCOPE, state, prompt: "select_account" });
+export function authUrl(origin: string, state: string, verifier: string): string {
+  const q = new URLSearchParams({ client_id: process.env.MS_CLIENT_ID || "", response_type: "code", redirect_uri: redirectUri(origin), response_mode: "query", scope: SCOPE, state, prompt: "select_account", code_challenge: challenge(verifier), code_challenge_method: "S256" });
   return "https://login.microsoftonline.com/" + T() + "/oauth2/v2.0/authorize?" + q;
 }
 async function tokenCall(body: Record<string, string>) {
-  const r = await fetch("https://login.microsoftonline.com/" + T() + "/oauth2/v2.0/token", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams({ client_id: process.env.MS_CLIENT_ID || "", client_secret: process.env.MS_CLIENT_SECRET || "", scope: SCOPE, ...body }) });
+  const r = await fetch("https://login.microsoftonline.com/" + T() + "/oauth2/v2.0/token", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams({ client_id: process.env.MS_CLIENT_ID || "", scope: SCOPE, ...body }) });
   const j = await r.json(); if (!r.ok) throw new Error(j.error_description || j.error || "token error"); return j as { access_token: string; refresh_token?: string };
 }
-export async function exchangeCode(code: string, origin: string) { return tokenCall({ grant_type: "authorization_code", code, redirect_uri: redirectUri(origin) }); }
+export async function exchangeCode(code: string, origin: string, verifier: string) { return tokenCall({ grant_type: "authorization_code", code, redirect_uri: redirectUri(origin), code_verifier: verifier }); }
 export async function saveToken(refresh: string, account: string) { const sb = serviceClient(); if (!sb) throw new Error("no supabase"); await sb.from("hub_tokens").upsert({ id: "outlook", refresh_token: refresh, account, updated_at: new Date().toISOString() }); }
 export async function status() { const sb = serviceClient(); if (!sb) return null; return (await sb.from("hub_tokens").select("account,last_sync,updated_at,last_result").eq("id", "outlook").maybeSingle()).data; }
 async function accessToken(): Promise<string> {

@@ -14,7 +14,7 @@ export default function OutlookBar({ onSynced }: { onSynced: () => void }) {
   return (
     <div className={"rounded-xl border p-3 text-sm flex flex-wrap items-center gap-2 " + (st.connected ? "bg-emerald-50 border-emerald-200" : "bg-amber-50 border-amber-200")}>
       <span className="font-medium">📧 Outlook 365</span>
-      {!st.configured && <span className="text-amber-800">{tr("לא מוגדר — חסרים MS_CLIENT_ID / MS_CLIENT_SECRET ב-Vercel")}</span>}
+      {!st.configured && <span className="text-amber-800">{tr("לא מוגדר — חסר MS_CLIENT_ID ב-Vercel")}</span>}
       {st.configured && !st.connected && <><span>{tr("לא מחובר. מושך רק מיילים מ/אל ")}@{st.domain}</span><a className={btnPrimary} href="/api/hub/outlook/connect">{tr("חבר Outlook")}</a></>}
       {st.connected && <><span>{st.account} · {tr("סנכרון אחרון")}: {st.last_sync ? fmtDateTime(st.last_sync) : "—"} {st.last_result && <span className="text-slate-500">({st.last_result})</span>} · {tr("אוטומטי כל 15 דק'")}</span><button className={btnGhost} disabled={busy} onClick={sync}>{busy ? tr("מסנכרן…") : tr("🔄 סנכרן עכשיו")}</button><a className={btnGhost} href="/api/hub/outlook/connect">{tr("חבר מחדש")}</a></>}
       {msg && <span className="text-xs text-slate-600 w-full">{msg}</span>}

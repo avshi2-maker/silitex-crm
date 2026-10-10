@@ -7,7 +7,7 @@ export const EN: Record<string, string> = {
   " מיילים, ": " emails, ",
   " חדשים": " new",
   "שגיאה: ": "Error: ",
-  "לא מוגדר — חסרים MS_CLIENT_ID / MS_CLIENT_SECRET ב-Vercel": "Not configured — MS_CLIENT_ID / MS_CLIENT_SECRET missing in Vercel",
+  "לא מוגדר — חסר MS_CLIENT_ID ב-Vercel": "Not configured — MS_CLIENT_ID missing in Vercel",
   "לא מחובר. מושך רק מיילים מ/אל ": "Not connected. Pulls only emails from/to ",
   "חבר Outlook": "Connect Outlook",
   "סנכרון אחרון": "last sync",
