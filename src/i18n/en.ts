@@ -538,6 +538,8 @@ export const EN: Record<string, string> = {
   "ענה עם Claude (RAG)": "Answer with Claude (RAG)",
   "פוטנציאל": "Potential",
   "פוטנציאל $ / שנה": "Potential $ / yr",
+  "יעד שנה 1 $": "Yr1 target $",
+  "יעד שנה 1": "Yr1 target",
   "פוטנציאל / שנה": "Potential / yr",
   "פוטנציאל שנתי בצנרת": "Annual pipeline potential",
   "פוסט LinkedIn": "LinkedIn post",

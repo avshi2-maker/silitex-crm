@@ -1,6 +1,8 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "יעד שנה 1 $": "Target anno 1 $",
+  "יעד שנה 1": "Target anno 1",
   "לקוחות פוטנציאליים — ישראל": "Prospect — Israele",
   " לקוחות פוטנציאליים עם אימייל · מסונכרן אוטומטית": " prospect con email · sincronizzato automaticamente",
   "ממתין ללקוח": "In attesa del cliente",

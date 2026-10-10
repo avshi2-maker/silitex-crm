@@ -13,7 +13,7 @@ export type FoodGrade = { trade_name: string; composition: string; kosher: strin
 export type Stage = "prospect" | "contacted" | "sample" | "rfq" | "quote" | "negotiation" | "won" | "lost";
 export type Lead = {
   id: string; name: string; industry: string; sub_industry: string; product_match: string; use_case: string;
-  volume_tons: number; value_usd: number; tier: string; department: string; contact_role: string;
+  volume_tons: number; value_usd: number; tam_tons?: number; tier: string; department: string; contact_role: string;
   status: string; stage: Stage;
   contact_name?: string; contact_phone?: string; contact_email?: string; notes?: string; next_action_at?: string;
   // from sales action plan CSV

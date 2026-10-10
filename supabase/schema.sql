@@ -13,6 +13,7 @@ create table if not exists docs (id text primary key, lead_id text, lead_name te
 alter table docs enable row level security; create policy "all" on docs for all using (true) with check (true);
 alter table leads add column if not exists source text;
 alter table leads add column if not exists created_at timestamptz default now();
+alter table leads add column if not exists tam_tons numeric; -- 10.10.2026 sales plan v3.1: volume/value = Yr1 target, tam_tons = total market capacity
 alter table leads add column if not exists intake jsonb default '{}';
 create table if not exists shipments (id text primary key, ref text, lead_id text, lead_name text, consignee text, mode text, lines jsonb default '[]', "values" jsonb default '{}', docs jsonb default '{}', status text, created_at timestamptz default now(), eta date, notes text);
 alter table shipments enable row level security; create policy "all" on shipments for all using (true) with check (true);
