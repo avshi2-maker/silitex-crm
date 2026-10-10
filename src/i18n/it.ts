@@ -1,6 +1,16 @@
-// it.ts (src/i18n/it.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
+// it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "כל ההתכתבות עם Silitex לפי מחלקה, מקושרת להזמנות, משלוחים ולקוחות — במקום לרדוף אחרי מיילים. ": "Tutta la corrispondenza con Silitex per reparto, collegata a ordini, spedizioni e clienti — invece di inseguire le email. ",
+  " שרשורים · ": " conversazioni · ",
+  " ממתינים מעל 2 ימים": " in attesa da oltre 2 giorni",
+  " שרשורים מ-Outlook": " conversazioni da Outlook",
+  "סונכרנו ": "Sincronizzate ",
+  "Outlook חובר: ": "Outlook collegato: ",
+  "שגיאת חיבור: ": "Errore di connessione: ",
+  "סונכרן: ": "Sincronizzato: ",
+  " מיילים, ": " email, ",
+  " חדשים": " nuove",
   "Silitex Hub — התכתבויות": "Silitex Hub — corrispondenza",
   "הנהלה": "Direzione",
   "מו\"פ — כימאים ומהנדסים": "R&D — chimici e ingegneri",

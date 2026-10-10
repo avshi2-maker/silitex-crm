@@ -1,5 +1,5 @@
 "use client";
-// index.tsx (src/i18n/index.tsx) · updated 09.10.2026 16:40 (Asia/Jerusalem)
+// index.tsx (src/i18n/index.tsx) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Language switch HE/EN. t(s): Hebrew source string → English from en.ts (falls back to Hebrew). Persisted per browser; sets <html dir/lang>.
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { EN } from "./en";
@@ -23,6 +23,7 @@ export function LangProvider({ children }: { children: ReactNode }) {
   const setLang = (l: Lang) => { setLangState(l); try { localStorage.setItem(KEY, l); } catch {} };
   const t = (s: string) => {
     if (lang === "he") return s; const D = DICT[lang];
+    const exact = D[s] ?? EN[s]; if (exact !== undefined) return exact;
     const m = s.match(/^(\s*)([\s\S]*?)(\s*)$/); const core = m ? m[2] : s;
     return (m ? m[1] : "") + (D[core] ?? EN[core] ?? core) + (m ? m[3] : "");
   };
