@@ -1,6 +1,17 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "ייבוא שיחת WhatsApp": "Importa chat WhatsApp",
+  "בוואטסאפ: פתח את השיחה → ⋮ → עוד → ייצוא צ'אט → ללא מדיה → שתף לעצמך/מייל, והדבק כאן את הטקסט. המערכת מזהה את איש הקשר לפי שם/טלפון מרשימת הלקוחות ואנשי הקשר.": "In WhatsApp: apri la chat → ⋮ → Altro → Esporta chat → Senza media → condividi con te stesso/email, poi incolla qui il testo. Il contatto viene abbinato per nome/telefono ai prospect e ai contatti Silitex.",
+  "הודעות": "messaggi",
+  "שייך ל-": "Appartiene a",
+  "זוהה אוטומטית": "abbinato automaticamente",
+  "אני (השולח שלנו)": "Io (il nostro mittente)",
+  "שמור כשרשור": "Salva come conversazione",
+  "בחר מי מהשולחים זה אתה": "scegli quale mittente sei tu",
+  "לא זוהו הודעות — ודא שזה ייצוא צ'אט של WhatsApp (שורות שמתחילות בתאריך ושעה).": "Nessun messaggio riconosciuto — verifica che sia un'esportazione chat WhatsApp (righe che iniziano con data e ora).",
+  "נשמר: ": "Salvato: ",
+  " הודעות → ": " messaggi → ",
   "יעד שנה 1 $": "Target anno 1 $",
   "יעד שנה 1": "Target anno 1",
   "לקוחות פוטנציאליים — ישראל": "Prospect — Israele",

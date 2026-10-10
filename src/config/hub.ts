@@ -15,8 +15,8 @@ export const DEPTS: Dept[] = [
 ];
 export const IL_DEPT = { key: "il", en: "Prospects — Israel", he: "לקוחות פוטנציאליים — ישראל", icon: "🇮🇱", email: "", phone: "", site: "Israel", notes: "Correspondence with Israeli prospects — auto-matched by the contact email / company domain in the lead file.", keywords: /$^/ };
 DEPTS.push(IL_DEPT);
-export const TOPICS = ["order", "shipment", "sample", "technical", "quality", "invoice", "contract", "marketing", "other"] as const;
-export const TOPIC_HE: Record<string, string> = { order: "הזמנה", shipment: "משלוח", sample: "דגימה", technical: "טכני", quality: "איכות / CoA", invoice: "חשבונית / תשלום", contract: "חוזה", marketing: "שיווק", other: "אחר" };
+export const TOPICS = ["order", "shipment", "sample", "technical", "quality", "invoice", "contract", "marketing", "whatsapp", "other"] as const;
+export const TOPIC_HE: Record<string, string> = { order: "הזמנה", shipment: "משלוח", sample: "דגימה", technical: "טכני", quality: "איכות / CoA", invoice: "חשבונית / תשלום", contract: "חוזה", marketing: "שיווק", whatsapp: "WhatsApp", other: "אחר" };
 export const THREAD_STATUS: { key: string; he: string; tone: string }[] = [{ key: "open", he: "פתוח", tone: "blue" }, { key: "waiting_silitex", he: "ממתין ל-Silitex", tone: "amber" }, { key: "waiting_us", he: "ממתין לנו", tone: "red" }, { key: "closed", he: "סגור ✓", tone: "green" }];
 export const WAITING_ALERT_DAYS = 2;
 export const deptOf = (text: string) => DEPTS.find((d) => d.keywords.test(text))?.key || "customer";

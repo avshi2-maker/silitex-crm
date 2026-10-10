@@ -40,4 +40,4 @@ export type Shipment = { id: string; ref: string; lead_id?: string; lead_name: s
 export type SilitexContact = { id: string; dept: string; name: string; role: string; email: string; phone?: string; mobile?: string; linkedin?: string; address?: string; notes?: string };
 export type ThreadRefs = { shipment_id?: string; shipment_ref?: string; lead_id?: string; lead_name?: string; sku?: string; po?: string; invoice?: string; lot?: string };
 export type Thread = { id: string; dept: string; contact_id?: string; subject: string; topic: string; refs: ThreadRefs; due?: string; owner: "sapirim" | "silitex"; status: string; next?: string; created_at: string; last_at: string; conversation_id?: string };
-export type HubMsg = { id: string; thread_id: string; at: string; from: string; to: string; direction: "in" | "out"; body: string; source: "paste" | "graph" | "manual"; external_id?: string };
+export type HubMsg = { id: string; thread_id: string; at: string; from: string; to: string; direction: "in" | "out"; body: string; source: "paste" | "graph" | "manual" | "whatsapp"; external_id?: string };

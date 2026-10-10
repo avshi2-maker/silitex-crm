@@ -1,6 +1,16 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "ייבוא שיחת WhatsApp": "Import WhatsApp chat",
+  "בוואטסאפ: פתח את השיחה → ⋮ → עוד → ייצוא צ'אט → ללא מדיה → שתף לעצמך/מייל, והדבק כאן את הטקסט. המערכת מזהה את איש הקשר לפי שם/טלפון מרשימת הלקוחות ואנשי הקשר.": "In WhatsApp: open the chat → ⋮ → More → Export chat → Without media → share to yourself/email, then paste the text here. The contact is matched by name/phone against your prospects and Silitex contacts.",
+  "שייך ל-": "Belongs to",
+  "זוהה אוטומטית": "auto-matched",
+  "אני (השולח שלנו)": "Me (our sender)",
+  "שמור כשרשור": "Save as thread",
+  "בחר מי מהשולחים זה אתה": "pick which sender is you",
+  "לא זוהו הודעות — ודא שזה ייצוא צ'אט של WhatsApp (שורות שמתחילות בתאריך ושעה).": "No messages recognised — make sure this is a WhatsApp chat export (lines starting with date and time).",
+  "נשמר: ": "Saved: ",
+  " הודעות → ": " messages → ",
   "לקוחות פוטנציאליים — ישראל": "Prospects — Israel",
   " לקוחות פוטנציאליים עם אימייל · מסונכרן אוטומטית": " prospects with an email · synced automatically",
   "ממתין ללקוח": "Waiting on prospect",
