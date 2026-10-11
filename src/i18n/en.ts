@@ -1,6 +1,17 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "חשבונות": "accounts",
+  "חשבון": "Account",
+  "שאל את Silitex על": "Ask Silitex about",
+  "עונה מהקטלוג, מהמסמכים ומטבלת ההתאמה של החשבון הנבחר — בלי לעזוב את המסך": "answers from the catalogue, the documents and the selected account's matching table — without leaving this screen",
+  "מה להציע ל-": "What to offer ",
+  " בפגישה הראשונה עם המו\"פ?": " in the first R&D meeting?",
+  "איזה מוצר Silitex מחליף את מה ש-": "Which Silitex product replaces what ",
+  " משתמשים בו היום?": " uses today?",
+  "מה הסיכון הרגולטורי (REACH / FDA / כשרות) בקו של ": "What is the regulatory risk (REACH / FDA / Kosher) in the lines of ",
+  "נסח מייל פתיחה באנגלית למנהל המו\"פ של ": "Draft an English opening email to the R&D manager of ",
+  "תוכן AI = טיוטה; כל SKU נבדק מול קטלוג Silitex לפני שליחה ללקוח.": "AI content = draft; every SKU is checked against the Silitex catalogue before it goes to a customer.",
   "מנוע פיתוח שוק": "Market development engine",
   "מנוע פיתוח שוק — Silitex ישראל": "Market Development Engine — Silitex Israel",
   "מפעלים שכבר משתמשים בסיליקון בייצור → מיפוי קו מוצרים מול קטלוג Silitex → פנייה למו\"פ → דגימה → הסמכה → מעבר לרכש אחרי אישור Silitex. זו העבודה לשנים הבאות.": "Factories already using silicones in production → map their product lines against the Silitex catalogue → R&D outreach → sample → qualification → purchasing after Silitex approval. This is the job for the coming years.",

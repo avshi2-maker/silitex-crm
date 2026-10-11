@@ -18,7 +18,7 @@ export default function LeadsPage() {
   const [prefill, setPrefill] = useState<Record<string, string>>({});
   if (!ready) return null;
   const inds = Array.from(new Set(state.leads.map((l) => l.industry)));
-  const list = state.leads.filter((l) => (!ind || l.industry === ind) && (!role || roleGroupOf((l.contact_role || "") + " " + (l.department || "") + " " + (l.contact_name || "")) === role) && (!q || (l.name + l.sub_industry + l.product_match + l.use_case).toLowerCase().includes(q.toLowerCase())));
+  const list = state.leads.filter((l) => (!ind || l.industry === ind) && (!role || roleGroupOf((l.contact_role || "") + " " + (l.department || "") + " " + (l.contact_name || "")) === role) && (!q || (l.name + l.sub_industry + l.product_match + l.use_case).toLowerCase().includes(q.toLowerCase()))).sort((a, b) => a.name.localeCompare(b.name));
   return (
     <div className="space-y-4">
       <H1 sub={tr("מאגר יעדים בישראל לפי תעשייה — Tier, פוטנציאל שנתי, התאמת מוצר")}>{tr("לקוחות פוטנציאליים — ")}{list.length}</H1>

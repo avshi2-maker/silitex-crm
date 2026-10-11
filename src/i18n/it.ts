@@ -1,6 +1,9 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "חשבונות": "account",
+  "חשבון": "Account",
+  "שאל את Silitex על": "Chiedi a Silitex su",
   "מנוע פיתוח שוק": "Motore sviluppo mercato",
   "מנוע פיתוח שוק — Silitex ישראל": "Motore di sviluppo mercato — Silitex Israele",
   "מפעלי יעד": "Stabilimenti target",

@@ -17,7 +17,7 @@ export type Lead = {
   status: string; stage: Stage;
   contact_name?: string; contact_phone?: string; contact_email?: string; notes?: string; next_action_at?: string;
   // from sales action plan CSV
-  recommended_sku?: string; competitor_offset?: string; plan_phase?: string; plan_next_action?: string; plan_stage?: string; plan_target_stage?: Stage; rd_focus?: string; buyer_trigger?: string;
+  recommended_sku?: string; competitor_offset?: string; plan_phase?: string; plan_next_action?: string; plan_stage?: string; plan_target_stage?: Stage; rd_focus?: string; buyer_trigger?: string; website?: string;
   city?: string; lat?: number; lon?: number;
   created_at?: string; updated_at?: string;
   intake?: Record<string, string>; // 8-section fact-finding form (config/intake.ts)

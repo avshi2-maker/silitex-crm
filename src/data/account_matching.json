@@ -1,60 +1,1366 @@
 {
- "LEAD-020": [
-  {
-   "line": "Facial Serums, Primers & Osmoter Concentrates",
-   "function": "Velvety skin feel, soft-focus line blurring, non-greasy rapid absorption, and active ingredient delivery.",
-   "silitex": "Silitex Velvet Gel SG 9040 / SG 9041",
-   "inci": "Cyclopentasiloxane (and) Dimethicone Crosspolymer",
-   "benefit": "Imparts a luxurious matte, powdery velvet feel, controls shine, and improves spreadability of mineral actives.",
-   "green": "Dimethicone (and) Dimethicone Crosspolymer (Linear/Non-Cyclic) or EVEROIL 35 (100% Plant-Based)"
-  },
-  {
-   "line": "Mineral Body Lotions & Hand Creams",
-   "function": "Daily moisturizing, skin barrier protection, smooth application without tackiness, and water lock-in.",
-   "silitex": "BODYSIL / EVERSIL 35",
-   "inci": "Dimethicone Emulsion (Polydimethylsiloxane Water Emulsion)",
-   "benefit": "Provides water-repellent protective film, reduces stickiness of Dead Sea salt minerals, and enhances skin conditioning.",
-   "green": "EVEROIL 35 / EVERIX 35 (100% Vegetal-Derived Emollient Emulsion)"
-  },
-  {
-   "line": "Anti-Aging Night Creams & Eye Balms",
-   "function": "Rich emollient cushioning, moisture retention, wrinkle smoothing, and barrier restoration overnight.",
-   "silitex": "Silitex DM 350 / DM 1000 & BODYAMISIL",
-   "inci": "Dimethicone Fluid (350 cSt) / Amodimethicone Emulsion",
-   "benefit": "Imparts long-lasting occlusive barrier, preventing trans-epidermal water loss (TEWL) and giving rich skin feel.",
-   "green": "WASPER D (Natural Beeswax Emulsion) & CARNAUBEX (Carnauba Wax Emulsion)"
-  },
-  {
-   "line": "Dead Sea Mineral Mud Masks & Exfoliators",
-   "function": "Purifying, texture stabilization, smooth spreadability of heavy mineral clay, and easy wash-off.",
-   "silitex": "CARNAUBEX & WASPER D",
-   "inci": "Natural Wax Water Emulsion (Carnauba Wax / Beeswax)",
-   "benefit": "Prevents clay mud mask cracking, enhances plastic texture, and improves skin softening during rinse-off.",
-   "green": "100% Natural Origin Wax Emulsions (Bio-Certified)"
-  },
-  {
-   "line": "Mineral Sunscreen & Protective Day Creams",
-   "function": "UV filter dispersion (Zinc Oxide/Titanium Dioxide), water-resistance, uniform film formation, and non-white cast.",
-   "silitex": "Silitex MQ Resin Blends & IDROAMISIL 1000",
-   "inci": "Trimethylsiloxysilicate & PEG-12 Dimethicone",
-   "benefit": "Forms durable water-resistant film, stabilizes inorganic mineral UV filters, and prevents migration into eyes.",
-   "green": "MACROAMISIL (E1386) (D4/D5-Free Non-Cyclic Silicone Dispersion)"
-  },
-  {
-   "line": "Hydrating Shower Gels, Body Oils & Cleansers",
-   "function": "Gentle cleansing, silky skin feel after rinse, foam control during production, and bath conditioning.",
-   "silitex": "AMINOQUAT 350 / 500 & FISIOREX 1000",
-   "inci": "Silicone Quaternium Microemulsion / Plant Fatty Acid Defoamer",
-   "benefit": "Confers silky conditioning touch on wet skin; FISIOREX 1000 controls unwanted foam during high-speed bottling.",
-   "green": "FISIOREX 1000 (100% Plant-Based Vegetable Defoamer / Active)"
-  },
-  {
-   "line": "Dead Sea Hair Care, Shampoos & Masks",
-   "function": "Hair conditioning, detangling, split-end repair, shine enhancement, and heat protection.",
-   "silitex": "MICROAMISIL (E1352) & AMINOQUAT 1000",
-   "inci": "Amodimethicone / Silicone Quaternium-22 Microemulsion",
-   "benefit": "Provides wash-resistant conditioning, hydrophobic hair protection, and intense smoothness without buildup.",
-   "green": "MICROAMISIL (E1352) (Certified D4/D5/D6-Free Non-Cyclic Microemulsion)"
-  }
- ]
+ "LEAD-001": {
+  "website": "https://icl-growingsolutions.com/",
+  "note": "Product list taken from icl-growingsolutions.com/agriculture/products/ (category + brand filters) and production-site pages; the dynamic product grid did not render, so brand-to-category mapping follows the site's own category labels.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Water Soluble Fertilizers (WSF) – Nova / Agrolution / Solinure",
+    "function": "Foam control during crystallization, dissolution and fertigation-tank mixing",
+    "silitex": "DYNAPAN 16 F",
+    "inci": "Food-grade PDMS/silica emulsion antifoam",
+    "benefit": "Suppresses foam in fertigation and dissolution tanks without residue on drip lines",
+    "green": "SILIFOOD 1600 (food-grade, kosher)"
+   },
+   {
+    "line": "Liquid Fertilizers – Nutri Liquid / Agroleaf Liquid",
+    "function": "Antifoam for liquid NPK/Ca/Mg blending, filling and foliar application",
+    "silitex": "ANTISCHIUMA 3",
+    "inci": "Polydimethylsiloxane emulsion antifoam",
+    "benefit": "Prevents foam overflow in reactors, bottling lines and spray tanks",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "Wetting agents – F3 SurfActive Technology / X3-Active",
+    "function": "Super-spreading, soil penetration and anti-foam in surfactant concentrates",
+    "silitex": "BERETEX 350",
+    "inci": "Silicone antifoam compound for surfactant systems",
+    "benefit": "Knocks down foam generated by high-surfactant wetting agents in spray tanks",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "Controlled-Release Fertilizers – Agrocote / Agroblen / Osmocote (E-Max, Resin, eqo.x Release)",
+    "function": "Coating-drum release and anti-dust, non-stick on polymer-coated granules",
+    "silitex": "EVERSIL 35",
+    "inci": "PDMS emulsion 35%",
+    "benefit": "Reduces granule sticking in coating drums and improves free-flow of coated prills",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal)"
+   },
+   {
+    "line": "Polysulphate / Granular Complex & Blended Fertilizers (Amfert, Boulby)",
+    "function": "Anti-caking and dust suppression on mined/granulated fertilizer",
+    "silitex": "Silitex Volatile D5 Fluid / CM 040",
+    "inci": "Cyclomethicone / low-viscosity silicone fluid carrier",
+    "benefit": "Hydrophobic surface coating that cuts moisture uptake and dust in storage",
+    "green": ""
+   },
+   {
+    "line": "Phosphate Based Fertilizers – Rotem / Novaphos",
+    "function": "Defoaming phosphoric-acid and phosphate slurry processing",
+    "silitex": "STHOR 1000",
+    "inci": "Silicone antifoam for mineral slurries",
+    "benefit": "Stable defoaming in acidic mineral slurries and gypsum filtration",
+    "green": ""
+   },
+   {
+    "line": "Biostimulants / Organic Fertilizers – Bioz / BEOZ / NovaHumic / Nova NPKelp",
+    "function": "Foam control in fermentation-derived and seaweed/humic liquid concentrates",
+    "silitex": "CPL 350 / CPL 350 ET",
+    "inci": "Vegetal-oil based antifoam for fermentation",
+    "benefit": "Organic-compatible foam control for bio-based inputs",
+    "green": "FISIOREX 1000 (organic agrochemicals)"
+   },
+   {
+    "line": "Process Water & Effluent – Dead Sea Works / Rotem sites",
+    "function": "Foam control in brine, evaporation ponds and wastewater aeration",
+    "silitex": "BERETEX 1000",
+    "inci": "Silicone antifoam emulsion 10%",
+    "benefit": "Low-dose defoaming in high-salinity effluent and aeration basins",
+    "green": ""
+   }
+  ]
+ },
+ "LEAD-002": {
+  "website": "https://www.adama.com/en",
+  "note": "adama.com product catalogue pages (incl. Israel Hebrew site) returned fetch errors; rows built from adama.com featured-story and technology pages (T.O.V., Sesgama, Asorbital, Desidro) plus Wikipedia for category scope.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Sesgama® Technology – high-load SC suspension concentrates",
+    "function": "Antifoam during wet milling and filling of polymeric-surfactant suspensions",
+    "silitex": "DYNAPAN 30 F",
+    "inci": "Silicone/silica antifoam emulsion for agrochemical formulations",
+    "benefit": "Prevents foam in bead mills and bottling; stays effective in high-solids SC",
+    "green": "FISIOREX 1000 (vegetal, organic agrochemicals)"
+   },
+   {
+    "line": "Asorbital® Technology – SORATEL® prothioconazole fungicide (solvent/surfactant carrier)",
+    "function": "Spray-tank defoamer and spreading co-adjuvant",
+    "silitex": "DYNAWEED MS 4",
+    "inci": "Silicone antifoam compound for spray tanks",
+    "benefit": "Eliminates tank-mix foaming of built-in-adjuvant EC/EW formulations",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "T.O.V.® Technology – oil-based fungicide pre-mixes",
+    "function": "Foam control in oil/water emulsion processing",
+    "silitex": "DYNAPAN 30 D",
+    "inci": "PDMS antifoam for hydrocarbon systems",
+    "benefit": "Compatible with solvent/oil phases, controls foam during emulsification",
+    "green": ""
+   },
+   {
+    "line": "Herbicides, Insecticides, Fungicides – off-patent portfolio (SC/EC/WG lines)",
+    "function": "General process antifoam for formulation reactors and filling lines",
+    "silitex": "ANTISCHIUMA 3",
+    "inci": "Polydimethylsiloxane emulsion antifoam",
+    "benefit": "Broad-pH, low-dose defoaming for water-based formulations",
+    "green": "FISIOREX 1000"
+   },
+   {
+    "line": "Actavan® botanical fungicide / bio-based products",
+    "function": "Silicone-free antifoam for natural/organic registrations",
+    "silitex": "FISIOREX 1000",
+    "inci": "Vegetal oil-based antifoam",
+    "benefit": "Organic-compatible foam control that keeps the botanical claim intact",
+    "green": "FISIOREX 1000"
+   },
+   {
+    "line": "Desidro® Technology – molluscicide pellets",
+    "function": "Pellet release and anti-stick in extrusion/drying",
+    "silitex": "EVERSIL 60",
+    "inci": "Concentrated PDMS emulsion 60%",
+    "benefit": "Release and surface slip for extruded baits without affecting attractiveness",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal)"
+   },
+   {
+    "line": "Consumer & Professional solutions (home & open-space products)",
+    "function": "Foam control in aerosol/ready-to-use household formulations",
+    "silitex": "DYNAPAN 16 D",
+    "inci": "Silicone antifoam emulsion for cleaning formulations",
+    "benefit": "Prevents foaming in RTU liquid filling and trigger-spray products",
+    "green": "FISIOREX 1000 (eco-detergents)"
+   },
+   {
+    "line": "Synthesis plants – effluent & wastewater treatment (Israel sites)",
+    "function": "Defoaming of chemical effluent and aeration basins",
+    "silitex": "BERETEX 750",
+    "inci": "High-efficiency silicone antifoam emulsion",
+    "benefit": "Concentrated dosing for aggressive chemical effluent streams",
+    "green": ""
+   }
+  ]
+ },
+ "LEAD-003": {
+  "website": "https://www.haifa-group.com/",
+  "note": "",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Multi-K™ potassium nitrate (GG / Reci / pHorte)",
+    "function": "Antifoam in crystallization, dissolution and Nutrigation™ fertigation tanks",
+    "silitex": "DYNAPAN 16 F",
+    "inci": "Food-grade PDMS/silica emulsion antifoam",
+    "benefit": "Foam-free dissolving of KNO3 in fertigation systems, no emitter clogging",
+    "green": "SILIFOOD 1600 (food-grade, kosher)"
+   },
+   {
+    "line": "Poly-Feed™ GG water-soluble NPK (fertigation & foliar)",
+    "function": "Non-foaming wetting / foam control in mixing tanks and foliar sprays",
+    "silitex": "BERETEX 350",
+    "inci": "Silicone antifoam compound for spray tanks",
+    "benefit": "Stops foam overflow in foliar spray tanks and mixing stations",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Haifa Bonus™ potassic foliar fertilizer",
+    "function": "Spray-tank defoamer and spreading aid for foliar application",
+    "silitex": "DYNAWEED MS 4",
+    "inci": "Silicone antifoam compound",
+    "benefit": "Prevents tank foaming of high-K foliar solutions",
+    "green": "FISIOREX 1000"
+   },
+   {
+    "line": "Multicote™ / Multicote™ Agri / CoteN™ controlled-release fertilizers",
+    "function": "Coating-drum release and anti-stick on polymer-coated granules",
+    "silitex": "EVERSIL 35",
+    "inci": "PDMS emulsion 35%",
+    "benefit": "Prevents granule agglomeration in coating drums; improves free-flow",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal)"
+   },
+   {
+    "line": "Haifa Turbo K™ NPK granular fertilizer",
+    "function": "Anti-caking / dust-suppression surface treatment of granules",
+    "silitex": "Silitex Volatile D5 Fluid / CM 040",
+    "inci": "Low-viscosity silicone fluid carrier",
+    "benefit": "Hydrophobic coating reduces moisture pickup and dust in bulk storage",
+    "green": ""
+   },
+   {
+    "line": "HaifaStim™ biostimulants (Booster / Force / KIR)",
+    "function": "Foam control in humic/seaweed/amino-acid liquid concentrates",
+    "silitex": "CPL 350 / CPL 350 ET",
+    "inci": "Vegetal-oil based antifoam",
+    "benefit": "Organic-compatible defoaming for biostimulant production",
+    "green": "FISIOREX 1000"
+   },
+   {
+    "line": "Haifa Cal™ calcium nitrate & Technical KNO3 (industrial grade)",
+    "function": "Process antifoam for nitrate reaction and evaporation",
+    "silitex": "ANTISCHIUMA 3",
+    "inci": "Polydimethylsiloxane emulsion antifoam",
+    "benefit": "Low-dose foam control in nitrate reactors and evaporators",
+    "green": ""
+   },
+   {
+    "line": "Haifa production sites – process water & effluent",
+    "function": "Defoaming of wastewater aeration and effluent",
+    "silitex": "BERETEX 1000",
+    "inci": "Silicone antifoam emulsion 10%",
+    "benefit": "Economical defoaming for aeration basins and nitrate-rich effluent",
+    "green": ""
+   }
+  ]
+ },
+ "LEAD-004": {
+  "website": "https://www.termokir.co.il/en/",
+  "note": "Inrom's Termokir catalogue site (SAKRET and TERMOKIR brands) used; Alumayer not covered as it is aluminium systems.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Plastering Mortars – TERMOKIR PL 100 / PL 102 / PL 130 (exterior render, marine-environment plaster)",
+    "function": "Integral water repellent in dry-mix render",
+    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "inci": "Silane-siloxane water repellent (powder/emulsion)",
+    "benefit": "Beading effect and reduced capillary absorption of exterior renders",
+    "green": ""
+   },
+   {
+    "line": "Thermal Insulation – TERMOKIR TH 200 / TH 300 / TH 400 insulating plasters",
+    "function": "Hydrophobation of lightweight thermal plaster, anti-condensation",
+    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "inci": "Silane-siloxane hydrophobic additive",
+    "benefit": "Keeps lightweight aggregate dry so thermal performance is retained; prevents mould",
+    "green": ""
+   },
+   {
+    "line": "Sealing – TERMOKIR SE 975 / SE 980 cementitious waterproofing membranes",
+    "function": "Antifoam for polymer-modified cementitious slurry mixing",
+    "silitex": "DYNAPAN 16 D",
+    "inci": "Silicone antifoam emulsion for water-based building formulations",
+    "benefit": "Eliminates entrapped air voids in waterproofing slurry for pinhole-free film",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Adhesives – TERMOKIR AD 602 / AD 603 / AD 700 flexible polymer-modified tile adhesives",
+    "function": "Defoaming of redispersible-polymer mortar during mixing",
+    "silitex": "DYNAPAN 10 D",
+    "inci": "PDMS antifoam for water-based industrial systems",
+    "benefit": "Higher density and bond strength by removing air from polymer-modified mortar",
+    "green": ""
+   },
+   {
+    "line": "Flooring – SAKRET FL 860 self-leveling compound",
+    "function": "Antifoam/defoamer for self-levelling screed",
+    "silitex": "DYNAPAN 16 D",
+    "inci": "Silicone antifoam emulsion",
+    "benefit": "Smooth pinhole-free surface, prevents air bubbles in self-levelling layers",
+    "green": "FISIOREX 1000"
+   },
+   {
+    "line": "Special Mortars – SAKRET MO 028 / MO 030 / MO 040 expanding & prestress grouts",
+    "function": "Air-void control in high-fluidity cement grouts",
+    "silitex": "DYNAPAN 16 D",
+    "inci": "Silicone antifoam emulsion",
+    "benefit": "Dense, bubble-free grout filling for anchors and tendons",
+    "green": ""
+   },
+   {
+    "line": "Joint Filler – SAKRET JF 930 tile grout",
+    "function": "Water repellency and stain resistance in cement grout",
+    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "inci": "Silane-siloxane water repellent",
+    "benefit": "Water-beading grout joints with reduced efflorescence",
+    "green": ""
+   },
+   {
+    "line": "Sealing – SAKRET SE 963 flexible silicone sealant / SE 960 acrylic mastic",
+    "function": "Carrier fluid / plasticizing and foam control in sealant manufacture",
+    "silitex": "Silitex Volatile D5 Fluid / CM 040",
+    "inci": "Cyclomethicone / silicone fluid",
+    "benefit": "Volatile carrier for silicone sealant processing and surface slip",
+    "green": ""
+   }
+  ]
+ },
+ "LEAD-005": {
+  "website": "https://www.ashtromindustries.co.il/en",
+  "note": "Ashtrom Industries subsidiaries used: Israbeton (concrete), Ashkalit (AAC blocks & lintels), Ashbond (gypsum blocks), BG Bond (sealing/finishing/additives), Itumit (waterproofing). Precast lines appear as lintels and reinforced cement boards on the Ashkalit site.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Israbeton ready-mix concrete – water-contact, improved-flow & high-strength mixes",
+    "function": "Hydrophobic concrete admixture and air-void control",
+    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "inci": "Silane-siloxane water repellent emulsion",
+    "benefit": "Integral water repellency for water-contact and reservoir concrete",
+    "green": ""
+   },
+   {
+    "line": "Ashkalit 268 AAC white block (autoclaved aerated concrete)",
+    "function": "Mold release for AAC casting moulds and hydrophobation of block",
+    "silitex": "EVERSIL 35",
+    "inci": "PDMS emulsion 35%",
+    "benefit": "Clean demoulding of AAC cakes; reduced capillary absorption at block surface",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal)"
+   },
+   {
+    "line": "Ashkalit lintels & reinforced cement boards (precast elements)",
+    "function": "Concrete form release agent",
+    "silitex": "EVERSIL 60",
+    "inci": "Concentrated PDMS emulsion 60%",
+    "benefit": "Stain-free release from steel/timber forms, longer mould life",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal)"
+   },
+   {
+    "line": "Israbeton thermally insulating & lightweight concrete",
+    "function": "Foam control in lightweight/aerated mix design",
+    "silitex": "DYNAPAN 10 D",
+    "inci": "PDMS antifoam for water-based systems",
+    "benefit": "Controls uncontrolled foaming during lightweight aggregate batching",
+    "green": ""
+   },
+   {
+    "line": "BG Bond sealing products & industrial additives (concrete additives, waterproofing)",
+    "function": "Water repellent additive for sealing slurries and concrete additives",
+    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "inci": "Silane-siloxane hydrophobic additive",
+    "benefit": "Masonry and concrete waterproofing ingredient for BG Bond's additive range",
+    "green": ""
+   },
+   {
+    "line": "BG Bond SIMPLY flexible stucco (שליכט גמיש) & wall paints",
+    "function": "Antifoam in water-based acrylic textured coatings and paints",
+    "silitex": "DYNAPAN 16 D",
+    "inci": "Silicone antifoam emulsion for water-based paints",
+    "benefit": "Prevents craters and pinholes in acrylic stucco and paint",
+    "green": "FISIOREX 1000 (green paints, waterborne coatings)"
+   },
+   {
+    "line": "BG Bond silicone sealants & acrylic industrial adhesives",
+    "function": "Carrier/plasticizer fluid in silicone sealant manufacture",
+    "silitex": "Silitex Volatile D5 Fluid / CM 040",
+    "inci": "Cyclomethicone / low-viscosity silicone fluid",
+    "benefit": "Volatile carrier for sealant processing, improves tooling and slip",
+    "green": ""
+   },
+   {
+    "line": "Ashbond gypsum blocks & Green Bond thermal insulation block",
+    "function": "Mold release and water repellent for gypsum casting",
+    "silitex": "EVERSIL 35 & Silitex Idrorepellenti Silane-Siloxane",
+    "inci": "PDMS emulsion + silane-siloxane water repellent",
+    "benefit": "Clean demoulding of gypsum blocks and reduced moisture uptake in wet rooms",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal)"
+   }
+  ]
+ },
+ "LEAD-006": {
+  "website": "https://tambour.co.il",
+  "note": "Hebrew site only (no English product catalog); product names transliterated from the Tambour catalog pages.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Supercryl 2000 / Supercryl Matt+ / Silk / Akrinol (acrylic interior wall paints)",
+    "function": "Defoaming during dispersion, let-down and roller/airless application; pinhole- and crater-free film",
+    "silitex": "DYNAPAN 16 D",
+    "inci": "Silicone antifoam emulsion (PDMS/silica compound, water-dispersible)",
+    "benefit": "Fast macro/micro-foam knock-down in acrylic latex, stable in tinted bases, no fish-eyes",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "Supercryl ECO (zero-VOC, LEED-rated matte acrylic)",
+    "function": "Foam control in zero-VOC/eco formulation without silicone or solvent carriers",
+    "silitex": "FISIOREX 1000",
+    "inci": "Vegetable-oil based silicone-free defoamer",
+    "benefit": "Keeps eco-label / green-building claims while suppressing foam in grinding and filling",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Supercryl M.D / M.D 45 (water-based pure-acrylic exterior paints) & Polygg 450 reinforced roof coatings",
+    "function": "Defoaming in high-PVC exterior acrylics and thick elastomeric roof coats; hydrophobic surface additive",
+    "silitex": "DYNAPAN 16 D & Silitex Idrorepellenti Silane-Siloxane",
+    "inci": "Silicone antifoam emulsion; silane/siloxane water-repellent",
+    "benefit": "Void-free elastomeric film, added beading/water repellency and UV durability on the envelope",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Shlikht TM 40 / TM 50 / TM 70 (colored acrylic plasters) & Arava mineral plaster",
+    "function": "Water repellency and efflorescence/soiling protection for textured façade plasters; foam control in acrylic binder",
+    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "inci": "Silane-siloxane (alkyl-alkoxysilane/oligomeric siloxane) hydrophobing agent",
+    "benefit": "Beading façade, reduced water uptake, lower dirt pick-up, crack-bridging film kept intact",
+    "green": ""
+   },
+   {
+    "line": "TAMPLAST 914 water-repellent cement plaster & TAMBOND / Bridge Block 865 powder adhesives, Kochla grout",
+    "function": "Integral hydrophobing of dry-mix mortars, plasters and water-resistant adhesives/grouts",
+    "silitex": "Silitex Volatile D5 Fluid / CM 040",
+    "inci": "Cyclopentasiloxane carrier / silane-siloxane dry-mortar additive",
+    "benefit": "Powder-dosable water repellency, reduced capillary absorption in cement plasters and grouts",
+    "green": ""
+   },
+   {
+    "line": "TAMSEAL 777 / 702 / 724 (water-based PU-hybrid, cementitious and bitumen-polymer waterproofing)",
+    "function": "Defoaming in water-borne PU/bitumen emulsions and 2K cement slurries during mixing and spraying",
+    "silitex": "DYNAPAN 10 D",
+    "inci": "Silicone antifoam emulsion for water-based industrial systems",
+    "benefit": "Dense, pinhole-free waterproofing membrane; stable in polymer-modified cement slurry",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Varnish water-base / Natural Deck oil water-base (wood finishes) & Universal water-based primer",
+    "function": "Foam control and leveling/slip in clear water-borne wood lacquers and multi-substrate primers",
+    "silitex": "DYNAPAN 16 D & EVERSIL 35",
+    "inci": "Silicone antifoam emulsion; dimethicone (PDMS) emulsion",
+    "benefit": "Clear bubble-free varnish film, improved flow and scratch/slip feel on decking",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Hammerite / Galvocoat / Antirust metal coatings, Superlak synthetic enamel",
+    "function": "Mold-release / anti-stick for coated profiles and masked parts; de-aeration in solvent enamels on the line",
+    "silitex": "EVALAR 55 / 55 HP / 55 HT",
+    "inci": "Over-paintable silicone-based release agent",
+    "benefit": "Paintable release for jigs and pre-painted metal parts without craters on re-coat",
+    "green": "PROMET 400 / DISTAC 200 (silicone-free)"
+   }
+  ]
+ },
+ "LEAD-007": {
+  "website": "https://nirlat.com",
+  "note": "Consumer site nirlat.com (Hebrew) plus industrial arm nirlatpro.com; no separate English catalog.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Aquaniir EXTRA / Aquaniir EXTRA WHITE (water-based matte acrylic wall paint, USP technology)",
+    "function": "Defoaming in pigment grind and let-down; crater-free roller application",
+    "silitex": "DYNAPAN 16 D",
+    "inci": "Silicone antifoam emulsion (PDMS/silica compound)",
+    "benefit": "Smooth even wall finish without micro-foam, stable in tinted bases",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "Oniaor water-based silk-finish topcoat (wood/metal/wall)",
+    "function": "Foam control plus slip/leveling in water-borne silk enamel",
+    "silitex": "DYNAPAN 16 D & EVERSIL 35",
+    "inci": "Silicone antifoam emulsion; dimethicone (PDMS) emulsion",
+    "benefit": "Bubble-free glossy film, better flow and mar resistance",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Nirlat colored acrylic plaster (Shlikht) & EXTRA Natura / Sahara / Crystal decorative finishes",
+    "function": "Water repellency of textured façade plaster; foam control in thick acrylic binder",
+    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "inci": "Silane-siloxane hydrophobing agent",
+    "benefit": "Beading, lower water uptake and dirt pick-up on exterior plaster",
+    "green": ""
+   },
+   {
+    "line": "Aqua Guard roof waterproofing (water-based elastomeric)",
+    "function": "Defoaming in high-build acrylic/PU-hybrid roof membrane during mixing and spraying",
+    "silitex": "DYNAPAN 10 D",
+    "inci": "Silicone antifoam emulsion for water-based industrial systems",
+    "benefit": "Dense pinhole-free membrane, consistent thickness",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Nirlat Pro Professional Wood (2K primers & topcoats for kitchens, furniture, doors, parquet)",
+    "function": "De-aeration and leveling in water-borne/2K wood lacquers; surface slip",
+    "silitex": "DYNAPAN 16 D & EVERSIL 35",
+    "inci": "Silicone antifoam emulsion; dimethicone emulsion",
+    "benefit": "Clear bubble-free lacquer film with improved scratch feel",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Nirlat Pro Floor Coatings (2K epoxy / polyurethane) & Food-and-pharma paint systems",
+    "function": "Defoaming water-borne epoxy/PU floor systems; release of cured castings from forms",
+    "silitex": "DYNAPAN 10 D & EVALAR 55 / 55 HP / 55 HT",
+    "inci": "Silicone antifoam emulsion; over-paintable release agent",
+    "benefit": "Void-free seamless floor, paintable release on joints and formed edges",
+    "green": "PROMET 400 / DISTAC 200 (silicone-free release)"
+   },
+   {
+    "line": "Nirlat Pro Heavy/Light Maintenance anticorrosion primers & topcoats; Road-marking paints",
+    "function": "Foam control in water-based DTM and road-marking acrylics; hydrophobic film additive",
+    "silitex": "DYNAPAN 16 D",
+    "inci": "Silicone antifoam emulsion",
+    "benefit": "Fast de-aeration at high-speed line application, no craters",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Univercol electrostatic powder coatings (Netanya plant) & Tech-Coat electronic cladding",
+    "function": "Mold/tool release and anti-stick for racks, hooks and masking jigs; dry lubricant",
+    "silitex": "EVERSIL 60",
+    "inci": "Concentrated PDMS (dimethicone) emulsion release/lubricant",
+    "benefit": "Easy stripping of hooks and jigs, reduced rework",
+    "green": "PROMET 400 / DISTAC 200 (silicone-free)"
+   }
+  ]
+ },
+ "LEAD-008": {
+  "website": "https://www.sano.co.il/en/",
+  "note": "English site lists categories only; product-line names taken from Hebrew category pages (floors, furniture, laundry, sanopro.co.il). 5 plants, 500+ SKUs, all in-house manufacturing.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Sano Maxima laundry powders & liquid/gel detergents (Laundry supplies)",
+    "function": "Antifoam for HE/front-loader low-suds detergents and compacted powders",
+    "silitex": "BERETEX 1000",
+    "inci": "Silicone antifoam compound/emulsion (PDMS + hydrophobic silica)",
+    "benefit": "Controlled suds through the full wash cycle, no overflow, stable in anionic systems",
+    "green": "FISIOREX 1000 (vegetal, eco-detergents)"
+   },
+   {
+    "line": "Sano fabric softeners & laundry fragrances (Fabric softeners)",
+    "function": "Silicone softening/anti-wrinkle conditioning agent and fragrance-release aid",
+    "silitex": "AMINOQUAT 250 / 350 / 1000",
+    "inci": "Quaternized amino-functional silicone (Silicone Quaternium)",
+    "benefit": "Wash-fast soft hand, easier ironing, towel softness without greasiness",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal softener, eco-label)"
+   },
+   {
+    "line": "Sano Spark hand-dish liquids & dishwasher products (Dish washing)",
+    "function": "Foam suppression in automatic-dishwasher detergents and rinse aids",
+    "silitex": "BERETEX 1000 AD",
+    "inci": "Silicone antifoam emulsion for automated dosing / liquid detergents",
+    "benefit": "Spray-arm pressure preserved, spot-free rinse, dosing-pump compatible",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Ricpaz floor liquids (incl. machine-wash floor liquid) & 99.9% disinfecting floor cleaner",
+    "function": "Low-foam additive for scrubber-dryer and bucket floor cleaners",
+    "silitex": "BERETEX 350",
+    "inci": "Silicone antifoam emulsion for process water / industrial cleaning",
+    "benefit": "No foam in recovery tank, streak-free drying",
+    "green": "FISIOREX 1000 (vegetal)"
+   },
+   {
+    "line": "Polyvix Floor Shine with Wax / Sano Super Polish / Magen Crystal",
+    "function": "Wax/silicone emulsion delivering gloss, slip and protective film on parquet, porcelain and crystallized floors",
+    "silitex": "WASPER D",
+    "inci": "Wax emulsion (natural/synthetic wax blend) for floor wax",
+    "benefit": "High-gloss durable floor film, easy re-buff, water-beading",
+    "green": "CARNAUBEX (C / 442) (natural carnauba wax)"
+   },
+   {
+    "line": "Sano Furniture liquid/aerosol/damp cloths & Leather cleaning emulsion",
+    "function": "Polish base: gloss, anti-static dust repellency and leather nourishing film",
+    "silitex": "EVERSIL 35 & WASPER D",
+    "inci": "Dimethicone (PDMS) emulsion; wax emulsion for wood/leather care",
+    "benefit": "Streak-free shine, anti-static, water-resistant protective coat",
+    "green": "CARNAUBEX (C / 442) (natural carnauba)"
+   },
+   {
+    "line": "Sano Javel bleach gel/foam/powder, Anti-Kalk descaler, Sano Jet toilet gel",
+    "function": "Foam control in highly alkaline hypochlorite and acidic descaling formulations",
+    "silitex": "DYNAKOS 130 E & DYNAWEED 260 E",
+    "inci": "Alkali-stable silicone antifoam (pH 14); acid/alkaline-bath silicone antifoam",
+    "benefit": "Stable in bleach and acid, prevents foaming in filling lines and spray use",
+    "green": ""
+   },
+   {
+    "line": "Sano Pro RB2 ZERO / GREEN POWER eco floor & dish liquids (institutional, RATIO dilution)",
+    "function": "Low-foam concentrate for dilution systems and eco-labelled institutional cleaners",
+    "silitex": "FISIOREX 1000",
+    "inci": "Vegetable-oil based silicone-free defoamer",
+    "benefit": "Keeps eco claims, no foam in auto-dilution/scrubber use",
+    "green": "FISIOREX 1000 (vegetal)"
+   }
+  ]
+ },
+ "LEAD-009": {
+  "website": "",
+  "note": "No official website or registry entry found under 'Cleano-Kal' (English/Hebrew searches). Rows built from secondary sources describing an unnamed Israeli industrial/institutional eco-cleaning manufacturer (EEN partnering profile; Tel Aviv Chamber of Commerce listing). Verify company identity before use.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Degreasers / oil & grease removers (industrial concentrates)",
+    "function": "Foam control in alkaline aqueous degreasers for spray, immersion and pressure-wash",
+    "silitex": "BERETEX 500",
+    "inci": "Silicone antifoam emulsion for chemical processing / industrial cleaning",
+    "benefit": "Low foam at high pressure, faster rinse, dosing-stable in concentrates",
+    "green": "FISIOREX 1000 (vegetal, eco-detergents)"
+   },
+   {
+    "line": "Food-industry cleaners (CIP / alkaline caustic washes)",
+    "function": "Antifoam for hot alkaline CIP circuits in food & beverage plants",
+    "silitex": "DYNAWEED MS 4",
+    "inci": "High-temperature silicone antifoam for alkaline CIP",
+    "benefit": "Stable at high temperature and pH, no pump cavitation in CIP loops",
+    "green": "SILIFOOD 1600 (food grade, kosher)"
+   },
+   {
+    "line": "Lime-stone (scale) removers & rust removers (acidic cleaners)",
+    "function": "Foam suppression in acidic descaling / rust-removal baths",
+    "silitex": "DYNAWEED 260 E",
+    "inci": "Silicone antifoam for acidic and alkaline baths / metal cleaning",
+    "benefit": "Prevents foam-over in acid tanks, keeps spray patterns",
+    "green": ""
+   },
+   {
+    "line": "Soot removers & engine cleaners (heavy-duty alkaline)",
+    "function": "Defoaming in pH 13–14 caustic heavy-duty cleaners",
+    "silitex": "DYNAKOS 130 E",
+    "inci": "Extreme-alkali-stable silicone antifoam (pH 14)",
+    "benefit": "Does not break down in caustic, effective at low dose",
+    "green": ""
+   },
+   {
+    "line": "PCB / electronics cleaners",
+    "function": "Low-residue defoaming for aqueous electronics washing; assembly lubricant",
+    "silitex": "BERETEX 1000 AD & REOGUM 500",
+    "inci": "Silicone antifoam for automated dosing/chemical washing; electronics-grade silicone lubricant",
+    "benefit": "Foam-free aqueous wash, clean rinse, gasket/hose assembly aid",
+    "green": ""
+   },
+   {
+    "line": "Institutional floor & surface cleaners (ready-to-use from concentrate)",
+    "function": "Low-foam for scrubber-dryer use plus gloss/protection film",
+    "silitex": "BERETEX 350 & WASPER D",
+    "inci": "Silicone antifoam emulsion; wax emulsion floor polish",
+    "benefit": "No recovery-tank foam, polished protective floor finish",
+    "green": "CARNAUBEX (C / 442) (natural carnauba)"
+   },
+   {
+    "line": "Adhesive & paint removers",
+    "function": "Foam control in water-based stripping solutions; paintable release for stripped parts",
+    "silitex": "DYNAPAN 10 D",
+    "inci": "Silicone antifoam emulsion for water-based industrial systems",
+    "benefit": "Stable in solvent-free strippers, clean agitation",
+    "green": "FISIOREX 1000 (vegetal)"
+   }
+  ]
+ },
+ "LEAD-010": {
+  "website": "https://www.mekorot.co.il",
+  "note": "Official site unreachable from research environment; operations taken from Wikipedia (Mekorot), Duns100 profile, Globes (Eilat/Sabha desalination), ROTEC project page (Shafdan RO) and Mekorot 2020 ESG summary.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Wastewater treatment & reuse facilities (9 plants; Shafdan / Dan Region activated-sludge WWTP)",
+    "function": "Antifoam for aeration basins, digesters and effluent channels",
+    "silitex": "BERETEX 1000",
+    "inci": "Silicone antifoam emulsion for wastewater aeration / industrial effluent",
+    "benefit": "Rapid knock-down of biological foam in aeration, dosing-pump compatible, persistent",
+    "green": ""
+   },
+   {
+    "line": "Sludge handling / dewatering lines at WWTPs",
+    "function": "Foam control in sludge thickening, centrifuge and polymer-conditioning stages",
+    "silitex": "STHOR 1000",
+    "inci": "Silicone antifoam for mineral slurry / wastewater sludge",
+    "benefit": "Stable in high-solids sludge, prevents centrifuge foaming",
+    "green": ""
+   },
+   {
+    "line": "Reclaimed-water RO polishing (Shafdan secondary-effluent RO, ROTEC flow-reversal)",
+    "function": "Low-foam, membrane-compatible defoamer for RO feed/CIP and concentrate handling",
+    "silitex": "BERETEX 750",
+    "inci": "High-efficiency silicone antifoam for concentrated formulations / effluent",
+    "benefit": "Low dose, effective in high-TDS concentrate and membrane CIP",
+    "green": ""
+   },
+   {
+    "line": "Seawater & brackish desalination plants (Sabha/Eilat, Granot BWRO, ~23 facilities)",
+    "function": "Antifoam for pretreatment, chemical CIP cleaning of membranes and brine discharge",
+    "silitex": "ANTISCHIUMA 3",
+    "inci": "Silicone antifoam emulsion, water-treatment / food-contact grade",
+    "benefit": "Potable-water-compatible foam control in CIP and brine lines",
+    "green": "SILIFOOD 1600 (food grade, kosher)"
+   },
+   {
+    "line": "Eshkol National Filtration Plant & drinking-water quality treatment (National Carrier)",
+    "function": "Food-contact / potable-grade foam control in flocculation, filter backwash and chemical dosing",
+    "silitex": "SILIFOOD 1600",
+    "inci": "Food-grade kosher silicone antifoam (FDA 21 CFR 173.340 type)",
+    "benefit": "Regulatory-safe defoaming in drinking water chemistry, kosher certified",
+    "green": "SILIFOOD 1600 (food grade, kosher)"
+   },
+   {
+    "line": "Reservoirs, pumping stations & pipeline network (~1,000 reservoirs, chlorination/dosing)",
+    "function": "Antifoam for chemical dosing tanks and pump wet-wells; assembly lubricant for seals and hoses",
+    "silitex": "DYNAPAN 10 D & REOGUM 500",
+    "inci": "Silicone antifoam emulsion for water-based industrial systems; silicone assembly lubricant",
+    "benefit": "Foam-free dosing, easier gasket/hose assembly in maintenance",
+    "green": ""
+   },
+   {
+    "line": "Concrete reservoirs, precast structures & plant buildings (asset protection)",
+    "function": "Silane-siloxane impregnation of concrete reservoirs and precast elements against water ingress and chloride attack",
+    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "inci": "Silane/siloxane hydrophobic impregnation for masonry and precast concrete",
+    "benefit": "Reduced water absorption, longer concrete life in coastal/brine environments",
+    "green": ""
+   }
+  ]
+ },
+ "LEAD-011": {
+  "website": "https://bluegencorp.com",
+  "note": "GES was renamed BlueGen in Jan 2024 (Generation Capital environmental platform); site parsed: bluegencorp.com /products, /chemicals, /asset/bazan-oil-refinery-from-waste-to-value.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Industrial Wastewater Treatment — DACS anaerobic & AGAR MBBR / IFAS / MBCR reactors",
+    "function": "Foam control in aerated biological reactors and anaerobic digesters, keeps biofilm carriers and clarifiers stable",
+    "silitex": "BERETEX 1000",
+    "inci": "Polydimethylsiloxane / silica antifoam emulsion (water-dilutable)",
+    "benefit": "Knocks down aeration foam fast, low dosage, no biomass inhibition, keeps AGAR media clarifier free of surface foam",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "BAZAN Oil Refinery wastewater reuse plant (650 m³/h BOT)",
+    "function": "Defoaming hydrocarbon-laden refinery effluent ahead of demineralization and reuse",
+    "silitex": "DYNAPAN 30 D",
+    "inci": "Silicone compound antifoam dispersion for hydrocarbon-containing systems",
+    "benefit": "Stable in oily/high-solids effluent, prevents foam carry-over to cooling-tower and boiler feed streams",
+    "green": ""
+   },
+   {
+    "line": "Municipal Wastewater Treatment & O&M (Acre WWTP, AGAR PnP / MPU package units)",
+    "function": "Antifoam for aeration basins, sludge thickening and dewatering lines operated under O&M contracts",
+    "silitex": "STHOR 1000",
+    "inci": "Silicone / mineral-oil antifoam compound for slurries",
+    "benefit": "Controls sludge-line and digester foam, effective at high solids, reduces operator intervention in automated plants",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "Desalination — Capsule™ compact units & GenDesal SWRO / BWRO (Palmachim, Ashdod, Kfar Masaryk)",
+    "function": "Defoaming of pretreatment, membrane CIP and brine/neutralization tanks",
+    "silitex": "ANTISCHIUMA 3",
+    "inci": "Food-contact grade PDMS antifoam emulsion",
+    "benefit": "Low-residue silicone for water-treatment duty, compatible with CIP chemistry; potable-water approval to be verified per site",
+    "green": "SILIFOOD 1600 (food grade, kosher)"
+   },
+   {
+    "line": "Water Reuse — EDR (Electro Dialysis Reversal) & SBRO semi-batch RO",
+    "function": "Foam suppression in concentrate / chemical-dosing and cleaning cycles of reuse trains",
+    "silitex": "BERETEX 750",
+    "inci": "High-efficiency concentrated PDMS antifoam emulsion",
+    "benefit": "Concentrated grade for effluent streams, small dosing footprint in automated reuse skids",
+    "green": ""
+   },
+   {
+    "line": "BlueGen Chemicals — water-treatment chemicals for cooling towers, steam boilers, closed loops",
+    "function": "Private-label / bundled antifoam in the chemicals division's own water-treatment product line, dosed automatically",
+    "silitex": "BERETEX 1000 AD",
+    "inci": "PDMS antifoam emulsion formulated for automatic dosing pumps",
+    "benefit": "Pump-stable, non-separating emulsion for continuous dosing in cooling and boiler treatment programs",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "Cyclean — auto-part cleaning & chemical recycling, off-site industrial wastewater treatment",
+    "function": "Foam control in alkaline/acidic parts-washing baths and in the off-site effluent treatment facility",
+    "silitex": "DYNAWEED 260 E",
+    "inci": "pH-stable silicone antifoam emulsion for acidic/alkaline baths",
+    "benefit": "Survives aggressive degreasing chemistry, prevents overflow in spray washers and recycling stills",
+    "green": ""
+   },
+   {
+    "line": "Groundwater Remediation & MBDEN nitrate removal",
+    "function": "Defoaming of biological denitrification and stripping stages",
+    "silitex": "BERETEX 500",
+    "inci": "PDMS antifoam emulsion for chemical processing / wastewater",
+    "benefit": "General-purpose, cost-effective foam control for remediation reactors and air-stripping columns",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   }
+  ]
+ },
+ "LEAD-012": {
+  "website": "https://www.keter.com",
+  "note": "Parsed keter.com (About, Sustainability, category navigation) plus Keter Group Wikipedia for plant count; keter.com does not publish process details, so processes inferred from resin product nature.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Sheds & Gazebos (large / medium / small, horizontal & vertical sheds)",
+    "function": "Mold release for large thin-wall resin panels, flow aid for demolding deep-draw parts",
+    "silitex": "EVERSIL 60",
+    "inci": "Concentrated dimethicone (PDMS) emulsion, 60% active",
+    "benefit": "Fewer sticking rejects on large panel molds, dilutable concentrate for high-volume lines",
+    "green": "PROMET 400 / DISTAC 200 (silicone-free, paintable)"
+   },
+   {
+    "line": "Outdoor Storage — Deck Boxes, Storage Cabinets, Shelving Units",
+    "function": "General-purpose mold release and anti-static surface treatment on injection-molded storage parts",
+    "silitex": "EVERSIL 35",
+    "inci": "Dimethicone (PDMS) emulsion, 35% active",
+    "benefit": "Clean release, no build-up, anti-static effect reduces dust pickup before packing",
+    "green": "PROMET 400 / DISTAC 200 (silicone-free)"
+   },
+   {
+    "line": "Outdoor Furniture — Adirondack chairs, sun loungers, patio sets (rattan / knitted / wood-look finishes)",
+    "function": "Release for textured rattan-effect molds and final high-gloss surface polish",
+    "silitex": "EVERSIL 3500",
+    "inci": "High-viscosity PDMS emulsion (heavy-duty release / polish)",
+    "benefit": "Releases deep textured rattan and wood-grain surfaces intact, adds showroom gloss",
+    "green": ""
+   },
+   {
+    "line": "Gardening — Garden Beds, Planters, Screen Planters (Stewart Plastics)",
+    "function": "Release and processing aid for thin-wall recycled-resin pots; antifoam in granule wash water",
+    "silitex": "EVERSIL 35 & BERETEX 350",
+    "inci": "PDMS emulsion & PDMS antifoam emulsion for process water",
+    "benefit": "Stable release with recycled polypropylene feedstock, foam-free wash/cooling water circuits",
+    "green": "FISIOREX 1000 (vegetal, silicone-free antifoam)"
+   },
+   {
+    "line": "Tool Storage — Toolboxes, Folding Work Tables",
+    "function": "Over-paintable / printable release where parts receive labels, in-mold decoration or paint",
+    "silitex": "EVALAR 55 / 55 HP / 55 HT",
+    "inci": "Paintable silicone release emulsion",
+    "benefit": "No silicone transfer to printed/labelled surfaces, high-temp grade for engineering-resin tool parts",
+    "green": "PROMET 400 / DISTAC 200 (silicone-free)"
+   },
+   {
+    "line": "Outdoor Hosting — Cool Bars, Outdoor Kitchen Units, Outdoor Trash Cans",
+    "function": "Hinge, lid and rubber-gasket assembly lubrication on assembly lines",
+    "silitex": "REOGUM 500",
+    "inci": "Silicone gum/oil assembly lubricant",
+    "benefit": "Eases gasket and hinge fitting without staining resin, long-lasting lubricity",
+    "green": ""
+   },
+   {
+    "line": "Recycled Resin Program (43% recycled content, 100% recyclable products)",
+    "function": "Foam control in post-consumer resin washing / flotation lines feeding Keter plants",
+    "silitex": "BERETEX 1000",
+    "inci": "PDMS / silica antifoam emulsion for wastewater & washing",
+    "benefit": "Keeps recyclate wash tanks and effluent free of foam, improves flake separation",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   }
+  ]
+ },
+ "LEAD-013": {
+  "website": "https://www.polyram-group.com",
+  "note": "polyram-group.com blocks fetch (robots); product lines taken from Polyram's own exhibitor catalog entries (Plastpol, Fakuma) and Polyram's Bondyram presentation PDF: brands Bondyram, Polytron, Ramclean, Ramofin, Ramster, Ramlloy, Ramdetect, Karilen, Plustek; 24 twin-screw lines, 42,000 t/y, Ram-On.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Engineering Thermoplastic Compounds (PA6, PA66, PA12, PBT, PET, POM, PP, PE, ABS, ASA, PS, alloys)",
+    "function": "Internal lubricant / processing aid and mold-release additive masterbatched into compounds",
+    "silitex": "EVERSIL 3500",
+    "inci": "High-viscosity polydimethylsiloxane (PDMS) emulsion",
+    "benefit": "Improves flow and demolding of glass-filled PA/PBT, lowers screw torque, surface slip",
+    "green": ""
+   },
+   {
+    "line": "Polytron® long glass fiber PP & PA compounds (pultrusion)",
+    "function": "Fiber impregnation lubricant and release at pultrusion die / pelletizer",
+    "silitex": "EVERSIL 60",
+    "inci": "Concentrated dimethicone emulsion, 60% active",
+    "benefit": "Reduces fiber breakage and die build-up, cleaner pellet cutting",
+    "green": "PROMET 400 / DISTAC 200 (silicone-free)"
+   },
+   {
+    "line": "Bondyram® coupling agents, compatibilizers & tie-layer resins (MA-grafted PE/PP)",
+    "function": "Antifoam and release in reactive-extrusion lines; low-silicone release for tie-layers that must remain bondable",
+    "silitex": "PROMET 400 / DISTAC 200",
+    "inci": "Silicone-free release agent",
+    "benefit": "No silicone contamination on adhesive-resin pellets, preserves tie-layer bonding to EVOH/PA",
+    "green": "PROMET 400 / DISTAC 200 (silicone-free)"
+   },
+   {
+    "line": "Ramclean® purging agents & cleaning solutions",
+    "function": "Silicone-based slip/release component in purging compound formulations",
+    "silitex": "EVERSIL 35",
+    "inci": "Dimethicone (PDMS) emulsion, 35% active",
+    "benefit": "Helps strip carbonized resin from screws/dies, lubricates during machine changeover",
+    "green": ""
+   },
+   {
+    "line": "Ramster® / Ramlloy® / Karilen® flame-retardant & specialty compounds (UL94, ABS blends, TPE)",
+    "function": "Process aid and antifoam in water-cooled strand pelletizing and compound wash water",
+    "silitex": "BERETEX 350",
+    "inci": "PDMS antifoam emulsion for process water",
+    "benefit": "Foam-free strand baths and cooling water, cleaner pellets, less downtime",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "Ramofin® / Plustek® recycled & custom compounds (recycling compounds)",
+    "function": "Foam control in post-consumer flake washing and effluent, surface slip for recyclate",
+    "silitex": "BERETEX 1000",
+    "inci": "PDMS / silica antifoam emulsion for wastewater & washing",
+    "benefit": "Keeps recyclate wash lines and plant effluent foam-free, meets discharge limits",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "Drinking-water & food-contact grades (NSF-61, WRAS, FDA compliant compounds)",
+    "function": "Food-contact-approved release / antifoam where compound touches potable water or food",
+    "silitex": "SILIFOOD 1600",
+    "inci": "Food-grade kosher PDMS antifoam emulsion",
+    "benefit": "Maintains FDA/food-contact compliance of the compound line, kosher documentation for export",
+    "green": "SILIFOOD 3000 K (food grade, kosher)"
+   }
+  ]
+ },
+ "LEAD-014": {
+  "website": "https://www.iscar.com",
+  "note": "Parsed iscar.com en-hq product pages (Milling, Turning, Parting & Grooving, Holemaking, Threading, Toolholding, Grades) and /about/production. Site does not describe wet processes, so coolant/washing steps are inferred.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Carbide Insert Production — CNC grinding of milling, turning, grooving inserts (Tefen)",
+    "function": "Antifoam for water-based grinding coolant and coolant recirculation tanks",
+    "silitex": "BERETEX 350",
+    "inci": "PDMS antifoam emulsion for process water",
+    "benefit": "Stops coolant foaming at high-pressure grinding, protects filtration and pump performance",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "Insert Washing & Pre-Coating Cleaning (before PVD / CVD coating — ISCAR Grades)",
+    "function": "Foam control in alkaline/acid ultrasonic degreasing baths for sintered carbide",
+    "silitex": "DYNAWEED 260 E",
+    "inci": "pH-stable silicone antifoam emulsion for acidic/alkaline metal cleaning",
+    "benefit": "Foam-free ultrasonic and spray washing, cleaner substrate for coating adhesion",
+    "green": ""
+   },
+   {
+    "line": "Tool Holder & Body Machining — Toolholding, HELIMILL / NEODO / HELIDO Trigon bodies (steel, CNC milling & turning)",
+    "function": "Antifoam for machining-center emulsion coolants and central coolant systems",
+    "silitex": "BERETEX 500",
+    "inci": "PDMS antifoam emulsion for chemical processing / industrial washing",
+    "benefit": "Stable in soluble-oil emulsions, prevents overflow at through-tool high-pressure coolant",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "Heavy-Duty Parts Washing of Tool Bodies (caustic degreasing lines)",
+    "function": "Defoaming of extreme-alkaline cleaner baths",
+    "silitex": "DYNAKOS 130 E",
+    "inci": "Caustic-stable silicone antifoam emulsion (pH 14)",
+    "benefit": "Remains active in hot pH-14 degreasers, keeps spray washers and oil-skimmer tanks foam-free",
+    "green": ""
+   },
+   {
+    "line": "Tool Assembly & Packaging — MULTI-MASTER heads, toolholding collets, clamping screws, O-rings",
+    "function": "Assembly lubricant for screws, collets and rubber seals in toolholders",
+    "silitex": "REOGUM 500",
+    "inci": "Silicone gum/oil assembly lubricant",
+    "benefit": "Smooth clamping-screw torque, easy O-ring seating, non-migrating, no corrosion",
+    "green": ""
+   },
+   {
+    "line": "Carbide Powder & Green-Compact Pressing (Grades substrate production)",
+    "function": "Die-wall release / lubricant on pressing tools for green compacts",
+    "silitex": "EVERSIL 60",
+    "inci": "Concentrated dimethicone emulsion, 60% active",
+    "benefit": "Clean ejection of green compacts, less die wear, no residue after sintering",
+    "green": "PROMET 400 / DISTAC 200 (silicone-free)"
+   },
+   {
+    "line": "Plant Effluent — coolant & washing wastewater treatment (Tefen industrial park)",
+    "function": "Foam control in coolant splitting / effluent treatment before discharge",
+    "silitex": "BERETEX 1000",
+    "inci": "PDMS / silica antifoam emulsion for wastewater",
+    "benefit": "Keeps emulsion-splitting and sludge tanks foam-free, meets discharge limits",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   }
+  ]
+ },
+ "LEAD-015": {
+  "website": "https://www.infinya.co.il",
+  "note": "Parsed infinya.co.il (Hebrew home: Infinya Recycling, Infinya Paper for Cardboard, Infinya Packaging with two corrugators, Writing & Printing Paper). Mill details from ANDRITZ press release on Infinya Containerboard, Hadera.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Infinya Paper for Cardboard — Testliner & Fluting (Hadera containerboard mill)",
+    "function": "Antifoam for paper-machine wet end, white water and headbox",
+    "silitex": "BERETEX 1600",
+    "inci": "PDMS antifoam emulsion for pulp & paper",
+    "benefit": "Reduces entrained air in recycled furnish, better formation and drainage, fewer pinholes",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "OCC Stock Preparation — FibreFlow drum pulping, PrimeScreen X screening, PrimeFilter D discfilter (1,080 bdmt/d)",
+    "function": "Defoaming of pulper, screening and disc-filter loops with high recycled-fiber contaminant load",
+    "silitex": "DYNAKOS 130 E",
+    "inci": "Alkali-stable silicone antifoam emulsion (pulp)",
+    "benefit": "Stable at high pH and temperature in OCC loops, controls foam from residual adhesives/starch",
+    "green": ""
+   },
+   {
+    "line": "Writing & Printing Paper (office / printing paper line)",
+    "function": "Pulp-fiber softening and wet-end foam control for bleached printing grades",
+    "silitex": "VOLUMEX / VOLUSOFT & BERETEX 1600",
+    "inci": "Amino-functional silicone softener for cellulose & PDMS antifoam emulsion",
+    "benefit": "Improves sheet hand/bulk and runnability, reduces foam defects in bleached stock",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal softener)"
+   },
+   {
+    "line": "Infinya Packaging — Corrugated boxes & agricultural / cold-chain packaging (two corrugators)",
+    "function": "Water-repellent coating for corrugated boxes used in fresh produce and humid cold-chain",
+    "silitex": "POLYEMUL (TS / 800/38)",
+    "inci": "Polyethylene / paraffin wax emulsion",
+    "benefit": "Recyclable water-resistant cardboard without PE lamination, better wet strength in cold storage",
+    "green": ""
+   },
+   {
+    "line": "Infinya Packaging — Printed packaging (advanced printing technologies, displays)",
+    "function": "Rub-resistance and gloss additive in water-based flexo inks and overprint varnishes",
+    "silitex": "IDROCER (SH / 1300)",
+    "inci": "Micronized wax emulsion for inks & clear coatings",
+    "benefit": "Scuff-resistant, high-clarity print on corrugated, no silicone transfer to glue flaps",
+    "green": ""
+   },
+   {
+    "line": "Paper Reels for Cardboard — surface sizing & reel finishing",
+    "function": "Surface sizing / anti-static reel coating for high-speed converting",
+    "silitex": "CARNAUBEX (C / 442) & EVERSIL 35",
+    "inci": "Carnauba wax emulsion & dimethicone (PDMS) emulsion",
+    "benefit": "Smoother reel surface, reduced dust and static on corrugator infeed",
+    "green": ""
+   },
+   {
+    "line": "Infinya Recycling — collection, shredding and document destruction (Amnir), reject treatment",
+    "function": "Antifoam for pulper reject dewatering, effluent and sludge treatment at the mill",
+    "silitex": "STHOR 1000",
+    "inci": "Silicone / mineral antifoam compound for sludge",
+    "benefit": "Controls foam in reject compactors, effluent clarifiers and sludge dewatering, high-solids tolerant",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   },
+   {
+    "line": "Mill Wastewater Treatment — aerated biological effluent plant (Hadera)",
+    "function": "Foam control in aeration basins and effluent discharge",
+    "silitex": "BERETEX 1000",
+    "inci": "PDMS / silica antifoam emulsion for wastewater aeration",
+    "benefit": "Low-dose foam knockdown, no impact on biological treatment, keeps discharge compliant",
+    "green": "FISIOREX 1000 (vegetal, silicone-free)"
+   }
+  ]
+ },
+ "LEAD-016": {
+  "website": "https://www.deltagalil.com/",
+  "note": "Site names categories and brands but no finishing chemistry; the Israeli R&D center is 'fabric innovation'; production is in Vietnam/Egypt/etc. Rows map site categories to the finishing step where softeners/antifoams are used.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Seamless intimates and activewear (Delta seamless knitting platform)",
+    "function": "Hand-feel softening and elastic recovery of knitted-to-shape nylon/elastane garments in garment-dyeing/finishing baths",
+    "silitex": "NANOAMISIL HR",
+    "inci": "Amino-functional polydimethylsiloxane (aminosilicone) microemulsion",
+    "benefit": "Silky hand on fine-gauge seamless knits, improved stretch recovery and seam-free comfort without yellowing",
+    "green": "MACROAMISIL (E1386) (D4/D5-free, non-cyclic)"
+   },
+   {
+    "line": "Bras (bra R&D center) and shapewear",
+    "function": "Softening and durable water-repellent finish on microfiber/lace components; high-gloss finishing",
+    "silitex": "MICROAMISIL (41 / C / E1352)",
+    "inci": "Amodimethicone microemulsion",
+    "benefit": "Durable soft hand on microfiber cups/wings, gloss on lace, wash-fast finish",
+    "green": "MACROAMISIL (E1386) (D4/D5-free, non-cyclic)"
+   },
+   {
+    "line": "Performance socks (performance-sock R&D center, Oregon)",
+    "function": "Hydrophilic softening of moisture-wicking cotton/poly socks; lubrication of high-speed knitting yarns",
+    "silitex": "IDROAMISIL / IDROAMISIL 1000 & LUBROFIL 4500",
+    "inci": "Hydrophilic amino-polyether silicone emulsion; silicone yarn lubricant",
+    "benefit": "Keeps wicking performance after softening, reduces needle friction and yarn breakage in sock knitting",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal softener, eco-label)"
+   },
+   {
+    "line": "Men's underwear and Delta Israel intimate apparel & loungewear (Delta, Fix)",
+    "function": "Wash-fast cationic softening of cotton/modal knitwear; garment-finishing bath",
+    "silitex": "STONIX 5000 / 6000",
+    "inci": "Silicone softener microemulsion for apparel",
+    "benefit": "Premium cotton hand-feel retained over repeated home laundering, sewability improvement",
+    "green": "MACROAMISIL (E1386) (D4/D5-free, non-cyclic)"
+   },
+   {
+    "line": "7 For All Mankind premium denim",
+    "function": "Garment-wash/enzyme-wash foam control and post-wash softening of denim",
+    "silitex": "DYNAWEED 260 E & STONIX 5000 / 6000",
+    "inci": "Silicone antifoam for acidic/alkaline textile baths; silicone softener microemulsion",
+    "benefit": "Foam-free stone/enzyme washing, soft stretch-denim hand after finishing",
+    "green": "FISIOREX 1000 (vegetal antifoam)"
+   },
+   {
+    "line": "Organic Basics sustainable underwear, activewear and base layers",
+    "function": "Eco-certified softening of organic cotton / recycled nylon knits for eco-label compliance",
+    "silitex": "MACROAMISIL (E1386)",
+    "inci": "Non-cyclic (D4/D5-free) aminosilicone microemulsion",
+    "benefit": "Soft hand compatible with eco-label chemical restrictions, no cyclic siloxane residues",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal softener, eco-label)"
+   },
+   {
+    "line": "Panta Rei sportswear and licensed activewear (adidas, Columbia, Wilson)",
+    "function": "Hydrophilic softening of moisture-wicking polyester/elastane fabrics; foam control in high-temperature jet dyeing of synthetics",
+    "silitex": "IDROAMISIL / IDROAMISIL 1000 & DYNAWEED 200 E",
+    "inci": "Hydrophilic silicone softener; high-temperature jet-dyeing silicone antifoam",
+    "benefit": "Soft, sweat-wicking activewear; foam-free 130 °C polyester jet dyeing",
+    "green": "FISIOREX 1000 (vegetal antifoam)"
+   },
+   {
+    "line": "Schiesser / Eminence / Athena European intimates (cotton & modal)",
+    "function": "Softening of towel-like and cellulosic knits; laundry-durable softener",
+    "silitex": "AMINOQUAT 250 / 350 / 1000",
+    "inci": "Quaternary aminosilicone (silicone quat) emulsion",
+    "benefit": "Wash-fast softness and hydrophilicity on cotton/modal underwear",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal softener, eco-label)"
+   }
+  ]
+ },
+ "LEAD-017": {
+  "website": "https://www.tefron.com/",
+  "note": "Showroom categories taken from tefron.com/showroom; technologies (seamless engineering, hybrid and cut & sew, eco-dyes, recycled yarns, GRS) from why-choose-tefron and sustainability pages. Production in Jordan/Vietnam/etc.; Israel is design & innovation center.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Activewear (seamless engineering)",
+    "function": "Premium softening of microfiber nylon/elastane seamless activewear in garment-dyeing/finishing",
+    "silitex": "NANOAMISIL HR",
+    "inci": "Amino-functional polydimethylsiloxane microemulsion (nano-size)",
+    "benefit": "Silky hand on fine-gauge seamless knits, elastic recovery, no yellowing on whites",
+    "green": "MACROAMISIL (E1386) (D4/D5-free, non-cyclic)"
+   },
+   {
+    "line": "Baselayers (moisture-management performance apparel)",
+    "function": "Hydrophilic softening of wicking polyester/polyamide base layers",
+    "silitex": "IDROAMISIL / IDROAMISIL 1000",
+    "inci": "Hydrophilic amino-polyether silicone emulsion",
+    "benefit": "Keeps sweat-wicking performance after softening, soft next-to-skin feel",
+    "green": "EVEROIL 35 / EVERIX 35 (vegetal softener, eco-label)"
+   },
+   {
+    "line": "Underwear and Loungewear (seamless and cut & sew)",
+    "function": "Wash-fast softening of cotton/modal and nylon blends",
+    "silitex": "STONIX 5000 / 6000",
+    "inci": "Silicone softener microemulsion for apparel",
+    "benefit": "Durable soft hand after repeated laundering, better sewability on cut & sew lines",
+    "green": "MACROAMISIL (E1386) (D4/D5-free, non-cyclic)"
+   },
+   {
+    "line": "Shapewear and Sportswear (compression knits)",
+    "function": "Durable water-repellent / high-gloss finish and softening of compression polyamide-elastane",
+    "silitex": "MICROAMISIL (41 / C / E1352)",
+    "inci": "Amodimethicone microemulsion",
+    "benefit": "Smooth, glossy surface, reduced friction on compression garments, DWR option",
+    "green": "MACROAMISIL (E1386) (D4/D5-free, non-cyclic)"
+   },
+   {
+    "line": "Swimwear (chlorine-resistant polyamide/elastane)",
+    "function": "Foam control in high-temperature jet dyeing of polyamide swim fabrics; softening of finished swimwear",
+    "silitex": "DYNAWEED 200 E & NANOAMISIL HR",
+    "inci": "High-temperature jet-dyeing silicone antifoam; aminosilicone microemulsion",
+    "benefit": "Foam-free jet dyeing at high temperature, silky hand on swim knits",
+    "green": "FISIOREX 1000 (vegetal antifoam)"
+   },
+   {
+    "line": "Eco-dyes and recycled yarns (GRS V2) sustainable program",
+    "function": "Eco-compliant softener and antifoam for GRS/recycled-content garments and eco-dye baths",
+    "silitex": "FISIOREX 1000 & MACROAMISIL (E1386)",
+    "inci": "Vegetal (silicone-free) antifoam; non-cyclic aminosilicone microemulsion",
+    "benefit": "Foam control and softness without cyclic siloxanes, supports harmful-substance-free certification",
+    "green": "FISIOREX 1000 (vegetal antifoam)"
+   },
+   {
+    "line": "Seamless knitting floor (Santoni-type circular knitting, 19M units/month)",
+    "function": "Yarn/needle lubrication for high-speed seamless knitting of fine nylon/elastane yarns",
+    "silitex": "LUBROFIL 4500",
+    "inci": "Silicone-based yarn lubricant",
+    "benefit": "Lower needle friction and yarn breakage, higher machine uptime on seamless lines",
+    "green": ""
+   }
+  ]
+ },
+ "LEAD-018": {
+  "website": "https://www.bazan.co.il/en/",
+  "note": "bazan.co.il, carmelolefins.co.il and gadiv.com are JavaScript-rendered / robots-blocked; product and unit list taken from secondary sources: Wikipedia (BAZAN Group), GlobalData company profile, EPCA member page for Gadiv, and the Unicracking hydrocracker (UOP, 2012).",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Crude distillation and catalytic cracking units (fuels: diesel, gasoline, kerosene, LPG, naphtha)",
+    "function": "Foam control in hydrocarbon washing, desalter and cracker fractionator bottoms / slurry",
+    "silitex": "DYNAPAN 30 D",
+    "inci": "Silicone (PDMS-based) antifoam compound for hydrocarbon systems",
+    "benefit": "Prevents foam carry-over in high-solids slurries and hydrocarbon washes, stable throughput",
+    "green": ""
+   },
+   {
+    "line": "Hydrocracking (UOP Unicracking) and sulfur treatment facilities (amine gas sweetening)",
+    "function": "Antifoam for amine absorber/regenerator and sour-water systems operating at high temperature",
+    "silitex": "DYNAPAN 30 D & DYNAKOS 130 E",
+    "inci": "High-temperature silicone antifoam; silicone antifoam for extreme alkaline media",
+    "benefit": "Stops amine-unit foaming and foam-driven amine losses, protects hydrotreater gas trains",
+    "green": ""
+   },
+   {
+    "line": "Catalytic reformer and Gadiv aromatics (benzene, toluene, xylenes) and aliphatic solvents",
+    "function": "Foam control in solvent extraction / sulfolane and caustic wash units of the aromatics complex",
+    "silitex": "DYNAPAN 30 D",
+    "inci": "Silicone antifoam compound for hydrocarbon/solvent systems",
+    "benefit": "Foam-free extraction and caustic washing, cleaner aromatics and solvent cuts",
+    "green": ""
+   },
+   {
+    "line": "Isomerate and asphalt/bitumen production units",
+    "function": "Antifoam for bitumen oxidation and hot asphalt loading",
+    "silitex": "DYNAPAN 30 D",
+    "inci": "High-temperature silicone antifoam compound",
+    "benefit": "Suppresses foaming in hot bitumen storage and blowing, safer tank loading",
+    "green": ""
+   },
+   {
+    "line": "Carmel Olefins LDPE and polypropylene (ethylene/propylene feedstock)",
+    "function": "Foam control in process/cooling water, pellet-water circuits and quench-water systems; release agent for extrusion/compounding lines",
+    "silitex": "DYNAPAN 10 D & EVERSIL 60",
+    "inci": "Water-based industrial silicone antifoam emulsion; concentrated PDMS release emulsion",
+    "benefit": "Foam-free pelletizing and quench water, clean mold/die release on PP/LDPE lines",
+    "green": ""
+   },
+   {
+    "line": "Haifa Basic Oils base oils and paraffin wax (solvent dewaxing/extraction)",
+    "function": "Antifoam for solvent extraction and dewaxing filtrate circuits",
+    "silitex": "DYNAPAN 30 D",
+    "inci": "Silicone antifoam compound for hydrocarbon systems",
+    "benefit": "Eliminates foam in solvent recovery and vacuum stripping, higher base-oil yield",
+    "green": ""
+   },
+   {
+    "line": "Industrial wastewater treatment and sludge (Haifa Bay / Kishon effluent)",
+    "function": "Foam control in aeration basins, oily-water separators and sludge handling",
+    "silitex": "BERETEX 1000 & STHOR 1000",
+    "inci": "Silicone antifoam emulsion for wastewater aeration; silicone antifoam for sludge/mineral slurry",
+    "benefit": "Stable aeration and sludge dewatering under oily high-solids loads",
+    "green": "FISIOREX 1000 (vegetal antifoam)"
+   },
+   {
+    "line": "Cogeneration power plant (40 MW, 350 t/h steam), storage and chemical tanker fleet cleaning",
+    "function": "Antifoam for boiler/condensate water treatment and tank/tanker chemical washing",
+    "silitex": "DYNAPAN 10 D & BERETEX 500",
+    "inci": "Water-based silicone antifoam emulsion; silicone antifoam for chemical processing/industrial cleaning",
+    "benefit": "Foam-free water treatment and faster tank cleaning turnaround",
+    "green": ""
+   }
+  ]
+ },
+ "LEAD-019": {
+  "website": "https://www.gadotbio.com/",
+  "note": "Per Israel Hayom (02.06.2024) there is NO local production of fresh (wet) yeast in Israel; the Shimrit brand is sold by Paka, now import-based (Turkey). Segment reframed to actual Israeli fermentation/sugar-processing plants: Gadot Biochemical (Haifa Bay), Galam (Kibbutz Maanit), BTG/Ferring (Beer Tuvia), Tempo Beer Industries (Netanya).",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Paka / Shimrit fresh yeast cube, Shimrit granulated yeast bag, Shimrit + improver (import, cream handling, packing)",
+    "function": "Antifoam for yeast cream receiving, re-slurrying and filling/packing lines",
+    "silitex": "CPL 350 / CPL 350 ET",
+    "inci": "Vegetal-oil-based (silicone-free) food-grade antifoam",
+    "benefit": "Foam-free yeast cream handling, consistent fill weights, compatible with bakery clean-label",
+    "green": "CPL 350 / CPL 350 ET (vegetal, bio-fermentation grade)"
+   },
+   {
+    "line": "Gadot Biochemical citric acid anhydrous and citrates (tri sodium, tri potassium, tri calcium, magnesium, zinc citrate) – Haifa Bay",
+    "function": "Foam control in fermentation broth, neutralization/crystallization and dryer scrubbers",
+    "silitex": "CPL 350 / CPL 350 ET & SILIFOOD 3000 K",
+    "inci": "Vegetal fermentation antifoam; kosher food-grade silicone antifoam emulsion",
+    "benefit": "Higher broth fill volume and oxygen transfer, foam-free crystallizers, kosher/food-grade compliance",
+    "green": "CPL 350 / CPL 350 ET (vegetal, bio-fermentation grade)"
+   },
+   {
+    "line": "Gadot gluconates, phosphates, bisglycinate and Gadocal/Gadomag mineral blends",
+    "function": "Antifoam for mineral-salt reaction, filtration and spray-drying",
+    "silitex": "SILIFOOD 3000 K",
+    "inci": "Kosher food-grade silicone antifoam emulsion",
+    "benefit": "Foam-free reaction/filtration of mineral salts for food supplements, kosher certified",
+    "green": "SILIFOOD 3000 K (food grade & kosher)"
+   },
+   {
+    "line": "Galam glucose syrup and fructose (enzymatic sugar processing and refining, Kibbutz Maanit)",
+    "function": "Foam control in enzymatic hydrolysis, evaporation and refining of sugar syrups",
+    "silitex": "DYNAPAN 30 F & SILIFOOD 1600",
+    "inci": "Food-grade silicone antifoam for sugar refining; food-grade silicone antifoam emulsion",
+    "benefit": "Foam-free evaporators and ion-exchange columns, higher syrup throughput",
+    "green": "SILIFOOD 1600 (food grade & kosher)"
+   },
+   {
+    "line": "Galam starches, dietary fibers and plant proteins (wet processing)",
+    "function": "Antifoam for starch washing, protein extraction and spray-dryer feed",
+    "silitex": "SILIFOOD 3000 K",
+    "inci": "Kosher food-grade silicone antifoam emulsion",
+    "benefit": "Prevents protein-rich foam in extraction tanks and centrifuges, stable drying",
+    "green": "CPL 350 / CPL 350 ET (vegetal, bio-fermentation grade)"
+   },
+   {
+    "line": "BTG (Ferring) large-scale bacterial fermentation and macromolecular purification – Beer Tuvia cGMP site",
+    "function": "Antifoam for aerated microbial fermenters and downstream purification/CIP",
+    "silitex": "CPL 350 / CPL 350 ET & DYNAWEED MS 4",
+    "inci": "Vegetal fermentation antifoam; silicone antifoam for alkaline CIP",
+    "benefit": "Foam-free high-cell-density fermentation, alkaline CIP without foam, low-residue process aid",
+    "green": "CPL 350 / CPL 350 ET (vegetal, bio-fermentation grade)"
+   },
+   {
+    "line": "Tempo Beer Industries brewing – Goldstar, Maccabee, Nesher, Heineken (Netanya brewery)",
+    "function": "Foam control in wort boiling, fermentation vessels and brewery CIP",
+    "silitex": "SILIFOOD 1600 & DYNAWEED MS 4",
+    "inci": "Food-grade silicone antifoam emulsion; silicone antifoam for alkaline CIP",
+    "benefit": "Higher fermenter fill volume, no foam-over in kettles, foam-free caustic CIP",
+    "green": "SILIFOOD 1600 (food grade & kosher)"
+   },
+   {
+    "line": "Tempo soft-drink bottling (cola, orange, Kankal PET) and glass-bottle lines",
+    "function": "Antifoam for bottle washing, filling and process water",
+    "silitex": "DYNAPAN 16 F",
+    "inci": "Food-grade silicone antifoam emulsion for beverage bottling",
+    "benefit": "Foam-free fillers and bottle washers, accurate fill levels at high line speed",
+    "green": "SILIFOOD 3000 K (food grade & kosher)"
+   }
+  ]
+ },
+ "LEAD-020": {
+  "website": "https://www.ahava.com",
+  "note": "",
+  "source": "NotebookLM site parse 11/10/2026",
+  "rows": [
+   {
+    "line": "Facial Serums, Primers & Osmoter Concentrates",
+    "function": "Velvety skin feel, soft-focus line blurring, non-greasy rapid absorption, and active ingredient delivery.",
+    "silitex": "Silitex Velvet Gel SG 9040 / SG 9041",
+    "inci": "Cyclopentasiloxane (and) Dimethicone Crosspolymer",
+    "benefit": "Imparts a luxurious matte, powdery velvet feel, controls shine, and improves spreadability of mineral actives.",
+    "green": "Dimethicone (and) Dimethicone Crosspolymer (Linear/Non-Cyclic) or EVEROIL 35 (100% Plant-Based)"
+   },
+   {
+    "line": "Mineral Body Lotions & Hand Creams",
+    "function": "Daily moisturizing, skin barrier protection, smooth application without tackiness, and water lock-in.",
+    "silitex": "BODYSIL / EVERSIL 35",
+    "inci": "Dimethicone Emulsion (Polydimethylsiloxane Water Emulsion)",
+    "benefit": "Provides water-repellent protective film, reduces stickiness of Dead Sea salt minerals, and enhances skin conditioning.",
+    "green": "EVEROIL 35 / EVERIX 35 (100% Vegetal-Derived Emollient Emulsion)"
+   },
+   {
+    "line": "Anti-Aging Night Creams & Eye Balms",
+    "function": "Rich emollient cushioning, moisture retention, wrinkle smoothing, and barrier restoration overnight.",
+    "silitex": "Silitex DM 350 / DM 1000 & BODYAMISIL",
+    "inci": "Dimethicone Fluid (350 cSt) / Amodimethicone Emulsion",
+    "benefit": "Imparts long-lasting occlusive barrier, preventing trans-epidermal water loss (TEWL) and giving rich skin feel.",
+    "green": "WASPER D (Natural Beeswax Emulsion) & CARNAUBEX (Carnauba Wax Emulsion)"
+   },
+   {
+    "line": "Dead Sea Mineral Mud Masks & Exfoliators",
+    "function": "Purifying, texture stabilization, smooth spreadability of heavy mineral clay, and easy wash-off.",
+    "silitex": "CARNAUBEX & WASPER D",
+    "inci": "Natural Wax Water Emulsion (Carnauba Wax / Beeswax)",
+    "benefit": "Prevents clay mud mask cracking, enhances plastic texture, and improves skin softening during rinse-off.",
+    "green": "100% Natural Origin Wax Emulsions (Bio-Certified)"
+   },
+   {
+    "line": "Mineral Sunscreen & Protective Day Creams",
+    "function": "UV filter dispersion (Zinc Oxide/Titanium Dioxide), water-resistance, uniform film formation, and non-white cast.",
+    "silitex": "Silitex MQ Resin Blends & IDROAMISIL 1000",
+    "inci": "Trimethylsiloxysilicate & PEG-12 Dimethicone",
+    "benefit": "Forms durable water-resistant film, stabilizes inorganic mineral UV filters, and prevents migration into eyes.",
+    "green": "MACROAMISIL (E1386) (D4/D5-Free Non-Cyclic Silicone Dispersion)"
+   },
+   {
+    "line": "Hydrating Shower Gels, Body Oils & Cleansers",
+    "function": "Gentle cleansing, silky skin feel after rinse, foam control during production, and bath conditioning.",
+    "silitex": "AMINOQUAT 350 / 500 & FISIOREX 1000",
+    "inci": "Silicone Quaternium Microemulsion / Plant Fatty Acid Defoamer",
+    "benefit": "Confers silky conditioning touch on wet skin; FISIOREX 1000 controls unwanted foam during high-speed bottling.",
+    "green": "FISIOREX 1000 (100% Plant-Based Vegetable Defoamer / Active)"
+   },
+   {
+    "line": "Dead Sea Hair Care, Shampoos & Masks",
+    "function": "Hair conditioning, detangling, split-end repair, shine enhancement, and heat protection.",
+    "silitex": "MICROAMISIL (E1352) & AMINOQUAT 1000",
+    "inci": "Amodimethicone / Silicone Quaternium-22 Microemulsion",
+    "benefit": "Provides wash-resistant conditioning, hydrophobic hair protection, and intense smoothness without buildup.",
+    "green": "MICROAMISIL (E1352) (Certified D4/D5/D6-Free Non-Cyclic Microemulsion)"
+   }
+  ]
+ }
 }

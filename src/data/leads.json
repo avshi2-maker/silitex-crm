@@ -24,7 +24,8 @@
   "lon": 34.78,
   "tam_tons": 60,
   "rd_focus": "Lab screening for organosilicone super-spreading & tank-mix defoaming in liquid fertilizers",
-  "buyer_trigger": "Formal technical sign-off from Fertilizer R&D Director"
+  "buyer_trigger": "Formal technical sign-off from Fertilizer R&D Director",
+  "website": "https://icl-growingsolutions.com/"
  },
  {
   "id": "LEAD-002",
@@ -51,7 +52,8 @@
   "lon": 34.9,
   "tam_tons": 60,
   "rd_focus": "100% plant-based spray adjuvant rain-fastness & eco-defoaming lab/field trial",
-  "buyer_trigger": "Technical clearance from Global Lead Formulations Chemist"
+  "buyer_trigger": "Technical clearance from Global Lead Formulations Chemist",
+  "website": "https://www.adama.com/en"
  },
  {
   "id": "LEAD-003",
@@ -78,7 +80,8 @@
   "lon": 34.99,
   "tam_tons": 60,
   "rd_focus": "Kosher & FDA non-foaming wetting agent screening for liquid nutrient feeds",
-  "buyer_trigger": "R&D Director approval of SILIFOOD Kosher/FDA compliance package"
+  "buyer_trigger": "R&D Director approval of SILIFOOD Kosher/FDA compliance package",
+  "website": "https://www.haifa-group.com/"
  },
  {
   "id": "LEAD-004",
@@ -105,7 +108,8 @@
   "lon": 34.77,
   "tam_tons": 65,
   "rd_focus": "Water absorption & alkali-resistance testing in dry-mix mortars and exterior renders",
-  "buyer_trigger": "Materials QC Engineer lab sign-off on 24-hour water repellency test"
+  "buyer_trigger": "Materials QC Engineer lab sign-off on 24-hour water repellency test",
+  "website": "https://www.termokir.co.il/en/"
  },
  {
   "id": "LEAD-005",
@@ -132,7 +136,8 @@
   "lon": 34.79,
   "tam_tons": 65,
   "rd_focus": "Precast concrete mold release efficiency & masonry surface hydrophobic sealing",
-  "buyer_trigger": "Infrastructure Technology Manager technical approval"
+  "buyer_trigger": "Infrastructure Technology Manager technical approval",
+  "website": "https://www.ashtromindustries.co.il/en"
  },
  {
   "id": "LEAD-006",
@@ -159,7 +164,8 @@
   "lon": 35.08,
   "tam_tons": 55,
   "rd_focus": "Hydrophobic wall paint anti-cratering, slip, and wet-scrub resistance lab evaluation",
-  "buyer_trigger": "Chief Paint Chemist technical sign-off following lab screening"
+  "buyer_trigger": "Chief Paint Chemist technical sign-off following lab screening",
+  "website": "https://tambour.co.il"
  },
  {
   "id": "LEAD-007",
@@ -186,7 +192,8 @@
   "lon": 34.86,
   "tam_tons": 55,
   "rd_focus": "Eco-friendly bubble suppression & water repellency in water-based wall paints",
-  "buyer_trigger": "R&D Director approval of FISIOREX 1000 plant-based formulation"
+  "buyer_trigger": "R&D Director approval of FISIOREX 1000 plant-based formulation",
+  "website": "https://nirlat.com"
  },
  {
   "id": "LEAD-008",
@@ -213,7 +220,8 @@
   "lon": 34.89,
   "tam_tons": 55,
   "rd_focus": "Foam knock-down testing in high-speed detergent filling lines & fabric softeners",
-  "buyer_trigger": "Director of Detergent Formulations technical validation"
+  "buyer_trigger": "Director of Detergent Formulations technical validation",
+  "website": "https://www.sano.co.il/en/"
  },
  {
   "id": "LEAD-009",
@@ -267,7 +275,8 @@
   "lon": 34.8,
   "tam_tons": 50,
   "rd_focus": "Potable water filtration & municipal wastewater aeration foam suppression",
-  "buyer_trigger": "Chief Environmental Engineer approval of Kosher/FDA compliance package"
+  "buyer_trigger": "Chief Environmental Engineer approval of Kosher/FDA compliance package",
+  "website": "https://www.mekorot.co.il"
  },
  {
   "id": "LEAD-011",
@@ -294,7 +303,8 @@
   "lon": 34.8,
   "tam_tons": 50,
   "rd_focus": "Rapid knock-down defoaming in industrial wastewater treatment facilities",
-  "buyer_trigger": "Lead Chemical Process Engineer technical sign-off"
+  "buyer_trigger": "Lead Chemical Process Engineer technical sign-off",
+  "website": "https://bluegencorp.com"
  },
  {
   "id": "LEAD-012",
@@ -321,7 +331,8 @@
   "lon": 35.11,
   "tam_tons": 40,
   "rd_focus": "Thermoplastic injection molding release efficiency & surface residue evaluation",
-  "buyer_trigger": "Plant Tooling & Operations Manager technical sign-off"
+  "buyer_trigger": "Plant Tooling & Operations Manager technical sign-off",
+  "website": "https://www.keter.com"
  },
  {
   "id": "LEAD-013",
@@ -348,7 +359,8 @@
   "lon": 35.17,
   "tam_tons": 40,
   "rd_focus": "Internal sliding lubricant & surface finish modifier for technical resin compounding",
-  "buyer_trigger": "Technical Manager - Resins formal R&D approval"
+  "buyer_trigger": "Technical Manager - Resins formal R&D approval",
+  "website": "https://www.polyram-group.com"
  },
  {
   "id": "LEAD-014",
@@ -375,7 +387,8 @@
   "lon": 35.26,
   "tam_tons": 30,
   "rd_focus": "Silicone defoaming stability in metalworking coolants & cutting fluids",
-  "buyer_trigger": "Lead Coolants Formulation Chemist technical clearance"
+  "buyer_trigger": "Lead Coolants Formulation Chemist technical clearance",
+  "website": "https://www.iscar.com"
  },
  {
   "id": "LEAD-015",
@@ -402,7 +415,8 @@
   "lon": 34.92,
   "tam_tons": 80,
   "rd_focus": "100% active paper pulp defoaming & paper fiber softening trial on recycling line",
-  "buyer_trigger": "Paper Mill Technical Director formal sign-off on pulp recycling line #3"
+  "buyer_trigger": "Paper Mill Technical Director formal sign-off on pulp recycling line #3",
+  "website": "https://www.infinya.co.il"
  },
  {
   "id": "LEAD-016",
@@ -429,7 +443,8 @@
   "lon": 34.9,
   "tam_tons": 35,
   "rd_focus": "Eco-certified amino silicone softeners for seamless activewear & hydrophilic finishing",
-  "buyer_trigger": "Director of Textile Finishing R&D sign-off"
+  "buyer_trigger": "Director of Textile Finishing R&D sign-off",
+  "website": "https://www.deltagalil.com/"
  },
  {
   "id": "LEAD-017",
@@ -456,7 +471,8 @@
   "lon": 35.25,
   "tam_tons": 35,
   "rd_focus": "Deep-penetrating nanoemulsions for ultra-soft hand feel & moisture management",
-  "buyer_trigger": "Head of Textile Innovation formal technical sign-off"
+  "buyer_trigger": "Head of Textile Innovation formal technical sign-off",
+  "website": "https://www.tefron.com/"
  },
  {
   "id": "LEAD-018",
@@ -483,7 +499,8 @@
   "lon": 35.05,
   "tam_tons": 60,
   "rd_focus": "Silicone process antifoams for refining towers, coking units & oil-water demulsification",
-  "buyer_trigger": "Chief Chemical Process Engineer technical validation"
+  "buyer_trigger": "Chief Chemical Process Engineer technical validation",
+  "website": "https://www.bazan.co.il/en/"
  },
  {
   "id": "LEAD-019",
@@ -510,7 +527,8 @@
   "lon": 35.07,
   "tam_tons": 60,
   "rd_focus": "Kosher-certified 100% vegetal defoamer performance in fermentation tanks",
-  "buyer_trigger": "Head of Fermentation Operations technical clearance"
+  "buyer_trigger": "Head of Fermentation Operations technical clearance",
+  "website": "https://www.gadotbio.com/"
  },
  {
   "id": "LEAD-020",
@@ -535,6 +553,7 @@
   "rd_focus": "Benchmarking silky skin feel, Dead Sea mineral absorption, and EU REACH D4/D5-free compliance for export skincare lines",
   "buyer_trigger": "Technical approval & sign-off from Chief Cosmetic Chemist & Head of Skincare R&D",
   "city": "Lod / Dead Sea (Mitzpe Shalem plant)",
-  "source": "silitex"
+  "source": "silitex",
+  "website": "https://www.ahava.com"
  }
 ]
