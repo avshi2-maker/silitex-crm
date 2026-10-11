@@ -1362,5 +1362,163 @@
     "green": "MICROAMISIL (E1352) (Certified D4/D5/D6-Free Non-Cyclic Microemulsion)"
    }
   ]
+ },
+ "LEAD-021": {
+  "website": "https://www.peerpharm.com",
+  "note": "Profile from peerpharm.com (home, the-company, quality-control, hair-care, skin-care, dead-sea--spa, filling--packaging). Hair care is 'based on natural extracts and certified organic oils', has a 'Salt-free' series and a Dead Sea quality-mark certificate. Silitex matches inferred from product type, not stated on the site.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Hair care - Professional shampoo & conditioner",
+    "function": "Rinse-off conditioning, shine, wash resistance",
+    "silitex": "MICROAMISIL (41 / C / E1352)",
+    "inci": "Amodimethicone (and) Trideceth-x (and) Cetrimonium Chloride - microemulsion",
+    "benefit": "Substantive amino-silicone deposits on damaged hair, wash-resistant softness and shine, easy to add cold to shampoo/conditioner base",
+    "green": "MACROAMISIL (E1386)"
+   },
+   {
+    "line": "Hair care - Masque / Dry & damaged / heat & chemically treated",
+    "function": "Deep repair, intensive conditioning",
+    "silitex": "NANOAMISIL HR & AMINOQUAT 250 / 350 / 1000",
+    "inci": "Nano amino-silicone microemulsion; Silicone Quaternium",
+    "benefit": "Deep penetration into damaged cortex, premium silky feel, detangling on bleached/heat-damaged hair",
+    "green": "MACROAMISIL (E1386)"
+   },
+   {
+    "line": "Hair care - Serum / Leave-in / Styling cream / Wax",
+    "function": "Gloss, dry feel, frizz control, carrier",
+    "silitex": "Silitex Volatile D5 Fluid / CM 040 & EVERSIL 3500",
+    "inci": "Cyclopentasiloxane; Dimethicone (high viscosity) emulsion",
+    "benefit": "Volatile carrier gives non-greasy spread then flashes off; high-viscosity PDMS leaves high-gloss, anti-frizz film in leave-ins and waxes",
+    "green": "EVEROIL 35 / EVERIX 35"
+   },
+   {
+    "line": "Hair care - Mineral / Salt-free / Natural-extract series",
+    "function": "Conditioning without cyclic silicones, natural positioning",
+    "silitex": "MACROAMISIL (E1386)",
+    "inci": "Amodimethicone (non-cyclic, D4/D5-free) microemulsion",
+    "benefit": "Eco conditioning that fits 'natural extracts & certified organic oils' positioning and EU D4/D5 restrictions",
+    "green": "EVEROIL 35 / EVERIX 35"
+   },
+   {
+    "line": "Skin care - Face creams, serums, anti-aging, sensitive skin",
+    "function": "Skin conditioning, protective film, silky after-feel",
+    "silitex": "EVERSIL 35",
+    "inci": "Dimethicone emulsion 35%",
+    "benefit": "Water-based PDMS easy to cold-add to O/W creams; reduces tack, adds slip, protective breathable film",
+    "green": "EVEROIL 35 / EVERIX 35"
+   },
+   {
+    "line": "Body care & Dead Sea SPA - Lotions, body butter, sorbet, hand & foot cream",
+    "function": "Emollience, barrier, structure",
+    "silitex": "WASPER D & CARNAUBEX (C / 442)",
+    "inci": "Beeswax emulsion; Copernicia Cerifera (Carnauba) Wax emulsion",
+    "benefit": "Natural wax emulsions give richness and barrier in butters, structure in balms/sticks, natural-origin label for SPA line",
+    "green": "WASPER D"
+   },
+   {
+    "line": "Sun protection & BB cream SPF 15-50+",
+    "function": "Water resistance, spreadability, dry feel",
+    "silitex": "Silitex Volatile D5 Fluid / CM 040 & EVERSIL 60",
+    "inci": "Cyclopentasiloxane; Dimethicone emulsion 60%",
+    "benefit": "Improves UV-filter spreading and uniform film, reduces greasiness, aids water resistance",
+    "green": "EVEROIL 35 / EVERIX 35"
+   },
+   {
+    "line": "Shower gel, intimate wash, baby shampoo, 2-in-1 men's wash",
+    "function": "Conditioning in cleansers + bottling foam control",
+    "silitex": "AMINOQUAT 250 / 350 / 1000 & FISIOREX 1000",
+    "inci": "Silicone Quaternium microemulsion; plant-based defoamer",
+    "benefit": "Cationic silicone survives rinse for silky skin/hair feel in surfactant systems; FISIOREX kills foam in filling lines so bottles fill to level at speed, eco-claim compatible",
+    "green": "FISIOREX 1000"
+   },
+   {
+    "line": "Filling & Packaging - bottles, tubes, airless, jars, pumps, foamers, aerosols",
+    "function": "Packaging line lubrication, mold/cap release, CIP foam control",
+    "silitex": "REOGUM 500 & EVERSIL 35",
+    "inci": "Silicone assembly lubricant; Dimethicone emulsion (release)",
+    "benefit": "Smooth pump/cap/applicator assembly, no squeak or jams; EVERSIL 35 as release agent for caps/jars; DYNAKOS 130 E for caustic CIP of mixers and fillers",
+    "green": ""
+   }
+  ]
+ },
+ "LEAD-022": {
+  "website": "https://il.moroccanoil.com",
+  "note": "Brand sites (US + IL) state no plant/HQ; per Wikipedia/SDS: HQ New York, founded Tel Aviv 2003, ~80% of production at the plant in Ma'alot-Tarshiha, northern Israel, plus plants in Italy and Canada. Claims on site: sulfate-free, phosphate-free, paraben-free, color-safe. No silicone-free or vegan line stated; the Treatment oil is cyclomethicone + dimethicone + argan oil (third-party INCI listing). Silitex matches inferred from product chemistry.",
+  "source": "AI site parse 11/10/2026 — draft, verify before sending",
+  "rows": [
+   {
+    "line": "Moroccanoil Treatment / Treatment Light / Purple (argan oil treatment)",
+    "function": "Anhydrous serum carrier, shine, frizz control",
+    "silitex": "Silitex Volatile D5 Fluid / CM 040 & EVERSIL 3500",
+    "inci": "Cyclopentasiloxane; Dimethicone",
+    "benefit": "Existing formula is cyclomethicone + dimethicone + argan oil; D5 gives fast dry-down and spread, high-viscosity PDMS gives gloss and frizz film (emulsion grade fits the water-based Treatment Mist)",
+    "green": "EVEROIL 35 / EVERIX 35"
+   },
+   {
+    "line": "Shampoos (Hydrating, Moisture Repair, Extra Volume, Color Care, Scalp)",
+    "function": "Mild sulfate-free cleansing with conditioning",
+    "silitex": "AMINOQUAT 250 / 350 / 1000",
+    "inci": "Silicone Quaternium microemulsion",
+    "benefit": "Cationic silicone deposits from sarcosinate/sultaine sulfate-free base, adds slip and detangling without heavy build-up",
+    "green": "MACROAMISIL (E1386)"
+   },
+   {
+    "line": "Conditioners (Hydrating, Moisture Repair, Volume, Curl)",
+    "function": "Rinse-off conditioning, wet detangling",
+    "silitex": "MICROAMISIL (41 / C / E1352)",
+    "inci": "Amodimethicone microemulsion",
+    "benefit": "Wash-resistant softness and shine, dose cold, clear microemulsion compatible with cationic bases",
+    "green": "MACROAMISIL (E1386)"
+   },
+   {
+    "line": "Masks (Intense Hydrating, Weightless, Restorative, High Shine Gloss, Overnight Leave-in)",
+    "function": "Deep repair and intensive conditioning",
+    "silitex": "NANOAMISIL HR & IDROAMISIL / IDROAMISIL 1000",
+    "inci": "Nano amino-silicone microemulsion; hydrophilic amino-polyether silicone",
+    "benefit": "Nano amino-silicone penetrates damaged cortex for premium feel; hydrophilic IDROAMISIL adds moisture retention for the Hydration collection and weightless masks",
+    "green": "MACROAMISIL (E1386)"
+   },
+   {
+    "line": "Color Depositing Masks & Color Care collection",
+    "function": "Color retention, shine, substantivity",
+    "silitex": "MICROAMISIL (41 / C / E1352) & STONIX 5000 / 6000",
+    "inci": "Amodimethicone microemulsion; silicone softener microemulsion",
+    "benefit": "Amino-silicone film seals cuticle and helps lock deposited pigment, softener prevents dryness on bleached/colored hair",
+    "green": "MACROAMISIL (E1386)"
+   },
+   {
+    "line": "Styling & Finishing, Frizz Control, Heat Protectants, Hairspray, Dry Shampoo",
+    "function": "Frizz/humidity resistance, heat protection, dry feel",
+    "silitex": "Silitex Volatile D5 Fluid / CM 040 & EVERSIL 60",
+    "inci": "Cyclopentasiloxane; Dimethicone emulsion 60%",
+    "benefit": "Volatile carrier for sprays and creams, PDMS film gives thermal protection and humidity-resistant smoothing",
+    "green": "EVEROIL 35 / EVERIX 35"
+   },
+   {
+    "line": "Body - Oils, Moisturizers (body & hand), Lip Balm, Exfoliation, Shower Gel",
+    "function": "Emollience, silky after-feel, structure in balms",
+    "silitex": "EVERSIL 35 & WASPER D",
+    "inci": "Dimethicone emulsion 35%; beeswax emulsion",
+    "benefit": "Dimethicone gives non-greasy slip in argan-oil body lotions; beeswax emulsion structures lip balm / hand cream and adds barrier",
+    "green": "EVEROIL 35 / EVERIX 35"
+   },
+   {
+    "line": "Process - bottling/filling of shampoos, conditioners, shower gels (incl. 1-litre and half-litre sizes)",
+    "function": "Foam control during high-speed filling, CIP of mixers",
+    "silitex": "FISIOREX 1000 & DYNAKOS 130 E",
+    "inci": "100% plant-based defoamer; antifoam for caustic CIP",
+    "benefit": "Sulfate-free sarcosinate/sultaine bases foam heavily - FISIOREX cuts fill-line foam without compromising clean-label; DYNAKOS controls foam in alkaline CIP of tanks and fillers",
+    "green": "FISIOREX 1000"
+   },
+   {
+    "line": "Packaging - pump bottles, treatment dropper/pump flacons, mask jars, aerosol/spray caps",
+    "function": "Assembly lubrication, cap/closure release",
+    "silitex": "REOGUM 500",
+    "inci": "Silicone assembly lubricant",
+    "benefit": "Smooth pump and closure assembly on filling lines, no jams or squeak; EVERSIL 35 as mold release for jars and caps if molded in-house",
+    "green": ""
+   }
+  ]
  }
 }

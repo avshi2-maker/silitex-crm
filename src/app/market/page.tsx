@@ -21,7 +21,7 @@ export default function MarketPage() {
       <div className="flex flex-wrap items-center gap-2"><label className="text-sm text-slate-600">{tr("חשבון")}</label><select className={inputCls + " w-96"} value={lead.id} onChange={(e) => setSel(e.target.value)}>{leads.map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}</select></div>
       <AskBox lead={lead} kb={state.kbChunks} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} />
       <section className="grid grid-cols-2 md:grid-cols-6 gap-2">
-        {[[tr("מפעלי יעד"), leads.length, ""], [tr("בתהליך מו\"פ / מעבדה / פיילוט"), inRd, ""], [tr("במשא ומתן רכש"), inBuy, ""], [tr("יעד שנה 1"), "$" + (yr1 / 1000).toFixed(0) + "k", tons + " t"], [tr("קיבולת שוק (TAM)"), tam + " t", tr("לשנה")], [tr("קווי מוצר ממופים"), 153, "20 " + tr("חשבונות")]].map(([k, v, s]) => (
+        {[[tr("מפעלי יעד"), leads.length, ""], [tr("בתהליך מו\"פ / מעבדה / פיילוט"), inRd, ""], [tr("במשא ומתן רכש"), inBuy, ""], [tr("יעד שנה 1"), "$" + (yr1 / 1000).toFixed(0) + "k", tons + " t"], [tr("קיבולת שוק (TAM)"), tam + " t", tr("לשנה")], [tr("קווי מוצר ממופים"), 171, "22 " + tr("חשבונות")]].map(([k, v, s]) => (
           <Card key={String(k)}><div className="text-xs text-slate-500">{k}</div><div className="text-2xl font-bold text-brand-600">{v}</div><div className="text-[11px] text-slate-400">{s}</div></Card>))}
       </section>
       <Card className="bg-slate-900 text-white">
