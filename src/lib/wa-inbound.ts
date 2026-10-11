@@ -1,4 +1,4 @@
-// wa-inbound.ts (src/lib/wa-inbound.ts) · updated 10.10.2026 10:20 (Asia/Jerusalem) — server only
+// wa-inbound.ts (src/lib/wa-inbound.ts) · updated 11.10.2026 08:20 (Asia/Jerusalem) — server only · allowlist (wa_allowlist) as 3rd match source
 // WhatsApp Cloud API inbound: normalise phone, match known numbers (prospects contact_phone / Silitex contacts mobile+phone) → append to the contact's running WhatsApp thread; unknown → wa_unmatched (unless blocklisted).
 import { serviceClient } from "./server-data";
 import { createHmac, timingSafeEqual } from "crypto";
@@ -8,19 +8,20 @@ export function verifySignature(raw: string, sig: string | null): boolean {
   const secret = process.env.WA_APP_SECRET; if (!secret) return true; if (!sig?.startsWith("sha256=")) return false;
   const h = createHmac("sha256", secret).update(raw).digest("hex"); const a = Buffer.from(h), b = Buffer.from(sig.slice(7)); return a.length === b.length && timingSafeEqual(a, b);
 }
-type Match = { kind: "lead"; id: string; name: string; who: string } | { kind: "ct"; id: string; name: string; dept: string } | null;
+export type Match = { kind: "lead"; id: string; name: string; who: string } | { kind: "ct"; id: string; name: string; dept: string } | { kind: "list"; id: string; name: string; dept: string } | null;
 export async function matchPhone(phone: string): Promise<Match> {
   const sb = serviceClient(); if (!sb) return null; const p = normPhone(phone);
   const leads = (await sb.from("leads").select("id,name,contact_name,contact_phone").not("contact_phone", "is", null)).data || [];
   const l = leads.find((x) => normPhone(x.contact_phone) === p); if (l) return { kind: "lead", id: l.id, name: l.name, who: l.contact_name || String(l.name).split(" (")[0] };
   const cts = (await sb.from("silitex_contacts").select("id,name,dept,mobile,phone")).data || [];
   const c = cts.find((x) => (x.mobile && normPhone(x.mobile) === p) || (x.phone && normPhone(x.phone) === p)); if (c) return { kind: "ct", id: c.id, name: c.name, dept: c.dept };
+  const a = (await sb.from("wa_allowlist").select("phone,name,kind,dept").eq("phone", p).maybeSingle()).data; if (a) return { kind: "list", id: a.phone, name: a.name || "+" + a.phone, dept: a.dept || "customer" };
   return null;
 }
 export async function appendToThread(m: WaIn, match: NonNullable<Match>): Promise<string> {
   const sb = serviceClient(); if (!sb) throw new Error("no supabase");
   const who = match.kind === "lead" ? match.who : match.name;
-  const q = sb.from("threads").select("id").eq("topic", "whatsapp"); const th = match.kind === "lead" ? (await q.contains("refs", { lead_id: match.id }).maybeSingle()).data : (await q.eq("contact_id", match.id).maybeSingle()).data;
+  const q = sb.from("threads").select("id").eq("topic", "whatsapp"); const th = match.kind === "lead" ? (await q.contains("refs", { lead_id: match.id }).maybeSingle()).data : match.kind === "ct" ? (await q.eq("contact_id", match.id).maybeSingle()).data : (await q.eq("id", "thr-wa-" + match.id).maybeSingle()).data;
   let tid = th?.id;
   if (!tid) { tid = "thr-wa-" + match.id; await sb.from("threads").upsert({ id: tid, dept: match.kind === "lead" ? "il" : match.dept, contact_id: match.kind === "ct" ? match.id : null, subject: "WhatsApp · " + who, topic: "whatsapp", refs: match.kind === "lead" ? { lead_id: match.id, lead_name: match.name } : {}, owner: m.direction === "in" ? "sapirim" : "silitex", status: m.direction === "in" ? "waiting_us" : "waiting_silitex", created_at: m.at, last_at: m.at }); }
   const body = (m.media_url ? "📎 " + m.media_url + "\n" : "") + m.body;

@@ -45,3 +45,7 @@ create table if not exists wa_unmatched (id text primary key, phone text, name t
 create table if not exists wa_blocklist (phone text primary key, created_at timestamptz default now());
 alter table wa_unmatched enable row level security; create policy "all" on wa_unmatched for all using (true) with check (true);
 alter table wa_blocklist enable row level security; create policy "all" on wa_blocklist for all using (true) with check (true);
+
+-- 11.10.2026 WhatsApp allowlist (v0.21.0): numbers that are neither prospects nor Silitex contacts but should route (forwarders, lab, introducers, team)
+create table if not exists wa_allowlist (phone text primary key, name text, kind text, dept text, company text, notes text, created_at timestamptz default now());
+alter table wa_allowlist enable row level security; create policy "all" on wa_allowlist for all using (true) with check (true);
