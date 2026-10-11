@@ -1,0 +1,60 @@
+{
+ "LEAD-020": [
+  {
+   "line": "Facial Serums, Primers & Osmoter Concentrates",
+   "function": "Velvety skin feel, soft-focus line blurring, non-greasy rapid absorption, and active ingredient delivery.",
+   "silitex": "Silitex Velvet Gel SG 9040 / SG 9041",
+   "inci": "Cyclopentasiloxane (and) Dimethicone Crosspolymer",
+   "benefit": "Imparts a luxurious matte, powdery velvet feel, controls shine, and improves spreadability of mineral actives.",
+   "green": "Dimethicone (and) Dimethicone Crosspolymer (Linear/Non-Cyclic) or EVEROIL 35 (100% Plant-Based)"
+  },
+  {
+   "line": "Mineral Body Lotions & Hand Creams",
+   "function": "Daily moisturizing, skin barrier protection, smooth application without tackiness, and water lock-in.",
+   "silitex": "BODYSIL / EVERSIL 35",
+   "inci": "Dimethicone Emulsion (Polydimethylsiloxane Water Emulsion)",
+   "benefit": "Provides water-repellent protective film, reduces stickiness of Dead Sea salt minerals, and enhances skin conditioning.",
+   "green": "EVEROIL 35 / EVERIX 35 (100% Vegetal-Derived Emollient Emulsion)"
+  },
+  {
+   "line": "Anti-Aging Night Creams & Eye Balms",
+   "function": "Rich emollient cushioning, moisture retention, wrinkle smoothing, and barrier restoration overnight.",
+   "silitex": "Silitex DM 350 / DM 1000 & BODYAMISIL",
+   "inci": "Dimethicone Fluid (350 cSt) / Amodimethicone Emulsion",
+   "benefit": "Imparts long-lasting occlusive barrier, preventing trans-epidermal water loss (TEWL) and giving rich skin feel.",
+   "green": "WASPER D (Natural Beeswax Emulsion) & CARNAUBEX (Carnauba Wax Emulsion)"
+  },
+  {
+   "line": "Dead Sea Mineral Mud Masks & Exfoliators",
+   "function": "Purifying, texture stabilization, smooth spreadability of heavy mineral clay, and easy wash-off.",
+   "silitex": "CARNAUBEX & WASPER D",
+   "inci": "Natural Wax Water Emulsion (Carnauba Wax / Beeswax)",
+   "benefit": "Prevents clay mud mask cracking, enhances plastic texture, and improves skin softening during rinse-off.",
+   "green": "100% Natural Origin Wax Emulsions (Bio-Certified)"
+  },
+  {
+   "line": "Mineral Sunscreen & Protective Day Creams",
+   "function": "UV filter dispersion (Zinc Oxide/Titanium Dioxide), water-resistance, uniform film formation, and non-white cast.",
+   "silitex": "Silitex MQ Resin Blends & IDROAMISIL 1000",
+   "inci": "Trimethylsiloxysilicate & PEG-12 Dimethicone",
+   "benefit": "Forms durable water-resistant film, stabilizes inorganic mineral UV filters, and prevents migration into eyes.",
+   "green": "MACROAMISIL (E1386) (D4/D5-Free Non-Cyclic Silicone Dispersion)"
+  },
+  {
+   "line": "Hydrating Shower Gels, Body Oils & Cleansers",
+   "function": "Gentle cleansing, silky skin feel after rinse, foam control during production, and bath conditioning.",
+   "silitex": "AMINOQUAT 350 / 500 & FISIOREX 1000",
+   "inci": "Silicone Quaternium Microemulsion / Plant Fatty Acid Defoamer",
+   "benefit": "Confers silky conditioning touch on wet skin; FISIOREX 1000 controls unwanted foam during high-speed bottling.",
+   "green": "FISIOREX 1000 (100% Plant-Based Vegetable Defoamer / Active)"
+  },
+  {
+   "line": "Dead Sea Hair Care, Shampoos & Masks",
+   "function": "Hair conditioning, detangling, split-end repair, shine enhancement, and heat protection.",
+   "silitex": "MICROAMISIL (E1352) & AMINOQUAT 1000",
+   "inci": "Amodimethicone / Silicone Quaternium-22 Microemulsion",
+   "benefit": "Provides wash-resistant conditioning, hydrophobic hair protection, and intense smoothness without buildup.",
+   "green": "MICROAMISIL (E1352) (Certified D4/D5/D6-Free Non-Cyclic Microemulsion)"
+  }
+ ]
+}

@@ -1,5 +1,5 @@
 "use client";
-// PlanCard.tsx (src/components/PlanCard.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem) — sales action plan for one lead (from action-plan CSV) + "make it a task"
+// PlanCard.tsx (src/components/PlanCard.tsx) · updated 11.10.2026 08:40 (Asia/Jerusalem) — sales action plan for one lead (from action-plan CSV) + "make it a task"
 import { Card, Badge, btnGhost } from "./ui";
 import { stageHe } from "@/config/stages";
 import type { Lead } from "@/lib/types";
@@ -13,6 +13,7 @@ export default function PlanCard({ lead, onTask }: Props) {
     <Card>
       <div className="flex items-center justify-between mb-2"><h3 className="font-bold">{tr("תוכנית פעולה")}</h3><Badge tone="amber">{lead.plan_phase}</Badge></div>
       <dl className="text-sm space-y-1">{rows.filter(([, v]) => v).map(([k, v]) => (<div key={k} className="grid grid-cols-[110px_1fr] gap-1"><dt className="text-slate-500">{k}</dt><dd>{v}</dd></div>))}</dl>
+      {lead.rd_focus && <div className="mt-2 p-2 bg-sky-50 border border-sky-200 rounded-lg text-sm"><b>🔬 {tr("מוקד הסמכה במו\"פ:")}</b> {lead.rd_focus}</div>}{lead.buyer_trigger && <div className="mt-2 p-2 bg-emerald-50 border border-emerald-200 rounded-lg text-sm"><b>🤝 {tr("טריגר למעבר לרכש:")}</b> {lead.buyer_trigger}</div>}
       <div className="mt-3 p-2 bg-amber-50 border border-amber-200 rounded-lg text-sm"><b>{tr("הפעולה הבאה:")}</b> {lead.plan_next_action}</div>
       <button className={btnGhost + " mt-2"} onClick={() => onTask(lead.plan_next_action || tr("מעקב"))}>{tr("+ הפוך למשימה להיום")}</button>
     </Card>

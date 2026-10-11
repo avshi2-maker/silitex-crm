@@ -15,6 +15,7 @@ const ITEMS = [
   { href: "/ask", he: "שאל את Silitex", icon: "🔎" },
   { href: "/products", he: "קטלוג מוצרים", icon: "🧪" },
   { href: "/offsets", he: "מקבילות עולמיות", icon: "🌍" },
+  { href: "/market", he: "מנוע פיתוח שוק", icon: "🧭" },
   { href: "/leads", he: "לקוחות פוטנציאליים", icon: "🏭" },
   { href: "/pipeline", he: "צנרת מכירות", icon: "🧭" },
   { href: "/schedule", he: "יומן יומי/שבועי", icon: "📅" },
