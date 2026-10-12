@@ -1,6 +1,7 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "חלקי — Silitex מכסה חלק": "Parziale — Silitex copre in parte",
   "לא בקטלוג Silitex": "Non a catalogo Silitex",
   "מה זה:": "Cos'è:",
   "מי מייצר:": "Chi lo produce:",

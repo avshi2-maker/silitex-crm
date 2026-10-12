@@ -1,6 +1,7 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "חלקי — Silitex מכסה חלק": "Partial — Silitex covers part",
   "לא בקטלוג Silitex": "Not in the Silitex catalogue",
   "מה זה:": "What it is:",
   "מי מייצר:": "Who makes it:",

@@ -1,3 +1,141 @@
 [
- {"id": "GAP-001", "query": "Caprylyl Methicone", "aliases": ["caprylyl methicone", "FZ-3196", "Silsoft 034", "PMX-2140", "alkyl methicone", "volatile alkyl siloxane"], "what": "Volatile alkyl-modified methylsiloxane fluid (INCI Caprylyl Methicone). The non-cyclic D4/D5-free volatile carrier used in sunscreens, serums, primers, hair oils, antiperspirants — the modern replacement for cyclopentasiloxane.", "producers": "Dow / DOWSIL FZ-3196 · Momentive Silsoft 034 · Shin-Etsu KF-… alkyl series · Elkem Mirasil C-DML · Siltech Silmer / Silwax · BRB Brasil · Jeen Jeesilc", "silitex": "NOT in the Silitex catalogue (44 SKUs) or the 37 offset categories. Silitex cosmetics line = emulsions/microemulsions, elastomer gels, Volatile D5 / CM 040 (cyclic). Closest Silitex answer: Volatile D5 Fluid / CM 040 (cyclic, REACH-flagged) or EVEROIL 35 / EVERIX 35 (vegetal emollient emulsion) — neither is a drop-in.", "history": "Sold in volume by Sapirim (Dow Corning era) to Israeli cosmetics producers.", "action": "Raise with Federica: (1) can Silitex source/private-label an alkyl methicone from a partner, (2) if not — agree Sapirim may keep a second supplier for this one molecule so cosmetics accounts (AHAVA, Peer Pharm, Moroccanoil) get a full basket. Add to the contract 'gaps' annex.", "status": "open", "added": "12/10/2026"}
+ {
+  "id": "GAP-001",
+  "query": "Caprylyl Methicone",
+  "aliases": [
+   "caprylyl methicone",
+   "FZ-3196",
+   "Silsoft 034",
+   "PMX-2140",
+   "alkyl methicone",
+   "volatile alkyl siloxane"
+  ],
+  "what": "Volatile alkyl-modified methylsiloxane fluid (INCI Caprylyl Methicone). The non-cyclic D4/D5-free volatile carrier used in sunscreens, serums, primers, hair oils, antiperspirants — the modern replacement for cyclopentasiloxane.",
+  "producers": "Dow / DOWSIL FZ-3196 · Momentive Silsoft 034 · Shin-Etsu KF-… alkyl series · Elkem Mirasil C-DML · Siltech Silmer / Silwax · BRB Brasil · Jeen Jeesilc",
+  "silitex": "NOT in the Silitex catalogue (44 SKUs) or the 37 offset categories. Silitex cosmetics line = emulsions/microemulsions, elastomer gels, Volatile D5 / CM 040 (cyclic). Closest Silitex answer: Volatile D5 Fluid / CM 040 (cyclic, REACH-flagged) or EVEROIL 35 / EVERIX 35 (vegetal emollient emulsion) — neither is a drop-in.",
+  "history": "Sold in volume by Sapirim (Dow Corning era) to Israeli cosmetics producers.",
+  "action": "Raise with Federica: (1) can Silitex source/private-label an alkyl methicone from a partner, (2) if not — agree Sapirim may keep a second supplier for this one molecule so cosmetics accounts (AHAVA, Peer Pharm, Moroccanoil) get a full basket. Add to the contract 'gaps' annex.",
+  "status": "open",
+  "added": "12/10/2026"
+ },
+ {
+  "id": "GAP-002",
+  "query": "Cetyl Dimethicone",
+  "aliases": [
+   "cetyl dimethicone",
+   "DC 2502",
+   "dowsil 2502",
+   "2502",
+   "alkyl dimethicone",
+   "cetyl methicone",
+   "ABIL Wax 9801",
+   "Silcare 41M65"
+  ],
+  "what": "Alkyl (C16) modified dimethicone - oil-compatible silicone emollient / wax-like co-emulsifier used in W/O creams, lipsticks, sunscreens and hair oils.",
+  "producers": "Dow / DOWSIL 2502 · Evonik ABIL Wax 9801 · Elkem Mirasil C-DMI · Siltech Silwax · Clariant Silcare 41M65 · BRB",
+  "silitex": "NOT in catalogue. Silitex raw-material line = Dimethicone (5-5000 cSt), Amodimethicone, Ciclopentasilossano only - no alkyl-modified fluids.",
+  "history": "Sold in volume by Sapirim (Dow Corning era).",
+  "action": "Raise with Federica as part of the cosmetics gap annex (alkyl methicones: caprylyl + cetyl).",
+  "status": "open",
+  "added": "12/10/2026"
+ },
+ {
+  "id": "GAP-003",
+  "query": "PEG/PPG-18/18 Dimethicone (silicone emulsifier)",
+  "aliases": [
+   "5225C",
+   "DC 5225C",
+   "dowsil 5225c",
+   "5225",
+   "silicone emulsifier",
+   "w/si emulsifier",
+   "PEG/PPG-18/18 dimethicone",
+   "cetyl PEG/PPG-10/1 dimethicone",
+   "ABIL EM 90",
+   "ABIL EM 97",
+   "KF-6028",
+   "KF-6038",
+   "DC 5200",
+   "DC 3225C",
+   "BY 11-030"
+  ],
+  "what": "Silicone-polyether emulsifiers for water-in-silicone (W/Si) and W/O systems - foundations, BB/CC, sunscreens, antiperspirants, light serums.",
+  "producers": "Dow / DOWSIL 5225C, 3225C, BY 11-030 · Evonik ABIL EM 90 / EM 97 S / Care XL 80 · Shin-Etsu KF-6028 / 6038 / 6050 · Momentive Silsoft 900 · Wacker BELSIL WO 5000 · Elkem Mirasil WO 8210 · Grant Gransil 501",
+  "silitex": "NOT in catalogue. Silitex makes finished O/W emulsions (EVERSIL) and microemulsions - it does not sell emulsifier chemistries. offsets.json CAT-37 previously listed a phantom 'Silitex Emulsifier 5225C' - corrected 12/10/2026.",
+  "history": "Sold in volume by Sapirim (Dow Corning era).",
+  "action": "Raise with Federica: W/Si emulsifier is the single biggest missing SKU for colour cosmetics / sun care accounts (AHAVA, Peer Pharm). Ask if Silitex can source from Evonik/Wacker under distribution, else carve-out.",
+  "status": "open",
+  "added": "12/10/2026"
+ },
+ {
+  "id": "GAP-004",
+  "query": "Dimethicone Crosspolymer (silicone elastomer gel)",
+  "aliases": [
+   "9040",
+   "DC 9040",
+   "dowsil 9040",
+   "9041",
+   "9045",
+   "elastomer gel",
+   "silicone elastomer",
+   "dimethicone crosspolymer",
+   "cyclopentasiloxane (and) dimethicone crosspolymer",
+   "KSG-15",
+   "KSG-16",
+   "Velvesil 125",
+   "Gransil RPS",
+   "BELSIL RG 100"
+  ],
+  "what": "Silicone elastomer gels (crosspolymer swollen in D5 or dimethicone) - velvet / mattifying / pore-blurring feel in primers, serums, sunscreens.",
+  "producers": "Dow / DOWSIL 9040, 9041, 9045 · Shin-Etsu KSG-15 / 16 · Momentive Velvesil 125 · Grant Gransil RPS · Wacker BELSIL RG 100 / EG 3000 · Evonik ABIL Care Gel",
+  "silitex": "NOT in catalogue. GOMMA SILICONICA 80 / 5000 are technical RTV mould rubbers ('a solo uso tecnico'), not cosmetic gels. offsets.json CAT-30 previously listed a phantom 'Silitex SG 9040' - corrected 12/10/2026.",
+  "history": "Sold in volume by Sapirim (Dow Corning era).",
+  "action": "Raise with Federica; candidate for a second-supplier carve-out (Grant / Shin-Etsu via Israeli distributor).",
+  "status": "open",
+  "added": "12/10/2026"
+ },
+ {
+  "id": "GAP-005",
+  "query": "Trimethylsiloxysilicate (MQ resin)",
+  "aliases": [
+   "MQ resin",
+   "MQ-1600",
+   "RSN-0749",
+   "DC 593",
+   "trimethylsiloxysilicate",
+   "film former",
+   "BELSIL TMS 803",
+   "SR1000",
+   "KF-7312J",
+   "long-wear resin"
+  ],
+  "what": "MQ silicone resins - transfer-resistant, waterproof film formers for long-wear make-up, SPF water resistance, hair sprays.",
+  "producers": "Dow / DOWSIL MQ-1600, RSN-0749, 593 · Momentive SR1000 · Wacker BELSIL TMS 803 · Shin-Etsu KF-7312 · Evonik ABIL MQ 803",
+  "silitex": "NOT in catalogue as a cosmetic ingredient. Silitex resins (aqueous / solvent) are building & textile film formers. offsets.json CAT-36 corrected 12/10/2026.",
+  "history": "Sold by Sapirim (Dow Corning era).",
+  "action": "Low priority vs GAP-003/004; mention in gap annex.",
+  "status": "open",
+  "added": "12/10/2026"
+ },
+ {
+  "id": "GAP-006",
+  "query": "Cyclomethicone blend D5/D6 (DC 345)",
+  "aliases": [
+   "345",
+   "DC 345",
+   "dowsil 345",
+   "cyclomethicone",
+   "D5/D6 blend",
+   "cyclohexasiloxane",
+   "D6",
+   "PMX-0345"
+  ],
+  "what": "Blend of cyclopentasiloxane (D5) and cyclohexasiloxane (D6) - slightly slower dry-down than pure D5.",
+  "producers": "Dow / DOWSIL 345 · Momentive SF1204 · Wacker BELSIL CM 1000 · Shin-Etsu KF-995 (D5)",
+  "silitex": "PARTIAL. Silitex sells CICLOPENTASILOSSANO (pure D5, D4 <0.1%) = direct offset for DC 245. For DC 345 users, D5 alone is accepted by most formulators; no D6 or D5/D6 blend in catalogue. Note EU restriction D4/D5/D6 (2027) - push customers toward D5-free (EVEROIL / EVERIX, MACROAMISIL) instead.",
+  "history": "Sold in volume by Sapirim (Dow Corning era).",
+  "action": "Offer Ciclopentasilossano as 1:1 for DC 245 and as 'close' for DC 345; flag EU 2027 phase-out in the pitch.",
+  "status": "partial",
+  "added": "12/10/2026"
+ }
 ]
