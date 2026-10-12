@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/market/gaps/page.tsx) · updated 12.10.2026 12:20 (Asia/Jerusalem) — "Israel Market Request": the cosmetic silicone molecules Silitex does not make (data/gaps.json), who buys them in Israel, incumbents, and Silitex answer boxes (Make / Source / Resell / No) for the meeting. Print + export bar.
+// page.tsx (src/app/market/gaps/page.tsx) · updated 12.10.2026 12:20 / fix 12:25 (Asia/Jerusalem) — "Israel Market Request": the cosmetic silicone molecules Silitex does not make (data/gaps.json), who buys them in Israel, incumbents, and Silitex answer boxes (Make / Source / Resell / No) for the meeting. Print + export bar.
 import { useState } from "react";
 import Link from "next/link";
 import { Card, H1, Badge, btnGhost, inputCls } from "@/components/ui";
@@ -16,7 +16,7 @@ export default function GapsPage() {
   const { t: tr, lang } = useLang();
   const [ans, setAns] = useState<Record<string, { a: string; lt: string; note: string }>>({});
   const [est, setEst] = useState<Record<string, string>>(EST);
-  const set = (id: string, k: "a" | "lt" | "note", v: string) => setAns((s) => ({ ...s, [id]: { a: "", lt: "", note: "", ...s[id], [k]: v } }));
+  const set = (id: string, k: "a" | "lt" | "note", v: string) => setAns((s) => { const cur = s[id] || { a: "", lt: "", note: "" }; return { ...s, [id]: { ...cur, [k]: v } }; });
   const text = ["ISRAEL MARKET REQUEST — silicone molecules not in the Silitex catalogue (verified silitex.it 12/10/2026)", "", ...GAPS.map((g) => [g.id + " · " + g.query + " · status: " + g.status, "What: " + g.what, "Israeli buyers: " + COSMETIC.join(", "), "Est. Israeli market: " + (est[g.id] || "?") + " t/yr", "Incumbents: " + g.producers, "Silitex today: " + g.silitex, "Silitex answer: " + (ans[g.id]?.a || "____") + " · lead time: " + (ans[g.id]?.lt || "____") + (ans[g.id]?.note ? " · " + ans[g.id].note : ""), ""].join("\n")), "Ask: for every 'No' — written carve-out so Sapirim may source that molecule elsewhere and keep the Israeli cosmetics basket under one hand."].join("\n");
   return (
     <div className="space-y-4">
