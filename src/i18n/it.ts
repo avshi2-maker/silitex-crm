@@ -1,6 +1,12 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "קנו מ-Sapirim בעבר": "Acquistato da Sapirim in passato",
+  "מוצר שנמכר": "Prodotto venduto",
+  "כמות / שנה": "Quantità / anno",
+  "שנים": "Anni",
+  "אוטומטי": "auto",
+  "אין התאמה — לבדוק": "Nessuna corrispondenza — verificare",
   "חשבונות": "account",
   "חשבון": "Account",
   "שאל את Silitex על": "Chiedi a Silitex su",

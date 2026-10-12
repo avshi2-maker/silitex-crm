@@ -1,6 +1,13 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "קנו מ-Sapirim בעבר": "Bought from Sapirim before",
+  "הקלף החזק מול Silitex: אותן כימיות, אותם מפעלים": "the strong card with Silitex: same chemistries, same plants",
+  "מוצר שנמכר": "Product sold",
+  "כמות / שנה": "Qty / year",
+  "שנים": "Years",
+  "אוטומטי": "auto",
+  "אין התאמה — לבדוק": "No match — check",
   "חשבונות": "accounts",
   "חשבון": "Account",
   "שאל את Silitex על": "Ask Silitex about",

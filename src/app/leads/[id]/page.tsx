@@ -7,6 +7,7 @@ import { PRODUCTS, industriesOf, INDUSTRIES } from "@/lib/data";
 import { Card, H1, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui";
 import AiPanel from "@/components/AiPanel";
 import PlanCard from "@/components/PlanCard";
+import PurchaseHistory from "@/components/market/PurchaseHistory";
 import SampleCard from "@/components/SampleCard";
 import DocsCard from "@/components/leads/DocsCard";
 import TranscriptCard from "@/components/leads/TranscriptCard";
@@ -58,6 +59,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
           </Card>
         </div>
         <div className="space-y-4">
+          <PurchaseHistory leadId={id} compact />
           <PlanCard lead={lead} onTask={(title) => addTask({ lead_id: id, lead_name: lead.name, title, due: todayIso(), cadence: "once", kind: "plan" })} />
           <SampleCard leadId={id} leadName={lead.name} samples={state.samples.filter((x) => x.lead_id === id)} defaultSku={((sil && !sil.startsWith("—") ? sil : lead.recommended_sku) || "").split(/[&,/]/)[0].trim() || undefined} onAdd={addSample} onStatus={setSampleStatus} />
           <Card>
