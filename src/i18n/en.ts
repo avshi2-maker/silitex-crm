@@ -1,6 +1,23 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "נספח פערים (לפגישה)": "Gaps annex (for the meeting)",
+  "לפדריקה — למילוי ולהחזרה במייל:": "For Federica — to fill and mail back:",
+  "מייל לפדריקה (צרף את הקובץ)": "Email Federica (attach the file)",
+  "ממוין א-ב · עמודת עדיפות לפי נפח משוער · עמודות K–O ריקות למילוי Silitex": "Alphabetical · priority column by est. volume · columns K–O blank for Silitex",
+  "הקטלוג המלא מאתר silitex.it": "Full catalogue from silitex.it",
+  "שמות": "names",
+  "עם מפרט מלא ב-CRM": "with full spec in CRM",
+  "שם + תיאור בלבד (מהאתר)": "name + site description only",
+  "נסרק": "scraped",
+  "חיפוש בכל 318 השמות…": "Search all 318 names…",
+  "רק עם מפרט מלא": "full spec only",
+  "רק ללא מפרט (לעבודה)": "without spec only (to do)",
+  "קטגוריה": "Category",
+  "תיאור (מהאתר)": "Description (site)",
+  "מפרט": "Spec",
+  "אתר": "site",
+  "מקור אמת לבדיקת שמות (isCatalog). מוצר שלא ברשימה הזו = לא קיים ב-Silitex.": "Truth source for name checks (isCatalog). A product not in this list does not exist at Silitex.",
   "פערים": "gaps",
   "🇮🇱 בקשת שוק ישראל — פערי קטלוג": "🇮🇱 Israel Market Request — catalogue gaps",
   "מולקולות סיליקון שלקוחות הקוסמטיקה בישראל קונים ו-Silitex לא מייצרת — אומת מול silitex.it (318 מוצרים, 35 קטגוריות). לכל שורה: תשובת Silitex בפגישה.": "Silicone molecules Israeli cosmetics plants buy that Silitex does not make — verified against silitex.it (318 products, 35 categories). One Silitex answer per row at the meeting.",

@@ -15,7 +15,8 @@
     "next": "^15.5.27",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "unpdf": "^0.12.1"
+    "unpdf": "^0.12.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "^22",

@@ -1,6 +1,18 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "נספח פערים (לפגישה)": "Allegato lacune (riunione)",
+  "לפדריקה — למילוי ולהחזרה במייל:": "Per Federica — da compilare e rispedire:",
+  "מייל לפדריקה (צרף את הקובץ)": "Email a Federica (allega il file)",
+  "הקטלוג המלא מאתר silitex.it": "Catalogo completo da silitex.it",
+  "שמות": "nomi",
+  "עם מפרט מלא ב-CRM": "con scheda completa nel CRM",
+  "שם + תיאור בלבד (מהאתר)": "solo nome + descrizione (sito)",
+  "נסרק": "estratto",
+  "קטגוריה": "Categoria",
+  "תיאור (מהאתר)": "Descrizione (sito)",
+  "מפרט": "Scheda",
+  "אתר": "sito",
   "פערים": "lacune",
   "🇮🇱 בקשת שוק ישראל — פערי קטלוג": "🇮🇱 Richiesta mercato Israele — lacune a catalogo",
   "מולקולה (INCI)": "Molecola (INCI)",

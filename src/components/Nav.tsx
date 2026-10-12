@@ -1,5 +1,5 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 10.10.2026 05:50 (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 12.10.2026 12:40 (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
@@ -16,6 +16,7 @@ const ITEMS = [
   { href: "/products", he: "קטלוג מוצרים", icon: "🧪" },
   { href: "/offsets", he: "מקבילות עולמיות", icon: "🌍" },
   { href: "/market", he: "מנוע פיתוח שוק", icon: "🧭" },
+  { href: "/market/gaps", he: "נספח פערים (לפגישה)", icon: "⛔" },
   { href: "/leads", he: "לקוחות פוטנציאליים", icon: "🏭" },
   { href: "/pipeline", he: "צנרת מכירות", icon: "🧭" },
   { href: "/schedule", he: "יומן יומי/שבועי", icon: "📅" },
@@ -44,7 +45,7 @@ export default function Nav() {
       </div>
       <nav className="flex flex-col gap-1">
         {ITEMS.map((it) => {
-          const active = it.href === "/" ? path === "/" : path.startsWith(it.href);
+          const active = it.href === "/" ? path === "/" : it.href === "/market" ? path === "/market" : path.startsWith(it.href);
           const cls = "flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (active ? "bg-brand-500" : "hover:bg-ink-700");
           return (<Link key={it.href} href={it.href} className={cls}><span>{it.icon}</span><span>{tr(it.he)}</span></Link>);
         })}

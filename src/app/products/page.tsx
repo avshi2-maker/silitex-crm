@@ -1,10 +1,11 @@
 "use client";
-// page.tsx (src/app/products/page.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem) — catalog filtered by industry + spec + INCI + certification
+// page.tsx (src/app/products/page.tsx) · updated 12.10.2026 12:40 (Asia/Jerusalem) — catalog filtered by industry + spec + INCI + certification
 import { useMemo, useState } from "react";
 import { PRODUCTS, INDUSTRIES, industriesOf, offsetForProduct } from "@/lib/data";
 import { Card, H1, Badge, inputCls, certTone } from "@/components/ui";
 import ExportBar from "@/components/ExportBar";
 import ReachNote from "@/components/ReachNote";
+import SiteCatalog from "@/components/SiteCatalog";
 import type { Product } from "@/lib/types";
 import { useLang } from "@/i18n";
 const CATS = Array.from(new Set(PRODUCTS.map((p) => p.category_sector)));
@@ -28,6 +29,7 @@ export default function ProductsPage() {
     <div className="space-y-4">
       <H1 sub={tr("סינון לפי תעשייה · מפרט · INCI · אישורים")}>{tr("קטלוג Silitex — ")}{list.length} / {PRODUCTS.length}{tr(" מוצרים")}</H1>
       <ReachNote />
+      <SiteCatalog />
       <Card className="grid md:grid-cols-6 gap-2">
         <input className={inputCls + " md:col-span-2"} placeholder={tr("חיפוש חופשי: שם, INCI, יישום, מקבילה (Dow / Wacker…)")} value={q} onChange={(e) => setQ(e.target.value)} />
         <select className={inputCls} value={ind} onChange={(e) => setInd(e.target.value)}><option value="">{tr("כל התעשיות")}</option>{INDUSTRIES.map((i) => <option key={i.key} value={i.key}>{tr(i.he)}</option>)}</select>
