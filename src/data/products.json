@@ -595,7 +595,7 @@
  },
  {
   "id": "BLD-HYD-001",
-  "product_name": "Silitex Idrorepellenti Silane-Siloxane",
+  "product_name": "SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
   "brand_family": "IDROREPELLENTI",
   "category_sector": "Water Repellents & Building Protection",
   "application_field": "Masonry Waterproofing, Precast Concrete, Dry Mortars, Stone Protection",
@@ -613,8 +613,8 @@
  },
  {
   "id": "BLD-HYD-002",
-  "product_name": "Silitex Volatile D5 Fluid / CM 040",
-  "brand_family": "SILITEX FLUIDS",
+  "product_name": "CICLOPENTASILOSSANO (D5) — see RAW-COS-003",
+  "brand_family": "CICLOPENTASILOSSANO",
   "category_sector": "Water Repellents & Building Protection",
   "application_field": "Water Repellent Carrier, Dry Mortar Additives, Cosmetic Formulations",
   "appearance": "Clear Water-White Fluid",
@@ -861,7 +861,7 @@
   "ionicity": "Non-ionic",
   "ph_range": "N/A",
   "dilution_solubility": "Oil phase",
-  "key_features": "Pentamer silicone for cosmetic preparations; fast dry-down, non-greasy spread. Same material as 'Silitex Volatile D5 / CM 040' (BLD-HYD-002)",
+  "key_features": "Pentamer silicone for cosmetic preparations; fast dry-down, non-greasy spread. Listed on silitex.it under both 'fluidi di silicone' and 'materie prime siliconiche'.",
   "food_grade_certifications": "Cosmetic grade",
   "inci_chemical_name": "Cyclopentasiloxane",
   "dow_corning_offset_benchmark": "Dow Corning 245 / DOWSIL 245 / XIAMETER PMX-0245; DC 345 = D5/D6 blend (partial)",

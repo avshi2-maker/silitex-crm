@@ -1,7 +1,7 @@
 {
  "LEAD-001": {
   "website": "https://icl-growingsolutions.com/",
-  "note": "Product list taken from icl-growingsolutions.com/agriculture/products/ (category + brand filters) and production-site pages; the dynamic product grid did not render, so brand-to-category mapping follows the site's own category labels.",
+  "note": "Product list taken from icl-growingsolutions.com/agriculture/products/ (category + brand filters) and production-site pages; the dynamic product grid did not render, so brand-to-category mapping follows the site's own category labels. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -39,7 +39,7 @@
    {
     "line": "Polysulphate / Granular Complex & Blended Fertilizers (Amfert, Boulby)",
     "function": "Anti-caking and dust suppression on mined/granulated fertilizer",
-    "silitex": "Silitex Volatile D5 Fluid / CM 040",
+    "silitex": "CICLOPENTASILOSSANO (D5)",
     "inci": "Cyclomethicone / low-viscosity silicone fluid carrier",
     "benefit": "Hydrophobic surface coating that cuts moisture uptake and dust in storage",
     "green": ""
@@ -72,7 +72,7 @@
  },
  "LEAD-002": {
   "website": "https://www.adama.com/en",
-  "note": "adama.com product catalogue pages (incl. Israel Hebrew site) returned fetch errors; rows built from adama.com featured-story and technology pages (T.O.V., Sesgama, Asorbital, Desidro) plus Wikipedia for category scope.",
+  "note": "adama.com product catalogue pages (incl. Israel Hebrew site) returned fetch errors; rows built from adama.com featured-story and technology pages (T.O.V., Sesgama, Asorbital, Desidro) plus Wikipedia for category scope. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -143,7 +143,7 @@
  },
  "LEAD-003": {
   "website": "https://www.haifa-group.com/",
-  "note": "",
+  "note": "SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -181,7 +181,7 @@
    {
     "line": "Haifa Turbo K™ NPK granular fertilizer",
     "function": "Anti-caking / dust-suppression surface treatment of granules",
-    "silitex": "Silitex Volatile D5 Fluid / CM 040",
+    "silitex": "CICLOPENTASILOSSANO (D5)",
     "inci": "Low-viscosity silicone fluid carrier",
     "benefit": "Hydrophobic coating reduces moisture pickup and dust in bulk storage",
     "green": ""
@@ -214,13 +214,13 @@
  },
  "LEAD-004": {
   "website": "https://www.termokir.co.il/en/",
-  "note": "Inrom's Termokir catalogue site (SAKRET and TERMOKIR brands) used; Alumayer not covered as it is aluminium systems.",
+  "note": "Inrom's Termokir catalogue site (SAKRET and TERMOKIR brands) used; Alumayer not covered as it is aluminium systems. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
     "line": "Plastering Mortars – TERMOKIR PL 100 / PL 102 / PL 130 (exterior render, marine-environment plaster)",
     "function": "Integral water repellent in dry-mix render",
-    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "silitex": "SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
     "inci": "Silane-siloxane water repellent (powder/emulsion)",
     "benefit": "Beading effect and reduced capillary absorption of exterior renders",
     "green": ""
@@ -228,7 +228,7 @@
    {
     "line": "Thermal Insulation – TERMOKIR TH 200 / TH 300 / TH 400 insulating plasters",
     "function": "Hydrophobation of lightweight thermal plaster, anti-condensation",
-    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "silitex": "SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
     "inci": "Silane-siloxane hydrophobic additive",
     "benefit": "Keeps lightweight aggregate dry so thermal performance is retained; prevents mould",
     "green": ""
@@ -268,7 +268,7 @@
    {
     "line": "Joint Filler – SAKRET JF 930 tile grout",
     "function": "Water repellency and stain resistance in cement grout",
-    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "silitex": "SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
     "inci": "Silane-siloxane water repellent",
     "benefit": "Water-beading grout joints with reduced efflorescence",
     "green": ""
@@ -276,7 +276,7 @@
    {
     "line": "Sealing – SAKRET SE 963 flexible silicone sealant / SE 960 acrylic mastic",
     "function": "Carrier fluid / plasticizing and foam control in sealant manufacture",
-    "silitex": "Silitex Volatile D5 Fluid / CM 040",
+    "silitex": "CICLOPENTASILOSSANO (D5)",
     "inci": "Cyclomethicone / silicone fluid",
     "benefit": "Volatile carrier for silicone sealant processing and surface slip",
     "green": ""
@@ -285,13 +285,13 @@
  },
  "LEAD-005": {
   "website": "https://www.ashtromindustries.co.il/en",
-  "note": "Ashtrom Industries subsidiaries used: Israbeton (concrete), Ashkalit (AAC blocks & lintels), Ashbond (gypsum blocks), BG Bond (sealing/finishing/additives), Itumit (waterproofing). Precast lines appear as lintels and reinforced cement boards on the Ashkalit site.",
+  "note": "Ashtrom Industries subsidiaries used: Israbeton (concrete), Ashkalit (AAC blocks & lintels), Ashbond (gypsum blocks), BG Bond (sealing/finishing/additives), Itumit (waterproofing). Precast lines appear as lintels and reinforced cement boards on the Ashkalit site. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
     "line": "Israbeton ready-mix concrete – water-contact, improved-flow & high-strength mixes",
     "function": "Hydrophobic concrete admixture and air-void control",
-    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "silitex": "SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
     "inci": "Silane-siloxane water repellent emulsion",
     "benefit": "Integral water repellency for water-contact and reservoir concrete",
     "green": ""
@@ -323,7 +323,7 @@
    {
     "line": "BG Bond sealing products & industrial additives (concrete additives, waterproofing)",
     "function": "Water repellent additive for sealing slurries and concrete additives",
-    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "silitex": "SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
     "inci": "Silane-siloxane hydrophobic additive",
     "benefit": "Masonry and concrete waterproofing ingredient for BG Bond's additive range",
     "green": ""
@@ -339,7 +339,7 @@
    {
     "line": "BG Bond silicone sealants & acrylic industrial adhesives",
     "function": "Carrier/plasticizer fluid in silicone sealant manufacture",
-    "silitex": "Silitex Volatile D5 Fluid / CM 040",
+    "silitex": "CICLOPENTASILOSSANO (D5)",
     "inci": "Cyclomethicone / low-viscosity silicone fluid",
     "benefit": "Volatile carrier for sealant processing, improves tooling and slip",
     "green": ""
@@ -347,7 +347,7 @@
    {
     "line": "Ashbond gypsum blocks & Green Bond thermal insulation block",
     "function": "Mold release and water repellent for gypsum casting",
-    "silitex": "EVERSIL 35 & Silitex Idrorepellenti Silane-Siloxane",
+    "silitex": "EVERSIL 35 & SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
     "inci": "PDMS emulsion + silane-siloxane water repellent",
     "benefit": "Clean demoulding of gypsum blocks and reduced moisture uptake in wet rooms",
     "green": "EVEROIL 35 / EVERIX 35 (vegetal)"
@@ -356,7 +356,7 @@
  },
  "LEAD-006": {
   "website": "https://tambour.co.il",
-  "note": "Hebrew site only (no English product catalog); product names transliterated from the Tambour catalog pages.",
+  "note": "Hebrew site only (no English product catalog); product names transliterated from the Tambour catalog pages. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -378,7 +378,7 @@
    {
     "line": "Supercryl M.D / M.D 45 (water-based pure-acrylic exterior paints) & Polygg 450 reinforced roof coatings",
     "function": "Defoaming in high-PVC exterior acrylics and thick elastomeric roof coats; hydrophobic surface additive",
-    "silitex": "DYNAPAN 16 D & Silitex Idrorepellenti Silane-Siloxane",
+    "silitex": "DYNAPAN 16 D & SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
     "inci": "Silicone antifoam emulsion; silane/siloxane water-repellent",
     "benefit": "Void-free elastomeric film, added beading/water repellency and UV durability on the envelope",
     "green": "FISIOREX 1000 (vegetal)"
@@ -386,7 +386,7 @@
    {
     "line": "Shlikht TM 40 / TM 50 / TM 70 (colored acrylic plasters) & Arava mineral plaster",
     "function": "Water repellency and efflorescence/soiling protection for textured façade plasters; foam control in acrylic binder",
-    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "silitex": "SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
     "inci": "Silane-siloxane (alkyl-alkoxysilane/oligomeric siloxane) hydrophobing agent",
     "benefit": "Beading façade, reduced water uptake, lower dirt pick-up, crack-bridging film kept intact",
     "green": ""
@@ -394,7 +394,7 @@
    {
     "line": "TAMPLAST 914 water-repellent cement plaster & TAMBOND / Bridge Block 865 powder adhesives, Kochla grout",
     "function": "Integral hydrophobing of dry-mix mortars, plasters and water-resistant adhesives/grouts",
-    "silitex": "Silitex Volatile D5 Fluid / CM 040",
+    "silitex": "CICLOPENTASILOSSANO (D5)",
     "inci": "Cyclopentasiloxane carrier / silane-siloxane dry-mortar additive",
     "benefit": "Powder-dosable water repellency, reduced capillary absorption in cement plasters and grouts",
     "green": ""
@@ -427,7 +427,7 @@
  },
  "LEAD-007": {
   "website": "https://nirlat.com",
-  "note": "Consumer site nirlat.com (Hebrew) plus industrial arm nirlatpro.com; no separate English catalog.",
+  "note": "Consumer site nirlat.com (Hebrew) plus industrial arm nirlatpro.com; no separate English catalog. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -449,7 +449,7 @@
    {
     "line": "Nirlat colored acrylic plaster (Shlikht) & EXTRA Natura / Sahara / Crystal decorative finishes",
     "function": "Water repellency of textured façade plaster; foam control in thick acrylic binder",
-    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "silitex": "SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
     "inci": "Silane-siloxane hydrophobing agent",
     "benefit": "Beading, lower water uptake and dirt pick-up on exterior plaster",
     "green": ""
@@ -498,7 +498,7 @@
  },
  "LEAD-008": {
   "website": "https://www.sano.co.il/en/",
-  "note": "English site lists categories only; product-line names taken from Hebrew category pages (floors, furniture, laundry, sanopro.co.il). 5 plants, 500+ SKUs, all in-house manufacturing.",
+  "note": "English site lists categories only; product-line names taken from Hebrew category pages (floors, furniture, laundry, sanopro.co.il). 5 plants, 500+ SKUs, all in-house manufacturing. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -569,7 +569,7 @@
  },
  "LEAD-009": {
   "website": "",
-  "note": "No official website or registry entry found under 'Cleano-Kal' (English/Hebrew searches). Rows built from secondary sources describing an unnamed Israeli industrial/institutional eco-cleaning manufacturer (EEN partnering profile; Tel Aviv Chamber of Commerce listing). Verify company identity before use.",
+  "note": "No official website or registry entry found under 'Cleano-Kal' (English/Hebrew searches). Rows built from secondary sources describing an unnamed Israeli industrial/institutional eco-cleaning manufacturer (EEN partnering profile; Tel Aviv Chamber of Commerce listing). Verify company identity before use. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -632,7 +632,7 @@
  },
  "LEAD-010": {
   "website": "https://www.mekorot.co.il",
-  "note": "Official site unreachable from research environment; operations taken from Wikipedia (Mekorot), Duns100 profile, Globes (Eilat/Sabha desalination), ROTEC project page (Shafdan RO) and Mekorot 2020 ESG summary.",
+  "note": "Official site unreachable from research environment; operations taken from Wikipedia (Mekorot), Duns100 profile, Globes (Eilat/Sabha desalination), ROTEC project page (Shafdan RO) and Mekorot 2020 ESG summary. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -686,7 +686,7 @@
    {
     "line": "Concrete reservoirs, precast structures & plant buildings (asset protection)",
     "function": "Silane-siloxane impregnation of concrete reservoirs and precast elements against water ingress and chloride attack",
-    "silitex": "Silitex Idrorepellenti Silane-Siloxane",
+    "silitex": "SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
     "inci": "Silane/siloxane hydrophobic impregnation for masonry and precast concrete",
     "benefit": "Reduced water absorption, longer concrete life in coastal/brine environments",
     "green": ""
@@ -695,7 +695,7 @@
  },
  "LEAD-011": {
   "website": "https://bluegencorp.com",
-  "note": "GES was renamed BlueGen in Jan 2024 (Generation Capital environmental platform); site parsed: bluegencorp.com /products, /chemicals, /asset/bazan-oil-refinery-from-waste-to-value.",
+  "note": "GES was renamed BlueGen in Jan 2024 (Generation Capital environmental platform); site parsed: bluegencorp.com /products, /chemicals, /asset/bazan-oil-refinery-from-waste-to-value. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -766,7 +766,7 @@
  },
  "LEAD-012": {
   "website": "https://www.keter.com",
-  "note": "Parsed keter.com (About, Sustainability, category navigation) plus Keter Group Wikipedia for plant count; keter.com does not publish process details, so processes inferred from resin product nature.",
+  "note": "Parsed keter.com (About, Sustainability, category navigation) plus Keter Group Wikipedia for plant count; keter.com does not publish process details, so processes inferred from resin product nature. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -829,7 +829,7 @@
  },
  "LEAD-013": {
   "website": "https://www.polyram-group.com",
-  "note": "polyram-group.com blocks fetch (robots); product lines taken from Polyram's own exhibitor catalog entries (Plastpol, Fakuma) and Polyram's Bondyram presentation PDF: brands Bondyram, Polytron, Ramclean, Ramofin, Ramster, Ramlloy, Ramdetect, Karilen, Plustek; 24 twin-screw lines, 42,000 t/y, Ram-On.",
+  "note": "polyram-group.com blocks fetch (robots); product lines taken from Polyram's own exhibitor catalog entries (Plastpol, Fakuma) and Polyram's Bondyram presentation PDF: brands Bondyram, Polytron, Ramclean, Ramofin, Ramster, Ramlloy, Ramdetect, Karilen, Plustek; 24 twin-screw lines, 42,000 t/y, Ram-On. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -892,7 +892,7 @@
  },
  "LEAD-014": {
   "website": "https://www.iscar.com",
-  "note": "Parsed iscar.com en-hq product pages (Milling, Turning, Parting & Grooving, Holemaking, Threading, Toolholding, Grades) and /about/production. Site does not describe wet processes, so coolant/washing steps are inferred.",
+  "note": "Parsed iscar.com en-hq product pages (Milling, Turning, Parting & Grooving, Holemaking, Threading, Toolholding, Grades) and /about/production. Site does not describe wet processes, so coolant/washing steps are inferred. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -955,7 +955,7 @@
  },
  "LEAD-015": {
   "website": "https://www.infinya.co.il",
-  "note": "Parsed infinya.co.il (Hebrew home: Infinya Recycling, Infinya Paper for Cardboard, Infinya Packaging with two corrugators, Writing & Printing Paper). Mill details from ANDRITZ press release on Infinya Containerboard, Hadera.",
+  "note": "Parsed infinya.co.il (Hebrew home: Infinya Recycling, Infinya Paper for Cardboard, Infinya Packaging with two corrugators, Writing & Printing Paper). Mill details from ANDRITZ press release on Infinya Containerboard, Hadera. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -1026,7 +1026,7 @@
  },
  "LEAD-016": {
   "website": "https://www.deltagalil.com/",
-  "note": "Site names categories and brands but no finishing chemistry; the Israeli R&D center is 'fabric innovation'; production is in Vietnam/Egypt/etc. Rows map site categories to the finishing step where softeners/antifoams are used.",
+  "note": "Site names categories and brands but no finishing chemistry; the Israeli R&D center is 'fabric innovation'; production is in Vietnam/Egypt/etc. Rows map site categories to the finishing step where softeners/antifoams are used. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -1097,7 +1097,7 @@
  },
  "LEAD-017": {
   "website": "https://www.tefron.com/",
-  "note": "Showroom categories taken from tefron.com/showroom; technologies (seamless engineering, hybrid and cut & sew, eco-dyes, recycled yarns, GRS) from why-choose-tefron and sustainability pages. Production in Jordan/Vietnam/etc.; Israel is design & innovation center.",
+  "note": "Showroom categories taken from tefron.com/showroom; technologies (seamless engineering, hybrid and cut & sew, eco-dyes, recycled yarns, GRS) from why-choose-tefron and sustainability pages. Production in Jordan/Vietnam/etc.; Israel is design & innovation center. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -1160,7 +1160,7 @@
  },
  "LEAD-018": {
   "website": "https://www.bazan.co.il/en/",
-  "note": "bazan.co.il, carmelolefins.co.il and gadiv.com are JavaScript-rendered / robots-blocked; product and unit list taken from secondary sources: Wikipedia (BAZAN Group), GlobalData company profile, EPCA member page for Gadiv, and the Unicracking hydrocracker (UOP, 2012).",
+  "note": "bazan.co.il, carmelolefins.co.il and gadiv.com are JavaScript-rendered / robots-blocked; product and unit list taken from secondary sources: Wikipedia (BAZAN Group), GlobalData company profile, EPCA member page for Gadiv, and the Unicracking hydrocracker (UOP, 2012). SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -1231,7 +1231,7 @@
  },
  "LEAD-019": {
   "website": "https://www.gadotbio.com/",
-  "note": "Per Israel Hayom (02.06.2024) there is NO local production of fresh (wet) yeast in Israel; the Shimrit brand is sold by Paka, now import-based (Turkey). Segment reframed to actual Israeli fermentation/sugar-processing plants: Gadot Biochemical (Haifa Bay), Galam (Kibbutz Maanit), BTG/Ferring (Beer Tuvia), Tempo Beer Industries (Netanya).",
+  "note": "Per Israel Hayom (02.06.2024) there is NO local production of fresh (wet) yeast in Israel; the Shimrit brand is sold by Paka, now import-based (Turkey). Segment reframed to actual Israeli fermentation/sugar-processing plants: Gadot Biochemical (Haifa Bay), Galam (Kibbutz Maanit), BTG/Ferring (Beer Tuvia), Tempo Beer Industries (Netanya). SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -1302,13 +1302,13 @@
  },
  "LEAD-020": {
   "website": "https://www.ahava.com",
-  "note": "",
+  "note": "SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "NotebookLM site parse 11/10/2026",
   "rows": [
    {
     "line": "Facial Serums, Primers & Osmoter Concentrates",
     "function": "Velvety skin feel, soft-focus line blurring, non-greasy rapid absorption, and active ingredient delivery.",
-    "silitex": "Silitex Velvet Gel SG 9040 / SG 9041",
+    "silitex": "BODYSIL (cosmetic dimethicone emulsion) — elastomer gel = GAP-004, second supplier",
     "inci": "Cyclopentasiloxane (and) Dimethicone Crosspolymer",
     "benefit": "Imparts a luxurious matte, powdery velvet feel, controls shine, and improves spreadability of mineral actives.",
     "green": "Dimethicone (and) Dimethicone Crosspolymer (Linear/Non-Cyclic) or EVEROIL 35 (100% Plant-Based)"
@@ -1324,7 +1324,7 @@
    {
     "line": "Anti-Aging Night Creams & Eye Balms",
     "function": "Rich emollient cushioning, moisture retention, wrinkle smoothing, and barrier restoration overnight.",
-    "silitex": "Silitex DM 350 / DM 1000 & BODYAMISIL",
+    "silitex": "DIMETHICONE 350 (cosmetic grade) / DM 1000 & BODYAMISIL",
     "inci": "Dimethicone Fluid (350 cSt) / Amodimethicone Emulsion",
     "benefit": "Imparts long-lasting occlusive barrier, preventing trans-epidermal water loss (TEWL) and giving rich skin feel.",
     "green": "WASPER D (Natural Beeswax Emulsion) & CARNAUBEX (Carnauba Wax Emulsion)"
@@ -1340,7 +1340,7 @@
    {
     "line": "Mineral Sunscreen & Protective Day Creams",
     "function": "UV filter dispersion (Zinc Oxide/Titanium Dioxide), water-resistance, uniform film formation, and non-white cast.",
-    "silitex": "Silitex MQ Resin Blends & IDROAMISIL 1000",
+    "silitex": "GAP-005 (MQ resin, second supplier) & IDROAMISIL 1000",
     "inci": "Trimethylsiloxysilicate & PEG-12 Dimethicone",
     "benefit": "Forms durable water-resistant film, stabilizes inorganic mineral UV filters, and prevents migration into eyes.",
     "green": "MACROAMISIL (E1386) (D4/D5-Free Non-Cyclic Silicone Dispersion)"
@@ -1365,7 +1365,7 @@
  },
  "LEAD-021": {
   "website": "https://www.peerpharm.com",
-  "note": "Profile from peerpharm.com (home, the-company, quality-control, hair-care, skin-care, dead-sea--spa, filling--packaging). Hair care is 'based on natural extracts and certified organic oils', has a 'Salt-free' series and a Dead Sea quality-mark certificate. Silitex matches inferred from product type, not stated on the site.",
+  "note": "Profile from peerpharm.com (home, the-company, quality-control, hair-care, skin-care, dead-sea--spa, filling--packaging). Hair care is 'based on natural extracts and certified organic oils', has a 'Salt-free' series and a Dead Sea quality-mark certificate. Silitex matches inferred from product type, not stated on the site. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
@@ -1387,7 +1387,7 @@
    {
     "line": "Hair care - Serum / Leave-in / Styling cream / Wax",
     "function": "Gloss, dry feel, frizz control, carrier",
-    "silitex": "Silitex Volatile D5 Fluid / CM 040 & EVERSIL 3500",
+    "silitex": "CICLOPENTASILOSSANO (D5) & EVERSIL 3500",
     "inci": "Cyclopentasiloxane; Dimethicone (high viscosity) emulsion",
     "benefit": "Volatile carrier gives non-greasy spread then flashes off; high-viscosity PDMS leaves high-gloss, anti-frizz film in leave-ins and waxes",
     "green": "EVEROIL 35 / EVERIX 35"
@@ -1419,7 +1419,7 @@
    {
     "line": "Sun protection & BB cream SPF 15-50+",
     "function": "Water resistance, spreadability, dry feel",
-    "silitex": "Silitex Volatile D5 Fluid / CM 040 & EVERSIL 60",
+    "silitex": "CICLOPENTASILOSSANO (D5) & EVERSIL 60",
     "inci": "Cyclopentasiloxane; Dimethicone emulsion 60%",
     "benefit": "Improves UV-filter spreading and uniform film, reduces greasiness, aids water resistance",
     "green": "EVEROIL 35 / EVERIX 35"
@@ -1444,13 +1444,13 @@
  },
  "LEAD-022": {
   "website": "https://il.moroccanoil.com",
-  "note": "Brand sites (US + IL) state no plant/HQ; per Wikipedia/SDS: HQ New York, founded Tel Aviv 2003, ~80% of production at the plant in Ma'alot-Tarshiha, northern Israel, plus plants in Italy and Canada. Claims on site: sulfate-free, phosphate-free, paraben-free, color-safe. No silicone-free or vegan line stated; the Treatment oil is cyclomethicone + dimethicone + argan oil (third-party INCI listing). Silitex matches inferred from product chemistry.",
+  "note": "Brand sites (US + IL) state no plant/HQ; per Wikipedia/SDS: HQ New York, founded Tel Aviv 2003, ~80% of production at the plant in Ma'alot-Tarshiha, northern Israel, plus plants in Italy and Canada. Claims on site: sulfate-free, phosphate-free, paraben-free, color-safe. No silicone-free or vegan line stated; the Treatment oil is cyclomethicone + dimethicone + argan oil (third-party INCI listing). Silitex matches inferred from product chemistry. SKU names verified against silitex.it catalogue 12/10/2026.",
   "source": "AI site parse 11/10/2026 — draft, verify before sending",
   "rows": [
    {
     "line": "Moroccanoil Treatment / Treatment Light / Purple (argan oil treatment)",
     "function": "Anhydrous serum carrier, shine, frizz control",
-    "silitex": "Silitex Volatile D5 Fluid / CM 040 & EVERSIL 3500",
+    "silitex": "CICLOPENTASILOSSANO (D5) & EVERSIL 3500",
     "inci": "Cyclopentasiloxane; Dimethicone",
     "benefit": "Existing formula is cyclomethicone + dimethicone + argan oil; D5 gives fast dry-down and spread, high-viscosity PDMS gives gloss and frizz film (emulsion grade fits the water-based Treatment Mist)",
     "green": "EVEROIL 35 / EVERIX 35"
@@ -1490,7 +1490,7 @@
    {
     "line": "Styling & Finishing, Frizz Control, Heat Protectants, Hairspray, Dry Shampoo",
     "function": "Frizz/humidity resistance, heat protection, dry feel",
-    "silitex": "Silitex Volatile D5 Fluid / CM 040 & EVERSIL 60",
+    "silitex": "CICLOPENTASILOSSANO (D5) & EVERSIL 60",
     "inci": "Cyclopentasiloxane; Dimethicone emulsion 60%",
     "benefit": "Volatile carrier for sprays and creams, PDMS film gives thermal protection and humidity-resistant smoothing",
     "green": "EVEROIL 35 / EVERIX 35"

@@ -1,6 +1,22 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "פערים": "lacune",
+  "🇮🇱 בקשת שוק ישראל — פערי קטלוג": "🇮🇱 Richiesta mercato Israele — lacune a catalogo",
+  "מולקולה (INCI)": "Molecola (INCI)",
+  "מי קונה בישראל": "Chi acquista in Israele",
+  "שוק משוער ט/שנה": "Mercato stimato t/anno",
+  "ספק נוכחי": "Fornitore attuale",
+  "תשובת Silitex": "Risposta Silitex",
+  "חלקי": "parziale",
+  "פער": "lacuna",
+  "זמן אספקה / MOQ": "tempi di consegna / MOQ",
+  "הערת Silitex": "nota Silitex",
+  "הסגירה:": "La chiusura:",
+  "פער קטלוג": "lacuna a catalogo",
+  "נספח פערים": "allegato lacune",
+  "נספח פערים — מה Silitex לא מייצרת (לפגישה)": "Allegato lacune — cosa Silitex non produce (per la riunione)",
+  "איך להציג:": "Come presentarlo:",
   "חלקי — Silitex מכסה חלק": "Parziale — Silitex copre in parte",
   "לא בקטלוג Silitex": "Non a catalogo Silitex",
   "מה זה:": "Cos'è:",

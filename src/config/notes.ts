@@ -14,7 +14,7 @@ export const NOTES: Cue[] = [
   { t: "REACH / D4 — say this only if it comes up", min: "—", show: "/products banner (amber)", say: [
     "I have followed the cyclic-siloxane issue for years from the customer side. Israeli formulators who export to the EU ask about D4 and D5 first.",
     "The way I present it to customers is this: Silitex has dedicated non-cyclic lines — MACROAMISIL E1386, MICROAMISIL E1352, IDROAMISIL 250 — linear DM dimethicones, and fully vegetal options like EVEROIL and FISIOREX. That is a real advantage over legacy competitor products.",
-    "At the same time your catalog still lists CM 040, a D5 carrier, for applications where it is permitted. I don't hide that. I tell the customer: read SDS section 3, and for REACH-sensitive uses we move you to the non-cyclic line. Customers respect the claim more when the gap is explained, not when it is denied.",
+    "At the same time your catalog still lists CICLOPENTASILOSSANO, a D5 carrier, for applications where it is permitted. I don't hide that. I tell the customer: read SDS section 3, and for REACH-sensitive uses we move you to the non-cyclic line. Customers respect the claim more when the gap is explained, not when it is denied.",
     "If any of that needs correcting, I'd rather hear it from you now than from a customer's chemist later." ] },
   { t: "Ask Silitex", min: "7–10", show: "/ask → food-industry example → Answer; then let THEM ask", say: [
     "Everything — your catalog, the cross-reference, the Kosher line, 50 Q&A built from your website — is indexed. Ask it something.",

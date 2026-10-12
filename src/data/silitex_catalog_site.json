@@ -1,0 +1,2432 @@
+{
+ "source": "silitex.it/prodotti/categorie-di-prodotti/* (35 category pages)",
+ "scraped": "12/10/2026",
+ "count": 318,
+ "products": [
+  {
+   "name": "AGRIWET",
+   "categories": [
+    "bagnanti-e-livellanti-per-sistemi-all-acqua"
+   ],
+   "desc_en": "Aqueous silicone-polyether emulsion."
+  },
+  {
+   "name": "AGUAREX R",
+   "categories": [
+    "emulsioni",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Aqueous emulsion with strong water-repellent, stain-resistant and wet-look enhancing effect. Ready to use."
+  },
+  {
+   "name": "ALISIL 35%",
+   "categories": [
+    "emulsioni",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Aqueous E900 silicone emulsion, further dilutable."
+  },
+  {
+   "name": "AMINOQUAT 1000",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "cere-in-emulsione-acquosa"
+   ],
+   "desc_en": "Anhydrous water-insoluble silicone fluid; base for preparing softeners."
+  },
+  {
+   "name": "AMINOQUAT 250",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Special silicone microemulsion for bath sponges; very soft and wash-resistant."
+  },
+  {
+   "name": "AMINOQUAT 350",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Special silicone microemulsion for bath sponges; very soft and wash-resistant."
+  },
+  {
+   "name": "AMINOQUAT 500",
+   "categories": [
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Microemulsion with very pleasant, soft bulking and softening effect; base for preparations."
+  },
+  {
+   "name": "AMINOQUAT 700",
+   "categories": [
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Microemulsion with very pleasant, soft bulking and softening effect; base for preparations."
+  },
+  {
+   "name": "AMINOQUAT 700 X",
+   "categories": [
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Microemulsion with strong bulking and softening effect, very pleasant and markedly soft hand; base."
+  },
+  {
+   "name": "AMINOVER PES",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Aqueous nano-dispersion of a special reactive silicone giving strong water repellency."
+  },
+  {
+   "name": "AMISIL 120",
+   "categories": [
+    "finishes-siliconici-per-rifinizione-conciaria"
+   ],
+   "desc_en": "Reactive silicone in solvent that reacts with leather, giving a very pleasant, lasting soft effect."
+  },
+  {
+   "name": "AMISIL 501",
+   "categories": [
+    "fluidi-di-silicone"
+   ],
+   "desc_en": "Dispersion in alcohols of a special air-reactive silicone."
+  },
+  {
+   "name": "AMODIMETHICONE",
+   "categories": [
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Reactive silicone fluid for cosmetics; cross-links in air."
+  },
+  {
+   "name": "ANTIBROMOS",
+   "categories": [
+    "detergenti"
+   ],
+   "desc_en": "Concentrated liquid alkaline detergent for removing dirt and grease from any surface."
+  },
+  {
+   "name": "ANTIGAP",
+   "categories": [
+    "ammorbidenti-cationici"
+   ],
+   "desc_en": "Aqueous emulsion with softening effect on paper fibres."
+  },
+  {
+   "name": "ANTIGAP 100",
+   "categories": [
+    "ammorbidenti-cationici"
+   ],
+   "desc_en": "Concentrated cationic softener, water-dilutable; fragrance can be added."
+  },
+  {
+   "name": "ANTIGAP 200",
+   "categories": [
+    "ammorbidenti-cationici"
+   ],
+   "desc_en": "Concentrated cationic softener, water-dilutable; fragrance can be added."
+  },
+  {
+   "name": "ANTIGAP 50",
+   "categories": [
+    "ammorbidenti-cationici"
+   ],
+   "desc_en": "Ready-to-use cationic softener; fragrance can be added."
+  },
+  {
+   "name": "ANTISCHIUMA 3",
+   "categories": [
+    "antischiuma-siliconici",
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion with FDA - BFR - BGA - EPA - Italian decree approvals."
+  },
+  {
+   "name": "ANTIVIR",
+   "categories": [
+    "detergenti"
+   ],
+   "desc_en": "Ready-to-use sanitizing detergent, effective against dirt and microbial load."
+  },
+  {
+   "name": "ANTIVIR OH",
+   "categories": [
+    "detergenti"
+   ],
+   "desc_en": "Ready-to-use detergent, sanitizer and disinfectant with degreasing action."
+  },
+  {
+   "name": "AROMATAC 100",
+   "categories": [
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Special fragrance-boosting additive that enhances and prolongs common perfumes."
+  },
+  {
+   "name": "AS 100",
+   "categories": [
+    "antischiuma-polietere-modificati",
+    "antischiuma-al-solvente"
+   ],
+   "desc_en": "100% active modified-silicone compound for preparing antifoams for solvent systems."
+  },
+  {
+   "name": "AS 1°",
+   "categories": [
+    "antischiuma-polietere-modificati",
+    "antischiuma-al-solvente"
+   ],
+   "desc_en": "Antifoam easily dispersible in acetone systems; brilliant and long-lasting efficacy."
+  },
+  {
+   "name": "AS 2°",
+   "categories": [
+    "antischiuma-al-solvente"
+   ],
+   "desc_en": "Antifoam easily dispersible in perchloroethylene systems; brilliant and long-lasting efficacy."
+  },
+  {
+   "name": "AS 3°",
+   "categories": [
+    "antischiuma-al-solvente"
+   ],
+   "desc_en": "Antifoam easily dispersible in mineral-spirit systems; brilliant and long-lasting efficacy."
+  },
+  {
+   "name": "AS 4°",
+   "categories": [
+    "antischiuma-al-solvente"
+   ],
+   "desc_en": "Antifoam made entirely with newly synthesized modified silicones; very brilliant, long-lasting efficacy."
+  },
+  {
+   "name": "AS 5°",
+   "categories": [
+    "antischiuma-al-solvente"
+   ],
+   "desc_en": "Antifoam from a newly synthesized modified silicone; fully soluble and compatible with solvent systems."
+  },
+  {
+   "name": "AS 6°",
+   "categories": [
+    "antischiuma-al-solvente"
+   ],
+   "desc_en": "Antifoam from a newly synthesized modified silicone, easily dispersible in the relevant solvent systems."
+  },
+  {
+   "name": "AS 9°",
+   "categories": [
+    "antischiuma-al-solvente"
+   ],
+   "desc_en": "Antifoam self-emulsifying in water, mineral spirits and similar hydrocarbon solvents."
+  },
+  {
+   "name": "BEAUTY CAR",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Special modified-silicone preparation in aqueous emulsion with polishing, protective effect."
+  },
+  {
+   "name": "BEAUTY CAR CONCENTRATO",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Special modified-silicone preparation in aqueous emulsion; polishing, protective, water-repellent."
+  },
+  {
+   "name": "BENSIL 350",
+   "categories": [
+    "emulsioni",
+    "antistatici-per-stampa-offset"
+   ],
+   "desc_en": "Aqueous silicone emulsion, further dilutable in water."
+  },
+  {
+   "name": "BERETEX 1000",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion with very good stability to water dilution."
+  },
+  {
+   "name": "BERETEX 1000 AD",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Very fine antifoam emulsion, easy to pump and water-dilutable; very brilliant efficacy."
+  },
+  {
+   "name": "BERETEX 1600",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion with excellent stability to water dilution."
+  },
+  {
+   "name": "BERETEX 350",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion, used as is or after dilution with water."
+  },
+  {
+   "name": "BERETEX 500",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion, stable to dilution."
+  },
+  {
+   "name": "BERETEX 750",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion with good stability to water dilution."
+  },
+  {
+   "name": "BIOTECH",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "100% active bio compound made entirely from \"bio\" raw materials."
+  },
+  {
+   "name": "BIRDYSIL",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Amino-silicone microemulsion with soft, pleasant, delicate effect."
+  },
+  {
+   "name": "BIRDYSIL LR 500",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Amino-silicone microemulsion with pleasantly soft, delicate effect."
+  },
+  {
+   "name": "BIRDYSIL LR 600",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Amino-silicone microemulsion with pleasantly soft, delicate effect; ideal for dilution."
+  },
+  {
+   "name": "BLACK OIL 100",
+   "categories": [
+    "disemulsionanti"
+   ],
+   "desc_en": "Easy-to-use demulsifier for batch or in-line treatment of effluents with low oil percentages."
+  },
+  {
+   "name": "BLACK OIL 16",
+   "categories": [
+    "disemulsionanti"
+   ],
+   "desc_en": "Easy-to-use demulsifier for batch or in-line treatment of effluents with moderate oil percentage."
+  },
+  {
+   "name": "BLACK OIL 1R",
+   "categories": [
+    "disemulsionanti"
+   ],
+   "desc_en": "Easy-to-use demulsifier for batch or in-line treatment of effluents."
+  },
+  {
+   "name": "BLACK OIL 1RPH",
+   "categories": [
+    "disemulsionanti"
+   ],
+   "desc_en": "Very-high-performance demulsifier for breaking all emulsions, slops or dense wastes."
+  },
+  {
+   "name": "BLACK OIL 29",
+   "categories": [
+    "disemulsionanti"
+   ],
+   "desc_en": "Easy-to-use demulsifier for batch or in-line treatment of effluents with moderate oil percentage."
+  },
+  {
+   "name": "BLACK OIL 59",
+   "categories": [
+    "disemulsionanti"
+   ],
+   "desc_en": "Excellent easy-to-use demulsifier for batch or in-line treatment of low-oil effluents."
+  },
+  {
+   "name": "BLACKFLOC 003",
+   "categories": [
+    "flocculanti"
+   ],
+   "desc_en": "Anionic powder polymer for physico-chemical plants or wherever water clarification is needed."
+  },
+  {
+   "name": "BODYAMISIL",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Aqueous amodimethicone emulsion for cosmetic preparations."
+  },
+  {
+   "name": "BODYSIL",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Aqueous dimethicone emulsion for cosmetic preparations."
+  },
+  {
+   "name": "BRILAX",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Antifoam very stable even in very-low-viscosity systems; easy to use and incorporate."
+  },
+  {
+   "name": "BRILAX 500 W",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Antifoam and deaerator very stable in low-viscosity systems, with good additional properties."
+  },
+  {
+   "name": "BRILAX T",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Antifoam very stable even in very-low-viscosity systems; easy to use and incorporate."
+  },
+  {
+   "name": "BRILAX T2",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Antifoam very stable in low-viscosity systems, with good additional properties."
+  },
+  {
+   "name": "BRILAX W",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Antifoam very stable in very-low-viscosity systems, with good additional properties."
+  },
+  {
+   "name": "BRILLER",
+   "categories": [
+    "nanoemulsioni",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Concentrated aqueous dispersion made by nanoemulsion technique, based on a special water-repellent silicone."
+  },
+  {
+   "name": "BRILLER R",
+   "categories": [
+    "emulsioni",
+    "nanoemulsioni",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Water-based nano-technology silicone water repellent with marked, visible beading effect."
+  },
+  {
+   "name": "BRILMESIP 340",
+   "categories": [
+    "nanoemulsioni",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Concentrated aqueous nano-dispersion; silicone-based water repellent, to be diluted."
+  },
+  {
+   "name": "BRILMESIP PR",
+   "categories": [
+    "emulsioni",
+    "nanoemulsioni",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Aqueous nano-dispersion; water repellent with good effect; economical and easy to use."
+  },
+  {
+   "name": "BRILSAR 100",
+   "categories": [
+    "emulsioni",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Water-based silicone water repellent with marked effect. Ready to use."
+  },
+  {
+   "name": "BRILSAR 1000",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Water-repellent additive for cement and concrete mixes; BRILSAR 1000 disperses in the system."
+  },
+  {
+   "name": "BRILSAR 500",
+   "categories": [
+    "emulsioni",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Concentrated aqueous emulsion of a special silicone with strong water repellency; to be diluted."
+  },
+  {
+   "name": "CARNAUBEX",
+   "categories": [
+    "cere-in-emulsione-acquosa",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Aqueous emulsion of a special natural wax with protective, restructuring, water-repellent effect."
+  },
+  {
+   "name": "CARNAUBEX 442",
+   "categories": [
+    "finishes-siliconici-per-rifinizione-conciaria",
+    "cere-in-emulsione-acquosa"
+   ],
+   "desc_en": "Emulsion perfectly stable in most aqueous systems; good water repellency, leaves a film."
+  },
+  {
+   "name": "CARNAUBEX C",
+   "categories": [
+    "finishes-siliconici-per-rifinizione-conciaria",
+    "cere-in-emulsione-acquosa"
+   ],
+   "desc_en": "By its nature it interacts very well with the substrate it contacts; good water repellency."
+  },
+  {
+   "name": "CARTASAR 1000",
+   "categories": [
+    "idrorepellenti-e-antimacchia",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Special reactive polymer used as active for formulating wood water repellents."
+  },
+  {
+   "name": "CARTASAR 600",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Special wood water-repellent leaving the wood's look unchanged. Ready to use."
+  },
+  {
+   "name": "CARTASAR 600 L",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Special wood water-repellent giving a tone-enhancing effect. Ready to use."
+  },
+  {
+   "name": "CATLOX HC EMULSIONE",
+   "categories": [
+    "emulsioni",
+    "polielettroliti"
+   ],
+   "desc_en": "Organic cationic polyelectrolyte in aqueous emulsion."
+  },
+  {
+   "name": "CERASIL",
+   "categories": [
+    "emulsioni",
+    "antistatici-per-stampa-offset"
+   ],
+   "desc_en": "Aqueous silicone and wax emulsion, further dilutable in water."
+  },
+  {
+   "name": "CHERIOGEL",
+   "categories": [
+    "detergenti"
+   ],
+   "desc_en": "Hand-wash gel with sanitizing, cleansing and emollient effect."
+  },
+  {
+   "name": "CHEROX 100",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Versatile, good-efficacy multifunctional antifoam; many applications, especially emulsion paints."
+  },
+  {
+   "name": "CHEROX 100 I",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "100% active antifoam with high compatibility; suitable for many applications."
+  },
+  {
+   "name": "CHEROX 103",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Versatile, multifunctional antifoam and deaerator; many applications, especially emulsion paints."
+  },
+  {
+   "name": "CHEROX 200",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "100% active antifoam with high compatibility; suitable for many applications."
+  },
+  {
+   "name": "CHEROX 440",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Very-high-performance antifoam and deaerator, effective at very low dosages; wide range of uses."
+  },
+  {
+   "name": "CHEROX 450",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "High-performance antifoam and deaerator, effective at low dosages; wide range of processes."
+  },
+  {
+   "name": "CHEROX 600",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Good-efficacy antifoam with excellent compatibility and versatility."
+  },
+  {
+   "name": "CHEROX 611",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Versatile, very-high-efficacy multifunctional antifoam; many applications, especially enamels."
+  },
+  {
+   "name": "CHEROX 620",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "High-performance antifoam and deaerator, effective at low dosages; wide range of processes."
+  },
+  {
+   "name": "CHEROX 630",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Very-high-performance antifoam and deaerator, effective at very low dosages; wide range of uses."
+  },
+  {
+   "name": "CHEROX 701",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Medium-low dispersibility antifoam for construction paints and coatings."
+  },
+  {
+   "name": "CHEROX 703",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Very-high-performance, medium-dispersibility antifoam and deaerator for construction paints and coatings."
+  },
+  {
+   "name": "CHEROX 704",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Medium-dispersibility antifoam for adhesives and medium-high viscosity systems; many applications."
+  },
+  {
+   "name": "CHEROX 710",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Medium-low dispersibility antifoam for construction paints and coatings."
+  },
+  {
+   "name": "CHEROX 731",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Medium-dispersibility, good-efficacy antifoam for paints, construction paints, pastes and adhesives."
+  },
+  {
+   "name": "CICLOPENTASILOSSANO",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Cyclopentasiloxane silicone fluid for cosmetics; high quality, D4 <0.1%."
+  },
+  {
+   "name": "CICLOPENTASILOSSANO (D5)",
+   "categories": [
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Cyclopentasiloxane silicone fluid for cosmetics; high quality, D4 <0.1%."
+  },
+  {
+   "name": "CONSOLIDANTE PER AGUAREX",
+   "categories": [
+    "cere-in-emulsione-acquosa"
+   ],
+   "desc_en": "Special concentrated aqueous dispersion of a film-forming polymer; surface restructuring effect."
+  },
+  {
+   "name": "CPL 1000",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Non-silicone 100% active antifoam, self-emulsifying in water, good efficacy; easy to use and pump."
+  },
+  {
+   "name": "CPL 150",
+   "categories": [
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "Stable aqueous-emulsion antifoam."
+  },
+  {
+   "name": "CPL 150 CP",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Stable aqueous-emulsion antifoam."
+  },
+  {
+   "name": "CPL 220 CP",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Stable aqueous-emulsion antifoam, good performance."
+  },
+  {
+   "name": "CPL 250",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-vegetali"
+   ],
+   "desc_en": "Aqueous-emulsion antifoam with excellent stability; easy to use, many applications."
+  },
+  {
+   "name": "CPL 250 FOOD",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-per-l-industria-alimentare",
+    "antischiuma-vegetali"
+   ],
+   "desc_en": "Natural-substance antifoam in aqueous emulsion, ideal for food-contact and Ecolabel detergents."
+  },
+  {
+   "name": "CPL 250 W",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-vegetali"
+   ],
+   "desc_en": "Aqueous-emulsion antifoam with good efficacy; stable in all systems."
+  },
+  {
+   "name": "CPL 2550",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "Non-silicone 100% active antifoam, self-emulsifying in water, low viscosity."
+  },
+  {
+   "name": "CPL 2700",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "Non-silicone 100% active antifoam, self-emulsifying in water, good efficacy."
+  },
+  {
+   "name": "CPL 280",
+   "categories": [
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "Stable aqueous-emulsion antifoam, good performance."
+  },
+  {
+   "name": "CPL 280 CP",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "Stable aqueous-emulsion antifoam, high performance."
+  },
+  {
+   "name": "CPL 2800",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "100% active antifoam, self-emulsifying in water, high performance."
+  },
+  {
+   "name": "CPL 2904",
+   "categories": [
+    "bagnanti-e-livellanti-per-sistemi-all-acqua"
+   ],
+   "desc_en": "Special wetting agent with antifoam effect, mainly for ceramic enamels and glazes."
+  },
+  {
+   "name": "CPL 2907",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare",
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "100% active antifoam, self-emulsifying in water, alcohol-based."
+  },
+  {
+   "name": "CPL 2907 CP",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "100% active antifoam, self-emulsifying in water, very high performance."
+  },
+  {
+   "name": "CPL 2907 P",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "High-compatibility, high-efficacy antifoam, especially for preparing formulations."
+  },
+  {
+   "name": "CPL 3000",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Non-silicone 100% active antifoam, self-emulsifying in water, excellent efficacy; easy to use."
+  },
+  {
+   "name": "CPL 3000 W",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Non-silicone 100% active antifoam, self-emulsifying in water, very high efficacy."
+  },
+  {
+   "name": "CPL 350 (certificato KOSHER)",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "Anhydrous 100% active antifoam, water-insoluble, fully plant-based."
+  },
+  {
+   "name": "CPL 350 E",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-per-l-industria-alimentare",
+    "antischiuma-vegetali"
+   ],
+   "desc_en": "Self-emulsifying compound based on selected refined natural substances."
+  },
+  {
+   "name": "CPL 350 EP",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-vegetali"
+   ],
+   "desc_en": "Non-silicone 100% active antifoam from natural-origin actives, fully self-emulsifying."
+  },
+  {
+   "name": "CPL 350 ET (certificato KOSHER)",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "Anhydrous 100% active antifoam, self-emulsifying in water, for yeasts and bio-fermentations."
+  },
+  {
+   "name": "CPL 350 EW",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-vegetali"
+   ],
+   "desc_en": "Excellent-performance antifoam working at low dosages; many applications, especially water-based paints."
+  },
+  {
+   "name": "CPL 440 W",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-vegetali"
+   ],
+   "desc_en": "Multifunctional antifoam for many applications, especially water-based enamels and furniture coatings."
+  },
+  {
+   "name": "CPL 4430",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "Non-silicone 100% active antifoam, self-emulsifying in water, good efficacy; flows even at low temperature."
+  },
+  {
+   "name": "CPL 800",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-vegetali"
+   ],
+   "desc_en": "Versatile antifoam with very high dispersibility in aqueous systems; many applications."
+  },
+  {
+   "name": "CPL 860 E",
+   "categories": [
+    "antischiuma-vegetali"
+   ],
+   "desc_en": "High-performance product among vegetable antifoams; works at very low dosages."
+  },
+  {
+   "name": "CPL 860E",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "High-performance product among vegetable antifoams; works at very low dosages."
+  },
+  {
+   "name": "DIMETHICONE",
+   "categories": [
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Dimethicone fluid for cosmetics; viscosities 5-10-20-50-100-350-1000-5000 cSt."
+  },
+  {
+   "name": "DISTAC",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Non-silicone aqueous dispersion, further dilutable, allowing painting, screen printing and gluing."
+  },
+  {
+   "name": "DISTAC 200",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Non-silicone aqueous dispersion, further dilutable, allowing painting, screen printing, etc."
+  },
+  {
+   "name": "DISTACCANTE SINTETICO",
+   "categories": [
+    "fluidi-non-siliconici"
+   ],
+   "desc_en": "Pure anhydrous hydrocarbon fluid."
+  },
+  {
+   "name": "DYNAKOS 1000",
+   "categories": [
+    "antischiuma-siliconici",
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Self-emulsifying antifoam compound; effective and persistent in pH 14 systems."
+  },
+  {
+   "name": "DYNAKOS 130 E",
+   "categories": [
+    "antischiuma-siliconici",
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Extremely stable aqueous-emulsion antifoam, effective and durable in pH 14 systems."
+  },
+  {
+   "name": "DYNAPAN 10 D",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion with good performance."
+  },
+  {
+   "name": "DYNAPAN 16 D",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Very fine, easy-to-use, versatile antifoam emulsion with immediate and lasting efficacy."
+  },
+  {
+   "name": "DYNAPAN 16 F",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion, high performance and easy pumpability."
+  },
+  {
+   "name": "DYNAPAN 16 WD",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Very fine antifoam emulsion with immediate, lasting, particularly persistent efficacy; stable to dilution."
+  },
+  {
+   "name": "DYNAPAN 20F EXTRA",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Antifoam with high active-ingredient concentration, designed for optimal carrying in the system."
+  },
+  {
+   "name": "DYNAPAN 220",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Ready-to-use, easy-to-handle antifoam; needs no pre-dilution or preparation."
+  },
+  {
+   "name": "DYNAPAN 30 D",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "High-performance silicone antifoam in aqueous emulsion, designed for optimal carrying."
+  },
+  {
+   "name": "DYNAPAN 30 F",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion with FDA - BFR - BGA - EPA - Italian decree approvals."
+  },
+  {
+   "name": "DYNAPAN 300",
+   "categories": [
+    "antischiuma-siliconici",
+    "antischiuma-per-alte-temperature"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion with excellent stability even at low temperatures."
+  },
+  {
+   "name": "DYNAPAN 301",
+   "categories": [
+    "antischiuma-siliconici",
+    "antischiuma-per-alte-temperature"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion for formulating tannery auxiliaries."
+  },
+  {
+   "name": "DYNAPAN 360 F",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "High-performance silicone antifoam in aqueous emulsion with excellent stability in the system."
+  },
+  {
+   "name": "DYNAWEED 100",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Strong antifoam and deaerator for polyvinyl acetate and pure acrylic resin emulsions."
+  },
+  {
+   "name": "DYNAWEED 101",
+   "categories": [
+    "antischiuma-al-solvente"
+   ],
+   "desc_en": "Pure 100% active antifoam from a newly synthesized silicone; brilliant, persistent efficacy."
+  },
+  {
+   "name": "DYNAWEED 120 E",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Very stable antifoam and leveling agent preventing micro- and macro-foam; ideal for paints."
+  },
+  {
+   "name": "DYNAWEED 150 E",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Very stable antifoam and leveling agent preventing micro- and macro-foam."
+  },
+  {
+   "name": "DYNAWEED 2-100",
+   "categories": [
+    "bagnanti-e-livellanti-per-sistemi-all-acqua"
+   ],
+   "desc_en": "Anhydrous silicone-polyether compound, self-emulsifying in water, powerful wetting effect."
+  },
+  {
+   "name": "DYNAWEED 200",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "High-compatibility antifoam preventing micro- and macro-foam."
+  },
+  {
+   "name": "DYNAWEED 200 E",
+   "categories": [
+    "antischiuma-siliconici",
+    "antischiuma-per-alte-temperature",
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Silicone antifoam for high-temperature jet dyeing; resists thermal shock."
+  },
+  {
+   "name": "DYNAWEED 201",
+   "categories": [
+    "antischiuma-per-alte-temperature",
+    "antischiuma-polietere-modificati",
+    "bagnanti-e-livellanti-per-sistemi-all-acqua"
+   ],
+   "desc_en": "Silicone antifoam and wetting agent, self-emulsifying in water."
+  },
+  {
+   "name": "DYNAWEED 220 E",
+   "categories": [
+    "antischiuma-siliconici",
+    "antischiuma-per-alte-temperature"
+   ],
+   "desc_en": "Antifoam emulsion based on specially modified silicone; effective against persistent foam."
+  },
+  {
+   "name": "DYNAWEED 260 E",
+   "categories": [
+    "antischiuma-siliconici",
+    "antischiuma-per-alte-temperature",
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Very stable antifoam and leveling agent preventing micro- and macro-foam."
+  },
+  {
+   "name": "DYNAWEED 260 SE",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Very stable antifoam and deaerator preventing macro-foam; ideal for paints."
+  },
+  {
+   "name": "DYNAWEED 400",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "High-compatibility antifoam and deaerator for water-based paints, emulsion paints, adhesives, etc."
+  },
+  {
+   "name": "DYNAWEED 510",
+   "categories": [
+    "bagnanti-e-livellanti-per-sistemi-all-acqua"
+   ],
+   "desc_en": "Fully water-soluble silicone-polyether compound; forms stable solutions with strong wetting effect."
+  },
+  {
+   "name": "DYNAWEED 550 E",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "High-concentration antifoam and leveling agent preventing micro- and macro-foam."
+  },
+  {
+   "name": "DYNAWEED 600 E",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "High-concentration antifoam and leveling agent preventing micro- and macro-foam."
+  },
+  {
+   "name": "DYNAWEED 600 SE",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Concentrated antifoam and deaerator preventing macro-foam; ideal for paints, coatings, adhesives."
+  },
+  {
+   "name": "DYNAWEED MG",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Antifoam for printing/overprint inks and adhesives; well suited to high-concentration preparations."
+  },
+  {
+   "name": "DYNAWEED MS",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Strong antifoam and deaerator for polyvinyl acetate and pure-resin emulsions; very effective."
+  },
+  {
+   "name": "DYNAWEED MS 4",
+   "categories": [
+    "antischiuma-siliconici",
+    "antischiuma-per-alte-temperature",
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Antifoam compound based on specially treated silicone; extremely effective against persistent foam."
+  },
+  {
+   "name": "DYNAWOOD 100",
+   "categories": [
+    "antischiuma-al-solvente"
+   ],
+   "desc_en": "Pure 100% active antifoam from a special silicone; brilliant, persistent efficacy."
+  },
+  {
+   "name": "DYNAWOOD 700",
+   "categories": [
+    "antischiuma-al-solvente"
+   ],
+   "desc_en": "Pure 100% active antifoam from a special silicone; brilliant, persistent efficacy."
+  },
+  {
+   "name": "EPROTEX 250",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-per-alte-temperature",
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "Non-silicone antifoam in aqueous emulsion with high compatibility."
+  },
+  {
+   "name": "ESSENZA DI EDEN",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Aqueous emulsion of perfumed essence."
+  },
+  {
+   "name": "EVALAR 1000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Paintable (overcoatable) silicone fluid (oil)."
+  },
+  {
+   "name": "EVALAR 55",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Aqueous modified-silicone emulsion, further dilutable; allows painting, screen printing, etc."
+  },
+  {
+   "name": "EVALAR 55 HP",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Aqueous emulsion, further dilutable, of paintable, high-temperature-resistant silicone."
+  },
+  {
+   "name": "EVALAR 55 HT",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Aqueous emulsion, further dilutable, of paintable, high-temperature-resistant silicone."
+  },
+  {
+   "name": "EVERIX 35",
+   "categories": [
+    "emulsioni",
+    "distaccanti-per-plastica-e-gomma",
+    "distaccanti-per-saldatura",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Aqueous emulsion of plant substances with fabric softening, lubricating and polishing effect; low cost."
+  },
+  {
+   "name": "EVEROIL 35",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Aqueous emulsion of natural-origin emollient and softening substances; ideal for Ecolabel."
+  },
+  {
+   "name": "EVERQUAT",
+   "categories": [
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Stable emulsion of suitably modified silicone with marked softening effect; swells fabric fibres."
+  },
+  {
+   "name": "EVERQUAT 250",
+   "categories": [
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Stable emulsion of suitably modified silicone with marked softening effect; swells fabric fibres."
+  },
+  {
+   "name": "EVERQUAT 350",
+   "categories": [
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Stable emulsion of suitably modified silicone with marked softening effect; swells fabric fibres."
+  },
+  {
+   "name": "EVERSIL",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "emulsioni",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Aqueous emulsion with softening and slip effect on paper fibres."
+  },
+  {
+   "name": "EVERSIL 3.5",
+   "categories": [
+    "emulsioni",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Aqueous silicone emulsion with polishing effect; active for formulators only."
+  },
+  {
+   "name": "EVERSIL 35",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "emulsioni",
+    "finishes-siliconici-per-rifinizione-conciaria",
+    "antistatici-per-stampa-offset",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Aqueous silicone emulsion with medium effect; use as is after dilution or as an additive."
+  },
+  {
+   "name": "EVERSIL 350",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "emulsioni",
+    "finishes-siliconici-per-rifinizione-conciaria",
+    "antistatici-per-stampa-offset",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Aqueous silicone emulsion with high effect; use as is after dilution or as an additive."
+  },
+  {
+   "name": "EVERSIL 3500",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "emulsioni",
+    "finishes-siliconici-per-rifinizione-conciaria",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Aqueous silicone emulsion with very marked effect; use as is after dilution or as an additive."
+  },
+  {
+   "name": "EVERSIL 45",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "emulsioni"
+   ],
+   "desc_en": "Dimethylpolysiloxane emulsion with medium slip, antistatic and softening effect."
+  },
+  {
+   "name": "EVERSIL 6.0",
+   "categories": [
+    "emulsioni",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Aqueous silicone emulsion with polishing effect; active for formulators only."
+  },
+  {
+   "name": "EVERSIL 60",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "emulsioni",
+    "finishes-siliconici-per-rifinizione-conciaria",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Aqueous silicone emulsion with medium effect; use as is after dilution or as an additive."
+  },
+  {
+   "name": "FISIOREX 1000",
+   "categories": [
+    "antischiuma-vegetali"
+   ],
+   "desc_en": "Fully vegetable antifoam, no chemical components, for foam knock-down and control."
+  },
+  {
+   "name": "FLUGAS 1000",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Antifoam fluid, self-emulsifying in aqueous systems."
+  },
+  {
+   "name": "FLUGAS BIO",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Antifoam fluid, self-emulsifying in aqueous systems."
+  },
+  {
+   "name": "FLUGAS BIO SUPER",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Antifoam fluid, self-emulsifying in aqueous systems."
+  },
+  {
+   "name": "FLUIDI DI SILICONE (DMPS)",
+   "categories": [
+    "cere-in-emulsione-acquosa",
+    "idrorepellenti-e-antimacchia",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Dimethylpolysiloxane (DMPS) silicone fluid in viscosities 50-100-350-1000-5000 cSt."
+  },
+  {
+   "name": "FLUIDI DI SILICONE (DPMS)",
+   "categories": [
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Dimethylpolysiloxane (DMPS) silicone fluid in viscosities 50-100-350-1000-5000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 10",
+   "categories": [
+    "antistatici-per-stampa-offset",
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 10 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 100",
+   "categories": [
+    "antistatici-per-stampa-offset",
+    "lubrificanti-scivolanti-antistatici",
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Anhydrous, fully water-insoluble fluid, viscosity 100 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 1000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 1,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 10000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 10,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 100000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 100,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 1000000",
+   "categories": [
+    "fluidi-di-silicone"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 1,000,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 12500",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 12,500 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 1500",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 1,500 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 20",
+   "categories": [
+    "antistatici-per-stampa-offset",
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 20 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 200",
+   "categories": [
+    "antistatici-per-stampa-offset",
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 200 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 2000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 2,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 20000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 20,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 200000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 200,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 2000000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 2,000,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 30",
+   "categories": [
+    "antistatici-per-stampa-offset",
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 30 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 3000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 3,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 30000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 30,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 300000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 300,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 350",
+   "categories": [
+    "antistatici-per-stampa-offset",
+    "lubrificanti-scivolanti-antistatici",
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Anhydrous, fully water-insoluble fluid, viscosity 350 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 5",
+   "categories": [
+    "antistatici-per-stampa-offset",
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 5 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 50",
+   "categories": [
+    "antistatici-per-stampa-offset",
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 50 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 500",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 500 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 5000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 5,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 500000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 500,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 60000",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 60,000 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 70",
+   "categories": [
+    "antistatici-per-stampa-offset",
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 70 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 750",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 750 cSt."
+  },
+  {
+   "name": "FLUIDO DI SILICONE 7500",
+   "categories": [
+    "fluidi-di-silicone",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Pure silicone fluid (oil), viscosity 7,500 cSt."
+  },
+  {
+   "name": "GOMMA SILICONICA 5000",
+   "categories": [
+    "gomme-siliconiche"
+   ],
+   "desc_en": "Special silicone polymer that reacts with a catalyst to form a transparent, tough rubber."
+  },
+  {
+   "name": "GOMMA SILICONICA 80",
+   "categories": [
+    "gomme-siliconiche"
+   ],
+   "desc_en": "Special silicone polymer that reacts with a catalyst to form a transparent, tough, resistant rubber."
+  },
+  {
+   "name": "GRASSO AL LITIO",
+   "categories": [
+    "paste-e-grassi-di-silicone"
+   ],
+   "desc_en": "Synthetic lithium grease for lubricating gears, wheels, pins, joints or bearings under heavy conditions."
+  },
+  {
+   "name": "H 160",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "cere-in-emulsione-acquosa",
+    "idrorepellenti-e-antimacchia",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "Anhydrous medium-reactivity silicone fluid; base for producing silicone softeners."
+  },
+  {
+   "name": "H 180",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "cere-in-emulsione-acquosa",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Anhydrous high-reactivity silicone fluid; base for producing silicone softeners."
+  },
+  {
+   "name": "IDROAMISIL",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Special microemulsion giving a marked hydrophilic effect on textile fibres; good softener."
+  },
+  {
+   "name": "IDROAMISIL 1000",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "cere-in-emulsione-acquosa"
+   ],
+   "desc_en": "Anhydrous silicone fluid, partly water-soluble; base for hydrophilic softeners."
+  },
+  {
+   "name": "IDROAMISIL 250 (E1453)",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Hydrophilic microemulsion made entirely without cyclic silicones; pleasant softening effect."
+  },
+  {
+   "name": "IDROCER",
+   "categories": [
+    "cere-in-emulsione-acquosa",
+    "cere-e-lubrificanti-per-cucirini",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Stable medium-melting polyethylene wax microemulsion, perfectly stable in most systems."
+  },
+  {
+   "name": "IDROCER 1300",
+   "categories": [
+    "finishes-siliconici-per-rifinizione-conciaria",
+    "cere-in-emulsione-acquosa",
+    "cere-e-lubrificanti-per-cucirini",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "High-melting polyethylene wax microemulsion, perfectly stable in most systems."
+  },
+  {
+   "name": "IDROCER SH",
+   "categories": [
+    "finishes-siliconici-per-rifinizione-conciaria",
+    "cere-in-emulsione-acquosa",
+    "cere-e-lubrificanti-per-cucirini",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Aqueous high-melting polyethylene wax nanoemulsion; leaves a perfectly transparent film."
+  },
+  {
+   "name": "IDROOLEOREPELLENTE 210",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Aqueous emulsion of C6 fluorocarbon resin."
+  },
+  {
+   "name": "IDROREX 210",
+   "categories": [
+    "nanoemulsioni",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Concentrated aqueous nano-dispersion; water- and stain-repellent, to be diluted."
+  },
+  {
+   "name": "IDROREX 50",
+   "categories": [
+    "emulsioni",
+    "nanoemulsioni",
+    "idrorepellenti-e-antimacchia",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Aqueous nano-dispersion; water- and stain-repellent for stone and terracotta. Ready to use."
+  },
+  {
+   "name": "KATARSIT",
+   "categories": [
+    "detergenti"
+   ],
+   "desc_en": "Powerful degreaser from surfactants and natural-origin substances in aqueous dispersion."
+  },
+  {
+   "name": "LANEMUL",
+   "categories": [
+    "ammorbidenti-cationici"
+   ],
+   "desc_en": "Special dispersion of fatty substances, ideal for preparing wool softeners."
+  },
+  {
+   "name": "LUBROFIL 4500",
+   "categories": [
+    "cere-in-emulsione-acquosa",
+    "cere-e-lubrificanti-per-cucirini"
+   ],
+   "desc_en": "Aqueous emulsion of silicone waxes; special lubricant for sewing threads."
+  },
+  {
+   "name": "LUBROWHITE",
+   "categories": [
+    "emulsioni",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Aqueous paraffinic-fluid emulsion, further dilutable."
+  },
+  {
+   "name": "LUBROWHITE 100",
+   "categories": [
+    "fluidi-non-siliconici"
+   ],
+   "desc_en": "Light white mineral (vaseline) oil."
+  },
+  {
+   "name": "LUBROWHITE 190",
+   "categories": [
+    "fluidi-non-siliconici"
+   ],
+   "desc_en": "Medium white mineral (vaseline) oil."
+  },
+  {
+   "name": "MACROAMISIL",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "finishes-siliconici-per-rifinizione-conciaria"
+   ],
+   "desc_en": "Aqueous high-reactivity silicone emulsion giving a very soft, pleasant, velvety hand; swells fibres."
+  },
+  {
+   "name": "MACROAMISIL (E1386)",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Hydrophobic emulsion made entirely without cyclic silicones; very marked softening effect."
+  },
+  {
+   "name": "MACROAMISIL SLR",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "finishes-siliconici-per-rifinizione-conciaria"
+   ],
+   "desc_en": "Aqueous medium-reactivity silicone emulsion giving a soft, pleasant, velvety hand."
+  },
+  {
+   "name": "MICAREX",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Special polymer in aqueous dispersion; formulation additive forming a transparent film."
+  },
+  {
+   "name": "MICROAMISIL",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni",
+    "finishes-siliconici-per-rifinizione-conciaria"
+   ],
+   "desc_en": "Aqueous high-reactivity silicone microemulsion; use as is after dilution or as an additive."
+  },
+  {
+   "name": "MICROAMISIL (E1352)",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Hydrophobic microemulsion made entirely without cyclic silicones; very marked softening effect."
+  },
+  {
+   "name": "MICROAMISIL 41",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Special aqueous microemulsion of a reactive silicone; marked water repellency."
+  },
+  {
+   "name": "MICROAMISIL C",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Special aqueous microemulsion of a high-reactivity silicone; marked, lasting water repellency."
+  },
+  {
+   "name": "MICROAMODIMETISIL",
+   "categories": [
+    "microemulsioni"
+   ],
+   "desc_en": "Aqueous amodimethicone microemulsion for cosmetic preparations."
+  },
+  {
+   "name": "MICROPIUMA",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Special silicone microemulsion for treating down/duvets; softens and bulks."
+  },
+  {
+   "name": "MICROSOLV",
+   "categories": [
+    "microemulsioni",
+    "detergenti"
+   ],
+   "desc_en": "Aqueous dispersion of a citrus-scented active with strong degreasing power."
+  },
+  {
+   "name": "NANOAMISIL HR",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "nanoemulsioni"
+   ],
+   "desc_en": "Nanoemulsion with high fibre penetration and pleasant soft effect."
+  },
+  {
+   "name": "NANOAMISIL LR",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "nanoemulsioni"
+   ],
+   "desc_en": "Strongly hydrophilic nanoemulsion with high fibre penetration; easy to use."
+  },
+  {
+   "name": "OLEOREX",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Dispersion in organic solvents of C6 fluorocarbon resin."
+  },
+  {
+   "name": "OLEOREX 50",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Solvent dispersion with strong, durable stain- and water-repellent effect. Ready to use."
+  },
+  {
+   "name": "PELREX 300",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Aqueous microemulsion of specially treated/modified silicone."
+  },
+  {
+   "name": "PELSAR 1000",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Anhydrous 100% active water-insoluble compound based on specially treated/modified silicone."
+  },
+  {
+   "name": "PELSAR 1001",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Anhydrous 100% active water-insoluble compound based on specially treated/modified silicone."
+  },
+  {
+   "name": "POLIBRIL 1500S",
+   "categories": [
+    "antischiuma-in-polvere"
+   ],
+   "desc_en": "Silicone-free hydrocarbon-based powder antifoam, fully water-soluble."
+  },
+  {
+   "name": "POLIFOOD 1500 S",
+   "categories": [
+    "antischiuma-in-polvere"
+   ],
+   "desc_en": "Fully silicone-based powder antifoam suitable for direct food contact."
+  },
+  {
+   "name": "POLISIL 1500 S",
+   "categories": [
+    "antischiuma-in-polvere"
+   ],
+   "desc_en": "Silicone powder antifoam as additive for powder detergents."
+  },
+  {
+   "name": "POLIVEG",
+   "categories": [
+    "antischiuma-in-polvere"
+   ],
+   "desc_en": "Natural-based powder antifoam as additive for powder detergents; ideal for Ecolabel and food contact."
+  },
+  {
+   "name": "POLYEMUL 800/38",
+   "categories": [
+    "finishes-siliconici-per-rifinizione-conciaria",
+    "cere-in-emulsione-acquosa",
+    "cere-e-lubrificanti-per-cucirini",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Stable paraffin-wax emulsion made with food-contact-grade raw materials; good water repellency."
+  },
+  {
+   "name": "POLYEMUL TS",
+   "categories": [
+    "cere-in-emulsione-acquosa"
+   ],
+   "desc_en": "Very stable aqueous emulsion of FDA-grade waxes; special formula for cork stoppers."
+  },
+  {
+   "name": "PROMET 1000",
+   "categories": [
+    "fluidi-non-siliconici"
+   ],
+   "desc_en": "Non-silicone fluid (oil)."
+  },
+  {
+   "name": "PROMET 400",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Non-silicone aqueous emulsion, further dilutable, allowing painting, screen printing and gluing."
+  },
+  {
+   "name": "REOGUM 500",
+   "categories": [
+    "emulsioni",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Creamy silicone emulsion keeping rubber seals in perfect condition; lubricant."
+  },
+  {
+   "name": "REOPERG PR",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Solvent dispersion of a special reactive silicone; seals cracks and fissures on surfaces."
+  },
+  {
+   "name": "REOWASS 300",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "100% active water-soluble base with strong water-sheeting effect."
+  },
+  {
+   "name": "REOWASS 500S",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Special silicone preparation with water-break and water-repellent effect in washing; polishing."
+  },
+  {
+   "name": "RESINGUM 500",
+   "categories": [
+    "resine-in-emulsione-acquosa"
+   ],
+   "desc_en": "Special phenyl resin in aqueous emulsion to improve heat resistance of coatings."
+  },
+  {
+   "name": "RESINGUM 600 S",
+   "categories": [
+    "resine-in-solvente"
+   ],
+   "desc_en": "Special phenyl resin dispersed in xylene to improve heat resistance of solvent-based coatings."
+  },
+  {
+   "name": "RIM CLEANER A+B",
+   "categories": [
+    "detergenti"
+   ],
+   "desc_en": "Two-component preparation to be mixed for formulating a special car-rim degreaser."
+  },
+  {
+   "name": "RIMAX 1000 S",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "Anhydrous 100% active antifoam, self-emulsifying in water, for the sugar industry."
+  },
+  {
+   "name": "RIMAX 750",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "Antifoam very stable even in low-viscosity systems; easy to use and incorporate."
+  },
+  {
+   "name": "RIMAX 750 CO",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "Antifoam very stable in low-viscosity systems, with good additional properties."
+  },
+  {
+   "name": "RIMAX 750 W",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-alcolici"
+   ],
+   "desc_en": "Antifoam and deaerator very stable in very-low-viscosity systems, with good additional properties."
+  },
+  {
+   "name": "RIMAX S",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "Aqueous-emulsion antifoam, easily diluted in water."
+  },
+  {
+   "name": "RINOXID",
+   "categories": [
+    "emulsioni"
+   ],
+   "desc_en": "Aqueous emulsion with strong odour-absorbing properties."
+  },
+  {
+   "name": "RINOXID 100",
+   "categories": [
+    "fluidi-non-siliconici"
+   ],
+   "desc_en": "Anhydrous water-insoluble fluid with strong odour-absorbing properties."
+  },
+  {
+   "name": "RIXAID 100",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-vegetali"
+   ],
+   "desc_en": "100% active antifoam with high dispersibility and good efficacy."
+  },
+  {
+   "name": "SAR BRILL",
+   "categories": [
+    "emulsioni",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Water-based silicone water repellent with marked, visible beading effect."
+  },
+  {
+   "name": "SILGRASS 4",
+   "categories": [
+    "paste-e-grassi-di-silicone"
+   ],
+   "desc_en": "Silicone grease with water-repellent, dielectric and antistatic properties."
+  },
+  {
+   "name": "SILGRASS 4561",
+   "categories": [
+    "paste-e-grassi-di-silicone"
+   ],
+   "desc_en": "Silicone grease with strong water-repellent, dielectric and antistatic properties; good resistance."
+  },
+  {
+   "name": "SILGRASS MFS",
+   "categories": [
+    "paste-e-grassi-di-silicone"
+   ],
+   "desc_en": "Silicone paste with strong water-repellent, dielectric, antistatic, insulating properties; excellent resistance."
+  },
+  {
+   "name": "SILICONE SUPER LIQUID",
+   "categories": [
+    "antistatici-per-stampa-offset",
+    "lubrificanti-scivolanti-antistatici"
+   ],
+   "desc_en": "Dispersion of silicones in hydrocarbon solvent."
+  },
+  {
+   "name": "SILICONE SUPER SPRAY",
+   "categories": [
+    "antistatici-per-stampa-offset",
+    "spray-aerosol"
+   ],
+   "desc_en": "500 ml aerosol silicone spray with slip and antistatic effect."
+  },
+  {
+   "name": "SILIFOOD",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "E900 silicone-based antifoam in aqueous emulsion. Easy to use, good efficacy."
+  },
+  {
+   "name": "SILIFOOD 100",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "Anhydrous 100% active silicone antifoam, water-insoluble, based on E900 dimethylpolysiloxane."
+  },
+  {
+   "name": "SILIFOOD 1000",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "Anhydrous 100% active silicone antifoam, water-insoluble, simethicone-based."
+  },
+  {
+   "name": "SILIFOOD 1600",
+   "categories": [
+    "antischiuma-siliconici",
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion with FDA - BFR - BGA - EPA - Italian decree approvals."
+  },
+  {
+   "name": "SILIFOOD 2500",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "Simethicone-based antifoam in aqueous emulsion."
+  },
+  {
+   "name": "SILIFOOD 30 (certificato KOSHER)",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "Simethicone-based antifoam in aqueous emulsion."
+  },
+  {
+   "name": "SILIFOOD 3000",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "High-concentration E900 silicone-based antifoam in aqueous emulsion."
+  },
+  {
+   "name": "SILIFOOD 3000 K",
+   "categories": [
+    "antischiuma-per-l-industria-alimentare"
+   ],
+   "desc_en": "E900 silicone-based antifoam in aqueous emulsion, high concentration and performance."
+  },
+  {
+   "name": "SILIFOOD 3000K",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Silicone antifoam in aqueous emulsion with FDA - BFR - BGA - EPA - Italian decree approvals."
+  },
+  {
+   "name": "SILIWEED 260 E",
+   "categories": [
+    "antischiuma-siliconici",
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Antifoam for water-based paints, printing, gravure and flexo inks, varnishes."
+  },
+  {
+   "name": "SILIWEED 260 SE",
+   "categories": [
+    "antischiuma-polietere-modificati"
+   ],
+   "desc_en": "Antifoam and deaerator for enamels, water-based paints, printing inks, pigment pastes."
+  },
+  {
+   "name": "SILQUAT 350",
+   "categories": [
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Microemulsion with strong hydrophilic effect; swells fabric fibres, making them very soft and pleasant."
+  },
+  {
+   "name": "SILQUAT 500",
+   "categories": [
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Microemulsion with strong hydrophilic, bulking and softening effect, pleasant and markedly soft hand."
+  },
+  {
+   "name": "SILQUAT 700 X",
+   "categories": [
+    "ammorbidenti-siliconici"
+   ],
+   "desc_en": "Microemulsion with strong hydrophilic, bulking and softening effect, pleasant and markedly soft hand."
+  },
+  {
+   "name": "SILWALL PR",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Solvent dispersion of a special reactive silicone; strong, durable water repellency. Ready to use."
+  },
+  {
+   "name": "SILWALL PRF 100",
+   "categories": [
+    "idrorepellenti-e-antimacchia",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "100% reactive siloxane base; completely solvent-free."
+  },
+  {
+   "name": "SILWALL PRF SUPER",
+   "categories": [
+    "idrorepellenti-e-antimacchia",
+    "materie-prime-siliconiche"
+   ],
+   "desc_en": "100% reactive siloxane base; contains 5% dearomatized mineral spirits."
+  },
+  {
+   "name": "SINDEKOR",
+   "categories": [
+    "fluidi-non-siliconici",
+    "disemulsionanti"
+   ],
+   "desc_en": "Demulsifying fluid for separating water from oily components in process emulsions."
+  },
+  {
+   "name": "SINDEKOR HR",
+   "categories": [
+    "disemulsionanti"
+   ],
+   "desc_en": "Additive that splits the fat/oil fraction from water in a very-high-fat emulsion."
+  },
+  {
+   "name": "SINDEKOR R",
+   "categories": [
+    "fluidi-non-siliconici",
+    "disemulsionanti"
+   ],
+   "desc_en": "Higher-density demulsifying fluid for separating water from oily components."
+  },
+  {
+   "name": "SINDEKOR R1",
+   "categories": [
+    "disemulsionanti"
+   ],
+   "desc_en": "Additive that splits the fat/oil fraction from water in a high-fat-content emulsion."
+  },
+  {
+   "name": "SOFTISOL",
+   "categories": [
+    "ammorbidenti-cationici"
+   ],
+   "desc_en": "Special solvent-based softener for laundries."
+  },
+  {
+   "name": "STENATEX C",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Special microemulsion with strong softening, anti-pilling, restructuring, wash-resistant effect."
+  },
+  {
+   "name": "STHOR 100",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "100% active silicone compound of good efficacy, ideal for slurries."
+  },
+  {
+   "name": "STHOR 1000",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "100% active silicone compound of excellent efficacy, ideal for slurries; very high performance."
+  },
+  {
+   "name": "STHOR 5100",
+   "categories": [
+    "antischiuma-siliconici"
+   ],
+   "desc_en": "Silicone/hydrocarbon-based antifoam with very low surface tension."
+  },
+  {
+   "name": "STONIX",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni",
+    "finishes-siliconici-per-rifinizione-conciaria"
+   ],
+   "desc_en": "Aqueous medium-reactivity silicone microemulsion; use as is after dilution or as an additive."
+  },
+  {
+   "name": "STONIX 5000",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Amino-silicone microemulsion with soft, delicate, pleasantly supple hand."
+  },
+  {
+   "name": "STONIX 6000",
+   "categories": [
+    "ammorbidenti-cationici",
+    "ammorbidenti-siliconici",
+    "microemulsioni"
+   ],
+   "desc_en": "Amino-silicone microemulsion with soft, delicate, pleasantly supple hand."
+  },
+  {
+   "name": "SUPER SOLDIER",
+   "categories": [
+    "detergenti"
+   ],
+   "desc_en": "Aqueous dispersion of special surfactants with strong cleaning action for machine laundry."
+  },
+  {
+   "name": "SUREVAT 150 W",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-per-alte-temperature"
+   ],
+   "desc_en": "Non-silicone 100% active antifoam, self-emulsifying in water, ideal for jet dyeing."
+  },
+  {
+   "name": "SUREVAT 160 W",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici",
+    "antischiuma-per-alte-temperature"
+   ],
+   "desc_en": "Non-silicone 100% active antifoam, self-emulsifying in water, ideal for jet dyeing."
+  },
+  {
+   "name": "SUREVAT 679",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Anhydrous high-performance antifoam, self-emulsifying in water, for foam control (e.g. paint booths)."
+  },
+  {
+   "name": "SUREVAT 857",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Anhydrous very-high-performance antifoam, self-emulsifying in water, for foam control (e.g. paint booths)."
+  },
+  {
+   "name": "SUREVAT EXTRA",
+   "categories": [
+    "antischiuma-e-disaeranti-non-siliconici"
+   ],
+   "desc_en": "Anhydrous antifoam, self-emulsifying in water, for foam control in paint booths and similar."
+  },
+  {
+   "name": "TENSIOTEX 553",
+   "categories": [
+    "bagnanti-e-livellanti-per-sistemi-all-acqua"
+   ],
+   "desc_en": "Special active easily dispersible in water, glycols and some solvents; very low surface tension."
+  },
+  {
+   "name": "TERATEX 210",
+   "categories": [
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Aqueous dispersion of C6 fluorocarbon resins; strong water- and stain-repellent effect."
+  },
+  {
+   "name": "TERMSIL 50",
+   "categories": [
+    "fluidi-di-silicone"
+   ],
+   "desc_en": "Synthetic heat-resistant silicone fluid."
+  },
+  {
+   "name": "VOLUMEX",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "nanoemulsioni"
+   ],
+   "desc_en": "Aqueous nano-dispersion with strong softening effect on paper fibres."
+  },
+  {
+   "name": "VOLUSOFT",
+   "categories": [
+    "ammorbidenti-siliconici",
+    "nanoemulsioni"
+   ],
+   "desc_en": "Aqueous nano-dispersion with strong softening effect on paper fibres."
+  },
+  {
+   "name": "WASPER D",
+   "categories": [
+    "finishes-siliconici-per-rifinizione-conciaria",
+    "cere-in-emulsione-acquosa",
+    "idrorepellenti-e-antimacchia"
+   ],
+   "desc_en": "Emulsion perfectly stable in most aqueous systems; good water repellency, leaves a film."
+  }
+ ]
+}

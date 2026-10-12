@@ -1,4 +1,4 @@
-// state.ts (src/lib/store/state.ts) · updated 11.10.2026 11:10 (Asia/Jerusalem)
+// state.ts (src/lib/store/state.ts) · updated 12.10.2026 12:25 (Asia/Jerusalem)
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
@@ -6,6 +6,8 @@ import type { Lead, Task, Activity, KbDoc, KbChunk, Sample, Doc, Shipment, Silit
 export type State = { leads: Lead[]; tasks: Task[]; activities: Activity[]; samples: Sample[]; docs: Doc[]; shipments: Shipment[]; contacts: SilitexContact[]; threads: Thread[]; msgs: HubMsg[]; kbDocs: KbDoc[]; kbChunks: KbChunk[]; spend: { tokens: number; cost: number }; demo?: boolean };
 export const STORAGE_KEY = "silitex-crm-v1";
 export const EMPTY: State = { leads: LEADS_SEED, tasks: [], activities: [], samples: [], docs: [], shipments: [], contacts: [], threads: [], msgs: [], kbDocs: [], kbChunks: [], spend: { tokens: 0, cost: 0 } };
+// 12.10.2026: SKU names that never existed on silitex.it (AI-invented in plan v5) — replaced by the corrected seed
+const PHANTOM = /Silitex (Surfactant|Ag-Spreaders|Silatex|Eco-Resin|Depurazione|DM |Idrorepellenti|GOTS|Lavorazione|Refinery|Velvet|MQ|Volatile|SG 90)|SG 9040|Gomma Plastica/;
 export function loadState(): State {
   if (typeof window === "undefined") return EMPTY;
   try {
@@ -13,7 +15,7 @@ export function loadState(): State {
     if (raw) {
       const st: State = { ...EMPTY, ...JSON.parse(raw) };
       // One-time correction (10.10.2026, sales plan v3.1): Yr1 targets replace TAM in volume/value; TAM kept in tam_tons. Applied to seed accounts not yet corrected, synced to Supabase.
-      const fixed: Lead[] = []; st.leads = st.leads.map((l) => { const seed = LEADS_SEED.find((x) => x.id === l.id); if (!seed) return l; let n = l; if (l.tam_tons === undefined && seed.tam_tons !== undefined) n = { ...n, volume_tons: seed.volume_tons, value_usd: seed.value_usd, tam_tons: seed.tam_tons, tier: seed.tier }; if (l.rd_focus === undefined && seed.rd_focus) n = { ...n, rd_focus: seed.rd_focus, buyer_trigger: seed.buyer_trigger, plan_phase: seed.plan_phase, plan_next_action: seed.plan_next_action, plan_stage: seed.plan_stage, department: seed.department, contact_role: seed.contact_role }; if (!l.website && seed.website) n = { ...n, website: seed.website }; if ((l.id === "LEAD-021" || l.id === "LEAD-022") && l.value_usd === 12000) n = { ...n, volume_tons: seed.volume_tons, value_usd: seed.value_usd, tam_tons: seed.tam_tons }; if (n !== l) fixed.push(n); return n; });
+      const fixed: Lead[] = []; st.leads = st.leads.map((l) => { const seed = LEADS_SEED.find((x) => x.id === l.id); if (!seed) return l; let n = l; if (l.tam_tons === undefined && seed.tam_tons !== undefined) n = { ...n, volume_tons: seed.volume_tons, value_usd: seed.value_usd, tam_tons: seed.tam_tons, tier: seed.tier }; if (l.rd_focus === undefined && seed.rd_focus) n = { ...n, rd_focus: seed.rd_focus, buyer_trigger: seed.buyer_trigger, plan_phase: seed.plan_phase, plan_next_action: seed.plan_next_action, plan_stage: seed.plan_stage, department: seed.department, contact_role: seed.contact_role }; if (!l.website && seed.website) n = { ...n, website: seed.website }; if (PHANTOM.test(l.recommended_sku || "") || PHANTOM.test(l.plan_next_action || "")) n = { ...n, recommended_sku: seed.recommended_sku, plan_next_action: seed.plan_next_action }; if ((l.id === "LEAD-021" || l.id === "LEAD-022") && l.value_usd === 12000) n = { ...n, volume_tons: seed.volume_tons, value_usd: seed.value_usd, tam_tons: seed.tam_tons }; if (n !== l) fixed.push(n); return n; });
       // seed accounts added later (e.g. AHAVA 11.10.2026) that the browser has never seen
       for (const seed of LEADS_SEED) if (!st.leads.some((l) => l.id === seed.id)) { st.leads = [...st.leads, seed]; fixed.push(seed); }
       if (fixed.length) { saveState(st); fixed.forEach((l) => sync("leads", l)); }
