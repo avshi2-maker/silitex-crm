@@ -1,6 +1,6 @@
 "use client";
-// page.tsx (src/app/ask/page.tsx) · updated 09.10.2026 18:30 (Asia/Jerusalem) — "Ask Silitex": search all assets (index + KB) → Claude answer with citations, token meter, export bar
-import { useState } from "react";
+// page.tsx (src/app/ask/page.tsx) · updated 12.10.2026 11:10 (Asia/Jerusalem) — "Ask Silitex": search all assets (index + KB) → Claude answer with citations, token meter, export bar
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { searchAll, INDEX, TYPE_HE } from "@/lib/search";
@@ -16,8 +16,9 @@ export default function AskPage() {
   const { t: tr, lang } = useLang();
   const { state, ready, addSpend } = useStore();
   const [q, setQ] = useState(""); const [hits, setHits] = useState<KbChunk[]>([]);
-  if (!ready) return null;
   const run = (query: string) => { setQ(query); setHits(searchAll(query, state.kbChunks)); };
+  useEffect(() => { if (!ready) return; try { const p = new URLSearchParams(window.location.search).get("q"); if (p) run(p); } catch {} }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps
+  if (!ready) return null;
   return (
     <div className="space-y-4">
       <H1 sub={tr("חיפוש סמנטי על כל הנכסים: ") + INDEX.count + tr(" רשומות (מוצרים, מקבילות, קו מזון, עדיפויות, לקוחות) + ") + state.kbChunks.length + tr(" מקטעי מסמכים · אינדקס ") + fmtDate(INDEX.built)}>{tr("שאל את Silitex")}</H1>

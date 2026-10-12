@@ -1,6 +1,14 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "לא בקטלוג Silitex": "Not in the Silitex catalogue",
+  "מה זה:": "What it is:",
+  "מי מייצר:": "Who makes it:",
+  "היסטוריה:": "History:",
+  "פעולה:": "Action:",
+  "אין התאמה ב-37 הקטגוריות": "No match in the 37 categories",
+  "או שזה שם מסחרי שלא ברשימה, או שזה מוצר ש-Silitex לא מייצרת.": "either a trade name not in the list, or a product Silitex does not make.",
+  "אם Silitex לא מייצרת — בקש להוסיף ל\"פערים\" (gaps.json) כדי שיעלה בפגישה עם Silitex.": "If Silitex does not make it — ask to add it to the gaps list (gaps.json) so it comes up in the Silitex meeting.",
   "קנו מ-Sapirim בעבר": "Bought from Sapirim before",
   "הקלף החזק מול Silitex: אותן כימיות, אותם מפעלים": "the strong card with Silitex: same chemistries, same plants",
   "מוצר שנמכר": "Product sold",

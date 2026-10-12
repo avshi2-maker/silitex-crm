@@ -1,10 +1,11 @@
 "use client";
-// page.tsx (src/app/offsets/page.tsx) · updated 09.10.2026 11:20 (Asia/Jerusalem) — global producers cross-reference matrix (37 categories × 24 producers)
+// page.tsx (src/app/offsets/page.tsx) · updated 12.10.2026 11:10 (Asia/Jerusalem) — global producers cross-reference matrix (37 categories × 24 producers)
 import { useMemo, useState } from "react";
 import { OFFSETS, FOOD_GRADE } from "@/lib/data";
 import { Card, H1, Badge, inputCls } from "@/components/ui";
 import ExportBar from "@/components/ExportBar";
 import ReachNote from "@/components/ReachNote";
+import GapNote from "@/components/GapNote";
 import { useLang } from "@/i18n";
 export default function OffsetsPage() {
   const { t: tr } = useLang();
@@ -20,6 +21,7 @@ export default function OffsetsPage() {
         <input className={inputCls} placeholder={tr("חיפוש: שם מוצר של מתחרה (למשל SAG 30, SILFOAM, Xiameter)…")} value={q} onChange={(e) => setQ(e.target.value)} />
         <div className="flex flex-wrap gap-1">{OFFSETS.producers.map((p) => (<button key={p} onClick={() => toggle(p)} className={"text-xs px-2 py-1 rounded-full border " + (prod.includes(p) ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{p}</button>))}</div>
       </Card>
+      <GapNote q={q} rows={rows.length} />
       <Card className="overflow-x-auto p-0">
         <table className="text-xs w-full">
           <thead className="bg-slate-50"><tr><th className="p-2 text-start">{tr("קט'")}</th><th className="p-2 text-start">{tr("משפחה / INCI")}</th><th className="p-2 text-start">Silitex</th><th className="p-2 text-start">Dow Corning / DOWSIL / XIAMETER</th>{prod.map((p) => <th key={p} className="p-2 text-start">{p}</th>)}<th className="p-2">{tr("אישורים")}</th></tr></thead>
