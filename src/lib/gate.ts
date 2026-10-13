@@ -1,9 +1,14 @@
-// gate.ts (src/lib/gate.ts) · updated 09.10.2026 17:05 (Asia/Jerusalem) — Phase-1 site gate (PIN → cookie). Edge-safe (Web Crypto). Phase 2 replaces this with Supabase Auth + roles.
+// gate.ts (src/lib/gate.ts) · updated 13.10.2026 06:40 (Asia/Jerusalem) — Phase-1 site gate (PIN → cookie) + PARTNER access (Silitex staff: name+PIN → cookie, read-only knowledge pages only). Edge-safe (Web Crypto).
 export const GATE_COOKIE = "silitex_gate";
-export const PUBLIC_PREFIXES = ["/request", "/survey", "/login", "/api/forms", "/api/login", "/api/hub/outlook/cb", "/api/hub/wa", "/silitex-logo.png", "/favicon.png", "/assets/", "/robots.txt"];
-export function isPublicPath(p: string): boolean { return PUBLIC_PREFIXES.some((x) => p === x || p.startsWith(x)); }
-export async function gateToken(pin: string): Promise<string> {
-  const data = new TextEncoder().encode("silitex-gate-v1:" + pin);
-  const buf = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
-}
+export const PARTNER_COOKIE = "silitex_partner";          // httpOnly token
+export const PARTNER_NAME_COOKIE = "silitex_partner_name"; // readable by the UI (Nav)
+export const PUBLIC_PREFIXES = ["/request", "/survey", "/login", "/api/forms", "/api/login", "/api/hub/outlook/cb", "/api/hub/wa/", "/silitex-logo.png", "/favicon.png", "/assets/", "/robots.txt"];
+/** what a Silitex partner may open: knowledge only — no leads, pipeline, hub, pricing, notes */
+export const PARTNER_PREFIXES = ["/partner", "/ask", "/products", "/offsets", "/formulations", "/faq", "/catalogues/", "/api/ai", "/api/partner/me"];
+export function isPublicPath(p: string): boolean { return PUBLIC_PREFIXES.some((x) => p === x || p.startsWith(x)) || p === "/api/hub/wa"; }
+export function isPartnerPath(p: string): boolean { return PARTNER_PREFIXES.some((x) => p === x || p.startsWith(x)); }
+async function sha(s: string): Promise<string> { const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join(""); }
+export async function gateToken(pin: string): Promise<string> { return sha("silitex-gate-v1:" + pin); }
+export async function partnerToken(name: string, pin: string): Promise<string> { return sha("silitex-partner-v1:" + name.toLowerCase() + ":" + pin); }
+/** PARTNER_PINS env: "federica:4821,marco:7733" → map */
+export function partnerPins(): Record<string, string> { const out: Record<string, string> = {}; for (const pair of (process.env.PARTNER_PINS || "").split(",")) { const [n, p] = pair.split(":").map((s) => s?.trim()); if (n && p) out[n.toLowerCase()] = p; } return out; }

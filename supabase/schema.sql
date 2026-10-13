@@ -49,3 +49,7 @@ alter table wa_blocklist enable row level security; create policy "all" on wa_bl
 -- 11.10.2026 WhatsApp allowlist (v0.21.0): numbers that are neither prospects nor Silitex contacts but should route (forwarders, lab, introducers, team)
 create table if not exists wa_allowlist (phone text primary key, name text, kind text, dept text, company text, notes text, created_at timestamptz default now());
 alter table wa_allowlist enable row level security; create policy "all" on wa_allowlist for all using (true) with check (true);
+
+-- 13/10/2026 partner access (Silitex staff, knowledge pages only) — usage log for the "your team asked N questions" conversation
+create table if not exists partner_usage (id bigserial primary key, at timestamptz default now(), partner text, path text, kind text, question text, input_tokens int, output_tokens int, cost_usd numeric, model text, lang text);
+create index if not exists partner_usage_partner_at on partner_usage (partner, at desc);
