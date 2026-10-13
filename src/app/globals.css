@@ -3,3 +3,8 @@
 @tailwind utilities;
 body { @apply bg-slate-100 text-slate-800; font-family: "Heebo", "Segoe UI", Arial, sans-serif; }
 @media print { aside, .print\:hidden { display: none !important; } body { background: white; } }
+
+/* 13.10.2026 — attention pulse for the AI button (stops after first answer) */
+@keyframes ai-ring { 0% { box-shadow: 0 0 0 0 rgba(226,0,122,.55); } 70% { box-shadow: 0 0 0 12px rgba(226,0,122,0); } 100% { box-shadow: 0 0 0 0 rgba(226,0,122,0); } }
+.ai-pulse { animation: ai-ring 1.6s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) { .ai-pulse { animation: none; } }

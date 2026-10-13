@@ -20,7 +20,7 @@ export default function CampaignPage() {
   const ctx = campaignContext(tr(indHe), angle, targets, prods);
   return (
     <div className="space-y-4">
-      <H1 sub={tr("בחר תעשייה + ערוץ → Claude מייצר את חומר הקידום מתוך הקטלוג")}>{tr("קמפיין קידום")}</H1>
+      <H1 sub={tr("בחר תעשייה + ערוץ → ה-AI מייצר את חומר הקידום מתוך הקטלוג")}>{tr("קמפיין קידום")}</H1>
       <Card className="grid md:grid-cols-3 gap-2">
         <select className={inputCls} value={ind} onChange={(e) => setInd(e.target.value)}>{INDUSTRIES.map((i) => <option key={i.key} value={i.key}>{tr(i.he)}</option>)}</select>
         <select className={inputCls} value={ch} onChange={(e) => setCh(e.target.value)}>{CHANNELS.map((c) => <option key={c.key} value={c.key}>{tr(c.he)}</option>)}</select>

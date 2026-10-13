@@ -18,7 +18,7 @@ export default function TranscriptCard({ lead, spend, addSpend, onLog, onTask, o
   return (
     <Card>
       <h3 className="font-bold mb-1">{tr("תמלול שיחה / WhatsApp")}</h3>
-      <div className="text-xs text-slate-500 mb-2">{tr("הדבק תמלול שיחת טלפון או שרשור WhatsApp. Claude מסכם, מוציא צרכים והתנגדויות, מציע שלב ופעולה הבאה — ואתה שומר ביומן בלחיצה.")}</div>
+      <div className="text-xs text-slate-500 mb-2">{tr("הדבק תמלול שיחת טלפון או שרשור WhatsApp. ה-AI מסכם, מוציא צרכים והתנגדויות, מציע שלב ופעולה הבאה — ואתה שומר ביומן בלחיצה.")}</div>
       <textarea className={inputCls + " mb-2 font-mono text-xs"} rows={6} value={raw} onChange={(e) => { setRaw(e.target.value); setSaved(false); }} placeholder={tr("[12:03] יוסי: שלחתם דגימה? …")} dir="auto" />
       <AiPanel title={tr("סיכום שיחה — ") + lead.name} buttonLabel={tr("סכם ל-CRM")} sessionTokens={spend.tokens} sessionCost={spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} onResult={(t) => { setOut(t); setSaved(false); }} buildPrompt={() => ({ context: transcriptContext(lead, raw), prompt: TRANSCRIPT_PROMPT })} />
       {out && (<div className="mt-2 flex flex-wrap items-center gap-2 text-xs">

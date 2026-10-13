@@ -1,5 +1,5 @@
 "use client";
-// TokenMeter.tsx (src/components/TokenMeter.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem)
+// TokenMeter.tsx (src/components/TokenMeter.tsx) · updated 13.10.2026 07:30 (model name hidden — provider-neutral) 10:30 (Asia/Jerusalem)
 // Live token + cost meter for one AI call plus session total. Attach to every AI output.
 import { fmtMoney } from "@/lib/format";
 import type { Usage } from "@/lib/types";
@@ -15,7 +15,7 @@ export default function TokenMeter({ usage, sessionTokens, sessionCost, busy }: 
           <span>{tr("קלט: ")}<b>{usage.input_tokens.toLocaleString()}</b></span>
           <span>{tr("פלט: ")}<b>{usage.output_tokens.toLocaleString()}</b></span>
           <span>{tr("עלות קריאה: ")}<b>{fmtMoney(usage.cost_usd)}</b></span>
-          <span className="text-slate-400">{usage.model}{usage.mock ? tr(" · דמו (ללא מפתח API)") : ""}</span>
+          <span className="text-slate-400">AI engine{usage.mock ? tr(" · דמו (ללא מפתח API)") : ""}</span>
         </>
       ) : (<span>{busy ? tr("מעבד…") : tr("מוכן")}</span>)}
       <span className="ms-auto">{tr("סה״כ סשן: ")}<b>{sessionTokens.toLocaleString()}</b>{tr(" טוקנים · ")}<b>{fmtMoney(sessionCost, 3)}</b></span>

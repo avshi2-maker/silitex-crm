@@ -49,7 +49,7 @@ export default function KbPage() {
       <Card className="space-y-3">
         <div className="flex gap-2"><input className={inputCls} placeholder={tr("שאלה: למשל 'מה המינון המומלץ של SILIFOOD 1600 בשטיפת פירות?'")} value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && search()} /><button className={btnGhost} onClick={search}>{tr("🔎 אחזר")}</button></div>
         {hits.length > 0 && <div className="text-xs text-slate-500">{hits.length}{tr(" מקטעים רלוונטיים: ")}{Array.from(new Set(hits.map((h) => h.title))).join(" · ")}</div>}
-        <AiPanel title={tr("תשובה ממסמכי Silitex")} buttonLabel={tr("ענה עם Claude (RAG)")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)}
+        <AiPanel title={tr("תשובה ממסמכי Silitex")} buttonLabel={tr("ענה עם AI (RAG)")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)}
           buildPrompt={() => { const h = hits.length ? hits : scoreChunks(q, state.kbChunks); return { context: ragContext(h), prompt: ragPrompt(q) }; }} />
       </Card>
     </div>

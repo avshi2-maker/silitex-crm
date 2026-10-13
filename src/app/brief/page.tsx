@@ -22,7 +22,7 @@ export default function BriefPage() {
   };
   return (
     <div className="space-y-4">
-      <H1 sub={tr("בוט בוקר: כל יום 07:00 Claude מסכם את 5 השיחות החשובות ושולח ל-WhatsApp. כאן אפשר להריץ ידנית.")}>{tr("תדריך יומי — ")}{fmtDate(new Date())}</H1>
+      <H1 sub={tr("בוט בוקר: כל יום 07:00 ה-AI מסכם את 5 השיחות החשובות ושולח ל-WhatsApp. כאן אפשר להריץ ידנית.")}>{tr("תדריך יומי — ")}{fmtDate(new Date())}</H1>
       <Card className="flex flex-wrap gap-2 items-center">
         <button className={btnPrimary} disabled={busy} onClick={() => run(false)}>{busy ? tr("מעבד…") : tr("צור תדריך עכשיו")}</button>
         <button className={btnGhost} disabled={busy} onClick={() => run(true)}>{tr("צור ושלח ל-WhatsApp (בוט)")}</button>

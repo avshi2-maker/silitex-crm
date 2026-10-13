@@ -1,5 +1,5 @@
 "use client";
-// AiPanel.tsx (src/components/AiPanel.tsx) · updated 09.10.2026 10:30 (Asia/Jerusalem)
+// AiPanel.tsx (src/components/AiPanel.tsx) · updated 13.10.2026 07:30 — animated AI button (ring pulse until first run) (Asia/Jerusalem)
 // Reusable "ask Claude" panel: runs /api/ai, shows output + TokenMeter + ExportBar (the standing footer). Used by leads, campaign, KB.
 import { useState } from "react";
 import TokenMeter from "./TokenMeter";
@@ -27,7 +27,7 @@ export default function AiPanel({ title, buttonLabel, buildPrompt, onUsage, sess
   };
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between"><h3 className="font-bold">{title}</h3><button className={btnPrimary} onClick={run} disabled={busy}>{busy ? tr("מעבד…") : buttonLabel}</button></div>
+      <div className="flex items-center justify-between"><h3 className="font-bold">{title}</h3><button className={btnPrimary + (!text && !busy ? " ai-pulse" : "")} onClick={run} disabled={busy}>{busy ? tr("מעבד…") : "✨ " + buttonLabel}</button></div>
       <TokenMeter usage={usage} sessionTokens={sessionTokens} sessionCost={sessionCost} busy={busy} />
       {err && <div className="text-sm text-red-600">{err}</div>}
       {text && (<><pre className="whitespace-pre-wrap text-sm bg-slate-50 border rounded-lg p-3 leading-6 font-[inherit]">{text}</pre><ExportBar title={title} text={text} /></>)}

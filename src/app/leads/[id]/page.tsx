@@ -48,7 +48,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
             <IntakeForm lead={lead} onSave={(l) => { upsertLead(l); addActivity(id, "intake", tr("טופס קליטה עודכן")); }} />
           </Card>
           <Card>
-            <AiPanel title={tr("הצעת פנייה / פיץ' ל-") + lead.name} buttonLabel={tr("צור פיץ' עם Claude")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} onResult={() => addActivity(id, "ai", tr("נוצר פיץ' AI"))}
+            <AiPanel title={tr("הצעת פנייה / פיץ' ל-") + lead.name} buttonLabel={tr("צור פיץ' עם AI")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} onResult={() => addActivity(id, "ai", tr("נוצר פיץ' AI"))}
               buildPrompt={() => ({ context: ctx, prompt: pitchPrompt(lead) })} />
           </Card>
           <DocsCard lead={lead} docs={state.docs.filter((d) => d.lead_id === id)} matches={matches} onAdd={addDoc} onStatus={setDocStatus} onStage={(s) => setStage(id, s)} spend={state.spend} addSpend={addSpend} />

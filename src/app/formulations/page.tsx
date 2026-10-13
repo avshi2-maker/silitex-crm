@@ -35,13 +35,13 @@ export default function FormulationsPage() {
           <ExportBar title={"Silitex starter formulation — " + sel.name} text={formulationText(sel)} />
         </Card>
       </div>
-      <Card><AiPanel title={tr("גרסת Silitex + גרסה ללא D4/D5 — ") + sel.name} buttonLabel={tr("התאם ל-Silitex עם Claude")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} buildPrompt={() => ({ context: formulationContext(sel), prompt: FORMULATION_PROMPT })} /></Card>
+      <Card><AiPanel title={tr("גרסת Silitex + גרסה ללא D4/D5 — ") + sel.name} buttonLabel={tr("התאם ל-Silitex עם AI")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} buildPrompt={() => ({ context: formulationContext(sel), prompt: FORMULATION_PROMPT })} /></Card>
       <Card><h3 className="font-bold mb-2">{tr("מדריך תבניות — תפקיד הסיליקון לפי סוג מוצר")}</h3><PatternGuide /></Card>
       <Card><div id="draft" />
         <h3 className="font-bold mb-1">{tr("טיוטת נוסחה חדשה (צעצוע AI)")}</h3>
         <div className="text-xs text-slate-500 mb-2">{tr("תיבה זו ממציאה מתכון מלא (אחוזים, שלבים, בדיקות) עם מוצרי Silitex — טיוטה לאימות במעבדה בלבד. לעובדות עם מקורות:")} <Link href="/ask" className="underline text-brand-600">{tr("שאל את Silitex")}</Link></div>
         <input className={inputCls + " mb-2"} value={brief} onChange={(e) => setBrief(e.target.value)} placeholder="e.g. hair serum, anhydrous, shine + detangling, D5-free" dir="ltr" />
-        <AiPanel title={"AI draft — " + brief} buttonLabel={tr("צור טיוטה עם Claude")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} buildPrompt={() => ({ context: draftContext(), prompt: draftPrompt(brief) })} />
+        <AiPanel title={"AI draft — " + brief} buttonLabel={tr("צור טיוטה עם AI")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} buildPrompt={() => ({ context: draftContext(), prompt: draftPrompt(brief) })} />
       </Card>
     </div>
   );
