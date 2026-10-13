@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/partner/page.tsx) · updated 13.10.2026 08:00 — + PartnerGreeting (hour-aware, Israel time + Tel Aviv weather) — + white-label footnote (tools.silitex.it) — all strings through tr() (EN/IT; HE for owner preview) — + working-session framing and follow-up date (Asia/Jerusalem) — landing for Silitex staff (partner access): what they can open, in EN/IT first. Knowledge tools only.
+// page.tsx (src/app/partner/page.tsx) · updated 13.10.2026 10:50 — + Phase 2 preview tile — + PartnerGreeting (hour-aware, Israel time + Tel Aviv weather) — + white-label footnote (tools.silitex.it) — all strings through tr() (EN/IT; HE for owner preview) — + working-session framing and follow-up date (Asia/Jerusalem) — landing for Silitex staff (partner access): what they can open, in EN/IT first. Knowledge tools only.
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui";
@@ -12,6 +12,7 @@ const TILES = [
   { href: "/offsets", icon: "🌍", t: "Global equivalents", d: "37 product families × 25 producers (Dow, Wacker, Shin-Etsu, Momentive, Evonik…) → Silitex equivalent." },
   { href: "/formulations", icon: "🧴", t: "Formulation patterns", d: "Personal-care patterns with Silitex substitutions, D5-free routes." },
   { href: "/faq", icon: "❓", t: "50 Q&A", d: "Technical and commercial questions customers ask, with sourced answers." },
+  { href: "/partner/preview", icon: "🇮🇱", t: "Israel portal · Phase 2 preview", d: "Draft: how Silitex would be presented to Israeli formulators after an agreement — Google and AI-search ready. Nothing public." },
 ];
 export default function PartnerHome() {
   const { lang, setLang, t: tr } = useLang();
