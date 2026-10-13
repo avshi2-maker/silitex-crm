@@ -4,7 +4,7 @@ export const PARTNER_COOKIE = "silitex_partner";          // httpOnly token
 export const PARTNER_NAME_COOKIE = "silitex_partner_name"; // readable by the UI (Nav)
 export const PUBLIC_PREFIXES = ["/request", "/survey", "/login", "/api/forms", "/api/login", "/api/hub/outlook/cb", "/api/hub/wa/", "/silitex-logo.png", "/favicon.png", "/assets/", "/robots.txt"];
 /** what a Silitex partner may open: knowledge only — no leads, pipeline, hub, pricing, notes */
-export const PARTNER_PREFIXES = ["/partner", "/ask", "/products", "/offsets", "/formulations", "/faq", "/catalogues/", "/api/ai", "/api/partner/me", "/api/partner/feedback"];
+export const PARTNER_PREFIXES = ["/partner", "/ask", "/products", "/offsets", "/formulations", "/faq", "/catalogues/", "/api/ai", "/api/partner/me", "/api/partner/feedback", "/api/partner/weather"];
 export function isPublicPath(p: string): boolean { return PUBLIC_PREFIXES.some((x) => p === x || p.startsWith(x)) || p === "/api/hub/wa"; }
 export function isPartnerPath(p: string): boolean { if (p === "/partners" || p.startsWith("/partners/")) return false; return PARTNER_PREFIXES.some((x) => p === x || p.startsWith(x.endsWith("/") ? x : x + "/")); }
 async function sha(s: string): Promise<string> { const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join(""); }
