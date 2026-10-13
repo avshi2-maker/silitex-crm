@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/partner/page.tsx) · updated 13.10.2026 07:40 — all strings through tr() (EN/IT; HE for owner preview) — + working-session framing and follow-up date (Asia/Jerusalem) — landing for Silitex staff (partner access): what they can open, in EN/IT first. Knowledge tools only.
+// page.tsx (src/app/partner/page.tsx) · updated 13.10.2026 07:45 — + white-label footnote (tools.silitex.it) — all strings through tr() (EN/IT; HE for owner preview) — + working-session framing and follow-up date (Asia/Jerusalem) — landing for Silitex staff (partner access): what they can open, in EN/IT first. Knowledge tools only.
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui";
@@ -23,6 +23,7 @@ export default function PartnerHome() {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">{TILES.map((x) => <Link key={x.href} href={x.href} className="block border rounded-xl p-4 bg-white hover:border-brand-500"><div className="text-2xl">{x.icon}</div><div className="font-bold mt-1">{tr(x.t)}</div><div className="text-sm text-slate-600 mt-1">{tr(x.d)}</div></Link>)}</div>
       <Card className="text-sm bg-brand-50/40 border-brand-200"><b>{tr("How to use these two weeks.")}</b> {tr("Ask the tool the three questions your agents ask you most often. Where the answer is wrong or missing, press")} <b>💬 Ask Sapirim</b> {tr("(bottom-right on every page) — the note reaches Avshi's inbox with the page attached, and he answers within 24 hours. We reconnect on")} <b>{process.env.NEXT_PUBLIC_FOLLOWUP_DATE || "27/10/2026"}</b> {tr("to review what you found and decide together whether there is a basis to talk terms.")}</Card>
       <Card className="text-sm text-slate-600">{tr("Try:")} <i>{tr("\"Which Silitex product replaces Dow Corning 5225C?\"")}</i> · <i>{tr("\"Kosher antifoams for yeast fermentation\"")}</i> · <i>{tr("\"D5-free alternative for a hair serum\"")}</i>. {tr("Answers cite the source rows [n]; they do not invent percentages or recipes.")}</Card>
+      <div className="text-xs text-slate-500 border-t pt-3">{tr("If Silitex finds it useful, this tool can run under a silitex.it address (e.g. tools.silitex.it) for your whole sales network — one DNS record, no development on your side. Sapirim keeps hosting, updates and the AI service.")}</div>
       <div className="text-xs text-slate-400">{tr("Prepared by Sapirim for Silitex S.r.l. — confidential")} · <button className="underline" onClick={async () => { await fetch("/api/login", { method: "DELETE" }); location.href = "/login"; }}>{tr("sign out")}</button></div>
     </div>
   );

@@ -1,6 +1,7 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "If Silitex finds it useful, this tool can run under a silitex.it address (e.g. tools.silitex.it) for your whole sales network — one DNS record, no development on your side. Sapirim keeps hosting, updates and the AI service.": "Se Silitex lo ritiene utile, lo strumento può girare sotto un indirizzo silitex.it (es. tools.silitex.it) per tutta la vostra rete commerciale — un solo record DNS, nessuno sviluppo da parte vostra. Sapirim mantiene hosting, aggiornamenti e servizio AI.",
   "Partner home": "Home partner",
   "Silitex knowledge tools": "Strumenti di conoscenza Silitex",
   "Partner access": "Accesso partner",
