@@ -21,7 +21,7 @@ export default function AiPanel({ title, buttonLabel, buildPrompt, onUsage, sess
       const r = await fetch("/api/ai", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...body, lang }) });
       const j = await r.json();
       if (!r.ok) throw new Error(j.error || "error");
-      setText(j.text); setUsage(j.usage); onUsage(j.usage); onResult?.(j.text);
+      const isNo = /^\s*NO_DATA/i.test(j.text || ""); setText(isNo ? "" : j.text); setUsage(j.usage); onUsage(j.usage); onResult?.(j.text);
     } catch (e: unknown) { setErr(e instanceof Error ? e.message : tr("שגיאה")); }
     setBusy(false);
   };

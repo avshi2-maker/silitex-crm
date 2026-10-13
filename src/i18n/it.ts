@@ -1,6 +1,14 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "לא נמצא במאגר Silitex — לא ננחש": "Non presente nei dati Silitex — non tiriamo a indovinare",
+  "המערכת עונה רק מתוך הקטלוגים, המקבילות וה-FAQ של Silitex. כשאין מקור — אין תשובה אוטומטית, ואין פנייה למקורות חיצוניים. במקום זה: שאלה ישירה לאבשי (מייל + WhatsApp), תשובה אנושית תוך 24 שעות.": "Lo strumento risponde solo dai cataloghi, dagli equivalenti e dalle FAQ Silitex. Nessuna fonte — nessuna risposta automatica, e nessuna fonte esterna. In alternativa: la domanda va direttamente ad Avshi (email + WhatsApp), risposta umana entro 24 ore.",
+  "השאלה:": "La domanda:",
+  "פרט (לא חובה): לקוח, יישום, מה חיפשת…": "Dettagli (facoltativo): cliente, applicazione, cosa cercavate…",
+  "נשלח לאבשי במייל וב-WhatsApp. תשובה אנושית תוך 24 שעות.": "Inviato ad Avshi via email e WhatsApp. Risposta umana entro 24 ore.",
+  "שלח לאבשי — תמיכה אנושית": "Invia ad Avshi — supporto umano",
+  "השליחה נכשלה — כתבו ל-avshi@sapirim.com": "Invio non riuscito — scrivete a avshi@sapirim.com",
+  "Questions in English or Italian — answers with sources from your catalogues, offsets and FAQ. No source = no answer: the question goes to Avshi by email + WhatsApp, human reply within 24 h.": "Domande in italiano o inglese — risposte con fonti dai vostri cataloghi, equivalenti e FAQ. Nessuna fonte = nessuna risposta: la domanda va ad Avshi via email + WhatsApp, risposta umana entro 24 ore.",
   "If Silitex finds it useful, this tool can run under a silitex.it address (e.g. tools.silitex.it) for your whole sales network — one DNS record, no development on your side. Sapirim keeps hosting, updates and the AI service.": "Se Silitex lo ritiene utile, lo strumento può girare sotto un indirizzo silitex.it (es. tools.silitex.it) per tutta la vostra rete commerciale — un solo record DNS, nessuno sviluppo da parte vostra. Sapirim mantiene hosting, aggiornamenti e servizio AI.",
   "Partner home": "Home partner",
   "Silitex knowledge tools": "Strumenti di conoscenza Silitex",

@@ -7,7 +7,7 @@ import { useLang } from "@/i18n";
 import { CAT26 } from "@/lib/catalog";
 import PartnerGreeting from "@/components/PartnerGreeting";
 const TILES = [
-  { href: "/ask", icon: "🔎", t: "Ask Silitex (AI)", d: "Questions in English or Italian — answers with sources from your catalogues, offsets and FAQ." },
+  { href: "/ask", icon: "🔎", t: "Ask Silitex (AI)", d: "Questions in English or Italian — answers with sources from your catalogues, offsets and FAQ. No source = no answer: the question goes to Avshi by email + WhatsApp, human reply within 24 h." },
   { href: "/products", icon: "📕", t: "Catalogue 2026", d: "Your five sector catalogues, searchable by name, INCI, code and application; PDFs inside." },
   { href: "/offsets", icon: "🌍", t: "Global equivalents", d: "37 product families × 25 producers (Dow, Wacker, Shin-Etsu, Momentive, Evonik…) → Silitex equivalent." },
   { href: "/formulations", icon: "🧴", t: "Formulation patterns", d: "Personal-care patterns with Silitex substitutions, D5-free routes." },

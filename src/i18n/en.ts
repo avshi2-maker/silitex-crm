@@ -1,6 +1,14 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "לא נמצא במאגר Silitex — לא ננחש": "Not in the Silitex data — we do not guess",
+  "המערכת עונה רק מתוך הקטלוגים, המקבילות וה-FAQ של Silitex. כשאין מקור — אין תשובה אוטומטית, ואין פנייה למקורות חיצוניים. במקום זה: שאלה ישירה לאבשי (מייל + WhatsApp), תשובה אנושית תוך 24 שעות.": "This tool answers only from the Silitex catalogues, equivalents and FAQ. No source — no automatic answer, and no outside sources. Instead: the question goes straight to Avshi (email + WhatsApp), human reply within 24 hours.",
+  "השאלה:": "The question:",
+  "פרט (לא חובה): לקוח, יישום, מה חיפשת…": "Details (optional): customer, application, what you were looking for…",
+  "נשלח לאבשי במייל וב-WhatsApp. תשובה אנושית תוך 24 שעות.": "Sent to Avshi by email and WhatsApp. Human reply within 24 hours.",
+  "שלח לאבשי — תמיכה אנושית": "Send to Avshi — human support",
+  "השליחה נכשלה — כתבו ל-avshi@sapirim.com": "Sending failed — please write to avshi@sapirim.com",
+  "Questions in English or Italian — answers with sources from your catalogues, offsets and FAQ. No source = no answer: the question goes to Avshi by email + WhatsApp, human reply within 24 h.": "Questions in English or Italian — answers with sources from your catalogues, offsets and FAQ. No source = no answer: the question goes to Avshi by email + WhatsApp, human reply within 24 h.",
   "בדיקת יושרה — התוכנית מול הקטלוגים": "Integrity check — plan vs catalogues",
   "מגובה בקטלוגים 2026": "backed by the 2026 catalogues",
   "ממתין לאישור קטלוג": "pending catalogue confirmation",

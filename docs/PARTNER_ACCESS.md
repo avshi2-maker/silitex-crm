@@ -21,3 +21,7 @@ Everything else (leads, pipeline, hub, pricing, notes, market, partners) → 403
 ## "Ask Sapirim" button (13/10/2026 07:20)
 Floating 💬 on every partner page → popup (page auto-filled, topic optional, note) → POST /api/partner/feedback → Supabase `partner_feedback` + email to FORMS_TO (avshi@sapirim.com) via Resend (RESEND_API_KEY / FORMS_FROM as for customer forms). Owner inbox: /partners (mark replied). Follow-up date shown on /partner: env `NEXT_PUBLIC_FOLLOWUP_DATE` (default 27/10/2026).
 Run the `partner_feedback` block in supabase/schema.sql.
+
+## No-guess policy + human support (13/10/2026 08:15)
+/ask: the AI prompt returns NO_DATA when the sources don't cover the question; the page then shows NoDataCard (0 sources, or NO_DATA) — no outside sources, no Wikipedia. One button → POST /api/partner/support → partner_feedback row + email (Resend) + WhatsApp to BRIEF_TO_WHATSAPP (Meta Cloud API when WA_TOKEN + WA_PHONE_ID are set; else Twilio / webhook; else nothing sent, email still goes).
+Env for WhatsApp ping: WA_TOKEN (System-User token), WA_PHONE_ID (the registered number's phone-number-id), BRIEF_TO_WHATSAPP=972505231042.
