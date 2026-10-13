@@ -53,3 +53,6 @@ alter table wa_allowlist enable row level security; create policy "all" on wa_al
 -- 13/10/2026 partner access (Silitex staff, knowledge pages only) — usage log for the "your team asked N questions" conversation
 create table if not exists partner_usage (id bigserial primary key, at timestamptz default now(), partner text, path text, kind text, question text, input_tokens int, output_tokens int, cost_usd numeric, model text, lang text);
 create index if not exists partner_usage_partner_at on partner_usage (partner, at desc);
+
+-- 13/10/2026 "Ask Sapirim" notes from partners (floating button on partner pages) — emailed to FORMS_TO + stored here; owner marks replied on /partners
+create table if not exists partner_feedback (id bigserial primary key, at timestamptz default now(), partner text, page text, topic text, message text, lang text, replied_at timestamptz);

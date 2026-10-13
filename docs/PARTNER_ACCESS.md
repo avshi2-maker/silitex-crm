@@ -17,3 +17,7 @@ Everything else (leads, pipeline, hub, pricing, notes, market, partners) → 403
 
 ## What to say
 "I built a knowledge tool on your catalogues for my own sales work. You're welcome to use it — here's a login. If it's useful to your other agents we can talk about that later."
+
+## "Ask Sapirim" button (13/10/2026 07:20)
+Floating 💬 on every partner page → popup (page auto-filled, topic optional, note) → POST /api/partner/feedback → Supabase `partner_feedback` + email to FORMS_TO (avshi@sapirim.com) via Resend (RESEND_API_KEY / FORMS_FROM as for customer forms). Owner inbox: /partners (mark replied). Follow-up date shown on /partner: env `NEXT_PUBLIC_FOLLOWUP_DATE` (default 27/10/2026).
+Run the `partner_feedback` block in supabase/schema.sql.

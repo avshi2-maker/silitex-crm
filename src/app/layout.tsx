@@ -1,7 +1,8 @@
-// layout.tsx (src/app/layout.tsx) · updated 09.10.2026 12:30 (Asia/Jerusalem)
+// layout.tsx (src/app/layout.tsx) · updated 13.10.2026 07:20 — + AskSapirim floating button (partners only) (Asia/Jerusalem)
 import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/components/Nav";
+import AskSapirim from "@/components/AskSapirim";
 import { BUILD } from "@/config/app";
 import { LangProvider } from "@/i18n";
 export const metadata: Metadata = { title: "Silitex CRM · Israel", description: "Silitex S.r.l. — Israel distribution CRM", icons: { icon: "/favicon.png" } };
@@ -13,6 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LangProvider>
         <div className="flex min-h-screen">
           <Nav />
+          <AskSapirim />
           <main className="flex-1 p-6 max-w-[1400px]">
             {children}
             <footer className="mt-10 text-[11px] text-slate-400 print:hidden">Silitex CRM {BUILD} · mockup</footer>
