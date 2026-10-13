@@ -12,11 +12,13 @@
   ],
   "what": "Volatile alkyl-modified methylsiloxane fluid (INCI Caprylyl Methicone). The non-cyclic D4/D5-free volatile carrier used in sunscreens, serums, primers, hair oils, antiperspirants — the modern replacement for cyclopentasiloxane.",
   "producers": "Dow / DOWSIL FZ-3196 · Momentive Silsoft 034 · Shin-Etsu KF-… alkyl series · Elkem Mirasil C-DML · Siltech Silmer / Silwax · BRB Brasil · Jeen Jeesilc",
-  "silitex": "NOT in the Silitex catalogue (44 SKUs) or the 37 offset categories. Silitex cosmetics line = emulsions/microemulsions, elastomer gels, Volatile D5 / CM 040 (cyclic). Closest Silitex answer: Volatile D5 Fluid / CM 040 (cyclic, REACH-flagged) or EVEROIL 35 / EVERIX 35 (vegetal emollient emulsion) — neither is a drop-in.",
+  "silitex": "No caprylyl methicone. Silitex 2026 Cosmetics catalogue offers the D5-replacement route the market is taking: C13-15 ALKANE (PO657), C15-19 ALKANE (PO599), ISODODECANE (PO709), TETRADECANE / DODECANE, ALCASUN VE (vegetal) and DIMETHICONE 1,5 cSt / DISILOXANE (volatile silicones). Also ALKABLEND 6800 (dimethiconol in C13-15 alkane).",
   "history": "Sold in volume by Sapirim (Dow Corning era) to Israeli cosmetics producers.",
-  "action": "Raise with Federica: (1) can Silitex source/private-label an alkyl methicone from a partner, (2) if not — agree Sapirim may keep a second supplier for this one molecule so cosmetics accounts (AHAVA, Peer Pharm, Moroccanoil) get a full basket. Add to the contract 'gaps' annex.",
-  "status": "open",
-  "added": "12/10/2026"
+  "action": "Offer alkanes / 1.5 cSt as the volatile carrier; ask Federica whether an alkyl methicone can be added for customers locked on FZ-3196.",
+  "status": "alternative",
+  "added": "12/10/2026",
+  "resolved": "13/10/2026",
+  "note": "Status revised 13/10/2026 after receiving the 5 Silitex sector catalogues (PDF). Website was outdated."
  },
  {
   "id": "GAP-002",
@@ -33,11 +35,13 @@
   ],
   "what": "Alkyl (C16) modified dimethicone - oil-compatible silicone emollient / wax-like co-emulsifier used in W/O creams, lipsticks, sunscreens and hair oils.",
   "producers": "Dow / DOWSIL 2502 · Evonik ABIL Wax 9801 · Elkem Mirasil C-DMI · Siltech Silwax · Clariant Silcare 41M65 · BRB",
-  "silitex": "NOT in catalogue. Silitex raw-material line = Dimethicone (5-5000 cSt), Amodimethicone, Ciclopentasilossano only - no alkyl-modified fluids.",
+  "silitex": "NOT in the 2026 Cosmetics catalogue either. Closest feel: SILIBLEND DT 50 (dimethicone + resin) or ALKABLEND 6800. Only remaining true gap.",
   "history": "Sold in volume by Sapirim (Dow Corning era).",
   "action": "Raise with Federica as part of the cosmetics gap annex (alkyl methicones: caprylyl + cetyl).",
   "status": "open",
-  "added": "12/10/2026"
+  "added": "12/10/2026",
+  "resolved": "",
+  "note": "Status revised 13/10/2026 after receiving the 5 Silitex sector catalogues (PDF). Website was outdated."
  },
  {
   "id": "GAP-003",
@@ -61,11 +65,13 @@
   ],
   "what": "Silicone-polyether emulsifiers for water-in-silicone (W/Si) and W/O systems - foundations, BB/CC, sunscreens, antiperspirants, light serums.",
   "producers": "Dow / DOWSIL 5225C, 3225C, BY 11-030 · Evonik ABIL EM 90 / EM 97 S / Care XL 80 · Shin-Etsu KF-6028 / 6038 / 6050 · Momentive Silsoft 900 · Wacker BELSIL WO 5000 · Elkem Mirasil WO 8210 · Grant Gransil 501",
-  "silitex": "NOT in catalogue. Silitex makes finished O/W emulsions (EVERSIL) and microemulsions - it does not sell emulsifier chemistries. offsets.json CAT-37 previously listed a phantom 'Silitex Emulsifier 5225C' - corrected 12/10/2026.",
+  "silitex": "COVERED — 2026 Cosmetics catalogue: DIMETISIL 18/18 P (PO594, PEG/PPG-18/18 Dimethicone 100%, = DC 5225C active), DIMEPOL 18/18 (H2296, cyclopentasiloxane + PEG/PPG-18/18 dimethicone 10%, = 5225C as supplied), PEG-10 DIMETHICONE (PO708), PEG-12 DIMETHICONE (PO667, = DC 193).",
   "history": "Sold in volume by Sapirim (Dow Corning era).",
-  "action": "Raise with Federica: W/Si emulsifier is the single biggest missing SKU for colour cosmetics / sun care accounts (AHAVA, Peer Pharm). Ask if Silitex can source from Evonik/Wacker under distribution, else carve-out.",
-  "status": "open",
-  "added": "12/10/2026"
+  "action": "Sample DIMETISIL 18/18 P and DIMEPOL 18/18 to AHAVA / Peer Pharm sun-care and BB lines.",
+  "status": "covered",
+  "added": "12/10/2026",
+  "resolved": "13/10/2026",
+  "note": "Status revised 13/10/2026 after receiving the 5 Silitex sector catalogues (PDF). Website was outdated."
  },
  {
   "id": "GAP-004",
@@ -88,11 +94,13 @@
   ],
   "what": "Silicone elastomer gels (crosspolymer swollen in D5 or dimethicone) - velvet / mattifying / pore-blurring feel in primers, serums, sunscreens.",
   "producers": "Dow / DOWSIL 9040, 9041, 9045 · Shin-Etsu KSG-15 / 16 · Momentive Velvesil 125 · Grant Gransil RPS · Wacker BELSIL RG 100 / EG 3000 · Evonik ABIL Care Gel",
-  "silitex": "NOT in catalogue. GOMMA SILICONICA 80 / 5000 are technical RTV mould rubbers ('a solo uso tecnico'), not cosmetic gels. offsets.json CAT-30 previously listed a phantom 'Silitex SG 9040' - corrected 12/10/2026.",
+  "silitex": "COVERED — 2026 Cosmetics catalogue: SILIBLEND CROSS D (PO597, dimethicone + dimethicone/vinyl dimethicone crosspolymer, 7% gel, = DC 9040/9041 type) and DIVICROSS (PO680, 100% crosspolymer). Note: Gomma Siliconica on the website is NOT this.",
   "history": "Sold in volume by Sapirim (Dow Corning era).",
-  "action": "Raise with Federica; candidate for a second-supplier carve-out (Grant / Shin-Etsu via Israeli distributor).",
-  "status": "open",
-  "added": "12/10/2026"
+  "action": "Sample SILIBLEND CROSS D to AHAVA serums/primers; DIVICROSS for formulators who swell their own gel.",
+  "status": "covered",
+  "added": "12/10/2026",
+  "resolved": "13/10/2026",
+  "note": "Status revised 13/10/2026 after receiving the 5 Silitex sector catalogues (PDF). Website was outdated."
  },
  {
   "id": "GAP-005",
@@ -111,11 +119,13 @@
   ],
   "what": "MQ silicone resins - transfer-resistant, waterproof film formers for long-wear make-up, SPF water resistance, hair sprays.",
   "producers": "Dow / DOWSIL MQ-1600, RSN-0749, 593 · Momentive SR1000 · Wacker BELSIL TMS 803 · Shin-Etsu KF-7312 · Evonik ABIL MQ 803",
-  "silitex": "NOT in catalogue as a cosmetic ingredient. Silitex resins (aqueous / solvent) are building & textile film formers. offsets.json CAT-36 corrected 12/10/2026.",
+  "silitex": "COVERED — 2026 Cosmetics catalogue: IDROSIL (PO607, trimethylsiloxysilicate powder, = DC MQ-1600 / RSN-0749), SILIBLEND DT 50 (H2276, dimethicone + resin 50%, = DC 593 type), SINTOSIL (PO608, polymethylsilsesquioxane powder, = Tospearl type).",
   "history": "Sold by Sapirim (Dow Corning era).",
-  "action": "Low priority vs GAP-003/004; mention in gap annex.",
-  "status": "open",
-  "added": "12/10/2026"
+  "action": "Offer IDROSIL for long-wear / SPF water resistance.",
+  "status": "covered",
+  "added": "12/10/2026",
+  "resolved": "13/10/2026",
+  "note": "Status revised 13/10/2026 after receiving the 5 Silitex sector catalogues (PDF). Website was outdated."
  },
  {
   "id": "GAP-006",
@@ -132,10 +142,12 @@
   ],
   "what": "Blend of cyclopentasiloxane (D5) and cyclohexasiloxane (D6) - slightly slower dry-down than pure D5.",
   "producers": "Dow / DOWSIL 345 · Momentive SF1204 · Wacker BELSIL CM 1000 · Shin-Etsu KF-995 (D5)",
-  "silitex": "PARTIAL. Silitex sells CICLOPENTASILOSSANO (pure D5, D4 <0.1%) = direct offset for DC 245. For DC 345 users, D5 alone is accepted by most formulators; no D6 or D5/D6 blend in catalogue. Note EU restriction D4/D5/D6 (2027) - push customers toward D5-free (EVEROIL / EVERIX, MACROAMISIL) instead.",
+  "silitex": "COVERED — 2026 Cosmetics catalogue: ESABLEND (H2127, cyclopentasiloxane + cyclohexasiloxane, = DC 345 1:1). Plus CYCLOPENTASILOXANE (PO200, = DC 245). Dimethiconol blends: BODY BLEND 150-6000 (= DC 1501), DIMETIBLEND (D5-free). PHENYL TRIMETHICONE (PO625, = DC 556) also listed.",
   "history": "Sold in volume by Sapirim (Dow Corning era).",
-  "action": "Offer Ciclopentasilossano as 1:1 for DC 245 and as 'close' for DC 345; flag EU 2027 phase-out in the pitch.",
-  "status": "partial",
-  "added": "12/10/2026"
+  "action": "Direct 1:1 offsets; flag EU 2027 cyclics restriction and offer DIMETIBLEND / alkanes as the D5-free path.",
+  "status": "covered",
+  "added": "12/10/2026",
+  "resolved": "13/10/2026",
+  "note": "Status revised 13/10/2026 after receiving the 5 Silitex sector catalogues (PDF). Website was outdated."
  }
 ]

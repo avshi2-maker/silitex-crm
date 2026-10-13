@@ -3,23 +3,23 @@
  "disclaimer": "Starter formulations are reference guides published by third parties (NuSil CareSil™, 2013). Silitex substitutions are catalog cross-references for lab evaluation only — not Silitex-validated formulas. Verify each substitution on the Silitex TDS/SDS.",
  "silitex_map": {
   "Phenyl Trimethicone": {
-   "silitex": "DIMETHICONE 50–350 cSt (cosmetic) — functional alternative; phenyl fluid NOT on silitex.it: ask Silitex",
-   "note": "No phenyl-modified fluid in the Silitex catalogue (verified 12/10/2026). Dimethicone gives slip and water barrier; refractive-index match needs Silitex confirmation.",
+   "silitex": "PHENYL TRIMETHICONE (PO625) — 1:1 (Cosmetics 2026 catalogue)",
+   "note": "Found in the 2026 catalogue; website was outdated.",
    "d5free": true
   },
   "Cyclopentasiloxane": {
-   "silitex": "CICLOPENTASILOSSANO (D5, D4 <0.1%) — identical; D5-free: DIMETHICONE 5 / 10 (low-viscosity linear)",
-   "note": "For REACH-sensitive cosmetics prefer DIMETHICONE 5/10 or reduce to <0.1% cyclics; see REACH banner.",
+   "silitex": "CYCLOPENTASILOXANE (PO200, D4 <0.1%) — 1:1; D5-free: C13-15 ALKANE, ISODODECANE, DIMETHICONE 1,5 cSt",
+   "note": "EU 2027 cyclics restriction — offer the alkane path.",
    "d5free": false
   },
   "Cyclopentasiloxane (and) Dimethicone Crosspolymer": {
-   "silitex": "GAP-004 — Silitex has NO elastomer gel (verified 12/10/2026). Second supplier: Shin-Etsu KSG-15/16, Grant Gransil RPS, Wacker BELSIL RG 100",
-   "note": "Crosspolymer gel function (silky feel, thickening) cannot be met from the Silitex catalogue; BODYSIL only as sensory alternative in O/W.",
+   "silitex": "SILIBLEND CROSS D (PO597) / DIVICROSS (PO680) — Cosmetics 2026 catalogue",
+   "note": "Dimethicone-carrier gel; DIVICROSS for in-house swelling.",
    "d5free": true
   },
   "Cyclopentasiloxane (and) Cyclohexasiloxane (and) Dimethicone Crosspolymer": {
-   "silitex": "GAP-004 — no Silitex elastomer gel; D5/D6 carrier blend → second-supplier dimethicone-carrier gel for REACH",
-   "note": "See gaps annex.",
+   "silitex": "SILIBLEND CROSS D + ESABLEND (D5/D6) or DIMETIBLEND for D5-free",
+   "note": "",
    "d5free": true
   }
  },

@@ -1,6 +1,20 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "נסגר — בקטלוג 2026": "Chiuso — nel catalogo 2026",
+  "חלופה בקטלוג 2026": "Alternativa nel catalogo 2026",
+  "נסגר": "chiuso",
+  "חלופה": "alternativa",
+  "קטלוגים סקטוריאליים 2026 (מפדריקה, 13/10/2026)": "Cataloghi di settore 2026 (da Federica, 13/10/2026)",
+  "שורות": "righe",
+  "דטרגנטים וטיפוח בית/רכב": "Detergenza e car care",
+  "מזון, משקאות וחקלאות": "Alimentare, bevande e agricoltura",
+  "צבעים, ציפויים ובנייה": "Vernici, coating ed edilizia",
+  "טיפול במים": "Trattamento acque",
+  "כל המדורים": "Tutte le sezioni",
+  "מדור": "Sezione",
+  "תיאור": "Descrizione",
+  "מינון / אישורים": "Dosaggio / conformità",
   "נספח פערים (לפגישה)": "Allegato lacune (riunione)",
   "לפדריקה — למילוי ולהחזרה במייל:": "Per Federica — da compilare e rispedire:",
   "מייל לפדריקה (צרף את הקובץ)": "Email a Federica (allega il file)",

@@ -1,4 +1,23 @@
 # Silitex cosmetics coverage — gap annex (for the Federica meeting)
+
+> **REVISED 13/10/2026** after receiving the 5 Silitex sector catalogues (PDF). The website was outdated. Result: 4 of 6 gaps are COVERED, 1 has an alternative, 1 remains (cetyl dimethicone). Legacy Dow Corning basket coverage ≈ 90%.
+>
+> | DC | Silitex 2026 | Status |
+> |---|---|---|
+> | 5225C / 3225C | DIMETISIL 18/18 P · DIMEPOL 18/18 | ✅ |
+> | 9040 / 9041 | SILIBLEND CROSS D · DIVICROSS | ✅ |
+> | MQ-1600 / 593 | IDROSIL · SILIBLEND DT 50 · SINTOSIL | ✅ |
+> | 345 | ESABLEND | ✅ |
+> | 1501 | BODY BLEND 150-6000 | ✅ |
+> | 556 | PHENYL TRIMETHICONE | ✅ |
+> | 193 | PEG-12 DIMETHICONE | ✅ |
+> | 200 0.65 / 1.5 cSt | DISILOXANE · DIMETHICONE 1,5 cSt | ✅ |
+> | FZ-3196 caprylyl methicone | C13-15 / C15-19 ALKANE, ISODODECANE (alternative) | 🔁 |
+> | 2502 cetyl dimethicone | — | ⛔ |
+
+---
+*Original annex of 12/10/2026 (based on the website) kept below for the record.*
+
 Updated 12/10/2026 · source: silitex.it product pages (fluidi-di-silicone, materie-prime-siliconiche, gomme-siliconiche), checked by Claude 12/10/2026.
 
 ## Verdict

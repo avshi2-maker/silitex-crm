@@ -1,5 +1,5 @@
 "use client";
-// GapNote.tsx (src/components/GapNote.tsx) · updated 12.10.2026 13:40 (Asia/Jerusalem) — "not in Silitex catalogue" answer: matches the search against data/gaps.json; otherwise a clear no-match + routes to Ask Silitex / add-gap request
+// GapNote.tsx (src/components/GapNote.tsx) · updated 13.10.2026 06:10 (Asia/Jerusalem) — "not in Silitex catalogue" answer: matches the search against data/gaps.json; otherwise a clear no-match + routes to Ask Silitex / add-gap request
 import Link from "next/link";
 import { Card, Badge, btnGhost } from "@/components/ui";
 import { useLang } from "@/i18n";
@@ -10,8 +10,8 @@ export const findGap = (q: string) => { const s = q.trim().toLowerCase(); if (s.
 export default function GapNote({ q, rows }: { q: string; rows: number }) {
   const { t: tr } = useLang(); const g = findGap(q);
   if (g) return (
-    <Card className={(g.status === "partial" ? "border-amber-200 bg-amber-50/40" : "border-red-200 bg-red-50/40") + " space-y-1 text-sm"}>
-      <div className="flex flex-wrap items-center gap-2">{g.status === "partial" ? <Badge tone="amber">🟡 {tr("חלקי — Silitex מכסה חלק")}</Badge> : <Badge tone="red">⛔ {tr("לא בקטלוג Silitex")}</Badge>}<b>{g.query}</b><span className="text-xs text-slate-500">{g.id} · {g.added} · {g.status}</span></div>
+    <Card className={(g.status === "covered" ? "border-emerald-200 bg-emerald-50/40" : g.status === "alternative" ? "border-blue-200 bg-blue-50/40" : g.status === "partial" ? "border-amber-200 bg-amber-50/40" : "border-red-200 bg-red-50/40") + " space-y-1 text-sm"}>
+      <div className="flex flex-wrap items-center gap-2">{g.status === "covered" ? <Badge tone="green">✅ {tr("נסגר — בקטלוג 2026")}</Badge> : g.status === "alternative" ? <Badge tone="blue">🔁 {tr("חלופה בקטלוג 2026")}</Badge> : g.status === "partial" ? <Badge tone="amber">🟡 {tr("חלקי — Silitex מכסה חלק")}</Badge> : <Badge tone="red">⛔ {tr("לא בקטלוג Silitex")}</Badge>}<b>{g.query}</b><span className="text-xs text-slate-500">{g.id} · {g.added} · {g.status}</span></div>
       <div><b>{tr("מה זה:")}</b> {g.what}</div>
       <div><b>{tr("מי מייצר:")}</b> <span dir="ltr">{g.producers}</span></div>
       <div><b>Silitex:</b> {g.silitex}</div>

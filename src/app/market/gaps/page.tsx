@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/market/gaps/page.tsx) · updated 12.10.2026 12:40 (Asia/Jerusalem) — "Israel Market Request": the cosmetic silicone molecules Silitex does not make (data/gaps.json), who buys them in Israel, incumbents, and Silitex answer boxes (Make / Source / Resell / No) for the meeting. Print + export bar + Excel/CSV for Federica to fill and mail back (alphabetical, answer columns).
+// page.tsx (src/app/market/gaps/page.tsx) · updated 13.10.2026 06:10 (Asia/Jerusalem) — "Israel Market Request": the cosmetic silicone molecules Silitex does not make (data/gaps.json), who buys them in Israel, incumbents, and Silitex answer boxes (Make / Source / Resell / No) for the meeting. Print + export bar + Excel/CSV for Federica to fill and mail back (alphabetical, answer columns).
 import { useState } from "react";
 import Link from "next/link";
 import { Card, H1, Badge, btnGhost, inputCls } from "@/components/ui";
@@ -25,6 +25,7 @@ export default function GapsPage() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2 print:hidden"><Link href="/market" className={btnGhost}>← {tr("מנוע פיתוח שוק")}</Link><Badge tone="red">{GAPS.length} {tr("פערים")}</Badge></div>
       <H1 sub={tr("מולקולות סיליקון שלקוחות הקוסמטיקה בישראל קונים ו-Silitex לא מייצרת — אומת מול silitex.it (318 מוצרים, 35 קטגוריות). לכל שורה: תשובת Silitex בפגישה.")}>{tr("🇮🇱 בקשת שוק ישראל — פערי קטלוג")}</H1>
+      <Card className="text-sm bg-emerald-50/60 border-emerald-200"><b>✅ {tr("עדכון 13/10/2026:")}</b> {tr("5 הקטלוגים הסקטוריאליים שפדריקה שלחה סוגרים 4 מתוך 6 הפערים (מתחלב 5225C, ג'ל אלסטומר 9040, שרף MQ, תערובת D5/D6) ונותנים חלופה לקפרליל מתיקון (אלקנים). פער אמיתי אחד נשאר: Cetyl Dimethicone. האתר של Silitex לא מעודכן — הקטלוגים הם מקור האמת.")}</Card>
       <Card className="text-sm bg-amber-50/50 border-amber-200">
         <b>{tr("איך להציג:")}</b> {tr("לא תלונה — מודיעין שוק שאני מביא ל-Silitex. הסחורה הגנרית (דימתיקון, D5) לא המשחק שלנו מול Wacker / Shin-Etsu במלאי מקומי; אלה 5–6 המולקולות שסוגרות סל קוסמטיקה שלם תחת יד אחת.")}
       </Card>
@@ -32,7 +33,7 @@ export default function GapsPage() {
         <thead className="bg-slate-50 text-slate-500"><tr><th className="p-2 text-start">#</th><th className="p-2 text-start">{tr("מולקולה (INCI)")}</th><th className="p-2 text-start">{tr("מי קונה בישראל")}</th><th className="p-2 text-start">{tr("שוק משוער ט/שנה")}</th><th className="p-2 text-start">{tr("ספק נוכחי")}</th><th className="p-2 text-start">Silitex {tr("היום")}</th><th className="p-2 text-start print:hidden">{tr("תשובת Silitex")}</th></tr></thead>
         <tbody>{GAPS.map((g) => { const a = ans[g.id] || { a: "", lt: "", note: "" }; return (
           <tr key={g.id} className="border-t align-top">
-            <td className="p-2 whitespace-nowrap"><b>{g.id}</b><div>{g.status === "partial" ? <Badge tone="amber">{tr("חלקי")}</Badge> : <Badge tone="red">{tr("פער")}</Badge>}</div></td>
+            <td className="p-2 whitespace-nowrap"><b>{g.id}</b><div>{g.status === "covered" ? <Badge tone="green">✅ {tr("נסגר")}</Badge> : g.status === "alternative" ? <Badge tone="blue">🔁 {tr("חלופה")}</Badge> : g.status === "partial" ? <Badge tone="amber">{tr("חלקי")}</Badge> : <Badge tone="red">{tr("פער")}</Badge>}</div></td>
             <td className="p-2 min-w-[180px]"><b>{g.query}</b><div className="text-slate-600 mt-1">{g.what}</div><div className="text-[11px] text-slate-400 mt-1" dir="ltr">{g.aliases.slice(0, 5).join(" · ")}</div></td>
             <td className="p-2">{COSMETIC.join(", ")}</td>
             <td className="p-2"><input className={inputCls + " w-20 print:border-0"} value={est[g.id] || ""} onChange={(e) => setEst((s) => ({ ...s, [g.id]: e.target.value }))} /><div className="text-[10px] text-slate-400 print:hidden">{tr("הערכה — החלף בניסיון שלך")}</div></td>
