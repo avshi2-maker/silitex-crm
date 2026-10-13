@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-// page.tsx (src/app/market/page.tsx) · updated 12.10.2026 12:25 (Asia/Jerusalem) — 🧭 Market Development Engine (MOCKUP v1): the method (R&D → lab → pilot → purchasing → contract), funnel of target factories, account deep-dive (product lines × Silitex), offset finder. Pitch item for the Silitex team meeting.
+// page.tsx (src/app/market/page.tsx) · updated 13.10.2026 07:00 (Asia/Jerusalem) — 🧭 Market Development Engine (MOCKUP v1): the method (R&D → lab → pilot → purchasing → contract), funnel of target factories, account deep-dive (product lines × Silitex), offset finder. Pitch item for the Silitex team meeting.
 import { useState } from "react";
 import { useStore } from "@/lib/store";
 import { Card, H1, Badge } from "@/components/ui";
@@ -8,6 +8,7 @@ import Funnel, { stageOf } from "@/components/market/Funnel";
 import MatchMatrix from "@/components/market/MatchMatrix";
 import OffsetFinder from "@/components/market/OffsetFinder";
 import AskBox from "@/components/market/AskBox";
+import IntegrityPanel from "@/components/market/IntegrityPanel";
 import { inputCls } from "@/components/ui";
 import { useLang } from "@/i18n";
 export default function MarketPage() {
@@ -19,6 +20,7 @@ export default function MarketPage() {
   return (
     <div className="space-y-4">
       <H1 sub={tr("מפעלים שכבר משתמשים בסיליקון בייצור → מיפוי קו מוצרים מול קטלוג Silitex → פנייה למו\"פ → דגימה → הסמכה → מעבר לרכש אחרי אישור Silitex. זו העבודה לשנים הבאות.")}>🧭 {tr("מנוע פיתוח שוק — Silitex ישראל")} <Badge tone="amber">MOCKUP v1</Badge></H1>
+      <IntegrityPanel leads={state.leads} />
       <div className="print:hidden"><Link href="/market/gaps" className="inline-block px-3 py-1.5 rounded-lg border border-red-300 bg-red-50 text-sm text-red-800">⛔ {tr("נספח פערים — מה Silitex לא מייצרת (לפגישה)")}</Link></div>
       <div className="flex flex-wrap items-center gap-2"><label className="text-sm text-slate-600">{tr("חשבון")}</label><select className={inputCls + " w-96"} value={lead.id} onChange={(e) => setSel(e.target.value)}>{leads.map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}</select></div>
       <AskBox lead={lead} kb={state.kbChunks} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} />

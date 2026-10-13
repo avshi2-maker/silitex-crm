@@ -1,6 +1,18 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "בדיקת יושרה — התוכנית מול הקטלוגים": "Integrity check — plan vs catalogues",
+  "מגובה בקטלוגים 2026": "backed by the 2026 catalogues",
+  "ממתין לאישור קטלוג": "pending catalogue confirmation",
+  "פרט": "details",
+  "סגור": "close",
+  "כל הנפחים הם הערכות שולחן (לא אושרו ע\"י לקוח). 'ממתין' = ה-SKU הראשי מופיע באתר silitex.it אבל לא ב-5 הקטלוגים שהתקבלו — לא פער, חוסר קטלוג. לא מציגים ל-Silitex טון שאין מאחוריו מוצר מאושר.": "All volumes are desk estimates (not customer-confirmed). 'Pending' = the core SKU is on silitex.it but not in the 5 catalogues received — not a gap, a missing catalogue. We never show Silitex a ton without a confirmed product behind it.",
+  "מצב": "Status",
+  "ראשי": "core",
+  "SKU לאישור מול Silitex (באתר, לא בקטלוגים):": "SKUs to confirm with Silitex (website, not in catalogues):",
+  "קטלוגים לבקש מפדריקה:": "Catalogues to request from Federica:",
+  "בקטלוג 2026": "in 2026 catalogue",
+  "באתר בלבד — לאשר": "website only — confirm",
   "הטבלה רחבה — גלול הצידה, או לחץ על שורה לכרטיס מלא": "Wide table — scroll sideways, or click a row for the full card",
   "אישורים / עמידות": "Compliance / resistance",
   "נסגר — בקטלוג 2026": "Closed — in the 2026 catalogue",

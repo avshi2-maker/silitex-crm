@@ -37,3 +37,21 @@ export function siteDesc(name: string): string | undefined {
 export const CATALOG_COUNT = NAMES.length;
 export const SECTORS = Array.from(new Set(CAT26.map((r) => r.sector)));
 export const PDFS: Record<string, string> = { Cosmetics: "/catalogues/SILITEX_Cosmetics_2026.pdf", Detergency: "/catalogues/SILITEX_Detergency_2026.pdf", "Food & Agri": "/catalogues/SILITEX_FoodBeverages_2026.pdf", "Paint & Coating": "/catalogues/SILITEX_PaintCoating_2026.pdf", "Water Treatment": "/catalogues/SILITEX_Water_Treatment_2026.pdf" };
+/** 3-state provenance of a product name: in the 5 catalogues 2026 (confirmed) · website only (listed on silitex.it, not in the catalogues received — confirm) · unknown */
+export type Provenance = "catalogue" | "website" | "unknown";
+const CAT_NAMES = CAT26.map((r) => r.product.toUpperCase());
+const SITE_NAMES = SITE.map((p) => p.name.toUpperCase());
+const hit = (t: string, list: string[]) => list.includes(t) || list.some((c) => c.length > 4 && (t.startsWith(c + " ") || c.startsWith(t + " ")));
+export function provenance(token: string): Provenance {
+  const t = token.toUpperCase().replace(/\s*\(.*?\)\s*/g, " ").replace(/\s+/g, " ").trim();
+  if (t.length < 3) return "unknown";
+  if (hit(t, CAT_NAMES)) return "catalogue";
+  if (hit(t, SITE_NAMES)) return "website";
+  return "unknown";
+}
+/** product tokens of a SKU string (names only, no prose) */
+export function skuTokens(s: string): string[] {
+  const out: string[] = [];
+  for (const part of s.split(/\s*&\s*|,\s*|\s+—\s+|;\s*/)) for (const p of part.replace(/\(.*?\)/g, "").split(" / ")) { const q = p.trim(); if (/^[A-Z][A-Z0-9\-\.]{2,}(\s[A-Z0-9\-\.\/]+){0,3}$/.test(q)) out.push(q); }
+  return out;
+}

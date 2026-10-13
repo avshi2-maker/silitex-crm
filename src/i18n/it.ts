@@ -1,6 +1,15 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "בדיקת יושרה — התוכנית מול הקטלוגים": "Verifica di integrità — piano vs cataloghi",
+  "מגובה בקטלוגים 2026": "coperto dai cataloghi 2026",
+  "ממתין לאישור קטלוג": "in attesa di conferma catalogo",
+  "פרט": "dettagli",
+  "סגור": "chiudi",
+  "מצב": "Stato",
+  "ראשי": "principale",
+  "בקטלוג 2026": "nel catalogo 2026",
+  "באתר בלבד — לאשר": "solo sito — da confermare",
   "הטבלה רחבה — גלול הצידה, או לחץ על שורה לכרטיס מלא": "Tabella larga — scorri lateralmente o clicca una riga per la scheda completa",
   "אישורים / עמידות": "Conformità / resistenza",
   "נסגר — בקטלוג 2026": "Chiuso — nel catalogo 2026",

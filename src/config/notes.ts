@@ -1,9 +1,10 @@
-// notes.ts (src/config/notes.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
+// notes.ts (src/config/notes.ts) · updated 13.10.2026 07:05 — + the testing gate (price objection) and the integrity line (Asia/Jerusalem)
 // Teleprompter script for the Silitex meeting (English). Open /notes on a second screen or phone — never on the shared screen.
 export type Cue = { t: string; min: string; say: string[]; show?: string };
 export const NOTES: Cue[] = [
   { t: "Open", min: "0–1", show: "/pitch?lang=en&demo=1 (counters running)", say: [
     "Thank you for the time. I'll show you a working system, not slides — everything you see is live at silitex.marble-art.co.il.",
+    "One honesty line first: the numbers you will see are desk estimates built from your catalogues and the plants' own product lines — not customer commitments. The system marks what is backed by your 2026 catalogues and what still needs a catalogue from you.",
     "I am the commercial channel for Israel: 19 named plants, mapped by decision-maker and by the Silitex SKU that fits. My job is to put Silitex in front of them with discipline, and to give you full visibility." ] },
   { t: "Market", min: "1–4", show: "map + priorities", say: [
     "Every pin is a plant within two hours of Tel Aviv. Five product families carry most of the potential: water repellents for building, process antifoams, Kosher/FDA food-grade, green chemistry, GOTS textile softeners.",
@@ -28,6 +29,10 @@ export const NOTES: Cue[] = [
   { t: "Visibility", min: "13–15", show: "/report → Generate", say: [
     "This is what you receive monthly — pipeline by stage, samples in field, wins, forecast — generated from live data, not from my memory.",
     "Later we add a gated portal where your export, lab and invoicing people each see their own threads with us." ] },
+  { t: "The testing gate — say this when they ask 'how will you get the first order'", min: "—", show: "/market → integrity panel + /offsets", say: [
+    "I will be straight with you about the biggest wall in this market. When I offer an equivalent silicone to a plant's R&D, the first answer is: give me a better price than what I use today, otherwise I won't spend lab hours on testing. In commodities we will lose that argument every time — Wacker and Shin-Etsu sit in Israeli warehouses.",
+    "So I do not sell price-per-kilo. I sell three things the incumbent cannot: a formulated product that costs less per batch because it works at a lower dose; a trial that costs the plant nothing — sample, dosage protocol, and our lab note; and a reason to test that is not price: a Kosher drum, an Ecolabel, a D5-free reformulation they are forced into by 2027, an MBR-compatible antifoam, a supplier who answers in Hebrew the same day.",
+    "What I need from you for that: a sample policy up to 25 kg at no charge, a trial-lot price for the first 500 kg, dosage data per application from your lab, and a 60-day answer on any technical question. With those four I convert tests; without them I am one more agent with a price list." ] },
   { t: "Ask", min: "15–18", show: "/pitch → What we need", say: [
     "What I need from you: exclusive distribution for Israel for 24 months with a 36-month renewal option, customer-of-record protection, the TDS/MSDS pack, sample kits for Phase 1, a distributor price list and current certificates.",
     "I carry the investment — the system, the visits, the samples logistics. The agreement is how that investment is protected. Logistics — DDP through my forwarder or direct invoicing for container volumes — is the customer's choice; commission terms go in the contract, not on this screen." ] },
