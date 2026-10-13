@@ -1,6 +1,8 @@
 // it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
+  "הטבלה רחבה — גלול הצידה, או לחץ על שורה לכרטיס מלא": "Tabella larga — scorri lateralmente o clicca una riga per la scheda completa",
+  "אישורים / עמידות": "Conformità / resistenza",
   "נסגר — בקטלוג 2026": "Chiuso — nel catalogo 2026",
   "חלופה בקטלוג 2026": "Alternativa nel catalogo 2026",
   "נסגר": "chiuso",

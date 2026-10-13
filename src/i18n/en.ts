@@ -1,6 +1,8 @@
 // en.ts (src/i18n/en.ts) · updated 09.10.2026 18:30 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "הטבלה רחבה — גלול הצידה, או לחץ על שורה לכרטיס מלא": "Wide table — scroll sideways, or click a row for the full card",
+  "אישורים / עמידות": "Compliance / resistance",
   "נסגר — בקטלוג 2026": "Closed — in the 2026 catalogue",
   "חלופה בקטלוג 2026": "Alternative in the 2026 catalogue",
   "נסגר": "closed",
