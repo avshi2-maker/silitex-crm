@@ -1,14 +1,14 @@
 "use client";
-// page.tsx (src/app/faq/page.tsx) · updated 09.10.2026 13:20 (Asia/Jerusalem) — 50 Q&A built from silitex.it + catalog assets (src/data/faq.json). Filter by category / text.
+// page.tsx (src/app/faq/page.tsx) · updated 13.10.2026 07:40 — Italian Q&A (q_it / a_it) (Asia/Jerusalem) — 50 Q&A built from silitex.it + catalog assets (src/data/faq.json). Filter by category / text.
 import { useMemo, useState } from "react";
 import faq from "@/data/faq.json";
 import { Card, H1, Badge, inputCls } from "@/components/ui";
 import ExportBar from "@/components/ExportBar";
 import { useLang } from "@/i18n";
-type Item = { n: number; cat: string; q: string; a: string; src: string };
+type Item = { n: number; cat: string; q: string; a: string; src: string; q_it?: string; a_it?: string };
 const DATA = faq as { built: string; sources: string[]; items: Item[] };
 export default function FaqPage() {
-  const { t: tr } = useLang();
+  const { t: tr, lang } = useLang();
   const [q, setQ] = useState(""); const [cat, setCat] = useState(""); const [open, setOpen] = useState<number | null>(null);
   const cats = Array.from(new Set(DATA.items.map((i) => i.cat)));
   const list = useMemo(() => DATA.items.filter((i) => (!cat || i.cat === cat) && (!q || (i.q + i.a).toLowerCase().includes(q.toLowerCase()))), [q, cat]);
@@ -26,9 +26,9 @@ export default function FaqPage() {
           <Card key={i.n} className="p-0 overflow-hidden">
             <button className="w-full text-start p-4 flex gap-3 items-start hover:bg-slate-50" onClick={() => setOpen(open === i.n ? null : i.n)}>
               <span className="w-7 h-7 rounded-full bg-brand-500 text-white text-xs flex items-center justify-center shrink-0">{i.n}</span>
-              <span className="font-medium flex-1">{i.q}</span><Badge>{i.cat}</Badge><span className="text-slate-400">{open === i.n ? "−" : "+"}</span>
+              <span className="font-medium flex-1">{lang === "it" && i.q_it ? i.q_it : i.q}</span><Badge>{i.cat}</Badge><span className="text-slate-400">{open === i.n ? "−" : "+"}</span>
             </button>
-            {open === i.n && <div className="px-4 pb-4 ps-14 text-sm text-slate-700 leading-6">{i.a}<div className="text-xs text-slate-400 mt-2">{tr("מקור")}: {i.src}</div></div>}
+            {open === i.n && <div className="px-4 pb-4 ps-14 text-sm text-slate-700 leading-6">{lang === "it" && i.a_it ? i.a_it : i.a}<div className="text-xs text-slate-400 mt-2">{tr("מקור")}: {i.src}</div></div>}
           </Card>
         ))}
       </div>

@@ -44,13 +44,13 @@ export default function Nav() {
     <aside className="w-60 shrink-0 bg-ink-900 text-white min-h-screen p-4 print:hidden">
       <div className="mb-6">
         <Link href="/" className="bg-white rounded-lg px-2 py-1 mb-2 inline-block"><img src="/silitex-logo.png" alt="Silitex" className="h-9" /></Link>
-        <div className="text-sm font-bold">{partner ? "Silitex knowledge tools" : "Silitex CRM · Israel"}</div>
-        {partner && <div className="text-[11px] text-amber-300">Partner access · {partner} · read-only</div>}
+        <div className="text-sm font-bold">{partner ? tr("Silitex knowledge tools") : "Silitex CRM · Israel"}</div>
+        {partner && <div className="text-[11px] text-amber-300">{tr("Partner access")} · {partner} · {tr("read-only")}</div>}
         <div className="flex items-center justify-between"><div className="text-xs text-slate-300">{tr("הפצה רשמית · ישראל")}</div><LangSwitch /></div>
         <div className="mt-3"><Clock /><VersionStamp /></div>
       </div>
       <nav className="flex flex-col gap-1">
-        {partner && <Link href="/partner" className={"flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (path === "/partner" ? "bg-brand-500" : "hover:bg-ink-700")}><span>🤝</span><span>Partner home</span></Link>}
+        {partner && <Link href="/partner" className={"flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (path === "/partner" ? "bg-brand-500" : "hover:bg-ink-700")}><span>🤝</span><span>{tr("Partner home")}</span></Link>}
         {(partner ? ITEMS.filter((it) => isPartnerPath(it.href)) : ITEMS).map((it) => {
           const active = it.href === "/" ? path === "/" : it.href === "/market" ? path === "/market" : path.startsWith(it.href);
           const cls = "flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (active ? "bg-brand-500" : "hover:bg-ink-700");
@@ -58,7 +58,7 @@ export default function Nav() {
         })}
       </nav>
       <div className="mt-8 text-[11px] text-slate-300 leading-5">
-        {partner && <div className="mb-2 text-amber-200">Prepared by Sapirim for Silitex S.r.l. — confidential. Do not forward outside Silitex.</div>}
+        {partner && <div className="mb-2 text-amber-200">{tr("Prepared by Sapirim for Silitex S.r.l. — confidential. Do not forward outside Silitex.")}</div>}
         {tr(OWNER.name)} · {OWNER.phone}<br />Silitex S.r.l. — Italy · <button className="underline" onClick={() => fetch("/api/login", { method: "DELETE" }).then(() => (window.location.href = "/login"))}>🔒</button>
       </div>
     </aside>
