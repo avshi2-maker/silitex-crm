@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/partner/page.tsx) · updated 15.10.2026 13:35 — + Certifications block — + Phase 2 preview tile — + PartnerGreeting (hour-aware, Israel time + Tel Aviv weather) — + white-label footnote (tools.silitex.it) — all strings through tr() (EN/IT; HE for owner preview) — + working-session framing and follow-up date (Asia/Jerusalem) — landing for Silitex staff (partner access): what they can open, in EN/IT first. Knowledge tools only.
+// page.tsx (src/app/partner/page.tsx) · updated 15.10.2026 14:30 — + ⚡ QuickMatch — + Certifications block — + Phase 2 preview tile — + PartnerGreeting (hour-aware, Israel time + Tel Aviv weather) — + white-label footnote (tools.silitex.it) — all strings through tr() (EN/IT; HE for owner preview) — + working-session framing and follow-up date (Asia/Jerusalem) — landing for Silitex staff (partner access): what they can open, in EN/IT first. Knowledge tools only.
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui";
@@ -7,6 +7,7 @@ import { useLang } from "@/i18n";
 import { CAT26 } from "@/lib/catalog";
 import PartnerGreeting from "@/components/PartnerGreeting";
 import Certifications from "@/components/Certifications";
+import QuickMatch from "@/components/QuickMatch";
 const TILES = [
   { href: "/ask", icon: "🔎", t: "Ask Silitex (AI)", d: "Questions in English or Italian — answers with sources from your catalogues, offsets and FAQ. No source = no answer: the question goes to Avshi by email + WhatsApp, human reply within 24 h." },
   { href: "/products", icon: "📕", t: "Catalogue 2026", d: "Your five sector catalogues, searchable by name, INCI, code and application; PDFs inside." },
@@ -24,6 +25,7 @@ export default function PartnerHome() {
     <div className="space-y-4" dir="ltr">
       <PartnerGreeting name={name} />
       <div><div className="text-2xl font-bold text-ink-900">{tr("Silitex knowledge tools")}</div><div className="text-slate-500 text-sm">{tr("Built by Sapirim (Avshi Sapir) on the Silitex 2026 catalogues")} ({uniq} {tr("products")}) {tr("for the Israeli market. Read-only partner access; your questions are logged for usage statistics only.")}</div></div>
+      <QuickMatch />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">{TILES.map((x) => <Link key={x.href} href={x.href} className="block border rounded-xl p-4 bg-white hover:border-brand-500"><div className="text-2xl">{x.icon}</div><div className="font-bold mt-1">{tr(x.t)}</div><div className="text-sm text-slate-600 mt-1">{tr(x.d)}</div></Link>)}</div>
       <Certifications compact />
       <Card className="text-sm bg-brand-50/40 border-brand-200"><b>{tr("How to use these two weeks.")}</b> {tr("Ask the tool the three questions your agents ask you most often. Where the answer is wrong or missing, press")} <b>💬 Ask Sapirim</b> {tr("(bottom-right on every page) — the note reaches Avshi's inbox with the page attached, and he answers within 24 hours. We reconnect on")} <b>{process.env.NEXT_PUBLIC_FOLLOWUP_DATE || "27/10/2026"}</b> {tr("to review what you found and decide together whether there is a basis to talk terms.")}</Card>

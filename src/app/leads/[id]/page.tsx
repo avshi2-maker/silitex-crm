@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 09.10.2026 19:30 (Asia/Jerusalem) — lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState } from "react";
 import Link from "next/link";
 import { useStore, STAGES } from "@/lib/store";
@@ -61,7 +61,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
         <div className="space-y-4">
           <PurchaseHistory leadId={id} compact />
           <PlanCard lead={lead} onTask={(title) => addTask({ lead_id: id, lead_name: lead.name, title, due: todayIso(), cadence: "once", kind: "plan" })} />
-          <SampleCard leadId={id} leadName={lead.name} samples={state.samples.filter((x) => x.lead_id === id)} defaultSku={((sil && !sil.startsWith("—") ? sil : lead.recommended_sku) || "").split(/[&,/]/)[0].trim() || undefined} onAdd={addSample} onStatus={setSampleStatus} />
+          <SampleCard leadId={id} leadName={lead.name} samples={state.samples.filter((x) => x.lead_id === id)} defaultSku={((sil && !sil.startsWith("—") ? sil : lead.recommended_sku) || "").split(/[&,/]/)[0].trim() || undefined} lead={lead} contacts={state.contacts} onAdd={addSample} onStatus={setSampleStatus} />
           <Card>
             <h3 className="font-bold mb-2">{tr("משימות פתוחות (")}{tasks.length})</h3>
             <ul className="text-sm space-y-1">{tasks.map((t) => <li key={t.id}>• {fmtDate(t.due)} — {t.title}</li>)}</ul>

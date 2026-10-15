@@ -10,7 +10,7 @@ export type OffsetRow = {
   kosher: string; fda: string; eco_certs: string; offsets: Record<string, string>;
 };
 export type FoodGrade = { trade_name: string; composition: string; kosher: string; fda: string; application: string; dosage: string; performance: string };
-export type Stage = "prospect" | "contacted" | "sample" | "rfq" | "quote" | "negotiation" | "won" | "lost";
+export type Stage = "prospect" | "contacted" | "sample" | "pilot" | "rd_approved" | "rfq" | "quote" | "negotiation" | "won" | "lost";
 export type Lead = {
   id: string; name: string; industry: string; sub_industry: string; product_match: string; use_case: string;
   volume_tons: number; value_usd: number; tam_tons?: number; tier: string; department: string; contact_role: string;

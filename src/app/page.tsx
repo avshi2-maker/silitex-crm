@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/page.tsx) · updated 09.10.2026 18:30 (Asia/Jerusalem) — dashboard (+ open offers)
+// page.tsx (src/app/page.tsx) · updated 15.10.2026 14:30 (Asia/Jerusalem) — dashboard (+ open offers) + ⚡ competitor-code quick match
 import Link from "next/link";
 import { useStore, STAGES, isClosed } from "@/lib/store";
 import { PRODUCTS, OFFSETS } from "@/lib/data";
@@ -9,6 +9,7 @@ import PrioritiesCard from "@/components/PrioritiesCard";
 import DemoMenu from "@/components/DemoMenu";
 import OffersCard from "@/components/OffersCard";
 import { useLang } from "@/i18n";
+import QuickMatch from "@/components/QuickMatch";
 export default function Dashboard() {
   const { t: tr } = useLang();
   const { state, ready, loadDemo, reset } = useStore();
@@ -22,12 +23,19 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <div className="flex items-start justify-between"><H1 sub={tr("היום ") + fmtDate(new Date())}>{tr("לוח בקרה — Silitex ישראל")}</H1><DemoMenu demo={state.demo} onLoad={loadDemo} onReset={reset} /></div>
+      <QuickMatch />
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <Stat label={tr("מוצרים בקטלוג")} value={PRODUCTS.length} hint={OFFSETS.rows.length + tr(" קטגוריות מקבילות")} />
         <Stat label={tr("לקוחות פוטנציאליים פתוחים")} value={open.length} hint={state.leads.length + tr(" סה״כ")} />
         <Stat label={tr("פוטנציאל שנתי בצנרת")} value={fmtUsd(pipelineUsd)} hint={tr("לפי חשבונות (19)")} />
         <Stat label={tr("דגימות בשטח")} value={inField} hint={won.length + " " + tr("נסגרו ✓")} />
         <Stat label={tr("משימות להיום")} value={due.length} hint={state.tasks.filter((t) => !t.done).length + tr(" פתוחות")} />
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Stat label={"🧪 " + tr("בבדיקת מעבדה")} value={state.leads.filter((l) => l.stage === "sample").length} hint={state.samples.filter((x) => x.status === "in_lab").length + " " + tr("דגימות במעבדה")} />
+        <Stat label={"🏭 " + tr("פיילוט במפעל")} value={state.leads.filter((l) => l.stage === "pilot").length} hint={tr("ניסוי בקו הייצור")} />
+        <Stat label={"✅ " + tr("אושר במו\"פ")} value={state.leads.filter((l) => l.stage === "rd_approved").length} hint={tr("מוכן לרכש")} />
+        <Stat label={"🤝 " + tr("ברכש")} value={state.leads.filter((l) => ["rfq", "quote", "negotiation"].includes(l.stage)).length} hint={tr("RFQ / הצעה / מו\"מ")} />
       </div>
       <div className="grid md:grid-cols-2 gap-4">
         <Card>

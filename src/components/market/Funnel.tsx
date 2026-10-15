@@ -1,5 +1,5 @@
 "use client";
-// Funnel.tsx (src/components/market/Funnel.tsx) · updated 11.10.2026 11:10 (Asia/Jerusalem) — market-development funnel: accounts by plan stage (R&D outreach → lab qualification → pilot → purchasing → contract)
+// Funnel.tsx (src/components/market/Funnel.tsx) · updated 15.10.2026 14:45 (Asia/Jerusalem) — live stage (pilot / rd_approved / rfq… / won) overrides plan stage · market-development funnel: accounts by plan stage (R&D outreach → lab qualification → pilot → purchasing → contract)
 import Link from "next/link";
 import { Badge } from "@/components/ui";
 import { useLang } from "@/i18n";
@@ -11,7 +11,9 @@ export const STAGES: { key: string; match: RegExp; he: string; icon: string; who
   { key: "4", match: /^4\./, he: "משא ומתן ברכש", icon: "🤝", who: "Purchasing" },
   { key: "5", match: /^5\.|won/i, he: "חוזה שנתי", icon: "📜", who: "Management" },
 ];
-export const stageOf = (l: Lead) => STAGES.find((s) => s.match.test(l.plan_stage || "") || (s.key === "5" && l.stage === "won")) || STAGES[0];
+// live CRM stage overrides the static plan once the account has moved past sampling
+const LIVE: Record<string, string> = { pilot: "3", rd_approved: "4", rfq: "4", quote: "4", negotiation: "4", won: "5" };
+export const stageOf = (l: Lead) => (LIVE[l.stage] && STAGES.find((s) => s.key === LIVE[l.stage])) || STAGES.find((s) => s.match.test(l.plan_stage || "")) || STAGES[0];
 export default function Funnel({ leads, sel, onSel }: { leads: Lead[]; sel: string; onSel: (id: string) => void }) {
   const { t: tr } = useLang();
   return (

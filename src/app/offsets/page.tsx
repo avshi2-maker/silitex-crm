@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/offsets/page.tsx) · updated 12.10.2026 11:10 (Asia/Jerusalem) — global producers cross-reference matrix (37 categories × 24 producers)
+// page.tsx (src/app/offsets/page.tsx) · updated 15.10.2026 14:30 (Asia/Jerusalem) — + ⚡ quick match on top — global producers cross-reference matrix (37 categories × 24 producers)
 import { useMemo, useState } from "react";
 import { OFFSETS, FOOD_GRADE } from "@/lib/data";
 import { Card, H1, Badge, inputCls } from "@/components/ui";
@@ -7,6 +7,7 @@ import ExportBar from "@/components/ExportBar";
 import ReachNote from "@/components/ReachNote";
 import GapNote from "@/components/GapNote";
 import { useLang } from "@/i18n";
+import QuickMatch from "@/components/QuickMatch";
 export default function OffsetsPage() {
   const { t: tr } = useLang();
   const [q, setQ] = useState(""); const [prod, setProd] = useState([...OFFSETS.producers.slice(0, 4), "NuSil (Avantor NuSil Technology)"]);
@@ -16,6 +17,7 @@ export default function OffsetsPage() {
   return (
     <div className="space-y-4">
       <H1 sub={tr("איזה מוצר Silitex מחליף את מה שהלקוח קונה היום מ-Dow / Wacker / Momentive / Evonik…")}>{tr("מקבילות עולמיות — ")}{OFFSETS.rows.length}{tr(" קטגוריות")} <span className="text-xs text-slate-400 font-normal">v6 · {OFFSETS.updated}</span></H1>
+      <QuickMatch autoFocus />
       <ReachNote />
       <Card className="space-y-2">
         <input className={inputCls} placeholder={tr("חיפוש: שם מוצר של מתחרה (למשל SAG 30, SILFOAM, Xiameter)…")} value={q} onChange={(e) => setQ(e.target.value)} />
