@@ -1,5 +1,5 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 15.10.2026 14:30 — items sorted A→Z by the label in the current language (HE/EN/IT), Dashboard pinned on top · 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
@@ -35,8 +35,9 @@ const ITEMS = [
   { href: "/report", he: "דוח ליצרן", icon: "📑" },
 ];
 export default function Nav() {
-  const { t: tr } = useLang();
+  const { t: tr, lang } = useLang();
   const path = usePathname();
+  const sorted = [ITEMS[0], ...ITEMS.slice(1).sort((a, b) => tr(a.he).localeCompare(tr(b.he), lang, { sensitivity: "base", numeric: true }))];
   const [partner, setPartner] = useState("");
   useEffect(() => { try { const m = document.cookie.match(new RegExp("(?:^|; )" + PARTNER_NAME_COOKIE + "=([^;]*)")); setPartner(m ? decodeURIComponent(m[1]) : ""); } catch {} }, [path]);
   if (path.startsWith("/request") || path.startsWith("/survey") || path.startsWith("/notes") || path.startsWith("/login")) return null;
@@ -51,7 +52,7 @@ export default function Nav() {
       </div>
       <nav className="flex flex-col gap-1">
         {partner && <Link href="/partner" className={"flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (path === "/partner" ? "bg-brand-500" : "hover:bg-ink-700")}><span>🤝</span><span>{tr("Partner home")}</span></Link>}
-        {(partner ? ITEMS.filter((it) => isPartnerPath(it.href)) : ITEMS).map((it) => {
+        {(partner ? sorted.filter((it) => isPartnerPath(it.href)) : sorted).map((it) => {
           const active = it.href === "/" ? path === "/" : it.href === "/market" ? path === "/market" : path.startsWith(it.href);
           const cls = "flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (active ? "bg-brand-500" : "hover:bg-ink-700");
           return (<Link key={it.href} href={it.href} className={cls}><span>{it.icon}</span><span>{tr(it.he)}</span></Link>);
