@@ -1,4 +1,4 @@
-// route.ts (src/app/api/login/route.ts) · updated 13.10.2026 06:40 (Asia/Jerusalem) — POST {pin} → owner gate cookie (30 days). POST {partner, pin} → partner cookies (90 days, knowledge pages only). DELETE → logout both.
+// route.ts (src/app/api/login/route.ts) · updated 15.10.2026 13:00 (Asia/Jerusalem) — POST {pin} → owner gate cookie (30 days) + clears any old partner cookies. POST {partner, pin} → partner cookies (90 days, knowledge pages only). DELETE → logout both.
 import { NextResponse } from "next/server";
 import { GATE_COOKIE, PARTNER_COOKIE, PARTNER_NAME_COOKIE, gateToken, partnerToken, partnerPins } from "@/lib/gate";
 import { logPartner } from "@/lib/partner-usage";
@@ -21,6 +21,7 @@ export async function POST(req: Request) {
   if (String(pin) !== real) { await slow(); return NextResponse.json({ ok: false }, { status: 401 }); }
   const res = NextResponse.json({ ok: true });
   res.cookies.set(GATE_COOKIE, await gateToken(real), { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge: 60 * 60 * 24 * 30 });
+  for (const c of [PARTNER_COOKIE, PARTNER_NAME_COOKIE]) res.cookies.set(c, "", { path: "/", maxAge: 0 });
   return res;
 }
 export async function DELETE() { const res = NextResponse.json({ ok: true }); for (const c of [GATE_COOKIE, PARTNER_COOKIE, PARTNER_NAME_COOKIE]) res.cookies.set(c, "", { path: "/", maxAge: 0 }); return res; }
