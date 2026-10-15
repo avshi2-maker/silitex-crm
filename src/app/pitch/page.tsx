@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/pitch/page.tsx) · updated 10.10.2026 07:40 (Asia/Jerusalem) — executive story for Silitex management (English, print-ready). Copy lives in config/pitch.ts. — + Certifications block 15.10.2026 13:35
+// page.tsx (src/app/pitch/page.tsx) · updated 10.10.2026 07:40 (Asia/Jerusalem) — executive story for Silitex management (English, print-ready). Copy lives in config/pitch.ts. — + Certifications block 15.10.2026 13:35 — + Technical backbone 15.10.2026 17:30
 import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { PRODUCTS, OFFSETS, PRIORITIES, INDUSTRIES } from "@/lib/data";
@@ -12,6 +12,7 @@ import Timeline from "@/components/pitch/Timeline";
 import ExportBar from "@/components/ExportBar";
 import BackLink from "@/components/BackLink";
 import Certifications from "@/components/Certifications";
+import TechBackbone, { backboneText } from "@/components/pitch/TechBackbone";
 import { CERTS } from "@/config/certs";
 import { fmtDate } from "@/lib/format";
 export default function PitchPage() {
@@ -44,6 +45,7 @@ export default function PitchPage() {
           <div className="mt-4 flex gap-2 text-sm"><Link href="/products?lang=en" className="text-brand-600 underline">Catalog ({PRODUCTS.length})</Link><Link href="/offsets?lang=en" className="text-brand-600 underline">Cross-reference</Link><Link href="/sniper?lang=en" className="text-brand-600 underline">Offset Sniper</Link></div>
         </div>
       </section>
+      <TechBackbone />
       <section><h2 className="text-2xl font-bold text-ink-900 mb-4">12-month plan</h2><Timeline /></section>
       <section className="bg-white border rounded-2xl p-6 shadow-sm">
         <h2 className="text-xl font-bold text-ink-900 mb-1">{PITCH.process.title}</h2><p className="text-sm text-slate-500 mb-3">{PITCH.process.sub}</p>
@@ -57,7 +59,7 @@ export default function PitchPage() {
         <div className="bg-brand-50 border border-brand-100 rounded-2xl p-6"><h2 className="text-xl font-bold text-ink-900 mb-3">What we need from Silitex</h2><ol className="space-y-2 list-decimal list-inside text-sm">{PITCH.needs.map((n) => <li key={n}>{n}</li>)}</ol><div className="mt-4 text-sm text-slate-600">Live system: <b>silitex.marble-art.co.il</b> — dashboard, pipeline, sample tracker, principal report.</div></div>
       </section>
       <Certifications />
-      <ExportBar title="Silitex Israel — Distribution Proposal" text={summary + "\n\nCertifications: " + CERTS.map((c) => c.code + " (" + c.title + ")").join(" · ")} />
+      <ExportBar title="Silitex Israel — Distribution Proposal" text={summary + "\n\n" + backboneText() + "\n\nCertifications: " + CERTS.map((c) => c.code + " (" + c.title + ")").join(" · ")} />
     </div>
   );
 }
