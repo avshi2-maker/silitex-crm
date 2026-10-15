@@ -814,4 +814,10 @@ export const EN: Record<string, string> = {
   "📥 קלוט למאגר": "📥 Ingest",
   "🔎 אחזר": "🔎 Retrieve",
   "🖨️ הדפסה": "🖨️ Print",
+  "מכוסה": "covered",
+  "🇮🇱 סל הקוסמטיקה הישראלי — בדיקת קטלוג": "🇮🇱 Israel cosmetics basket — catalogue check",
+  "מולקולות הסיליקון שלקוחות הקוסמטיקה בישראל קונים — נבדקו מול 5 קטלוגי Silitex 2026 (13/10/2026). רוב הסל מכוסה; נשארה שאלה אחת פתוחה לפגישה.": "The silicone molecules Israeli cosmetics plants buy — checked against the five Silitex 2026 catalogues (13/10/2026). Most of the basket is covered; one open question for the meeting.",
+  "תודה קודם: הקטלוגים של Silitex ענו על 4 מתוך 6 המולקולות, ונתנו חלופת אלקנים לקפרליל מתיקון. שאלה אחת לפגישה: Cetyl Dimethicone — לייצר, לרכוש מפרטנר, או לא? ולאשר את מסלול האלקנים כתשובה לקפרליל מתיקון.": "Thanks first: the Silitex catalogues answered 4 of the 6 molecules and gave an alkane alternative for caprylyl methicone. One question for the meeting: Cetyl Dimethicone — make, source from a partner, or no? And confirm the alkane route as the answer for caprylyl methicone.",
+  "קטלוג Silitex 2026": "Silitex 2026 catalogue",
+  "מכוסה בקטלוג — אין צורך בתשובה": "Covered by the catalogue — no answer needed",
 };

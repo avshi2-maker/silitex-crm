@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/market/gaps/page.tsx) · updated 13.10.2026 06:10 (Asia/Jerusalem) — "Israel Market Request": the cosmetic silicone molecules Silitex does not make (data/gaps.json), who buys them in Israel, incumbents, and Silitex answer boxes (Make / Source / Resell / No) for the meeting. Print + export bar + Excel/CSV for Federica to fill and mail back (alphabetical, answer columns).
+// page.tsx (src/app/market/gaps/page.tsx) · updated 15.10.2026 13:50 (Asia/Jerusalem) — meeting-safe: status counts (open/alternative/covered) instead of "N gaps", checked against the 2026 catalogues (not the outdated website), covered rows need no answer, thank-you framing · earlier: "Israel Market Request": the cosmetic silicone molecules Silitex does not make (data/gaps.json), who buys them in Israel, incumbents, and Silitex answer boxes (Make / Source / Resell / No) for the meeting. Print + export bar + Excel/CSV for Federica to fill and mail back (alphabetical, answer columns).
 import { useState } from "react";
 import Link from "next/link";
 import { Card, H1, Badge, btnGhost, inputCls } from "@/components/ui";
@@ -12,6 +12,7 @@ type Gap = { id: string; query: string; aliases: string[]; what: string; produce
 const GAPS = gaps as Gap[];
 const COSMETIC = (leads as { id: string; name: string; industry: string }[]).filter((l) => /Cosmet|Personal/i.test(l.industry)).map((l) => l.name.replace(/\s*\(.*\)/, ""));
 const ANSWERS = ["Make", "Source from partner", "Resell under Silitex label", "No"];
+const CNT = { open: GAPS.filter((g) => g.status === "open" || g.status === "partial").length, alt: GAPS.filter((g) => g.status === "alternative").length, cov: GAPS.filter((g) => g.status === "covered").length };
 const EST: Record<string, string> = { "GAP-001": "~5", "GAP-002": "~2–3", "GAP-003": "~8–12", "GAP-004": "~5–8", "GAP-005": "~1–2", "GAP-006": "~3" };
 export default function GapsPage() {
   const { t: tr, lang } = useLang();
@@ -20,17 +21,17 @@ export default function GapsPage() {
   const set = (id: string, k: "a" | "lt" | "note", v: string) => setAns((s) => { const cur = s[id] || { a: "", lt: "", note: "" }; return { ...s, [id]: { ...cur, [k]: v } }; });
   const FN = "Silitex_Israel_Market_Request_" + new Date().toLocaleDateString("en-GB").replace(/\//g, "") ;
   const rows = () => buildRows(GAPS, COSMETIC.join(", "), est);
-  const text = ["ISRAEL MARKET REQUEST — silicone molecules not in the Silitex catalogue (verified silitex.it 12/10/2026)", "", ...GAPS.map((g) => [g.id + " · " + g.query + " · status: " + g.status, "What: " + g.what, "Israeli buyers: " + COSMETIC.join(", "), "Est. Israeli market: " + (est[g.id] || "?") + " t/yr", "Incumbents: " + g.producers, "Silitex today: " + g.silitex, "Silitex answer: " + (ans[g.id]?.a || "____") + " · lead time: " + (ans[g.id]?.lt || "____") + (ans[g.id]?.note ? " · " + ans[g.id].note : ""), ""].join("\n")), "Ask: for every 'No' — written carve-out so Sapirim may source that molecule elsewhere and keep the Israeli cosmetics basket under one hand."].join("\n");
+  const text = ["ISRAEL COSMETICS BASKET — checked against the Silitex 2026 catalogues (13/10/2026): " + CNT.cov + " covered · " + CNT.alt + " alternative · " + CNT.open + " open", "", ...GAPS.map((g) => [g.id + " · " + g.query + " · status: " + g.status, "What: " + g.what, "Israeli buyers: " + COSMETIC.join(", "), "Est. Israeli market: " + (est[g.id] || "?") + " t/yr", "Incumbents: " + g.producers, "Silitex today: " + g.silitex, "Silitex answer: " + (ans[g.id]?.a || "____") + " · lead time: " + (ans[g.id]?.lt || "____") + (ans[g.id]?.note ? " · " + ans[g.id].note : ""), ""].join("\n")), "Ask: for every 'No' — written carve-out so Sapirim may source that molecule elsewhere and keep the Israeli cosmetics basket under one hand."].join("\n");
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2 print:hidden"><Link href="/market" className={btnGhost}>← {tr("מנוע פיתוח שוק")}</Link><Badge tone="red">{GAPS.length} {tr("פערים")}</Badge></div>
-      <H1 sub={tr("מולקולות סיליקון שלקוחות הקוסמטיקה בישראל קונים ו-Silitex לא מייצרת — אומת מול silitex.it (318 מוצרים, 35 קטגוריות). לכל שורה: תשובת Silitex בפגישה.")}>{tr("🇮🇱 בקשת שוק ישראל — פערי קטלוג")}</H1>
+      <div className="flex flex-wrap items-center justify-between gap-2 print:hidden"><Link href="/market" className={btnGhost}>← {tr("מנוע פיתוח שוק")}</Link><div className="flex gap-1"><Badge tone="red">{CNT.open} {tr("פתוח")}</Badge><Badge tone="blue">{CNT.alt} {tr("חלופה")}</Badge><Badge tone="green">{CNT.cov} {tr("מכוסה")}</Badge></div></div>
+      <H1 sub={tr("מולקולות הסיליקון שלקוחות הקוסמטיקה בישראל קונים — נבדקו מול 5 קטלוגי Silitex 2026 (13/10/2026). רוב הסל מכוסה; נשארה שאלה אחת פתוחה לפגישה.")}>{tr("🇮🇱 סל הקוסמטיקה הישראלי — בדיקת קטלוג")}</H1>
       <Card className="text-sm bg-emerald-50/60 border-emerald-200"><b>✅ {tr("עדכון 13/10/2026:")}</b> {tr("5 הקטלוגים הסקטוריאליים שפדריקה שלחה סוגרים 4 מתוך 6 הפערים (מתחלב 5225C, ג'ל אלסטומר 9040, שרף MQ, תערובת D5/D6) ונותנים חלופה לקפרליל מתיקון (אלקנים). פער אמיתי אחד נשאר: Cetyl Dimethicone. האתר של Silitex לא מעודכן — הקטלוגים הם מקור האמת.")}</Card>
       <Card className="text-sm bg-amber-50/50 border-amber-200">
-        <b>{tr("איך להציג:")}</b> {tr("לא תלונה — מודיעין שוק שאני מביא ל-Silitex. הסחורה הגנרית (דימתיקון, D5) לא המשחק שלנו מול Wacker / Shin-Etsu במלאי מקומי; אלה 5–6 המולקולות שסוגרות סל קוסמטיקה שלם תחת יד אחת.")}
+        <b>{tr("איך להציג:")}</b> {tr("תודה קודם: הקטלוגים של Silitex ענו על 4 מתוך 6 המולקולות, ונתנו חלופת אלקנים לקפרליל מתיקון. שאלה אחת לפגישה: Cetyl Dimethicone — לייצר, לרכוש מפרטנר, או לא? ולאשר את מסלול האלקנים כתשובה לקפרליל מתיקון.")}
       </Card>
       <div className="overflow-auto"><table className="w-full text-xs border">
-        <thead className="bg-slate-50 text-slate-500"><tr><th className="p-2 text-start">#</th><th className="p-2 text-start">{tr("מולקולה (INCI)")}</th><th className="p-2 text-start">{tr("מי קונה בישראל")}</th><th className="p-2 text-start">{tr("שוק משוער ט/שנה")}</th><th className="p-2 text-start">{tr("ספק נוכחי")}</th><th className="p-2 text-start">Silitex {tr("היום")}</th><th className="p-2 text-start print:hidden">{tr("תשובת Silitex")}</th></tr></thead>
+        <thead className="bg-slate-50 text-slate-500"><tr><th className="p-2 text-start">#</th><th className="p-2 text-start">{tr("מולקולה (INCI)")}</th><th className="p-2 text-start">{tr("מי קונה בישראל")}</th><th className="p-2 text-start">{tr("שוק משוער ט/שנה")}</th><th className="p-2 text-start">{tr("ספק נוכחי")}</th><th className="p-2 text-start">{tr("קטלוג Silitex 2026")}</th><th className="p-2 text-start print:hidden">{tr("תשובת Silitex")}</th></tr></thead>
         <tbody>{GAPS.map((g) => { const a = ans[g.id] || { a: "", lt: "", note: "" }; return (
           <tr key={g.id} className="border-t align-top">
             <td className="p-2 whitespace-nowrap"><b>{g.id}</b><div>{g.status === "covered" ? <Badge tone="green">✅ {tr("נסגר")}</Badge> : g.status === "alternative" ? <Badge tone="blue">🔁 {tr("חלופה")}</Badge> : g.status === "partial" ? <Badge tone="amber">{tr("חלקי")}</Badge> : <Badge tone="red">{tr("פער")}</Badge>}</div></td>
@@ -40,9 +41,11 @@ export default function GapsPage() {
             <td className="p-2" dir="ltr">{g.producers}</td>
             <td className="p-2">{g.silitex}</td>
             <td className="p-2 print:hidden min-w-[200px] space-y-1">
+              {g.status === "covered" ? <div className="text-emerald-700 font-medium">✅ {tr("מכוסה בקטלוג — אין צורך בתשובה")}</div> : <>
               <div className="flex flex-wrap gap-1">{ANSWERS.map((x) => <button key={x} onClick={() => set(g.id, "a", x)} className={"px-2 py-0.5 rounded border text-[11px] " + (a.a === x ? (x === "No" ? "bg-red-600 text-white" : "bg-emerald-600 text-white") : "bg-white")}>{x}</button>)}</div>
               <input className={inputCls} placeholder={tr("זמן אספקה / MOQ")} value={a.lt} onChange={(e) => set(g.id, "lt", e.target.value)} />
               <input className={inputCls} placeholder={tr("הערת Silitex")} value={a.note} onChange={(e) => set(g.id, "note", e.target.value)} />
+              </>}
             </td>
           </tr>); })}</tbody></table></div>
       <Card className="text-sm"><b>▶ {tr("הסגירה:")}</b> {tr("לכל \"No\" — סעיף חוזי כתוב: Sapirim רשאי לרכוש את המולקולה הזו מספק שני, כדי שסל הקוסמטיקה הישראלי (AHAVA, Peer Pharm, Moroccanoil) יישאר שלם תחת יד אחת. ")}<span className="text-slate-500">{tr("מקור: docs/GAPS_ANNEX.md · data/gaps.json")}</span></Card>

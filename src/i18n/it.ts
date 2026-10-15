@@ -917,4 +917,10 @@ export const IT: Record<string, string> = {
   "valid to": "valido fino al",
   "Certificate PDF": "Certificato PDF",
   "PDF on request": "PDF su richiesta",
+  "מכוסה": "coperto",
+  "🇮🇱 סל הקוסמטיקה הישראלי — בדיקת קטלוג": "🇮🇱 Paniere cosmetico Israele — verifica catalogo",
+  "מולקולות הסיליקון שלקוחות הקוסמטיקה בישראל קונים — נבדקו מול 5 קטלוגי Silitex 2026 (13/10/2026). רוב הסל מכוסה; נשארה שאלה אחת פתוחה לפגישה.": "Le molecole siliconiche acquistate dagli stabilimenti cosmetici israeliani — verificate sui cinque cataloghi Silitex 2026 (13/10/2026). La maggior parte del paniere è coperta; resta una domanda aperta per l'incontro.",
+  "תודה קודם: הקטלוגים של Silitex ענו על 4 מתוך 6 המולקולות, ונתנו חלופת אלקנים לקפרליל מתיקון. שאלה אחת לפגישה: Cetyl Dimethicone — לייצר, לרכוש מפרטנר, או לא? ולאשר את מסלול האלקנים כתשובה לקפרליל מתיקון.": "Prima di tutto grazie: i cataloghi Silitex hanno risposto a 4 delle 6 molecole e offerto un'alternativa con alcani per il caprylyl methicone. Una domanda per l'incontro: Cetyl Dimethicone — produrre, acquistare da un partner o no? E confermare la via degli alcani come risposta per il caprylyl methicone.",
+  "קטלוג Silitex 2026": "Catalogo Silitex 2026",
+  "מכוסה בקטלוג — אין צורך בתשובה": "Coperto dal catalogo — nessuna risposta necessaria",
 };
