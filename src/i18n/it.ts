@@ -1,4 +1,4 @@
-// it.ts (src/i18n/it.ts) · updated 10.10.2026 06:55 (Asia/Jerusalem)
+// it.ts (src/i18n/it.ts) · updated 15.10.2026 13:35 — + certifications strings · 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
   "Israel portal · Phase 2 preview": "Portale Israele · anteprima Fase 2",
@@ -898,4 +898,23 @@ export const IT: Record<string, string> = {
   "📥 קלוט למאגר": "📥 Acquisisci",
   "🔎 אחזר": "🔎 Recupera",
   "🖨️ הדפסה": "🖨️ Stampa",
+  "Silitex certifications": "Certificazioni Silitex",
+  "Company-level management systems certified by Certiquality (Italy), plus product-level kosher. Israeli procurement asks for these certificates in supplier approval.": "Sistemi di gestione aziendali certificati da Certiquality (Italia), più kosher a livello di prodotto. Gli uffici acquisti israeliani richiedono questi certificati per la qualifica fornitori.",
+  "company": "azienda",
+  "product": "prodotto",
+  "Quality management": "Gestione della qualità",
+  "Environmental management": "Gestione ambientale",
+  "Occupational health & safety": "Salute e sicurezza sul lavoro",
+  "Kosher food-grade antifoams": "Antischiuma alimentari kosher",
+  "Documented, audited production and quality control": "Produzione e controllo qualità documentati e verificati",
+  "Environmental impact controlled and audited": "Impatto ambientale controllato e verificato",
+  "Audited safety system at the plant (current 2023 edition)": "Sistema di sicurezza verificato nello stabilimento (edizione 2023)",
+  "Standard entry requirement on Israeli pharma, food and cosmetics approved-supplier lists": "Requisito base per le liste fornitori qualificati di farmaceutica, alimentare e cosmetica in Israele",
+  "Requested by multinationals and in ESG / green tenders": "Richiesto dalle multinazionali e nelle gare ESG / green",
+  "Signals a serious, audited manufacturer for large corporate tenders": "Indica un produttore serio e verificato per le grandi gare aziendali",
+  "Mandatory for Israeli food, fermentation and beverage plants": "Obbligatorio per gli impianti alimentari, di fermentazione e bevande in Israele",
+  "per product certificate": "certificato per prodotto",
+  "valid to": "valido fino al",
+  "Certificate PDF": "Certificato PDF",
+  "PDF on request": "PDF su richiesta",
 };

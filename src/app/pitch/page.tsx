@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/pitch/page.tsx) · updated 10.10.2026 07:40 (Asia/Jerusalem) — executive story for Silitex management (English, print-ready). Copy lives in config/pitch.ts.
+// page.tsx (src/app/pitch/page.tsx) · updated 10.10.2026 07:40 (Asia/Jerusalem) — executive story for Silitex management (English, print-ready). Copy lives in config/pitch.ts. — + Certifications block 15.10.2026 13:35
 import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { PRODUCTS, OFFSETS, PRIORITIES, INDUSTRIES } from "@/lib/data";
@@ -11,6 +11,8 @@ import IsraelMap from "@/components/pitch/IsraelMap";
 import Timeline from "@/components/pitch/Timeline";
 import ExportBar from "@/components/ExportBar";
 import BackLink from "@/components/BackLink";
+import Certifications from "@/components/Certifications";
+import { CERTS } from "@/config/certs";
 import { fmtDate } from "@/lib/format";
 export default function PitchPage() {
   const { state, ready } = useStore();
@@ -54,7 +56,8 @@ export default function PitchPage() {
         <div className="bg-white border rounded-2xl p-6 shadow-sm"><h2 className="text-xl font-bold text-ink-900 mb-3">What Silitex gets</h2><ul className="space-y-3">{PITCH.gets.map(([t, d]) => (<li key={t} className="flex gap-3"><span className="text-brand-500 text-lg">✔</span><div><b>{t}</b><div className="text-sm text-slate-600">{d}</div></div></li>))}</ul></div>
         <div className="bg-brand-50 border border-brand-100 rounded-2xl p-6"><h2 className="text-xl font-bold text-ink-900 mb-3">What we need from Silitex</h2><ol className="space-y-2 list-decimal list-inside text-sm">{PITCH.needs.map((n) => <li key={n}>{n}</li>)}</ol><div className="mt-4 text-sm text-slate-600">Live system: <b>silitex.marble-art.co.il</b> — dashboard, pipeline, sample tracker, principal report.</div></div>
       </section>
-      <ExportBar title="Silitex Israel — Distribution Proposal" text={summary} />
+      <Certifications />
+      <ExportBar title="Silitex Israel — Distribution Proposal" text={summary + "\n\nCertifications: " + CERTS.map((c) => c.code + " (" + c.title + ")").join(" · ")} />
     </div>
   );
 }
