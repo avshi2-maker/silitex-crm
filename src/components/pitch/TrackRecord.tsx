@@ -1,7 +1,7 @@
 "use client";
-// TrackRecord.tsx (src/components/pitch/TrackRecord.tsx) · updated 16.10.2026 05:50 (Asia/Jerusalem) — /pitch credibility block: Sapirim's Dow Corning sales history in Israel by packaging scale; lines also covered by the Silitex range are flagged. Data in config/pitch.ts (TRACK).
+// TrackRecord.tsx (src/components/pitch/TrackRecord.tsx) · updated 16.10.2026 06:05 (Asia/Jerusalem) — + full-disclosure new ground — /pitch credibility block: Sapirim's Dow Corning sales history in Israel by packaging scale; lines also covered by the Silitex range are flagged. Data in config/pitch.ts (TRACK).
 import { TRACK } from "@/config/pitch";
-export const trackText = () => TRACK.title + "\n" + TRACK.sub + "\n" + TRACK.groups.map((g) => g.pack + ": " + g.items.map(([n, q, s]) => n + (q ? " (" + q + ")" : "") + (s ? " ✓Silitex" : "")).join("; ")).join("\n");
+export const trackText = () => TRACK.title + "\n" + TRACK.sub + "\n" + TRACK.groups.map((g) => g.pack + ": " + g.items.map(([n, q, s]) => n + (q ? " (" + q + ")" : "") + (s ? " ✓Silitex" : "")).join("; ")).join("\n") + "\n" + TRACK.newGround.title + ": " + TRACK.newGround.text;
 export default function TrackRecord() {
   const overlap = TRACK.groups.flatMap((g) => g.items).filter((x) => x[2]).length;
   return (
@@ -18,6 +18,7 @@ export default function TrackRecord() {
           </div>
         ))}
       </div>
+      <div className="mt-4 border border-amber-200 bg-amber-50/60 rounded-xl p-3 text-sm"><b>{TRACK.newGround.title}:</b> {TRACK.newGround.text}</div>
       <p className="text-xs text-slate-400 mt-3">Quantities: lifetime Sapirim sales of Dow Corning products in Israel (container loads / drums / pails). Pink = product line Silitex also covers — the accounts we re-open first.</p>
     </section>
   );

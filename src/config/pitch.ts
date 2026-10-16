@@ -1,4 +1,4 @@
-// pitch.ts (src/config/pitch.ts) · updated 16.10.2026 05:45 (Asia/Jerusalem) — supply model = direct per PO (no speculative local stock); + TRACK record (former Dow Corning distributor)
+// pitch.ts (src/config/pitch.ts) · updated 16.10.2026 06:05 (Asia/Jerusalem) — DRYSIL = water repellent (Silitex overlap); + full-disclosure new ground · — supply model = direct per PO (no speculative local stock); + TRACK record (former Dow Corning distributor)
 // All copy for the /pitch executive page (English — audience is Silitex management). Edit text here only.
 export const PITCH = {
   title: "Israel — Exclusive Distribution Proposal",
@@ -37,9 +37,10 @@ export const TRACK = {
   sub: "The same plants, the same R&D labs, the same purchasing managers. Israeli silicone market: about $5M / 1,000 t a year (Sapirim estimate).",
   groups: [
     { pack: "Container loads", items: [["Building sealants (acetoxy / neutral)", ">100", false], ["Paper coating", ">20", true], ["LSR rubber", ">10", false], ["Detergent antifoams", ">10", true], ["Syltherm heat-transfer fluids", "5", false]] },
-    { pack: "Drums", items: [["200 Fluids, all viscosities", ">300", true], ["Personal care & cosmetics", ">100 drums + >500 pails", true], ["Fire retardants / DC 1107 reactive fluid", ">100", true], ["Surfactants (silicone polyethers)", ">50", true], ["Antifoams (process)", ">50", true], ["Transformer fluids", ">50", false], ["Household products", "~50", true], ["DRYSIL", "~50", false], ["Textile finishes", "~10", true], ["Brake fluid", "~10", false], ["Antifoam RD (food)", "~5", true]] },
+    { pack: "Drums", items: [["200 Fluids, all viscosities", ">300", true], ["Personal care & cosmetics", ">100 drums + >500 pails", true], ["Fire retardants / DC 1107 reactive fluid", ">100", true], ["Surfactants (silicone polyethers)", ">50", true], ["Antifoams (process)", ">50", true], ["Transformer fluids", ">50", false], ["Household products", "~50", true], ["DRYSIL water repellent", "~50", true], ["Textile finishes", "~10", true], ["Brake fluid", "~10", false], ["Antifoam RD (food)", "~5", true]] },
     { pack: "Pails", items: [["Mold-making rubbers", ">100", false]] },
     { pack: "Cartridges & small packs (high volume)", items: [["Paint additives", "", true], ["RTVs for electronics", "", false], ["Silicone greases", "", false], ["Sylgard encapsulants", "", false], ["Silanes", "", false], ["Medical-grade fluids", "", false], ["Fluorosilicones (electronics)", "", false]] },
   ] as { pack: string; items: [string, string, boolean][] }[],
+  newGround: { title: "Full disclosure — new ground for Sapirim", text: "Agriculture, oil refineries and water purification were not part of our Dow Corning business. They are in our target map because Silitex has strong grades there (antifoams, food-contact and plant-origin lines) — we approach them as new accounts, not existing relationships." },
 };
 
