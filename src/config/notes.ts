@@ -1,41 +1,55 @@
-// notes.ts (src/config/notes.ts) · updated 16.10.2026 05:45 — + the testing gate (price objection) and the integrity line (Asia/Jerusalem)
+// notes.ts (src/config/notes.ts) · updated 16.10.2026 09:00 (Asia/Jerusalem) — REWRITTEN for the 16/10/2026 Teams call: Silitex presents first; verified products only (technical backbone); no named accounts before signing; direct supply per PO; NuSil second-source ask; corrected Q&A.
 // Teleprompter script for the Silitex meeting (English). Open /notes on a second screen or phone — never on the shared screen.
 export type Cue = { t: string; min: string; say: string[]; show?: string };
 export const NOTES: Cue[] = [
-  { t: "Open", min: "0–1", show: "/pitch?lang=en&demo=1 (counters running)", say: [
-    "Thank you for the time. I'll show you a working system, not slides — everything you see is live at silitex.marble-art.co.il.",
-    "One honesty line first: the numbers you will see are desk estimates built from your catalogues and the plants' own product lines — not customer commitments. The system marks what is backed by your 2026 catalogues and what still needs a catalogue from you.",
-    "I am the commercial channel for Israel: 19 named plants, mapped by decision-maker and by the Silitex SKU that fits. My job is to put Silitex in front of them with discipline, and to give you full visibility." ] },
-  { t: "Market", min: "1–4", show: "map + priorities", say: [
-    "Every pin is a plant within two hours of Tel Aviv. Five product families carry most of the potential: water repellents for building, process antifoams, Kosher/FDA food-grade, green chemistry, GOTS textile softeners.",
-    "Israel has one specific lever most global brands cannot show on the drum: the Kosher certificate. For food, beverage, yeast and sugar it is specified by the rabbinate, not by R&D." ] },
-  { t: "Cross-reference", min: "4–7", show: "/offsets → search 'SAG 30' → /sniper → Load sample → Draft offer", say: [
-    "This is how I sell against the incumbents: a customer sends me his Dow, Wacker or Momentive purchase list and gets back the Silitex equivalent and a replacement offer in a minute.",
-    "I want to be clear about my role: I am not a chemist. I don't argue formulations — I bring the lead, the sample and the lab slot, and I route every technical question to your people. That is why this system exists." ] },
-  { t: "REACH / D4 — say this only if it comes up", min: "—", show: "/products banner (amber)", say: [
-    "I have followed the cyclic-siloxane issue for years from the customer side. Israeli formulators who export to the EU ask about D4 and D5 first.",
-    "The way I present it to customers is this: Silitex has dedicated non-cyclic lines — MACROAMISIL E1386, MICROAMISIL E1352, IDROAMISIL 250 — linear DM dimethicones, and fully vegetal options like EVEROIL and FISIOREX. That is a real advantage over legacy competitor products.",
-    "At the same time your catalog still lists CICLOPENTASILOSSANO, a D5 carrier, for applications where it is permitted. I don't hide that. I tell the customer: read SDS section 3, and for REACH-sensitive uses we move you to the non-cyclic line. Customers respect the claim more when the gap is explained, not when it is denied.",
-    "If any of that needs correcting, I'd rather hear it from you now than from a customer's chemist later." ] },
-  { t: "Ask Silitex", min: "7–10", show: "/ask → food-industry example → Answer; then let THEM ask", say: [
-    "Everything — your catalog, the cross-reference, the Kosher line, 50 Q&A built from your website — is indexed. Ask it something.",
-    "Every answer cites its source. If the system doesn't know, it says so; it does not invent chemistry." ] },
-  { t: "Daily discipline", min: "10–13", show: "/leads/LEAD-001 → action plan → sample tracker → Generate pitch", say: [
-    "Each account carries its phase, next action, recommended SKU and the incumbent it replaces. Samples are tracked from shipment to lab result.",
-    "A bot writes my call list every morning. Nothing waits in a mailbox." ] },
-  { t: "How I run a sale + who does what", min: "—", show: "/team?lang=en (team cards + 9-step process)", say: [
-    "Three people and a system. I own the accounts, the offers and your report. Back-office runs data sheets, samples shipped direct from Silitex, import files and invoicing. An external formulation chemist joins the lab-qualification visits and routes open chemistry to your laboratory — I never answer those myself.",
-    "Every sale follows nine steps, each with an owner and a screen: lead in with company, name and mobile mandatory; intake; TDS pack; sample; RFQ; price offer in EUR per kg with validity; negotiation; order; follow-up. A follow-up task is created automatically two days after a data sheet and three days after an offer. The daily brief bot tells me what to do each morning." ] },
-  { t: "Visibility", min: "13–15", show: "/report → Generate", say: [
-    "This is what you receive monthly — pipeline by stage, samples in field, wins, forecast — generated from live data, not from my memory.",
-    "Later we add a gated portal where your export, lab and invoicing people each see their own threads with us." ] },
-  { t: "The testing gate — say this when they ask 'how will you get the first order'", min: "—", show: "/market → integrity panel + /offsets", say: [
-    "I will be straight with you about the biggest wall in this market. When I offer an equivalent silicone to a plant's R&D, the first answer is: give me a better price than what I use today, otherwise I won't spend lab hours on testing. In commodities we will lose that argument every time — Wacker and Shin-Etsu sit in Israeli warehouses.",
-    "So I do not sell price-per-kilo. I sell three things the incumbent cannot: a formulated product that costs less per batch because it works at a lower dose; a trial that costs the plant nothing — sample, dosage protocol, and our lab note; and a reason to test that is not price: a Kosher drum, an Ecolabel, a D5-free reformulation they are forced into by 2027, an MBR-compatible antifoam, a supplier who answers in Hebrew the same day.",
-    "What I need from you for that: a sample policy up to 25 kg at no charge, a trial-lot price for the first 500 kg, dosage data per application from your lab, and a 60-day answer on any technical question. With those four I convert tests; without them I am one more agent with a price list." ] },
-  { t: "Ask", min: "15–18", show: "/pitch → What we need", say: [
-    "What I need from you: exclusive distribution for Israel for 24 months with a 36-month renewal option, customer-of-record protection, the TDS/MSDS pack, sample kits for Phase 1, a distributor price list and current certificates.",
-    "I carry the investment — the system, the visits, the samples logistics. The agreement is how that investment is protected. Logistics — DDP through my forwarder or direct invoicing for container volumes — is the customer's choice; commission terms go in the contract, not on this screen." ] },
-  { t: "Close", min: "18–20", say: [
-    "Proposed next step: you send the sample kits and documents, I start Phase 1 the week they land, and you get the first principal report 30 days later. Who on your side is my counterpart for samples and for export paperwork?" ] },
+  { t: "Open — hand over to Silitex", min: "0–2", show: "nothing shared yet — camera on", say: [
+    "Dr. Federica, Eleonora — thank you for your time and for the catalogues; they answered almost everything I asked on the 12th.",
+    "As you suggested, I would love to hear your overview of Silitex first — your sectors and how you like to work with distributors. Then I'll show you how we would run Israel.",
+    "(Ask Eleonora: may we record and switch on the transcript? It helps me send an accurate summary.)" ] },
+  { t: "Listen — while Silitex presents", min: "2–15", show: "take notes", say: [
+    "Note: their priority sectors · who handles samples · export contact · custom grades possible? · minimum batch · sample lead time · certificates.",
+    "Good follow-up questions: which sector grows fastest for you? Which countries work best with a distributor like us, and why?" ] },
+  { t: "Who we are", min: "15–17", show: "/pitch?lang=en → '35 years … former Dow Corning distributor'", say: [
+    "Sapirim has 35 years in Israeli silicones — we were the Dow Corning distributor here. Same plants, same R&D labs, same purchasing managers.",
+    "The pink lines are product lines we sold for Dow Corning that Silitex also covers — those are the accounts we re-open first. Israeli market: roughly 5 million dollars, a thousand tonnes a year.",
+    "Full disclosure: agriculture, refineries and water purification were not our Dow Corning business — we approach those as new accounts." ] },
+  { t: "How we run it — Sapirim 2.0", min: "17–19", show: "/pitch → 'Sapirim 2.0' then/now panel", say: [
+    "In the Dow Corning years this needed a full office and SAP at 15,000 dollars a year. Today it's me, one dedicated support person and an external chemist on call — because the system we built does the routine work 24/7.",
+    "Every card you see here is a live screen, not a slide. The team grows only when orders justify it — low fixed cost for both of us." ] },
+  { t: "Live demo — cross-reference", min: "19–21", show: "/offsets → Quick match → type 'DC 5225C', then 'OFX-0193'", say: [
+    "A customer gives me his Dow or Wacker code — the system answers with your grade, the catalogue row and the PDF, during the call.",
+    "Try one yourselves — give me any competitor code." ] },
+  { t: "Why R&D will switch — not price", min: "21–24", show: "/pitch → 'Technical backbone'", say: [
+    "Plant chemists don't risk a failed batch to save a few cents a kilo. We bring them a problem solved:",
+    "One — cyclic-free routes for EU exporters: MICROAMISIL E1352 for textile softening; C13-15 alkane, isododecane and DIMETIBLEND for D5-free cosmetics.",
+    "Two — plant-origin, EO-free actives for eco-label detergents and green paints: FISIOREX 1000, EVEROIL 35.",
+    "Three — cost-in-use, not price per kilo: the DYNAPAN range from 10 to 33 percent — buy the concentrate, dilute on site.",
+    "Four — food-contact and kosher antifoams with documents on file: SILIFOOD.",
+    "DO NOT SAY: BERETEX 750 simethicone · 15–20 % dosage · '100 % plant-based' · MICROAMISIL for cosmetics · 'certified' D4/D5-free." ] },
+  { t: "Realistic timeline", min: "24–25", show: "/pitch → 12-month plan", say: [
+    "Honest timeline: industrial antifoams and softeners 3 to 9 months from sample to first order; food 6 to 12; cosmetics 12 to 24. We do not promise volume quotas we cannot control.",
+    "Year one target: about ten accounts in lab evaluation, three or four R&D approvals, first trial orders.",
+    "Supply direct from Cologna Veneta per firm order — fresh batches, at least 80 % shelf life on delivery, EUR.1 so zero duty. No speculative stock." ] },
+  { t: "NuSil second source — the concrete ask", min: "25–26", show: "/pitch → 'Today's spot business — NuSil CareSil → Silitex'", say: [
+    "Today I still buy small spot volumes from NuSil in California: four to six months per order, and in COVID their supply stopped for more than eight months — my customers paid for that.",
+    "For specialty gels those customers want a second qualified source. Your DIMETIBLEND and SILIBLEND CROSS D are the same chemistry as CareSil CSF-3504 and CXG-1104.",
+    "Question: can you make DIMETIBLEND at 50 % dimethiconol, like CSF-3504? Then I have a concrete lab sample to bring them." ] },
+  { t: "Our questions to Silitex", min: "26–28", show: "/pitch → 'To confirm with Silitex' box", say: [
+    "Custom grades — can you adjust active %, viscosity or emulsifier to a customer's matrix? Minimum batch?",
+    "Sample lead time for 1–2 kg kits from Cologna Veneta, and who pays freight?",
+    "Which chemist answers our customers' technical questions, and how fast?",
+    "Written D4/D5/D6 statements and eco-label data for the grades we lead with; certificate PDFs for ISO 9001 / 14001 / 45001 and kosher.",
+    "One open molecule: Cetyl Dimethicone — make, source from a partner, or no?" ] },
+  { t: "If they ask — exclusivity", min: "—", show: "/pitch → Q&A 1", say: [
+    "Silitex becomes the silicone and emulsion line we build the business on. Exceptions are written, not hidden: molecules you don't make, like Cetyl Dimethicone, and my small NuSil spot accounts while we qualify your equivalents.",
+    "We earn only when Silitex product ships — and the agreement carries milestones you can measure." ] },
+  { t: "If they ask — 'how do we know customers test?'", min: "—", show: "/pitch → Q&A 2 · /pipeline (no names on screen)", say: [
+    "Every account moves through gates: sample, lab result, plant pilot, R&D approval, purchasing — with dates. You receive a monthly principal report from that live data.",
+    "Account names are shared under the signed agreement's non-circumvention clause. (Do NOT open lead files with names on the shared screen.)" ] },
+  { t: "If they ask — samples / payment", min: "—", show: "/pitch → Q&A 4–5", say: [
+    "Proposal: Silitex supplies sample material with TDS and SDS; Sapirim funds the Israeli side — import, hand delivery, technical follow-up to R&D sign-off.",
+    "Payment security per account: LC or CAD for new accounts, open terms for proven ones." ] },
+  { t: "Close — next steps", min: "28–30", say: [
+    "Proposed next steps: one — you send TDS/SDS and certificates for the focus grades. Two — we agree a sample budget. Three — within 30 days I dispatch 2 kg kits to five R&D labs: pulp-and-paper antifoam, eco detergents, textile softening, food fermentation, D5-free cosmetics. Four — we exchange a draft agreement: exclusivity, milestones, non-circumvention.",
+    "Who is my counterpart for samples and for export paperwork? I'll send a written summary today." ] },
 ];
