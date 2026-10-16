@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/pitch/page.tsx) · updated 10.10.2026 07:40 (Asia/Jerusalem) — executive story for Silitex management (English, print-ready). Copy lives in config/pitch.ts. — + Certifications block 15.10.2026 13:35 — + Technical backbone 15.10.2026 17:30
+// page.tsx (src/app/pitch/page.tsx) · updated 10.10.2026 07:40 (Asia/Jerusalem) — executive story for Silitex management (English, print-ready). Copy lives in config/pitch.ts. — + Certifications block 15.10.2026 13:35 — + Technical backbone 15.10.2026 17:30 — + Dow Corning track record 16.10.2026 05:50
 import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { PRODUCTS, OFFSETS, PRIORITIES, INDUSTRIES } from "@/lib/data";
@@ -13,6 +13,7 @@ import ExportBar from "@/components/ExportBar";
 import BackLink from "@/components/BackLink";
 import Certifications from "@/components/Certifications";
 import TechBackbone, { backboneText } from "@/components/pitch/TechBackbone";
+import TrackRecord, { trackText } from "@/components/pitch/TrackRecord";
 import { CERTS } from "@/config/certs";
 import { fmtDate } from "@/lib/format";
 export default function PitchPage() {
@@ -36,6 +37,7 @@ export default function PitchPage() {
           <div key={k as string} className="bg-white border rounded-xl p-4 shadow-sm"><div className="text-xs text-slate-500">{k}</div><div className="text-3xl font-bold text-brand-500"><Counter to={v as number} prefix={p as string} suffix={s as string} decimals={0} /></div></div>
         ))}
       </section>
+      <TrackRecord />
       <section className="grid lg:grid-cols-[auto_1fr] gap-8 bg-white border rounded-2xl p-6 shadow-sm">
         <IsraelMap leads={state.leads} />
         <div>
@@ -59,7 +61,7 @@ export default function PitchPage() {
         <div className="bg-brand-50 border border-brand-100 rounded-2xl p-6"><h2 className="text-xl font-bold text-ink-900 mb-3">What we need from Silitex</h2><ol className="space-y-2 list-decimal list-inside text-sm">{PITCH.needs.map((n) => <li key={n}>{n}</li>)}</ol><div className="mt-4 text-sm text-slate-600">Live system: <b>silitex.marble-art.co.il</b> — dashboard, pipeline, sample tracker, principal report.</div></div>
       </section>
       <Certifications />
-      <ExportBar title="Silitex Israel — Distribution Proposal" text={summary + "\n\n" + backboneText() + "\n\nCertifications: " + CERTS.map((c) => c.code + " (" + c.title + ")").join(" · ")} />
+      <ExportBar title="Silitex Israel — Distribution Proposal" text={summary + "\n\n" + trackText() + "\n\n" + backboneText() + "\n\nCertifications: " + CERTS.map((c) => c.code + " (" + c.title + ")").join(" · ")} />
     </div>
   );
 }
