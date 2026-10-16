@@ -1,5 +1,5 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 15.10.2026 14:30 — items sorted A→Z by the label in the current language (HE/EN/IT), Dashboard pinned on top · 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 16.10.2026 09:35 — + owner links: Silitex partner view (/partner) and Israel portal preview (/partner/preview) · 15.10.2026 14:30 — items sorted A→Z by the label in the current language (HE/EN/IT), Dashboard pinned on top · 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
@@ -33,6 +33,8 @@ const ITEMS = [
   { href: "/kb", he: "מאגר ידע (RAG)", icon: "📚" },
   { href: "/satisfaction", he: "שביעות רצון והמלצות", icon: "⭐" },
   { href: "/report", he: "דוח ליצרן", icon: "📑" },
+  { href: "/partner", he: "תצוגת שותף Silitex (מה פדריקה רואה)", icon: "👁️", owner: true },
+  { href: "/partner/preview", he: "פורטל ישראל — תצוגה מקדימה (שלב 2)", icon: "🇮🇱", owner: true },
 ];
 export default function Nav() {
   const { t: tr, lang } = useLang();
@@ -52,8 +54,8 @@ export default function Nav() {
       </div>
       <nav className="flex flex-col gap-1">
         {partner && <Link href="/partner" className={"flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (path === "/partner" ? "bg-brand-500" : "hover:bg-ink-700")}><span>🤝</span><span>{tr("Partner home")}</span></Link>}
-        {(partner ? sorted.filter((it) => isPartnerPath(it.href)) : sorted).map((it) => {
-          const active = it.href === "/" ? path === "/" : it.href === "/market" ? path === "/market" : path.startsWith(it.href);
+        {(partner ? sorted.filter((it) => isPartnerPath(it.href) && !(it as { owner?: boolean }).owner) : sorted).map((it) => {
+          const active = it.href === "/" ? path === "/" : it.href === "/market" || it.href === "/partner" ? path === it.href : path.startsWith(it.href);
           const cls = "flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (active ? "bg-brand-500" : "hover:bg-ink-700");
           return (<Link key={it.href} href={it.href} className={cls}><span>{it.icon}</span><span>{tr(it.he)}</span></Link>);
         })}

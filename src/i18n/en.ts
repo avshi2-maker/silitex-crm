@@ -860,4 +860,6 @@ export const EN: Record<string, string> = {
   "פתח ב-Outlook": "Open in Outlook",
   "נרשמה דגימה \"התבקשה\" + מעקב בעוד 7 ימים": "Sample logged as \"requested\" + follow-up in 7 days",
   "שותפים — שימוש Silitex": "Partners — Silitex usage",
+  "תצוגת שותף Silitex (מה פדריקה רואה)": "Silitex partner view (what Federica sees)",
+  "פורטל ישראל — תצוגה מקדימה (שלב 2)": "Israel portal — preview (Phase 2)",
 };

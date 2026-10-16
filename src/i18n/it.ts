@@ -963,4 +963,6 @@ export const IT: Record<string, string> = {
   "פתח ב-Outlook": "Apri in Outlook",
   "נרשמה דגימה \"התבקשה\" + מעקב בעוד 7 ימים": "Campione registrato come \"richiesto\" + follow-up tra 7 giorni",
   "שותפים — שימוש Silitex": "Partner — utilizzo Silitex",
+  "תצוגת שותף Silitex (מה פדריקה רואה)": "Vista partner Silitex (ciò che vede Federica)",
+  "פורטל ישראל — תצוגה מקדימה (שלב 2)": "Portale Israele — anteprima (Fase 2)",
 };
