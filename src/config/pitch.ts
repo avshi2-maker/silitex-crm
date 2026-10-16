@@ -1,4 +1,4 @@
-// pitch.ts (src/config/pitch.ts) · updated 16.10.2026 06:05 (Asia/Jerusalem) — DRYSIL = water repellent (Silitex overlap); + full-disclosure new ground · — supply model = direct per PO (no speculative local stock); + TRACK record (former Dow Corning distributor)
+// pitch.ts (src/config/pitch.ts) · updated 16.10.2026 08:50 (Asia/Jerusalem) — NuSil box: second-source framing, COVID >8-month stop · 06:05 — DRYSIL = water repellent (Silitex overlap); + full-disclosure new ground · — supply model = direct per PO (no speculative local stock); + TRACK record (former Dow Corning distributor)
 // All copy for the /pitch executive page (English — audience is Silitex management). Edit text here only.
 export const PITCH = {
   title: "Israel — Exclusive Distribution Proposal",
@@ -46,7 +46,7 @@ export const TRACK = {
 /** Today's NuSil spot business (CareSil personal-care line) and the Silitex grade that replaces it. Checked 16/10/2026 against the NuSil CareSil product guide + Silitex Cosmetics 2026 catalogue. */
 export const NUSIL_SWITCH = {
   title: "Today's spot business — NuSil CareSil → Silitex",
-  sub: "Small-volume orders we still buy from NuSil (Avantor, California): a 4–6-month order-and-ship cycle. These are the first volumes Silitex takes over once its grades are approved.",
+  sub: "Small-volume spot orders we still buy from NuSil (Avantor, California): a 4–6-month order-and-ship cycle, and during COVID their supply stopped for more than 8 months — real damage to our customers. For specialty gels and blends, Israeli formulators want more than one qualified source: we will approach these accounts with the Silitex equivalent as that second source.",
   rows: [
     { nusil: "CareSil CSF-3504", what: "Gum blend — Dimethicone (and) Dimethiconol, 50 % dimethiconol, cyclic-free (D4 < 0.05 %)", silitex: "DIMETIBLEND (H2057) — same INCI, Dimethicone + Dimethiconol, 12 % active; ALKABLEND 6800 (H2256) as silicone-light option", fit: "Same chemistry, lower concentration — ask Silitex for a 50 % version" },
     { nusil: "CareSil CXG-1104", what: "Elastomer gel — Dimethicone (and) Dimethicone/Vinyl Dimethicone Crosspolymer, 12 % solids, cyclic-free", silitex: "SILIBLEND CROSS D (PO597) — same INCI, 7 % gel; DIVICROSS (PO680) 100 % crosspolymer to build up to 12 %", fit: "Same chemistry — match solids % in the lab" },
