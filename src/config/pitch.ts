@@ -43,4 +43,13 @@ export const TRACK = {
   ] as { pack: string; items: [string, string, boolean][] }[],
   newGround: { title: "Full disclosure — new ground for Sapirim", text: "Agriculture, oil refineries and water purification were not part of our Dow Corning business. They are in our target map because Silitex has strong grades there (antifoams, food-contact and plant-origin lines) — we approach them as new accounts, not existing relationships." },
 };
+/** Today's NuSil spot business (CareSil personal-care line) and the Silitex grade that replaces it. Checked 16/10/2026 against the NuSil CareSil product guide + Silitex Cosmetics 2026 catalogue. */
+export const NUSIL_SWITCH = {
+  title: "Today's spot business — NuSil CareSil → Silitex",
+  sub: "Small-volume orders we still buy from NuSil (Avantor, California): a 4–6-month order-and-ship cycle. These are the first volumes Silitex takes over once its grades are approved.",
+  rows: [
+    { nusil: "CareSil CSF-3504", what: "Gum blend — Dimethicone (and) Dimethiconol, 50 % dimethiconol, cyclic-free (D4 < 0.05 %)", silitex: "DIMETIBLEND (H2057) — same INCI, Dimethicone + Dimethiconol, 12 % active; ALKABLEND 6800 (H2256) as silicone-light option", fit: "Same chemistry, lower concentration — ask Silitex for a 50 % version" },
+    { nusil: "CareSil CXG-1104", what: "Elastomer gel — Dimethicone (and) Dimethicone/Vinyl Dimethicone Crosspolymer, 12 % solids, cyclic-free", silitex: "SILIBLEND CROSS D (PO597) — same INCI, 7 % gel; DIVICROSS (PO680) 100 % crosspolymer to build up to 12 %", fit: "Same chemistry — match solids % in the lab" },
+  ],
+};
 

@@ -1,4 +1,4 @@
-// equiv-search.ts (src/lib/equiv-search.ts) · updated 15.10.2026 14:30 (Asia/Jerusalem)
+// equiv-search.ts (src/lib/equiv-search.ts) · updated 16.10.2026 08:45 (Asia/Jerusalem) — + NuSil CareSil CSF-3504 / CXG-1104
 // Competitor-code quick search: type any Dow / XIAMETER / Wacker / Momentive / Shin-Etsu / Evonik … code (or a Silitex name, code or INCI)
 // → ranked Silitex equivalents. Sources: offsets.json (37 families × producers), gaps.json (cosmetic molecules, covered/alternative only),
 // catalog_2026.json (Silitex 2026 catalogues — for the catalogue rows + PDF behind each answer). Pure client-side, no AI cost.
@@ -67,6 +67,16 @@ function entries(): Entry[] {
     const base = { kind: "offset" as const, family: r.family, inci: r.inci || "", silitex: r.silitex_product, silitexNames: silitexNames(r.silitex_product), certs, ref: r.category_id };
     for (const sku of splitSkus(r.dow_corning || "")) add({ ...base, key: r.category_id + "|Dow|" + sku, competitor: sku, producer: "Dow / DOWSIL / XIAMETER" });
     for (const [p, v] of Object.entries(r.offsets || {})) for (const sku of splitSkus(v)) add({ ...base, key: r.category_id + "|" + p + "|" + sku, competitor: sku, producer: p });
+  }
+  // today's NuSil CareSil spot products (pitch NUSIL_SWITCH) — so the live demo answers them too
+  const EXTRA: [string, string, string, string][] = [
+    ["CareSil CSF-3504", "NuSil (Avantor)", "Dimethicone (and) Dimethiconol — gum blend 50 %", "DIMETIBLEND (H2057) · ALKABLEND 6800 (H2256)"],
+    ["CareSil CXG-1104", "NuSil (Avantor)", "Dimethicone (and) Dimethicone/Vinyl Dimethicone Crosspolymer — elastomer gel 12 %", "SILIBLEND CROSS D (PO597) · DIVICROSS (PO680)"],
+  ];
+  for (const [comp, prod, chem, sil] of EXTRA) {
+    const base = { kind: "offset" as const, family: chem.split(" — ")[1] || chem, inci: chem.split(" — ")[0], silitex: sil, silitexNames: Array.from(new Set(rowsByCode(sil).map((r) => r.product.toUpperCase()))), certs: [], ref: "NUSIL-" + comp.slice(-4) };
+    add({ ...base, key: base.ref + "|" + comp, competitor: comp, producer: prod });
+    add({ ...base, key: base.ref + "|short", competitor: comp.replace("CareSil ", ""), producer: prod });
   }
   for (const g of GAPS) {
     if (!/covered|alternative/.test(g.status)) continue;
