@@ -1,5 +1,5 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 16.10.2026 18:25 — + owner link /meetings (Silitex meetings) · + owner links: Silitex partner view (/partner) and Israel portal preview (/partner/preview) · 15.10.2026 14:30 — items sorted A→Z by the label in the current language (HE/EN/IT), Dashboard pinned on top · 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 16.10.2026 18:25 — + owner link /meetings (Meetings online — Silitex, English label) · + owner links: Silitex partner view (/partner) and Israel portal preview (/partner/preview) · 15.10.2026 14:30 — items sorted A→Z by the label in the current language (HE/EN/IT), Dashboard pinned on top · 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
@@ -33,7 +33,7 @@ const ITEMS = [
   { href: "/kb", he: "מאגר ידע (RAG)", icon: "📚" },
   { href: "/satisfaction", he: "שביעות רצון והמלצות", icon: "⭐" },
   { href: "/report", he: "דוח ליצרן", icon: "📑" },
-  { href: "/meetings", he: "פגישות Silitex", icon: "🗓️", owner: true },
+  { href: "/meetings", he: "Meetings online — Silitex", icon: "🗓️", owner: true },
   { href: "/partner", he: "תצוגת שותף Silitex (מה פדריקה רואה)", icon: "👁️", owner: true },
   { href: "/partner/preview", he: "פורטל ישראל — תצוגה מקדימה (שלב 2)", icon: "🇮🇱", owner: true },
 ];

@@ -1,4 +1,4 @@
-// client.ts (src/components/meetings/client.ts) · updated 16.10.2026 18:10 (Asia/Jerusalem) — browser helpers for /meetings: transcript file reader (.txt / .vtt / .docx), VTT cleanup, CRM-task bridge
+// client.ts (src/components/meetings/client.ts) · updated 16.10.2026 18:40 · English task titles (Asia/Jerusalem) — browser helpers for /meetings: transcript file reader (.txt / .vtt / .docx), VTT cleanup, CRM-task bridge
 import type { MeetingAction } from "@/lib/meeting-types";
 import type { Task } from "@/lib/types";
 import { addDays, fmtDate } from "@/lib/format";
@@ -18,5 +18,5 @@ export async function readTranscriptFile(f: File): Promise<string> {
 }
 /** Sapirim action → CRM task (kind "meeting", shows on dashboard / schedule) */
 export function actionTask(a: Pick<MeetingAction, "task" | "due">, heldAt: string): Omit<Task, "id" | "done"> {
-  return { lead_id: "silitex", lead_name: "Silitex", title: "פגישת Silitex " + fmtDate(heldAt) + " — " + a.task, due: a.due || addDays(new Date().toISOString(), 7), cadence: "once", kind: "meeting" };
+  return { lead_id: "silitex", lead_name: "Silitex", title: "Silitex meeting " + fmtDate(heldAt) + " — " + a.task, due: a.due || addDays(new Date().toISOString(), 7), cadence: "once", kind: "meeting" };
 }
