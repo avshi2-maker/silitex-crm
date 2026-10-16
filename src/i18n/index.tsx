@@ -1,12 +1,13 @@
 "use client";
-// index.tsx (src/i18n/index.tsx) · updated 10.10.2026 06:55 (Asia/Jerusalem)
+// index.tsx (src/i18n/index.tsx) · updated 16.10.2026 18:45 — + Russian (RU) · 10.10.2026 06:55 (Asia/Jerusalem)
 // Language switch HE/EN. t(s): Hebrew source string → English from en.ts (falls back to Hebrew). Persisted per browser; sets <html dir/lang>.
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { EN } from "./en";
 import { IT } from "./it";
-export type Lang = "he" | "en" | "it";
-const DICT: Record<string, Record<string, string>> = { en: EN, it: IT };
-const isLang = (v: unknown): v is Lang => v === "he" || v === "en" || v === "it";
+import { RU } from "./ru";
+export type Lang = "he" | "en" | "it" | "ru";
+const DICT: Record<string, Record<string, string>> = { en: EN, it: IT, ru: RU };
+const isLang = (v: unknown): v is Lang => v === "he" || v === "en" || v === "it" || v === "ru";
 type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: (s: string) => string };
 const C = createContext<Ctx>({ lang: "he", setLang: () => {}, t: (s) => s });
 const KEY = "silitex-lang";

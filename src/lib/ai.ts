@@ -1,4 +1,4 @@
-// ai.ts (src/lib/ai.ts) · updated 09.10.2026 10:30 (Asia/Jerusalem)  — server only
+// ai.ts (src/lib/ai.ts) · updated 16.10.2026 18:45 — + Russian answers · 09.10.2026 10:30 (Asia/Jerusalem)  — server only
 // One Claude entry point. Without ANTHROPIC_API_KEY it returns a deterministic demo answer with simulated usage so the meter + export bar still work.
 import Anthropic from "@anthropic-ai/sdk";
 import { MODEL, costUsd } from "./pricing";
@@ -6,8 +6,8 @@ import type { Usage } from "./types";
 
 import { SYSTEM } from "@/prompts/system";
 
-export async function ask(prompt: string, context?: string, maxTokens = 1200, lang: "he" | "en" | "it" = "he"): Promise<{ text: string; usage: Usage }> {
-  const system = lang === "en" ? SYSTEM + "\n\nIMPORTANT: respond in English (the reader is an international partner)." : lang === "it" ? SYSTEM + "\n\nIMPORTANTE: rispondi in italiano (il lettore è il personale Silitex in Italia)." : SYSTEM;
+export async function ask(prompt: string, context?: string, maxTokens = 1200, lang: "he" | "en" | "it" | "ru" = "he"): Promise<{ text: string; usage: Usage }> {
+  const system = lang === "en" ? SYSTEM + "\n\nIMPORTANT: respond in English (the reader is an international partner)." : lang === "it" ? SYSTEM + "\n\nIMPORTANTE: rispondi in italiano (il lettore è il personale Silitex in Italia)." : lang === "ru" ? SYSTEM + "\n\nВАЖНО: отвечай на русском языке (читатель — русскоязычный технолог/техник в Израиле). Названия продуктов, коды и INCI не переводи." : SYSTEM;
   const key = process.env.ANTHROPIC_API_KEY;
   const user = context ? "הקשר:\n" + context + "\n\n---\nמשימה:\n" + prompt : prompt;
   if (!key) {
@@ -21,7 +21,8 @@ export async function ask(prompt: string, context?: string, maxTokens = 1200, la
   return { text, usage: { input_tokens: u.input_tokens, output_tokens: u.output_tokens, cost_usd: costUsd(MODEL, u.input_tokens, u.output_tokens), model: MODEL } };
 }
 
-function demo(prompt: string, lang: "he" | "en" | "it"): string {
+function demo(prompt: string, lang: "he" | "en" | "it" | "ru"): string {
+  if (lang === "ru") return "[Демо-режим — нет ANTHROPIC_API_KEY]\n\nClaude ответил бы на запрос:\n«" + prompt.slice(0, 160) + "»";
   if (lang === "it") return "[Modalità demo — manca ANTHROPIC_API_KEY]\n\nClaude risponderebbe alla richiesta:\n«" + prompt.slice(0, 160) + "»";
   if (lang === "en") return "[Demo mode — no ANTHROPIC_API_KEY in .env.local]\n\nClaude would answer the request:\n«" + prompt.slice(0, 160) + (prompt.length > 160 ? "…" : "") + "»\n\n1. Opening tailored to the customer's industry\n2. 2–3 recommended Silitex products + the Dow/Wacker product they replace\n3. Commercial edge: local stock, price, FDA/Kosher approvals\n4. CTA: free sample / technical meeting\n\nAvshi Sapir · 050-5231042";
   return "[מצב דמו — אין ANTHROPIC_API_KEY ב-.env.local]\n\n" +
