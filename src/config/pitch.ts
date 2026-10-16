@@ -11,7 +11,7 @@ export const PITCH = {
     { n: 4, title: "Annual contracts", months: "Months 9–12", text: "FCL / LCL supply agreements shipped direct from Cologna Veneta per PO — fresh batches, ≥ 80 % shelf life on delivery." },
   ],
   gets: [
-    ["Mapped market", "19 named accounts, 12 industries, decision-maker roles, $5.25M annual potential — already in the CRM."],
+    ["Mapped market", "Target accounts across 12 industries with decision-maker roles, incumbent supplier and matched Silitex grade — already in the CRM. Volumes and targets are evaluated with each account in Phases 1–2."],
     ["Technical selling", "37-category cross-reference: every Silitex SKU vs. Dow Corning / DOWSIL / XIAMETER, Wacker, Momentive, Evonik + 20 producers."],
     ["Regulatory handling", "Kosher & FDA line positioned for food, water and agro; Israeli Standards Institute and MoH import files handled locally."],
     ["Full visibility", "Monthly principal report: pipeline by stage, samples in field, forecast tons, wins — generated from live CRM data."],

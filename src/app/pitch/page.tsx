@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/pitch/page.tsx) · updated 10.10.2026 07:40 (Asia/Jerusalem) — executive story for Silitex management (English, print-ready). Copy lives in config/pitch.ts. — + Certifications block 15.10.2026 13:35 — + Technical backbone 15.10.2026 17:30 — + Dow Corning track record 16.10.2026 05:50 — + Sapirim 2.0 operating model 16.10.2026 06:05 — + mini Q&A 16.10.2026 08:55 — + LinkedIn campaign preview 16.10.2026 09:20
+// page.tsx (src/app/pitch/page.tsx) · updated 10.10.2026 07:40 (Asia/Jerusalem) — executive story for Silitex management (English, print-ready). Copy lives in config/pitch.ts. — + Certifications block 15.10.2026 13:35 — + Technical backbone 15.10.2026 17:30 — + Dow Corning track record 16.10.2026 05:50 — + Sapirim 2.0 operating model 16.10.2026 06:05 — + mini Q&A 16.10.2026 08:55 — + LinkedIn campaign preview 16.10.2026 09:20 — targets / volumes / TAM removed (to be evaluated in Phases 1–2) 16.10.2026 09:25
 import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { PRODUCTS, OFFSETS, PRIORITIES, INDUSTRIES } from "@/lib/data";
@@ -22,9 +22,7 @@ import { fmtDate } from "@/lib/format";
 export default function PitchPage() {
   const { state, ready } = useStore();
   if (!ready) return null;
-  const potential = state.leads.reduce((a, l) => a + l.value_usd, 0);
-  const tons = state.leads.reduce((a, l) => a + l.volume_tons, 0);
-  const summary = PITCH.title + "\n" + PITCH.subtitle + "\n\n" + state.leads.length + " accounts · " + INDUSTRIES.length + " industries · $" + potential.toLocaleString() + " / yr · " + tons + " t/yr\n\n" + PITCH.phases.map((p) => "Phase " + p.n + " (" + p.months + "): " + p.title + " — " + p.text).join("\n") + "\n\n" + PITCH.process.title + ":\n" + SALES_PROCESS.map((s) => s.n + ". " + s.title + " (" + s.owner + ") — " + s.text).join("\n") + "\n\nTeam:\n" + TEAM.map((m) => "- " + m.role + ": " + m.name).join("\n") + "\n\n" + PITCH.model.title + ":\n" + PITCH.model.lines.map((l) => "- " + l).join("\n") + "\n\nWhat Silitex gets:\n" + PITCH.gets.map((g) => "- " + g[0] + ": " + g[1]).join("\n") + "\n\nWhat we need:\n" + PITCH.needs.map((n) => "- " + n).join("\n");
+  const summary = PITCH.title + "\n" + PITCH.subtitle + "\n\n" + state.leads.length + " accounts · " + INDUSTRIES.length + " industries · year-1 targets and volumes to be evaluated in Phases 1–2\n\n" + PITCH.phases.map((p) => "Phase " + p.n + " (" + p.months + "): " + p.title + " — " + p.text).join("\n") + "\n\n" + PITCH.process.title + ":\n" + SALES_PROCESS.map((s) => s.n + ". " + s.title + " (" + s.owner + ") — " + s.text).join("\n") + "\n\nTeam:\n" + TEAM.map((m) => "- " + m.role + ": " + m.name).join("\n") + "\n\n" + PITCH.model.title + ":\n" + PITCH.model.lines.map((l) => "- " + l).join("\n") + "\n\nWhat Silitex gets:\n" + PITCH.gets.map((g) => "- " + g[0] + ": " + g[1]).join("\n") + "\n\nWhat we need:\n" + PITCH.needs.map((n) => "- " + n).join("\n");
   return (
     <div className="space-y-8" dir="ltr">
       <BackLink />
@@ -36,8 +34,8 @@ export default function PitchPage() {
         <div className="text-sm text-slate-400 mt-4">{PITCH.presenter} · {fmtDate(new Date())}</div>
       </section>
       <section className="grid grid-cols-2 md:grid-cols-6 gap-4">
-        {[["Target accounts", state.leads.length, "", ""], ["Industries", INDUSTRIES.length, "", ""], ["Year-1 target", potential / 1e3, "$", "k"], ["Year-1 volume", tons, "", " t"], ["Market capacity (TAM)", state.leads.reduce((a, l) => a + (l.tam_tons || 0), 0), "", " t/yr"], ["Cross-ref categories", OFFSETS.rows.length, "", ""]].map(([k, v, p, s]) => (
-          <div key={k as string} className="bg-white border rounded-xl p-4 shadow-sm"><div className="text-xs text-slate-500">{k}</div><div className="text-3xl font-bold text-brand-500"><Counter to={v as number} prefix={p as string} suffix={s as string} decimals={0} /></div></div>
+        {[["Target accounts", state.leads.length, "", ""], ["Industries", INDUSTRIES.length, "", ""], ["Year-1 target", "To be evaluated in Phases 1–2", "", ""], ["Year-1 volume", "To be evaluated in Phases 1–2", "", ""], ["Market capacity (TAM)", "To be evaluated in Phases 1–2", "", ""], ["Cross-ref categories", OFFSETS.rows.length, "", ""]].map(([k, v, p, s]) => (
+          <div key={k as string} className="bg-white border rounded-xl p-4 shadow-sm"><div className="text-xs text-slate-500">{k}</div>{typeof v === "string" ? <div className="text-sm font-medium text-slate-500 mt-2">{v}</div> : <div className="text-3xl font-bold text-brand-500"><Counter to={v as number} prefix={p as string} suffix={s as string} decimals={0} /></div>}</div>
         ))}
       </section>
       <TrackRecord />
@@ -47,7 +45,7 @@ export default function PitchPage() {
         <div>
           <h2 className="text-2xl font-bold text-ink-900 mb-2">The market is already mapped</h2>
           <p className="text-slate-600">Every pin is a named Israeli manufacturer with a decision-maker role, the Silitex SKU that fits, the incumbent it replaces and an annual volume estimate. Priority families:</p>
-          <ul className="mt-3 space-y-2">{PRIORITIES.map((p) => (<li key={p.rank} className="flex gap-3 text-sm"><span className="w-6 h-6 rounded-full bg-brand-500 text-white text-xs flex items-center justify-center shrink-0">{p.rank}</span><div><b>{p.family}</b> — ${(p.value_usd / 1000).toFixed(0)}k · {p.volume_tons} t/yr<div className="text-xs text-slate-500">{p.targets}</div></div></li>))}</ul>
+          <ul className="mt-3 space-y-2">{PRIORITIES.map((p) => (<li key={p.rank} className="flex gap-3 text-sm"><span className="w-6 h-6 rounded-full bg-brand-500 text-white text-xs flex items-center justify-center shrink-0">{p.rank}</span><div><b>{p.family}</b><div className="text-xs text-slate-500">{p.targets}</div></div></li>))}</ul>
           <div className="mt-4 flex gap-2 text-sm"><Link href="/products?lang=en" className="text-brand-600 underline">Catalog ({PRODUCTS.length})</Link><Link href="/offsets?lang=en" className="text-brand-600 underline">Cross-reference</Link><Link href="/sniper?lang=en" className="text-brand-600 underline">Offset Sniper</Link></div>
         </div>
       </section>

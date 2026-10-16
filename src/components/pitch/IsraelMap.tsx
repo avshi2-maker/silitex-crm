@@ -20,7 +20,7 @@ export default function IsraelMap({ leads }: { leads: Lead[] }) {
           <g key={l.id} onMouseEnter={() => setHover(l)} onMouseLeave={() => setHover(null)} className="cursor-pointer">
             <circle cx={x + j * 6} cy={y + ((i % 2) ? 5 : -5)} r="7" fill={colorOf(l.industry)} opacity="0.9" stroke="white" strokeWidth="1.5"><animate attributeName="r" values="5;8;5" dur={(1.5 + (i % 5) * 0.3) + "s"} repeatCount="indefinite" /></circle>
           </g>); })}
-        {hover && (() => { const { x, y } = px(hover.lat!, hover.lon!); const left = x > W / 2; return (<g><rect x={left ? x - 150 : x + 10} y={y - 22} width="140" height="34" rx="6" fill="#1B1B20" /><text x={left ? x - 143 : x + 17} y={y - 8} fill="white" fontSize="9" fontWeight="bold">{hover.name.slice(0, 28)}</text><text x={left ? x - 143 : x + 17} y={y + 5} fill="#cbd5e1" fontSize="8">{hover.city} · ${(hover.value_usd / 1000).toFixed(0)}k/yr</text></g>); })()}
+        {hover && (() => { const { x, y } = px(hover.lat!, hover.lon!); const left = x > W / 2; return (<g><rect x={left ? x - 150 : x + 10} y={y - 22} width="140" height="34" rx="6" fill="#1B1B20" /><text x={left ? x - 143 : x + 17} y={y - 8} fill="white" fontSize="9" fontWeight="bold">{hover.name.slice(0, 28)}</text><text x={left ? x - 143 : x + 17} y={y + 5} fill="#cbd5e1" fontSize="8">{hover.city}</text></g>); })()}
       </svg>
       <div className="text-xs space-y-1 pt-2">
         <div className="font-bold text-sm mb-2">{pins.length} target accounts</div>
