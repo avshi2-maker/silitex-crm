@@ -1,5 +1,5 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 10.10.2026 05:50 (Asia/Jerusalem)
+// useStore.ts (src/lib/store/useStore.ts) · updated 17.10.2026 07:40 (Asia/Jerusalem) — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
@@ -34,7 +34,26 @@ export function useStore() {
     addActivity(id, "stage", "שלב עודכן: " + stageHe(stage));
   };
   const addTask = (t: Omit<Task, "id" | "done">) => { const task: Task = { ...t, id: uid("task"), done: false }; update((s) => ({ ...s, tasks: [task, ...s.tasks] })); sync("tasks", task); return task; };
-  const toggleTask = (id: string) => update((s) => ({ ...s, tasks: s.tasks.map((t) => (t.id === id ? { ...t, done: !t.done } : t)) }));
+  const toggleTask = (id: string) => { update((s) => ({ ...s, tasks: s.tasks.map((t) => (t.id === id ? { ...t, done: !t.done } : t)) })); const cur = state.tasks.find((t) => t.id === id); if (cur) sync("tasks", { ...cur, done: !cur.done }); };
+  /** "done + log" from /today: closes the task, logs the outcome on the lead, optional stage move + next step task (one action, no double typing) */
+  const completeTask = (id: string, o: { note: string; kind: string; stage?: Stage; nextTitle?: string; nextDue?: string }) => {
+    const t = state.tasks.find((x) => x.id === id); if (!t) return;
+    update((s) => ({ ...s, tasks: s.tasks.map((x) => (x.id === id ? { ...x, done: true } : x)) })); sync("tasks", { ...t, done: true });
+    const lead = state.leads.find((l) => l.id === t.lead_id);
+    if (lead) {
+      addActivity(lead.id, o.kind, t.title + (o.note.trim() ? " — " + o.note.trim() : ""));
+      if (o.stage && o.stage !== lead.stage) setStage(lead.id, o.stage);
+      if (o.nextDue) { const nl = { ...lead, stage: o.stage || lead.stage, next_action_at: o.nextDue, updated_at: new Date().toISOString() }; update((s) => ({ ...s, leads: s.leads.map((l) => (l.id === lead.id ? nl : l)) })); sync("leads", nl); }
+    }
+    if (o.nextDue && o.nextTitle?.trim()) addTask({ lead_id: t.lead_id, lead_name: t.lead_name, title: o.nextTitle.trim(), due: o.nextDue, cadence: "once", kind: "followup" });
+  };
+  /** bulk import (Excel / SAP export): new leads added, existing (same id) replaced */
+  const importLeads = (rows: Lead[]) => {
+    const now = new Date().toISOString(); const list = rows.map((r) => ({ ...r, created_at: r.created_at || now, updated_at: now }));
+    update((s) => { const ids = new Set(list.map((l) => l.id)); return { ...s, leads: [...list, ...s.leads.filter((l) => !ids.has(l.id))] }; });
+    list.forEach((l) => sync("leads", l));
+    list.forEach((l) => { const a: Activity = { id: uid("act"), lead_id: l.id, at: now, kind: "import", text: "יובא מ-Excel / SAP" + (l.source ? " · " + l.source : "") }; update((s) => ({ ...s, activities: [a, ...s.activities] })); sync("activities", a); });
+  };
   const addSpend = (tokens: number, cost: number) => update((s) => ({ ...s, spend: { tokens: s.spend.tokens + tokens, cost: s.spend.cost + cost } }));
   const addKbDoc = (doc: KbDoc, chunks: KbChunk[]) => { update((s) => ({ ...s, kbDocs: [doc, ...s.kbDocs], kbChunks: [...chunks, ...s.kbChunks] })); sync("kb_docs", doc); chunks.forEach((c) => sync("kb_chunks", c)); };
   const removeKbDoc = (id: string) => update((s) => ({ ...s, kbDocs: s.kbDocs.filter((d) => d.id !== id), kbChunks: s.kbChunks.filter((c) => c.doc_id !== id) }));
@@ -64,5 +83,5 @@ export function useStore() {
   const loadDemo = () => update((s) => ({ ...s, ...buildDemo(), demo: true }));
   const reset = () => { clearState(); setState(EMPTY); };
 
-  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, addShipment, updateShipment, removeShipment, upsertContact, removeContact, addThread, updateThread, removeThread, addMsg, loadDemo, reset };
+  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, completeTask, importLeads, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, addShipment, updateShipment, removeShipment, upsertContact, removeContact, addThread, updateThread, removeThread, addMsg, loadDemo, reset };
 }

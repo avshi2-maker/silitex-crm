@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/page.tsx) · updated 09.10.2026 19:20 (Asia/Jerusalem) — potential customers list + CRM intake (NewLeadForm) + website inbox
+// page.tsx (src/app/leads/page.tsx) · updated 17.10.2026 08:20 — + import from Excel / SAP button · 09.10.2026 19:20 (Asia/Jerusalem) — potential customers list + CRM intake (NewLeadForm) + website inbox
 import Link from "next/link";
 import { purchasesOf } from "@/components/market/PurchaseHistory";
 import { useState } from "react";
@@ -28,6 +28,7 @@ export default function LeadsPage() {
         <select className={inputCls + " w-60"} value={ind} onChange={(e) => setInd(e.target.value)}><option value="">{tr("כל התעשיות")}</option>{inds.map((i) => <option key={i}>{i}</option>)}</select>
         <select className={inputCls + " w-56"} value={role} onChange={(e) => setRole(e.target.value)}><option value="">{tr("כל התפקידים")}</option>{ROLE_GROUPS.map((g) => <option key={g.key} value={g.key}>{tr(g.he)}</option>)}</select>
         <button className={btnPrimary} onClick={() => setShowNew((v) => !v)}>{tr("+ לקוח חדש")}</button>
+        <Link href="/leads/import" className="px-3 py-2 rounded-lg border text-sm bg-white hover:bg-slate-50">{tr("📥 ייבוא מ-Excel / SAP")}</Link>
       </Card>
       {showNew && <NewLeadForm initial={prefill} onSave={(l) => { upsertLead(l); setShowNew(false); setPrefill({}); }} onCancel={() => setShowNew(false)} />}
       <InboxCard existing={state.leads.map((l) => l.name)} onImport={(sb) => { setPrefill({ name: sb.company, contact_name: sb.name, contact_phone: sb.phone || "", contact_email: sb.email, source: "טופס אתר", use_case: [sb.product, sb.fields?.application, sb.message].filter(Boolean).join(" · ") }); setShowNew(true); window.scrollTo({ top: 0, behavior: "smooth" }); }} />
