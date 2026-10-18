@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/studio/page.tsx) · updated 18.10.2026 17:45 (Asia/Jerusalem) — language fix (no English override; Italian works) + scroll to the new posts · 17:20 — POST STUDIO (owner): pick a topic (industry / competitor code / product / D4-D5-D6 regulation / free) + brand mode (Sapirim only — safe before the contract / Silitex products) + languages → AI writes LinkedIn + Facebook post + 30 s reel script per language from partner-safe Silitex data only. Token meter + export bar + history.
+// page.tsx (src/app/studio/page.tsx) · updated 18.10.2026 17:55 (Asia/Jerusalem) — one AI call per language in parallel + tolerant JSON (Russian fix) · 17:45 — language fix (no English override; Italian works) + scroll to the new posts · 17:20 — POST STUDIO (owner): pick a topic (industry / competitor code / product / D4-D5-D6 regulation / free) + brand mode (Sapirim only — safe before the contract / Silitex products) + languages → AI writes LinkedIn + Facebook post + 30 s reel script per language from partner-safe Silitex data only. Token meter + export bar + history.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -9,7 +9,7 @@ import StudioResult from "@/components/studio/StudioResult";
 import { studioSources, STUDIO_INDUSTRIES, type StudioKind } from "@/lib/studio/context";
 import { studioPrompt, STUDIO_LANGS, type StudioBrand } from "@/prompts/studio";
 import { loadPacks, savePack, removePack, type StudioPack, type StudioItem } from "@/lib/studio/history";
-import { parseJson } from "@/prompts/field";
+import { parseLoose } from "@/lib/studio/json";
 import { fmtDateTime } from "@/lib/format";
 import type { Usage } from "@/lib/types";
 import { useLang } from "@/i18n";
@@ -30,12 +30,20 @@ export default function StudioPage() {
     try {
       const src = studioSources(kind, value);
       if (!src.count && kind !== "free") throw new Error(tr("אין נתונים במקורות לנושא הזה — נסה ניסוח אחר."));
-      const r = await fetch("/api/ai", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ context: src.context || "(no sources)", prompt: studioPrompt({ brand, langs, topic: src.topic, angle }), maxTokens: 1400 * langs.length + 600, lang: "any" }) });
-      const j = await r.json(); if (!r.ok) throw new Error(j.error || "AI error");
-      setUsage(j.usage); addSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd);
-      const out = parseJson<{ items: StudioItem[] }>(j.text);
-      if (!out?.items?.length) throw new Error(j.usage?.mock ? "Demo mode — no ANTHROPIC_API_KEY" : tr("ה-AI לא החזיר מבנה תקין — נסה שוב."));
-      const items = out.items.map((x) => ({ ...x, hashtags: x.hashtags || [], reel: { hook: x.reel?.hook || "", scenes: x.reel?.scenes || [], caption: x.reel?.caption || "" } }));
+      // one AI call per language, in parallel: each language gets its own token budget (Cyrillic needs ~2-3x tokens) and one failure does not lose the others
+      const calls = await Promise.all(langs.map(async (l) => {
+        try {
+          const r = await fetch("/api/ai", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ context: src.context || "(no sources)", prompt: studioPrompt({ brand, langs: [l], topic: src.topic, angle }), maxTokens: l === "ru" || l === "he" ? 3600 : 2600, lang: "any" }) });
+          const j = await r.json(); if (!r.ok) return { l, err: j.error || "AI error" };
+          const out = parseLoose<{ items: StudioItem[] }>(j.text);
+          return { l, usage: j.usage as Usage, item: out?.items?.[0] ? { ...out.items[0], lang: l } : undefined, err: out?.items?.[0] ? "" : j.usage?.mock ? "Demo mode — no ANTHROPIC_API_KEY" : tr("ה-AI לא החזיר מבנה תקין — נסה שוב.") };
+        } catch (e) { return { l, err: e instanceof Error ? e.message : "error" }; }
+      }));
+      const tot = calls.reduce((a, c) => (c.usage ? { input_tokens: a.input_tokens + c.usage.input_tokens, output_tokens: a.output_tokens + c.usage.output_tokens, cost_usd: a.cost_usd + c.usage.cost_usd, model: c.usage.model } : a), { input_tokens: 0, output_tokens: 0, cost_usd: 0, model: "" } as Usage);
+      if (tot.cost_usd || tot.input_tokens) { setUsage(tot); addSpend(tot.input_tokens + tot.output_tokens, tot.cost_usd); }
+      const failed = calls.filter((c) => !c.item); if (failed.length) setErr(failed.map((c) => c.l.toUpperCase() + ": " + c.err).join(" · "));
+      const items = calls.filter((c) => c.item).map((c) => { const x = c.item as StudioItem; return { ...x, hashtags: x.hashtags || [], reel: { hook: x.reel?.hook || "", scenes: x.reel?.scenes || [], caption: x.reel?.caption || "" } }; });
+      if (!items.length) { setBusy(false); return; }
       const label = kind === "industry" ? tr(STUDIO_INDUSTRIES.find((i) => i.key === value)?.he || value) : kind === "regulation" ? "D4 / D5 / D6" : value;
       const pack: StudioPack = { id: "P" + Date.now(), at: new Date().toISOString(), topic: label + " · " + (brand === "sapirim" ? "Sapirim" : "Silitex"), brand, items };
       setPacks(savePack(pack)); setCur(pack); setTimeout(() => document.getElementById("studio-result")?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);

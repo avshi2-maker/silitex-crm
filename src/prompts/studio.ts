@@ -1,4 +1,4 @@
-// studio.ts (src/prompts/studio.ts) · updated 18.10.2026 17:35 (Asia/Jerusalem) — + Italian (it) · 17:10 — POST STUDIO prompt: LinkedIn post + Facebook post + 30-second reel script per language, strict JSON, facts only from the sources, honesty rules (no exclusivity / "official" claims, no customer names, no prices, no food, no invented certifications).
+// studio.ts (src/prompts/studio.ts) · updated 18.10.2026 17:55 (Asia/Jerusalem) — JSON-safety rules · 17:35 — + Italian (it) · 17:10 — POST STUDIO prompt: LinkedIn post + Facebook post + 30-second reel script per language, strict JSON, facts only from the sources, honesty rules (no exclusivity / "official" claims, no customer names, no prices, no food, no invented certifications).
 export type StudioBrand = "sapirim" | "silitex";
 export const STUDIO_LANGS = [["he", "עברית"], ["ru", "Русский"], ["en", "English"], ["it", "Italiano"]] as const;
 const LN: Record<string, string> = { he: "Hebrew", ru: "Russian", en: "English", it: "Italian" };
@@ -24,5 +24,6 @@ HARD RULES (non-negotiable):
 - Every post ends with a soft call to action: a WhatsApp message to Avshi 050-5231042 for a technical conversation or a sample.
 Return ONLY JSON, no prose:
 {"items":[${o.langs.map((l) => `{"lang":"${l}","linkedin":"LinkedIn post in ${LN[l]}, 120-180 words, hook first line, 3 short paragraphs, 3-5 hashtags at the end","facebook":"Facebook post in ${LN[l]}, 60-100 words, conversational, 2-3 emojis max","reel":{"hook":"first 3 seconds, on-screen text in ${LN[l]}","scenes":[{"sec":"0-3","visual":"what to film (English)","voice":"voice-over line in ${LN[l]}"}],"caption":"reel caption in ${LN[l]}"},"hashtags":["..."],"image_prompt":"one English prompt for an AI image: realistic industrial photo, no logos, no text"}`).join(",")}]}
-Reel: 30 seconds, 5-6 scenes, filmable with a phone in a plant or lab.`;
+Reel: 30 seconds, 5-6 scenes, filmable with a phone in a plant or lab.
+JSON rules: valid JSON only; use \\n for line breaks inside strings; never use straight double quotes inside text (use « » or ' instead).`;
 }
