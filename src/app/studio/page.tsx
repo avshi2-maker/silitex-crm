@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/studio/page.tsx) · updated 18.10.2026 17:55 (Asia/Jerusalem) — one AI call per language in parallel + tolerant JSON (Russian fix) · 17:45 — language fix (no English override; Italian works) + scroll to the new posts · 17:20 — POST STUDIO (owner): pick a topic (industry / competitor code / product / D4-D5-D6 regulation / free) + brand mode (Sapirim only — safe before the contract / Silitex products) + languages → AI writes LinkedIn + Facebook post + 30 s reel script per language from partner-safe Silitex data only. Token meter + export bar + history.
+// page.tsx (src/app/studio/page.tsx) · updated 18.10.2026 18:05 (Asia/Jerusalem) — 8000-token budget per language (Russian was cut at 3600) · 17:55 — one AI call per language in parallel + tolerant JSON (Russian fix) · 17:45 — language fix (no English override; Italian works) + scroll to the new posts · 17:20 — POST STUDIO (owner): pick a topic (industry / competitor code / product / D4-D5-D6 regulation / free) + brand mode (Sapirim only — safe before the contract / Silitex products) + languages → AI writes LinkedIn + Facebook post + 30 s reel script per language from partner-safe Silitex data only. Token meter + export bar + history.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -33,7 +33,7 @@ export default function StudioPage() {
       // one AI call per language, in parallel: each language gets its own token budget (Cyrillic needs ~2-3x tokens) and one failure does not lose the others
       const calls = await Promise.all(langs.map(async (l) => {
         try {
-          const r = await fetch("/api/ai", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ context: src.context || "(no sources)", prompt: studioPrompt({ brand, langs: [l], topic: src.topic, angle }), maxTokens: l === "ru" || l === "he" ? 3600 : 2600, lang: "any" }) });
+          const r = await fetch("/api/ai", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ context: src.context || "(no sources)", prompt: studioPrompt({ brand, langs: [l], topic: src.topic, angle }), maxTokens: 8000, lang: "any" }) });
           const j = await r.json(); if (!r.ok) return { l, err: j.error || "AI error" };
           const out = parseLoose<{ items: StudioItem[] }>(j.text);
           return { l, usage: j.usage as Usage, item: out?.items?.[0] ? { ...out.items[0], lang: l } : undefined, err: out?.items?.[0] ? "" : j.usage?.mock ? "Demo mode — no ANTHROPIC_API_KEY" : tr("ה-AI לא החזיר מבנה תקין — נסה שוב.") };
