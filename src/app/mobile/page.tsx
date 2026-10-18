@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/mobile/page.tsx) · updated 18.10.2026 07:35 (Asia/Jerusalem) — OWNER ONLY. Mobile apps: QR to scan with the phone camera → open → Add to Home screen. List lives in config/mobile-apps.ts (more apps later).
+// page.tsx (src/app/mobile/page.tsx) · updated 18.10.2026 10:30 (Asia/Jerusalem) — QR → own field address (silitex-field.marble-art.co.il) · — OWNER ONLY. Mobile apps: QR to scan with the phone camera → open → Add to Home screen. List lives in config/mobile-apps.ts (more apps later).
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { H1, Card, Badge, btnGhost } from "@/components/ui";
@@ -7,7 +7,7 @@ import { MOBILE_APPS, type MobileApp } from "@/config/mobile-apps";
 import { useLang } from "@/i18n";
 function AppCard({ app, origin }: { app: MobileApp; origin: string }) {
   const { t: tr } = useLang();
-  const url = origin + app.path; const [src, setSrc] = useState("");
+  const url = app.url || origin + app.path; const [src, setSrc] = useState("");
   useEffect(() => { if (origin) QRCode.toDataURL(url, { width: 520, margin: 2, errorCorrectionLevel: "H" }).then(setSrc).catch(() => setSrc("")); }, [url, origin]);
   const download = () => { if (!src) return; const a = document.createElement("a"); a.href = src; a.download = "QR_" + app.name.replace(/\s+/g, "_") + ".png"; a.click(); };
   return (
@@ -16,7 +16,7 @@ function AppCard({ app, origin }: { app: MobileApp; origin: string }) {
       <p className="text-sm text-slate-600">{tr(app.he)}</p>
       <div className="grid md:grid-cols-[260px_1fr] gap-4 items-start">
         <div className="text-center">{src ? <img src={src} alt="QR" className="w-60 h-60 mx-auto border rounded-xl" /> : <div className="w-60 h-60 mx-auto grid place-items-center text-slate-400 border rounded-xl">QR…</div>}
-          <div className="flex justify-center gap-2 mt-2"><button className={btnGhost + " text-xs"} onClick={download}>⬇️ {tr("הורד QR")}</button><a className={btnGhost + " text-xs"} href={app.path} target="_blank" rel="noreferrer">↗ {tr("פתח")}</a></div></div>
+          <div className="flex justify-center gap-2 mt-2"><button className={btnGhost + " text-xs"} onClick={download}>⬇️ {tr("הורד QR")}</button><a className={btnGhost + " text-xs"} href={url} target="_blank" rel="noreferrer">↗ {tr("פתח")}</a></div></div>
         <div className="text-sm space-y-3">
           <div><b>🤖 Android (Chrome)</b><ol className="list-decimal ps-5 mt-1 space-y-0.5"><li>{tr("סרוק את ה-QR עם מצלמת הטלפון → פתח בכרום")}</li><li>{tr("הזן PIN בעלים פעם אחת")}</li><li>{tr("⋮ → הוסף למסך הבית → הוסף")}</li></ol></div>
           <div><b>🍏 iPhone (Safari)</b><ol className="list-decimal ps-5 mt-1 space-y-0.5"><li>{tr("סרוק עם המצלמה → פתח ב-Safari")}</li><li>{tr("הזן PIN בעלים פעם אחת")}</li><li>{tr("שיתוף (□↑) → הוסף למסך הבית → הוסף")}</li></ol></div>
