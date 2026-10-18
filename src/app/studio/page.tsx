@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/studio/page.tsx) · updated 18.10.2026 17:20 (Asia/Jerusalem) — POST STUDIO (owner): pick a topic (industry / competitor code / product / D4-D5-D6 regulation / free) + brand mode (Sapirim only — safe before the contract / Silitex products) + languages → AI writes LinkedIn + Facebook post + 30 s reel script per language from partner-safe Silitex data only. Token meter + export bar + history.
+// page.tsx (src/app/studio/page.tsx) · updated 18.10.2026 17:45 (Asia/Jerusalem) — language fix (no English override; Italian works) + scroll to the new posts · 17:20 — POST STUDIO (owner): pick a topic (industry / competitor code / product / D4-D5-D6 regulation / free) + brand mode (Sapirim only — safe before the contract / Silitex products) + languages → AI writes LinkedIn + Facebook post + 30 s reel script per language from partner-safe Silitex data only. Token meter + export bar + history.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -30,7 +30,7 @@ export default function StudioPage() {
     try {
       const src = studioSources(kind, value);
       if (!src.count && kind !== "free") throw new Error(tr("אין נתונים במקורות לנושא הזה — נסה ניסוח אחר."));
-      const r = await fetch("/api/ai", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ context: src.context || "(no sources)", prompt: studioPrompt({ brand, langs, topic: src.topic, angle }), maxTokens: 1400 * langs.length + 600, lang: "en" }) });
+      const r = await fetch("/api/ai", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ context: src.context || "(no sources)", prompt: studioPrompt({ brand, langs, topic: src.topic, angle }), maxTokens: 1400 * langs.length + 600, lang: "any" }) });
       const j = await r.json(); if (!r.ok) throw new Error(j.error || "AI error");
       setUsage(j.usage); addSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd);
       const out = parseJson<{ items: StudioItem[] }>(j.text);
@@ -38,7 +38,7 @@ export default function StudioPage() {
       const items = out.items.map((x) => ({ ...x, hashtags: x.hashtags || [], reel: { hook: x.reel?.hook || "", scenes: x.reel?.scenes || [], caption: x.reel?.caption || "" } }));
       const label = kind === "industry" ? tr(STUDIO_INDUSTRIES.find((i) => i.key === value)?.he || value) : kind === "regulation" ? "D4 / D5 / D6" : value;
       const pack: StudioPack = { id: "P" + Date.now(), at: new Date().toISOString(), topic: label + " · " + (brand === "sapirim" ? "Sapirim" : "Silitex"), brand, items };
-      setPacks(savePack(pack)); setCur(pack);
+      setPacks(savePack(pack)); setCur(pack); setTimeout(() => document.getElementById("studio-result")?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
     } catch (e) { setErr(e instanceof Error ? e.message : "error"); }
     setBusy(false);
   };
@@ -65,7 +65,7 @@ export default function StudioPage() {
         <TokenMeter usage={usage} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} busy={busy} />
         {brand === "silitex" && <div className="text-xs bg-amber-50 border border-amber-200 rounded-lg p-2">⚠️ {tr("לפרסם תוכן עם מוצרי Silitex רק אחרי חתימת החוזה ואישור פדריקה לשימוש בשם ובלוגו.")}</div>}
       </Card>
-      {cur && <StudioResult key={cur.id} pack={cur} />}
+      {cur && <div id="studio-result"><StudioResult key={cur.id} pack={cur} /></div>}
       {packs.length > 0 && (
         <Card>
           <div className="font-bold mb-2">🗂️ {tr("היסטוריה")} ({packs.length})</div>

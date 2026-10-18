@@ -1,4 +1,4 @@
-// ai.ts (src/lib/ai.ts) · updated 18.10.2026 06:30 — + askImage (card scan), askImageUrl (Cloudinary photos) · 16.10.2026 18:45 — + Russian answers · 09.10.2026 10:30 (Asia/Jerusalem)  — server only
+// ai.ts (src/lib/ai.ts) · updated 18.10.2026 17:45 — + lang "any" (multi-language tasks, e.g. Post Studio) · 06:30 — + askImage (card scan), askImageUrl (Cloudinary photos) · 16.10.2026 18:45 — + Russian answers · 09.10.2026 10:30 (Asia/Jerusalem)  — server only
 // One Claude entry point. Without ANTHROPIC_API_KEY it returns a deterministic demo answer with simulated usage so the meter + export bar still work.
 import Anthropic from "@anthropic-ai/sdk";
 import { MODEL, costUsd } from "./pricing";
@@ -6,13 +6,13 @@ import type { Usage } from "./types";
 
 import { SYSTEM } from "@/prompts/system";
 
-export async function ask(prompt: string, context?: string, maxTokens = 1200, lang: "he" | "en" | "it" | "ru" = "he"): Promise<{ text: string; usage: Usage }> {
-  const system = lang === "en" ? SYSTEM + "\n\nIMPORTANT: respond in English (the reader is an international partner)." : lang === "it" ? SYSTEM + "\n\nIMPORTANTE: rispondi in italiano (il lettore è il personale Silitex in Italia)." : lang === "ru" ? SYSTEM + "\n\nВАЖНО: отвечай на русском языке (читатель — русскоязычный технолог/техник в Израиле). Названия продуктов, коды и INCI не переводи." : SYSTEM;
+export async function ask(prompt: string, context?: string, maxTokens = 1200, lang: "he" | "en" | "it" | "ru" | "any" = "he"): Promise<{ text: string; usage: Usage }> {
+  const system = lang === "any" ? SYSTEM + "\n\nIMPORTANT: ignore the default language above — write every text exactly in the language the task specifies for it (the task may ask for several languages: Hebrew, Russian, English, Italian). Product names, codes and INCI stay as written." : lang === "en" ? SYSTEM + "\n\nIMPORTANT: respond in English (the reader is an international partner)." : lang === "it" ? SYSTEM + "\n\nIMPORTANTE: rispondi in italiano (il lettore è il personale Silitex in Italia)." : lang === "ru" ? SYSTEM + "\n\nВАЖНО: отвечай на русском языке (читатель — русскоязычный технолог/техник в Израиле). Названия продуктов, коды и INCI не переводи." : SYSTEM;
   const key = process.env.ANTHROPIC_API_KEY;
   const user = context ? "הקשר:\n" + context + "\n\n---\nמשימה:\n" + prompt : prompt;
   if (!key) {
     const inTok = Math.ceil(user.length / 3.2), outTok = 320;
-    return { text: demo(prompt, lang), usage: { input_tokens: inTok, output_tokens: outTok, cost_usd: costUsd(MODEL, inTok, outTok), model: MODEL, mock: true } };
+    return { text: demo(prompt, lang === "any" ? "en" : lang), usage: { input_tokens: inTok, output_tokens: outTok, cost_usd: costUsd(MODEL, inTok, outTok), model: MODEL, mock: true } };
   }
   const client = new Anthropic({ apiKey: key });
   const res = await client.messages.create({ model: MODEL, max_tokens: maxTokens, system, messages: [{ role: "user", content: user }] });
