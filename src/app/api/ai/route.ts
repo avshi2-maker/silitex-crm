@@ -1,8 +1,9 @@
-// route.ts (src/app/api/ai/route.ts) · updated 16.10.2026 18:45 — + ru · 13.10.2026 06:40 — logs partner (Silitex staff) questions to partner_usage (Asia/Jerusalem)
+// route.ts (src/app/api/ai/route.ts) · updated 18.10.2026 17:25 — maxDuration 120 s · 16.10.2026 18:45 — + ru · 13.10.2026 06:40 — logs partner (Silitex staff) questions to partner_usage (Asia/Jerusalem)
 import { NextResponse } from "next/server";
 import { ask } from "@/lib/ai";
 import { logPartner } from "@/lib/partner-usage";
 export const runtime = "nodejs";
+export const maxDuration = 120; // Post Studio packs (3 languages) can take ~60 s
 export async function POST(req: Request) {
   try {
     const { prompt, context, maxTokens, lang } = await req.json();

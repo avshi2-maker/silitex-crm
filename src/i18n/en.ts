@@ -1,4 +1,4 @@
-// en.ts (src/i18n/en.ts) · updated 18.10.2026 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 18.10.2026 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Not in the Silitex data — we do not guess",
@@ -1075,4 +1075,30 @@ export const EN: Record<string, string> = {
   "שתף Excel": "Share Excel",
   "הקובץ נשמר בטלפון — צרפי אותו למייל ב-Outlook.": "File saved on the phone — attach it to an Outlook e-mail.",
   "בלי הגדרות: Outlook = הטקסט של הפגישות · שתף Excel → בחרי Outlook = הקובץ מצורף. נשלח מהחשבון שלך.": "No setup: Outlook = meetings as text · Share Excel → pick Outlook = file attached. Sent from your own account.",
+  // Post Studio (18.10.2026)
+  "זווית (לא חובה) — למשל: חיסכון בזמן השבתה, ציות לרגולציה": "Angle (optional) — e.g. less downtime, regulatory compliance",
+  "פרומפט לתמונה (AI)": "Image prompt (AI)",
+  "היסטוריה": "History",
+  "ה-AI לא החזיר מבנה תקין — נסה שוב.": "The AI did not return a valid structure — try again.",
+  "קמפיין — פניות ישירות ללקוחות": "Campaign — direct outreach to customers",
+  "לפרסם תוכן עם מוצרי Silitex רק אחרי חתימת החוזה ואישור פדריקה לשימוש בשם ובלוגו.": "Publish Silitex-product content only after the contract is signed and Federica approves use of the name and logo.",
+  "כותב…": "Writing…",
+  "סטודיו פוסטים": "Post Studio",
+  "מה מצלמים": "What to film",
+  "רגולציה D4 / D5 / D6": "D4 / D5 / D6 regulation",
+  "למשל: קצף בקו מילוי, דחיית מים לאבן": "e.g. foam on a filling line, water repellent for stone",
+  "סטודיו פוסטים — פוסטים ציבוריים וריילס": "Post Studio — public posts and reels",
+  "נושא חופשי": "Free topic",
+  "מוצר / משפחת מוצרים": "Product / product family",
+  "צור פוסטים": "Create posts",
+  "Sapirim בלבד (בטוח לפני חוזה)": "Sapirim only (safe before contract)",
+  "מוצרי Silitex (אחרי חוזה)": "Silitex products (after contract)",
+  "אין נתונים במקורות לנושא הזה — נסה ניסוח אחר.": "No data in the sources for this topic — try other wording.",
+  "קריינות": "Voice-over",
+  "תעשייה / בעיה": "Industry / problem",
+  "ריל 30 שניות": "30-second reel",
+  "קוד מתחרה → חלופה": "Competitor code → alternative",
+  "שפות": "Languages",
+  "נושא + שפות → פוסט לינקדאין, פוסט פייסבוק ותסריט ריל 30 שניות — רק מנתוני Silitex, בלי שמות לקוחות.": "Topic + languages → LinkedIn post, Facebook post and 30-second reel script — Silitex data only, no customer names.",
+  "מצב מותג": "Brand mode",
 };
