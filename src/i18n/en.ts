@@ -1136,4 +1136,6 @@ export const EN: Record<string, string> = {
   "קישור לפוסט / הערה": "Post link / note",
   "ריל": "Reel",
   "תוכנית פרסום": "Social plan",
+  "כתוב מחדש": "Rewrite",
+  "גרסה חדשה לשפה הזו": "New version for this language",
 };

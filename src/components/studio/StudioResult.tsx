@@ -1,5 +1,5 @@
 "use client";
-// StudioResult.tsx (src/components/studio/StudioResult.tsx) · updated 18.10.2026 17:35 (Asia/Jerusalem) — + Italian tab · 17:15 — POST STUDIO output: tab per language → LinkedIn post · Facebook post · 30 s reel script (scene table) · AI image prompt — each with 📋 copy + open-in-LinkedIn/Facebook; export bar per language.
+// StudioResult.tsx (src/components/studio/StudioResult.tsx) · updated 18.10.2026 19:05 (Asia/Jerusalem) — 🔄 rewrite button · 17:35 — + Italian tab · 17:15 — POST STUDIO output: tab per language → LinkedIn post · Facebook post · 30 s reel script (scene table) · AI image prompt — each with 📋 copy + open-in-LinkedIn/Facebook; export bar per language.
 import { useState } from "react";
 import ExportBar from "@/components/ExportBar";
 import { Card } from "@/components/ui";
@@ -21,14 +21,14 @@ function Block({ title, text, open }: { title: string; text: string; open?: stri
     </div>
   );
 }
-export default function StudioResult({ pack }: { pack: StudioPack }) {
+export default function StudioResult({ pack, busy, onRewrite }: { pack: StudioPack; busy?: boolean; onRewrite?: (lang: string) => void }) {
   const { t: tr } = useLang();
   const [lang, setLang] = useState(pack.items[0]?.lang || "he");
   const it = pack.items.find((x) => x.lang === lang) || pack.items[0]; if (!it) return null;
   const li = it.linkedin + (it.hashtags.length && !it.linkedin.includes("#") ? "\n\n" + it.hashtags.join(" ") : "");
   return (
     <Card className="space-y-3">
-      <div className="flex flex-wrap items-center gap-2"><b className="flex-1" dir="auto">{pack.topic}</b>{pack.items.map((x) => <button key={x.lang} onClick={() => setLang(x.lang)} className={"px-3 py-1 rounded-full border text-sm " + (x.lang === lang ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{NAME[x.lang] || x.lang}</button>)}</div>
+      <div className="flex flex-wrap items-center gap-2"><b className="flex-1" dir="auto">{pack.topic}</b>{pack.items.map((x) => <button key={x.lang} onClick={() => setLang(x.lang)} className={"px-3 py-1 rounded-full border text-sm " + (x.lang === lang ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{NAME[x.lang] || x.lang}</button>)}{onRewrite && <button disabled={busy} onClick={() => onRewrite(it.lang)} className="px-3 py-1 rounded-full border text-sm bg-white hover:bg-slate-50 disabled:opacity-40" title={tr("גרסה חדשה לשפה הזו")}>{busy ? "…" : "🔄 " + tr("כתוב מחדש")} · {NAME[it.lang] || it.lang}</button>}</div>
       <div className="grid lg:grid-cols-2 gap-3">
         <Block title="💼 LinkedIn" text={li} open="https://www.linkedin.com/feed/?shareActive=true" />
         <Block title="📘 Facebook" text={it.facebook} open="https://www.facebook.com/" />
