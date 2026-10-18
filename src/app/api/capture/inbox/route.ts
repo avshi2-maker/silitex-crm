@@ -1,13 +1,13 @@
-// route.ts (src/app/api/capture/inbox/route.ts) · updated 18.10.2026 06:45 (Asia/Jerusalem) — owner only: GET → field uploads not yet processed, grouped by meeting; quick text notes (raw .txt) are read inline
+// route.ts (src/app/api/capture/inbox/route.ts) · updated 18.10.2026 07:00 (Asia/Jerusalem) — exact config error · owner only: GET → field uploads not yet processed, grouped by meeting; quick text notes (raw .txt) are read inline
 import { NextResponse } from "next/server";
-import { searchInbox, type Asset } from "@/lib/cloudinary";
+import { searchInbox, cfgError, type Asset } from "@/lib/cloudinary";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export type InboxItem = Asset & { kind: string; text?: string };
 export type InboxGroup = { meeting: string; label: string; lead: string; first: string; items: InboxItem[] };
 export async function GET() {
   try {
-    const res = await searchInbox(); if (!res) return NextResponse.json({ error: "CLOUDINARY_URL missing in Vercel" }, { status: 503 });
+    const res = await searchInbox(); if (!res) return NextResponse.json({ error: cfgError() }, { status: 503 });
     const groups = new Map<string, InboxGroup>();
     for (const a of res) {
       const ctx = a.context || {}; const m = ctx.meeting || (a.tags.find((t) => t.startsWith("fm-")) || "fm-unsorted").slice(3);
