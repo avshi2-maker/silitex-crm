@@ -1,10 +1,12 @@
 "use client";
-// StudioResult.tsx (src/components/studio/StudioResult.tsx) · updated 18.10.2026 19:05 (Asia/Jerusalem) — 🔄 rewrite button · 17:35 — + Italian tab · 17:15 — POST STUDIO output: tab per language → LinkedIn post · Facebook post · 30 s reel script (scene table) · AI image prompt — each with 📋 copy + open-in-LinkedIn/Facebook; export bar per language.
+// StudioResult.tsx (src/components/studio/StudioResult.tsx) · updated 18.10.2026 19:20 (Asia/Jerusalem) — over-claim warning + 🎙️ voice-over · 19:05 — 🔄 rewrite button · 17:35 — + Italian tab · 17:15 — POST STUDIO output: tab per language → LinkedIn post · Facebook post · 30 s reel script (scene table) · AI image prompt — each with 📋 copy + open-in-LinkedIn/Facebook; export bar per language.
 import { useState } from "react";
 import ExportBar from "@/components/ExportBar";
 import { Card } from "@/components/ui";
 import type { StudioPack, StudioItem } from "@/lib/studio/history";
 import { useLang } from "@/i18n";
+import VoiceOver from "./VoiceOver";
+import { claimIssues } from "@/lib/studio/claims";
 const NAME: Record<string, string> = { he: "עברית", ru: "Русский", en: "English", it: "Italiano" };
 export function itemText(it: StudioItem): string {
   return ["LinkedIn:\n" + it.linkedin, "Facebook:\n" + it.facebook, "Reel — " + it.reel.hook + "\n" + it.reel.scenes.map((s) => s.sec + "s · " + s.visual + " · " + s.voice).join("\n") + "\n" + it.reel.caption, "Hashtags: " + it.hashtags.join(" "), "Image prompt: " + it.image_prompt].join("\n\n");
@@ -25,10 +27,12 @@ export default function StudioResult({ pack, busy, onRewrite }: { pack: StudioPa
   const { t: tr } = useLang();
   const [lang, setLang] = useState(pack.items[0]?.lang || "he");
   const it = pack.items.find((x) => x.lang === lang) || pack.items[0]; if (!it) return null;
+  const issues = claimIssues([it.linkedin, it.facebook, it.reel.hook, it.reel.caption, ...it.reel.scenes.map((x) => x.voice)].join("\n"));
   const li = it.linkedin + (it.hashtags.length && !it.linkedin.includes("#") ? "\n\n" + it.hashtags.join(" ") : "");
   return (
     <Card className="space-y-3">
       <div className="flex flex-wrap items-center gap-2"><b className="flex-1" dir="auto">{pack.topic}</b>{pack.items.map((x) => <button key={x.lang} onClick={() => setLang(x.lang)} className={"px-3 py-1 rounded-full border text-sm " + (x.lang === lang ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{NAME[x.lang] || x.lang}</button>)}{onRewrite && <button disabled={busy} onClick={() => onRewrite(it.lang)} className="px-3 py-1 rounded-full border text-sm bg-white hover:bg-slate-50 disabled:opacity-40" title={tr("גרסה חדשה לשפה הזו")}>{busy ? "…" : "🔄 " + tr("כתוב מחדש")} · {NAME[it.lang] || it.lang}</button>}</div>
+      {issues.length > 0 && <div className="text-sm bg-amber-50 border border-amber-300 rounded-lg p-2">⚠️ {tr("לתקן לפני פרסום — ניסוח שמבטיח יותר מדי:")} <b>{issues.join(" · ")}</b> · {tr("לכתוב במקום: \"מקבילה לבדיקה מול דף נתונים ודגימה\". או ללחוץ 🔄 כתוב מחדש.")}</div>}
       <div className="grid lg:grid-cols-2 gap-3">
         <Block title="💼 LinkedIn" text={li} open="https://www.linkedin.com/feed/?shareActive=true" />
         <Block title="📘 Facebook" text={it.facebook} open="https://www.facebook.com/" />
@@ -39,6 +43,7 @@ export default function StudioResult({ pack, busy, onRewrite }: { pack: StudioPa
         <table className="w-full text-sm"><thead><tr className="text-xs text-slate-500 text-start"><th className="text-start p-1">⏱</th><th className="text-start p-1">{tr("מה מצלמים")}</th><th className="text-start p-1">{tr("קריינות")}</th></tr></thead>
           <tbody>{it.reel.scenes.map((s, i) => <tr key={i} className="border-t align-top"><td className="p-1 whitespace-nowrap text-slate-500">{s.sec}</td><td className="p-1" dir="ltr">{s.visual}</td><td className="p-1" dir="auto">{s.voice}</td></tr>)}</tbody></table>
         <div className="text-sm text-slate-600" dir="auto">{it.reel.caption}</div>
+        <VoiceOver key={pack.id + it.lang} text={it.reel.scenes.map((x) => x.voice).filter(Boolean).join("\n")} lang={it.lang} name={"voiceover_" + it.lang + ".mp3"} />
       </div>
       <div className="grid lg:grid-cols-2 gap-3">
         <Block title="#️⃣ Hashtags" text={it.hashtags.join(" ")} />

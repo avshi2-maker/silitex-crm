@@ -1141,4 +1141,8 @@ export const EN: Record<string, string> = {
   "נקה — התחלה חדשה": "Clear — fresh start",
   "בחר נושא, מצב מותג ושפה": "Pick a topic, brand mode and language",
   "— בחר תעשייה —": "— pick an industry —",
+  "מקליט…": "Recording…",
+  "קריינות AI": "AI voice-over",
+  "לתקן לפני פרסום — ניסוח שמבטיח יותר מדי:": "Fix before publishing — over-claiming wording:",
+  "לכתוב במקום: \"מקבילה לבדיקה מול דף נתונים ודגימה\". או ללחוץ 🔄 כתוב מחדש.": "Write instead: \"an equivalent to check against the data sheet and a sample\". Or press 🔄 Rewrite.",
 };

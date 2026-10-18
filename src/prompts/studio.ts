@@ -1,4 +1,4 @@
-// studio.ts (src/prompts/studio.ts) · updated 18.10.2026 17:55 (Asia/Jerusalem) — JSON-safety rules · 17:35 — + Italian (it) · 17:10 — POST STUDIO prompt: LinkedIn post + Facebook post + 30-second reel script per language, strict JSON, facts only from the sources, honesty rules (no exclusivity / "official" claims, no customer names, no prices, no food, no invented certifications).
+// studio.ts (src/prompts/studio.ts) · updated 18.10.2026 19:20 (Asia/Jerusalem) — no 'full/identical replacement' claims · 17:55 — JSON-safety rules · 17:35 — + Italian (it) · 17:10 — POST STUDIO prompt: LinkedIn post + Facebook post + 30-second reel script per language, strict JSON, facts only from the sources, honesty rules (no exclusivity / "official" claims, no customer names, no prices, no food, no invented certifications).
 export type StudioBrand = "sapirim" | "silitex";
 export const STUDIO_LANGS = [["he", "עברית"], ["ru", "Русский"], ["en", "English"], ["it", "Italiano"]] as const;
 const LN: Record<string, string> = { he: "Hebrew", ru: "Russian", en: "English", it: "Italian" };
@@ -20,6 +20,7 @@ HARD RULES (non-negotiable):
 - Facts ONLY from the sources above. Never invent product names, numbers, certifications or results. If a fact is not in the sources, leave it out.
 - Never claim "official", "exclusive" or "sole" distributor. Never name customers. No prices, no "cheaper than" claims. Food industry is out of scope — do not mention food.
 - Competitor brands may be named only as the code being replaced ("an equivalent to DOWSIL 1520"), never disparaged.
+- Equivalents are PARTIAL matches from a comparison table. NEVER write "full / identical / 100% / exact / drop-in replacement", "same chemistry", "same performance", "same certifications/compliance" (or the same in Hebrew: "תחליף מלא", "זהה", "אותה כימיה", "אותן תקינות"; Russian: "полная замена", "идентичный", "та же химия"; Italian: "sostituto identico", "stessa chimica"). Write instead: "an equivalent to check against the data sheet and a lab trial" / "מקבילה לבדיקה מול דף נתונים ודגימה".
 - Professional, concrete, no hype words ("revolutionary", "best in the world").
 - Every post ends with a soft call to action: a WhatsApp message to Avshi 050-5231042 for a technical conversation or a sample.
 Return ONLY JSON, no prose:
