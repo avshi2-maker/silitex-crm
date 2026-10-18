@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/studio/page.tsx) · updated 18.10.2026 19:05 (Asia/Jerusalem) — 🔄 rewrite one language + link to Social plan · 18:55 — pre-fill from Social plan link (?kind&value&langs&brand) · 18:05 — 8000-token budget per language (Russian was cut at 3600) · 17:55 — one AI call per language in parallel + tolerant JSON (Russian fix) · 17:45 — language fix (no English override; Italian works) + scroll to the new posts · 17:20 — POST STUDIO (owner): pick a topic (industry / competitor code / product / D4-D5-D6 regulation / free) + brand mode (Sapirim only — safe before the contract / Silitex products) + languages → AI writes LinkedIn + Facebook post + 30 s reel script per language from partner-safe Silitex data only. Token meter + export bar + history.
+// page.tsx (src/app/studio/page.tsx) · updated 18.10.2026 19:10 (Asia/Jerusalem) — clean start (nothing pre-selected, no old result) + 🧹 Clear button · 19:05 — 🔄 rewrite one language + link to Social plan · 18:55 — pre-fill from Social plan link (?kind&value&langs&brand) · 18:05 — 8000-token budget per language (Russian was cut at 3600) · 17:55 — one AI call per language in parallel + tolerant JSON (Russian fix) · 17:45 — language fix (no English override; Italian works) + scroll to the new posts · 17:20 — POST STUDIO (owner): pick a topic (industry / competitor code / product / D4-D5-D6 regulation / free) + brand mode (Sapirim only — safe before the contract / Silitex products) + languages → AI writes LinkedIn + Facebook post + 30 s reel script per language from partner-safe Silitex data only. Token meter + export bar + history.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -17,25 +17,28 @@ const KINDS: [StudioKind, string][] = [["industry", "תעשייה / בעיה"], 
 export default function StudioPage() {
   const { t: tr } = useLang();
   const { state, ready, addSpend } = useStore();
-  const [kind, setKind] = useState<StudioKind>("industry"); const [value, setValue] = useState(STUDIO_INDUSTRIES[0]?.key || "");
-  const [brand, setBrand] = useState<StudioBrand>("sapirim"); const [langs, setLangs] = useState<string[]>(["he", "ru"]); const [angle, setAngle] = useState("");
+  const [kind, setKind] = useState<StudioKind | "">(""); const [value, setValue] = useState("");
+  const [brand, setBrand] = useState<StudioBrand | "">(""); const [langs, setLangs] = useState<string[]>([]); const [angle, setAngle] = useState("");
   const [busy, setBusy] = useState(false); const [err, setErr] = useState(""); const [usage, setUsage] = useState<Usage | null>(null);
   const [packs, setPacks] = useState<StudioPack[]>([]); const [cur, setCur] = useState<StudioPack | null>(null);
-  useEffect(() => { const p = loadPacks(); setPacks(p); if (p[0]) setCur(p[0]);
+  useEffect(() => { setPacks(loadPacks()); // clean screen on open — old packs stay in the history list
     // pre-fill from the Social plan: /studio?kind=…&value=…&langs=he,ru&brand=sapirim
     try { const q = new URLSearchParams(window.location.search); const k = q.get("kind") as StudioKind | null; if (k && KINDS.some(([x]) => x === k)) { setKind(k); setValue(q.get("value") || (k === "industry" ? STUDIO_INDUSTRIES[0]?.key || "" : "")); }
       const ls = (q.get("langs") || "").split(",").filter((l) => STUDIO_LANGS.some(([x]) => x === l)); if (ls.length) setLangs(ls); const b = q.get("brand"); if (b === "sapirim" || b === "silitex") setBrand(b); } catch {}
   }, []);
   if (!ready) return null;
-  const pickKind = (k: StudioKind) => { setKind(k); setValue(k === "industry" ? STUDIO_INDUSTRIES[0]?.key || "" : ""); };
+  const pickKind = (k: StudioKind) => { setKind(k); setValue(""); };
+  /** 🧹 fresh start: nothing selected, no result on screen (history kept below) */
+  const clearAll = () => { setKind(""); setValue(""); setBrand(""); setLangs([]); setAngle(""); setCur(null); setErr(""); setUsage(null); try { window.history.replaceState(null, "", "/studio"); } catch {} window.scrollTo({ top: 0, behavior: "smooth" }); };
   const toggle = (l: string) => setLangs((x) => (x.includes(l) ? x.filter((y) => y !== l) : [...x, l]));
   // one AI call per language, in parallel: each language gets its own token budget (Cyrillic needs ~2-3x tokens) and one failure does not lose the others
   const gen = async (ls: string[]): Promise<StudioItem[]> => {
+    if (!kind || !brand) throw new Error(tr("בחר נושא, מצב מותג ושפה"));
     const src = studioSources(kind, value);
     if (!src.count && kind !== "free") throw new Error(tr("אין נתונים במקורות לנושא הזה — נסה ניסוח אחר."));
     const calls = await Promise.all(ls.map(async (l) => {
       try {
-        const r = await fetch("/api/ai", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ context: src.context || "(no sources)", prompt: studioPrompt({ brand, langs: [l], topic: src.topic, angle }), maxTokens: 8000, lang: "any" }) });
+        const r = await fetch("/api/ai", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ context: src.context || "(no sources)", prompt: studioPrompt({ brand: brand as StudioBrand, langs: [l], topic: src.topic, angle }), maxTokens: 8000, lang: "any" }) });
         const j = await r.json(); if (!r.ok) return { l, err: j.error || "AI error" };
         const out = parseLoose<{ items: StudioItem[] }>(j.text);
         return { l, usage: j.usage as Usage, item: out?.items?.[0] ? { ...out.items[0], lang: l } : undefined, err: out?.items?.[0] ? "" : j.usage?.mock ? "Demo mode — no ANTHROPIC_API_KEY" : tr("ה-AI לא החזיר מבנה תקין — נסה שוב.") };
@@ -52,7 +55,7 @@ export default function StudioPage() {
       const items = await gen(langs);
       if (items.length) {
         const label = kind === "industry" ? tr(STUDIO_INDUSTRIES.find((i) => i.key === value)?.he || value) : kind === "regulation" ? "D4 / D5 / D6" : value;
-        const pack: StudioPack = { id: "P" + Date.now(), at: new Date().toISOString(), topic: label + " · " + (brand === "sapirim" ? "Sapirim" : "Silitex"), brand, items };
+        const pack: StudioPack = { id: "P" + Date.now(), at: new Date().toISOString(), topic: label + " · " + (brand === "sapirim" ? "Sapirim" : "Silitex"), brand: brand as string, items };
         setPacks(savePack(pack)); setCur(pack); setTimeout(() => document.getElementById("studio-result")?.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
       }
     } catch (e) { setErr(e instanceof Error ? e.message : "error"); }
@@ -71,7 +74,7 @@ export default function StudioPage() {
       <H1 sub={tr("נושא + שפות → פוסט לינקדאין, פוסט פייסבוק ותסריט ריל 30 שניות — רק מנתוני Silitex, בלי שמות לקוחות.")}>✍️ {tr("סטודיו פוסטים")} <Link href="/social" className="text-sm font-normal text-brand-600 underline">🗓️ {tr("תוכנית פרסום")}</Link> <Link href="/campaign" className="text-sm font-normal text-brand-600 underline">↗ {tr("קמפיין — פניות ישירות ללקוחות")}</Link></H1>
       <Card className="space-y-3">
         <div className="flex flex-wrap gap-2">{KINDS.map(([k, he]) => <button key={k} className={chip(kind === k)} onClick={() => pickKind(k)}>{tr(he)}</button>)}</div>
-        {kind === "industry" && <select className={inputCls} value={value} onChange={(e) => setValue(e.target.value)}>{STUDIO_INDUSTRIES.map((i) => <option key={i.key} value={i.key}>{tr(i.he)}</option>)}</select>}
+        {kind === "industry" && <select className={inputCls} value={value} onChange={(e) => setValue(e.target.value)}><option value="">{tr("— בחר תעשייה —")}</option>{STUDIO_INDUSTRIES.map((i) => <option key={i.key} value={i.key}>{tr(i.he)}</option>)}</select>}
         {(kind === "code" || kind === "product" || kind === "free") && <input className={inputCls} dir="auto" value={value} onChange={(e) => setValue(e.target.value)} placeholder={kind === "code" ? "DOWSIL 1520 / Wacker SILFOAM SE 47…" : kind === "product" ? "ANTISCHIUMA 3 / amino softener…" : tr("למשל: קצף בקו מילוי, דחיית מים לאבן")} />}
         <div className="grid md:grid-cols-2 gap-3">
           <div className="space-y-1">
@@ -84,7 +87,7 @@ export default function StudioPage() {
           </div>
         </div>
         <input className={inputCls} dir="auto" value={angle} onChange={(e) => setAngle(e.target.value)} placeholder={tr("זווית (לא חובה) — למשל: חיסכון בזמן השבתה, ציות לרגולציה")} />
-        <div className="flex flex-wrap items-center gap-3"><button className={btnPrimary + (cur || busy ? "" : " ai-pulse")} disabled={busy || !langs.length || (!value && kind !== "regulation")} onClick={run}>{busy ? tr("כותב…") : "✨ " + tr("צור פוסטים")}</button>{err && <span className="text-sm text-red-600">{err}</span>}</div>
+        <div className="flex flex-wrap items-center gap-3"><button className={btnPrimary + (cur || busy ? "" : " ai-pulse")} disabled={busy || !kind || !brand || !langs.length || (!value && kind !== "regulation")} onClick={run}>{busy ? tr("כותב…") : "✨ " + tr("צור פוסטים")}</button><button className="px-4 py-2 rounded-lg border text-sm bg-white hover:bg-slate-50" onClick={clearAll}>🧹 {tr("נקה — התחלה חדשה")}</button>{err && <span className="text-sm text-red-600">{err}</span>}</div>
         <TokenMeter usage={usage} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} busy={busy} />
         {brand === "silitex" && <div className="text-xs bg-amber-50 border border-amber-200 rounded-lg p-2">⚠️ {tr("לפרסם תוכן עם מוצרי Silitex רק אחרי חתימת החוזה ואישור פדריקה לשימוש בשם ובלוגו.")}</div>}
       </Card>

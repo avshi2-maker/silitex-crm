@@ -1138,4 +1138,7 @@ export const EN: Record<string, string> = {
   "תוכנית פרסום": "Social plan",
   "כתוב מחדש": "Rewrite",
   "גרסה חדשה לשפה הזו": "New version for this language",
+  "נקה — התחלה חדשה": "Clear — fresh start",
+  "בחר נושא, מצב מותג ושפה": "Pick a topic, brand mode and language",
+  "— בחר תעשייה —": "— pick an industry —",
 };
