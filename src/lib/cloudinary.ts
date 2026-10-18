@@ -1,13 +1,16 @@
-// cloudinary.ts (src/lib/cloudinary.ts) · updated 18.10.2026 07:00 (Asia/Jerusalem) — tolerant CLOUDINARY_URL parsing + exact error · server only. CLOUDINARY_URL=cloudinary://key:secret@cloud. Signed direct uploads from the phone, inbox search, tagging processed items.
+// cloudinary.ts (src/lib/cloudinary.ts) · updated 18.10.2026 07:12 (Asia/Jerusalem) — + CLOUDINARY_API_KEY / CLOUDINARY_API_SECRET (simplest setup) · tolerant CLOUDINARY_URL parsing + exact error · server only. CLOUDINARY_URL=cloudinary://key:secret@cloud. Signed direct uploads from the phone, inbox search, tagging processed items.
 import { createHash } from "crypto";
 export const FIELD_TAG = "silitex-field", DONE_TAG = "silitex-processed", FIELD_FOLDER = "silitex/field";
 /** tolerant: accepts the value with or without the "CLOUDINARY_URL=" prefix, quotes or spaces (as copied from the Cloudinary console) */
 export function cfgStatus(): { ok: true; cloud: string; key: string; secret: string } | { ok: false; why: string } {
+  // simplest setup: two separate Vercel variables (no URL to build). Cloud name defaults to the Silitex account.
+  const k = (process.env.CLOUDINARY_API_KEY || "").trim(), sec = (process.env.CLOUDINARY_API_SECRET || "").trim();
+  if (k && sec) return { ok: true, key: k, secret: sec, cloud: (process.env.CLOUDINARY_CLOUD_NAME || "dqdku88vv").trim() };
   const raw = (process.env.CLOUDINARY_URL || "").trim().replace(/^CLOUDINARY_URL\s*=\s*/i, "").replace(/^["']|["']$/g, "").trim();
-  if (!raw) return { ok: false, why: "CLOUDINARY_URL missing in Vercel" };
+  if (!raw) return { ok: false, why: "Add CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET in Vercel" };
   if (/[<>]/.test(raw)) return { ok: false, why: "CLOUDINARY_URL still contains <your_api_key> placeholders — paste the real key and secret" };
   const m = /^cloudinary:\/\/([^:@\s]+):([^@\s]+)@([a-z0-9_-]+)\/?$/i.exec(raw);
-  if (!m) return { ok: false, why: "CLOUDINARY_URL format must be cloudinary://API_KEY:API_SECRET@CLOUD_NAME" };
+  if (!m) return { ok: false, why: "CLOUDINARY_URL format is wrong — easier: add CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET in Vercel" };
   return { ok: true, key: decodeURIComponent(m[1]), secret: decodeURIComponent(m[2]), cloud: m[3] };
 }
 export function cfg(): { cloud: string; key: string; secret: string } | null { const s = cfgStatus(); return s.ok ? { cloud: s.cloud, key: s.key, secret: s.secret } : null; }
