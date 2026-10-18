@@ -1,4 +1,4 @@
-// it.ts (src/i18n/it.ts) · updated 18.10.2026 12:15 — + Silitex Expo strings · 10:55 — + field mode strings · 15.10.2026 15:00 — + quick match, R&D stages, sample request · 15.10.2026 13:35 — + certifications strings · 10.10.2026 06:55 (Asia/Jerusalem)
+// it.ts (src/i18n/it.ts) · updated 18.10.2026 12:45 — + Expo send session · 12:15 — + Silitex Expo strings · 10:55 — + field mode strings · 15.10.2026 15:00 — + quick match, R&D stages, sample request · 15.10.2026 13:35 — + certifications strings · 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
   "Israel portal · Phase 2 preview": "Portale Israele · anteprima Fase 2",
@@ -1041,4 +1041,13 @@ export const IT: Record<string, string> = {
   "שם משפחה": "Cognome",
   "שם פרטי *": "Nome *",
   "שמור כרטיס": "Salva biglietto",
+  // Silitex Expo — send session (18.10.2026)
+  "7 הימים האחרונים": "Ultimi 7 giorni",
+  "שלח את הסשן למייל שלי": "Invia la sessione alla mia e-mail",
+  "שלח דוח מעוצב + Excel": "Invia report formattato + Excel",
+  "נשלח ✓ — בדקי את תיבת הדואר (גם ספאם).": "Inviato ✓ — controlla la posta (anche lo spam).",
+  "שירות המייל עוד לא הופעל — השתמשי בכפתור Outlook.": "Servizio e-mail non ancora attivo — usa il pulsante Outlook.",
+  "כתובת מייל לא תקינה": "Indirizzo e-mail non valido",
+  "השליחה נכשלה — השתמשי בכפתור Outlook.": "Invio non riuscito — usa il pulsante Outlook.",
+  "אין קליטה — נסי שוב כשיש רשת, או השתמשי בכפתור Outlook.": "Niente segnale — riprova quando sei online, o usa il pulsante Outlook.",
 };

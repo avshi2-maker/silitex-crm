@@ -1,10 +1,10 @@
 "use client";
-// ExpoList.tsx (src/components/expo/ExpoList.tsx) · updated 18.10.2026 11:50 (Asia/Jerusalem) — EXPO contacts & tasks: every meeting of the show in one list (search, call / WhatsApp / mail, ✨ summarize later), open next steps with ✓, export → Excel (CSV) + 5-button export bar. Phone-only data.
+// ExpoList.tsx (src/components/expo/ExpoList.tsx) · updated 18.10.2026 12:45 — export moved to ExpoSend (e-mail report) · 11:50 (Asia/Jerusalem) — EXPO contacts & tasks: every meeting of the show in one list (search, call / WhatsApp / mail, ✨ summarize later), open next steps with ✓, send session by e-mail (Resend) / Outlook / Excel via ExpoSend. Phone-only data.
 import { useState } from "react";
-import ExportBar from "@/components/ExportBar";
 import { inputCls } from "@/components/ui";
 import { fmtDate, todayIso, addDays } from "@/lib/format";
-import { meetingsCsv, meetingsText, download, waNumber } from "@/lib/expo/util";
+import { waNumber } from "@/lib/expo/util";
+import ExpoSend from "./ExpoSend";
 import { expoSummarize } from "./ExpoMeet";
 import type { Expo, ExpoMeeting } from "@/lib/expo/store";
 import { useLang } from "@/i18n";
@@ -22,7 +22,6 @@ export default function ExpoList({ expo }: { expo: Expo }) {
     setBusy("");
   };
   const btn = "px-3 py-2 rounded-lg border text-sm";
-  const stamp = today.split("-").reverse().join("-");
   return (
     <div className="space-y-3">
       <div className="bg-white border rounded-2xl p-3 flex justify-around text-center">
@@ -61,13 +60,7 @@ export default function ExpoList({ expo }: { expo: Expo }) {
             </div>
           )}
         </li>); })}</ul>
-      {ms.length > 0 && (
-        <div className="bg-white border rounded-2xl p-3 space-y-2">
-          <div className="font-bold">📤 {tr("ייצוא — כל הפגישות")}</div>
-          <button className="w-full py-3 rounded-xl bg-brand-500 text-white" onClick={() => download("Silitex_meetings_" + stamp + ".csv", meetingsCsv(ms, tr), "text/csv;charset=utf-8")}>⬇️ Excel (CSV)</button>
-          <ExportBar title={"Silitex — " + tr("פגישות") + " " + fmtDate(today)} text={meetingsText(ms)} filename={"Silitex_meetings_" + stamp + ".txt"} />
-        </div>
-      )}
+      {ms.length > 0 && <ExpoSend expo={expo} />}
     </div>
   );
 }

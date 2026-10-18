@@ -1,4 +1,4 @@
-// en.ts (src/i18n/en.ts) · updated 18.10.2026 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 18.10.2026 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Not in the Silitex data — we do not guess",
@@ -1062,4 +1062,13 @@ export const EN: Record<string, string> = {
   "השותף נכנס עם שם + PIN אישי (פעם אחת)": "Partner signs in with name + personal PIN (once)",
   "לצוות Silitex (פדריקה) בתערוכות ובביקורים: אנציקלופדיה בלי לקוחות שלך, צילום כרטיס ביקור, פגישה + AI, אנשי קשר ומשימות עם ייצוא ל-Excel, כרטיס ביקור דיגיטלי. הנתונים נשמרים רק בטלפון שלה — לא נוגעים ב-CRM שלך.": "For Silitex staff (Federica) at trade shows and visits: encyclopedia without your customers, business-card scan, meeting + AI, contacts and tasks with Excel export, digital business card. Data stays on her phone only — never touches your CRM.",
   "שלח בוואטסאפ": "Send on WhatsApp",
+  // Silitex Expo — send session (18.10.2026)
+  "7 הימים האחרונים": "Last 7 days",
+  "שלח את הסשן למייל שלי": "Send the session to my e-mail",
+  "שלח דוח מעוצב + Excel": "Send formatted report + Excel",
+  "נשלח ✓ — בדקי את תיבת הדואר (גם ספאם).": "Sent ✓ — check your inbox (and spam).",
+  "שירות המייל עוד לא הופעל — השתמשי בכפתור Outlook.": "E-mail service not active yet — use the Outlook button.",
+  "כתובת מייל לא תקינה": "Invalid e-mail address",
+  "השליחה נכשלה — השתמשי בכפתור Outlook.": "Sending failed — use the Outlook button.",
+  "אין קליטה — נסי שוב כשיש רשת, או השתמשי בכפתור Outlook.": "No signal — try again when online, or use the Outlook button.",
 };
