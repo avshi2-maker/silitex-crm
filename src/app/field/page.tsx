@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/field/page.tsx) · updated 18.10.2026 10:30 (Asia/Jerusalem) — ← CRM opens the full CRM address (field runs on silitex-field.*) · + 📤 capture tab (phone → Cloudinary, processed at the office in /capture) · OWNER ONLY. Mobile "field mode" for customer visits & shows: 🔎 walking encyclopedia (industry filter, food excluded) · 🤝 paperless meeting (card scan, dictation, AI summary → lead + log + task) · 🪪 my e-card (QR) · today's list. Works offline; syncs when signal returns.
+// page.tsx (src/app/field/page.tsx) · updated 18.10.2026 10:55 (Asia/Jerusalem) — + language switch HE/EN/IT/RU under the header · 10:30 — ← CRM opens the full CRM address (field runs on silitex-field.*) · + 📤 capture tab (phone → Cloudinary, processed at the office in /capture) · OWNER ONLY. Mobile "field mode" for customer visits & shows: 🔎 walking encyclopedia (industry filter, food excluded) · 🤝 paperless meeting (card scan, dictation, AI summary → lead + log + task) · 🪪 my e-card (QR) · today's list. Works offline; syncs when signal returns.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore, pendingSync, flushQueue } from "@/lib/store";
@@ -10,6 +10,7 @@ import CaptureTab from "@/components/field/CaptureTab";
 import { fmtDate, todayIso } from "@/lib/format";
 import { useLang } from "@/i18n";
 import { CRM_URL } from "@/config/mobile-apps";
+import LangSwitch from "@/components/LangSwitch";
 const TABS = [["ask", "🔎", "אנציקלופדיה"], ["cap", "📤", "צילום / הקלטה"], ["meet", "🤝", "פגישה + AI"], ["card", "🪪", "הכרטיס שלי"], ["day", "☀️", "היום"]] as const;
 export default function FieldPage() {
   const { t: tr } = useLang();
@@ -33,6 +34,7 @@ export default function FieldPage() {
         <div className="font-bold">{tr("מצב שטח")} · Silitex</div>
         <div className="text-xs">{online ? <span className="text-green-300">● online</span> : <span className="text-amber-300">● offline</span>}{pending > 0 && <span className="ms-1 text-amber-300">· {pending} {tr("ממתינים")}</span>}</div>
       </header>
+      <div className="bg-ink-900 border-t border-white/10 px-4 py-1 flex justify-center"><LangSwitch /></div>
       <main className="p-3 space-y-3">
         {tab === "ask" && <AskTab industry={industry} setIndustry={setInd} />}
         {tab === "cap" && <CaptureTab />}
