@@ -1,4 +1,4 @@
-// en.ts (src/i18n/en.ts) · updated 18.10.2026 19:10 — + AI visibility · 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 18.10.2026 18:55 — + Social plan · 19:10 — + AI visibility · 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Not in the Silitex data — we do not guess",
@@ -1123,4 +1123,17 @@ export const EN: Record<string, string> = {
   "עלות": "Cost",
   "שאלה": "Question",
   "שואלים את Claude ואת ChatGPT (עם חיפוש באינטרנט) את השאלות שקונה אמיתי שואל — ובודקים אם ספירים מצוטטת, אם Silitex מופיעה, ואילו מותגים ה-AI ממליץ. רץ לבד ב-1 לכל חודש.": "Ask Claude and ChatGPT (with web search) the questions a real buyer asks — and check whether Sapirim is cited, whether Silitex appears, and which brands the AI recommends. Runs by itself on the 1st of every month.",
+  // Social plan (18.10.2026)
+  "הערה / קישור": "Note / link",
+  "לוח פרסום ל-Facebook (דף ספירים) ול-LinkedIn (הפרופיל שלך) — אותו לוח זמנים. כל שורה פותחת את סטודיו הפוסטים מוכן, ואז מסמנים: מתוזמן 🕒 → פורסם ✅.": "Posting calendar for Facebook (Sapirim Page) and LinkedIn (your profile) — same schedule. Each row opens Post Studio pre-filled; then mark: scheduled 🕒 → published ✅.",
+  "לחיצה על הכפתור: — → 🕒 מתוזמן → ✅ פורסם. הסימונים נשמרים במחשב הזה.": "Tap the button: — → 🕒 scheduled → ✅ published. Ticks are kept on this computer.",
+  "לחיצה: מתוזמן → פורסם": "Tap: scheduled → published",
+  "מתוזמנים או פורסמו": "Scheduled or published",
+  "פוסט": "Post",
+  "פוסט + ריל": "Post + reel",
+  "פורסמו": "Published",
+  "פתח בסטודיו": "Open in Post Studio",
+  "קישור לפוסט / הערה": "Post link / note",
+  "ריל": "Reel",
+  "תוכנית פרסום": "Social plan",
 };

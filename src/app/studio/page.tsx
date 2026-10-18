@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/studio/page.tsx) · updated 18.10.2026 18:05 (Asia/Jerusalem) — 8000-token budget per language (Russian was cut at 3600) · 17:55 — one AI call per language in parallel + tolerant JSON (Russian fix) · 17:45 — language fix (no English override; Italian works) + scroll to the new posts · 17:20 — POST STUDIO (owner): pick a topic (industry / competitor code / product / D4-D5-D6 regulation / free) + brand mode (Sapirim only — safe before the contract / Silitex products) + languages → AI writes LinkedIn + Facebook post + 30 s reel script per language from partner-safe Silitex data only. Token meter + export bar + history.
+// page.tsx (src/app/studio/page.tsx) · updated 18.10.2026 18:55 (Asia/Jerusalem) — pre-fill from Social plan link (?kind&value&langs&brand) · 18:05 — 8000-token budget per language (Russian was cut at 3600) · 17:55 — one AI call per language in parallel + tolerant JSON (Russian fix) · 17:45 — language fix (no English override; Italian works) + scroll to the new posts · 17:20 — POST STUDIO (owner): pick a topic (industry / competitor code / product / D4-D5-D6 regulation / free) + brand mode (Sapirim only — safe before the contract / Silitex products) + languages → AI writes LinkedIn + Facebook post + 30 s reel script per language from partner-safe Silitex data only. Token meter + export bar + history.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -21,7 +21,11 @@ export default function StudioPage() {
   const [brand, setBrand] = useState<StudioBrand>("sapirim"); const [langs, setLangs] = useState<string[]>(["he", "ru"]); const [angle, setAngle] = useState("");
   const [busy, setBusy] = useState(false); const [err, setErr] = useState(""); const [usage, setUsage] = useState<Usage | null>(null);
   const [packs, setPacks] = useState<StudioPack[]>([]); const [cur, setCur] = useState<StudioPack | null>(null);
-  useEffect(() => { const p = loadPacks(); setPacks(p); if (p[0]) setCur(p[0]); }, []);
+  useEffect(() => { const p = loadPacks(); setPacks(p); if (p[0]) setCur(p[0]);
+    // pre-fill from the Social plan: /studio?kind=…&value=…&langs=he,ru&brand=sapirim
+    try { const q = new URLSearchParams(window.location.search); const k = q.get("kind") as StudioKind | null; if (k && KINDS.some(([x]) => x === k)) { setKind(k); setValue(q.get("value") || (k === "industry" ? STUDIO_INDUSTRIES[0]?.key || "" : "")); }
+      const ls = (q.get("langs") || "").split(",").filter((l) => STUDIO_LANGS.some(([x]) => x === l)); if (ls.length) setLangs(ls); const b = q.get("brand"); if (b === "sapirim" || b === "silitex") setBrand(b); } catch {}
+  }, []);
   if (!ready) return null;
   const pickKind = (k: StudioKind) => { setKind(k); setValue(k === "industry" ? STUDIO_INDUSTRIES[0]?.key || "" : ""); };
   const toggle = (l: string) => setLangs((x) => (x.includes(l) ? x.filter((y) => y !== l) : [...x, l]));
