@@ -1,4 +1,4 @@
-// en.ts (src/i18n/en.ts) · updated 18.10.2026 07:35 — + mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 18.10.2026 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Not in the Silitex data — we do not guess",
@@ -1013,4 +1013,31 @@ export const EN: Record<string, string> = {
   "סרוק עם הטלפון והתקן כאייקון במסך הבית — בלי חנות אפליקציות. אפליקציות נוספות יתווספו כאן.": "Scan with the phone and install as a home-screen icon — no app store. More apps will be added here.",
   "אפליקציות נייד": "Mobile apps",
   "מצב שטח: אנציקלופדיה לפי תעשייה, צילום / הקלטה לכל פגישה (Cloudinary), פגישה + AI, כרטיס ביקור QR, משימות היום": "Field mode: encyclopedia by industry, capture per meeting (Cloudinary), meeting + AI, QR business card, today's tasks",
+  // 18.10.2026 industry lines
+  "קו Silitex מוצע": "Proposed Silitex line",
+  "אין שורות קטלוג ייעודיות — השתמש בהתאמה המהירה ובשאלה חופשית.": "No dedicated catalogue rows — use quick match and a free question.",
+  "נוגד קצף לאגן אוורור בשפכים תעשייתיים": "Antifoam for an industrial wastewater aeration basin",
+  "נוגד קצף ללא סיליקון למתקן ביוגז": "Silicone-free antifoam for a biogas plant",
+  "נוגד קצף לייצור דשנים נוזליים": "Antifoam for liquid fertilizer production",
+  "תוסף הרטבה למיכל ריסוס": "Wetting additive for the spray tank",
+  "מרכך סיליקון ללא D4/D5 לייצוא לאירופה": "D4/D5-free silicone softener for EU export",
+  "מרכך אמינו למגע רך במגבות": "Amino softener for a soft towel hand-feel",
+  "נוגד קצף FDA לעיסת נייר": "FDA antifoam for paper pulp",
+  "נוגד קצף ל-MBR במפעל נייר": "Antifoam for MBR in a paper mill",
+  "נוגד קצף לצבע מים מבריק בלי קרטרים": "Antifoam for gloss water-based paint without craters",
+  "תוסף הרטבה ופילוס לצבע מים": "Wetting & levelling additive for water-based paint",
+  "נוגד קצף לקו מילוי דטרגנט נוזלי": "Antifoam for a liquid detergent filling line",
+  "נוגד קצף לאקו-לייבל": "Eco-label antifoam",
+  "דוחה מים לטיח ובטון": "Water repellent for plaster and concrete",
+  "דוחה מים באבקה לטיח יבש": "Powder water repellent for dry mortar",
+  "חומר שחרור לתבניות גומי": "Release agent for rubber moulds",
+  "סיליקון להחלקה בייצור פלסטיק": "Silicone slip aid for plastics production",
+  "אמולסיה למבריק צמיגים": "Emulsion for tyre shine",
+  "שעווה לשטיפת רכב": "Wax for car wash",
+  "תחליף D5 לקרם leave-on": "D5 replacement for a leave-on cream",
+  "ג'ל אלסטומר כמו DC 9040 בלי D5": "Elastomer gel like DC 9040 without D5",
+  "שמן סיליקון לטמפרטורה גבוהה": "High-temperature silicone fluid",
+  "נוגד קצף לנוזל חיתוך": "Antifoam for cutting fluid",
+  "הצג פחות": "Show less",
+  "הצג הכל": "Show all",
 };

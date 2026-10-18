@@ -1,12 +1,12 @@
 "use client";
-// QuickMatch.tsx (src/components/QuickMatch.tsx) · updated 16.10.2026 09:40 (Asia/Jerusalem) — + ✕ Clear button / Esc · — competitor-code quick search: type a Dow / XIAMETER / Wacker / Momentive / Evonik … code → Silitex equivalent + catalogue rows + PDF. Client-side (lib/equiv-search.ts), no AI cost; AI fallback link to /ask. Used on dashboard, /offsets, /partner.
+// QuickMatch.tsx (src/components/QuickMatch.tsx) · updated 18.10.2026 07:45 (Asia/Jerusalem) — + examples prop (per industry in field mode) · 16.10.2026 09:40 — + ✕ Clear button / Esc · — competitor-code quick search: type a Dow / XIAMETER / Wacker / Momentive / Evonik … code → Silitex equivalent + catalogue rows + PDF. Client-side (lib/equiv-search.ts), no AI cost; AI fallback link to /ask. Used on dashboard, /offsets, /partner.
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Badge, inputCls, certTone } from "@/components/ui";
 import { searchEquiv } from "@/lib/equiv-search";
 import { useLang } from "@/i18n";
 const EXAMPLES = ["OFX-0193", "DC 5225C", "9040", "Silsoft 034", "ABIL EM 90", "SAG 30", "PMX-200"];
-export default function QuickMatch({ autoFocus = false }: { autoFocus?: boolean }) {
+export default function QuickMatch({ autoFocus = false, examples }: { autoFocus?: boolean; examples?: string[] }) {
   const { t: tr } = useLang();
   const [q, setQ] = useState("");
   const hits = useMemo(() => searchEquiv(q, 6), [q]);
@@ -15,7 +15,7 @@ export default function QuickMatch({ autoFocus = false }: { autoFocus?: boolean 
     <section className={box}>
       <div className="flex flex-wrap items-baseline justify-between gap-2"><h2 className="font-bold text-ink-900">⚡ {tr("התאמה מהירה — קוד מתחרה → Silitex")}</h2><span className="text-[11px] text-slate-400">{tr("Dow · XIAMETER · Wacker · Momentive · Shin-Etsu · Evonik · Elkem ועוד")}</span></div>
       <div className="relative" dir="ltr"><input autoFocus={autoFocus} dir="ltr" className={inputCls + " text-base pe-24"} value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => { if (e.key === "Escape") setQ(""); }} placeholder={tr("הקלד קוד מתחרה, למשל OFX-0193 או DC 5225C — או שם / קוד Silitex")} />{q && <button onClick={() => setQ("")} title="Clear (Esc)" className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-sm text-slate-600">✕ Clear</button>}</div>
-      {!q && <div className="flex flex-wrap gap-1 text-xs"><span className="text-slate-400">{tr("נסה:")}</span>{EXAMPLES.map((x) => <button key={x} onClick={() => setQ(x)} className="px-2 py-0.5 rounded-full border bg-slate-50 hover:bg-brand-50">{x}</button>)}</div>}
+      {!q && <div className="flex flex-wrap gap-1 text-xs"><span className="text-slate-400">{tr("נסה:")}</span>{(examples?.length ? examples : EXAMPLES).map((x) => <button key={x} onClick={() => setQ(x)} className="px-2 py-0.5 rounded-full border bg-slate-50 hover:bg-brand-50">{x}</button>)}</div>}
       {q.trim().length >= 2 && hits.length === 0 && (
         <div className="text-sm text-slate-600">{tr("אין התאמה בטבלת המקבילות.")} <Link className="text-brand-600 underline" href={"/ask?q=" + encodeURIComponent("Silitex equivalent of " + q)}>{tr("שאל את Silitex AI →")}</Link></div>
       )}
