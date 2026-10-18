@@ -1,11 +1,11 @@
 "use client";
-// StudioResult.tsx (src/components/studio/StudioResult.tsx) · updated 18.10.2026 17:15 (Asia/Jerusalem) — POST STUDIO output: tab per language → LinkedIn post · Facebook post · 30 s reel script (scene table) · AI image prompt — each with 📋 copy + open-in-LinkedIn/Facebook; export bar per language.
+// StudioResult.tsx (src/components/studio/StudioResult.tsx) · updated 18.10.2026 17:35 (Asia/Jerusalem) — + Italian tab · 17:15 — POST STUDIO output: tab per language → LinkedIn post · Facebook post · 30 s reel script (scene table) · AI image prompt — each with 📋 copy + open-in-LinkedIn/Facebook; export bar per language.
 import { useState } from "react";
 import ExportBar from "@/components/ExportBar";
 import { Card } from "@/components/ui";
 import type { StudioPack, StudioItem } from "@/lib/studio/history";
 import { useLang } from "@/i18n";
-const NAME: Record<string, string> = { he: "עברית", ru: "Русский", en: "English" };
+const NAME: Record<string, string> = { he: "עברית", ru: "Русский", en: "English", it: "Italiano" };
 export function itemText(it: StudioItem): string {
   return ["LinkedIn:\n" + it.linkedin, "Facebook:\n" + it.facebook, "Reel — " + it.reel.hook + "\n" + it.reel.scenes.map((s) => s.sec + "s · " + s.visual + " · " + s.voice).join("\n") + "\n" + it.reel.caption, "Hashtags: " + it.hashtags.join(" "), "Image prompt: " + it.image_prompt].join("\n\n");
 }

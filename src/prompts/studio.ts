@@ -1,7 +1,7 @@
-// studio.ts (src/prompts/studio.ts) · updated 18.10.2026 17:10 (Asia/Jerusalem) — POST STUDIO prompt: LinkedIn post + Facebook post + 30-second reel script per language, strict JSON, facts only from the sources, honesty rules (no exclusivity / "official" claims, no customer names, no prices, no food, no invented certifications).
+// studio.ts (src/prompts/studio.ts) · updated 18.10.2026 17:35 (Asia/Jerusalem) — + Italian (it) · 17:10 — POST STUDIO prompt: LinkedIn post + Facebook post + 30-second reel script per language, strict JSON, facts only from the sources, honesty rules (no exclusivity / "official" claims, no customer names, no prices, no food, no invented certifications).
 export type StudioBrand = "sapirim" | "silitex";
-export const STUDIO_LANGS = [["he", "עברית"], ["ru", "Русский"], ["en", "English"]] as const;
-const LN: Record<string, string> = { he: "Hebrew", ru: "Russian", en: "English" };
+export const STUDIO_LANGS = [["he", "עברית"], ["ru", "Русский"], ["en", "English"], ["it", "Italiano"]] as const;
+const LN: Record<string, string> = { he: "Hebrew", ru: "Russian", en: "English", it: "Italian" };
 export const REGULATION_FACTS = [
   "EU cosmetics: D4 (octamethylcyclotetrasiloxane) is banned in cosmetic products (Annex II of the EU Cosmetics Regulation).",
   "EU: D5 is limited to below 0.1 % in wash-off (rinse-off) cosmetics since 31/01/2020.",
