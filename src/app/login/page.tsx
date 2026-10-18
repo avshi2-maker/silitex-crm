@@ -1,11 +1,11 @@
 "use client";
-// page.tsx (src/app/login/page.tsx) · updated 15.10.2026 13:00 (Asia/Jerusalem) — PIN gate screen + Silitex partner sign-in (name + PIN → knowledge pages only); 👁 show PIN, no Chrome autofill, clear tab hints
+// page.tsx (src/app/login/page.tsx) · updated 18.10.2026 12:00 — partner sign-in from Expo (field host) lands on /expo · 15.10.2026 13:00 (Asia/Jerusalem) — PIN gate screen + Silitex partner sign-in (name + PIN → knowledge pages only); 👁 show PIN, no Chrome autofill, clear tab hints
 import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 function Login() {
   const sp = useSearchParams(); const next = sp.get("next") || "/";
   const [pin, setPin] = useState(""); const [err, setErr] = useState(false); const [busy, setBusy] = useState(false); const [mode, setMode] = useState<"owner" | "partner">(sp.get("partner") ? "partner" : "owner"); const [name, setName] = useState(""); const [show, setShow] = useState(false);
-  const go = async (e: React.FormEvent) => { e.preventDefault(); setBusy(true); setErr(false); const r = await fetch("/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(mode === "partner" ? { partner: name, pin } : { pin }) }); setBusy(false); if (r.ok) location.href = mode === "partner" ? "/partner" : next; else setErr(true); };
+  const go = async (e: React.FormEvent) => { e.preventDefault(); setBusy(true); setErr(false); const r = await fetch("/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(mode === "partner" ? { partner: name, pin } : { pin }) }); setBusy(false); if (r.ok) location.href = mode === "partner" ? (next.startsWith("/expo") || location.hostname.startsWith("silitex-field.") ? "/expo" : "/partner") : next; else setErr(true); };
   const pinCls = "w-full text-center text-2xl tracking-[0.5em] border rounded-lg ps-3 pe-10 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500";
   return (
     <div className="min-h-screen -m-6 bg-ink-900 flex items-center justify-center" dir="ltr">

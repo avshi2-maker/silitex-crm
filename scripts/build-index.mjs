@@ -1,4 +1,4 @@
-// build-index.mjs (scripts/build-index.mjs) · updated 13.10.2026 06:10 (Asia/Jerusalem)
+// build-index.mjs (scripts/build-index.mjs) · updated 18.10.2026 11:20 (Asia/Jerusalem) — + partner-safe index (no leads / priorities / food) · 13.10.2026 06:10
 // Indexes ALL bundled assets into src/data/search_index.json (one doc per product / offset row / food-grade line / priority / lead / plan). Runs on `npm run build` (prebuild).
 import fs from "node:fs";
 const rd = (f) => JSON.parse(fs.readFileSync(new URL("../src/data/" + f, import.meta.url), "utf8"));
@@ -15,4 +15,10 @@ for (const f of rd("faq.json").items) docs.push({ id: "FAQ-" + f.n, type: "faq",
 const FM = rd("formulations.json");
 for (const f of FM.items) docs.push({ id: f.id, type: "formulation", title: f.name + " (" + f.code + ")", ref: f.category, text: [f.type, f.source, "Hero: " + f.hero_ingredient, "Claims: " + f.claims.join(", "), "Silicones: " + f.phases.flatMap((p) => p.rows).filter((r) => /siloxane|dimethicone|trimethicone/i.test(r[0])).map((r) => r[0] + " " + r[1] + "% (" + r[2] + ")").join("; "), "Silitex substitutions: " + Object.entries(FM.silitex_map).map(([k, v]) => k + " → " + v.silitex).join("; ")].join(". ") });
 fs.writeFileSync(new URL("../src/data/search_index.json", import.meta.url), JSON.stringify({ built: new Date().toISOString(), count: docs.length, docs }));
-console.log("search index:", docs.length, "docs");
+// PARTNER-SAFE index (18.10.2026): what Silitex staff may search — NO customer records (lead), NO owner strategy (priority + FAQ "Israel" market pitch: targets, volumes, plan), NO food line (on hold). Used by /expo.
+const PARTNER_HIDE = new Set(["lead", "priority", "food_grade"]);
+const pdocs = docs.filter((d) => !PARTNER_HIDE.has(d.type) && !(d.type === "faq" && d.ref === "Israel"));
+fs.writeFileSync(new URL("../src/data/search_index_partner.json", import.meta.url), JSON.stringify({ built: new Date().toISOString(), count: pdocs.length, docs: pdocs }));
+// gaps_lite.json: only the fields the competitor-code matcher needs — the full gaps.json carries owner action notes with customer names (18.10.2026)
+fs.writeFileSync(new URL("../src/data/gaps_lite.json", import.meta.url), JSON.stringify(rd("gaps.json").map((g) => ({ id: g.id, query: g.query, aliases: g.aliases, producers: g.producers, silitex: g.silitex, status: g.status }))));
+console.log("search index:", docs.length, "docs · partner-safe:", pdocs.length);

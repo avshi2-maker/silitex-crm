@@ -1,9 +1,9 @@
-// equiv-search.ts (src/lib/equiv-search.ts) · updated 16.10.2026 08:45 (Asia/Jerusalem) — + NuSil CareSil CSF-3504 / CXG-1104
+// equiv-search.ts (src/lib/equiv-search.ts) · updated 18.10.2026 12:20 (Asia/Jerusalem) — uses gaps_lite.json (no owner action notes in the browser) · 16.10.2026 08:45 — + NuSil CareSil CSF-3504 / CXG-1104
 // Competitor-code quick search: type any Dow / XIAMETER / Wacker / Momentive / Shin-Etsu / Evonik … code (or a Silitex name, code or INCI)
 // → ranked Silitex equivalents. Sources: offsets.json (37 families × producers), gaps.json (cosmetic molecules, covered/alternative only),
 // catalog_2026.json (Silitex 2026 catalogues — for the catalogue rows + PDF behind each answer). Pure client-side, no AI cost.
 import offsets from "@/data/offsets.json";
-import gaps from "@/data/gaps.json";
+import gaps from "@/data/gaps_lite.json"; // lite copy (no owner action notes) — built by scripts/build-index.mjs
 import { CAT26, type CatRow } from "@/lib/catalog";
 
 type OffRow = { category_id: string; family: string; dow_corning?: string; inci?: string; silitex_product: string; kosher?: string; fda?: string; eco_certs?: string; offsets?: Record<string, string> };

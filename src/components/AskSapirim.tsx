@@ -1,5 +1,5 @@
 "use client";
-// AskSapirim.tsx (src/components/AskSapirim.tsx) · updated 13.10.2026 07:30 — yellow (Asia/Jerusalem) — floating 💬 button for Silitex partners on every page: short note (page auto-filled, optional topic) → /api/partner/feedback → email to Avshi + stored. Shown only when the partner cookie is present.
+// AskSapirim.tsx (src/components/AskSapirim.tsx) · updated 18.10.2026 12:30 — on /expo lifted above the bottom tab bar · 13.10.2026 07:30 — yellow (Asia/Jerusalem) — floating 💬 button for Silitex partners on every page: short note (page auto-filled, optional topic) → /api/partner/feedback → email to Avshi + stored. Shown only when the partner cookie is present.
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { PARTNER_NAME_COOKIE } from "@/lib/gate";
@@ -17,8 +17,8 @@ export default function AskSapirim() {
   };
   return (
     <div dir="ltr" className="print:hidden">
-      <button onClick={() => setOpen(!open)} title={tr("Ask Sapirim — a question or a correction about this page")} className="fixed bottom-5 right-5 z-50 rounded-full bg-amber-400 text-ink-900 shadow-lg px-4 py-3 text-sm font-bold hover:bg-amber-300 border-2 border-amber-500">💬 {tr("Ask Sapirim")}</button>
-      {open && (<div className="fixed bottom-20 right-5 z-50 w-[360px] max-w-[92vw] bg-white rounded-2xl shadow-2xl border p-4 space-y-2 text-sm">
+      <button onClick={() => setOpen(!open)} title={tr("Ask Sapirim — a question or a correction about this page")} className={"fixed right-5 z-50 rounded-full " + (path.startsWith("/expo") ? "bottom-24 w-12 h-12 text-xl " : "bottom-5 px-4 py-3 text-sm ") + " bg-amber-400 text-ink-900 shadow-lg font-bold hover:bg-amber-300 border-2 border-amber-500"}>💬{!path.startsWith("/expo") && " " + tr("Ask Sapirim")}</button>
+      {open && (<div className={"fixed right-5 z-50 w-[360px] " + (path.startsWith("/expo") ? "bottom-40" : "bottom-20") + " max-w-[92vw] bg-white rounded-2xl shadow-2xl border p-4 space-y-2 text-sm"}>
         <div className="font-bold">{tr("Ask Sapirim")} <span className="font-normal text-slate-500">· {partner}</span></div>
         <div className="text-xs text-slate-500">{tr("About page")} <code className="bg-slate-100 px-1 rounded">{path}</code>. {tr("A question, a missing product, a wrong equivalent — anything. Goes straight to Avshi's inbox.")}</div>
         <input className={inputCls} placeholder={tr("Topic / product (optional)")} value={topic} onChange={(e) => setTopic(e.target.value)} />

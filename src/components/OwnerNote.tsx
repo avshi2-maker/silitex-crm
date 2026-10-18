@@ -1,5 +1,5 @@
 "use client";
-// OwnerNote.tsx (src/components/OwnerNote.tsx) · updated 18.10.2026 07:00 — hidden on /field · 16.10.2026 09:35 (Asia/Jerusalem) — owner-only floating 📝 bubble on every page (bottom-left): quick note about the current page (tag + text, page + time auto) → /api/partner/feedback {owner:true} → stored + emailed to Avshi; listed in /partners inbox with mark-handled. Hidden for partners and on login/forms/teleprompter. Ctrl+Enter saves. Failed sends are kept locally and retried.
+// OwnerNote.tsx (src/components/OwnerNote.tsx) · updated 18.10.2026 12:30 — hidden on /expo too · 07:00 — hidden on /field · 16.10.2026 09:35 (Asia/Jerusalem) — owner-only floating 📝 bubble on every page (bottom-left): quick note about the current page (tag + text, page + time auto) → /api/partner/feedback {owner:true} → stored + emailed to Avshi; listed in /partners inbox with mark-handled. Hidden for partners and on login/forms/teleprompter. Ctrl+Enter saves. Failed sends are kept locally and retried.
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { PARTNER_NAME_COOKIE } from "@/lib/gate";
@@ -15,7 +15,7 @@ export default function OwnerNote() {
   const [show, setShow] = useState(false); const [open, setOpen] = useState(false); const [tag, setTag] = useState(TAGS[0]); const [msg, setMsg] = useState(""); const [busy, setBusy] = useState(false); const [done, setDone] = useState<"" | "ok" | "queued">(""); const [count, setCount] = useState(0);
   useEffect(() => {
     let partner = false; try { partner = new RegExp("(?:^|; )" + PARTNER_NAME_COOKIE + "=").test(document.cookie); } catch {}
-    setShow(!partner && !/^\/(login|request|survey|notes|field)/.test(path));
+    setShow(!partner && !/^\/(login|request|survey|notes|field|expo)/.test(path));
     const q = readQ(); if (q.length) Promise.all(q.map(post)).then((ok) => writeQ(q.filter((_, i) => !ok[i]))).catch(() => {});
   }, [path]);
   if (!show) return null;

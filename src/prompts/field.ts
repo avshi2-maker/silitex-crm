@@ -10,3 +10,11 @@ export const NOTE_PROMPT = `Turn the raw meeting note above into a clean CRM rec
 Rules: facts only from the note, never invent numbers or products. due_days = days until the next step (1-30). Stage "contacted" unless the note clearly says samples/RFQ/etc.`;
 export function parseJson<T>(text: string): T | null { const s = text.indexOf("{"), e = text.lastIndexOf("}"); if (s < 0 || e <= s) return null; try { return JSON.parse(text.slice(s, e + 1)) as T; } catch { return null; } }
 export const PHOTO_PROMPT = `This photo was taken during a customer meeting / trade show by a silicone distributor (Silitex products). List ONLY business-relevant facts visible in the photo, in Hebrew, as short bullets: product names and codes, competitor brands (Dow, Wacker, Momentive, Evonik…), label data (viscosity, % active, batch), price or quantity written down, handwritten notes, the type of process/equipment shown. If nothing relevant, reply "אין מידע עסקי בתמונה". Never guess unreadable text.`;
+const LANG_NAME: Record<string, string> = { en: "English", it: "Italian", he: "Hebrew", ru: "Russian" };
+/** EXPO (Silitex staff at a trade show / plant visit, 18.10.2026): same strict facts-only rules, output in the user's language, follow-up signed by her. No CRM stage. */
+export function expoNotePrompt(lang: string, signer: string): string {
+  const L = LANG_NAME[lang] || "English";
+  return `Turn the raw meeting note above into a clean contact record for a Silitex S.r.l. (Italy) sales person who met this customer at a trade show or plant visit. Return ONLY JSON:
+{"summary":"3-5 short lines in ${L}: what they make, product used today / supplier, volumes, pain, what was promised","products":["Silitex or competitor product names mentioned"],"next_step":"one concrete action in ${L}","due_days":3,"followup_message":"short polite thank-you message in the customer's likely language (${L} if unsure), max 60 words, mentioning the agreed next step, signed ${signer.replace(/"/g, "")}"}
+Rules: facts only from the note, never invent numbers or products. due_days = days until the next step (1-30).`;
+}

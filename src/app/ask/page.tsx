@@ -1,9 +1,12 @@
 "use client";
-// page.tsx (src/app/ask/page.tsx) · updated 16.10.2026 18:45 — + RU examples · 13.10.2026 08:15 — + NoDataCard (no guessing: 0 sources or NO_DATA → human support by email + WhatsApp) — examples per language (EN/IT/HE) (Asia/Jerusalem) — "Ask Silitex": search all assets (index + KB) → Claude answer with citations, token meter, export bar
+// page.tsx (src/app/ask/page.tsx) · updated 18.10.2026 11:25 — partners search the partner-safe index (no customers / priorities) · 16.10.2026 18:45 — + RU examples · 13.10.2026 08:15 — + NoDataCard (no guessing: 0 sources or NO_DATA → human support by email + WhatsApp) — examples per language (EN/IT/HE) (Asia/Jerusalem) — "Ask Silitex": search all assets (index + KB) → Claude answer with citations, token meter, export bar
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { searchAll, INDEX, TYPE_HE } from "@/lib/search";
+import { searchPartner } from "@/lib/search-partner";
+// Silitex staff (partner cookie) search the partner-safe index only — never customer records / owner strategy (18.10.2026)
+const isPartner = () => typeof document !== "undefined" && /(?:^|; )silitex_partner_name=/.test(document.cookie);
 import { Card, H1, Badge, inputCls, btnGhost } from "@/components/ui";
 import AiPanel from "@/components/AiPanel";
 import NoDataCard from "@/components/NoDataCard";
@@ -20,7 +23,7 @@ export default function AskPage() {
   const { t: tr, lang } = useLang();
   const { state, ready, addSpend } = useStore();
   const [q, setQ] = useState(""); const [hits, setHits] = useState<KbChunk[]>([]); const [noData, setNoData] = useState(""); const [asked, setAsked] = useState("");
-  const run = (query: string) => { setQ(query); setAsked(query); setNoData(""); setHits(searchAll(query, state.kbChunks)); };
+  const run = (query: string) => { setQ(query); setAsked(query); setNoData(""); setHits(isPartner() ? searchPartner(query) : searchAll(query, state.kbChunks)); };
   useEffect(() => { if (!ready) return; try { const p = new URLSearchParams(window.location.search).get("q"); if (p) run(p); } catch {} }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!ready) return null;
   return (

@@ -1,4 +1,4 @@
-// it.ts (src/i18n/it.ts) · updated 18.10.2026 10:55 — + field mode strings · 15.10.2026 15:00 — + quick match, R&D stages, sample request · 15.10.2026 13:35 — + certifications strings · 10.10.2026 06:55 (Asia/Jerusalem)
+// it.ts (src/i18n/it.ts) · updated 18.10.2026 12:15 — + Silitex Expo strings · 10:55 — + field mode strings · 15.10.2026 15:00 — + quick match, R&D stages, sample request · 15.10.2026 13:35 — + certifications strings · 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
   "Israel portal · Phase 2 preview": "Portale Israele · anteprima Fase 2",
@@ -1022,4 +1022,23 @@ export const IT: Record<string, string> = {
   "הכרטיס שלי": "Il mio biglietto",
   "כרטיס": "Biglietto",
   "הערה": "Nota",
+  // Silitex Expo (/expo) + /mobile — 18.10.2026
+  "Silitex Expo · הנתונים נשמרים רק בטלפון הזה": "Silitex Expo · i dati restano solo su questo telefono",
+  "אין מידע במקורות של Silitex — לא מנחשים. לבדוק עם המעבדה.": "Non presente nelle fonti Silitex — niente supposizioni. Verificare con il laboratorio.",
+  "בלי קליטה? שמור עכשיו — אפשר לסכם אחר כך מרשימת אנשי הקשר.": "Niente segnale? Salva ora — potrai riepilogare più tardi da Contatti.",
+  "הכרטיס שלי — פעם אחת": "Il mio biglietto — da impostare una volta",
+  "הפרטים נשמרים רק בטלפון שלך.": "I tuoi dati restano solo sul tuo telefono.",
+  "חיפוש איש קשר / חברה": "Cerca contatto / azienda",
+  "ייצוא — כל הפגישות": "Esporta — tutte le riunioni",
+  "למחוק? לחץ שוב": "Eliminare? Tocca di nuovo",
+  "לסכם": "Da riepilogare",
+  "משימות פתוחות": "Attività aperte",
+  "נייד * (עם קידומת, למשל +39…)": "Cellulare * (con prefisso, es. +39…)",
+  "נשמר רק בטלפון שלך. הכל ברשימת אנשי הקשר — עם ייצוא ל-Excel ולמייל.": "Salvato solo sul tuo telefono. Tutto è in Contatti — con esportazione in Excel e via email.",
+  "עוד אין פגישות. התחל בלשונית פגישה — צלם כרטיס ביקור.": "Ancora nessuna riunione. Inizia dalla scheda Riunione — fotografa un biglietto da visita.",
+  "ערוך": "Modifica",
+  "פגישות": "Riunioni",
+  "שם משפחה": "Cognome",
+  "שם פרטי *": "Nome *",
+  "שמור כרטיס": "Salva biglietto",
 };

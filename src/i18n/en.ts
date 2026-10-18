@@ -1,4 +1,4 @@
-// en.ts (src/i18n/en.ts) · updated 18.10.2026 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 18.10.2026 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Not in the Silitex data — we do not guess",
@@ -1040,4 +1040,26 @@ export const EN: Record<string, string> = {
   "נוגד קצף לנוזל חיתוך": "Antifoam for cutting fluid",
   "הצג פחות": "Show less",
   "הצג הכל": "Show all",
+  // Silitex Expo (/expo) + /mobile — 18.10.2026
+  "Silitex Expo · הנתונים נשמרים רק בטלפון הזה": "Silitex Expo · data is stored on this phone only",
+  "אין מידע במקורות של Silitex — לא מנחשים. לבדוק עם המעבדה.": "Not in the Silitex sources — no guessing. Check with the lab.",
+  "בלי קליטה? שמור עכשיו — אפשר לסכם אחר כך מרשימת אנשי הקשר.": "No signal? Save now — you can summarize later from Contacts.",
+  "הכרטיס שלי — פעם אחת": "My card — set up once",
+  "הפרטים נשמרים רק בטלפון שלך.": "Your details are stored on your phone only.",
+  "חיפוש איש קשר / חברה": "Search contact / company",
+  "ייצוא — כל הפגישות": "Export — all meetings",
+  "למחוק? לחץ שוב": "Delete? Tap again",
+  "לסכם": "To summarize",
+  "משימות פתוחות": "Open tasks",
+  "נייד * (עם קידומת, למשל +39…)": "Mobile * (with country code, e.g. +39…)",
+  "נשמר רק בטלפון שלך. הכל ברשימת אנשי הקשר — עם ייצוא ל-Excel ולמייל.": "Saved on your phone only. Everything is in Contacts — with export to Excel and email.",
+  "עוד אין פגישות. התחל בלשונית פגישה — צלם כרטיס ביקור.": "No meetings yet. Start in the Meeting tab — photograph a business card.",
+  "ערוך": "Edit",
+  "פגישות": "Meetings",
+  "שם משפחה": "Last name",
+  "שם פרטי *": "First name *",
+  "שמור כרטיס": "Save card",
+  "השותף נכנס עם שם + PIN אישי (פעם אחת)": "Partner signs in with name + personal PIN (once)",
+  "לצוות Silitex (פדריקה) בתערוכות ובביקורים: אנציקלופדיה בלי לקוחות שלך, צילום כרטיס ביקור, פגישה + AI, אנשי קשר ומשימות עם ייצוא ל-Excel, כרטיס ביקור דיגיטלי. הנתונים נשמרים רק בטלפון שלה — לא נוגעים ב-CRM שלך.": "For Silitex staff (Federica) at trade shows and visits: encyclopedia without your customers, business-card scan, meeting + AI, contacts and tasks with Excel export, digital business card. Data stays on her phone only — never touches your CRM.",
+  "שלח בוואטסאפ": "Send on WhatsApp",
 };
