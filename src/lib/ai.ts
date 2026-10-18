@@ -1,4 +1,4 @@
-// ai.ts (src/lib/ai.ts) · updated 16.10.2026 18:45 — + Russian answers · 09.10.2026 10:30 (Asia/Jerusalem)  — server only
+// ai.ts (src/lib/ai.ts) · updated 18.10.2026 06:30 — + askImage (card scan) · 16.10.2026 18:45 — + Russian answers · 09.10.2026 10:30 (Asia/Jerusalem)  — server only
 // One Claude entry point. Without ANTHROPIC_API_KEY it returns a deterministic demo answer with simulated usage so the meter + export bar still work.
 import Anthropic from "@anthropic-ai/sdk";
 import { MODEL, costUsd } from "./pricing";
@@ -18,6 +18,16 @@ export async function ask(prompt: string, context?: string, maxTokens = 1200, la
   const res = await client.messages.create({ model: MODEL, max_tokens: maxTokens, system, messages: [{ role: "user", content: user }] });
   const text = res.content.map((c) => ("text" in c ? c.text : "")).join("\n");
   const u = res.usage;
+  return { text, usage: { input_tokens: u.input_tokens, output_tokens: u.output_tokens, cost_usd: costUsd(MODEL, u.input_tokens, u.output_tokens), model: MODEL } };
+}
+
+/** vision call (business-card scan): one image + instruction → text */
+export async function askImage(prompt: string, dataBase64: string, mediaType: "image/jpeg" | "image/png" | "image/webp", maxTokens = 800): Promise<{ text: string; usage: Usage }> {
+  const key = process.env.ANTHROPIC_API_KEY;
+  if (!key) return { text: "{}", usage: { input_tokens: 0, output_tokens: 0, cost_usd: 0, model: MODEL, mock: true } };
+  const client = new Anthropic({ apiKey: key });
+  const res = await client.messages.create({ model: MODEL, max_tokens: maxTokens, messages: [{ role: "user", content: [{ type: "image", source: { type: "base64", media_type: mediaType, data: dataBase64 } }, { type: "text", text: prompt }] }] });
+  const text = res.content.map((c) => ("text" in c ? c.text : "")).join("\n"); const u = res.usage;
   return { text, usage: { input_tokens: u.input_tokens, output_tokens: u.output_tokens, cost_usd: costUsd(MODEL, u.input_tokens, u.output_tokens), model: MODEL } };
 }
 

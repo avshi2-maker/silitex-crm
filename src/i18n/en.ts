@@ -1,4 +1,4 @@
-// en.ts (src/i18n/en.ts) · updated 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 18.10.2026 07:05 — + field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Not in the Silitex data — we do not guess",
@@ -926,4 +926,34 @@ export const EN: Record<string, string> = {
   "כפול בקובץ": "duplicate in file",
   "אין חברה": "no company",
   "תוכנית עבודה ": "Work plan ",
+  // 18.10.2026 field mode
+  "AI לא זמין (אין קליטה?) — אפשר לשמור את ההערה כמו שהיא. ": "AI unavailable (no signal?) — you can save the note as is. ",
+  "הדפדפן לא תומך בהכתבה — השתמש במיקרופון של המקלדת": "Browser has no dictation — use the keyboard microphone",
+  "היום שלי — מסך מלא": "My day — full screen",
+  "הכתבה עברית": "Hebrew dictation",
+  "הלקוח סורק במצלמה → איש הקשר נשמר אצלו": "The customer scans with the camera → contact saved on his phone",
+  "הערות מהפגישה — מוצר בשימוש, ספק, כמויות, מחיר יעד, מה הובטח": "Meeting notes — product used, supplier, volumes, target price, what was promised",
+  "הצעד הבא": "Next step",
+  "חברה *": "Company *",
+  "חובה: שם חברה": "Required: company name",
+  "לקוח + תיעוד + משימה. בלי קליטה — נשמר בטלפון ויסונכרן אוטומטית.": "Customer + log + task. No signal — saved on the phone and synced automatically.",
+  "ממתינים": "pending",
+  "מסכם…": "Summarizing…",
+  "מצב שטח": "Field mode",
+  "מצב שטח (נייד)": "Field mode (mobile)",
+  "משימה ב-": "Task on ",
+  "נשמר:": "Saved:",
+  "סכם + צעד הבא": "Summarize + next step",
+  "סריקה נכשלה: ": "Scan failed: ",
+  "עצור": "Stop",
+  "פגישה": "Meeting",
+  "פגישה הבאה": "Next meeting",
+  "צלם כרטיס ביקור": "Photograph business card",
+  "קורא כרטיס…": "Reading card…",
+  "שאלה חופשית — למשל: נוגד קצף לקו מילוי, ריכוך ללא D5": "Free question — e.g. antifoam for a filling line, D5-free softening",
+  "שמור פגישה": "Save meeting",
+  "שתף כרטיס": "Share card",
+  "— או בחר לקוח קיים —": "— or pick an existing customer —",
+  "אנציקלופדיה": "Encyclopedia",
+  "הכרטיס שלי": "My card",
 };

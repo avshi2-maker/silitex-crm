@@ -1,0 +1,11 @@
+// field.ts (src/prompts/field.ts) · updated 18.10.2026 06:35 (Asia/Jerusalem) — field mode: business-card extraction + meeting-note structuring (strict JSON, facts only)
+export const CARD_PROMPT = `Read this business card photo. Return ONLY JSON, no prose:
+{"company":"","contact_name":"","contact_role":"","phone":"","mobile":"","email":"","website":"","address":"","city":"","industry_guess":"","notes":""}
+Rules: copy text exactly as printed (Hebrew, English or other). Prefer the mobile number. Empty string when not printed. industry_guess: one or two English words from the company name/logo/tagline only if obvious, else "".`;
+export function noteContext(o: { company: string; contact: string; industry: string; note: string }): string {
+  return "Company: " + o.company + "\nContact: " + o.contact + "\nIndustry: " + o.industry + "\nRAW NOTE (typed/dictated in a noisy place, may be broken, Hebrew/English mix):\n" + o.note;
+}
+export const NOTE_PROMPT = `Turn the raw meeting note above into a clean CRM record. Return ONLY JSON:
+{"summary":"3-5 short lines in Hebrew: what they make, product used today / supplier, volumes, pain, what was promised","products":["Silitex or competitor product names mentioned"],"next_step":"one concrete action in Hebrew","due_days":3,"stage":"prospect|contacted|sample|pilot|rd_approved|rfq|quote|negotiation","followup_message":"short polite thank-you message in the customer's likely language (Hebrew if Israeli), max 60 words, mentioning the agreed next step, signed Avshi Sapir · Sapirim"}
+Rules: facts only from the note, never invent numbers or products. due_days = days until the next step (1-30). Stage "contacted" unless the note clearly says samples/RFQ/etc.`;
+export function parseJson<T>(text: string): T | null { const s = text.indexOf("{"), e = text.lastIndexOf("}"); if (s < 0 || e <= s) return null; try { return JSON.parse(text.slice(s, e + 1)) as T; } catch { return null; } }

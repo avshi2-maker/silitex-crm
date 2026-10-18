@@ -1,4 +1,4 @@
-// state.ts (src/lib/store/state.ts) · updated 12.10.2026 12:25 (Asia/Jerusalem)
+// state.ts (src/lib/store/state.ts) · updated 18.10.2026 06:30 (Asia/Jerusalem) — + offline sync queue (replayed when back online) · 12.10.2026 12:25
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
@@ -30,7 +30,24 @@ export function remove(table: string, id: string) {
   const sb = supabase(); if (!sb) return;
   sb.from(table).delete().eq("id", id).then(({ error }) => { if (error) console.warn("supabase delete", table, error.message); });
 }
+// Offline queue (17.10.2026): a write that fails for network reasons (show floor, plane, no signal) is kept in localStorage and replayed when the device is back online.
+const QUEUE_KEY = "silitex-sync-queue";
+type QItem = { table: string; row: { id?: string } };
+const readQ = (): QItem[] => { try { return JSON.parse(localStorage.getItem(QUEUE_KEY) || "[]"); } catch { return []; } };
+const writeQ = (q: QItem[]) => { try { localStorage.setItem(QUEUE_KEY, JSON.stringify(q)); } catch {} };
+const enqueue = (table: string, row: object) => { const q = readQ().filter((x) => !(x.table === table && x.row.id && x.row.id === (row as { id?: string }).id)); q.push({ table, row }); writeQ(q); };
+export const pendingSync = () => readQ().length;
+const isNet = (m: string) => /fetch|network|load failed|timeout|offline/i.test(m);
 export function sync(table: string, row: object) {
   const sb = supabase(); if (!sb) return;
-  sb.from(table).upsert(row).then(({ error }) => { if (error) console.warn("supabase", table, error.message); });
+  if (typeof navigator !== "undefined" && !navigator.onLine) { enqueue(table, row); return; }
+  sb.from(table).upsert(row).then(({ error }) => { if (error) { console.warn("supabase", table, error.message); if (isNet(error.message)) enqueue(table, row); } }, () => enqueue(table, row));
 }
+let flushing = false;
+export async function flushQueue(): Promise<number> {
+  const sb = supabase(); if (!sb || flushing || (typeof navigator !== "undefined" && !navigator.onLine)) return pendingSync();
+  flushing = true; const q = readQ(); const left: QItem[] = [];
+  for (const it of q) { try { const { error } = await sb.from(it.table).upsert(it.row); if (error && isNet(error.message)) left.push(it); } catch { left.push(it); } }
+  writeQ(left); flushing = false; return left.length;
+}
+if (typeof window !== "undefined") { window.addEventListener("online", () => { flushQueue(); }); setTimeout(() => { flushQueue(); }, 3000); }

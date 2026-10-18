@@ -1,4 +1,4 @@
-// layout.tsx (src/app/layout.tsx) · updated 16.10.2026 09:35 — + OwnerNote 📝 bubble (owner only) · 13.10.2026 07:20 — + AskSapirim floating button (partners only) (Asia/Jerusalem)
+// layout.tsx (src/app/layout.tsx) · updated 18.10.2026 07:10 — main min-w-0 (no sideways overflow on phones) · 16.10.2026 09:35 — + OwnerNote 📝 bubble (owner only) · 13.10.2026 07:20 — + AskSapirim floating button (partners only) (Asia/Jerusalem)
 import type { Metadata } from "next";
 import "./globals.css";
 import Nav from "@/components/Nav";
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Nav />
           <AskSapirim />
           <OwnerNote />
-          <main className="flex-1 p-6 max-w-[1400px]">
+          <main className="flex-1 min-w-0 p-6 max-w-[1400px]">
             {children}
             <footer className="mt-10 text-[11px] text-slate-400 print:hidden">Silitex CRM {BUILD} · mockup</footer>
           </main>
