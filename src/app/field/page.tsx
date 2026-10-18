@@ -1,14 +1,15 @@
 "use client";
-// page.tsx (src/app/field/page.tsx) · updated 18.10.2026 07:00 (Asia/Jerusalem) — OWNER ONLY. Mobile "field mode" for customer visits & shows: 🔎 walking encyclopedia (industry filter, food excluded) · 🤝 paperless meeting (card scan, dictation, AI summary → lead + log + task) · 🪪 my e-card (QR) · today's list. Works offline; syncs when signal returns.
+// page.tsx (src/app/field/page.tsx) · updated 18.10.2026 07:05 (Asia/Jerusalem) — + 📤 capture tab (phone → Cloudinary, processed at the office in /capture) · OWNER ONLY. Mobile "field mode" for customer visits & shows: 🔎 walking encyclopedia (industry filter, food excluded) · 🤝 paperless meeting (card scan, dictation, AI summary → lead + log + task) · 🪪 my e-card (QR) · today's list. Works offline; syncs when signal returns.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore, pendingSync, flushQueue } from "@/lib/store";
 import AskTab from "@/components/field/AskTab";
 import MeetTab from "@/components/field/MeetTab";
 import CardTab from "@/components/field/CardTab";
+import CaptureTab from "@/components/field/CaptureTab";
 import { fmtDate, todayIso } from "@/lib/format";
 import { useLang } from "@/i18n";
-const TABS = [["ask", "🔎", "אנציקלופדיה"], ["meet", "🤝", "פגישה"], ["card", "🪪", "הכרטיס שלי"], ["day", "☀️", "היום"]] as const;
+const TABS = [["ask", "🔎", "אנציקלופדיה"], ["cap", "📤", "צילום / הקלטה"], ["meet", "🤝", "פגישה + AI"], ["card", "🪪", "הכרטיס שלי"], ["day", "☀️", "היום"]] as const;
 export default function FieldPage() {
   const { t: tr } = useLang();
   const { state, ready } = useStore();
@@ -33,6 +34,7 @@ export default function FieldPage() {
       </header>
       <main className="p-3 space-y-3">
         {tab === "ask" && <AskTab industry={industry} setIndustry={setInd} />}
+        {tab === "cap" && <CaptureTab />}
         {tab === "meet" && <MeetTab industry={industry} />}
         {tab === "card" && <CardTab />}
         {tab === "day" && (
@@ -45,7 +47,7 @@ export default function FieldPage() {
           </div>
         )}
       </main>
-      <nav className="fixed bottom-0 inset-x-0 bg-white border-t grid grid-cols-4 max-w-xl mx-auto">{TABS.map(([k, ic, he]) => <button key={k} onClick={() => go(k)} className={"py-2 flex flex-col items-center text-xs " + (tab === k ? "text-brand-600 font-bold" : "text-slate-500")}><span className="text-2xl">{ic}</span>{tr(he)}</button>)}</nav>
+      <nav className="fixed bottom-0 inset-x-0 bg-white border-t grid grid-cols-5 max-w-xl mx-auto">{TABS.map(([k, ic, he]) => <button key={k} onClick={() => go(k)} className={"py-2 flex flex-col items-center text-xs " + (tab === k ? "text-brand-600 font-bold" : "text-slate-500")}><span className="text-2xl">{ic}</span><span className="leading-tight">{tr(he)}</span></button>)}</nav>
     </div>
   );
 }
