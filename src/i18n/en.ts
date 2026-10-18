@@ -1,4 +1,4 @@
-// en.ts (src/i18n/en.ts) · updated 18.10.2026 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 18.10.2026 19:10 — + AI visibility · 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Not in the Silitex data — we do not guess",
@@ -1102,4 +1102,25 @@ export const EN: Record<string, string> = {
   "נושא + שפות → פוסט לינקדאין, פוסט פייסבוק ותסריט ריל 30 שניות — רק מנתוני Silitex, בלי שמות לקוחות.": "Topic + languages → LinkedIn post, Facebook post and 30-second reel script — Silitex data only, no customer names.",
   "מצב מותג": "Brand mode",
   "פורטל ספירים — טיוטה (לא ציבורי)": "Sapirim portal — draft (not public)",
+  // AI visibility (18.10.2026)
+  "30 הימים האחרונים": "Last 30 days",
+  "בדיקה אחרונה": "Last check",
+  "בדיקות בכל ריצה": "checks per run",
+  "בודק… ": "Checking… ",
+  "הריצה הזו": "This run",
+  "הרץ בדיקה עכשיו": "Run check now",
+  "חודש": "Month",
+  "כ-2–4 דקות · פחות מדולר": "about 2–4 minutes · under $1",
+  "כדי לשמור היסטוריה: להריץ פעם אחת את supabase/ai_visibility.sql ב-Supabase → SQL Editor. בלי זה הבדיקה עובדת אבל התוצאות לא נשמרות.": "To keep history: run supabase/ai_visibility.sql once in Supabase → SQL Editor. Without it the check works but results are not saved.",
+  "מגמה לפי חודש": "Trend by month",
+  "מוזכרת בשם": "mentioned by name",
+  "מוזכרת: ": "Mentioned: ",
+  "מותגים שה-AI מזכיר": "Brands the AI names",
+  "מצוטטת (קישור לאתר)": "cited (link to the site)",
+  "נראות ב-AI": "AI visibility",
+  "ספירים מצוטטת": "Sapirim cited",
+  "עוד אין נתונים": "No data yet",
+  "עלות": "Cost",
+  "שאלה": "Question",
+  "שואלים את Claude ואת ChatGPT (עם חיפוש באינטרנט) את השאלות שקונה אמיתי שואל — ובודקים אם ספירים מצוטטת, אם Silitex מופיעה, ואילו מותגים ה-AI ממליץ. רץ לבד ב-1 לכל חודש.": "Ask Claude and ChatGPT (with web search) the questions a real buyer asks — and check whether Sapirim is cited, whether Silitex appears, and which brands the AI recommends. Runs by itself on the 1st of every month.",
 };

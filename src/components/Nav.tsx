@@ -1,5 +1,5 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 18.10.2026 18:40 — + /he public portal draft · 17:25 — + /studio Post Studio · 12:00 — hidden on /expo too · 18.10.2026 07:35 — + /mobile apps (QR install, pinned 5th) · 18.10.2026 07:05 — + /capture field inbox (pinned 4th) · + /field mobile field mode (pinned 3rd, sidebar hidden there) · 17.10.2026 08:20 — + /today "My day" pinned under Dashboard · 16.10.2026 18:25 — + owner link /meetings (Meetings online — Silitex, English label) · + owner links: Silitex partner view (/partner) and Israel portal preview (/partner/preview) · 15.10.2026 14:30 — items sorted A→Z by the label in the current language (HE/EN/IT), Dashboard pinned on top · 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 18.10.2026 19:10 — + /visibility AI bot · 18:40 — + /he public portal draft · 17:25 — + /studio Post Studio · 12:00 — hidden on /expo too · 18.10.2026 07:35 — + /mobile apps (QR install, pinned 5th) · 18.10.2026 07:05 — + /capture field inbox (pinned 4th) · + /field mobile field mode (pinned 3rd, sidebar hidden there) · 17.10.2026 08:20 — + /today "My day" pinned under Dashboard · 16.10.2026 18:25 — + owner link /meetings (Meetings online — Silitex, English label) · + owner links: Silitex partner view (/partner) and Israel portal preview (/partner/preview) · 15.10.2026 14:30 — items sorted A→Z by the label in the current language (HE/EN/IT), Dashboard pinned on top · 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
@@ -32,6 +32,7 @@ const ITEMS = [
   { href: "/campaign", he: "קמפיין", icon: "🚀" },
   { href: "/studio", he: "סטודיו פוסטים", icon: "✍️" },
   { href: "/he", he: "פורטל ספירים — טיוטה (לא ציבורי)", icon: "🌐", owner: true },
+  { href: "/visibility", he: "נראות ב-AI", icon: "📡", owner: true },
   { href: "/sniper", he: "Offset Sniper", icon: "🎯" },
   { href: "/brief", he: "תדריך יומי (בוט)", icon: "🤖" },
   { href: "/faq", he: "50 שאלות ותשובות", icon: "❓" },
