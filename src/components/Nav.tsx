@@ -1,5 +1,5 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 18.10.2026 07:05 — + /capture field inbox (pinned 4th) · + /field mobile field mode (pinned 3rd, sidebar hidden there) · 17.10.2026 08:20 — + /today "My day" pinned under Dashboard · 16.10.2026 18:25 — + owner link /meetings (Meetings online — Silitex, English label) · + owner links: Silitex partner view (/partner) and Israel portal preview (/partner/preview) · 15.10.2026 14:30 — items sorted A→Z by the label in the current language (HE/EN/IT), Dashboard pinned on top · 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 18.10.2026 07:35 — + /mobile apps (QR install, pinned 5th) · 18.10.2026 07:05 — + /capture field inbox (pinned 4th) · + /field mobile field mode (pinned 3rd, sidebar hidden there) · 17.10.2026 08:20 — + /today "My day" pinned under Dashboard · 16.10.2026 18:25 — + owner link /meetings (Meetings online — Silitex, English label) · + owner links: Silitex partner view (/partner) and Israel portal preview (/partner/preview) · 15.10.2026 14:30 — items sorted A→Z by the label in the current language (HE/EN/IT), Dashboard pinned on top · 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
@@ -14,6 +14,7 @@ const ITEMS = [
   { href: "/today", he: "היום שלי", icon: "☀️" },
   { href: "/field", he: "מצב שטח (נייד)", icon: "📱" },
   { href: "/capture", he: "תיבת שטח (עיבוד במשרד)", icon: "📥" },
+  { href: "/mobile", he: "אפליקציות נייד", icon: "📲" },
   { href: "/pitch", he: "הצעת הפצה (Pitch)", icon: "🏁" },
   { href: "/notes", he: "טלפרומפטר (הערות דובר)", icon: "🎙️" },
   { href: "/team", he: "הצוות ותהליך המכירה", icon: "👥" },
@@ -43,7 +44,7 @@ const ITEMS = [
 export default function Nav() {
   const { t: tr, lang } = useLang();
   const path = usePathname();
-  const sorted = [ITEMS[0], ITEMS[1], ITEMS[2], ITEMS[3], ...ITEMS.slice(4).sort((a, b) => tr(a.he).localeCompare(tr(b.he), lang, { sensitivity: "base", numeric: true }))];
+  const sorted = [ITEMS[0], ITEMS[1], ITEMS[2], ITEMS[3], ITEMS[4], ...ITEMS.slice(5).sort((a, b) => tr(a.he).localeCompare(tr(b.he), lang, { sensitivity: "base", numeric: true }))];
   const [partner, setPartner] = useState("");
   useEffect(() => { try { const m = document.cookie.match(new RegExp("(?:^|; )" + PARTNER_NAME_COOKIE + "=([^;]*)")); setPartner(m ? decodeURIComponent(m[1]) : ""); } catch {} }, [path]);
   if (path.startsWith("/request") || path.startsWith("/survey") || path.startsWith("/notes") || path.startsWith("/login") || path.startsWith("/field")) return null;

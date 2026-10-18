@@ -1,4 +1,4 @@
-// en.ts (src/i18n/en.ts) · updated 18.10.2026 07:15 — + field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 18.10.2026 07:35 — + mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Not in the Silitex data — we do not guess",
@@ -999,4 +999,18 @@ export const EN: Record<string, string> = {
   "הערה": "Note",
   "צילום / הקלטה": "Capture",
   "פגישה + AI": "Meeting + AI",
+  // 18.10.2026 mobile apps page
+  "פעיל": "Live",
+  "בקרוב": "Soon",
+  "הורד QR": "Download QR",
+  "פתח": "Open",
+  "סרוק את ה-QR עם מצלמת הטלפון → פתח בכרום": "Scan the QR with the phone camera → open in Chrome",
+  "הזן PIN בעלים פעם אחת": "Enter the owner PIN once",
+  "⋮ → הוסף למסך הבית → הוסף": "⋮ → Add to Home screen → Add",
+  "סרוק עם המצלמה → פתח ב-Safari": "Scan with the camera → open in Safari",
+  "שיתוף (□↑) → הוסף למסך הבית → הוסף": "Share (□↑) → Add to Home Screen → Add",
+  "בשימוש ראשון: אשר מצלמה ומיקרופון. אל תמחק נתוני דפדפן — פריטים שממתינים להעלאה נשמרים בטלפון.": "First use: allow camera and microphone. Don't clear browser data — items waiting to upload are stored on the phone.",
+  "סרוק עם הטלפון והתקן כאייקון במסך הבית — בלי חנות אפליקציות. אפליקציות נוספות יתווספו כאן.": "Scan with the phone and install as a home-screen icon — no app store. More apps will be added here.",
+  "אפליקציות נייד": "Mobile apps",
+  "מצב שטח: אנציקלופדיה לפי תעשייה, צילום / הקלטה לכל פגישה (Cloudinary), פגישה + AI, כרטיס ביקור QR, משימות היום": "Field mode: encyclopedia by industry, capture per meeting (Cloudinary), meeting + AI, QR business card, today's tasks",
 };
