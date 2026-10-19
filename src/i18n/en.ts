@@ -1154,4 +1154,10 @@ export const EN: Record<string, string> = {
   "מחכים לעיבוד": "waiting to be processed",
   "פתח תיבת שטח": "Open Field inbox",
   "אחר כך": "Later",
+  "המחיקה נכשלה — נסה שוב": "Delete failed — try again",
+  "מוחק…": "Deleting…",
+  "כן, מחק את כל הפגישה": "Yes, delete the whole meeting",
+  "מחיקה לצמיתות מ-Cloudinary": "Permanently deleted from Cloudinary",
+  "מחק פגישה": "Delete meeting",
+  "מחק פריט": "Delete item",
 };

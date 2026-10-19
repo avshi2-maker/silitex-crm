@@ -1,4 +1,4 @@
-// cloudinary.ts (src/lib/cloudinary.ts) · updated 18.10.2026 07:12 (Asia/Jerusalem) — + CLOUDINARY_API_KEY / CLOUDINARY_API_SECRET (simplest setup) · tolerant CLOUDINARY_URL parsing + exact error · server only. CLOUDINARY_URL=cloudinary://key:secret@cloud. Signed direct uploads from the phone, inbox search, tagging processed items.
+// cloudinary.ts (src/lib/cloudinary.ts) · updated 19.10.2026 09:45 (Asia/Jerusalem) — + destroy() permanent delete of unneeded field uploads · 18.10.2026 07:12 — + CLOUDINARY_API_KEY / CLOUDINARY_API_SECRET (simplest setup) · tolerant CLOUDINARY_URL parsing + exact error · server only. CLOUDINARY_URL=cloudinary://key:secret@cloud. Signed direct uploads from the phone, inbox search, tagging processed items.
 import { createHash } from "crypto";
 export const FIELD_TAG = "silitex-field", DONE_TAG = "silitex-processed", FIELD_FOLDER = "silitex/field";
 /** tolerant: accepts the value with or without the "CLOUDINARY_URL=" prefix, quotes or spaces (as copied from the Cloudinary console) */
@@ -40,6 +40,20 @@ export async function tagDone(items: { public_id: string; resource_type: string 
     }
   }
   return ok;
+}
+/** permanent delete (Admin API) — used by 🗑️ in the Field inbox; max 100 ids per call per resource type */
+export async function destroy(items: { public_id: string; resource_type: string }[]): Promise<{ ok: boolean; deleted: number }> {
+  const c = cfg(); if (!c) return { ok: false, deleted: 0 }; let ok = true, deleted = 0;
+  for (const rt of ["image", "video", "raw"]) {
+    const ids = items.filter((i) => i.resource_type === rt).map((i) => i.public_id);
+    for (let i = 0; i < ids.length; i += 100) {
+      const q = ids.slice(i, i + 100).map((id) => "public_ids[]=" + encodeURIComponent(id)).join("&");
+      const r = await fetch("https://api.cloudinary.com/v1_1/" + c.cloud + "/resources/" + rt + "/upload?" + q, { method: "DELETE", headers: { Authorization: auth(c) } });
+      if (!r.ok) { ok = false; continue; }
+      const j = await r.json().catch(() => ({})); deleted += Object.values((j.deleted || {}) as Record<string, string>).filter((v) => v === "deleted").length;
+    }
+  }
+  return { ok, deleted };
 }
 /** audio track of an audio/video asset as small mono mp3 (Cloudinary on-the-fly transformation) */
 export const audioUrl = (a: Pick<Asset, "secure_url">) => a.secure_url.replace("/upload/", "/upload/f_mp3,ac_1,br_48k/").replace(/\.[a-z0-9]+$/i, ".mp3");

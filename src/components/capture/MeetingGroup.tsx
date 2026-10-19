@@ -1,5 +1,5 @@
 "use client";
-// MeetingGroup.tsx (src/components/capture/MeetingGroup.tsx) · updated 18.10.2026 07:05 (Asia/Jerusalem) — one field meeting from Cloudinary: process card (vision → contact), photos (vision → facts), voice/video (Whisper → transcript) → ✨ AI summary + next step → save to CRM (lead + log with media links + task + stage) → tagged processed in Cloudinary
+// MeetingGroup.tsx (src/components/capture/MeetingGroup.tsx) · updated 19.10.2026 09:45 (Asia/Jerusalem) — 🗑️ delete unneeded item / whole meeting (two-tap confirm, permanent in Cloudinary) · 18.10.2026 07:05 — one field meeting from Cloudinary: process card (vision → contact), photos (vision → facts), voice/video (Whisper → transcript) → ✨ AI summary + next step → save to CRM (lead + log with media links + task + stage) → tagged processed in Cloudinary
 import { useState } from "react";
 import { useStore, STAGES } from "@/lib/store";
 import TokenMeter from "@/components/TokenMeter";
@@ -17,6 +17,7 @@ export default function MeetingGroup({ g, onDone }: { g: InboxGroup; onDone: () 
   const { state, upsertLead, addActivity, addTask, addSpend } = useStore();
   const guess = state.leads.find((l) => l.id === g.lead) || state.leads.find((l) => l.name.trim().toLowerCase() === g.label.trim().toLowerCase());
   const [leadId, setLeadId] = useState(guess?.id || ""); const [f, setF] = useState({ company: guess?.name || g.label, contact_name: guess?.contact_name || "", contact_role: guess?.contact_role || "", phone: guess?.contact_phone || "", email: guess?.contact_email || "", website: guess?.website || "", city: guess?.city || "" });
+  const [items, setItems] = useState(g.items); const [ask, setAsk] = useState("");
   const [ind, setInd] = useState(""); const [res, setRes] = useState<Record<string, string>>(() => Object.fromEntries(g.items.filter((i) => i.text).map((i) => [i.public_id, i.text || ""])));
   const [busy, setBusy] = useState(""); const [err, setErr] = useState(""); const [usage, setUsage] = useState<Usage | null>(null);
   const [sum, setSum] = useState<Sum | null>(null); const [due, setDue] = useState(addDays(todayIso(), 3)); const [stage, setStage] = useState<Stage>(guess?.stage && guess.stage !== "prospect" ? guess.stage : "contacted");
@@ -36,8 +37,8 @@ export default function MeetingGroup({ g, onDone }: { g: InboxGroup; onDone: () 
     } catch (e) { setErr(KIND_ICON[it.kind] + " " + (e instanceof Error ? e.message : "error")); }
     setBusy("");
   };
-  const all = async () => { setErr(""); for (const it of g.items) if (it.resource_type !== "raw" && !res[it.public_id]) await one(it); };
-  const combined = () => g.items.map((it) => res[it.public_id] ? "[" + it.kind + "] " + res[it.public_id] : "").filter(Boolean).join("\n\n");
+  const all = async () => { setErr(""); for (const it of items) if (it.resource_type !== "raw" && !res[it.public_id]) await one(it); };
+  const combined = () => items.map((it) => res[it.public_id] ? "[" + it.kind + "] " + res[it.public_id] : "").filter(Boolean).join("\n\n");
   const summarize = async () => {
     setErr(""); setBusy("sum");
     try {
@@ -56,20 +57,29 @@ export default function MeetingGroup({ g, onDone }: { g: InboxGroup; onDone: () 
       name: prev?.name || f.company.trim(), industry: prev?.industry || indHe || "אחר", contact_name: f.contact_name || prev?.contact_name, contact_role: f.contact_role || prev?.contact_role || "", contact_phone: f.phone || prev?.contact_phone, contact_email: f.email || prev?.contact_email, website: f.website || prev?.website, city: f.city || prev?.city,
       product_match: prev?.product_match || (sum?.products || []).join(", "), next_action_at: sum?.next_step ? due : prev?.next_action_at, stage } as Lead;
     upsertLead(lead);
-    const links = g.items.map((it) => KIND_ICON[it.kind] + " " + it.secure_url).join("\n");
+    const links = items.map((it) => KIND_ICON[it.kind] + " " + it.secure_url).join("\n");
     addActivity(lead.id, "visit", (sum?.summary || combined() || tr("פגישה")).trim() + "\n\n" + tr("קבצים מהשטח:") + "\n" + links);
     if (sum?.next_step) addTask({ lead_id: lead.id, lead_name: lead.name, title: sum.next_step, due, cadence: "once", kind: "followup" });
     if (stage !== (prev?.stage || "prospect")) addActivity(lead.id, "stage", "שלב עודכן: " + (STAGES.find((x) => x.key === stage)?.he || stage));
-    const r = await fetch("/api/capture/done", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items: g.items.map((i) => ({ public_id: i.public_id, resource_type: i.resource_type })), lead_id: lead.id }) });
-    setBusy(""); if (!r.ok) return setErr(tr("נשמר ב-CRM, אבל סימון ב-Cloudinary נכשל — הפגישה תופיע שוב")); onDone();
+    const r = await fetch("/api/capture/done", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items: items.map((i) => ({ public_id: i.public_id, resource_type: i.resource_type })), lead_id: lead.id }) });
+    setBusy(""); if (!r.ok) return setErr(tr("נשמר ב-CRM, אבל סימון ב-Cloudinary נכשל — הפגישה תופיע שוב")); ping(); onDone();
+  };
+  const ping = () => { try { window.dispatchEvent(new Event("silitex-inbox-changed")); } catch {} };
+  const del = async (list: InboxItem[]) => {
+    setBusy("del"); setErr("");
+    const r = await fetch("/api/capture/delete", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items: list.map((i) => ({ public_id: i.public_id, resource_type: i.resource_type })) }) });
+    const j = await r.json().catch(() => ({})); setBusy(""); setAsk("");
+    if (!r.ok || !j.ok) return setErr(tr("המחיקה נכשלה — נסה שוב"));
+    const gone = new Set(list.map((i) => i.public_id)); const left = items.filter((i) => !gone.has(i.public_id)); setItems(left); ping();
+    if (!left.length) onDone();
   };
   const msg = sum?.followup_message || ""; const wa = f.phone.replace(/\D/g, "").replace(/^0/, "972");
   return (
     <div className="bg-white border rounded-2xl p-4 space-y-3">
-      <div className="flex flex-wrap items-center gap-2"><h3 className="font-bold text-lg">{g.label || tr("ללא שם")}</h3><span className="text-xs text-slate-500">{fmtDateTime(g.first)}</span>{g.items.map((i) => i.kind).filter((k, n, a) => a.indexOf(k) === n).map((k) => <Badge key={k}>{KIND_ICON[k]} {g.items.filter((i) => i.kind === k).length}</Badge>)}<button className={btnPrimary + " ms-auto"} disabled={!!busy} onClick={all}>⚙️ {tr("עבד הכל")}</button></div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">{g.items.map((it) => (
+      <div className="flex flex-wrap items-center gap-2"><h3 className="font-bold text-lg">{g.label || tr("ללא שם")}</h3><span className="text-xs text-slate-500">{fmtDateTime(g.first)}</span>{items.map((i) => i.kind).filter((k, n, a) => a.indexOf(k) === n).map((k) => <Badge key={k}>{KIND_ICON[k]} {items.filter((i) => i.kind === k).length}</Badge>)}<button className={btnPrimary + " ms-auto"} disabled={!!busy} onClick={all}>⚙️ {tr("עבד הכל")}</button>{ask === "all" ? <span className="flex items-center gap-1"><button className="px-3 py-2 rounded-lg bg-red-600 text-white text-sm" disabled={!!busy} onClick={() => del(items)}>{busy === "del" ? tr("מוחק…") : "🗑️ " + tr("כן, מחק את כל הפגישה")}</button><button className={btnGhost} onClick={() => setAsk("")}>{tr("ביטול")}</button></span> : <button className={btnGhost + " text-red-600"} disabled={!!busy} onClick={() => setAsk("all")} title={tr("מחיקה לצמיתות מ-Cloudinary")}>🗑️ {tr("מחק פגישה")}</button>}</div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">{items.map((it) => (
         <div key={it.public_id} className="border rounded-xl p-2 space-y-1 text-sm">
-          <div className="flex items-center justify-between"><span>{KIND_ICON[it.kind]} {it.kind}</span><span className="text-[11px] text-slate-400">{fmtDateTime(it.created_at)}</span></div>
+          <div className="flex items-center justify-between gap-1"><span>{KIND_ICON[it.kind]} {it.kind}</span><span className="text-[11px] text-slate-400 ms-auto">{fmtDateTime(it.created_at)}</span>{ask === it.public_id ? <><button className="px-2 py-0.5 rounded bg-red-600 text-white text-xs" disabled={!!busy} onClick={() => del([it])}>{tr("מחק")}</button><button className="px-2 py-0.5 rounded border text-xs" onClick={() => setAsk("")}>✕</button></> : <button className="px-1.5 text-slate-400 hover:text-red-600" title={tr("מחק פריט")} disabled={!!busy} onClick={() => setAsk(it.public_id)}>🗑️</button>}</div>
           {it.resource_type === "image" && <a href={it.secure_url} target="_blank" rel="noreferrer"><img src={it.secure_url.replace("/upload/", "/upload/c_fill,w_480,h_280,q_auto,f_auto/")} alt="" className="w-full h-36 object-cover rounded-lg" /></a>}
           {it.resource_type === "video" && (it.kind === "audio" ? <audio controls src={it.secure_url} className="w-full" /> : <video controls src={it.secure_url} className="w-full h-36 rounded-lg bg-black" />)}
           {it.resource_type !== "raw" && !res[it.public_id] && <button className={btnGhost + " w-full"} disabled={!!busy} onClick={() => one(it)}>{busy === it.public_id ? tr("מעבד…") : it.resource_type === "image" ? (it.kind === "card" ? tr("קרא כרטיס") : tr("נתח תמונה")) : tr("תמלל")}</button>}
