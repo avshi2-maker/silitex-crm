@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 19.10.2026 11:45 (Asia/Jerusalem) — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState } from "react";
 import Link from "next/link";
 import { useStore, STAGES } from "@/lib/store";
@@ -20,17 +20,19 @@ import { pitchContext, pitchPrompt } from "@/prompts/pitch";
 import type { Lead, Stage } from "@/lib/types";
 import { useLang } from "@/i18n";
 import { statusHe } from "@/lib/hub";
+import PlaybookCard from "@/components/playbook/PlaybookCard";
+import { parsePlan } from "@/lib/playbook";
 export default function LeadPage({ params }: { params: Promise<{ id: string }> }) {
   const { t: tr } = useLang();
   const { id } = use(params);
-  const { state, ready, upsertLead, setStage, addActivity, addTask, addSpend, addSample, setSampleStatus, addDoc, setDocStatus, removeLead } = useStore();
+  const { state, ready, upsertLead, setStage, addActivity, addTask, addSpend, startPlan, advancePlan, setTaskDue, stopPlan, addSample, setSampleStatus, addDoc, setDocStatus, removeLead } = useStore();
   const router = useRouter();
   const [note, setNote] = useState("");
   if (!ready) return null;
   const lead = state.leads.find((l) => l.id === id);
   if (!lead) return <p>{tr("לקוח לא נמצא.")}</p>;
   const acts = state.activities.filter((a) => a.lead_id === id); const leadThreads = state.threads.filter((t) => t.refs.lead_id === id).sort((a, b) => b.last_at.localeCompare(a.last_at));
-  const tasks = state.tasks.filter((t) => t.lead_id === id && !t.done);
+  const tasks = state.tasks.filter((t) => t.lead_id === id && !t.done && !parsePlan(t.kind));
   const indKeys = INDUSTRIES.filter((i) => i.match.test(lead.industry + " " + lead.use_case + " " + lead.product_match)).map((i) => i.key);
   const matches = PRODUCTS.filter((p) => industriesOf(p).some((k) => indKeys.includes(k))).slice(0, 8);
   const ctx = pitchContext(lead, matches);
@@ -59,6 +61,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
           </Card>
         </div>
         <div className="space-y-4">
+          <PlaybookCard lead={lead} ops={{ tasks: state.tasks, startPlan, advancePlan, setTaskDue, stopPlan }} />
           <PurchaseHistory leadId={id} compact />
           <PlanCard lead={lead} onTask={(title) => addTask({ lead_id: id, lead_name: lead.name, title, due: todayIso(), cadence: "once", kind: "plan" })} />
           <SampleCard leadId={id} leadName={lead.name} samples={state.samples.filter((x) => x.lead_id === id)} defaultSku={((sil && !sil.startsWith("—") ? sil : lead.recommended_sku) || "").split(/[&,/]/)[0].trim() || undefined} lead={lead} contacts={state.contacts} onAdd={addSample} onStatus={setSampleStatus} />

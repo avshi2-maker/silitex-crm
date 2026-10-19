@@ -1,4 +1,4 @@
-// cadence.ts (src/lib/store/cadence.ts) · updated 09.10.2026 09:40 (Asia/Jerusalem)
+// cadence.ts (src/lib/store/cadence.ts) · updated 19.10.2026 11:45 (Asia/Jerusalem) — leads with an open playbook step get no generic daily/weekly task · 09.10.2026 09:40
 // Pure scheduling logic: given leads + existing tasks, return tasks to add. Rules live in config/cadence.ts.
 import { DAILY_BY_STAGE, WEEKLY_TITLE, WEEKLY_EVERY_DAYS } from "@/config/cadence";
 import { isClosed } from "@/config/stages";
@@ -11,6 +11,7 @@ export function buildSchedule(leads: Lead[], tasks: Task[], today: string): Task
   const add: Task[] = [];
   for (const l of leads) {
     if (isClosed(l.stage)) continue;
+    if (tasks.some((t) => t.lead_id === l.id && !t.done && (t.kind || "").startsWith("plan:"))) continue;
     const hasDaily = tasks.some((t) => t.lead_id === l.id && t.cadence === "daily" && t.due === today);
     const hasWeekly = tasks.some((t) => t.lead_id === l.id && t.cadence === "weekly" && !t.done);
     if (!hasDaily) add.push({ id: uid("task"), lead_id: l.id, lead_name: l.name, title: dailyTitle(l), due: today, cadence: "daily", done: false, kind: "followup" });

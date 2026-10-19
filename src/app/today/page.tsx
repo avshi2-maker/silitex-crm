@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/today/page.tsx) · updated 17.10.2026 08:15 (Asia/Jerusalem) — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
+// page.tsx (src/app/today/page.tsx) · updated 19.10.2026 11:45 (Asia/Jerusalem) — playbook steps: step badge + owner, ✓ opens the next step automatically, steps owned by Silitex / customer / Pini in "waiting for others" · 17.10.2026 08:15 — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
 import { useState } from "react";
 import Link from "next/link";
 import { useStore, stageHe } from "@/lib/store";
@@ -10,19 +10,25 @@ import DoneForm from "@/components/today/DoneForm";
 import { fmtDate, todayIso, addDays } from "@/lib/format";
 import type { Task, Lead } from "@/lib/types";
 import { useLang } from "@/i18n";
+import { parsePlan } from "@/lib/playbook";
+import { PLAYBOOKS, OWNER_HE } from "@/config/playbooks";
 const wa = (p?: string) => { const d = (p || "").replace(/\D/g, ""); return d ? "https://wa.me/" + (d.startsWith("0") ? "972" + d.slice(1) : d) : ""; };
 export default function TodayPage() {
   const { t: tr } = useLang();
-  const { state, ready, completeTask, toggleTask, addTask } = useStore();
+  const { state, ready, completeTask, toggleTask, addTask, advancePlan } = useStore();
+  const [pnote, setPnote] = useState("");
   const [open, setOpen] = useState(""); const [q, setQ] = useState({ lead: "", title: "", due: todayIso() }); const [plan, setPlan] = useState<Record<string, string>>({});
   if (!ready) return null;
   const today = todayIso(); const week = addDays(today, 7); const weekAgo = addDays(today, -7);
   const leadOf = (t: Task) => state.leads.find((l) => l.id === t.lead_id);
   const openTasks = state.tasks.filter((t) => !t.done).sort((a, b) => a.due.localeCompare(b.due));
+  const waitsOthers = (t: Task) => { const p = parsePlan(t.kind); return !!p && p.owner !== "me"; };
+  const mineOpen = openTasks.filter((t) => !waitsOthers(t));
   const groups = [
-    { key: "late", he: "באיחור", tone: "red", items: openTasks.filter((t) => t.due < today) },
-    { key: "today", he: "היום", tone: "blue", items: openTasks.filter((t) => t.due === today) },
-    { key: "week", he: "7 הימים הקרובים", tone: "slate", items: openTasks.filter((t) => t.due > today && t.due <= week) },
+    { key: "late", he: "באיחור", tone: "red", items: mineOpen.filter((t) => t.due < today) },
+    { key: "today", he: "היום", tone: "blue", items: mineOpen.filter((t) => t.due === today) },
+    { key: "week", he: "7 הימים הקרובים", tone: "slate", items: mineOpen.filter((t) => t.due > today && t.due <= week) },
+    { key: "wait", he: "ממתין לאחרים (Silitex / לקוח / פיני)", tone: "amber", items: openTasks.filter(waitsOthers).filter((t) => t.due <= week) },
   ];
   const withTask = new Set(openTasks.map((t) => t.lead_id));
   const idle = state.leads.filter((l) => !isClosed(l.stage) && !withTask.has(l.id)).sort((a, b) => (b.value_usd || 0) - (a.value_usd || 0));
@@ -30,7 +36,7 @@ export default function TodayPage() {
   const calls7 = state.activities.filter((a) => a.at.slice(0, 10) >= weekAgo && ["call", "email", "whatsapp", "visit"].includes(a.kind)).length;
   const text = groups.map((g) => tr(g.he) + ":\n" + g.items.map((t) => "  ☐ " + fmtDate(t.due) + " " + t.lead_name + " — " + t.title).join("\n")).join("\n\n");
   const row = (t: Task) => {
-    const l = leadOf(t); const ph = l?.contact_phone;
+    const l = leadOf(t); const ph = l?.contact_phone; const pp = parsePlan(t.kind);
     return (
       <li key={t.id} className="border rounded-xl p-3 bg-white">
         <div className="flex flex-wrap items-center gap-2">
@@ -42,13 +48,14 @@ export default function TodayPage() {
               {l && <Badge tone="blue">{tr(stageHe(l.stage))}</Badge>}
               {l?.contact_name && <span>{l.contact_name}</span>}
               <span className={t.due < today ? "text-red-600 font-bold" : ""}>{fmtDate(t.due)}</span>
-              {t.kind && <span className="text-slate-400">{t.kind}</span>}
+              {pp ? <span className="text-[11px] px-1.5 rounded-full bg-brand-50 text-brand-700">🗺️ {tr("שלב")} <span dir="ltr">{pp.seq}/{PLAYBOOKS[pp.tpl]?.steps.length}</span> · {tr(OWNER_HE[pp.owner])}</span> : t.kind && <span className="text-slate-400">{t.kind}</span>}
             </div>
           </div>
           {ph && <a href={"tel:" + ph.replace(/\s/g, "")} className={btnGhost + " text-xs"}>📞 {ph}</a>}
           {ph && <a href={wa(ph)} target="_blank" rel="noreferrer" className={btnGhost + " text-xs"}>💬</a>}
         </div>
-        {open === t.id && (l
+        {open === t.id && pp && <div className="mt-2 border-t pt-2 flex gap-2"><input className={inputCls + " text-sm"} placeholder={tr("מה היה? (נרשם בתיק הלקוח) — השלב הבא ייפתח לבד")} value={pnote} onChange={(e) => setPnote(e.target.value)} /><button className={btnPrimary + " whitespace-nowrap"} onClick={() => { advancePlan(t.id, pnote); setPnote(""); setOpen(""); }}>✓ {tr("בוצע")}</button><button className={btnGhost} onClick={() => setOpen("")}>{tr("ביטול")}</button></div>}
+        {open === t.id && !pp && (l
           ? <DoneForm stage={l.stage} hasLead onCancel={() => setOpen("")} onSave={(o) => { completeTask(t.id, o); setOpen(""); }} />
           : <div className="mt-2 flex gap-2"><button className={btnPrimary} onClick={() => { toggleTask(t.id); setOpen(""); }}>✓ {tr("בוצע")}</button><button className={btnGhost} onClick={() => setOpen("")}>{tr("ביטול")}</button></div>)}
       </li>

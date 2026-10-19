@@ -1,5 +1,5 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 17.10.2026 07:40 (Asia/Jerusalem) — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
+// useStore.ts (src/lib/store/useStore.ts) · updated 19.10.2026 11:45 (Asia/Jerusalem) — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
@@ -9,6 +9,8 @@ import { uid, todayIso, addDays } from "@/lib/format";
 import type { Lead, Task, Activity, KbDoc, KbChunk, Stage, Sample, Doc, Shipment, SilitexContact, Thread, HubMsg } from "@/lib/types";
 import { FOLLOWUP_DAYS } from "@/config/sales";
 import { buildDemo } from "@/data/demo";
+import { PLAYBOOKS } from "@/config/playbooks";
+import { parsePlan, stepTask } from "@/lib/playbook";
 
 export function useStore() {
   const [state, setState] = useState<State>(EMPTY);
@@ -47,6 +49,24 @@ export function useStore() {
     }
     if (o.nextDue && o.nextTitle?.trim()) addTask({ lead_id: t.lead_id, lead_name: t.lead_name, title: o.nextTitle.trim(), due: o.nextDue, cadence: "once", kind: "followup" });
   };
+  /** ACCOUNT PLAYBOOKS — start: creates step 1 (or any step) as a real task */
+  const startPlan = (leadId: string, tpl: string, due: string, seq = 1) => {
+    const lead = state.leads.find((l) => l.id === leadId); if (!lead) return; const t = stepTask(lead, tpl, seq, due); if (!t) return;
+    update((s) => ({ ...s, tasks: [t, ...s.tasks.filter((x) => !(x.lead_id === leadId && !x.done && parsePlan(x.kind)))] })); sync("tasks", t);
+    state.tasks.filter((x) => x.lead_id === leadId && !x.done && parsePlan(x.kind)).forEach((x) => remove("tasks", x.id));
+    addActivity(leadId, "plan", "תוכנית עבודה הופעלה: " + PLAYBOOKS[tpl].he + " — שלב " + seq);
+  };
+  /** done on a playbook step → log + stage move + next step opens with its own due date */
+  const advancePlan = (taskId: string, note: string, kind = "note") => {
+    const t = state.tasks.find((x) => x.id === taskId); const p = parsePlan(t?.kind); if (!t || !p) return;
+    const step = PLAYBOOKS[p.tpl]?.steps[p.seq - 1]; const next = PLAYBOOKS[p.tpl]?.steps[p.seq];
+    completeTask(taskId, { note, kind, stage: step?.stage });
+    const lead = state.leads.find((l) => l.id === t.lead_id);
+    if (lead && next) { const nt = stepTask(lead, p.tpl, p.seq + 1, addDays(todayIso(), next.wait)); if (nt) { update((s) => ({ ...s, tasks: [nt, ...s.tasks] })); sync("tasks", nt); } }
+    else if (lead) addActivity(lead.id, "plan", "תוכנית העבודה הושלמה ✓");
+  };
+  const setTaskDue = (id: string, due: string) => { const t = state.tasks.find((x) => x.id === id); if (!t || !due) return; const n = { ...t, due }; update((s) => ({ ...s, tasks: s.tasks.map((x) => (x.id === id ? n : x)) })); sync("tasks", n); };
+  const stopPlan = (leadId: string) => { const open = state.tasks.filter((x) => x.lead_id === leadId && !x.done && parsePlan(x.kind)); update((s) => ({ ...s, tasks: s.tasks.filter((x) => !open.some((o) => o.id === x.id)) })); open.forEach((x) => remove("tasks", x.id)); addActivity(leadId, "plan", "תוכנית העבודה הופסקה"); };
   /** bulk import (Excel / SAP export): new leads added, existing (same id) replaced */
   const importLeads = (rows: Lead[]) => {
     const now = new Date().toISOString(); const list = rows.map((r) => ({ ...r, created_at: r.created_at || now, updated_at: now }));
@@ -83,5 +103,5 @@ export function useStore() {
   const loadDemo = () => update((s) => ({ ...s, ...buildDemo(), demo: true }));
   const reset = () => { clearState(); setState(EMPTY); };
 
-  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, completeTask, importLeads, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, addShipment, updateShipment, removeShipment, upsertContact, removeContact, addThread, updateThread, removeThread, addMsg, loadDemo, reset };
+  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, completeTask, startPlan, advancePlan, setTaskDue, stopPlan, importLeads, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, addShipment, updateShipment, removeShipment, upsertContact, removeContact, addThread, updateThread, removeThread, addMsg, loadDemo, reset };
 }

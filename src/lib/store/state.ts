@@ -1,13 +1,18 @@
-// state.ts (src/lib/store/state.ts) · updated 19.10.2026 10:55 (Asia/Jerusalem) — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
+// state.ts (src/lib/store/state.ts) · updated 19.10.2026 11:45 (Asia/Jerusalem) — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
+import { seedPlans } from "@/lib/playbook";
 import type { Lead, Task, Activity, KbDoc, KbChunk, Sample, Doc, Shipment, SilitexContact, Thread, HubMsg } from "@/lib/types";
 export type State = { leads: Lead[]; tasks: Task[]; activities: Activity[]; samples: Sample[]; docs: Doc[]; shipments: Shipment[]; contacts: SilitexContact[]; threads: Thread[]; msgs: HubMsg[]; kbDocs: KbDoc[]; kbChunks: KbChunk[]; spend: { tokens: number; cost: number }; demo?: boolean };
 export const STORAGE_KEY = "silitex-crm-v1";
 export const EMPTY: State = { leads: LEADS_SEED, tasks: [], activities: [], samples: [], docs: [], shipments: [], contacts: [], threads: [], msgs: [], kbDocs: [], kbChunks: [], spend: { tokens: 0, cost: 0 } };
 // 12.10.2026: SKU names that never existed on silitex.it (AI-invented in plan v5) — replaced by the corrected seed
 const PHANTOM = /Silitex (Surfactant|Ag-Spreaders|Silatex|Eco-Resin|Depurazione|DM |Idrorepellenti|GOTS|Lavorazione|Refinery|Velvet|MQ|Volatile|SG 90)|SG 9040|Gomma Plastica|PE 193|AGRIWET/;
+// first account playbooks (19.10.2026): Luxembourg · Careline · Sano + Pini meeting — once per browser, deterministic ids (no duplicates across devices)
+function seedOnce(st: State) {
+  try { if (localStorage.getItem("silitex-plans-seed-v1")) return; const add = seedPlans(st.leads).filter((t) => !st.tasks.some((x) => x.id === t.id)); st.tasks = [...add, ...st.tasks]; saveState(st); add.forEach((t) => sync("tasks", t)); localStorage.setItem("silitex-plans-seed-v1", "1"); } catch {}
+}
 export function loadState(): State {
   if (typeof window === "undefined") return EMPTY;
   try {
@@ -19,10 +24,11 @@ export function loadState(): State {
       // seed accounts added later (e.g. AHAVA 11.10.2026) that the browser has never seen
       for (const seed of LEADS_SEED) if (!st.leads.some((l) => l.id === seed.id)) { st.leads = [...st.leads, seed]; fixed.push(seed); }
       if (fixed.length) { saveState(st); fixed.forEach((l) => sync("leads", l)); }
+      seedOnce(st);
       return st;
     }
   } catch {}
-  return EMPTY;
+  const st: State = { ...EMPTY, tasks: [] }; seedOnce(st); return st;
 }
 export function saveState(s: State) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {} }
 export function clearState() { try { localStorage.removeItem(STORAGE_KEY); } catch {} }
