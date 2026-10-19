@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/hub/page.tsx) · updated 10.10.2026 10:20 (Asia/Jerusalem) — Silitex Hub: department boxes → threads (filter dept/status/ref) → thread view; paste-mail intake; Graph ingest sync (Phase B)
+// page.tsx (src/app/hub/page.tsx) · updated 19.10.2026 12:15 (Asia/Jerusalem) — 🗑️ delete a thread straight from the list · 10.10.2026 10:20 — Silitex Hub: department boxes → threads (filter dept/status/ref) → thread view; paste-mail intake; Graph ingest sync (Phase B)
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
 import { Card, H1, Badge, inputCls, btnGhost } from "@/components/ui";
@@ -13,6 +13,7 @@ import { DEPTS, THREAD_STATUS } from "@/config/hub";
 import { isLate, waitingDays, statusHe } from "@/lib/hub";
 import { fmtDate } from "@/lib/format";
 import { useLang } from "@/i18n";
+import DelBtn from "@/components/DelBtn";
 import type { Thread, HubMsg } from "@/lib/types";
 export default function HubPage() {
   const { t: tr } = useLang();
@@ -39,10 +40,10 @@ export default function HubPage() {
       <div className="grid lg:grid-cols-[360px_1fr] gap-4 items-start">
         <Card className="p-0 divide-y max-h-[70vh] overflow-auto">
           {list.map((t) => { const d = DEPTS.find((x) => x.key === t.dept); const st = THREAD_STATUS.find((s) => s.key === t.status); const n = state.msgs.filter((m) => m.thread_id === t.id).length; return (
-            <button key={t.id} onClick={() => setSel(t.id)} className={"w-full text-start p-2 text-sm hover:bg-slate-50 " + (sel === t.id ? "bg-brand-50" : "")}>
-              <div className="flex items-center gap-1"><span>{d?.icon}</span><span className="font-medium truncate flex-1">{t.subject}</span>{isLate(t) && <Badge tone="red">⏰{waitingDays(t)}</Badge>}<Badge tone={st?.tone}>{tr(statusHe(t))}</Badge></div>
+            <div key={t.id} role="button" tabIndex={0} onClick={() => setSel(t.id)} className={"w-full text-start p-2 text-sm hover:bg-slate-50 cursor-pointer " + (sel === t.id ? "bg-brand-50" : "")}>
+              <div className="flex items-center gap-1"><span>{d?.icon}</span><span className="font-medium truncate flex-1">{t.subject}</span>{isLate(t) && <Badge tone="red">⏰{waitingDays(t)}</Badge>}<Badge tone={st?.tone}>{tr(statusHe(t))}</Badge><span onClick={(e) => e.stopPropagation()}><DelBtn onDelete={() => { removeThread(t.id); if (sel === t.id) setSel(""); }} title={tr("מחק שרשור")} /></span></div>
               <div className="text-xs text-slate-500 truncate">{[state.contacts.find((c) => c.id === t.contact_id)?.name, t.refs.shipment_ref, t.refs.lead_name, t.refs.po && "P/O " + t.refs.po, t.refs.sku].filter(Boolean).join(" · ") || tr("ללא קישור")} · {n} · {fmtDate(t.last_at)}</div>
-            </button>); })}
+            </div>); })}
           {list.length === 0 && <div className="p-3 text-xs text-slate-400">{tr("אין שרשורים. הדבק מייל למעלה — או חבר את Outlook (שלב B).")}</div>}
         </Card>
         {cur ? <ThreadView key={cur.id} th={cur} msgs={state.msgs.filter((m) => m.thread_id === cur.id)} leads={state.leads} shipments={state.shipments} spend={state.spend} addSpend={addSpend} onUpdate={(p) => updateThread(cur.id, p)} onDelete={() => { removeThread(cur.id); setSel(""); }} onTask={(title, due) => addTask({ lead_id: cur.refs.lead_id || "silitex", lead_name: cur.refs.lead_name || "Silitex", title, due, cadence: "once", kind: "hub" })} /> : <Card className="text-sm text-slate-500">{tr("בחר שרשור מהרשימה, או הדבק מייל חדש.")}</Card>}

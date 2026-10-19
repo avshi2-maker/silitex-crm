@@ -1203,4 +1203,5 @@ export const EN: Record<string, string> = {
   "ימים בלי תשובה": "days without reply",
   "לשלוח תזכורת": "send a reminder",
   "פתח ב-Hub": "Open in Hub",
+  "מחק שרשור": "Delete thread",
 };
