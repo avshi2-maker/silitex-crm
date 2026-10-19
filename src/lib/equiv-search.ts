@@ -1,10 +1,11 @@
-// equiv-search.ts (src/lib/equiv-search.ts) · updated 18.10.2026 12:20 (Asia/Jerusalem) — uses gaps_lite.json (no owner action notes in the browser) · 16.10.2026 08:45 — + NuSil CareSil CSF-3504 / CXG-1104
+// equiv-search.ts (src/lib/equiv-search.ts) · updated 19.10.2026 12:45 (Asia/Jerusalem) — + official Silitex cosmetic countertypes (leaflet 19/10/2026) first · 18.10.2026 12:20 — uses gaps_lite.json (no owner action notes in the browser) · 16.10.2026 08:45 — + NuSil CareSil CSF-3504 / CXG-1104
 // Competitor-code quick search: type any Dow / XIAMETER / Wacker / Momentive / Shin-Etsu / Evonik … code (or a Silitex name, code or INCI)
 // → ranked Silitex equivalents. Sources: offsets.json (37 families × producers), gaps.json (cosmetic molecules, covered/alternative only),
 // catalog_2026.json (Silitex 2026 catalogues — for the catalogue rows + PDF behind each answer). Pure client-side, no AI cost.
 import offsets from "@/data/offsets.json";
 import gaps from "@/data/gaps_lite.json"; // lite copy (no owner action notes) — built by scripts/build-index.mjs
 import { CAT26, type CatRow } from "@/lib/catalog";
+import { COSMETIC_COUNTERTYPES } from "@/config/cosmetic-range";
 
 type OffRow = { category_id: string; family: string; dow_corning?: string; inci?: string; silitex_product: string; kosher?: string; fda?: string; eco_certs?: string; offsets?: Record<string, string> };
 type GapRow = { id: string; query: string; aliases: string[]; producers: string; silitex: string; status: string };
@@ -62,6 +63,11 @@ function entries(): Entry[] {
   if (ENTRIES) return ENTRIES;
   const out: Entry[] = [];
   const add = (e: Omit<Entry, "norm" | "toks">) => out.push({ ...e, norm: norm(e.competitor), toks: toks(e.competitor + " " + e.producer) });
+  // OFFICIAL Silitex cosmetic countertypes (leaflet from Federica, 19/10/2026) — listed first, marked as official
+  for (const c of COSMETIC_COUNTERTYPES) {
+    const base = { kind: "offset" as const, family: "Cosmetic range (official Silitex countertype)", inci: c.inci, silitex: c.product + " (" + c.code + ")", silitexNames: [c.product.toUpperCase()], certs: ["✓ Silitex official"], ref: "SILITEX-COS-" + c.code };
+    for (const [prod, v] of [["Dow / DOWSIL / XIAMETER", c.dow], ["BRB", c.brb], ["Momentive", c.momentive], ["Wacker", c.wacker]] as [string, string][]) for (const sku of splitSkus(v)) { add({ ...base, key: base.ref + "|" + prod + "|" + sku, competitor: sku, producer: prod }); const dc = /DOW CORNING\s+(\S+)/i.exec(sku); if (dc) add({ ...base, key: base.ref + "|dc|" + dc[1], competitor: "DC " + dc[1], producer: prod }); }
+  }
   for (const r of ROWS) {
     const certs = [r.kosher && !/^no/i.test(r.kosher) ? "Kosher" : "", r.fda && !/^no/i.test(r.fda) ? "FDA" : ""].filter(Boolean);
     const base = { kind: "offset" as const, family: r.family, inci: r.inci || "", silitex: r.silitex_product, silitexNames: silitexNames(r.silitex_product), certs, ref: r.category_id };
@@ -104,7 +110,7 @@ export function searchEquiv(q: string, k = 6): EquivHit[] {
       let hit = 0, num = 0; const set = new Set(e.toks); for (const t of qt) if (set.has(t)) { hit++; if (/\d/.test(t)) num++; }
       score = hit / qt.length + num * 0.5; if (score < 0.5) score = 0;
     }
-    if (score) scored.push({ ...e, exact, score: score + (e.kind === "gap" ? 0.2 : 0), rows: [], also: [] });
+    if (score) scored.push({ ...e, exact, score: score + (e.kind === "gap" ? 0.2 : 0) + (e.ref.startsWith("SILITEX-COS-") ? 1.5 : 0), rows: [], also: [] }); // official Silitex countertypes rank first
   }
   scored.sort((a, b) => b.score - a.score);
   const out: EquivHit[] = [];

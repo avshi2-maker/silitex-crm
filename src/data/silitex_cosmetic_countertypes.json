@@ -1,0 +1,20 @@
+{
+  "source": "SILITEX_COSMETICS_LEAFLET_COUNTERTYPES.pdf — sent by Dr. Federica Biti (Silitex Export Sales) 19/10/2026. Official cosmetic range + competitor countertypes. Silitex is updating the list with new products.",
+  "updated": "19/10/2026",
+  "rows": [
+    { "code": "E2404", "product": "BODYSIL 60", "inci": "Dimethicone, Laureth-4, Laureth-23, Phenoxyethanol", "dow": "", "brb": "BRB 9719", "momentive": "", "wacker": "" },
+    { "code": "E2120", "product": "BODYAMISIL 35", "inci": "Amodimethicone, Trideceth-12, Cetrimonium Chloride", "dow": "XIAMETER MEM-0949 Emulsion", "brb": "BRB 1288", "momentive": "", "wacker": "" },
+    { "code": "H2019", "product": "BODY BLEND 150-6000", "inci": "Cyclopentasiloxane, Dimethiconol", "dow": "DOW CORNING 1501 Fluid", "brb": "BRB 1834", "momentive": "SILSOFT 1215", "wacker": "" },
+    { "code": "H2057", "product": "DIMETIBLEND", "inci": "Dimethicone, Dimethiconol", "dow": "XIAMETER PMX-1503 Fluid / DOW CORNING TI-3011 Gum Blend", "brb": "BRB 1740", "momentive": "", "wacker": "" },
+    { "code": "H2127", "product": "ESABLEND", "inci": "Cyclopentasiloxane, Cyclohexasiloxane", "dow": "XIAMETER PMX-0345 Cyclosiloxane Blend", "brb": "BRB CM 56-S", "momentive": "", "wacker": "" },
+    { "code": "H2256", "product": "ALKABLEND 6800", "inci": "C13-15 Alkane, Dimethiconol", "dow": "DOWSIL PMX-1508 Fluid", "brb": "", "momentive": "", "wacker": "" },
+    { "code": "H2383", "product": "DIMETIBLEND 185", "inci": "Dimethicone, Dimethiconol", "dow": "DOWSIL PMX-1507 Fluid", "brb": "", "momentive": "", "wacker": "" },
+    { "code": "PO625", "product": "PHENYL TRIMETHICONE", "inci": "Phenyl Trimethicone", "dow": "", "brb": "BRB PTM 20", "momentive": "SF1550", "wacker": "" },
+    { "code": "PO551", "product": "AMODIMETICONE", "inci": "Amodimethicone", "dow": "", "brb": "", "momentive": "SF 240", "wacker": "" },
+    { "code": "PO580", "product": "CETYL DIMETHICONE", "inci": "Cetyl Dimethicone", "dow": "DOWSIL 2502", "brb": "BRB 2835", "momentive": "", "wacker": "" },
+    { "code": "PO594", "product": "DIMETISIL 18/18 P", "inci": "PEG/PPG-18/18 Dimethicone", "dow": "XIAMETER OFX-0190 Fluid", "brb": "BRB 523", "momentive": "", "wacker": "" },
+    { "code": "PO607", "product": "IDROSIL", "inci": "Trimethylsiloxysilicate", "dow": "", "brb": "", "momentive": "", "wacker": "BELSIL TMS 803" },
+    { "code": "PO608", "product": "SINTOSIL", "inci": "Polymethylsilsesquioxane", "dow": "", "brb": "PMS 5", "momentive": "", "wacker": "" },
+    { "code": "H2490", "product": "BODYBLEND 150-10000", "inci": "Cyclopentasiloxane, Dimethiconol", "dow": "", "brb": "", "momentive": "Silsoft 1215 HV", "wacker": "" }
+  ]
+}
