@@ -1149,4 +1149,9 @@ export const EN: Record<string, string> = {
   "תווים": "characters",
   "חסר ELEVENLABS_API_KEY ב-Vercel": "ELEVENLABS_API_KEY missing in Vercel",
   "ElevenLabs לא מחובר — להוסיף ELEVENLABS_API_KEY ב-Vercel ולעשות Redeploy.": "ElevenLabs not connected — add ELEVENLABS_API_KEY in Vercel and redeploy.",
+  "הגיע חומר חדש מהשטח": "New material from the field",
+  "פריטים": "items",
+  "מחכים לעיבוד": "waiting to be processed",
+  "פתח תיבת שטח": "Open Field inbox",
+  "אחר כך": "Later",
 };
