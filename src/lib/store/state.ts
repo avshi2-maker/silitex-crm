@@ -1,4 +1,4 @@
-// state.ts (src/lib/store/state.ts) · updated 18.10.2026 06:30 (Asia/Jerusalem) — + offline sync queue (replayed when back online) · 12.10.2026 12:25
+// state.ts (src/lib/store/state.ts) · updated 19.10.2026 07:25 (Asia/Jerusalem) — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
@@ -7,7 +7,7 @@ export type State = { leads: Lead[]; tasks: Task[]; activities: Activity[]; samp
 export const STORAGE_KEY = "silitex-crm-v1";
 export const EMPTY: State = { leads: LEADS_SEED, tasks: [], activities: [], samples: [], docs: [], shipments: [], contacts: [], threads: [], msgs: [], kbDocs: [], kbChunks: [], spend: { tokens: 0, cost: 0 } };
 // 12.10.2026: SKU names that never existed on silitex.it (AI-invented in plan v5) — replaced by the corrected seed
-const PHANTOM = /Silitex (Surfactant|Ag-Spreaders|Silatex|Eco-Resin|Depurazione|DM |Idrorepellenti|GOTS|Lavorazione|Refinery|Velvet|MQ|Volatile|SG 90)|SG 9040|Gomma Plastica/;
+const PHANTOM = /Silitex (Surfactant|Ag-Spreaders|Silatex|Eco-Resin|Depurazione|DM |Idrorepellenti|GOTS|Lavorazione|Refinery|Velvet|MQ|Volatile|SG 90)|SG 9040|Gomma Plastica|PE 193|AGRIWET/;
 export function loadState(): State {
   if (typeof window === "undefined") return EMPTY;
   try {
