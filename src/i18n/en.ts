@@ -1145,4 +1145,8 @@ export const EN: Record<string, string> = {
   "קריינות AI": "AI voice-over",
   "לתקן לפני פרסום — ניסוח שמבטיח יותר מדי:": "Fix before publishing — over-claiming wording:",
   "לכתוב במקום: \"מקבילה לבדיקה מול דף נתונים ודגימה\". או ללחוץ 🔄 כתוב מחדש.": "Write instead: \"an equivalent to check against the data sheet and a sample\". Or press 🔄 Rewrite.",
+  "צור קריינות": "Create voice-over",
+  "תווים": "characters",
+  "חסר ELEVENLABS_API_KEY ב-Vercel": "ELEVENLABS_API_KEY missing in Vercel",
+  "ElevenLabs לא מחובר — להוסיף ELEVENLABS_API_KEY ב-Vercel ולעשות Redeploy.": "ElevenLabs not connected — add ELEVENLABS_API_KEY in Vercel and redeploy.",
 };
