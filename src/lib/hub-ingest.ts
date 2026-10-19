@@ -1,13 +1,21 @@
-// hub-ingest.ts (src/lib/hub-ingest.ts) · updated 10.10.2026 07:30 (Asia/Jerusalem) — server only · known-contact + prospect routing
+// hub-ingest.ts (src/lib/hub-ingest.ts) · updated 19.10.2026 12:30 (Asia/Jerusalem) — customer matching uses all contact e-mails + intake e-mails + website domain, and seed leads not yet saved in Supabase · 10.10.2026 07:30 — server only · known-contact + prospect routing
 // Shared ingest: normalised messages → Supabase threads + hub_messages (dedup by external_id, thread by conversationId → subject). Used by /api/hub/ingest and the Outlook sync.
 import { serviceClient } from "./server-data";
 import { deptOf } from "@/config/hub";
-import { matchLead, isOurs, type LeadLite } from "./hub-match";
+import { leadMatcher, isOurs, type LeadLite } from "./hub-match";
+import { LEADS_SEED } from "./data";
+type SB = NonNullable<ReturnType<typeof serviceClient>>;
+/** every customer the mail can belong to: Supabase leads (latest edits) + seed leads never edited yet */
+export async function matchLeads(sb: SB): Promise<LeadLite[]> {
+  const rows = ((await sb.from("leads").select("id,name,contact_email,website,intake")).data || []) as LeadLite[];
+  const ids = new Set(rows.map((r) => r.id));
+  return [...rows, ...LEADS_SEED.filter((l) => !ids.has(l.id)).map((l) => ({ id: l.id, name: l.name, contact_email: l.contact_email, website: l.website, intake: l.intake }))];
+}
 export type InMsg = { id: string; from: string; to: string; subject: string; at: string; body: string; conversationId?: string };
 export async function ingest(messages: InMsg[]): Promise<{ added: number; threads: number }> {
   const sb = serviceClient(); if (!sb) throw new Error("no supabase"); let added = 0, threads = 0;
   const contacts = ((await sb.from("silitex_contacts").select("id,dept,email")).data || []).filter((c) => c.email && !/^info@/i.test(c.email));
-  const leads = ((await sb.from("leads").select("id,name,contact_email")).data || []) as LeadLite[];
+  const leads = await matchLeads(sb); const matchLead = (t: string, _l?: LeadLite[]) => findLead(t); const findLead = leadMatcher(leads);
   const byContact = (text: string) => contacts.find((c) => text.toLowerCase().includes(String(c.email).toLowerCase()));
   for (const m of messages || []) {
     if (!m.id || !m.subject) continue;

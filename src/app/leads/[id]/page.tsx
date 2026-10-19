@@ -1,6 +1,7 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 19.10.2026 12:05 (Asia/Jerusalem) — 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
-import { use, useState } from "react";
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 19.10.2026 12:05 (Asia/Jerusalem) — customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+import { use, useState, useEffect } from "react";
+import type { Thread } from "@/lib/types";
 import Link from "next/link";
 import { useStore, STAGES } from "@/lib/store";
 import { PRODUCTS, industriesOf, INDUSTRIES } from "@/lib/data";
@@ -29,10 +30,12 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
   const { state, ready, upsertLead, setStage, addActivity, addTask, addSpend, startPlan, advancePlan, setTaskDue, stopPlan, removeTask, removeActivity, addSample, setSampleStatus, addDoc, setDocStatus, removeLead } = useStore();
   const router = useRouter();
   const [note, setNote] = useState("");
+  const [srvThreads, setSrvThreads] = useState<Thread[]>([]);
+  useEffect(() => { fetch("/api/hub/ingest", { cache: "no-store" }).then((r) => r.json()).then((j) => setSrvThreads(((j.threads || []) as Thread[]).filter((t) => t.refs?.lead_id === id))).catch(() => {}); }, [id]);
   if (!ready) return null;
   const lead = state.leads.find((l) => l.id === id);
   if (!lead) return <p>{tr("לקוח לא נמצא.")}</p>;
-  const acts = state.activities.filter((a) => a.lead_id === id); const leadThreads = state.threads.filter((t) => t.refs.lead_id === id).sort((a, b) => b.last_at.localeCompare(a.last_at));
+  const acts = state.activities.filter((a) => a.lead_id === id); const leadThreads = [...srvThreads, ...state.threads.filter((t) => t.refs.lead_id === id && !srvThreads.some((x) => x.id === t.id))].sort((a, b) => b.last_at.localeCompare(a.last_at)); // mails from Outlook (server) + pasted ones
   const tasks = state.tasks.filter((t) => t.lead_id === id && !t.done && !parsePlan(t.kind));
   const indKeys = INDUSTRIES.filter((i) => i.match.test(lead.industry + " " + lead.use_case + " " + lead.product_match)).map((i) => i.key);
   const matches = PRODUCTS.filter((p) => industriesOf(p).some((k) => indKeys.includes(k))).slice(0, 8);

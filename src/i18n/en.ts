@@ -1204,4 +1204,7 @@ export const EN: Record<string, string> = {
   "לשלוח תזכורת": "send a reminder",
   "פתח ב-Hub": "Open in Hub",
   "מחק שרשור": "Delete thread",
+  "📥 סנכרון 30 יום": "📥 Sync 30 days",
+  "אחרי הוספת לקוחות / אנשי קשר חדשים — מושך גם את המיילים הישנים שלהם": "After adding new customers / contacts — also pulls their older mails",
+  "אימייל (כמה אנשי קשר — מופרדים בפסיק)": "E-mail (several contacts — separate with commas)",
 };
