@@ -1,4 +1,4 @@
-// partner-feedback.ts (src/lib/partner-feedback.ts) · updated 13.10.2026 07:20 (Asia/Jerusalem) — server only. "Ask Sapirim" notes from Silitex partners: Supabase partner_feedback + email via Resend to FORMS_TO (avshi@sapirim.com). Owner can mark replied.
+// partner-feedback.ts (src/lib/partner-feedback.ts) · updated 19.10.2026 12:05 (Asia/Jerusalem) — + deleteFeedback (owner) · 13.10.2026 07:20 — server only. "Ask Sapirim" notes from Silitex partners: Supabase partner_feedback + email via Resend to FORMS_TO (avshi@sapirim.com). Owner can mark replied.
 import { serviceClient } from "./server-data";
 export type Feedback = { partner: string; page: string; topic?: string; message: string; lang?: string };
 const TO = process.env.FORMS_TO || "avshi@sapirim.com";
@@ -27,5 +27,10 @@ export async function listFeedback() {
 export async function markReplied(id: number, on: boolean) {
   const sb = serviceClient(); if (!sb) return false;
   const { error } = await sb.from("partner_feedback").update({ replied_at: on ? new Date().toISOString() : null }).eq("id", id);
+  return !error;
+}
+export async function deleteFeedback(id: number) {
+  const sb = serviceClient(); if (!sb) return false;
+  const { error } = await sb.from("partner_feedback").delete().eq("id", id);
   return !error;
 }

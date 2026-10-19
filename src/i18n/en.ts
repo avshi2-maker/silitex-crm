@@ -897,7 +897,7 @@ export const EN: Record<string, string> = {
   "מה היה? (נרשם בתיק הלקוח ובדוח השבועי)": "What happened? (saved to the customer file and weekly report)",
   "מוצגות 300 שורות ראשונות — כולן ייובאו.": "Showing the first 300 rows — all will be imported.",
   "מוצר בשימוש היום": "Product used today",
-  "ממוין לפי פוטנציאל. כל לקוח פעיל צריך משימה פתוחה — אחרת הוא נשכח.": "Sorted by potential. Every active customer needs an open task — otherwise it gets forgotten.",
+  "ממוין לפי א-ב (שם באנגלית). כל לקוח פעיל צריך משימה פתוחה — אחרת הוא נשכח.": "Sorted A→Z. Every active customer needs an open task — otherwise it gets forgotten.",
   "מס' לקוח SAP": "SAP customer no.",
   "מקור (לכל השורות)": "Source (all rows)",
   "משימה": "Task",
@@ -1199,4 +1199,8 @@ export const EN: Record<string, string> = {
   "לקבל מ-Silitex TDS / SDS": "Get TDS / SDS from Silitex",
   "משלוח דגימה ללקוח": "Ship sample to the customer",
   "תוצאות בדיקה אצל הלקוח": "Test results at the customer",
+  "מחק משימה": "Delete task",
+  "ימים בלי תשובה": "days without reply",
+  "לשלוח תזכורת": "send a reminder",
+  "פתח ב-Hub": "Open in Hub",
 };

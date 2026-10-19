@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 19.10.2026 11:45 (Asia/Jerusalem) — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 19.10.2026 12:05 (Asia/Jerusalem) — 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState } from "react";
 import Link from "next/link";
 import { useStore, STAGES } from "@/lib/store";
@@ -21,11 +21,12 @@ import type { Lead, Stage } from "@/lib/types";
 import { useLang } from "@/i18n";
 import { statusHe } from "@/lib/hub";
 import PlaybookCard from "@/components/playbook/PlaybookCard";
+import DelBtn from "@/components/DelBtn";
 import { parsePlan } from "@/lib/playbook";
 export default function LeadPage({ params }: { params: Promise<{ id: string }> }) {
   const { t: tr } = useLang();
   const { id } = use(params);
-  const { state, ready, upsertLead, setStage, addActivity, addTask, addSpend, startPlan, advancePlan, setTaskDue, stopPlan, addSample, setSampleStatus, addDoc, setDocStatus, removeLead } = useStore();
+  const { state, ready, upsertLead, setStage, addActivity, addTask, addSpend, startPlan, advancePlan, setTaskDue, stopPlan, removeTask, removeActivity, addSample, setSampleStatus, addDoc, setDocStatus, removeLead } = useStore();
   const router = useRouter();
   const [note, setNote] = useState("");
   if (!ready) return null;
@@ -67,14 +68,14 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
           <SampleCard leadId={id} leadName={lead.name} samples={state.samples.filter((x) => x.lead_id === id)} defaultSku={((sil && !sil.startsWith("—") ? sil : lead.recommended_sku) || "").split(/[&,/]/)[0].trim() || undefined} lead={lead} contacts={state.contacts} onAdd={addSample} onStatus={setSampleStatus} />
           <Card>
             <h3 className="font-bold mb-2">{tr("משימות פתוחות (")}{tasks.length})</h3>
-            <ul className="text-sm space-y-1">{tasks.map((t) => <li key={t.id}>• {fmtDate(t.due)} — {t.title}</li>)}</ul>
+            <ul className="text-sm space-y-1">{tasks.map((t) => <li key={t.id} className="flex items-start gap-1"><span className="flex-1">• {fmtDate(t.due)} — {t.title}</span><DelBtn onDelete={() => removeTask(t.id)} /></li>)}</ul>
             <button className={btnGhost + " mt-2"} onClick={() => addTask({ lead_id: id, lead_name: lead.name, title: tr("מעקב"), due: todayIso(), cadence: "once", kind: "followup" })}>{tr("+ משימה להיום")}</button>
           </Card>
           <Card>
             <div className="flex items-center justify-between mb-2"><h3 className="font-bold">{tr("יומן פעילות")}</h3><Link href={"/hub?lead=" + encodeURIComponent(lead.name.split(" (")[0])} className="text-xs text-brand-600 underline">📬 {tr("התכתבות")} ({leadThreads.length})</Link><Link href={"/hub?wa=" + id} className="text-xs text-emerald-700 underline ms-2">📱 WhatsApp</Link></div>
             <div className="flex gap-2 mb-2"><input className={inputCls} placeholder={tr("הערה / שיחה / פגישה…")} value={note} onChange={(e) => setNote(e.target.value)} /><button className={btnPrimary} onClick={() => { if (note) { addActivity(id, "note", note); setNote(""); } }}>{tr("הוסף")}</button></div>
             {leadThreads.length > 0 && <ul className="text-xs space-y-1 mb-3 border rounded-lg p-2 bg-brand-50/30">{leadThreads.map((t) => (<li key={t.id} className="flex items-center gap-2"><Link href={"/hub?thread=" + t.id} className="font-medium text-brand-700 underline truncate flex-1">📬 {t.subject}</Link><span className="text-slate-500">{fmtDate(t.last_at)}</span><Badge tone={t.status === "waiting_us" ? "red" : "amber"}>{tr(statusHe(t))}</Badge></li>))}</ul>}
-            <ul className="text-xs space-y-2">{acts.map((a) => (<li key={a.id} className="border-s-2 border-brand-100 ps-2"><div className="text-slate-400">{fmtDateTime(a.at)} · {a.kind}</div><div>{a.text}</div></li>))}{acts.length === 0 && <li className="text-slate-400">{tr("אין פעילות עדיין.")}</li>}</ul>
+            <ul className="text-xs space-y-2">{acts.map((a) => (<li key={a.id} className="border-s-2 border-brand-100 ps-2"><div className="text-slate-400 flex items-center gap-1"><span className="flex-1">{fmtDateTime(a.at)} · {a.kind}</span><DelBtn onDelete={() => removeActivity(a.id)} /></div><div>{a.text}</div></li>))}{acts.length === 0 && <li className="text-slate-400">{tr("אין פעילות עדיין.")}</li>}</ul>
           </Card>
         </div>
       </div>

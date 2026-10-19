@@ -1,6 +1,6 @@
-// route.ts (src/app/api/partner/feedback/route.ts) · updated 16.10.2026 09:35 (Asia/Jerusalem) — + owner notes {owner:true} (no x-partner) stored as "📝 avshi-note", not counted as partner usage · POST {page, topic, message} from a partner (x-partner header set by middleware) → store + email; PATCH {id, replied} by owner (gate cookie, no partner header)
+// route.ts (src/app/api/partner/feedback/route.ts) · updated 19.10.2026 12:05 (Asia/Jerusalem) — + DELETE (owner only) · 16.10.2026 09:35 — + owner notes {owner:true} (no x-partner) stored as "📝 avshi-note", not counted as partner usage · POST {page, topic, message} from a partner (x-partner header set by middleware) → store + email; PATCH {id, replied} by owner (gate cookie, no partner header)
 import { NextResponse } from "next/server";
-import { storeFeedback, emailFeedback, markReplied } from "@/lib/partner-feedback";
+import { storeFeedback, emailFeedback, markReplied, deleteFeedback } from "@/lib/partner-feedback";
 import { logPartner } from "@/lib/partner-usage";
 export const runtime = "nodejs";
 export async function POST(req: Request) {
@@ -19,4 +19,10 @@ export async function PATCH(req: Request) {
   const { id, replied } = await req.json().catch(() => ({}));
   if (!id) return NextResponse.json({ error: "id required" }, { status: 400 });
   return NextResponse.json({ ok: await markReplied(Number(id), !!replied) });
+}
+export async function DELETE(req: Request) {
+  if (req.headers.get("x-partner")) return NextResponse.json({ error: "not allowed" }, { status: 403 });
+  const { id } = await req.json().catch(() => ({}));
+  if (!id) return NextResponse.json({ error: "id required" }, { status: 400 });
+  return NextResponse.json({ ok: await deleteFeedback(Number(id)) });
 }

@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/today/page.tsx) · updated 19.10.2026 11:45 (Asia/Jerusalem) — playbook steps: step badge + owner, ✓ opens the next step automatically, steps owned by Silitex / customer / Pini in "waiting for others" · 17.10.2026 08:15 — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
+// page.tsx (src/app/today/page.tsx) · updated 19.10.2026 12:05 (Asia/Jerusalem) — idle customers A→Z · waiting list = all playbook steps owed by others + e-mails waiting for Silitex / customer reply (from the Hub, red after 2 days = follow up) · 🗑️ delete a task · 11:45 — playbook steps: step badge + owner, ✓ opens the next step automatically, steps owned by Silitex / customer / Pini in "waiting for others" · 17.10.2026 08:15 — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
 import { useState } from "react";
 import Link from "next/link";
 import { useStore, stageHe } from "@/lib/store";
@@ -12,26 +12,40 @@ import type { Task, Lead } from "@/lib/types";
 import { useLang } from "@/i18n";
 import { parsePlan } from "@/lib/playbook";
 import { PLAYBOOKS, OWNER_HE } from "@/config/playbooks";
+import DelBtn from "@/components/DelBtn";
+import { useEffect } from "react";
+import type { Thread } from "@/lib/types";
+import { waitingDays } from "@/lib/hub";
+import { WAITING_ALERT_DAYS } from "@/config/hub";
 const wa = (p?: string) => { const d = (p || "").replace(/\D/g, ""); return d ? "https://wa.me/" + (d.startsWith("0") ? "972" + d.slice(1) : d) : ""; };
 export default function TodayPage() {
   const { t: tr } = useLang();
-  const { state, ready, completeTask, toggleTask, addTask, advancePlan } = useStore();
+  const { state, ready, completeTask, toggleTask, addTask, advancePlan, removeTask } = useStore();
+  const [mails, setMails] = useState<Thread[]>([]);
+  useEffect(() => { fetch("/api/hub/ingest", { cache: "no-store" }).then((r) => r.json()).then((j) => setMails(((j.threads || []) as Thread[]).filter((t) => t.status === "waiting_silitex"))).catch(() => {}); }, []);
   const [pnote, setPnote] = useState("");
   const [open, setOpen] = useState(""); const [q, setQ] = useState({ lead: "", title: "", due: todayIso() }); const [plan, setPlan] = useState<Record<string, string>>({});
   if (!ready) return null;
   const today = todayIso(); const week = addDays(today, 7); const weekAgo = addDays(today, -7);
   const leadOf = (t: Task) => state.leads.find((l) => l.id === t.lead_id);
   const openTasks = state.tasks.filter((t) => !t.done).sort((a, b) => a.due.localeCompare(b.due));
+  const lateMails = mails.filter((m) => waitingDays(m) >= WAITING_ALERT_DAYS);
+  const mailRow = (m: Thread) => { const d = waitingDays(m); const late = d >= WAITING_ALERT_DAYS; return (
+    <li key={"m" + m.id} className={"border rounded-xl p-3 bg-white flex flex-wrap items-center gap-2 " + (late ? "border-red-300" : "")}>
+      <span className="text-lg">✉️</span>
+      <div className="flex-1 min-w-[12rem]"><div className="font-medium" dir="auto">{m.subject}</div><div className="text-xs text-slate-500">{m.refs?.lead_name || (m.dept === "il" ? tr("לקוח") : "Silitex")} · {tr("נשלח")} {fmtDate(m.last_at.slice(0, 10))} · <span className={late ? "text-red-600 font-bold" : ""}><span dir="ltr">{d}</span> {tr("ימים בלי תשובה")}{late ? " — " + tr("לשלוח תזכורת") : ""}</span></div></div>
+      <Link href="/hub" className={btnGhost + " text-xs"}>{tr("פתח ב-Hub")}</Link>
+    </li>); };
   const waitsOthers = (t: Task) => { const p = parsePlan(t.kind); return !!p && p.owner !== "me"; };
   const mineOpen = openTasks.filter((t) => !waitsOthers(t));
   const groups = [
     { key: "late", he: "באיחור", tone: "red", items: mineOpen.filter((t) => t.due < today) },
     { key: "today", he: "היום", tone: "blue", items: mineOpen.filter((t) => t.due === today) },
     { key: "week", he: "7 הימים הקרובים", tone: "slate", items: mineOpen.filter((t) => t.due > today && t.due <= week) },
-    { key: "wait", he: "ממתין לאחרים (Silitex / לקוח / פיני)", tone: "amber", items: openTasks.filter(waitsOthers).filter((t) => t.due <= week) },
+    { key: "wait", he: "ממתין לאחרים (Silitex / לקוח / פיני)", tone: "amber", items: openTasks.filter(waitsOthers) },
   ];
   const withTask = new Set(openTasks.map((t) => t.lead_id));
-  const idle = state.leads.filter((l) => !isClosed(l.stage) && !withTask.has(l.id)).sort((a, b) => (b.value_usd || 0) - (a.value_usd || 0));
+  const idle = state.leads.filter((l) => !isClosed(l.stage) && !withTask.has(l.id)).sort((a, b) => a.name.localeCompare(b.name, "en", { sensitivity: "base" }));
   const doneToday = state.activities.filter((a) => a.at.slice(0, 10) === today && a.kind !== "stage" && a.kind !== "import").length;
   const calls7 = state.activities.filter((a) => a.at.slice(0, 10) >= weekAgo && ["call", "email", "whatsapp", "visit"].includes(a.kind)).length;
   const text = groups.map((g) => tr(g.he) + ":\n" + g.items.map((t) => "  ☐ " + fmtDate(t.due) + " " + t.lead_name + " — " + t.title).join("\n")).join("\n\n");
@@ -53,6 +67,7 @@ export default function TodayPage() {
           </div>
           {ph && <a href={"tel:" + ph.replace(/\s/g, "")} className={btnGhost + " text-xs"}>📞 {ph}</a>}
           {ph && <a href={wa(ph)} target="_blank" rel="noreferrer" className={btnGhost + " text-xs"}>💬</a>}
+          <DelBtn onDelete={() => removeTask(t.id)} title={tr("מחק משימה")} />
         </div>
         {open === t.id && pp && <div className="mt-2 border-t pt-2 flex gap-2"><input className={inputCls + " text-sm"} placeholder={tr("מה היה? (נרשם בתיק הלקוח) — השלב הבא ייפתח לבד")} value={pnote} onChange={(e) => setPnote(e.target.value)} /><button className={btnPrimary + " whitespace-nowrap"} onClick={() => { advancePlan(t.id, pnote); setPnote(""); setOpen(""); }}>✓ {tr("בוצע")}</button><button className={btnGhost} onClick={() => setOpen("")}>{tr("ביטול")}</button></div>}
         {open === t.id && !pp && (l
@@ -77,13 +92,13 @@ export default function TodayPage() {
       </Card>
       {groups.map((g) => (
         <Card key={g.key} className="space-y-2">
-          <h2 className="font-bold">{tr(g.he)} <Badge tone={g.tone}>{g.items.length}</Badge></h2>
-          {g.items.length === 0 ? <p className="text-sm text-slate-400">—</p> : <ul className="space-y-2">{g.items.map((t) => row(t))}</ul>}
+          <h2 className="font-bold">{tr(g.he)} <Badge tone={g.tone}>{g.items.length + (g.key === "wait" ? mails.length : g.key === "late" ? lateMails.length : 0)}</Badge></h2>
+          {g.items.length === 0 && !(g.key === "wait" && mails.length) && !(g.key === "late" && lateMails.length) ? <p className="text-sm text-slate-400">—</p> : <ul className="space-y-2">{g.items.map((t) => row(t))}{(g.key === "wait" ? mails : g.key === "late" ? lateMails : []).map(mailRow)}</ul>}
         </Card>
       ))}
       <Card className="space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-2"><h2 className="font-bold">🧭 {tr("לקוחות פעילים בלי צעד הבא")} <Badge tone="amber">{idle.length}</Badge></h2><Link href="/leads/import" className={btnGhost + " text-sm"}>📥 {tr("ייבוא לקוחות מ-Excel / SAP")}</Link></div>
-        <p className="text-xs text-slate-500">{tr("ממוין לפי פוטנציאל. כל לקוח פעיל צריך משימה פתוחה — אחרת הוא נשכח.")}</p>
+        <p className="text-xs text-slate-500">{tr("ממוין לפי א-ב (שם באנגלית). כל לקוח פעיל צריך משימה פתוחה — אחרת הוא נשכח.")}</p>
         <ul className="divide-y">{idle.slice(0, 40).map((l) => (
           <li key={l.id} className="py-2 flex flex-wrap items-center gap-2 text-sm">
             <Link href={"/leads/" + l.id} className="font-medium text-brand-700 hover:underline min-w-[10rem]">{l.name}</Link>

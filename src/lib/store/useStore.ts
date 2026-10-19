@@ -1,5 +1,5 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 19.10.2026 11:45 (Asia/Jerusalem) — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
+// useStore.ts (src/lib/store/useStore.ts) · updated 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
@@ -65,6 +65,8 @@ export function useStore() {
     if (lead && next) { const nt = stepTask(lead, p.tpl, p.seq + 1, addDays(todayIso(), next.wait)); if (nt) { update((s) => ({ ...s, tasks: [nt, ...s.tasks] })); sync("tasks", nt); } }
     else if (lead) addActivity(lead.id, "plan", "תוכנית העבודה הושלמה ✓");
   };
+  const removeTask = (id: string) => { update((s) => ({ ...s, tasks: s.tasks.filter((x) => x.id !== id) })); remove("tasks", id); };
+  const removeActivity = (id: string) => { update((s) => ({ ...s, activities: s.activities.filter((x) => x.id !== id) })); remove("activities", id); };
   const setTaskDue = (id: string, due: string) => { const t = state.tasks.find((x) => x.id === id); if (!t || !due) return; const n = { ...t, due }; update((s) => ({ ...s, tasks: s.tasks.map((x) => (x.id === id ? n : x)) })); sync("tasks", n); };
   const stopPlan = (leadId: string) => { const open = state.tasks.filter((x) => x.lead_id === leadId && !x.done && parsePlan(x.kind)); update((s) => ({ ...s, tasks: s.tasks.filter((x) => !open.some((o) => o.id === x.id)) })); open.forEach((x) => remove("tasks", x.id)); addActivity(leadId, "plan", "תוכנית העבודה הופסקה"); };
   /** bulk import (Excel / SAP export): new leads added, existing (same id) replaced */
@@ -103,5 +105,5 @@ export function useStore() {
   const loadDemo = () => update((s) => ({ ...s, ...buildDemo(), demo: true }));
   const reset = () => { clearState(); setState(EMPTY); };
 
-  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, completeTask, startPlan, advancePlan, setTaskDue, stopPlan, importLeads, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, addShipment, updateShipment, removeShipment, upsertContact, removeContact, addThread, updateThread, removeThread, addMsg, loadDemo, reset };
+  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, completeTask, startPlan, advancePlan, setTaskDue, stopPlan, removeTask, removeActivity, importLeads, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, addShipment, updateShipment, removeShipment, upsertContact, removeContact, addThread, updateThread, removeThread, addMsg, loadDemo, reset };
 }
