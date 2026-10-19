@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/hub/page.tsx) · updated 19.10.2026 12:15 (Asia/Jerusalem) — 🗑️ delete a thread straight from the list · 10.10.2026 10:20 — Silitex Hub: department boxes → threads (filter dept/status/ref) → thread view; paste-mail intake; Graph ingest sync (Phase B)
+// page.tsx (src/app/hub/page.tsx) · updated 19.10.2026 12:15 (Asia/Jerusalem) — 🗑️ delete a thread straight from the list · list newest first · 10.10.2026 10:20 — Silitex Hub: department boxes → threads (filter dept/status/ref) → thread view; paste-mail intake; Graph ingest sync (Phase B)
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
 import { Card, H1, Badge, inputCls, btnGhost } from "@/components/ui";
@@ -24,7 +24,7 @@ export default function HubPage() {
   const merge = () => fetch("/api/hub/ingest").then((r) => r.json()).then((j) => { if (!j.threads?.length) return; let n = 0; (j.threads as Thread[]).forEach((t) => { const cur = state.threads.find((x) => x.id === t.id); if (!cur) { addThread({ ...t, refs: t.refs || {} }); n++; } else if (cur.dept !== t.dept || cur.contact_id !== t.contact_id || cur.last_at !== t.last_at) updateThread(t.id, { dept: t.dept, contact_id: t.contact_id || undefined, last_at: t.last_at, status: t.status, refs: t.refs || cur.refs }); }); (j.msgs as HubMsg[]).forEach((m) => { if (!state.msgs.some((x) => x.id === m.id)) addMsg(m); }); if (n) setSynced(tr("סונכרנו ") + n + tr(" שרשורים מ-Outlook")); }).catch(() => {});
   useEffect(() => { if (ready) merge(); }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!ready) return null;
-  const list = state.threads.filter((t) => (!dept || t.dept === dept) && (!status || t.status === status) && (!q || (t.subject + " " + JSON.stringify(t.refs)).toLowerCase().includes(q.toLowerCase()))).sort((a, b) => Number(isLate(b)) - Number(isLate(a)) || b.last_at.localeCompare(a.last_at));
+  const list = state.threads.filter((t) => (!dept || t.dept === dept) && (!status || t.status === status) && (!q || (t.subject + " " + JSON.stringify(t.refs)).toLowerCase().includes(q.toLowerCase()))).sort((a, b) => b.last_at.localeCompare(a.last_at)); // newest first — late ones keep their red ⏰ badge
   const cur = state.threads.find((t) => t.id === sel);
   const late = state.threads.filter(isLate);
   return (

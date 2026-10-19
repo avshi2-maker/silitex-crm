@@ -1,4 +1,4 @@
-// outlook.ts (src/lib/outlook.ts) · updated 10.10.2026 07:30 (Asia/Jerusalem) — server only · PKCE public client (no client secret)
+// outlook.ts (src/lib/outlook.ts) · updated 19.10.2026 12:20 (Asia/Jerusalem) — also reads the Sent Items folder explicitly + 3-day overlap on every sync (sent mails never missed; duplicates skipped) · 10.10.2026 07:30 — server only · PKCE public client (no client secret)
 // Microsoft Graph (delegated, single mailbox): OAuth URLs, token refresh (stored in Supabase hub_tokens), pull messages to/from HUB_MAIL_DOMAIN since last sync.
 import { createHash, randomBytes } from "crypto";
 import { serviceClient } from "./server-data";
@@ -31,26 +31,32 @@ async function accessToken(): Promise<string> {
   return t.access_token;
 }
 export async function me(access: string): Promise<string> { const r = await fetch("https://graph.microsoft.com/v1.0/me?$select=mail,userPrincipalName", { headers: { Authorization: "Bearer " + access } }); const j = await r.json(); return j.mail || j.userPrincipalName || ""; }
-type GMsg = { id: string; conversationId?: string; subject?: string; receivedDateTime: string; from?: { emailAddress?: { address?: string; name?: string } }; toRecipients?: { emailAddress?: { address?: string } }[]; ccRecipients?: { emailAddress?: { address?: string } }[]; body?: { content?: string } };
+type GMsg = { id: string; conversationId?: string; subject?: string; receivedDateTime: string; sentDateTime?: string; from?: { emailAddress?: { address?: string; name?: string } }; toRecipients?: { emailAddress?: { address?: string } }[]; ccRecipients?: { emailAddress?: { address?: string } }[]; body?: { content?: string } };
 export async function pull(sinceIso: string, max = 200, leads: LeadLite[] = []): Promise<InMsg[]> {
   const access = await accessToken(); const dom = DOMAIN(); const out: InMsg[] = [];
-  let url: string | null = "https://graph.microsoft.com/v1.0/me/messages?$select=id,conversationId,subject,receivedDateTime,from,toRecipients,ccRecipients,body&$orderby=receivedDateTime desc&$top=50&$filter=receivedDateTime ge " + sinceIso;
+  const sel = "$select=id,conversationId,subject,receivedDateTime,sentDateTime,from,toRecipients,ccRecipients,body&$top=50";
+  // all folders (inbox + others) AND the Sent Items folder explicitly — mails you send from Outlook 365 are always picked up
+  const urls = ["https://graph.microsoft.com/v1.0/me/messages?" + sel + "&$orderby=receivedDateTime desc&$filter=receivedDateTime ge " + sinceIso,
+    "https://graph.microsoft.com/v1.0/me/mailFolders/sentitems/messages?" + sel + "&$orderby=sentDateTime desc&$filter=sentDateTime ge " + sinceIso];
+  const seen = new Set<string>();
+  for (const first of urls) { let url: string | null = first;
   while (url && out.length < max) {
     const r: Response = await fetch(url, { headers: { Authorization: "Bearer " + access, Prefer: 'outlook.body-content-type="text"' } });
     const j: { value?: GMsg[]; "@odata.nextLink"?: string; error?: { message: string } } = await r.json(); if (!r.ok) throw new Error(j.error?.message || "graph error");
     for (const m of j.value || []) {
+      if (seen.has(m.id)) continue; seen.add(m.id);
       const addrs = [m.from?.emailAddress?.address, ...(m.toRecipients || []).map((x) => x.emailAddress?.address), ...(m.ccRecipients || []).map((x) => x.emailAddress?.address)].filter(Boolean).map((a) => String(a).toLowerCase());
       if (!addrs.some((a) => a.endsWith("@" + dom) || a.endsWith("." + dom) || leadAddrMatch(a, leads))) continue;
-      out.push({ id: m.id, conversationId: m.conversationId, subject: m.subject || "(no subject)", at: m.receivedDateTime, from: (m.from?.emailAddress?.name ? m.from.emailAddress.name + " <" + m.from.emailAddress.address + ">" : m.from?.emailAddress?.address) || "", to: (m.toRecipients || []).map((x) => x.emailAddress?.address).filter(Boolean).join(", "), body: (m.body?.content || "").replace(/\r/g, "").trim() });
+      out.push({ id: m.id, conversationId: m.conversationId, subject: m.subject || "(no subject)", at: m.sentDateTime || m.receivedDateTime, from: (m.from?.emailAddress?.name ? m.from.emailAddress.name + " <" + m.from.emailAddress.address + ">" : m.from?.emailAddress?.address) || "", to: (m.toRecipients || []).map((x) => x.emailAddress?.address).filter(Boolean).join(", "), body: (m.body?.content || "").replace(/\r/g, "").trim() });
     }
     url = j["@odata.nextLink"] || null;
-  }
+  } }
   return out;
 }
 export async function syncNow(): Promise<{ pulled: number; added: number; threads: number; since: string }> {
   const sb = serviceClient(); if (!sb) throw new Error("no supabase");
   const st = (await sb.from("hub_tokens").select("last_sync").eq("id", "outlook").maybeSingle()).data;
-  const since = st?.last_sync ? new Date(new Date(st.last_sync).getTime() - 3600e3).toISOString() : new Date(Date.now() - 30 * 864e5).toISOString();
+  const since = st?.last_sync ? new Date(new Date(st.last_sync).getTime() - 3 * 864e5).toISOString() : new Date(Date.now() - 30 * 864e5).toISOString(); // 3-day overlap: nothing is missed, duplicates are skipped (external_id is unique)
   const leads = ((await sb.from("leads").select("id,name,contact_email")).data || []) as LeadLite[];
   const msgs = await pull(since, 200, leads); const { ingest } = await import("./hub-ingest"); const r = await ingest(msgs);
   await sb.from("hub_tokens").update({ last_sync: new Date().toISOString(), last_result: "pulled " + msgs.length + ", added " + r.added }).eq("id", "outlook");
