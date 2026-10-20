@@ -42,5 +42,5 @@ type Faq = { n: number; cat: string; q: string; a: string; src: string };
 export const P_FAQ: Faq[] = (faq as { items: Faq[] }).items.filter((f) => f.cat !== "Israel" && f.cat !== "Food grade");
 // ── every portal page path (without the /lang prefix) — sitemap
 export function portalPaths(): string[] {
-  return ["", "/industries", "/alternatives", "/products", "/faq", "/regulation", "/group", "/ai", "/complementary", "/flooring", ...P_INDUSTRIES.map((i) => "/industries/" + i.key), ...P_FAMILIES.map((f) => "/alternatives/" + f.slug), ...P_PRODUCTS.map((p) => "/products/" + p.slug)];
+  return ["", "/industries", "/alternatives", "/products", "/faq", "/regulation", "/group", "/ai", "/complementary", "/flooring", "/match", ...P_INDUSTRIES.map((i) => "/industries/" + i.key), ...P_FAMILIES.map((f) => "/alternatives/" + f.slug), ...P_PRODUCTS.map((p) => "/products/" + p.slug)];
 }

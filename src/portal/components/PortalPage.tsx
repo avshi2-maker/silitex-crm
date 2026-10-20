@@ -1,4 +1,4 @@
-// PortalPage.tsx (src/portal/components/PortalPage.tsx) · updated 20.10.2026 18:15 (Asia/Jerusalem) — NEW badge on regulation + 2027 announcement pop-up · 18:05 — header re-laid: brand right + bigger, menu centred with wider spacing, clock / version / language on the left · 17:55 — + IT language, version stamp, "back to home" button on every page · 17:40 — light-gold background, live clock + date in header, flooring moved into Sapirim Group (bigger gold link), LinkedIn in footer · 16:30 — + complementary (silicone-free) + flooring nav · 13:50 — + "Sapirim Group" nav item (activities + AI portfolio) · 18.10.2026 18:00 — PUBLIC PORTAL page frame (server): header with nav + language switch (same page in he/en/ru), breadcrumbs, content, contact call-to-action, footer, Organization JSON-LD.
+// PortalPage.tsx (src/portal/components/PortalPage.tsx) · updated 20.10.2026 18:30 (Asia/Jerusalem) — free match report button in the CTA box · 18:15 — NEW badge on regulation + 2027 announcement pop-up · 18:05 — header re-laid: brand right + bigger, menu centred with wider spacing, clock / version / language on the left · 17:55 — + IT language, version stamp, "back to home" button on every page · 17:40 — light-gold background, live clock + date in header, flooring moved into Sapirim Group (bigger gold link), LinkedIn in footer · 16:30 — + complementary (silicone-free) + flooring nav · 13:50 — + "Sapirim Group" nav item (activities + AI portfolio) · 18.10.2026 18:00 — PUBLIC PORTAL page frame (server): header with nav + language switch (same page in he/en/ru), breadcrumbs, content, contact call-to-action, footer, Organization JSON-LD.
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { PORTAL_LANGS, CONTACT, type PLang } from "../config";
@@ -10,6 +10,7 @@ import JsonLd from "./JsonLd";
 import PortalClock from "./PortalClock";
 import RegPopup from "./RegPopup";
 import { POP } from "../reg2027";
+import { MT } from "../match";
 import { APP_VERSION } from "@/config/app";
 const BACK: Record<PLang, string> = {"he": "← חזרה לדף הבית", "en": "← Back to home", "ru": "← На главную", "it": "← Torna alla home"};
 const LN: Record<PLang, string> = { he: "עב", en: "EN", ru: "RU", it: "IT" };
@@ -42,6 +43,7 @@ export default function PortalPage({ lang, path, crumbs, children }: { lang: PLa
             <a href={wa} className="px-4 py-2 rounded-xl bg-green-600 text-white font-medium" rel="nofollow">💬 {t("wa")} {CONTACT.phone}</a>
             <a href={"mailto:" + CONTACT.email} className="px-4 py-2 rounded-xl border bg-white">✉️ {CONTACT.email}</a>
             <a href={"/request?lang=" + lang} className="px-4 py-2 rounded-xl border bg-white">📝 {t("form")}</a>
+            <Link href={base + "/match"} className="px-4 py-2 rounded-xl bg-ink-900 text-amber-300 font-bold">{MT.nav[lang]}</Link>
           </div>
         </section>
       </main>

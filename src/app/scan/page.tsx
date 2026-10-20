@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/scan/page.tsx) · updated 20.10.2026 10:55 (Asia/Jerusalem) — live run monitor (timer per customer, ETA, live log) · 10:45 — failed sites saved with the reason, not counted as pending, "retry failed" button · 06:00 — BATCH WEBSITE SCAN: pick an industry → every customer with a website → "scan all not yet scanned" (one by one, progress, cost) → products + Silitex matches saved on each customer → table + Excel (CSV) + export bar = the list for Pini / the Friday report.
+// page.tsx (src/app/scan/page.tsx) · updated 20.10.2026 18:30 (Asia/Jerusalem) — 🎁 free-match-report requests panel on top · 10:55 — live run monitor (timer per customer, ETA, live log) · 10:45 — failed sites saved with the reason, not counted as pending, "retry failed" button · 06:00 — BATCH WEBSITE SCAN: pick an industry → every customer with a website → "scan all not yet scanned" (one by one, progress, cost) → products + Silitex matches saved on each customer → table + Excel (CSV) + export bar = the list for Pini / the Friday report.
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -8,6 +8,7 @@ import TokenMeter from "@/components/TokenMeter";
 import ExportBar from "@/components/ExportBar";
 import ScanView from "@/components/scan/ScanView";
 import RunPanel, { type RunLog } from "@/components/scan/RunPanel";
+import MatchRequests from "@/components/scan/MatchRequests";
 import { scanOf, withScan, scanText, scanErr, withScanErr, errHe, type ScanResult } from "@/lib/scan";
 import { fmtDate } from "@/lib/format";
 import type { Usage } from "@/lib/types";
@@ -43,6 +44,7 @@ export default function ScanPage() {
   return (
     <div className="space-y-4">
       <H1 sub={tr("קורא את אתר כל לקוח, מזהה מוצרים ושימושי סיליקון, ומתאים דרגות Silitex (קוסמטיקה = הטווח הרשמי + מקבילות). התוצאה נשמרת על כל לקוח — רשימה מוכנה לפגישה עם פיני ולדוח של יום שישי.")}>🔎 {tr("סריקת אתרי לקוחות")}</H1>
+      <MatchRequests />
       <Card className="space-y-2">
         <div className="flex flex-wrap items-end gap-2">
           <label className="text-xs text-slate-500">{tr("תעשייה")}<select className={inputCls + " mt-1"} value={ind} onChange={(e) => setInd(e.target.value)}><option value="">{tr("הכל")}</option>{inds.map((i) => <option key={i} value={i}>{i} ({state.leads.filter((l) => l.industry === i).length})</option>)}</select></label>
