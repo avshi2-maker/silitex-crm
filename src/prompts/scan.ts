@@ -1,14 +1,16 @@
-// scan.ts (src/prompts/scan.ts) · updated 20.10.2026 06:10 (Asia/Jerusalem) — + multi-sector industries (hygiene / tissue / nonwovens / paper) · 06:00 — CUSTOMER WEBSITE SCAN prompt: what the company makes + where silicones are used + match ONLY to the Silitex grades given (cosmetics = official cosmetic range + countertypes). Hebrew output, strict JSON. Honest: no invented products, no "identical / drop-in", confidence per match.
+// scan.ts (src/prompts/scan.ts) · updated 20.10.2026 08:05 (Asia/Jerusalem) — + Irrigation & water equipment (PDMS fluids / water-treatment antifoams / coatings) · 06:10 — + multi-sector industries (hygiene / tissue / nonwovens / paper) · 06:00 — CUSTOMER WEBSITE SCAN prompt: what the company makes + where silicones are used + match ONLY to the Silitex grades given (cosmetics = official cosmetic range + countertypes). Hebrew output, strict JSON. Honest: no invented products, no "identical / drop-in", confidence per match.
 import { CAT26 } from "@/lib/catalog";
 import { COSMETIC_COUNTERTYPES } from "@/config/cosmetic-range";
 /** multi-sector industries: which Silitex catalogues are relevant (hygiene / tissue / paper = softeners + process antifoams + wipe-lotion silicones) */
 export const SECTOR_MIX: Record<string, string[]> = {
   "Hygiene": ["Detergency", "Food & Agri", "Cosmetics", "Water Treatment"],
   "Paper": ["Food & Agri", "Water Treatment", "Detergency", "Paint & Coating"],
+  "Irrigation": ["Water Treatment", "Detergency", "Paint & Coating"],
 };
 export function sectorOf(industry: string): string {
   if (/hygiene|tissue|nonwoven|diaper|wipe/i.test(industry)) return "Hygiene";
   if (/paper|packaging|pulp/i.test(industry)) return "Paper";
+  if (/irrigation|water equipment|valve|filtration/i.test(industry)) return "Irrigation";
   if (/cosmetic|personal care/i.test(industry)) return "Cosmetics";
   if (/detergent|clean|household/i.test(industry)) return "Detergency";
   if (/agri|agro|food|ferment/i.test(industry)) return "Food & Agri";
