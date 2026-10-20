@@ -1,10 +1,11 @@
-// PortalPage.tsx (src/portal/components/PortalPage.tsx) · updated 20.10.2026 13:50 (Asia/Jerusalem) — + "Sapirim Group" nav item (activities + AI portfolio) · 18.10.2026 18:00 — PUBLIC PORTAL page frame (server): header with nav + language switch (same page in he/en/ru), breadcrumbs, content, contact call-to-action, footer, Organization JSON-LD.
+// PortalPage.tsx (src/portal/components/PortalPage.tsx) · updated 20.10.2026 16:30 (Asia/Jerusalem) — + complementary (silicone-free) + flooring nav · 13:50 — + "Sapirim Group" nav item (activities + AI portfolio) · 18.10.2026 18:00 — PUBLIC PORTAL page frame (server): header with nav + language switch (same page in he/en/ru), breadcrumbs, content, contact call-to-action, footer, Organization JSON-LD.
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { PORTAL_LANGS, CONTACT, type PLang } from "../config";
 import { pt } from "../i18n";
 import { orgLd, crumbsLd } from "../seo";
 import { gt } from "../group";
+import { st } from "../scope";
 import JsonLd from "./JsonLd";
 const LN: Record<PLang, string> = { he: "עב", en: "EN", ru: "RU" };
 export default function PortalPage({ lang, path, crumbs, children }: { lang: PLang; path: string; crumbs?: { name: string; url: string }[]; children: ReactNode }) {
@@ -17,7 +18,7 @@ export default function PortalPage({ lang, path, crumbs, children }: { lang: PLa
       <header className="bg-ink-900 text-white">
         <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
           <Link href={base} className="font-bold text-lg">Sapirim<span className="font-normal opacity-70 text-sm"> · {t("brand").split("—")[1]?.trim()}</span></Link>
-          <nav className="flex flex-wrap gap-3 text-sm opacity-90 flex-1">{nav.slice(1).map(([p, k]) => <Link key={k} href={base + p} className="hover:underline">{t(k)}</Link>)}<Link href={base + "/group"} className="hover:underline font-semibold">{gt(lang, "group")}</Link></nav>
+          <nav className="flex flex-wrap gap-3 text-sm opacity-90 flex-1">{nav.slice(1).map(([p, k]) => <Link key={k} href={base + p} className="hover:underline">{t(k)}</Link>)}<Link href={base + "/complementary"} className="hover:underline">{st(lang, "comp").split("—")[0].trim()}</Link><Link href={base + "/flooring"} className="hover:underline">{st(lang, "floor").split("—")[0].trim()}</Link><Link href={base + "/group"} className="hover:underline font-semibold">{gt(lang, "group")}</Link></nav>
           <div className="flex gap-1 text-xs" aria-label={t("lang")}>{PORTAL_LANGS.map((l) => <Link key={l} href={"/" + l + path} hrefLang={l} className={"px-2 py-0.5 rounded " + (l === lang ? "bg-brand-500" : "opacity-80 hover:opacity-100")}>{LN[l]}</Link>)}</div>
         </div>
       </header>
