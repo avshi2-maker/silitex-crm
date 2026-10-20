@@ -19,13 +19,14 @@
   "plan_next_action": "Send introductory binder & dispatch DYNAWEED 510 + SILIFOOD 1600 lab samples (check vs current TDS)",
   "plan_stage": "1. Discovery & R&D Outreach",
   "plan_target_stage": "prospect",
-  "city": "Tel Aviv / Haifa",
-  "lat": 32.08,
-  "lon": 34.78,
+  "city": "Haifa Bay",
+  "lat": 32.78454,
+  "lon": 35.07533,
   "tam_tons": 60,
   "rd_focus": "Lab screening for organosilicone super-spreading & tank-mix defoaming in liquid fertilizers",
   "buyer_trigger": "Formal technical sign-off from Fertilizer R&D Director",
-  "website": "https://icl-growingsolutions.com/"
+  "website": "https://icl-growingsolutions.com/",
+  "address": "מפעל ICL דשנים, מפרץ חיפה, חיפה"
  },
  {
   "id": "LEAD-002",
@@ -47,13 +48,14 @@
   "plan_next_action": "Present FISIOREX 1000 eco-data sheet & schedule technical R&D review",
   "plan_stage": "1. Discovery & R&D Outreach",
   "plan_target_stage": "prospect",
-  "city": "Airport City",
-  "lat": 31.99,
-  "lon": 34.9,
+  "city": "Neot Hovav",
+  "lat": 31.13333,
+  "lon": 34.78333,
   "tam_tons": 60,
   "rd_focus": "100% plant-based spray adjuvant rain-fastness & eco-defoaming lab/field trial",
   "buyer_trigger": "Technical clearance from Global Lead Formulations Chemist",
-  "website": "https://www.adama.com/en"
+  "website": "https://www.adama.com/en",
+  "address": "אתר מכתשים, פארק התעשייה נאות חובב"
  },
  {
   "id": "LEAD-003",
@@ -75,13 +77,14 @@
   "plan_next_action": "Submit Kosher/FDA compliance certificate for SILIFOOD series to R&D",
   "plan_stage": "1. Discovery & R&D Outreach",
   "plan_target_stage": "prospect",
-  "city": "Haifa",
-  "lat": 32.79,
-  "lon": 34.99,
+  "city": "Mishor Rotem",
+  "lat": 31.05591,
+  "lon": 35.18419,
   "tam_tons": 60,
   "rd_focus": "Kosher & FDA non-foaming wetting agent screening for liquid nutrient feeds",
   "buyer_trigger": "R&D Director approval of SILIFOOD Kosher/FDA compliance package",
-  "website": "https://www.haifa-group.com/"
+  "website": "https://www.haifa-group.com/",
+  "address": "חיפה נגב טכנולוגיות, מישור רותם"
  },
  {
   "id": "LEAD-004",
@@ -103,13 +106,14 @@
   "plan_next_action": "Deliver Idrorepellenti 1300 technical dossier & request water absorption lab test",
   "plan_stage": "1. Discovery & R&D Outreach",
   "plan_target_stage": "prospect",
-  "city": "Holon",
-  "lat": 32.01,
-  "lon": 34.77,
+  "city": "Kibbutz Horshim",
+  "lat": 32.22611,
+  "lon": 34.995,
   "tam_tons": 65,
   "rd_focus": "Water absorption & alkali-resistance testing in dry-mix mortars and exterior renders",
   "buyer_trigger": "Materials QC Engineer lab sign-off on 24-hour water repellency test",
-  "website": "https://www.termokir.co.il/en/"
+  "website": "https://www.termokir.co.il/en/",
+  "address": "מפעל תרמוקיר, קיבוץ חורשים"
  },
  {
   "id": "LEAD-005",
@@ -131,13 +135,14 @@
   "plan_next_action": "Initiate contact with Infrastructure QC lead & dispatch EVERSIL 35 release sample",
   "plan_stage": "1. Discovery & R&D Outreach",
   "plan_target_stage": "prospect",
-  "city": "Tel Aviv",
-  "lat": 32.07,
-  "lon": 34.79,
+  "city": "Kiryat Gat",
+  "lat": 31.6255,
+  "lon": 34.764,
   "tam_tons": 65,
   "rd_focus": "Precast concrete mold release efficiency & masonry surface hydrophobic sealing",
   "buyer_trigger": "Infrastructure Technology Manager technical approval",
-  "website": "https://www.ashtromindustries.co.il/en"
+  "website": "https://www.ashtromindustries.co.il/en",
+  "address": "BG בונד (אשטרום תעשיות), אזור התעשייה קריית גת"
  },
  {
   "id": "LEAD-006",
@@ -160,12 +165,13 @@
   "plan_stage": "2. Technical Lab Qualification",
   "plan_target_stage": "sample",
   "city": "Akko",
-  "lat": 32.92,
-  "lon": 35.08,
+  "lat": 32.9036,
+  "lon": 35.0883,
   "tam_tons": 55,
   "rd_focus": "Hydrophobic wall paint anti-cratering, slip, and wet-scrub resistance lab evaluation",
   "buyer_trigger": "Chief Paint Chemist technical sign-off following lab screening",
-  "website": "https://tambour.co.il"
+  "website": "https://tambour.co.il",
+  "address": "מפעל טמבור, אזור התעשייה הדרומי, עכו"
  },
  {
   "id": "LEAD-007",
@@ -187,13 +193,14 @@
   "plan_next_action": "Present FISIOREX 1000 plant-based defoamer as drop-in replacement for synthetic defoamers",
   "plan_stage": "2. Technical Lab Qualification",
   "plan_target_stage": "sample",
-  "city": "Netanya",
-  "lat": 32.33,
-  "lon": 34.86,
+  "city": "Kibbutz Nir Oz",
+  "lat": 31.3097,
+  "lon": 34.4017,
   "tam_tons": 55,
   "rd_focus": "Eco-friendly bubble suppression & water repellency in water-based wall paints",
   "buyer_trigger": "R&D Director approval of FISIOREX 1000 plant-based formulation",
-  "website": "https://nirlat.com"
+  "website": "https://nirlat.com",
+  "address": "מפעל נירלט, קיבוץ ניר עוז"
  },
  {
   "id": "LEAD-008",
@@ -216,12 +223,13 @@
   "plan_stage": "2. Technical Lab Qualification",
   "plan_target_stage": "sample",
   "city": "Hod HaSharon",
-  "lat": 32.15,
-  "lon": 34.89,
+  "lat": 32.146,
+  "lon": 34.88,
   "tam_tons": 55,
   "rd_focus": "Foam knock-down in liquid detergents and on high-speed filling lines; softener feel; antifoam stability in hypochlorite / high-pH gels",
   "buyer_trigger": "Director of Detergent Formulations technical validation",
-  "website": "https://www.sano.co.il/"
+  "website": "https://www.sano.co.il/",
+  "address": "החרש 11, אזור התעשייה נוה נאמן, הוד השרון"
  },
  {
   "id": "LEAD-009",
@@ -244,11 +252,12 @@
   "plan_stage": "2. Technical Lab Qualification",
   "plan_target_stage": "sample",
   "city": "Kiryat Gat",
-  "lat": 31.61,
-  "lon": 34.76,
+  "lat": 31.617,
+  "lon": 34.764,
   "tam_tons": 55,
   "rd_focus": "High-pH stability & foam knockdown in industrial CIP cleaning solutions",
-  "buyer_trigger": "Industrial Hygiene R&D technical sign-off"
+  "buyer_trigger": "Industrial Hygiene R&D technical sign-off",
+  "address": "אזור התעשייה קריית גת (לא אומת)"
  },
  {
   "id": "LEAD-010",
@@ -271,12 +280,13 @@
   "plan_stage": "3. Industrial R&D Pilot Trial",
   "plan_target_stage": "quote",
   "city": "Tel Aviv",
-  "lat": 32.09,
-  "lon": 34.8,
+  "lat": 32.0705,
+  "lon": 34.788,
   "tam_tons": 50,
   "rd_focus": "Potable water filtration & municipal wastewater aeration foam suppression",
   "buyer_trigger": "Chief Environmental Engineer approval of Kosher/FDA compliance package",
-  "website": "https://www.mekorot.co.il"
+  "website": "https://www.mekorot.co.il",
+  "address": "לינקולן 9, תל אביב"
  },
  {
   "id": "LEAD-011",
@@ -298,13 +308,14 @@
   "plan_next_action": "Quote 1000L IBC tote pilot for industrial effluent treatment facility in Ramat Hovav",
   "plan_stage": "3. Industrial R&D Pilot Trial",
   "plan_target_stage": "quote",
-  "city": "Ramat Hovav",
-  "lat": 31.13,
-  "lon": 34.8,
+  "city": "Neot Hovav",
+  "lat": 31.132,
+  "lon": 34.802,
   "tam_tons": 50,
   "rd_focus": "Rapid knock-down defoaming in industrial wastewater treatment facilities",
   "buyer_trigger": "Lead Chemical Process Engineer technical sign-off",
-  "website": "https://bluegencorp.com"
+  "website": "https://bluegencorp.com",
+  "address": "אתר הטיפול בפסולת מסוכנת, נאות חובב"
  },
  {
   "id": "LEAD-012",
@@ -326,13 +337,14 @@
   "plan_next_action": "Initiate commercial purchasing negotiations for EVERSIL 35 drum supply following R&D sign-off",
   "plan_stage": "4. Purchasing Negotiation",
   "plan_target_stage": "negotiation",
-  "city": "Herzliya / Yokneam",
-  "lat": 32.66,
-  "lon": 35.11,
+  "city": "Yokneam Illit",
+  "lat": 32.662,
+  "lon": 35.108,
   "tam_tons": 40,
   "rd_focus": "Thermoplastic injection molding release efficiency & surface residue evaluation",
   "buyer_trigger": "Plant Tooling & Operations Manager technical sign-off",
-  "website": "https://www.keter.com"
+  "website": "https://www.keter.com",
+  "address": "הכרמל 5, אזור התעשייה יקנעם עילית"
  },
  {
   "id": "LEAD-013",
@@ -354,13 +366,14 @@
   "plan_next_action": "Begin pricing & contract negotiations for high-viscosity DM fluids following R&D approval",
   "plan_stage": "4. Purchasing Negotiation",
   "plan_target_stage": "negotiation",
-  "city": "Ramat Yishai",
-  "lat": 32.7,
-  "lon": 35.17,
+  "city": "Ram-On",
+  "lat": 32.52972,
+  "lon": 35.25222,
   "tam_tons": 40,
   "rd_focus": "Internal sliding lubricant & surface finish modifier for technical resin compounding",
   "buyer_trigger": "Technical Manager - Resins formal R&D approval",
-  "website": "https://www.polyram-group.com"
+  "website": "https://www.polyram-group.com",
+  "address": "מושב רם און, ד.נ. גלבוע"
  },
  {
   "id": "LEAD-014",
@@ -383,12 +396,13 @@
   "plan_stage": "4. Purchasing Negotiation",
   "plan_target_stage": "negotiation",
   "city": "Tefen",
-  "lat": 32.97,
-  "lon": 35.26,
+  "lat": 32.9675,
+  "lon": 35.267,
   "tam_tons": 30,
   "rd_focus": "Silicone defoaming stability in metalworking coolants & cutting fluids",
   "buyer_trigger": "Lead Coolants Formulation Chemist technical clearance",
-  "website": "https://www.iscar.com"
+  "website": "https://www.iscar.com",
+  "address": "אזור התעשייה תפן 11, תפן"
  },
  {
   "id": "LEAD-015",
@@ -411,12 +425,13 @@
   "plan_stage": "3. Industrial R&D Pilot Trial",
   "plan_target_stage": "quote",
   "city": "Hadera",
-  "lat": 32.44,
-  "lon": 34.92,
+  "lat": 32.4519,
+  "lon": 34.9255,
   "tam_tons": 80,
   "rd_focus": "100% active paper pulp defoaming & paper fiber softening trial on recycling line",
   "buyer_trigger": "Paper Mill Technical Director formal sign-off on pulp recycling line #3",
-  "website": "https://www.infinya.co.il"
+  "website": "https://www.infinya.co.il",
+  "address": "רחוב המייצר, אזור התעשייה, חדרה"
  },
  {
   "id": "LEAD-016",
@@ -439,12 +454,13 @@
   "plan_stage": "4. Purchasing Negotiation",
   "plan_target_stage": "negotiation",
   "city": "Caesarea",
-  "lat": 32.5,
-  "lon": 34.9,
+  "lat": 32.4985,
+  "lon": 34.917,
   "tam_tons": 35,
   "rd_focus": "Eco-certified amino silicone softeners for seamless activewear & hydrophilic finishing",
   "buyer_trigger": "Director of Textile Finishing R&D sign-off",
-  "website": "https://www.deltagalil.com/"
+  "website": "https://www.deltagalil.com/",
+  "address": "האשל 45, פארק התעשייה קיסריה"
  },
  {
   "id": "LEAD-017",
@@ -467,12 +483,13 @@
   "plan_stage": "4. Purchasing Negotiation",
   "plan_target_stage": "negotiation",
   "city": "Misgav",
-  "lat": 32.86,
-  "lon": 35.25,
+  "lat": 32.847,
+  "lon": 35.238,
   "tam_tons": 35,
   "rd_focus": "Deep-penetrating nanoemulsions for ultra-soft hand feel & moisture management",
   "buyer_trigger": "Head of Textile Innovation formal technical sign-off",
-  "website": "https://www.tefron.com/"
+  "website": "https://www.tefron.com/",
+  "address": "פארק התעשייה משגב (תרדיון)"
  },
  {
   "id": "LEAD-018",
@@ -495,12 +512,13 @@
   "plan_stage": "4. Purchasing Negotiation",
   "plan_target_stage": "negotiation",
   "city": "Haifa Bay",
-  "lat": 32.8,
-  "lon": 35.05,
+  "lat": 32.79459,
+  "lon": 35.05613,
   "tam_tons": 60,
   "rd_focus": "Silicone process antifoams for refining towers, coking units & oil-water demulsification",
   "buyer_trigger": "Chief Chemical Process Engineer technical validation",
-  "website": "https://www.bazan.co.il/en/"
+  "website": "https://www.bazan.co.il/en/",
+  "address": "מתחם בתי הזיקוק בזן, מפרץ חיפה"
  },
  {
   "id": "LEAD-019",
@@ -523,12 +541,13 @@
   "plan_stage": "3. Industrial R&D Pilot Trial",
   "plan_target_stage": "quote",
   "city": "Haifa Bay",
-  "lat": 32.83,
-  "lon": 35.07,
+  "lat": 32.79785,
+  "lon": 35.0459,
   "tam_tons": 60,
   "rd_focus": "Kosher-certified 100% vegetal defoamer performance in fermentation tanks",
   "buyer_trigger": "Head of Fermentation Operations technical clearance",
-  "website": "https://www.gadotbio.com/"
+  "website": "https://www.gadotbio.com/",
+  "address": "שדרות ההסתדרות 117, מפרץ חיפה"
  },
  {
   "id": "LEAD-020",
@@ -552,9 +571,12 @@
   "plan_stage": "1. Account Reactivation & R&D Outreach",
   "rd_focus": "Benchmarking silky skin feel, Dead Sea mineral absorption, and EU REACH D4/D5-free compliance for export skincare lines",
   "buyer_trigger": "Technical approval & sign-off from Chief Cosmetic Chemist & Head of Skincare R&D",
-  "city": "Lod / Dead Sea (Mitzpe Shalem plant)",
+  "city": "Mitzpe Shalem",
   "source": "silitex",
-  "website": "https://www.ahava.com"
+  "website": "https://www.ahava.com",
+  "address": "מפעל אהבה, קיבוץ מצפה שלם, ים המלח",
+  "lat": 31.5708,
+  "lon": 35.3986
  },
  {
   "industry": "Personal Care & Cosmetics",
@@ -579,8 +601,11 @@
   "rd_focus": "Benchmark amino-silicone and silicone-quat microemulsions vs current conditioning agents in private-label shampoo/mask bases; D4/D5-free option for natural/salt-free series; FISIOREX 1000 on filling-line foam",
   "buyer_trigger": "R&D Manager sign-off after lab benchmark on 2–3 live private-label formulas",
   "plan_next_action": "Re-establish contact (former customer), present cosmetics line card + REACH D4/D5-free dossier, dispatch 1kg sample kit: MICROAMISIL, AMINOQUAT 350, EVERSIL 35, WASPER D",
-  "city": "Rosh Haayin",
-  "website": "https://www.peerpharm.com"
+  "city": "Rosh HaAyin",
+  "website": "https://www.peerpharm.com",
+  "address": "העמל 17, ראש העין",
+  "lat": 32.0979,
+  "lon": 34.9513
  },
  {
   "industry": "Personal Care & Cosmetics",
@@ -606,7 +631,10 @@
   "buyer_trigger": "R&D approval on Treatment-oil carrier spec equivalence + plant trial on filling-line defoamer",
   "plan_next_action": "Re-establish contact (former customer); request current silicone supplier/spec list for Treatment line; dispatch D5 / dimethicone spec match + 1kg microemulsion sample kit",
   "city": "Ma'alot-Tarshiha",
-  "website": "https://il.moroccanoil.com"
+  "website": "https://il.moroccanoil.com",
+  "address": "אזור התעשייה מעלות-תרשיחא (מפעל)",
+  "lat": 33.016,
+  "lon": 35.26
  },
  {
   "industry": "Agriculture & Agrochemicals",
@@ -631,8 +659,11 @@
   "rd_focus": "First question: which products do they formulate in Israel? Then equivalence check of their current wetting agent and process antifoam against Silitex TDS",
   "buyer_trigger": "Lab trial passes vs current wetting agent / antifoam spec",
   "plan_next_action": "⏳ מיפוי מוצרים ממתין לבדיקת Silitex (פדריקה 19/10/2026) — WhatsApp intro to the owner (friend) → short meeting → list of own formulations + current silicone grades → send TDS + lab samples",
-  "city": "",
-  "website": "https://luxembourg.co.il"
+  "city": "Tel Aviv",
+  "website": "https://luxembourg.co.il",
+  "address": "המרד 27, תל אביב-יפו",
+  "lat": 32.061,
+  "lon": 34.765
  },
  {
   "industry": "Personal Care & Cosmetics",
@@ -657,7 +688,10 @@
   "rd_focus": "Pink Radiance serum & SPF 50 first; D5-free carriers for export lines (EU limit 06/06/2027)",
   "buyer_trigger": "Lab approval of sensory + stability vs current silicone grades",
   "plan_next_action": "Re-open contact (former customer) → list of current silicone grades (Dow / BRB / Momentive / Wacker codes) → match on the Silitex official countertype table → TDS → lab samples",
-  "city": "",
-  "website": "https://www.careline.co.il"
+  "city": "Hod HaSharon",
+  "website": "https://www.careline.co.il",
+  "address": "החרש 10, נוה נאמן, הוד השרון",
+  "lat": 32.146,
+  "lon": 34.88
  }
 ]

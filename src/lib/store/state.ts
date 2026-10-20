@@ -1,4 +1,4 @@
-// state.ts (src/lib/store/state.ts) · updated 20.10.2026 05:20 (Asia/Jerusalem) — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
+// state.ts (src/lib/store/state.ts) · updated 20.10.2026 05:40 (Asia/Jerusalem) — researched addresses filled once · 05:20 — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
@@ -16,6 +16,12 @@ function fixOnce(st: State) {
     st.leads = st.leads.map((l) => { const seed = LEADS_SEED.find((x) => x.id === l.id); if (!seed || !ids.includes(l.id)) return l; const n = { ...l, recommended_sku: seed.recommended_sku, plan_next_action: seed.plan_next_action }; fixed.push(n); return n; });
     saveState(st); fixed.forEach((l) => sync("leads", l)); localStorage.setItem("silitex-lead-fix-v2", "1"); } catch {}
 }
+// 20/10/2026 researched site addresses + GPS for the 24 starting customers — filled once per browser, only where the customer has no address yet
+function addrOnce(st: State) {
+  try { if (localStorage.getItem("silitex-addr-v1")) return; const fixed: Lead[] = [];
+    st.leads = st.leads.map((l) => { const seed = LEADS_SEED.find((x) => x.id === l.id); if (!seed?.address || l.address) return l; const n = { ...l, address: seed.address, city: seed.city, lat: seed.lat, lon: seed.lon }; fixed.push(n); return n; });
+    saveState(st); fixed.forEach((l) => sync("leads", l)); localStorage.setItem("silitex-addr-v1", "1"); } catch {}
+}
 function seedOnce(st: State) {
   try { if (localStorage.getItem("silitex-plans-seed-v1")) return; const add = seedPlans(st.leads).filter((t) => !st.tasks.some((x) => x.id === t.id)); st.tasks = [...add, ...st.tasks]; saveState(st); add.forEach((t) => sync("tasks", t)); localStorage.setItem("silitex-plans-seed-v1", "1"); } catch {}
 }
@@ -30,11 +36,11 @@ export function loadState(): State {
       // seed accounts added later (e.g. AHAVA 11.10.2026) that the browser has never seen
       for (const seed of LEADS_SEED) if (!st.leads.some((l) => l.id === seed.id)) { st.leads = [...st.leads, seed]; fixed.push(seed); }
       if (fixed.length) { saveState(st); fixed.forEach((l) => sync("leads", l)); }
-      seedOnce(st); fixOnce(st);
+      seedOnce(st); fixOnce(st); addrOnce(st);
       return st;
     }
   } catch {}
-  const st: State = { ...EMPTY, tasks: [] }; seedOnce(st); localStorage.setItem("silitex-lead-fix-v2", "1"); return st;
+  const st: State = { ...EMPTY, tasks: [] }; seedOnce(st); localStorage.setItem("silitex-lead-fix-v2", "1"); localStorage.setItem("silitex-addr-v1", "1"); return st;
 }
 export function saveState(s: State) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {} }
 export function clearState() { try { localStorage.removeItem(STORAGE_KEY); } catch {} }
