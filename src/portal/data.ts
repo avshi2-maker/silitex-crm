@@ -1,4 +1,4 @@
-// data.ts (src/portal/data.ts) · updated 18.10.2026 17:50 (Asia/Jerusalem) — PUBLIC PORTAL data, built from the same files as the CRM (catalogue 2026, offsets table, FAQ, industry lines). Public-safe: no customer records, no owner strategy, no Israel market pitch, no food sector (on hold).
+// data.ts (src/portal/data.ts) · updated 20.10.2026 13:50 (Asia/Jerusalem) — + /group /ai in sitemap · 18.10.2026 17:50 — PUBLIC PORTAL data, built from the same files as the CRM (catalogue 2026, offsets table, FAQ, industry lines). Public-safe: no customer records, no owner strategy, no Israel market pitch, no food sector (on hold).
 import offsets from "@/data/offsets.json";
 import faq from "@/data/faq.json";
 import { CAT26, type CatRow } from "@/lib/catalog";
@@ -42,5 +42,5 @@ type Faq = { n: number; cat: string; q: string; a: string; src: string };
 export const P_FAQ: Faq[] = (faq as { items: Faq[] }).items.filter((f) => f.cat !== "Israel" && f.cat !== "Food grade");
 // ── every portal page path (without the /lang prefix) — sitemap
 export function portalPaths(): string[] {
-  return ["", "/industries", "/alternatives", "/products", "/faq", "/regulation", ...P_INDUSTRIES.map((i) => "/industries/" + i.key), ...P_FAMILIES.map((f) => "/alternatives/" + f.slug), ...P_PRODUCTS.map((p) => "/products/" + p.slug)];
+  return ["", "/industries", "/alternatives", "/products", "/faq", "/regulation", "/group", "/ai", ...P_INDUSTRIES.map((i) => "/industries/" + i.key), ...P_FAMILIES.map((f) => "/alternatives/" + f.slug), ...P_PRODUCTS.map((p) => "/products/" + p.slug)];
 }
