@@ -1,10 +1,10 @@
-// i18n.ts (src/portal/i18n.ts) · updated 20.10.2026 17:55 (Asia/Jerusalem) — + Italian · 17:40 — "code" → INCI wording everywhere · 18.10.2026 17:45 — PUBLIC PORTAL texts in Hebrew / English / Russian (server-side, per-URL language for SEO). Product data itself stays in the catalogue language (English).
+// i18n.ts (src/portal/i18n.ts) · updated 20.10.2026 18:40 (Asia/Jerusalem) — finder title + hint mention free-text use search · 17:55 — + Italian · 17:40 — "code" → INCI wording everywhere · 18.10.2026 17:45 — PUBLIC PORTAL texts in Hebrew / English / Russian (server-side, per-URL language for SEO). Product data itself stays in the catalogue language (English).
 import type { PLang } from "./config";
 type D = Record<string, string>;
 const he: D = {
   brand: "ספירים — סיליקונים לתעשייה", tagline: "35 שנות ניסיון בסיליקונים לתעשייה בישראל — אמולסיות, נוגדי קצף, מרככים ודוחי מים.",
   home: "בית", industries: "תעשיות", alternatives: "חלופות לפי INCI", products: "מוצרים", faq: "שאלות ותשובות", regulation: "רגולציה D4/D5/D6",
-  finder: "מצאו חלופה לפי INCI או שם מוצר", finderHint: "הקלידו INCI או שם מוצר של Dow, Wacker, Momentive, Shin-Etsu, Evonik…", finderNone: "אין התאמה בטבלה — שלחו לנו את ה-INCI בוואטסאפ ונבדוק.",
+  finder: "מצאו חלופה לפי INCI, שם מוצר או שימוש", finderHint: "INCI, שם מוצר של Dow / Wacker / Momentive… או מה אתם מייצרים (למשל: קרם הגנה לשמש)", finderNone: "אין התאמה בטבלה — שלחו לנו את ה-INCI בוואטסאפ ונבדוק.",
   cta: "שיחה טכנית או דוגמה", ctaText: "ספרו לנו מה הבעיה בקו — נחזור עם הצעה טכנית ודוגמה לבדיקה.", wa: "וואטסאפ", email: "מייל", form: "טופס פנייה",
   indIntro: "מוצרים מתאימים מתוך קטלוגי Silitex 2026, עם נתונים טכניים לכל מוצר.", typicalQ: "שאלות נפוצות בתעשייה הזו", seeProduct: "לפרטי המוצר",
   altIntro: "מקבילות לפי טבלת ההשוואה: INCI ומוצרים של יצרנים גלובליים מול המוצר המקביל של Silitex. התאמה חלקית — יש לאמת מול דף נתונים טכני (TDS) לפני שימוש.",
@@ -18,7 +18,7 @@ const he: D = {
 const en: D = {
   brand: "Sapirim — industrial silicones", tagline: "35 years in industrial silicones in Israel — emulsions, antifoams, softeners and water repellents.",
   home: "Home", industries: "Industries", alternatives: "Alternatives by INCI", products: "Products", faq: "FAQ", regulation: "D4/D5/D6 regulation",
-  finder: "Find an alternative by INCI or product name", finderHint: "Type an INCI or a Dow, Wacker, Momentive, Shin-Etsu, Evonik… product name", finderNone: "No match in the table — send us the INCI on WhatsApp and we will check.",
+  finder: "Find an alternative by INCI, product name or use", finderHint: "INCI, a Dow / Wacker / Momentive… name, or what you make (e.g. sunscreen cream)", finderNone: "No match in the table — send us the INCI on WhatsApp and we will check.",
   cta: "Technical talk or a sample", ctaText: "Tell us what the problem on the line is — we will come back with a technical proposal and a sample to test.", wa: "WhatsApp", email: "E-mail", form: "Contact form",
   indIntro: "Matching products from the Silitex 2026 catalogues, with technical data for each.", typicalQ: "Typical questions in this industry", seeProduct: "Product details",
   altIntro: "Equivalents from the comparison table: global producers' INCI and products versus the matching Silitex product. Partial match — verify against the technical data sheet (TDS) before use.",
@@ -32,7 +32,7 @@ const en: D = {
 const ru: D = {
   brand: "Sapirim — промышленные силиконы", tagline: "35 лет в промышленных силиконах в Израиле — эмульсии, пеногасители, мягчители и гидрофобизаторы.",
   home: "Главная", industries: "Отрасли", alternatives: "Аналоги по INCI", products: "Продукты", faq: "Вопросы и ответы", regulation: "Регулирование D4/D5/D6",
-  finder: "Найдите аналог по INCI или названию продукта", finderHint: "Введите INCI или название продукта Dow, Wacker, Momentive, Shin-Etsu, Evonik…", finderNone: "В таблице нет совпадения — пришлите INCI в WhatsApp, и мы проверим.",
+  finder: "Найдите аналог по INCI, названию или применению", finderHint: "INCI, название Dow / Wacker / Momentive… или что вы производите (например: солнцезащитный крем)", finderNone: "В таблице нет совпадения — пришлите INCI в WhatsApp, и мы проверим.",
   cta: "Техническая консультация или образец", ctaText: "Расскажите, какая проблема на линии — мы вернёмся с техническим предложением и образцом для испытания.", wa: "WhatsApp", email: "E-mail", form: "Форма обращения",
   indIntro: "Подходящие продукты из каталогов Silitex 2026 с техническими данными.", typicalQ: "Типичные вопросы в этой отрасли", seeProduct: "Подробнее о продукте",
   altIntro: "Аналоги по сравнительной таблице: марки мировых производителей и соответствующий продукт Silitex. Частичное соответствие — проверьте по техническому листу (TDS) перед применением.",
@@ -46,7 +46,7 @@ const ru: D = {
 const it: D = {
   brand: "Sapirim — siliconi industriali", tagline: "35 anni nei siliconi industriali in Israele — emulsioni, antischiuma, ammorbidenti e idrorepellenti.",
   home: "Home", industries: "Settori", alternatives: "Alternative per INCI", products: "Prodotti", faq: "Domande frequenti", regulation: "Normativa D4/D5/D6",
-  finder: "Trova un'alternativa per INCI o nome prodotto", finderHint: "Digita un INCI o un nome prodotto Dow, Wacker, Momentive, Shin-Etsu, Evonik…", finderNone: "Nessuna corrispondenza in tabella — inviaci l'INCI su WhatsApp e verifichiamo.",
+  finder: "Trova un'alternativa per INCI, nome prodotto o uso", finderHint: "INCI, un nome Dow / Wacker / Momentive… o cosa producete (es. crema solare)", finderNone: "Nessuna corrispondenza in tabella — inviaci l'INCI su WhatsApp e verifichiamo.",
   cta: "Consulenza tecnica o campione", ctaText: "Raccontaci il problema sulla linea — ti risponderemo con una proposta tecnica e un campione da provare.", wa: "WhatsApp", email: "E-mail", form: "Modulo di contatto",
   indIntro: "Prodotti adatti dai cataloghi Silitex 2026, con i dati tecnici di ciascuno.", typicalQ: "Domande tipiche in questo settore", seeProduct: "Dettagli prodotto",
   altIntro: "Equivalenze dalla tabella comparativa: INCI e prodotti dei produttori globali rispetto al prodotto Silitex corrispondente. Corrispondenza parziale — verificare con la scheda tecnica (TDS) prima dell'uso.",

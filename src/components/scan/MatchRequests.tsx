@@ -1,5 +1,5 @@
 "use client";
-// MatchRequests.tsx (src/components/scan/MatchRequests.tsx) · created 20.10.2026 18:30 (Asia/Jerusalem) — CRM review panel for FREE MATCH REPORT requests from sapirim.com: each request → ➕ lead + 🔎 website scan → 📝 AI draft in the visitor's language (editable) → 📧 open in mail to the customer / export bar → ✓ mark sent (activity on the lead). Nothing goes out without Avshi.
+// MatchRequests.tsx (src/components/scan/MatchRequests.tsx) · updated 20.10.2026 18:40 (Asia/Jerusalem) — uses the AUTOMATIC run (fields.auto: WhatsApp ping, scan, draft) — ⚡ ready badge, lead created from the ready scan without re-scanning, draft pre-filled · created 18:30 — CRM review panel for FREE MATCH REPORT requests from sapirim.com: each request → ➕ lead + 🔎 website scan → 📝 AI draft in the visitor's language (editable) → 📧 open in mail to the customer / export bar → ✓ mark sent (activity on the lead). Nothing goes out without Avshi.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -11,7 +11,8 @@ import { CRM_INDUSTRY } from "@/portal/match";
 import { fmtDateTime, uid } from "@/lib/format";
 import type { Lead, Usage } from "@/lib/types";
 import { useLang } from "@/i18n";
-type Sub = { id: number; created_at: string; kind: string; company: string; name: string; email: string; phone?: string; message?: string; lang?: string; fields?: Record<string, string> };
+type Auto = { at: string; ping?: { sent: boolean; provider: string }; scan?: ScanResult["data"]; pages?: number; urls?: string[]; sector?: string; scanAt?: string; draft?: string; tokens: number; cost: number; error?: string; done: boolean };
+type Sub = { id: number; created_at: string; kind: string; company: string; name: string; email: string; phone?: string; message?: string; lang?: string; fields?: Record<string, string> & { auto?: Auto } };
 const host = (u = "") => u.toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0];
 export default function MatchRequests() {
   const { t: tr } = useLang();
@@ -25,6 +26,8 @@ export default function MatchRequests() {
     setBusy("scan" + s.id); setErr((e) => ({ ...e, [s.id]: "" }));
     let l = leadOf(s);
     if (!l) { l = { id: uid("LEAD"), name: s.company, industry: CRM_INDUSTRY[s.fields?.industry_key || ""] || s.fields?.industry || tr("אחר"), sub_industry: "", product_match: "", use_case: s.message || "", volume_tons: 0, value_usd: 0, tier: "Tier 3 - New (to qualify)", department: "", contact_role: "", status: "new", stage: "prospect", contact_name: s.name, contact_phone: s.phone || "", contact_email: s.email, website: s.fields?.website, source: "🎁 דוח התאמה מהאתר", plan_next_action: "🎁 לשלוח דוח התאמה (ביקש באתר " + fmtDateTime(s.created_at) + ")" }; upsertLead(l); addActivity(l.id, "note", "🎁 ביקש דוח התאמה חינם באתר sapirim.com"); }
+    const a = s.fields?.auto;
+    if (a?.scan) { upsertLead(withScan(l, { data: a.scan, at: a.scanAt || a.at, pages: a.pages || 0, urls: a.urls || [], sector: a.sector || "" })); addSpend(a.tokens, a.cost); if (a.draft) { setDraft((d) => ({ ...d, [s.id]: d[s.id] || a.draft || "" })); setOpen(s.id); } setBusy(""); return; }
     try {
       const r = await fetch("/api/scan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: l.name, website: l.website || s.fields?.website, industry: l.industry }) });
       const j = await r.json(); if (j.usage) { setUsage(j.usage); addSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd); }
@@ -54,9 +57,11 @@ export default function MatchRequests() {
               <b>{s.company}</b><a href={s.fields?.website} target="_blank" rel="noreferrer" className="text-xs underline text-slate-500" dir="ltr">{host(s.fields?.website)}</a>
               <span className="text-xs text-slate-500">{s.name} · {s.email} · <span dir="ltr">{s.phone}</span> · {s.fields?.industry} · {(s.lang || "he").toUpperCase()} · {fmtDateTime(s.created_at)}</span>
               <span className="ms-auto flex flex-wrap gap-1">
-                {done ? <Badge tone="green">✓ {tr("נשלח")}</Badge> : r ? <Badge tone="blue">{tr("נסרק")} · {(r.data.matches || []).length} {tr("התאמות")}</Badge> : null}
+                {done ? <Badge tone="green">✓ {tr("נשלח")}</Badge> : r ? <Badge tone="blue">{tr("נסרק")} · {(r.data.matches || []).length} {tr("התאמות")}</Badge> : s.fields?.auto?.scan ? <Badge tone="amber">⚡ {tr("סריקה + טיוטה מוכנות")}</Badge> : s.fields?.auto && !s.fields.auto.done ? <Badge tone="slate">⏳ {tr("רץ אוטומטית…")}</Badge> : null}
+                {s.fields?.auto?.error && !r && <span className="text-[11px] text-red-600" title={s.fields.auto.error}>⚠️ {tr("סריקה אוטומטית נכשלה")}</span>}
                 {l && <Link href={"/leads/" + l.id} className={btnGhost + " text-xs"}>{tr("לכרטיס")}</Link>}
-                {!r && <button className={btnPrimary + " text-xs"} disabled={!!busy} onClick={() => scanIt(s)}>{busy === "scan" + s.id ? "⏳ " + tr("סורק…") : (l ? "" : "➕ ") + "🔎 " + tr("סריקה")}</button>}
+                {!r && <button className={btnPrimary + " text-xs"} disabled={!!busy} onClick={() => scanIt(s)}>{busy === "scan" + s.id ? "⏳ " + tr("סורק…") : s.fields?.auto?.scan ? (l ? "" : "➕ ") + "⚡ " + tr("פתח מוכן") : (l ? "" : "➕ ") + "🔎 " + tr("סריקה")}</button>}
+                {r && l && s.fields?.auto?.draft && open !== s.id && <button className={btnPrimary + " text-xs"} onClick={() => { setDraft((d) => ({ ...d, [s.id]: d[s.id] || s.fields?.auto?.draft || "" })); setOpen(s.id); }}>⚡ {tr("טיוטה מוכנה")}</button>}
                 {r && l && <button className={btnGhost + " text-xs"} disabled={!!busy} onClick={() => write(s, l)}>{busy === "draft" + s.id ? "⏳" : "📝 " + tr("טיוטת דוח")}</button>}
               </span>
             </div>
