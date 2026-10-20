@@ -1,7 +1,9 @@
-// page.tsx (src/app/(portal)/[lang]/regulation/page.tsx) · updated 20.10.2026 17:55 (Asia/Jerusalem) — + Italian · 18.10.2026 18:10 — PUBLIC PORTAL D4 / D5 / D6 explainer: the verified EU facts (same list as Post Studio), Israel status "not confirmed", what to do. FAQPage JSON-LD.
+// page.tsx (src/app/(portal)/[lang]/regulation/page.tsx) · updated 20.10.2026 18:15 (Asia/Jerusalem) — + 2027 banner + INCI checker · 17:55 — + Italian · 18.10.2026 18:10 — PUBLIC PORTAL D4 / D5 / D6 explainer: the verified EU facts (same list as Post Studio), Israel status "not confirmed", what to do. FAQPage JSON-LD.
 import type { Metadata } from "next";
 import PortalPage from "@/portal/components/PortalPage";
 import JsonLd from "@/portal/components/JsonLd";
+import InciChecker from "@/portal/components/InciChecker";
+import { POP } from "@/portal/reg2027";
 import { pt } from "@/portal/i18n";
 import { meta, faqLd } from "@/portal/seo";
 import type { PLang } from "@/portal/config";
@@ -18,7 +20,9 @@ export default async function Regulation({ params }: { params: Promise<{ lang: P
   return (
     <PortalPage lang={lang} path="/regulation" crumbs={[{ name: t("home"), url: b }, { name: t("regulation"), url: b + "/regulation" }]}>
       <JsonLd data={faqLd(qa.map(([q, a]) => ({ q, a })))} />
+      <div className="rounded-2xl bg-ink-900 text-white p-5 space-y-2"><span className="inline-block rounded-full bg-amber-400 text-ink-900 text-xs font-extrabold px-3 py-1">{POP.badge[lang]}</span><div className="text-2xl font-extrabold">{POP.title[lang]}</div><p className="text-slate-200">{POP.text[lang]}</p></div>
       <h1 className="text-3xl font-bold">{t("regulation")}</h1><p className="text-lg text-slate-700">{t("regIntro")}</p>
+      <InciChecker lang={lang} />
       <div className="space-y-3">{qa.map(([q, a]) => <section key={q} className="border rounded-xl p-4"><h2 className="font-bold">{q}</h2><p className="text-slate-700 mt-1">{a}</p></section>)}</div>
       <section className="rounded-2xl bg-slate-50 p-4"><h2 className="font-bold">{t("regWhat")}</h2><p className="text-slate-700">{t("regDo")}</p></section>
     </PortalPage>
