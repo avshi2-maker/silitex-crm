@@ -1,4 +1,4 @@
-// data.ts (src/portal/data.ts) · updated 20.10.2026 17:55 (Asia/Jerusalem) — + Italian industry names · 16:30 — + /complementary /flooring · 13:50 — + /group /ai in sitemap · 18.10.2026 17:50 — PUBLIC PORTAL data, built from the same files as the CRM (catalogue 2026, offsets table, FAQ, industry lines). Public-safe: no customer records, no owner strategy, no Israel market pitch, no food sector (on hold).
+// data.ts (src/portal/data.ts) · updated 20.10.2026 19:05 (Asia/Jerusalem) — no food-grade product pages (CPL 250 FOOD) · 20.10.2026 17:55 (Asia/Jerusalem) — + Italian industry names · 16:30 — + /complementary /flooring · 13:50 — + /group /ai in sitemap · 18.10.2026 17:50 — PUBLIC PORTAL data, built from the same files as the CRM (catalogue 2026, offsets table, FAQ, industry lines). Public-safe: no customer records, no owner strategy, no Israel market pitch, no food sector (on hold).
 import offsets from "@/data/offsets.json";
 import faq from "@/data/faq.json";
 import { CAT26, type CatRow } from "@/lib/catalog";
@@ -21,7 +21,7 @@ export const industryQuestions = (key: string) => QUESTIONS[key] || [];
 // ── products (catalogue 2026, food sector excluded), one page per product name
 export type PProduct = CatRow & { slug: string };
 const seen = new Set<string>();
-export const P_PRODUCTS: PProduct[] = CAT26.filter((r) => r.sector !== "Food & Agri").filter((r) => { const k = r.product.toUpperCase().trim(); if (seen.has(k)) return false; seen.add(k); return true; }).map((r) => ({ ...r, slug: slugify(r.product + (r.code ? "-" + r.code : "")) }));
+export const P_PRODUCTS: PProduct[] = CAT26.filter((r) => r.sector !== "Food & Agri" && !/\bfood\b/i.test(r.product)).filter((r) => { const k = r.product.toUpperCase().trim(); if (seen.has(k)) return false; seen.add(k); return true; }).map((r) => ({ ...r, slug: slugify(r.product + (r.code ? "-" + r.code : "")) }));
 export const productBySlug = (s: string) => P_PRODUCTS.find((p) => p.slug === s);
 export const productSlugFor = (name: string) => P_PRODUCTS.find((p) => p.product.toUpperCase() === name.toUpperCase().trim())?.slug;
 export const P_SECTORS = Array.from(new Set(P_PRODUCTS.map((p) => p.sector)));

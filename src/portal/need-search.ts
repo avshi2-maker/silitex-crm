@@ -1,9 +1,9 @@
-// need-search.ts (src/portal/need-search.ts) · created 20.10.2026 18:40 (Asia/Jerusalem) — PUBLIC PORTAL: free-text "what do you need" search (he / en / ru / it) over the Silitex 2026 catalogue (no food) — e.g. "קרם הגנה לשמש" → skin emollients / emulsions. Pure client-side, no AI cost. Used by CodeFinder when the competitor-code search finds nothing.
+// need-search.ts (src/portal/need-search.ts) · updated 20.10.2026 19:05 (Asia/Jerusalem) — no food-grade products · created 18:40 — PUBLIC PORTAL: free-text "what do you need" search (he / en / ru / it) over the Silitex 2026 catalogue (no food) — e.g. "קרם הגנה לשמש" → skin emollients / emulsions. Pure client-side, no AI cost. Used by CodeFinder when the competitor-code search finds nothing.
 import { CAT26, type CatRow } from "@/lib/catalog";
 const slugify = (s: string) => s.toLowerCase().normalize("NFKD").replace(/[®™]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 70);
 export type NeedHit = CatRow & { slug: string; score: number };
 const seen = new Set<string>();
-const ROWS = CAT26.filter((r) => r.sector !== "Food & Agri").filter((r) => { const k = r.product.toUpperCase().trim(); if (seen.has(k)) return false; seen.add(k); return true; })
+const ROWS = CAT26.filter((r) => r.sector !== "Food & Agri" && !/\bfood\b/i.test(r.product)).filter((r) => { const k = r.product.toUpperCase().trim(); if (seen.has(k)) return false; seen.add(k); return true; })
   .map((r) => ({ r, name: (r.product + " " + r.inci).toLowerCase(), hay: (r.section + " " + r.type + " " + r.description + " " + r.application + " " + r.sector).toLowerCase() }));
 /** local word (stem) → English catalogue words */
 const DICT: [string, string[]][] = [
