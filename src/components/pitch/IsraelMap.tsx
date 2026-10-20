@@ -2,11 +2,11 @@
 // IsraelMap.tsx (src/components/pitch/IsraelMap.tsx) · updated 09.10.2026 12:30 (Asia/Jerusalem) — simplified Israel outline + account pins by industry (lat/lon from leads.json)
 import { useState } from "react";
 import type { Lead } from "@/lib/types";
-const OUTLINE: [number, number][] = [[33.09, 35.10], [33.10, 35.30], [33.28, 35.55], [33.30, 35.68], [33.00, 35.75], [32.80, 35.65], [32.70, 35.60], [32.40, 35.57], [32.00, 35.55], [31.75, 35.50], [31.40, 35.40], [31.05, 35.40], [30.90, 35.35], [30.50, 35.20], [30.00, 35.05], [29.55, 34.98], [29.49, 34.90], [29.70, 34.85], [30.30, 34.60], [30.80, 34.42], [31.22, 34.27], [31.45, 34.40], [31.60, 34.50], [31.67, 34.55], [31.80, 34.64], [32.08, 34.76], [32.33, 34.85], [32.50, 34.89], [32.69, 34.93], [32.83, 34.96], [32.90, 35.07], [33.00, 35.09]];
+export const OUTLINE: [number, number][] = [[33.09, 35.10], [33.10, 35.30], [33.28, 35.55], [33.30, 35.68], [33.00, 35.75], [32.80, 35.65], [32.70, 35.60], [32.40, 35.57], [32.00, 35.55], [31.75, 35.50], [31.40, 35.40], [31.05, 35.40], [30.90, 35.35], [30.50, 35.20], [30.00, 35.05], [29.55, 34.98], [29.49, 34.90], [29.70, 34.85], [30.30, 34.60], [30.80, 34.42], [31.22, 34.27], [31.45, 34.40], [31.60, 34.50], [31.67, 34.55], [31.80, 34.64], [32.08, 34.76], [32.33, 34.85], [32.50, 34.89], [32.69, 34.93], [32.83, 34.96], [32.90, 35.07], [33.00, 35.09]];
 const COLORS: Record<string, string> = { Agriculture: "#16a34a", Water: "#0284c7", Paints: "#f59e0b", Detergents: "#7c3aed", Paper: "#a16207", Textiles: "#db2777", Rubber: "#475569", Metalworking: "#334155", Oil: "#111827", Food: "#ea580c" };
 const colorOf = (ind: string) => Object.entries(COLORS).find(([k]) => ind.startsWith(k))?.[1] || "#E2007A";
-const W = 260, H = 520;
-const px = (lat: number, lon: number) => ({ x: ((lon - 34.2) / 1.6) * W, y: ((33.4 - lat) / 4.0) * H });
+export const W = 260, H = 520;
+export const px = (lat: number, lon: number) => ({ x: ((lon - 34.2) / 1.6) * W, y: ((33.4 - lat) / 4.0) * H });
 export default function IsraelMap({ leads }: { leads: Lead[] }) {
   const [hover, setHover] = useState<Lead | null>(null);
   const path = OUTLINE.map((p, i) => { const { x, y } = px(p[0], p[1]); return (i ? "L" : "M") + x.toFixed(1) + " " + y.toFixed(1); }).join(" ") + " Z";

@@ -1,4 +1,4 @@
-// state.ts (src/lib/store/state.ts) · updated 19.10.2026 12:45 (Asia/Jerusalem) — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
+// state.ts (src/lib/store/state.ts) · updated 20.10.2026 05:20 (Asia/Jerusalem) — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
@@ -50,10 +50,12 @@ const writeQ = (q: QItem[]) => { try { localStorage.setItem(QUEUE_KEY, JSON.stri
 const enqueue = (table: string, row: object) => { const q = readQ().filter((x) => !(x.table === table && x.row.id && x.row.id === (row as { id?: string }).id)); q.push({ table, row }); writeQ(q); };
 export const pendingSync = () => readQ().length;
 const isNet = (m: string) => /fetch|network|load failed|timeout|offline/i.test(m);
-export function sync(table: string, row: object) {
+/** a column the database does not have yet (e.g. a new field before its SQL was run) → retry without it, so the rest of the row is never lost */
+const missingCol = (m: string) => /could not find the '([a-z0-9_]+)' column/i.exec(m)?.[1] || /column "?([a-z0-9_]+)"? (?:of relation \S+ )?does not exist/i.exec(m)?.[1] || "";
+export function sync(table: string, row: object, tries = 0) {
   const sb = supabase(); if (!sb) return;
   if (typeof navigator !== "undefined" && !navigator.onLine) { enqueue(table, row); return; }
-  sb.from(table).upsert(row).then(({ error }) => { if (error) { console.warn("supabase", table, error.message); if (isNet(error.message)) enqueue(table, row); } }, () => enqueue(table, row));
+  sb.from(table).upsert(row).then(({ error }) => { if (error) { const col = missingCol(error.message); if (col && tries < 4 && col in row) { const r = { ...(row as Record<string, unknown>) }; delete r[col]; sync(table, r, tries + 1); return; } console.warn("supabase", table, error.message); if (isNet(error.message)) enqueue(table, row); } }, () => enqueue(table, row));
 }
 let flushing = false;
 export async function flushQueue(): Promise<number> {
