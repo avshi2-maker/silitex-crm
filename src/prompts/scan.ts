@@ -1,4 +1,4 @@
-// scan.ts (src/prompts/scan.ts) · updated 20.10.2026 08:20 (Asia/Jerusalem) — + Oil & gas / power (process + cooling-water antifoams, PDMS fluids) · 08:05 — + Irrigation & water equipment (PDMS fluids / water-treatment antifoams / coatings) · 06:10 — + multi-sector industries (hygiene / tissue / nonwovens / paper) · 06:00 — CUSTOMER WEBSITE SCAN prompt: what the company makes + where silicones are used + match ONLY to the Silitex grades given (cosmetics = official cosmetic range + countertypes). Hebrew output, strict JSON. Honest: no invented products, no "identical / drop-in", confidence per match.
+// scan.ts (src/prompts/scan.ts) · updated 20.10.2026 08:40 (Asia/Jerusalem) — + Rubber molding (release agents / PDMS fluids) · 08:20 — + Oil & gas / power (process + cooling-water antifoams, PDMS fluids) · 08:05 — + Irrigation & water equipment (PDMS fluids / water-treatment antifoams / coatings) · 06:10 — + multi-sector industries (hygiene / tissue / nonwovens / paper) · 06:00 — CUSTOMER WEBSITE SCAN prompt: what the company makes + where silicones are used + match ONLY to the Silitex grades given (cosmetics = official cosmetic range + countertypes). Hebrew output, strict JSON. Honest: no invented products, no "identical / drop-in", confidence per match.
 import { CAT26 } from "@/lib/catalog";
 import { COSMETIC_COUNTERTYPES } from "@/config/cosmetic-range";
 /** multi-sector industries: which Silitex catalogues are relevant (hygiene / tissue / paper = softeners + process antifoams + wipe-lotion silicones) */
@@ -7,10 +7,12 @@ export const SECTOR_MIX: Record<string, string[]> = {
   "Paper": ["Food & Agri", "Water Treatment", "Detergency", "Paint & Coating"],
   "Irrigation": ["Water Treatment", "Detergency", "Paint & Coating"],
   "Energy": ["Water Treatment", "Detergency"],
+  "Rubber": ["Food & Agri", "Detergency", "Paint & Coating"],
 };
 export function sectorOf(industry: string): string {
   if (/hygiene|tissue|nonwoven|diaper|wipe/i.test(industry)) return "Hygiene";
   if (/paper|packaging|pulp/i.test(industry)) return "Paper";
+  if (/rubber|plastic|molding|moulding/i.test(industry)) return "Rubber";
   if (/oil|gas|hydrocarbon|refin|power|energy/i.test(industry)) return "Energy";
   if (/irrigation|water equipment|valve|filtration/i.test(industry)) return "Irrigation";
   if (/cosmetic|personal care/i.test(industry)) return "Cosmetics";
