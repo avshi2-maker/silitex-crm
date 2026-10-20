@@ -1,4 +1,4 @@
-// intake.ts (src/config/intake.ts) · updated 09.10.2026 19:30 (Asia/Jerusalem)
+// intake.ts (src/config/intake.ts) · updated 20.10.2026 07:10 — BEN_001 current supplier + Israeli channels (Lidorr/Dormeco/BSC/Exdron/Aidchim) · 09.10.2026 19:30 (Asia/Jerusalem)
 // Technical fact-finding form (8 sections) used in the lead file. Source: silitex_customer_intake_fact_finding_form.csv (NotebookLM, 09/10/2026).
 // Core identity fields (company, contact, mobile, email, industry) live on the Lead itself; everything here is stored in lead.intake[Field_ID].
 export type IntakeField = { id: string; he: string; type: "text" | "select" | "multi" | "number" | "date"; req?: boolean; hint: string; options?: string[] };
@@ -21,7 +21,7 @@ export const INTAKE: IntakeSection[] = [
     { id: "APP_005", he: "פונקציה נדרשת", type: "multi", req: true, hint: "אפשר כמה", options: ["Super-spreading", "Defoaming", "Water repellency", "Softening", "High slip", "Mold release", "Anti-cratering", "Lubrication"] },
     { id: "APP_006", he: "יעד ביצועים מדיד", type: "text", hint: "למשל: מתח פנים <22 mN/m, foam knock-down תוך 30 שניות" } ] },
   { n: 4, he: "ספק נוכחי (Benchmark)", icon: "🎯", fields: [
-    { id: "BEN_001", he: "ספק / מותג נוכחי", type: "select", req: true, hint: "", options: ["", "Dow Corning / XIAMETER / DOWSIL", "Wacker", "Momentive", "Evonik", "Shin-Etsu", "Elkem", "BRB", "Clariant", "Other"] },
+    { id: "BEN_001", he: "ספק / מותג נוכחי", type: "select", req: true, hint: "", options: ["", "Dow Corning / XIAMETER / DOWSIL", "Wacker", "Momentive", "Evonik", "Shin-Etsu", "Elkem", "BRB", "Momentive via Lidorr (Azelis)", "Elkay via Dormeco", "KCC via BSC", "Dow via Exdron", "Aidchim (local)", "Clariant", "Other"] },
     { id: "BEN_002", he: "מק\"ט / דרגה נוכחית", type: "text", req: true, hint: "שם מסחרי שנרכש היום — הזן ב-Offset Sniper" },
     { id: "BEN_003", he: "סיבה לחלופה", type: "multi", req: true, hint: "", options: ["Cost reduction", "Lead time", "REACH / D4-D5", "Technical issue", "Single source", "Local support"] },
     { id: "BEN_004", he: "מחיר נוכחי (EUR/kg, אם ידוע)", type: "number", hint: "לקביעת רף להצעה" } ] },

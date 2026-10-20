@@ -1270,4 +1270,12 @@ export const EN: Record<string, string> = {
   "כ-20–60 שניות ללקוח · עלות משוערת 2–5 סנט ללקוח": "About 20–60 s per customer · estimated 2–5 cents each",
   "התאמות": "matches",
   "סריקת לקוחות": "Customer scan",
+  "מתחרים וערוצי הפצה": "Competitors & channels",
+  "מי מוכר סיליקון בישראל, איזה מותג, ואיזה מהלקוחות שלנו כנראה קונה דרכו. מקור: רשימת Comet 20/10/2026 — לאמת עם פיני.": "Who sells silicones in Israel, which brand, and which of our customers probably buys through them. Source: Comet list 20/10/2026 — verify with Pini.",
+  "לקוחות מקושרים": "Linked customers",
+  "מותגים": "Brands",
+  "מפיץ סיליקון (מתחרה ישיר)": "Silicone distributor (direct competitor)",
+  "יצרן מקומי (מתחרה / לקוח אפשרי)": "Local maker (competitor / possible buyer)",
+  "גומי סיליקון — מחוץ לטווח Silitex": "Silicone rubber — outside Silitex range",
+  "למעקב — לבדוק עם פיני": "Watch — check with Pini",
 };
