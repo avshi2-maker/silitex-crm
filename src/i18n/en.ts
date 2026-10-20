@@ -1,4 +1,4 @@
-// en.ts (src/i18n/en.ts) · updated 20.10.2026 10:45 — + scan failures · 09:40 — + market matrix · 18.10.2026 18:55 — + Social plan · 19:10 — + AI visibility · 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 20.10.2026 10:55 — + scan monitor · 10:45 — + scan failures · 09:40 — + market matrix · 18.10.2026 18:55 — + Social plan · 19:10 — + AI visibility · 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Not in the Silitex data — we do not guess",
@@ -1308,4 +1308,12 @@ export const EN: Record<string, string> = {
   "כתובת אתר שגויה": "Bad website address",
   "תשובת AI לא תקינה — לנסות שוב": "Invalid AI answer — retry",
   "תקלת רשת — לנסות שוב": "Network error — retry",
+  "קורא את האתר": "Reading the site",
+  "קורא עמודי מוצרים / קורא חלופי": "Reading product pages / fallback reader",
+  "AI מנתח ומתאים Silitex": "AI analysing & matching Silitex",
+  "התקדמות": "Progress",
+  "זמן ריצה": "Run time",
+  "ממוצע ללקוח": "Avg per customer",
+  "נותר בערך": "Time left",
+  "עמודים": "pages",
 };

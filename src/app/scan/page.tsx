@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/scan/page.tsx) · updated 20.10.2026 10:45 (Asia/Jerusalem) — failed sites saved with the reason, not counted as pending, "retry failed" button · 06:00 — BATCH WEBSITE SCAN: pick an industry → every customer with a website → "scan all not yet scanned" (one by one, progress, cost) → products + Silitex matches saved on each customer → table + Excel (CSV) + export bar = the list for Pini / the Friday report.
+// page.tsx (src/app/scan/page.tsx) · updated 20.10.2026 10:55 (Asia/Jerusalem) — live run monitor (timer per customer, ETA, live log) · 10:45 — failed sites saved with the reason, not counted as pending, "retry failed" button · 06:00 — BATCH WEBSITE SCAN: pick an industry → every customer with a website → "scan all not yet scanned" (one by one, progress, cost) → products + Silitex matches saved on each customer → table + Excel (CSV) + export bar = the list for Pini / the Friday report.
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -7,6 +7,7 @@ import { Card, H1, inputCls, btnPrimary, btnGhost } from "@/components/ui";
 import TokenMeter from "@/components/TokenMeter";
 import ExportBar from "@/components/ExportBar";
 import ScanView from "@/components/scan/ScanView";
+import RunPanel, { type RunLog } from "@/components/scan/RunPanel";
 import { scanOf, withScan, scanText, scanErr, withScanErr, errHe, type ScanResult } from "@/lib/scan";
 import { fmtDate } from "@/lib/format";
 import type { Usage } from "@/lib/types";
@@ -14,23 +15,23 @@ import { useLang } from "@/i18n";
 export default function ScanPage() {
   const { t: tr } = useLang();
   const { state, ready, upsertLead, addSpend } = useStore();
-  const [ind, setInd] = useState("Personal Care & Cosmetics"); const [busy, setBusy] = useState(""); const [done, setDone] = useState(0); const [usage, setUsage] = useState<Usage | null>(null); const [runCost, setRunCost] = useState(0); const [errs, setErrs] = useState<Record<string, string>>({}); const [open, setOpen] = useState(""); const [qn, setQn] = useState(0); const stopR = useRef(false);
+  const [ind, setInd] = useState("Personal Care & Cosmetics"); const [busy, setBusy] = useState(""); const [done, setDone] = useState(0); const [usage, setUsage] = useState<Usage | null>(null); const [runCost, setRunCost] = useState(0); const [errs, setErrs] = useState<Record<string, string>>({}); const [open, setOpen] = useState(""); const [qn, setQn] = useState(0); const [log, setLog] = useState<RunLog[]>([]); const [curStart, setCurStart] = useState(0); const [runStart, setRunStart] = useState(0); const stopR = useRef(false);
   if (!ready) return null;
   const inds = Array.from(new Set(state.leads.map((l) => l.industry))).sort();
   const list = state.leads.filter((l) => !ind || l.industry === ind).sort((a, b) => a.name.localeCompare(b.name));
   const failed = list.filter((l) => l.website && scanErr(l));
   const todo = list.filter((l) => l.website && !scanOf(l) && !scanErr(l));
   const scanOne = async (id: string) => {
-    const l = state.leads.find((x) => x.id === id); if (!l?.website) return; setBusy(id);
+    const l = state.leads.find((x) => x.id === id); if (!l?.website) return; setBusy(id); const t0 = Date.now(); setCurStart(t0); let c = 0;
     try {
       const r = await fetch("/api/scan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: l.name, website: l.website, industry: l.industry }) });
-      const j = await r.json(); if (j.usage) { setUsage(j.usage); addSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd); setRunCost((c) => c + j.usage.cost_usd); }
+      const j = await r.json(); if (j.usage) { setUsage(j.usage); addSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd); setRunCost((x) => x + j.usage.cost_usd); c = j.usage.cost_usd; }
       if (!r.ok || !j.data) throw new Error(j.error || "no answer");
-      const res: ScanResult = { data: j.data, at: j.at, pages: j.pages, urls: j.urls || [], sector: j.sector || "" }; upsertLead(withScan(l, res)); setErrs((e) => { const n = { ...e }; delete n[id]; return n; });
-    } catch (e) { const m = errHe(e instanceof Error ? e.message : "error"); setErrs((x) => ({ ...x, [id]: m })); upsertLead(withScanErr(l, m)); }
+      const res: ScanResult = { data: j.data, at: j.at, pages: j.pages, urls: j.urls || [], sector: j.sector || "" }; upsertLead(withScan(l, res)); setLog((g) => [...g, { id, name: l.name, sec: (Date.now() - t0) / 1000, ok: true, info: (j.data.matches?.length || 0) + " " + tr("התאמות") + " · " + (j.pages || 0) + " " + tr("עמודים"), cost: c }]); setErrs((e) => { const n = { ...e }; delete n[id]; return n; });
+    } catch (e) { const m = errHe(e instanceof Error ? e.message : "error"); setErrs((x) => ({ ...x, [id]: m })); upsertLead(withScanErr(l, m)); setLog((g) => [...g, { id, name: l.name, sec: (Date.now() - t0) / 1000, ok: false, info: m, cost: c }]); }
     setDone((d) => d + 1);
   };
-  const runAll = async (q = todo) => { stopR.current = false; setDone(0); setRunCost(0); setQn(q.length); for (const l of q) { if (stopR.current) break; await scanOne(l.id); } setBusy(""); };
+  const runAll = async (q = todo) => { stopR.current = false; setDone(0); setRunCost(0); setQn(q.length); setLog([]); setRunStart(Date.now()); for (const l of q) { if (stopR.current) break; await scanOne(l.id); } setBusy(""); };
   const csv = () => {
     const esc = (s: string) => '"' + String(s || "").replace(/"/g, '""') + '"';
     const rows = [["Customer", "City", "Website", "Scanned", "Products", "Silitex matches", "R&D questions", "Value angle"].join(",")];
@@ -49,7 +50,7 @@ export default function ScanPage() {
           {busy ? <button className={btnGhost} onClick={() => { stopR.current = true; }}>⏹ {tr("עצור")}</button> : <><button className={btnPrimary} disabled={!todo.length} onClick={() => runAll(todo)}>▶ {tr("סרוק את כל הממתינים")} ({todo.length})</button>{failed.length > 0 && <button className={btnGhost} onClick={() => runAll(failed)}>🔁 {tr("נסה שוב את שנכשלו")} ({failed.length})</button>}</>}
           <button className={btnGhost} onClick={csv}>⬇️ Excel (CSV)</button>
         </div>
-        {busy && <div className="space-y-1"><div className="text-xs text-slate-500">{tr("סורק")}: {state.leads.find((l) => l.id === busy)?.name} · <span dir="ltr">{done}/{qn}</span> · ≈ <span dir="ltr">${runCost.toFixed(2)}</span></div><div className="h-2 bg-slate-100 rounded"><div className="h-2 bg-brand-500 rounded" style={{ width: Math.round((done / Math.max(1, qn)) * 100) + "%" }} /></div></div>}
+        {(busy || log.length > 0) && <RunPanel current={busy ? state.leads.find((l) => l.id === busy)?.name || "" : ""} curStart={curStart} runStart={runStart} done={done} total={qn} cost={runCost} log={log} />}
         <div className="text-[11px] text-slate-400">{tr("כ-20–60 שניות ללקוח · עלות משוערת 2–5 סנט ללקוח")}</div>
       </Card>
       <Card className="divide-y">{list.map((l) => { const r = scanOf(l); return (
