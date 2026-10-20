@@ -5,23 +5,24 @@ import { pt } from "@/portal/i18n";
 import { meta } from "@/portal/seo";
 import { APPS, AI_INTRO, gt } from "@/portal/group";
 import { CONTACT, type PLang } from "@/portal/config";
-export async function generateMetadata({ params }: { params: Promise<{ lang: PLang }> }): Promise<Metadata> { const { lang } = await params; return meta(lang, "/ai", gt(lang, "ai"), AI_INTRO[lang].slice(0, 160)); }
+import { L } from "@/portal/it";
+export async function generateMetadata({ params }: { params: Promise<{ lang: PLang }> }): Promise<Metadata> { const { lang } = await params; return meta(lang, "/ai", gt(lang, "ai"), L(AI_INTRO, lang).slice(0, 160)); }
 export default async function Ai({ params }: { params: Promise<{ lang: PLang }> }) {
   const { lang } = await params; const b = "/" + lang;
-  const fields = Array.from(new Set(APPS.map((a) => a.field[lang])));
+  const fields = Array.from(new Set(APPS.map((a) => L(a.field, lang))));
   return (
     <PortalPage lang={lang} path="/ai" crumbs={[{ name: pt(lang, "home"), url: b }, { name: gt(lang, "group"), url: b + "/group" }, { name: gt(lang, "ai"), url: b + "/ai" }]}>
       <h1 className="text-3xl font-bold">🤖 {gt(lang, "ai")}</h1>
-      <p className="text-slate-700 max-w-3xl text-lg">{AI_INTRO[lang]}</p>
+      <p className="text-slate-700 max-w-3xl text-lg">{L(AI_INTRO, lang)}</p>
       <div className="text-sm text-slate-500">{APPS.length} {gt(lang, "apps")} · {gt(lang, "anon")}</div>
       {fields.map((f) => (
         <section key={f} className="space-y-2">
           <h2 className="text-xl font-bold">{f}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {APPS.filter((a) => a.field[lang] === f).map((a) => (
+            {APPS.filter((a) => L(a.field, lang) === f).map((a) => (
               <div key={a.name.en} className="rounded-2xl border p-4 bg-white space-y-1">
-                <h3 className="font-bold">{a.name[lang]}</h3>
-                <p className="text-sm text-slate-700">{a.text[lang]}</p>
+                <h3 className="font-bold">{L(a.name, lang)}</h3>
+                <p className="text-sm text-slate-700">{L(a.text, lang)}</p>
                 <div className="text-xs text-slate-400" dir="ltr">{a.stack}</div>
                 {a.live && <a href={a.live} target="_blank" rel="noopener" className="text-sm text-brand-600 underline">{gt(lang, "live")} ↗</a>}
               </div>))}

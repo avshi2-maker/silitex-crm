@@ -1,6 +1,6 @@
-// group.ts (src/portal/group.ts) · updated 20.10.2026 17:40 — AI card links to the Facebook page · 16:30 — + industrial flooring (Stonhard) card · 13:25 — clinical assistant kept (only the legal-claim project is excluded) · created 13:50 (Asia/Jerusalem) — SAPIRIM GROUP data for the public portal (he / en / ru): the 4 activities (industrial silicones, Marble Art sinks, Artfloor microcement, AI solution architect) + the AI portfolio — business apps only, client names anonymised, no legal / family projects.
+// group.ts (src/portal/group.ts) · updated 20.10.2026 17:55 — Italian via L() · 20.10.2026 17:40 — AI card links to the Facebook page · 16:30 — + industrial flooring (Stonhard) card · 13:25 — clinical assistant kept (only the legal-claim project is excluded) · created 13:50 (Asia/Jerusalem) — SAPIRIM GROUP data for the public portal (he / en / ru): the 4 activities (industrial silicones, Marble Art sinks, Artfloor microcement, AI solution architect) + the AI portfolio — business apps only, client names anonymised, no legal / family projects.
 import type { PLang } from "./config";
-type T = Record<PLang, string>;
+import { L, type T } from "./it";
 export type Activity = { key: string; icon: string; name: T; text: T; url?: string; cta: T; fb?: boolean };
 export const ACTIVITIES: Activity[] = [
   { key: "silicones", icon: "🧪", url: "", name: { he: "סיליקונים לתעשייה — Silitex", en: "Industrial silicones — Silitex", ru: "Промышленные силиконы — Silitex" }, text: { he: "35 שנה בסיליקונים לתעשייה בישראל. היום: מוצרי Silitex S.r.l. (איטליה) — אמולסיות, נוגדי קצף, מרככים, דוחי מים וטווח קוסמטי, עם ליווי טכני ודגימות.", en: "35 years in industrial silicones in Israel. Today: Silitex S.r.l. (Italy) products — emulsions, antifoams, softeners, water repellents and a cosmetic range, with technical support and samples.", ru: "35 лет в промышленных силиконах в Израиле. Сегодня — продукты Silitex S.r.l. (Италия): эмульсии, пеногасители, мягчители, гидрофобизаторы и косметическая линейка, с технической поддержкой и образцами." }, cta: { he: "לאתר הסיליקונים", en: "Silicones site", ru: "Сайт силиконов" } },
@@ -43,4 +43,4 @@ export const GT: Record<string, T> = {
   live: { he: "לאתר", en: "Visit", ru: "Открыть" },
   talk: { he: "רוצים מערכת כזאת לעסק שלכם? דברו איתי.", en: "Want a system like this for your business? Let's talk.", ru: "Нужна такая система для вашего бизнеса? Давайте поговорим." },
 };
-export const gt = (lang: PLang, k: string) => GT[k]?.[lang] || GT[k]?.en || k;
+export const gt = (lang: PLang, k: string) => L(GT[k], lang) || k;

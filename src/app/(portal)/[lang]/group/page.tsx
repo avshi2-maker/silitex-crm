@@ -6,6 +6,7 @@ import { pt } from "@/portal/i18n";
 import { meta } from "@/portal/seo";
 import { ACTIVITIES, gt } from "@/portal/group";
 import { CONTACT, type PLang } from "@/portal/config";
+import { L } from "@/portal/it";
 export async function generateMetadata({ params }: { params: Promise<{ lang: PLang }> }): Promise<Metadata> { const { lang } = await params; return meta(lang, "/group", gt(lang, "group"), gt(lang, "groupIntro")); }
 export default async function Group({ params }: { params: Promise<{ lang: PLang }> }) {
   const { lang } = await params; const b = "/" + lang;
@@ -17,9 +18,9 @@ export default async function Group({ params }: { params: Promise<{ lang: PLang 
         {ACTIVITIES.map((a) => { const href = a.url === "" ? b : a.url?.startsWith("/") ? b + a.url : a.url || b; const ext = !!a.url && a.url.startsWith("http"); return (
           <div key={a.key} className="rounded-2xl border p-5 space-y-2 bg-white">
             <div className="text-3xl">{a.icon}</div>
-            <h2 className="text-xl font-bold">{a.name[lang]}</h2>
-            <p className="text-slate-700">{a.text[lang]}</p>
-            {ext ? <a href={href} target="_blank" rel="noopener" className="inline-block px-4 py-2 rounded-xl bg-brand-500 text-white text-sm">{a.cta[lang]} ↗</a> : <Link href={href} className="inline-block px-4 py-2 rounded-xl bg-brand-500 text-white text-sm">{a.cta[lang]}</Link>}
+            <h2 className="text-xl font-bold">{L(a.name, lang)}</h2>
+            <p className="text-slate-700">{L(a.text, lang)}</p>
+            {ext ? <a href={href} target="_blank" rel="noopener" className="inline-block px-4 py-2 rounded-xl bg-brand-500 text-white text-sm">{L(a.cta, lang)} ↗</a> : <Link href={href} className="inline-block px-4 py-2 rounded-xl bg-brand-500 text-white text-sm">{L(a.cta, lang)}</Link>}
             {a.fb && CONTACT.facebookAi && <a href={CONTACT.facebookAi} target="_blank" rel="noopener" className="inline-block ms-2 px-4 py-2 rounded-xl bg-[#1877F2] text-white text-sm">{gt(lang, "fbPage")} ↗</a>}
           </div>); })}
       </div>

@@ -1,5 +1,5 @@
 "use client";
-// CodeFinder.tsx (src/portal/components/CodeFinder.tsx) · updated 18.10.2026 18:00 (Asia/Jerusalem) — PUBLIC competitor-code finder: type a Dow / Wacker / Momentive … code → matching Silitex family page (same engine as the CRM quick match, public-safe gaps_lite data)
+// CodeFinder.tsx (src/portal/components/CodeFinder.tsx) · updated 20.10.2026 17:55 (Asia/Jerusalem) — + Italian · 18.10.2026 18:00 — PUBLIC competitor-code finder: type a Dow / Wacker / Momentive … code → matching Silitex family page (same engine as the CRM quick match, public-safe gaps_lite data)
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { searchEquiv } from "@/lib/equiv-search";
@@ -19,7 +19,7 @@ export default function CodeFinder({ lang, title, hint, none, examples }: { lang
           <div className="text-xs text-slate-500">{h.producer} · {h.competitor}</div>
           <div className="font-bold text-brand-700">→ {h.silitex.replace(/\s+—\s+full lines.*$/i, "")}</div>
           <div className="text-xs text-slate-500">{h.family}{h.inci ? " · " + h.inci : ""}{h.certs.length ? " · " + h.certs.join(", ") : ""}</div>
-          {h.kind === "offset" && <Link href={"/" + lang + "/alternatives/" + slugify(h.family)} className="text-sm text-brand-600 underline">{lang === "he" ? "לעמוד ההשוואה המלא" : lang === "ru" ? "Полная таблица аналогов" : "Full comparison page"} ›</Link>}
+          {h.kind === "offset" && <Link href={"/" + lang + "/alternatives/" + slugify(h.family)} className="text-sm text-brand-600 underline">{lang === "he" ? "לעמוד ההשוואה המלא" : lang === "ru" ? "Полная таблица аналогов" : lang === "it" ? "Tabella completa delle equivalenze" : "Full comparison page"} ›</Link>}
         </li>))}</ul>
     </section>
   );

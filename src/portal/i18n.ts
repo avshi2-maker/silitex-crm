@@ -1,4 +1,4 @@
-// i18n.ts (src/portal/i18n.ts) · updated 20.10.2026 17:40 (Asia/Jerusalem) — "code" → INCI wording everywhere · 18.10.2026 17:45 — PUBLIC PORTAL texts in Hebrew / English / Russian (server-side, per-URL language for SEO). Product data itself stays in the catalogue language (English).
+// i18n.ts (src/portal/i18n.ts) · updated 20.10.2026 17:55 (Asia/Jerusalem) — + Italian · 17:40 — "code" → INCI wording everywhere · 18.10.2026 17:45 — PUBLIC PORTAL texts in Hebrew / English / Russian (server-side, per-URL language for SEO). Product data itself stays in the catalogue language (English).
 import type { PLang } from "./config";
 type D = Record<string, string>;
 const he: D = {
@@ -43,5 +43,19 @@ const ru: D = {
   allIndustries: "Все отрасли", allProducts: "Все продукты", updated: "Обновлено", about: "О Sapirim", aboutText: "Sapirim около 35 лет работает в сфере промышленных силиконов в Израиле и сегодня продвигает продукты Silitex S.r.l. (Италия).",
   disclaimer: "Информация основана на каталогах и описаниях производителя. Пригодность для процесса требует испытаний.", lang: "Язык",
 };
-const DICT: Record<PLang, D> = { he, en, ru };
+const it: D = {
+  brand: "Sapirim — siliconi industriali", tagline: "35 anni nei siliconi industriali in Israele — emulsioni, antischiuma, ammorbidenti e idrorepellenti.",
+  home: "Home", industries: "Settori", alternatives: "Alternative per INCI", products: "Prodotti", faq: "Domande frequenti", regulation: "Normativa D4/D5/D6",
+  finder: "Trova un'alternativa per INCI o nome prodotto", finderHint: "Digita un INCI o un nome prodotto Dow, Wacker, Momentive, Shin-Etsu, Evonik…", finderNone: "Nessuna corrispondenza in tabella — inviaci l'INCI su WhatsApp e verifichiamo.",
+  cta: "Consulenza tecnica o campione", ctaText: "Raccontaci il problema sulla linea — ti risponderemo con una proposta tecnica e un campione da provare.", wa: "WhatsApp", email: "E-mail", form: "Modulo di contatto",
+  indIntro: "Prodotti adatti dai cataloghi Silitex 2026, con i dati tecnici di ciascuno.", typicalQ: "Domande tipiche in questo settore", seeProduct: "Dettagli prodotto",
+  altIntro: "Equivalenze dalla tabella comparativa: INCI e prodotti dei produttori globali rispetto al prodotto Silitex corrispondente. Corrispondenza parziale — verificare con la scheda tecnica (TDS) prima dell'uso.",
+  competitorCodes: "INCI e prodotti equivalenti di altri produttori", silitexEq: "Equivalente Silitex", certs: "Certificazioni", inci: "INCI / sostanza attiva",
+  spec: "Dati tecnici", active: "Sostanza attiva", type: "Tipo", application: "Applicazione", dosage: "Dosaggio", compliance: "Conformità", sector: "Settore", section: "Gruppo", source: "Fonte: catalogo Silitex", tds: "Pagina del catalogo (PDF)",
+  regIntro: "Cosa è cambiato nelle regole sui silossani ciclici e cosa significa per le formulazioni.", regIsrael: "Israele: non è confermato che i limiti UE si applichino al mercato locale — conviene verificare con l'autorità competente.",
+  regWhat: "Cosa fare", regDo: "Verificare se la formulazione contiene D4 / D5 / D6 come ingrediente o residuo e cercare un'alternativa adatta senza silossani ciclici. Aiutiamo a scegliere e a provare.",
+  allIndustries: "Tutti i settori", allProducts: "Tutti i prodotti", updated: "Aggiornato", about: "Chi è Sapirim", aboutText: "Sapirim opera nei siliconi industriali in Israele da circa 35 anni e oggi commercializza i prodotti di Silitex S.r.l., Italia.",
+  disclaimer: "Informazioni basate sui cataloghi e sulle schede prodotto del produttore. L'idoneità a un processo richiede prove.", lang: "Lingua",
+};
+const DICT: Record<PLang, D> = { he, en, ru, it };
 export const pt = (l: PLang, k: string) => DICT[l][k] ?? DICT.en[k] ?? k;

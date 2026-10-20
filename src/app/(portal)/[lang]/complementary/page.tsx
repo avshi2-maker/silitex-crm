@@ -5,6 +5,7 @@ import { pt } from "@/portal/i18n";
 import { meta } from "@/portal/seo";
 import { COMPLEMENTARY, st } from "@/portal/scope";
 import type { PLang } from "@/portal/config";
+import { L } from "@/portal/it";
 export async function generateMetadata({ params }: { params: Promise<{ lang: PLang }> }): Promise<Metadata> { const { lang } = await params; return meta(lang, "/complementary", st(lang, "comp"), st(lang, "compIntro")); }
 export default async function Complementary({ params }: { params: Promise<{ lang: PLang }> }) {
   const { lang } = await params; const b = "/" + lang;
@@ -15,8 +16,8 @@ export default async function Complementary({ params }: { params: Promise<{ lang
       <div className="grid md:grid-cols-2 gap-4">
         {COMPLEMENTARY.map((r) => (
           <section key={r.key} className="rounded-2xl border p-5 bg-white space-y-2">
-            <h2 className="text-xl font-bold">{r.name[lang]}</h2>
-            <p className="text-slate-700">{r.text[lang]}</p>
+            <h2 className="text-xl font-bold">{L(r.name, lang)}</h2>
+            <p className="text-slate-700">{L(r.text, lang)}</p>
             <ul className="text-sm font-mono text-slate-600 space-y-0.5" dir="ltr">{r.items.map((x) => <li key={x}>{x}</li>)}</ul>
             <a href={r.url} target="_blank" rel="noopener" className="text-sm text-brand-600 underline">{st(lang, "producer")} ↗</a>
           </section>))}

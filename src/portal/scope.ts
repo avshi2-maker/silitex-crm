@@ -1,6 +1,6 @@
 // scope.ts (src/portal/scope.ts) · created 20.10.2026 16:30 (Asia/Jerusalem) — PUBLIC PORTAL data: (1) Silitex COMPLEMENTARY non-silicone ranges (from silitex.it product categories, 20/10/2026 — names as published, links to the producer page); (2) INDUSTRIAL EPOXY FLOORING — Stonhard systems + Sapirim reference list (historic company profile, A.E. Sapirim Ltd).
 import type { PLang } from "./config";
-type T = Record<PLang, string>;
+import { L, type T } from "./it";
 const S = "https://www.silitex.it/prodotti/categorie-di-prodotti/";
 export type Range = { key: string; name: T; text: T; url: string; items: string[] };
 export const COMPLEMENTARY: Range[] = [
@@ -40,4 +40,4 @@ export const ST: Record<string, T> = {
   refsNote: { he: "מתוך פרופיל החברה ורשימת הלקוחות ההיסטורית של א.ע. ספירים בע\"מ.", en: "From the historic company profile and client list of A.E. Sapirim Ltd.", ru: "Из исторического профиля компании и списка клиентов A.E. Sapirim Ltd." },
   stonhardSite: { he: "לאתר Stonhard", en: "Stonhard website", ru: "Сайт Stonhard" },
 };
-export const st = (lang: PLang, k: string) => ST[k]?.[lang] || ST[k]?.en || k;
+export const st = (lang: PLang, k: string) => L(ST[k], lang) || k;

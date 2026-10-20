@@ -1,4 +1,4 @@
-// data.ts (src/portal/data.ts) · updated 20.10.2026 16:30 (Asia/Jerusalem) — + /complementary /flooring · 13:50 — + /group /ai in sitemap · 18.10.2026 17:50 — PUBLIC PORTAL data, built from the same files as the CRM (catalogue 2026, offsets table, FAQ, industry lines). Public-safe: no customer records, no owner strategy, no Israel market pitch, no food sector (on hold).
+// data.ts (src/portal/data.ts) · updated 20.10.2026 17:55 (Asia/Jerusalem) — + Italian industry names · 16:30 — + /complementary /flooring · 13:50 — + /group /ai in sitemap · 18.10.2026 17:50 — PUBLIC PORTAL data, built from the same files as the CRM (catalogue 2026, offsets table, FAQ, industry lines). Public-safe: no customer records, no owner strategy, no Israel market pitch, no food sector (on hold).
 import offsets from "@/data/offsets.json";
 import faq from "@/data/faq.json";
 import { CAT26, type CatRow } from "@/lib/catalog";
@@ -7,15 +7,15 @@ import { industryLine, QUESTIONS } from "@/lib/industry-lines";
 import type { PLang } from "./config";
 export const slugify = (s: string) => s.toLowerCase().normalize("NFKD").replace(/[®™]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 70);
 // ── industries
-const IND_NAMES: Record<string, { en: string; ru: string }> = {
-  water: { en: "Water & wastewater treatment", ru: "Водоподготовка и очистка стоков" }, agro: { en: "Agrochemicals & fertilisers", ru: "Агрохимия и удобрения" },
-  textile: { en: "Textiles", ru: "Текстиль" }, paper: { en: "Paper & packaging", ru: "Бумага и упаковка" }, paint: { en: "Paints & coatings", ru: "Краски и покрытия" },
-  clean: { en: "Detergents & cleaning", ru: "Моющие средства" }, build: { en: "Construction & sealing", ru: "Строительство и гидроизоляция" },
-  plastic: { en: "Plastics & rubber", ru: "Пластмассы и резина" }, auto: { en: "Automotive & polishes", ru: "Автохимия и полироли" },
-  cosm: { en: "Cosmetics", ru: "Косметика" }, metal: { en: "Metal & heavy industry", ru: "Металлообработка и тяжёлая промышленность" },
+const IND_NAMES: Record<string, { en: string; ru: string; it: string }> = {
+  water: { en: "Water & wastewater treatment", ru: "Водоподготовка и очистка стоков", it: "Trattamento acque e reflui" }, agro: { en: "Agrochemicals & fertilisers", ru: "Агрохимия и удобрения", it: "Agrochimica e fertilizzanti" },
+  textile: { en: "Textiles", ru: "Текстиль", it: "Tessile" }, paper: { en: "Paper & packaging", ru: "Бумага и упаковка", it: "Carta e imballaggio" }, paint: { en: "Paints & coatings", ru: "Краски и покрытия", it: "Pitture e rivestimenti" },
+  clean: { en: "Detergents & cleaning", ru: "Моющие средства", it: "Detergenza e pulizia" }, build: { en: "Construction & sealing", ru: "Строительство и гидроизоляция", it: "Edilizia e impermeabilizzazione" },
+  plastic: { en: "Plastics & rubber", ru: "Пластмассы и резина", it: "Plastica e gomma" }, auto: { en: "Automotive & polishes", ru: "Автохимия и полироли", it: "Automotive e polish" },
+  cosm: { en: "Cosmetics", ru: "Косметика", it: "Cosmetica" }, metal: { en: "Metal & heavy industry", ru: "Металлообработка и тяжёлая промышленность", it: "Metalli e industria pesante" },
 };
 export type PInd = { key: string; name: Record<PLang, string> };
-export const P_INDUSTRIES: PInd[] = INDUSTRIES.filter((i) => i.key !== "food" && IND_NAMES[i.key]).map((i) => ({ key: i.key, name: { he: i.he, en: IND_NAMES[i.key].en, ru: IND_NAMES[i.key].ru } }));
+export const P_INDUSTRIES: PInd[] = INDUSTRIES.filter((i) => i.key !== "food" && IND_NAMES[i.key]).map((i) => ({ key: i.key, name: { he: i.he, en: IND_NAMES[i.key].en, ru: IND_NAMES[i.key].ru, it: IND_NAMES[i.key].it } }));
 export const industryRows = (key: string) => industryLine(key).rows;
 export const industryQuestions = (key: string) => QUESTIONS[key] || [];
 // ── products (catalogue 2026, food sector excluded), one page per product name

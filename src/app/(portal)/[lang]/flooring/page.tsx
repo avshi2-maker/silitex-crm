@@ -5,6 +5,7 @@ import { pt } from "@/portal/i18n";
 import { meta } from "@/portal/seo";
 import { STONHARD_FAMILIES, REFS, st } from "@/portal/scope";
 import type { PLang } from "@/portal/config";
+import { L } from "@/portal/it";
 export async function generateMetadata({ params }: { params: Promise<{ lang: PLang }> }): Promise<Metadata> { const { lang } = await params; return meta(lang, "/flooring", st(lang, "floor"), st(lang, "floorIntro").slice(0, 160)); }
 export default async function Flooring({ params }: { params: Promise<{ lang: PLang }> }) {
   const { lang } = await params; const b = "/" + lang;
@@ -15,12 +16,12 @@ export default async function Flooring({ params }: { params: Promise<{ lang: PLa
       <a href="https://www.stonhard.com" target="_blank" rel="noopener" className="inline-block px-4 py-2 rounded-xl bg-brand-500 text-white text-sm">{st(lang, "stonhardSite")} ↗</a>
       <section className="space-y-2">
         <h2 className="text-xl font-bold">{st(lang, "families")}</h2>
-        <div className="grid md:grid-cols-3 gap-3">{STONHARD_FAMILIES.map((f) => <div key={f.name} className="rounded-2xl border p-4 bg-white"><div className="font-bold" dir="ltr">{f.name}</div><div className="text-sm text-slate-700">{f.t[lang]}</div></div>)}</div>
+        <div className="grid md:grid-cols-3 gap-3">{STONHARD_FAMILIES.map((f) => <div key={f.name} className="rounded-2xl border p-4 bg-white"><div className="font-bold" dir="ltr">{f.name}</div><div className="text-sm text-slate-700">{L(f.t, lang)}</div></div>)}</div>
       </section>
       <section className="space-y-2">
         <h2 className="text-xl font-bold">{st(lang, "refs")}</h2>
         <p className="text-xs text-slate-500">{st(lang, "refsNote")}</p>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">{REFS.map((g) => <div key={g.sector.en} className="rounded-2xl border p-4 bg-white space-y-1"><div className="font-bold">{g.sector[lang]}</div><ul className="text-sm text-slate-700 space-y-0.5">{(lang === "he" ? g.he : g.en).map((n) => <li key={n}>{n}</li>)}</ul></div>)}</div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">{REFS.map((g) => <div key={g.sector.en} className="rounded-2xl border p-4 bg-white space-y-1"><div className="font-bold">{L(g.sector, lang)}</div><ul className="text-sm text-slate-700 space-y-0.5">{(lang === "he" ? g.he : g.en).map((n) => <li key={n}>{n}</li>)}</ul></div>)}</div>
       </section>
     </PortalPage>
   );

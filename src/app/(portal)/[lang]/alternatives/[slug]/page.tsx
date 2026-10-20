@@ -1,4 +1,4 @@
-// page.tsx (src/app/(portal)/[lang]/alternatives/[slug]/page.tsx) · updated 18.10.2026 18:10 (Asia/Jerusalem) — PUBLIC PORTAL family page: every competitor code (Dow, Wacker, Momentive, Shin-Etsu, Evonik, Elkem…) → Silitex equivalent, INCI, certificates, links to product pages. One page per family = the answer AI search quotes for "alternative to <code>".
+// page.tsx (src/app/(portal)/[lang]/alternatives/[slug]/page.tsx) · updated 20.10.2026 17:55 (Asia/Jerusalem) — + Italian · 18.10.2026 18:10 — PUBLIC PORTAL family page: every competitor code (Dow, Wacker, Momentive, Shin-Etsu, Evonik, Elkem…) → Silitex equivalent, INCI, certificates, links to product pages. One page per family = the answer AI search quotes for "alternative to <code>".
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -9,7 +9,7 @@ import { P_FAMILIES, familyBySlug, familyProducts } from "@/portal/data";
 import { PORTAL_LANGS, type PLang } from "@/portal/config";
 export const dynamicParams = false;
 export function generateStaticParams() { return PORTAL_LANGS.flatMap((lang) => P_FAMILIES.map((f) => ({ lang, slug: f.slug }))); }
-const H1: Record<PLang, string> = { he: "חלופה ל-", en: "Alternative to ", ru: "Аналог " };
+const H1: Record<PLang, string> = { he: "חלופה ל-", en: "Alternative to ", ru: "Аналог ", it: "Alternativa a " };
 export async function generateMetadata({ params }: { params: Promise<{ lang: PLang; slug: string }> }): Promise<Metadata> {
   const { lang, slug } = await params; const f = familyBySlug(slug); if (!f) return {};
   return meta(lang, "/alternatives/" + slug, H1[lang] + f.dow_corning.split("/")[0].trim() + " — " + f.family, f.family + ": " + f.codes.slice(0, 6).map((c) => c.code.split("/")[0].trim()).join(", ") + " → Silitex " + f.silitex_product.split(" - ")[0] + ". INCI: " + f.inci);
