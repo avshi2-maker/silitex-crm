@@ -1,4 +1,4 @@
-// ru.ts (src/i18n/ru.ts) · updated 18.10.2026 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 16.10.2026 18:55 (Asia/Jerusalem) — Russian UI (for Russian-speaking technicians in Israel). Same keys as en.ts / it.ts; missing key → English fallback.
+// ru.ts (src/i18n/ru.ts) · updated 20.10.2026 18:05 — + back link · 18.10.2026 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 16.10.2026 18:55 (Asia/Jerusalem) — Russian UI (for Russian-speaking technicians in Israel). Same keys as en.ts / it.ts; missing key → English fallback.
 export const RU: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Нет в данных Silitex — мы не гадаем",
   "המערכת עונה רק מתוך הקטלוגים, המקבילות וה-FAQ של Silitex. כשאין מקור — אין תשובה אוטומטית, ואין פנייה למקורות חיצוניים. במקום זה: שאלה ישירה לאבשי (מייל + WhatsApp), תשובה אנושית תוך 24 שעות.": "Этот инструмент отвечает только по каталогам Silitex, аналогам и FAQ. Нет источника — нет автоматического ответа и никаких внешних источников. Вместо этого вопрос уходит напрямую Avshi (email + WhatsApp), ответ специалиста в течение 24 часов.",
@@ -1142,4 +1142,5 @@ export const RU: Record<string, string> = {
   "נוגד קצף לנוזל חיתוך": "Пеногаситель для СОЖ",
   "הצג פחות": "Свернуть",
   "הצג הכל": "Показать всё",
+  "← חזרה לאתר ספירים": "← Назад на сайт Sapirim",
 };

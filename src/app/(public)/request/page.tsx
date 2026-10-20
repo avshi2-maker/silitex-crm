@@ -1,6 +1,7 @@
 "use client";
-// page.tsx (src/app/(public)/request/page.tsx) · updated 20.10.2026 17:40 (Asia/Jerusalem) — mobile + e-mail validated live (green when correct, red with hint), send blocked until both are valid · 09.10.2026 18:30 — customer quick form: technical / sample / price → /api/forms → email + DB
+// page.tsx (src/app/(public)/request/page.tsx) · updated 20.10.2026 18:05 (Asia/Jerusalem) — "back to Sapirim site" link · 17:40 — mobile + e-mail validated live (green when correct, red with hint), send blocked until both are valid · 09.10.2026 18:30 — customer quick form: technical / sample / price → /api/forms → email + DB
 import { useState } from "react";
+import Link from "next/link";
 import PublicShell from "@/components/PublicShell";
 import { Text, Area, Select } from "@/components/FormField";
 import { Card, btnPrimary } from "@/components/ui";
@@ -27,6 +28,7 @@ export default function RequestPage() {
   if (state === "ok") return <PublicShell title={tr("תודה! הבקשה התקבלה")}><Card>{tr("נחזור אליך תוך יום עסקים אחד. אפשר גם ב-WhatsApp: 050-5231042")}</Card></PublicShell>;
   return (
     <PublicShell title={tr("Silitex ישראל — טופס פנייה מהיר")} sub={tr("בקשה טכנית · דגימה · מחיר — תשובה תוך יום עסקים")}>
+      <Link href={"/" + (["he", "en", "ru", "it"].includes(lang) ? lang : "he")} className="inline-flex items-center gap-1 mb-4 px-3 py-1.5 rounded-lg bg-ink-900 text-amber-300 text-sm font-semibold hover:bg-ink-700">{tr("← חזרה לאתר ספירים")}</Link>
       <div className="flex gap-2 mb-4">{KINDS.map((k) => <button key={k.k} type="button" onClick={() => setKind(k.k)} className={"flex-1 border rounded-xl p-3 text-sm " + (kind === k.k ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{k.icon} {tr(k.he)}</button>)}</div>
       <form onSubmit={submit}><Card className="grid md:grid-cols-2 gap-3">
         <Text label={tr("חברה")} value={f.company} onChange={set("company")} required /><Text label={tr("שם מלא")} value={f.name} onChange={set("name")} required />
