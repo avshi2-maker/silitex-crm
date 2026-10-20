@@ -1,10 +1,10 @@
-// page.tsx (src/app/(portal)/[lang]/ai/page.tsx) · created 20.10.2026 13:50 (Asia/Jerusalem) — PUBLIC PORTAL: AI solution architect — intro + portfolio of systems built (business apps only, client names anonymised) grouped by field, in he / en / ru.
+// page.tsx (src/app/(portal)/[lang]/ai/page.tsx) · updated 20.10.2026 17:40 — Facebook / LinkedIn buttons · created 13:50 (Asia/Jerusalem) — PUBLIC PORTAL: AI solution architect — intro + portfolio of systems built (business apps only, client names anonymised) grouped by field, in he / en / ru.
 import type { Metadata } from "next";
 import PortalPage from "@/portal/components/PortalPage";
 import { pt } from "@/portal/i18n";
 import { meta } from "@/portal/seo";
 import { APPS, AI_INTRO, gt } from "@/portal/group";
-import type { PLang } from "@/portal/config";
+import { CONTACT, type PLang } from "@/portal/config";
 export async function generateMetadata({ params }: { params: Promise<{ lang: PLang }> }): Promise<Metadata> { const { lang } = await params; return meta(lang, "/ai", gt(lang, "ai"), AI_INTRO[lang].slice(0, 160)); }
 export default async function Ai({ params }: { params: Promise<{ lang: PLang }> }) {
   const { lang } = await params; const b = "/" + lang;
@@ -28,6 +28,7 @@ export default async function Ai({ params }: { params: Promise<{ lang: PLang }> 
           </div>
         </section>))}
       <p className="text-lg font-medium">{gt(lang, "talk")}</p>
+      <div className="flex flex-wrap gap-2">{CONTACT.facebookAi && <a href={CONTACT.facebookAi} target="_blank" rel="noopener" className="px-4 py-2 rounded-xl bg-[#1877F2] text-white text-sm">{gt(lang, "fbPage")} ↗</a>}{CONTACT.linkedin && <a href={CONTACT.linkedin} target="_blank" rel="noopener" className="px-4 py-2 rounded-xl bg-[#0A66C2] text-white text-sm">LinkedIn ↗</a>}</div>
     </PortalPage>
   );
 }
