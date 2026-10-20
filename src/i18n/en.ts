@@ -1,4 +1,4 @@
-// en.ts (src/i18n/en.ts) · updated 18.10.2026 18:55 — + Social plan · 19:10 — + AI visibility · 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 20.10.2026 09:40 — + market matrix · 18.10.2026 18:55 — + Social plan · 19:10 — + AI visibility · 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Not in the Silitex data — we do not guess",
@@ -1278,4 +1278,27 @@ export const EN: Record<string, string> = {
   "יצרן מקומי (מתחרה / לקוח אפשרי)": "Local maker (competitor / possible buyer)",
   "גומי סיליקון — מחוץ לטווח Silitex": "Silicone rubber — outside Silitex range",
   "למעקב — לבדוק עם פיני": "Watch — check with Pini",
+  "מפת שוק — פיני ופדריקה": "Market map — Pini & Federica",
+  "נבנה אוטומטית מכל הלקוחות וסריקות האתרים — כל מקור חדש וכל סריקה מתווספים לבד. פיני: לפי מפעל. פדריקה: לפי מוצר, בלי שמות מפעלים.": "Builds itself from all customers and website scans — every new source and scan is added automatically. Pini: by factory. Federica: by product, no factory names.",
+  "רשימת פיני — לפי מפעל": "Pini list — by factory",
+  "פדריקה — לפי מוצר, ללא שמות": "Federica — by product, no names",
+  "בלי Tier 4": "Hide Tier 4",
+  "רק נסרקו": "Scanned only",
+  "לסרוק עוד": "Scan more",
+  "מפעל": "Factory",
+  "מוצרי Silitex": "Silitex grades",
+  "לא נסרק": "not scanned",
+  "לבדוק": "to check",
+  "רשימת פיני — מפעלים, מוצרים ו-Silitex": "Pini list — factories, products & Silitex",
+  "מכין...": "Preparing...",
+  "טיוטה באנגלית לפדריקה": "English draft for Federica",
+  "יצרנים ממופים": "producers mapped",
+  "עדיין אין סריקות בתעשייה הזו": "No scans in this industry yet",
+  "קטגוריית מוצר": "Product category",
+  "יצרנים": "Producers",
+  "טיוטה לפדריקה": "Draft for Federica",
+  "מפת שוק לפדריקה (ללא שמות)": "Market map for Federica (no names)",
+  "כן — אין מוצר Silitex": "Yes — no Silitex grade",
+  "לא — יש מוצר": "No — grade exists",
+  "לבדוק — התאמה חלשה": "To check — weak match",
 };
