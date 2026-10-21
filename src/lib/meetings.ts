@@ -1,4 +1,4 @@
-// meetings.ts (src/lib/meetings.ts) · updated 16.10.2026 18:00 (Asia/Jerusalem) — server only
+// meetings.ts (src/lib/meetings.ts) · updated 21.10.2026 16:45 (Asia/Jerusalem) — hides the system row reg-silitex (Federica open-questions register) from the meetings list / search · 16.10.2026 18:00 — server only
 // Meetings store (Supabase service role; tables in supabase/meetings.sql). Types shared with the client via lib/meeting-types.ts.
 import { serviceClient } from "./server-data";
 import { chunkText, scoreChunks } from "./rag";
@@ -8,7 +8,7 @@ export const NO_DB = "Supabase service key missing (SUPABASE_SERVICE_ROLE_KEY) o
 const id = (p: string) => p + "-" + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-4);
 export async function listMeetings(): Promise<{ meetings: Omit<Meeting, "transcript">[]; actions: MeetingAction[] } | null> {
   const sb = serviceClient(); if (!sb) return null;
-  const [m, a] = await Promise.all([sb.from("meetings").select("id,held_at,title,participants,tags,source,summary,usage,created_at").order("held_at", { ascending: false }), sb.from("meeting_actions").select("*").order("created_at", { ascending: true })]);
+  const [m, a] = await Promise.all([sb.from("meetings").select("id,held_at,title,participants,tags,source,summary,usage,created_at").neq("id", "reg-silitex").order("held_at", { ascending: false }), sb.from("meeting_actions").select("*").neq("meeting_id", "reg-silitex").order("created_at", { ascending: true })]);
   if (m.error || a.error) return null;
   return { meetings: (m.data || []) as Omit<Meeting, "transcript">[], actions: (a.data || []) as MeetingAction[] };
 }
@@ -43,7 +43,7 @@ export async function deleteMeeting(mid: string): Promise<boolean> {
 export type MeetingHit = { meeting_id: string; title: string; held_at: string; text: string };
 export async function searchMeetings(q: string, k = 8): Promise<MeetingHit[] | null> {
   const sb = serviceClient(); if (!sb) return null;
-  const r = await sb.from("meetings").select("id,title,held_at,transcript,summary"); if (r.error) return null;
+  const r = await sb.from("meetings").select("id,title,held_at,transcript,summary").neq("id", "reg-silitex"); if (r.error) return null;
   const chunks: (KbChunk & { held_at: string })[] = [];
   for (const m of r.data || []) {
     const s = m.summary as MeetingSummary | null;
