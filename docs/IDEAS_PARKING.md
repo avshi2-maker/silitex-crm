@@ -17,3 +17,9 @@ Page created 20/10/2026 (cover + AS profile picture + WhatsApp button 050-523104
 3. **Meta Business Agent** (launched globally 03/06/2026) — AI replies in Messenger / Instagram / WhatsApp, qualifies leads, books a call, hands off. Answers messages only (no posts). Free for now, subscription planned. Turning it on PAUSES existing Business Suite automations (Instant Reply, Away message…). Check the tile in Business Suite → All tools (Israel not named in rollout notes). Turn on after the first inquiries arrive.
 4. **Weekly draft bot (Claude scheduled task)** — every Sunday drafts next week's post (text + image) and sends it to Avshi for approval; nothing is published without him.
 **Blocked by:** sapirim.com public (PORTAL_PUBLIC=1) → then add the portfolio link as the first comment on the pinned post + website in About.
+
+## 🅿️ Weekly Google report on WhatsApp — PARKED 21/10/2026
+Every Monday 08:00 a short WhatsApp to Avshi: clicks + impressions last 7 days, top 10 searches that brought people to www.sapirim.com, new pages Google indexed, pages with errors, best code page (e.g. "DOWSIL 1520 alternative").
+**How:** Google Search Console API (service account added as user on the sapirim.com property) → `/api/cron/gsc-weekly` (Vercel cron, Mondays) → existing `sendWhatsApp()` (Meta Cloud API) + same text on /promo.
+**Why parked:** the site went public 20/10/2026 — Search Console needs ~3 weeks of data before the numbers mean anything.
+**Resume:** from ~10/11/2026. Avshi: Search Console → Settings → Users → add the service-account e-mail (Claude gives it). Claude: route + cron + /promo card, half a day.

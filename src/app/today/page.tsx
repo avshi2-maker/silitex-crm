@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/today/page.tsx) · updated 19.10.2026 12:05 (Asia/Jerusalem) — idle customers A→Z · waiting list = all playbook steps owed by others + e-mails waiting for Silitex / customer reply (from the Hub, red after 2 days = follow up) · 🗑️ delete a task · 11:45 — playbook steps: step badge + owner, ✓ opens the next step automatically, steps owned by Silitex / customer / Pini in "waiting for others" · 17.10.2026 08:15 — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
+// page.tsx (src/app/today/page.tsx) · updated 21.10.2026 11:30 (Asia/Jerusalem) — + 🎯 daily hunt: 5 leads without a contact person (rotating, best priority first) · 19.10.2026 12:05 — idle customers A→Z · waiting list = all playbook steps owed by others + e-mails waiting for Silitex / customer reply (from the Hub, red after 2 days = follow up) · 🗑️ delete a task · 11:45 — playbook steps: step badge + owner, ✓ opens the next step automatically, steps owned by Silitex / customer / Pini in "waiting for others" · 17.10.2026 08:15 — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
 import { useState } from "react";
 import Link from "next/link";
 import { useStore, stageHe } from "@/lib/store";
@@ -13,6 +13,7 @@ import { useLang } from "@/i18n";
 import { parsePlan } from "@/lib/playbook";
 import { PLAYBOOKS, OWNER_HE } from "@/config/playbooks";
 import DelBtn from "@/components/DelBtn";
+import HuntToday from "@/components/today/HuntToday";
 import { useEffect } from "react";
 import type { Thread } from "@/lib/types";
 import { waitingDays } from "@/lib/hub";
@@ -84,6 +85,7 @@ export default function TodayPage() {
         <H1 sub={tr("כל המשימות שלך במקום אחד: לקוחות, מעקבים, דגימות, פגישות Silitex. ✓ = תיעוד + שלב + צעד הבא בפעולה אחת.")}>☀️ {tr("היום שלי")} · {fmtDate(today)}</H1>
         <div className="flex gap-2 text-sm"><Badge tone="red">{groups[0].items.length} {tr("באיחור")}</Badge><Badge tone="blue">{groups[1].items.length} {tr("היום")}</Badge><Badge tone="green">{doneToday} {tr("תועדו היום")}</Badge><Badge>{calls7} {tr("פניות ב-7 ימים")}</Badge></div>
       </div>
+      {ready && <HuntToday leads={state.leads} tasks={state.tasks} activities={state.activities} />}
       <Card className="grid md:grid-cols-[1fr_2fr_auto_auto] gap-2 items-end">
         <label className="text-xs text-slate-500">{tr("לקוח")}<select className={inputCls + " mt-1"} value={q.lead} onChange={(e) => setQ({ ...q, lead: e.target.value })}><option value="">{tr("— כללי —")}</option>{[...state.leads].sort((a, b) => a.name.localeCompare(b.name)).map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}</select></label>
         <label className="text-xs text-slate-500">{tr("משימה")}<input className={inputCls + " mt-1"} placeholder={tr("למשל: להתקשר ללקוח ישן מ-SAP")} value={q.title} onChange={(e) => setQ({ ...q, title: e.target.value })} onKeyDown={(e) => e.key === "Enter" && addQuick()} /></label>

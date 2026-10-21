@@ -1,6 +1,18 @@
-// en.ts (src/i18n/en.ts) · updated 21.10.2026 11:15 — + promotion & Google page, smart Google search card · 20.10.2026 18:40 — + automatic match run · 18:30 — + match requests · 18:05 — + back link · 17:40 — + form validation · 13:20 — + roadmap · 10:55 — + scan monitor · 10:45 — + scan failures · 09:40 — + market matrix · 18.10.2026 18:55 — + Social plan · 19:10 — + AI visibility · 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 21.10.2026 11:35 — + daily hunt, comparison links · 11:15 — + promotion & Google page, smart Google search card · 20.10.2026 18:40 — + automatic match run · 18:30 — + match requests · 18:05 — + back link · 17:40 — + form validation · 13:20 — + roadmap · 10:55 — + scan monitor · 10:45 — + scan failures · 09:40 — + market matrix · 18.10.2026 18:55 — + Social plan · 19:10 — + AI visibility · 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
+  "ציד יומי — 5 לידים בלי איש קשר": "Daily hunt — 5 leads without a contact",
+  "בלי איש קשר": "without a contact",
+  "נמצאו השבוע": "found this week",
+  "אנשי מפתח": "Key people",
+  "אימות": "Verify",
+  "פתח ושמור": "Open & save",
+  "מצאתם מישהו? בכרטיס הלקוח → 🔎 חיפוש חכם → \"מצאתי מישהו\" → הליד יורד מהרשימה. מחר — 5 חדשים.": "Found someone? Lead card → 🔎 smart search → \"found someone\" → the lead leaves the list. Tomorrow — 5 new ones.",
+  "קישורי השוואה מוכנים לשליחה": "Ready-to-send comparison links",
+  "טבלת השוואה מלאה": "Full comparison table",
+  "צפה": "View",
+  "העתק הודעה": "Copy message",
+  "בחר איש קשר": "pick a contact",
   "קידום אתר וגוגל": "Website promotion & Google",
   "גוגל, קישורים וציד לקוחות — כל הכלים בלחיצה, בחינם": "Google, links and lead hunting — every tool one click away, free",
   "האם גוגל מכיר את sapirim.com?": "Is Google indexing sapirim.com?",
