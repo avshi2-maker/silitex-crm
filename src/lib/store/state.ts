@@ -1,4 +1,4 @@
-// state.ts (src/lib/store/state.ts) · updated 21.10.2026 09:20 (Asia/Jerusalem) — researched contacts filled once (seed contact_name/phone/email/notes into accounts that have none, e.g. Tambour + Nirlat) · 20.10.2026 13:15 — duplicate GES (LEAD-071 = LEAD-011) removed once, also from Supabase · 08:05 — PHANTOM + BERETEX 350 / SH 1300 · 05:40 — researched addresses filled once · 05:20 — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
+// state.ts (src/lib/store/state.ts) · updated 21.10.2026 13:30 (Asia/Jerusalem) — contacts filled per account (new researched contacts arrive in existing browsers too) + seed patches once (car-care re-classification: Rose Chemicals, Nano-Z; notes merged, never overwritten) · 09:20 — researched contacts filled once (seed contact_name/phone/email/notes into accounts that have none, e.g. Tambour + Nirlat) · 20.10.2026 13:15 — duplicate GES (LEAD-071 = LEAD-011) removed once, also from Supabase · 08:05 — PHANTOM + BERETEX 350 / SH 1300 · 05:40 — researched addresses filled once · 05:20 — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
@@ -23,11 +23,21 @@ function addrOnce(st: State) {
     saveState(st); fixed.forEach((l) => sync("leads", l)); localStorage.setItem("silitex-addr-v1", "1"); } catch {}
 }
 const DROP = ["LEAD-071"]; // 20.10.2026 duplicate of LEAD-011 (GES), approved by Avshi
-// 21.10.2026: researched contacts (paints import) — fill once into browsers that already hold the account without a contact
+// 21.10.2026: researched contacts — filled once PER ACCOUNT into browsers that hold the account without a contact (list of filled ids kept, so later imports arrive too)
 function contactOnce(st: State) {
-  try { if (localStorage.getItem("silitex-contacts-v1")) return; const fixed: Lead[] = [];
-    st.leads = st.leads.map((l) => { const seed = LEADS_SEED.find((x) => x.id === l.id); if (!seed?.contact_name || l.contact_name) return l; const n = { ...l, contact_name: seed.contact_name, contact_phone: l.contact_phone || seed.contact_phone, contact_email: l.contact_email || seed.contact_email, notes: l.notes || seed.notes }; fixed.push(n); return n; });
-    saveState(st); fixed.forEach((l) => sync("leads", l)); localStorage.setItem("silitex-contacts-v1", "1"); } catch {}
+  try { const done: string[] = JSON.parse(localStorage.getItem("silitex-contacts-ids") || "[]"); const fixed: Lead[] = [];
+    st.leads = st.leads.map((l) => { const seed = LEADS_SEED.find((x) => x.id === l.id); if (!seed?.contact_name || done.includes(l.id)) return l; done.push(l.id); if (l.contact_name) return l; const n = { ...l, contact_name: seed.contact_name, contact_phone: l.contact_phone || seed.contact_phone, contact_email: l.contact_email || seed.contact_email, notes: l.notes || seed.notes }; fixed.push(n); return n; });
+    if (fixed.length) { saveState(st); fixed.forEach((l) => sync("leads", l)); } localStorage.setItem("silitex-contacts-ids", JSON.stringify(done)); } catch {}
+}
+// 21.10.2026: research corrections to accounts the browser already holds (flag per patch, only the listed fields)
+const SEED_PATCHES: { flag: string; ids: string[]; fields: (keyof Lead)[] }[] = [
+  { flag: "silitex-patch-carcare-v1", ids: ["LEAD-159", "LEAD-107", "LEAD-123"], fields: ["industry", "tier", "sub_industry", "use_case", "recommended_sku", "plan_next_action", "notes"] },
+  { flag: "silitex-patch-carcare-notes-v1", ids: ["LEAD-154", "LEAD-120", "LEAD-044", "LEAD-008"], fields: ["notes"] },
+];
+function patchOnce(st: State) {
+  try { for (const p of SEED_PATCHES) { if (localStorage.getItem(p.flag)) continue; const fixed: Lead[] = [];
+      st.leads = st.leads.map((l) => { if (!p.ids.includes(l.id)) return l; const seed = LEADS_SEED.find((x) => x.id === l.id); if (!seed) return l; const n = { ...l } as Record<string, unknown>; for (const f of p.fields) { const v = seed[f]; if (v === undefined) continue; if (f === "notes" && typeof n.notes === "string" && n.notes) { if (!n.notes.includes(String(v))) n.notes = n.notes + "\n" + v; } else n[f] = v; } fixed.push(n as Lead); return n as Lead; });
+      if (fixed.length) { saveState(st); fixed.forEach((l) => sync("leads", l)); } localStorage.setItem(p.flag, "1"); } } catch {}
 }
 function dropOnce(st: State) {
   try { if (localStorage.getItem("silitex-drop-v1")) return; if (st.leads.some((l) => DROP.includes(l.id))) { st.leads = st.leads.filter((l) => !DROP.includes(l.id)); st.tasks = st.tasks.filter((t) => !DROP.includes(t.lead_id)); saveState(st); } DROP.forEach((id) => remove("leads", id)); localStorage.setItem("silitex-drop-v1", "1"); } catch {}
@@ -46,11 +56,11 @@ export function loadState(): State {
       // seed accounts added later (e.g. AHAVA 11.10.2026) that the browser has never seen
       for (const seed of LEADS_SEED) if (!st.leads.some((l) => l.id === seed.id)) { st.leads = [...st.leads, seed]; fixed.push(seed); }
       if (fixed.length) { saveState(st); fixed.forEach((l) => sync("leads", l)); }
-      seedOnce(st); fixOnce(st); addrOnce(st); dropOnce(st); contactOnce(st);
+      seedOnce(st); fixOnce(st); addrOnce(st); dropOnce(st); contactOnce(st); patchOnce(st);
       return st;
     }
   } catch {}
-  const st: State = { ...EMPTY, tasks: [] }; seedOnce(st); localStorage.setItem("silitex-lead-fix-v2", "1"); localStorage.setItem("silitex-addr-v1", "1"); localStorage.setItem("silitex-contacts-v1", "1"); return st;
+  const st: State = { ...EMPTY, tasks: [] }; seedOnce(st); localStorage.setItem("silitex-lead-fix-v2", "1"); localStorage.setItem("silitex-addr-v1", "1"); localStorage.setItem("silitex-contacts-ids", JSON.stringify(LEADS_SEED.filter((x) => x.contact_name).map((x) => x.id))); SEED_PATCHES.forEach((p) => localStorage.setItem(p.flag, "1")); return st;
 }
 export function saveState(s: State) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {} }
 export function clearState() { try { localStorage.removeItem(STORAGE_KEY); } catch {} }

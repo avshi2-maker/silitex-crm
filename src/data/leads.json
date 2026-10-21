@@ -235,7 +235,8 @@
   "rd_focus": "Foam knock-down in liquid detergents and on high-speed filling lines; softener feel; antifoam stability in hypochlorite / high-pH gels",
   "buyer_trigger": "Director of Detergent Formulations technical validation",
   "website": "https://www.sano.co.il/",
-  "address": "החרש 11, אזור התעשייה נוה נאמן, הוד השרון"
+  "address": "החרש 11, אזור התעשייה נוה נאמן, הוד השרון",
+  "notes": "Also furniture aerosols, leather lotions, floor polishes (Comet car-care list 21/10/2026) → AMISIL / CARNAUBEX / IDROCER for polishes."
  },
  {
   "id": "LEAD-009",
@@ -1161,7 +1162,8 @@
   "recommended_sku": "",
   "plan_next_action": "🔎 סריקת אתר → התאמה (מרככים / מונעי קצף בתהליך / לוסיון למגבונים) — ממתין לבדיקת Silitex → לבדוק עם פיני",
   "lat": 31.656,
-  "lon": 34.693
+  "lon": 34.693,
+  "notes": "Also private-label automotive & industrial cleaning wipes (Comet car-care list 21/10/2026) → wipe lotion: antifoam + silicone conditioning (MICROAMISIL 41 / EVERSIL 35)."
  },
  {
   "id": "LEAD-045",
@@ -2526,10 +2528,10 @@
  {
   "id": "LEAD-107",
   "name": "Nano-Z Coating Ltd",
-  "industry": "Adhesives, Labels & Release Coatings",
-  "sub_industry": "Coatings / adhesives / additives formulator",
+  "industry": "Car Care & Ceramic Coatings",
+  "sub_industry": "Nano protective coatings — vehicle body, water-repellent glass treatments, other substrates",
   "product_match": "",
-  "use_case": "Coatings / adhesives / additives formulator",
+  "use_case": "Hydrophobic / low-surface-energy protective films, water beading, dirt repellency",
   "volume_tons": 0,
   "value_usd": 0,
   "tier": "Tier 3 - New (to qualify)",
@@ -2540,11 +2542,12 @@
   "source": "comet-rubber-labels",
   "website": "https://nanoztec.com/en/home/",
   "city": "Yavne",
-  "recommended_sku": "",
-  "plan_next_action": "🔎 סריקת אתר → מונעי קצף ומרטיבים לדבקים ולציפויים על בסיס מים (טווח Paint & Coating) → ציפוי השחרור הסיליקוני עצמו (liner) מחוץ לטווח Silitex · קשר: +972-3-716-6565",
+  "recommended_sku": "EVERSIL 350 / EVERSIL 3500 (silicone emulsions — shine, water beading), BEAUTY CAR / BEAUTY CAR CONC. (wash & wax), CARNAUBEX 442 (carnauba wax emulsion), MICROAMISIL 41 (amino microemulsion — plastic / rubber dressing), REOWASS 500 S · DYNAWEED 510 (wetting)",
+  "plan_next_action": "🔎 סריקת אתר → ציפוי לרכב ולזכוכית: אמולסיות סיליקון ל-water beading · קשר: +972-3-716-6565",
   "address": "1 Shedlovski St., Yavne (לאמת)",
   "lat": 31.88,
-  "lon": 34.74
+  "lon": 34.74,
+  "notes": "Moved to Car Care 21/10/2026 (Comet car-care list: vehicle-body coatings + water-repellent glass). Globes article: en.globes.co.il … 1000939442."
  },
  {
   "id": "LEAD-108",
@@ -2814,7 +2817,8 @@
   "website": "https://klir.co.il/",
   "city": "",
   "recommended_sku": "",
-  "plan_next_action": "🔎 סריקת אתר → מונעי קצף לחומרי ניקוי נוזליים ואבקות (DYNAPAN, אבקות) + Car care → בקשת פגישת מעבדה / מותג פרטי · קשר: 08-640-4040 · crm@klir.co.il"
+  "plan_next_action": "🔎 סריקת אתר → מונעי קצף לחומרי ניקוי נוזליים ואבקות (DYNAPAN, אבקות) + Car care → בקשת פגישת מעבדה / מותג פרטי · קשר: 08-640-4040 · crm@klir.co.il",
+  "notes": "Also locally made vehicle & workshop cleaners (Comet car-care list 21/10/2026) → car-care line: BEAUTY CAR / EVERSIL 350."
  },
  {
   "id": "LEAD-121",
@@ -2877,11 +2881,15 @@
   "source": "comet-formulators",
   "website": "https://www.nanolab.ltd/",
   "city": "Rishon LeZion",
-  "recommended_sku": "",
+  "recommended_sku": "EVERSIL 350 / EVERSIL 3500 (silicone emulsions — shine, water beading), BEAUTY CAR / BEAUTY CAR CONC. (wash & wax), CARNAUBEX 442 (carnauba wax emulsion), MICROAMISIL 41 (amino microemulsion — plastic / rubber dressing), REOWASS 500 S",
   "plan_next_action": "🔎 סריקת אתר → טווח Car care של Silitex (ציפוי, ברק, דוחי מים) → מעבדת פיתוח OEM · קשר: WhatsApp +972-50-733-7335",
   "address": "Noah Mozes 6, Rishon LeZion (לאמת)",
   "lat": 31.96,
-  "lon": 34.8
+  "lon": 34.8,
+  "contact_name": "Gavriel Bechor — Founder & CEO",
+  "contact_phone": "+972-50-7337335",
+  "contact_email": "g@nanolab.ltd",
+  "notes": "Private-label ceramic coatings (cars, boats, aircraft). 6 Noah Mozes St., Giron 2000, Rishon LeZion 7565235. Source: nanolab.ltd/contact."
  },
  {
   "id": "LEAD-124",
@@ -3575,7 +3583,7 @@
   "lat": 32.593,
   "lon": 35.08,
   "contact_phone": "+972-4-9897252",
-  "notes": "Kibbutz Dalia 1923900. Export catalogue on their site. Also makes surfactant intermediates — possible partner, not only customer."
+  "notes": "Kibbutz Dalia 1923900. Export catalogue on their site. Also makes surfactant intermediates — possible partner, not only customer.\nAlso automotive & industrial cleaning formulations (Comet car-care list 21/10/2026, zohardalia.co.il/page_37979). Second phone: +972-4-9897234."
  },
  {
   "id": "LEAD-155",
@@ -3665,13 +3673,13 @@
  {
   "id": "LEAD-159",
   "name": "Rose Chemicals",
-  "industry": "Detergents & Cleaning Formulations",
-  "sub_industry": "Industrial cleaners for electronics, electrical, textiles, food, plastics, metal, workshops",
+  "industry": "Car Care & Ceramic Coatings",
+  "sub_industry": "Car-wash & detailing chemicals (car shampoo, wash & wax, silicone milk, plastic / vinyl dressings, glass & upholstery cleaners) + industrial cleaners",
   "product_match": "",
-  "use_case": "Antifoam in industrial cleaners, surface conditioning",
+  "use_case": "Already sells a silicone milk (silicone emulsion dressing) and wash & wax → buys silicone emulsions today = direct offset; shine, water beading, plastic conditioning",
   "volume_tons": 0,
   "value_usd": 0,
-  "tier": "Tier 4 - Low",
+  "tier": "Tier 2 - High potential (to qualify)",
   "department": "R&D / Production",
   "contact_role": "Technical",
   "status": "new",
@@ -3679,8 +3687,9 @@
   "source": "comet-detergents",
   "website": "https://rosechemicals.com/",
   "city": "",
-  "recommended_sku": "ALKAFLUX 700 / DYNAPAN 300 / DYNAWEED 260 E (antifoam for acid / alkaline pH and high temperature — CIP, machine dishwash), FISIOREX 1000 (eco-label antifoam)",
-  "plan_next_action": "🔎 לאמת גודל וייצור בארץ"
+  "recommended_sku": "EVERSIL 350 / EVERSIL 3500 (silicone emulsions — shine, water beading), BEAUTY CAR / BEAUTY CAR CONC. (wash & wax), CARNAUBEX 442 (carnauba wax emulsion), MICROAMISIL 41 (amino microemulsion — plastic / rubber dressing), REOWASS 500 S",
+  "plan_next_action": "📞 הם כבר מוכרים \"חלב סיליקון\" + שמפו-ווקס → שואלים מה האמולסיה שבשימוש → דגימת EVERSIL 350 + BEAUTY CAR",
+  "notes": "Product pages: rosechemicals.com/services/חלב-סיליקון/ · /services/שמפו-ווקס/ (Comet car-care list 21/10/2026)."
  },
  {
   "id": "LEAD-160",
@@ -3742,5 +3751,30 @@
   "city": "",
   "recommended_sku": "ALKAFLUX 700 / DYNAPAN 300 / DYNAWEED 260 E (antifoam for acid / alkaline pH and high temperature — CIP, machine dishwash), FISIOREX 1000 (eco-label antifoam) · DYNAWEED 510 (wetting)",
   "plan_next_action": "🥊 גם במרשם המתחרים (Rotal — אוטמים/דבקים) — פנייה זהירה, רק לקו הניקוי"
+ },
+ {
+  "id": "LEAD-163",
+  "name": "Snonit Chemicals (סנונית)",
+  "industry": "Car Care & Ceramic Coatings",
+  "sub_industry": "Car shampoos, vehicle care, upholstery & wheel cleaners + custom chemical manufacturing",
+  "product_match": "",
+  "use_case": "Car-care gloss, water beading, plastic conditioning; foam control in manufacturing",
+  "volume_tons": 0,
+  "value_usd": 0,
+  "tier": "Tier 3 - New (to qualify)",
+  "department": "Production",
+  "contact_role": "Owner / production manager",
+  "status": "new",
+  "stage": "prospect",
+  "source": "comet-carcare",
+  "website": "https://snonitshop.co.il/",
+  "city": "Hadera",
+  "address": "18 Hazagag St., Hadera",
+  "lat": 32.434,
+  "lon": 34.919,
+  "recommended_sku": "EVERSIL 350 / EVERSIL 3500 (silicone emulsions — shine, water beading), BEAUTY CAR / BEAUTY CAR CONC. (wash & wax), CARNAUBEX 442 (carnauba wax emulsion), MICROAMISIL 41 (amino microemulsion — plastic / rubber dressing), REOWASS 500 S",
+  "plan_next_action": "📞 *8053 — שמפו + ווקס לרכב, ייצור בהזמנה אישית → דגימת BEAUTY CAR + EVERSIL 350",
+  "contact_phone": "*8053",
+  "contact_email": "snonit.orders@gmail.com"
  }
 ]
