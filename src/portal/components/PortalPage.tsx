@@ -1,4 +1,4 @@
-// PortalPage.tsx (src/portal/components/PortalPage.tsx) · updated 20.10.2026 19:05 (Asia/Jerusalem) — no sideways scroll (hover card hidden with display:none + overflow clip) — header brand no longer cut · 18:20 — regulation menu item opens a hover/focus preview of the 2027 announcement; commit id next to the version · 18:30 — free match report button in the CTA box · 18:15 — NEW badge on regulation + 2027 announcement pop-up · 18:05 — header re-laid: brand right + bigger, menu centred with wider spacing, clock / version / language on the left · 17:55 — + IT language, version stamp, "back to home" button on every page · 17:40 — light-gold background, live clock + date in header, flooring moved into Sapirim Group (bigger gold link), LinkedIn in footer · 16:30 — + complementary (silicone-free) + flooring nav · 13:50 — + "Sapirim Group" nav item (activities + AI portfolio) · 18.10.2026 18:00 — PUBLIC PORTAL page frame (server): header with nav + language switch (same page in he/en/ru), breadcrumbs, content, contact call-to-action, footer, Organization JSON-LD.
+// PortalPage.tsx (src/portal/components/PortalPage.tsx) · updated 21.10.2026 10:15 (Asia/Jerusalem) — page background pictures (drops / lab / industry / molecules / workshop) fading into the gold page colour · 20.10.2026 19:05 — no sideways scroll (hover card hidden with display:none + overflow clip) — header brand no longer cut · 18:20 — regulation menu item opens a hover/focus preview of the 2027 announcement; commit id next to the version · 18:30 — free match report button in the CTA box · 18:15 — NEW badge on regulation + 2027 announcement pop-up · 18:05 — header re-laid: brand right + bigger, menu centred with wider spacing, clock / version / language on the left · 17:55 — + IT language, version stamp, "back to home" button on every page · 17:40 — light-gold background, live clock + date in header, flooring moved into Sapirim Group (bigger gold link), LinkedIn in footer · 16:30 — + complementary (silicone-free) + flooring nav · 13:50 — + "Sapirim Group" nav item (activities + AI portfolio) · 18.10.2026 18:00 — PUBLIC PORTAL page frame (server): header with nav + language switch (same page in he/en/ru), breadcrumbs, content, contact call-to-action, footer, Organization JSON-LD.
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { PORTAL_LANGS, CONTACT, type PLang } from "../config";
@@ -30,9 +30,13 @@ function RegNav({ lang, href, label }: { lang: PLang; href: string; label: strin
     </span>
   );
 }
+const HERO: [string, string][] = [["/regulation", "lab"], ["/products", "lab"], ["/alternatives", "lab"], ["/industries", "industry"], ["/flooring", "darklab"], ["/faq", "molecule"], ["/complementary", "molecule"], ["/match", "molecule"], ["/group", "molecule"], ["/ai", "molecule"]];
+const heroOf = (path: string) => HERO.find(([p]) => path === p || path.startsWith(p + "/"))?.[1] || "drops";
 const LN: Record<PLang, string> = { he: "עב", en: "EN", ru: "RU", it: "IT" };
 export default function PortalPage({ lang, path, crumbs, children }: { lang: PLang; path: string; crumbs?: { name: string; url: string }[]; children: ReactNode }) {
   const t = (k: string) => pt(lang, k); const base = "/" + lang;
+  const hero = heroOf(path); const veil = hero === "darklab" ? "0.55" : "0.25";
+  const heroStyle = { backgroundImage: "linear-gradient(to bottom, rgba(251,245,228," + veil + ") 0%, rgba(251,245,228,0.7) 55%, #FBF5E4 100%), url(/assets/portal/bg-" + hero + ".webp)", backgroundSize: "cover", backgroundPosition: hero === "drops" ? "center 75%" : "center top" };
   const nav: [string, string][] = [["", "home"], ["/industries", "industries"], ["/alternatives", "alternatives"], ["/products", "products"], ["/faq", "faq"], ["/regulation", "regulation"]];
   const wa = "https://wa.me/" + CONTACT.wa + "?text=" + encodeURIComponent(lang === "he" ? "שלום אבשי, הגעתי מהאתר — " : lang === "ru" ? "Здравствуйте, Авши! Пишу с сайта — " : lang === "it" ? "Buongiorno Avshi, vi ho trovato sul sito — " : "Hello Avshi, I found you on the website — ");
   return (
@@ -49,7 +53,9 @@ export default function PortalPage({ lang, path, crumbs, children }: { lang: PLa
           </div>
         </div>
       </header>
-      <main className="max-w-6xl mx-auto px-4 py-6 space-y-6">
+      <div className="relative">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[520px]" style={heroStyle} />
+      <main className="relative max-w-6xl mx-auto px-4 py-6 space-y-6">
         {path !== "" && <Link href={base} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-ink-900 text-amber-300 text-sm font-semibold hover:bg-ink-700">{BACK[lang]}</Link>}
         {crumbs && crumbs.length > 1 && <div className="text-xs text-slate-500 flex flex-wrap gap-1">{crumbs.map((c, i) => <span key={c.url}>{i > 0 && " › "}{i < crumbs.length - 1 ? <Link href={c.url} className="hover:underline">{c.name}</Link> : c.name}</span>)}</div>}
         {children}
@@ -64,6 +70,7 @@ export default function PortalPage({ lang, path, crumbs, children }: { lang: PLa
           </div>
         </section>
       </main>
+      </div>
       <RegPopup lang={lang} path={path} />
       <footer className="border-t mt-6">
         <div className="max-w-6xl mx-auto px-4 py-5 text-sm text-slate-500 space-y-1">
