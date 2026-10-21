@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 19.10.2026 12:05 (Asia/Jerusalem) — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 21.10.2026 11:10 (Asia/Jerusalem) — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState, useEffect } from "react";
 import type { Thread } from "@/lib/types";
 import Link from "next/link";
@@ -25,6 +25,7 @@ import PlaybookCard from "@/components/playbook/PlaybookCard";
 import DelBtn from "@/components/DelBtn";
 import LocationCard from "@/components/visits/LocationCard";
 import ScanCard from "@/components/scan/ScanCard";
+import HuntCard from "@/components/leads/HuntCard";
 import { parsePlan } from "@/lib/playbook";
 export default function LeadPage({ params }: { params: Promise<{ id: string }> }) {
   const { t: tr } = useLang();
@@ -68,6 +69,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
         </div>
         <div className="space-y-4">
           <ScanCard lead={lead} onSave={upsertLead} onSpend={addSpend} spend={state.spend} />
+          <HuntCard lead={lead} onSave={upsertLead} onLog={(t) => addActivity(id, "note", t)} />
           <LocationCard lead={lead} leads={state.leads} onSave={upsertLead} />
           <PlaybookCard lead={lead} ops={{ tasks: state.tasks, startPlan, advancePlan, setTaskDue, stopPlan }} />
           <PurchaseHistory leadId={id} compact />

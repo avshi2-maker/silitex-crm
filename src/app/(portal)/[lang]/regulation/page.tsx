@@ -1,4 +1,5 @@
-// page.tsx (src/app/(portal)/[lang]/regulation/page.tsx) · updated 20.10.2026 18:15 (Asia/Jerusalem) — + 2027 banner + INCI checker · 17:55 — + Italian · 18.10.2026 18:10 — PUBLIC PORTAL D4 / D5 / D6 explainer: the verified EU facts (same list as Post Studio), Israel status "not confirmed", what to do. FAQPage JSON-LD.
+// page.tsx (src/app/(portal)/[lang]/regulation/page.tsx) · updated 21.10.2026 10:55 (Asia/Jerusalem) — link to the full 2026–2027 article · D6 rinse-off date 06/06/2026 · 20.10.2026 18:15 — + 2027 banner + INCI checker · 17:55 — + Italian · 18.10.2026 18:10 — PUBLIC PORTAL D4 / D5 / D6 explainer: the verified EU facts (same list as Post Studio), Israel status "not confirmed", what to do. FAQPage JSON-LD.
+import Link from "next/link";
 import type { Metadata } from "next";
 import PortalPage from "@/portal/components/PortalPage";
 import JsonLd from "@/portal/components/JsonLd";
@@ -13,6 +14,7 @@ const FACTS: Record<PLang, [string, string][]> = {
   ru: [["Разрешён ли D4 в косметике?", "Нет. В ЕС D4 запрещён в косметической продукции (Приложение II Регламента о косметике)."], ["D5 в смываемых продуктах?", "В ЕС ограничен менее 0,1 % в смываемой косметике с 31/01/2020."], ["D5 и D6 в несмываемых продуктах?", "Согласно Регламенту (EU) 2024/1328: с 06/06/2027 D5 ограничен менее 0,1 % в несмываемой косметике, а D6 — менее 0,1 % и в смываемой, и в несмываемой."]],
   it: [["D4 è ammesso nei cosmetici?", "No. Nell'UE il D4 è vietato nei prodotti cosmetici (Allegato II del Regolamento Cosmetici)."], ["D5 nei prodotti a risciacquo?", "Nell'UE è limitato a meno dello 0,1 % nei cosmetici a risciacquo dal 31/01/2020."], ["D5 e D6 nei prodotti senza risciacquo?", "Con il Regolamento (UE) 2024/1328: dal 06/06/2027 il D5 è limitato a meno dello 0,1 % nei cosmetici senza risciacquo, e il D6 a meno dello 0,1 % sia nei cosmetici a risciacquo sia in quelli senza risciacquo."]],
 };
+const ARTL: Record<PLang, string> = { he: "המאמר המלא: לוח הזמנים 2020–2031 ואיך עוברים", en: "Full article: the 2020–2031 timeline and how to switch", ru: "Полная статья: сроки 2020–2031 и как перейти", it: "Articolo completo: le scadenze 2020–2031 e come passare" };
 export async function generateMetadata({ params }: { params: Promise<{ lang: PLang }> }): Promise<Metadata> { const { lang } = await params; return meta(lang, "/regulation", pt(lang, "regulation"), pt(lang, "regIntro") + " " + FACTS[lang].map((f) => f[1]).join(" ")); }
 export default async function Regulation({ params }: { params: Promise<{ lang: PLang }> }) {
   const { lang } = await params; const t = (k: string) => pt(lang, k); const b = "/" + lang;
@@ -22,6 +24,7 @@ export default async function Regulation({ params }: { params: Promise<{ lang: P
       <JsonLd data={faqLd(qa.map(([q, a]) => ({ q, a })))} />
       <div className="rounded-2xl bg-ink-900 text-white p-5 space-y-2"><span className="inline-block rounded-full bg-amber-400 text-ink-900 text-xs font-extrabold px-3 py-1">{POP.badge[lang]}</span><div className="text-2xl font-extrabold">{POP.title[lang]}</div><p className="text-slate-200">{POP.text[lang]}</p></div>
       <h1 className="text-3xl font-bold">{t("regulation")}</h1><p className="text-lg text-slate-700">{t("regIntro")}</p>
+      <Link href={b + "/articles/d4-d5-d6-2027"} className="inline-block text-brand-700 underline font-semibold">📰 {ARTL[lang]} ›</Link>
       <InciChecker lang={lang} />
       <div className="space-y-3">{qa.map(([q, a]) => <section key={q} className="border rounded-xl p-4"><h2 className="font-bold">{q}</h2><p className="text-slate-700 mt-1">{a}</p></section>)}</div>
       <section className="rounded-2xl bg-slate-50 p-4"><h2 className="font-bold">{t("regWhat")}</h2><p className="text-slate-700">{t("regDo")}</p></section>
