@@ -34,6 +34,7 @@ const SEED_PATCHES: { flag: string; ids: string[]; fields: (keyof Lead)[] }[] = 
   { flag: "silitex-patch-carcare-v1", ids: ["LEAD-159", "LEAD-107", "LEAD-123"], fields: ["industry", "tier", "sub_industry", "use_case", "recommended_sku", "plan_next_action", "notes"] },
   { flag: "silitex-patch-carcare-notes-v1", ids: ["LEAD-154", "LEAD-120", "LEAD-044", "LEAD-008"], fields: ["notes"] },
   { flag: "silitex-patch-packaging-notes-v1", ids: ["LEAD-105"], fields: ["notes"] },
+  { flag: "silitex-patch-lubes-notes-v1", ids: ["LEAD-117"], fields: ["notes"] },
 ];
 function patchOnce(st: State) {
   try { for (const p of SEED_PATCHES) { if (localStorage.getItem(p.flag)) continue; const fixed: Lead[] = [];
