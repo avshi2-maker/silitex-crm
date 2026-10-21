@@ -23,3 +23,6 @@ Every Monday 08:00 a short WhatsApp to Avshi: clicks + impressions last 7 days, 
 **How:** Google Search Console API (service account added as user on the sapirim.com property) → `/api/cron/gsc-weekly` (Vercel cron, Mondays) → existing `sendWhatsApp()` (Meta Cloud API) + same text on /promo.
 **Why parked:** the site went public 20/10/2026 — Search Console needs ~3 weeks of data before the numbers mean anything.
 **Resume:** from ~10/11/2026. Avshi: Search Console → Settings → Users → add the service-account e-mail (Claude gives it). Claude: route + cron + /promo card, half a day.
+
+## 🅿️ artfloor.co.il rebuild — PARKED 21/10/2026
+Site is ~20 years old (not in GitHub, no footer link to sapirim.com possible). Avshi: maybe rebuild next year. When rebuilt — same stack as marble-art.co.il (Next.js + Vercel), footer link "חלק מקבוצת ספירים" → www.sapirim.com/he, and tick it on CRM /promo.
