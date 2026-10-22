@@ -1,4 +1,4 @@
-// ru.ts (src/i18n/ru.ts) · updated 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 20.10.2026 18:05 — + back link · 18.10.2026 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 16.10.2026 18:55 (Asia/Jerusalem) — Russian UI (for Russian-speaking technicians in Israel). Same keys as en.ts / it.ts; missing key → English fallback.
+// ru.ts (src/i18n/ru.ts) · updated 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 20.10.2026 18:05 — + back link · 18.10.2026 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 16.10.2026 18:55 (Asia/Jerusalem) — Russian UI (for Russian-speaking technicians in Israel). Same keys as en.ts / it.ts; missing key → English fallback.
 export const RU: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Нет в данных Silitex — мы не гадаем",
   "המערכת עונה רק מתוך הקטלוגים, המקבילות וה-FAQ של Silitex. כשאין מקור — אין תשובה אוטומטית, ואין פנייה למקורות חיצוניים. במקום זה: שאלה ישירה לאבשי (מייל + WhatsApp), תשובה אנושית תוך 24 שעות.": "Этот инструмент отвечает только по каталогам Silitex, аналогам и FAQ. Нет источника — нет автоматического ответа и никаких внешних источников. Вместо этого вопрос уходит напрямую Avshi (email + WhatsApp), ответ специалиста в течение 24 часов.",
@@ -2055,4 +2055,10 @@ export const RU: Record<string, string> = {
   "לא נבחרו שאלות": "Вопросы не выбраны",
   "שאלות נוספו לרישום פדריקה": "вопросов добавлено в реестр Федерики",
   "השמירה נכשלה — נסה שוב": "Не удалось сохранить — попробуйте снова",
+  // 22.10.2026 — missing UI strings added (all pages)
+  "רק סריקות בלי התאמה": "Только сканы без совпадений",
+  "כן, נקה": "Да, очистить",
+  "סריקות": "сканов",
+  "נקה את כל הסריקות בלי התאמה": "Очистить все сканы без совпадений",
+  "נקה סריקה (הלקוח נשאר)": "Очистить скан (клиент остаётся)",
 };

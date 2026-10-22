@@ -1,4 +1,4 @@
-// en.ts (src/i18n/en.ts) · updated 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 21.10.2026 11:35 — + daily hunt, comparison links · 11:15 — + promotion & Google page, smart Google search card · 20.10.2026 18:40 — + automatic match run · 18:30 — + match requests · 18:05 — + back link · 17:40 — + form validation · 13:20 — + roadmap · 10:55 — + scan monitor · 10:45 — + scan failures · 09:40 — + market matrix · 18.10.2026 18:55 — + Social plan · 19:10 — + AI visibility · 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
+// en.ts (src/i18n/en.ts) · updated 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 21.10.2026 11:35 — + daily hunt, comparison links · 11:15 — + promotion & Google page, smart Google search card · 20.10.2026 18:40 — + automatic match run · 18:30 — + match requests · 18:05 — + back link · 17:40 — + form validation · 13:20 — + roadmap · 10:55 — + scan monitor · 10:45 — + scan failures · 09:40 — + market matrix · 18.10.2026 18:55 — + Social plan · 19:10 — + AI visibility · 18:40 — + portal nav · 17:30 — + Post Studio · 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo · 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 15.10.2026 15:00 (Asia/Jerusalem)
 // Hebrew source string → English. Missing key = Hebrew shown. Add a line here for every new UI string.
 export const EN: Record<string, string> = {
   "ציד יומי — 5 לידים בלי איש קשר": "Daily hunt — 5 leads without a contact",
@@ -1958,4 +1958,10 @@ export const EN: Record<string, string> = {
   "לא נבחרו שאלות": "No questions selected",
   "שאלות נוספו לרישום פדריקה": "questions added to the Federica register",
   "השמירה נכשלה — נסה שוב": "Saving failed — try again",
+  // 22.10.2026 — missing UI strings added (all pages)
+  "רק סריקות בלי התאמה": "Only scans without a match",
+  "כן, נקה": "Yes, clear",
+  "סריקות": "scans",
+  "נקה את כל הסריקות בלי התאמה": "Clear all scans without a match",
+  "נקה סריקה (הלקוח נשאר)": "Clear scan (customer stays)",
 };

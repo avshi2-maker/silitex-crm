@@ -1,4 +1,4 @@
-// it.ts (src/i18n/it.ts) · updated 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 20.10.2026 18:05 — + back link · 18.10.2026 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo strings · 10:55 — + field mode strings · 15.10.2026 15:00 — + quick match, R&D stages, sample request · 15.10.2026 13:35 — + certifications strings · 10.10.2026 06:55 (Asia/Jerusalem)
+// it.ts (src/i18n/it.ts) · updated 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 20.10.2026 18:05 — + back link · 18.10.2026 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo strings · 10:55 — + field mode strings · 15.10.2026 15:00 — + quick match, R&D stages, sample request · 15.10.2026 13:35 — + certifications strings · 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
   "Israel portal · Phase 2 preview": "Portale Israele · anteprima Fase 2",
@@ -2040,4 +2040,10 @@ export const IT: Record<string, string> = {
   "לא נבחרו שאלות": "Nessuna domanda selezionata",
   "שאלות נוספו לרישום פדריקה": "domande aggiunte al registro di Federica",
   "השמירה נכשלה — נסה שוב": "Salvataggio non riuscito — riprova",
+  // 22.10.2026 — missing UI strings added (all pages)
+  "רק סריקות בלי התאמה": "Solo scansioni senza corrispondenza",
+  "כן, נקה": "Sì, cancella",
+  "סריקות": "scansioni",
+  "נקה את כל הסריקות בלי התאמה": "Cancella tutte le scansioni senza corrispondenza",
+  "נקה סריקה (הלקוח נשאר)": "Cancella scansione (il cliente resta)",
 };

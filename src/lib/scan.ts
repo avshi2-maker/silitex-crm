@@ -1,9 +1,13 @@
-// scan.ts (src/lib/scan.ts) · updated 22.10.2026 07:35 (Asia/Jerusalem) — timeout → clear Hebrew message + readScan() (HTML time-out page no longer shown as 'invalid AI answer') · 20.10.2026 10:45 (Asia/Jerusalem) — failed scans remembered on the lead (intake.scan_err) so "scan all" skips them; separate retry · 06:00 — CUSTOMER WEBSITE SCAN result type + where it lives on the lead (intake.scan_json / scan_at — no database change) + text for export / Pini list.
+// scan.ts (src/lib/scan.ts) · updated 22.10.2026 12:45 (Asia/Jerusalem) — withoutScan() + noMatch() (clear scans without a Silitex match) · 22.10.2026 07:35 (Asia/Jerusalem) — timeout → clear Hebrew message + readScan() (HTML time-out page no longer shown as 'invalid AI answer') · 20.10.2026 10:45 (Asia/Jerusalem) — failed scans remembered on the lead (intake.scan_err) so "scan all" skips them; separate retry · 06:00 — CUSTOMER WEBSITE SCAN result type + where it lives on the lead (intake.scan_json / scan_at — no database change) + text for export / Pini list.
 import type { Lead } from "@/lib/types";
 export type ScanData = { summary?: string; product_lines?: { name: string; type?: string; examples?: string[] }[]; silicone_uses?: { function: string; where: string }[]; matches?: { silitex: string; code?: string; countertype?: string; for?: string; why?: string; confidence?: string }[]; questions?: string[]; value_angle?: string; not_found?: string };
 export type ScanResult = { data: ScanData; at: string; pages: number; urls: string[]; sector: string };
 export function scanOf(l: Lead): ScanResult | null { try { const s = l.intake?.scan_json; return s ? (JSON.parse(s) as ScanResult) : null; } catch { return null; } }
 export const withScan = (l: Lead, r: ScanResult): Lead => { const it: Record<string, unknown> = { ...(l.intake || {}), scan_json: JSON.stringify(r), scan_at: r.at }; delete it.scan_err; return { ...l, intake: it as Lead["intake"] }; };
+/** remove a scan result (customer stays; goes back to "not scanned" so it can be scanned again, e.g. with a corrected website) */
+export const withoutScan = (l: Lead): Lead => { const it: Record<string, unknown> = { ...(l.intake || {}) }; delete it.scan_json; delete it.scan_at; delete it.scan_err; return { ...l, intake: it as Lead["intake"] }; };
+/** scanned but no Silitex match at all (or only low confidence) */
+export const noMatch = (l: Lead): boolean => { const r = scanOf(l); return !!r && !(r.data.matches || []).some((m) => m.confidence !== "low"); };
 export const scanErr = (l: Lead): string => (scanOf(l) ? "" : String(l.intake?.scan_err || ""));
 export const withScanErr = (l: Lead, msg: string): Lead => ({ ...l, intake: { ...(l.intake || {}), scan_err: msg + " · " + new Date().toLocaleDateString("en-GB") } as Lead["intake"] });
 /** server error → Hebrew reason */
