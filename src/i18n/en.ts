@@ -2029,4 +2029,6 @@ export const EN: Record<string, string> = {
   " נשלחו לסריקת שרת": " sent to the server scan",
   "החברות עם אתר נסרקות בשרת: תעשייה, תת-ענף והתאמת מוצרי Silitex — אפשר לסגור את הדפדפן": "Companies with a website are scanned on the server: industry, sub-industry and Silitex product match — the browser can be closed",
   "לשלוח לסריקת שרת": "Send to server scan",
+  "קובץ": "File",
+  "חיפוש ברשת": "Web search",
 };

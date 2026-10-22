@@ -2111,4 +2111,6 @@ export const IT: Record<string, string> = {
   " נשלחו לסריקת שרת": " inviati alla scansione server",
   "החברות עם אתר נסרקות בשרת: תעשייה, תת-ענף והתאמת מוצרי Silitex — אפשר לסגור את הדפדפן": "Le aziende con sito vengono scansionate sul server: settore, sotto-settore e abbinamento prodotti Silitex — si può chiudere il browser",
   "לשלוח לסריקת שרת": "Invia alla scansione server",
+  "קובץ": "File",
+  "חיפוש ברשת": "Ricerca web",
 };
