@@ -1,4 +1,4 @@
-// hub.ts (src/config/hub.ts) · updated 10.10.2026 07:30 (Asia/Jerusalem)
+// hub.ts (src/config/hub.ts) · updated 22.10.2026 07:10 (Asia/Jerusalem) — + PARTNER_DEPT: Sapirim technical partners (Pini) — supplier side, not Silitex, not a customer; e-mail / WhatsApp auto-route by the contact's address / mobile · 10.10.2026 07:30
 // Silitex Hub: departments (from silitex.it job descriptions, 10/10/2026 — names/direct emails added after contract), thread topics, statuses, matching keywords.
 export type Dept = { key: string; en: string; he: string; icon: string; email: string; phone: string; site: string; notes: string; keywords: RegExp };
 export const SILITEX = { name: "Silitex S.r.l.", hq: "Viale Commercio 25/27, 37044 Cologna Veneta (VR), Italy", plant: "Viale Industria 34, Cologna Veneta (VR)", warehouse: "Viale Industria 26, Cologna Veneta (VR)", domain: "silitex.it", info: "info@silitex.it" };
@@ -13,6 +13,8 @@ export const DEPTS: Dept[] = [
   { key: "finance", en: "Marketing & finance", he: "שיווק וכספים", icon: "📈", email: SILITEX.info, phone: "+39 0442 411561", site: "HQ", notes: "Marketing material, certificates for marketing, credit terms, statements.", keywords: /marketing|brochure|catalog|credit|statement|estratto|finance|budget|logo|website/i },
   { key: "plant", en: "Production plant", he: "ייצור", icon: "🏭", email: SILITEX.info, phone: "+39 0442 411561", site: "Plant, Viale Industria 34", notes: "Production slots, batch dates, cargo-ready dates.", keywords: /production|batch|lot\b|lotto|cargo ready|produzione|planning/i },
 ];
+export const PARTNER_DEPT: Dept = { key: "partner", en: "Sapirim partners — technical", he: "שותפים — Sapirim (טכני)", icon: "🧑‍🔬", email: "", phone: "", site: "Israel", notes: "פיני — שותף טכני (כימאי PhD, טיפוח וקוסמטיקה). צד הספק — לא Silitex ולא לקוח. מיילים, WhatsApp ופגישות מוקלטות נכנסים לכאן לפי המייל / הנייד שלו.", keywords: /$^/ };
+DEPTS.push(PARTNER_DEPT);
 export const IL_DEPT = { key: "il", en: "Prospects — Israel", he: "לקוחות פוטנציאליים — ישראל", icon: "🇮🇱", email: "", phone: "", site: "Israel", notes: "Correspondence with Israeli prospects — auto-matched by the contact email / company domain in the lead file.", keywords: /$^/ };
 DEPTS.push(IL_DEPT);
 export const TOPICS = ["order", "shipment", "sample", "technical", "quality", "invoice", "contract", "marketing", "whatsapp", "other"] as const;

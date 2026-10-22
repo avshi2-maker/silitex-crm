@@ -1,5 +1,5 @@
 "use client";
-// MeetingGroup.tsx (src/components/capture/MeetingGroup.tsx) · updated 19.10.2026 09:45 (Asia/Jerusalem) — 🗑️ delete unneeded item / whole meeting (two-tap confirm, permanent in Cloudinary) · 18.10.2026 07:05 — one field meeting from Cloudinary: process card (vision → contact), photos (vision → facts), voice/video (Whisper → transcript) → ✨ AI summary + next step → save to CRM (lead + log with media links + task + stage) → tagged processed in Cloudinary
+// MeetingGroup.tsx (src/components/capture/MeetingGroup.tsx) · updated 22.10.2026 07:10 (Asia/Jerusalem) — save to a PARTNER / Silitex contact (e.g. Pini) instead of a customer: summary + transcript + media links → the contact's "פגישות" thread in the Hub + task with his name; meeting labelled with a contact name is pre-selected · 19.10.2026 09:45 — 🗑️ delete unneeded item / whole meeting (two-tap confirm, permanent in Cloudinary) · 18.10.2026 07:05 — one field meeting from Cloudinary: process card (vision → contact), photos (vision → facts), voice/video (Whisper → transcript) → ✨ AI summary + next step → save to CRM (lead + log with media links + task + stage) → tagged processed in Cloudinary
 import { useState } from "react";
 import { useStore, STAGES } from "@/lib/store";
 import TokenMeter from "@/components/TokenMeter";
@@ -14,9 +14,10 @@ type Sum = { summary?: string; products?: string[]; next_step?: string; due_days
 const KIND_ICON: Record<string, string> = { card: "📇", photo: "📷", audio: "🎙", video: "🎥", note: "📝" };
 export default function MeetingGroup({ g, onDone }: { g: InboxGroup; onDone: () => void }) {
   const { t: tr } = useLang();
-  const { state, upsertLead, addActivity, addTask, addSpend } = useStore();
+  const { state, upsertLead, addActivity, addTask, addSpend, addThread, addMsg } = useStore();
+  const ctGuess = state.contacts.find((c) => { const a = c.name.trim().toLowerCase(), b = g.label.trim().toLowerCase(); return !!a && !!b && (a.includes(b) || b.includes(a.split(" ")[0])); });
   const guess = state.leads.find((l) => l.id === g.lead) || state.leads.find((l) => l.name.trim().toLowerCase() === g.label.trim().toLowerCase());
-  const [leadId, setLeadId] = useState(guess?.id || ""); const [f, setF] = useState({ company: guess?.name || g.label, contact_name: guess?.contact_name || "", contact_role: guess?.contact_role || "", phone: guess?.contact_phone || "", email: guess?.contact_email || "", website: guess?.website || "", city: guess?.city || "" });
+  const [leadId, setLeadId] = useState(guess?.id || (ctGuess ? "ct:" + ctGuess.id : "")); const [f, setF] = useState({ company: guess?.name || g.label, contact_name: guess?.contact_name || "", contact_role: guess?.contact_role || "", phone: guess?.contact_phone || "", email: guess?.contact_email || "", website: guess?.website || "", city: guess?.city || "" });
   const [items, setItems] = useState(g.items); const [ask, setAsk] = useState("");
   const [ind, setInd] = useState(""); const [res, setRes] = useState<Record<string, string>>(() => Object.fromEntries(g.items.filter((i) => i.text).map((i) => [i.public_id, i.text || ""])));
   const [busy, setBusy] = useState(""); const [err, setErr] = useState(""); const [usage, setUsage] = useState<Usage | null>(null);
@@ -48,7 +49,20 @@ export default function MeetingGroup({ g, onDone }: { g: InboxGroup; onDone: () 
     } catch (e) { setErr(e instanceof Error ? e.message : "error"); }
     setBusy("");
   };
+  const ct = leadId.startsWith("ct:") ? state.contacts.find((c) => "ct:" + c.id === leadId) : undefined;
+  const saveContact = async () => {
+    if (!ct) return; setBusy("save");
+    const now = new Date().toISOString(); const links = items.map((it) => KIND_ICON[it.kind] + " " + it.secure_url).join("\n");
+    const ex = state.threads.find((t) => t.contact_id === ct.id && t.topic === "technical" && t.subject.startsWith("פגישות"));
+    const th = ex || addThread({ dept: ct.dept, contact_id: ct.id, subject: "פגישות · " + ct.name, topic: "technical", refs: {}, owner: "sapirim", status: "open", created_at: now, last_at: now });
+    const body = ["📅 " + fmtDateTime(g.first) + " · " + (g.label || ct.name), sum?.summary ? "סיכום:\n" + sum.summary : "", sum?.next_step ? "הצעד הבא: " + sum.next_step + " (" + fmtDate(due) + ")" : "", combined() ? "תמלול / הערות:\n" + combined() : "", "קבצים:\n" + links].filter(Boolean).join("\n\n");
+    addMsg({ thread_id: th.id, at: now, from: "Avshi Sapir", to: ct.name, direction: "out", body, source: "manual" });
+    if (sum?.next_step) addTask({ lead_id: "", lead_name: ct.name, title: sum.next_step, due, cadence: "once", kind: "manual" });
+    const r = await fetch("/api/capture/done", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items: items.map((i) => ({ public_id: i.public_id, resource_type: i.resource_type })), lead_id: "ct-" + ct.id }) });
+    setBusy(""); if (!r.ok) return setErr(tr("נשמר ב-CRM, אבל סימון ב-Cloudinary נכשל — הפגישה תופיע שוב")); ping(); onDone();
+  };
   const save = async () => {
+    if (ct) return saveContact();
     if (!f.company.trim()) return setErr(tr("חובה: שם חברה"));
     setBusy("save");
     const prev = state.leads.find((l) => l.id === leadId);
@@ -73,6 +87,7 @@ export default function MeetingGroup({ g, onDone }: { g: InboxGroup; onDone: () 
     const gone = new Set(list.map((i) => i.public_id)); const left = items.filter((i) => !gone.has(i.public_id)); setItems(left); ping();
     if (!left.length) onDone();
   };
+  const contactOpts = <optgroup label={tr("שותפים / Silitex — לא לקוח")}>{[...state.contacts].sort((a, b) => (a.dept === "partner" ? -1 : 0) - (b.dept === "partner" ? -1 : 0) || a.name.localeCompare(b.name)).map((c) => <option key={c.id} value={"ct:" + c.id}>{(c.dept === "partner" ? "🧑‍🔬 " : "🇮🇹 ") + c.name}</option>)}</optgroup>;
   const msg = sum?.followup_message || ""; const wa = f.phone.replace(/\D/g, "").replace(/^0/, "972");
   return (
     <div className="bg-white border rounded-2xl p-4 space-y-3">
@@ -86,7 +101,7 @@ export default function MeetingGroup({ g, onDone }: { g: InboxGroup; onDone: () 
           {res[it.public_id] !== undefined && <textarea dir="auto" className={inputCls + " text-xs"} rows={4} value={res[it.public_id]} onChange={(e) => setRes({ ...res, [it.public_id]: e.target.value })} />}
         </div>))}</div>
       <div className="grid md:grid-cols-4 gap-2 border-t pt-3">
-        <select className={inputCls} value={leadId} onChange={(e) => { setLeadId(e.target.value); const l = state.leads.find((x) => x.id === e.target.value); if (l) setF((p) => ({ ...p, company: l.name })); }}><option value="">{tr("+ לקוח חדש")}</option>{[...state.leads].sort((a, b) => a.name.localeCompare(b.name)).map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}</select>
+        <select className={inputCls} value={leadId} onChange={(e) => { setLeadId(e.target.value); const l = state.leads.find((x) => x.id === e.target.value); if (l) setF((p) => ({ ...p, company: l.name })); const c = state.contacts.find((x) => "ct:" + x.id === e.target.value); if (c) setF((p) => ({ ...p, company: c.name, contact_name: c.name, contact_role: c.role, phone: c.mobile || c.phone || "", email: c.email })); }}><option value="">{tr("+ לקוח חדש")}</option>{contactOpts}<optgroup label={tr("לקוחות")}>{[...state.leads].sort((a, b) => a.name.localeCompare(b.name)).map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}</optgroup></select>
         <input className={inputCls} placeholder={tr("חברה *")} value={f.company} onChange={(e) => setF({ ...f, company: e.target.value })} disabled={!!leadId} />
         <input className={inputCls} placeholder={tr("איש קשר")} value={f.contact_name} onChange={(e) => setF({ ...f, contact_name: e.target.value })} />
         <input className={inputCls} placeholder={tr("תפקיד")} value={f.contact_role} onChange={(e) => setF({ ...f, contact_role: e.target.value })} />
@@ -107,7 +122,7 @@ export default function MeetingGroup({ g, onDone }: { g: InboxGroup; onDone: () 
         </div>
       )}
       {err && <div className="text-sm text-red-600">{err}</div>}
-      <div className="flex justify-end"><button className={btnPrimary} disabled={!!busy} onClick={save}>{busy === "save" ? tr("שומר…") : "💾 " + tr("שמור ל-CRM וסגור")}</button></div>
+      <div className="flex justify-end"><button className={btnPrimary} disabled={!!busy} onClick={save}>{busy === "save" ? tr("שומר…") : ct ? "💾 " + tr("שמור אצל ") + ct.name + tr(" (Hub) וסגור") : "💾 " + tr("שמור ל-CRM וסגור")}</button></div>
     </div>
   );
 }
