@@ -1,6 +1,6 @@
 "use client";
-// page.tsx (src/app/leads/import/page.tsx) · updated 17.10.2026 07:55 (Asia/Jerusalem) — import leads from Excel / CSV / SAP export: auto column mapping (HE/EN/SAP headers), preview, new vs update (same company name), skip; template + export-all in the SAME format
-import { useState } from "react";
+// page.tsx (src/app/leads/import/page.tsx) · updated 22.10.2026 17:40 (Asia/Jerusalem) — + paste CSV (answer from Comet / NotebookLM) + hand-off from 🧲 /leads/prompt (source + Tier 3 carried over) · 17.10.2026 07:55 (Asia/Jerusalem) — import leads from Excel / CSV / SAP export: auto column mapping (HE/EN/SAP headers), preview, new vs update (same company name), skip; template + export-all in the SAME format
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
 import { Card, H1, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui";
@@ -8,6 +8,7 @@ import { FIELDS, autoMap, buildRows, toLead, leadsToSheet, type FieldKey, type I
 import { LEAD_SOURCES } from "@/config/sales";
 import { todayIso } from "@/lib/format";
 import { useLang } from "@/i18n";
+import { PASTE_KEY, extractCsv, type PastePayload } from "@/lib/hunt-prompt";
 type Sheet = { name: string; headers: string[]; data: unknown[][] };
 async function xlsx() { return await import("xlsx"); }
 async function download(rows: (string | number)[][], file: string) {
@@ -21,23 +22,33 @@ export default function ImportLeadsPage() {
   const [map, setMap] = useState<Record<number, FieldKey | "">>({});
   const [src, setSrc] = useState("SAP — לקוחות Dow Corning"); const [err, setErr] = useState(""); const [done, setDone] = useState("");
   const [skip, setSkip] = useState<Record<number, boolean>>({});
+  const [tier, setTier] = useState("Tier 2 - Old account"); const [paste, setPaste] = useState("");
+  useEffect(() => { if (!ready) return; try { const raw = sessionStorage.getItem(PASTE_KEY); if (!raw) return; sessionStorage.removeItem(PASTE_KEY); const p = JSON.parse(raw) as PastePayload; setSrc(p.src); setTier(p.tier); loadText(p.csv); } catch {} }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!ready) return null;
   const sheet = sheets[si];
   const load = async (f?: File | null) => {
     if (!f) return; setErr(""); setDone(""); setSkip({});
     try {
-      const X = await xlsx(); const wb = X.read(await f.arrayBuffer(), { type: "array", cellDates: false });
+      const X = await xlsx(); parse(X, X.read(await f.arrayBuffer(), { type: "array", cellDates: false }));
+    } catch (e) { setErr(e instanceof Error ? e.message : "error"); }
+  };
+  const loadText = async (text: string) => {
+    const csv = extractCsv(text); if (!csv) return; setErr(""); setDone(""); setSkip({});
+    try { const X = await xlsx(); parse(X, X.read(csv, { type: "string", raw: true })); } catch (e) { setErr(e instanceof Error ? e.message : "error"); }
+  };
+  const parse = (X: typeof import("xlsx"), wb: import("xlsx").WorkBook) => {
+    {
       const out: Sheet[] = wb.SheetNames.map((n) => { const aoa = X.utils.sheet_to_json<unknown[]>(wb.Sheets[n], { header: 1, defval: "", blankrows: false }); const hi = aoa.findIndex((r) => r.filter((c) => String(c).trim()).length >= 2); const headers = (aoa[hi] || []).map((c) => String(c)); return { name: n, headers, data: aoa.slice(hi + 1) }; }).filter((s) => s.headers.length);
       if (!out.length) throw new Error(tr("לא נמצאו נתונים בקובץ"));
       setSheets(out); setSi(0); setMap(autoMap(out[0].headers));
-    } catch (e) { setErr(e instanceof Error ? e.message : "error"); }
+    }
   };
   const rows: ImportRow[] = sheet ? buildRows(sheet.data, map, state.leads) : [];
   const active = rows.map((r, i) => ({ r, i })).filter(({ r, i }) => r.action !== "skip" && !skip[i]);
   const nNew = active.filter(({ r }) => r.action === "new").length, nUpd = active.filter(({ r }) => r.action === "update").length;
   const hasName = Object.values(map).includes("name");
   const run = () => {
-    const leads = active.map(({ r }) => toLead(r, state.leads, src));
+    const leads = active.map(({ r }) => toLead(r, state.leads, src, tier));
     importLeads(leads); setDone(tr("יובאו ") + nNew + tr(" חדשים · עודכנו ") + nUpd); setSheets([]);
   };
   return (
@@ -45,7 +56,7 @@ export default function ImportLeadsPage() {
       <Link href="/leads" className="text-sm text-brand-600 underline">← {tr("לקוחות פוטנציאליים")}</Link>
       <H1 sub={tr("Excel / CSV / ייצוא SAP → לקוחות. עמודות מזוהות אוטומטית; חברה שכבר קיימת מתעדכנת, לא משוכפלת.")}>📥 {tr("ייבוא לקוחות")}</H1>
       <Card className="flex flex-wrap items-center gap-2">
-        <button className={btnGhost} onClick={() => download(leadsToSheet([]).concat([["דוגמה בע\"מ", "ישראל ישראלי", "מנהל רכש", "050-0000000", "buyer@example.co.il", "נייר", "Antifoam (silicone emulsion)", "Dow / XIAMETER", "בקרת קצף במכונת נייר", 12, 60000, "חדרה", "100234", "15/03/2019", "", "", "SAP"]]), "silitex_leads_template.xlsx")}>⬇️ {tr("תבנית Excel ריקה")}</button>
+        <button className={btnGhost} onClick={() => download(leadsToSheet([]).concat([["דוגמה בע\"מ", "ישראל ישראלי", "מנהל רכש", "050-0000000", "buyer@example.co.il", "נייר", "Paper mill", "Antifoam (silicone emulsion)", "Dow / XIAMETER", "בקרת קצף במכונת נייר", 12, 60000, "חדרה", "100234", "15/03/2019", "", "", "SAP"]]), "silitex_leads_template.xlsx")}>⬇️ {tr("תבנית Excel ריקה")}</button>
         <button className={btnGhost} onClick={() => download(leadsToSheet(state.leads), "silitex_leads_" + todayIso() + ".xlsx")}>⬇️ {tr("ייצוא כל הלקוחות")} ({state.leads.length})</button>
         <span className="text-xs text-slate-500">{tr("אותו פורמט לייבוא ולייצוא — אפשר לייצא, להשלים ב-Excel ולייבא חזרה.")}</span>
       </Card>
@@ -54,6 +65,7 @@ export default function ImportLeadsPage() {
           <label className="text-xs text-slate-500 md:col-span-2">{tr("קובץ Excel / CSV")}<input type="file" accept=".xlsx,.xls,.csv" className={inputCls + " mt-1"} onChange={(e) => load(e.target.files?.[0])} /></label>
           <label className="text-xs text-slate-500">{tr("מקור (לכל השורות)")}<input list="srcs" className={inputCls + " mt-1"} value={src} onChange={(e) => setSrc(e.target.value)} /><datalist id="srcs">{["SAP — לקוחות Dow Corning", "NuSil spot", "Univar spot", ...LEAD_SOURCES].map((s) => <option key={s} value={s} />)}</datalist></label>
         </div>
+        <div className="flex flex-wrap items-end gap-2"><label className="text-xs text-slate-500 flex-1 min-w-[16rem]">{tr("או הדבק CSV (תשובה מ-Comet / NotebookLM)")} · <Link className="underline text-brand-600" href="/leads/prompt">🧲 {tr("בונה פרומפט חיפוש לקוחות")}</Link><textarea rows={2} dir="ltr" className={inputCls + " mt-1 font-mono text-[12px]"} value={paste} onChange={(e) => setPaste(e.target.value)} placeholder="Company,Website,City,…" /></label><button className={btnGhost} disabled={!paste.trim()} onClick={() => { setTier("Tier 3 - New (to qualify)"); loadText(paste); }}>📋 {tr("טען CSV מודבק")}</button></div>
         {err && <div className="text-sm text-red-600">{err}</div>}
         {done && <div className="text-sm text-green-700 font-bold">✓ {done} · <Link className="underline" href="/leads">{tr("לרשימת הלקוחות")}</Link> · <Link className="underline" href="/today">{tr("להיום שלי")}</Link></div>}
       </Card>
