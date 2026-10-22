@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/scan/page.tsx) · updated 22.10.2026 07:25 (Asia/Jerusalem) — ✏️ fix the website inline (paste the corrected link → 💾 save + scan at once) · filter: only failed / no website, for cleaning · 20.10.2026 18:30 (Asia/Jerusalem) — 🎁 free-match-report requests panel on top · 10:55 — live run monitor (timer per customer, ETA, live log) · 10:45 — failed sites saved with the reason, not counted as pending, "retry failed" button · 06:00 — BATCH WEBSITE SCAN: pick an industry → every customer with a website → "scan all not yet scanned" (one by one, progress, cost) → products + Silitex matches saved on each customer → table + Excel (CSV) + export bar = the list for Pini / the Friday report.
+// page.tsx (src/app/scan/page.tsx) · updated 22.10.2026 07:35 (Asia/Jerusalem) — scan response read safely (time-out → clear message) · 22.10.2026 07:25 (Asia/Jerusalem) — ✏️ fix the website inline (paste the corrected link → 💾 save + scan at once) · filter: only failed / no website, for cleaning · 20.10.2026 18:30 (Asia/Jerusalem) — 🎁 free-match-report requests panel on top · 10:55 — live run monitor (timer per customer, ETA, live log) · 10:45 — failed sites saved with the reason, not counted as pending, "retry failed" button · 06:00 — BATCH WEBSITE SCAN: pick an industry → every customer with a website → "scan all not yet scanned" (one by one, progress, cost) → products + Silitex matches saved on each customer → table + Excel (CSV) + export bar = the list for Pini / the Friday report.
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -9,7 +9,7 @@ import ExportBar from "@/components/ExportBar";
 import ScanView from "@/components/scan/ScanView";
 import RunPanel, { type RunLog } from "@/components/scan/RunPanel";
 import MatchRequests from "@/components/scan/MatchRequests";
-import { scanOf, withScan, scanText, scanErr, withScanErr, errHe, type ScanResult } from "@/lib/scan";
+import { scanOf, withScan, scanText, scanErr, withScanErr, errHe, type ScanResult, readScan } from "@/lib/scan";
 import { fmtDate } from "@/lib/format";
 import type { Usage, Lead } from "@/lib/types";
 const normUrl = (u: string) => { const t = u.trim().replace(/\s+/g, ""); return !t ? "" : /^https?:\/\//i.test(t) ? t : "https://" + t; };
@@ -27,7 +27,7 @@ export default function ScanPage() {
     const l = fresh || state.leads.find((x) => x.id === id); if (!l?.website) return; setBusy(id); const t0 = Date.now(); setCurStart(t0); let c = 0;
     try {
       const r = await fetch("/api/scan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: l.name, website: l.website, industry: l.industry }) });
-      const j = await r.json(); if (j.usage) { setUsage(j.usage); addSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd); setRunCost((x) => x + j.usage.cost_usd); c = j.usage.cost_usd; }
+      const j = await readScan(r); if (j.usage) { setUsage(j.usage); addSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd); setRunCost((x) => x + j.usage.cost_usd); c = j.usage.cost_usd; }
       if (!r.ok || !j.data) throw new Error(j.error || "no answer");
       const res: ScanResult = { data: j.data, at: j.at, pages: j.pages, urls: j.urls || [], sector: j.sector || "" }; upsertLead(withScan(l, res)); setLog((g) => [...g, { id, name: l.name, sec: (Date.now() - t0) / 1000, ok: true, info: (j.data.matches?.length || 0) + " " + tr("התאמות") + " · " + (j.pages || 0) + " " + tr("עמודים"), cost: c }]); setErrs((e) => { const n = { ...e }; delete n[id]; return n; });
     } catch (e) { const m = errHe(e instanceof Error ? e.message : "error"); setErrs((x) => ({ ...x, [id]: m })); upsertLead(withScanErr(l, m)); setLog((g) => [...g, { id, name: l.name, sec: (Date.now() - t0) / 1000, ok: false, info: m, cost: c }]); }

@@ -1,11 +1,11 @@
 "use client";
-// ScanCard.tsx (src/components/scan/ScanCard.tsx) · updated 20.10.2026 06:00 (Asia/Jerusalem) — 🔎 WEBSITE SCAN on the customer page: one tap reads the customer's site → products + Silitex matches + R&D questions, saved on the customer; "apply" copies the matches into the recommended products. Token meter + export bar.
+// ScanCard.tsx (src/components/scan/ScanCard.tsx) · updated 22.10.2026 07:35 (Asia/Jerusalem) — scan response read safely (time-out → clear message) · 20.10.2026 06:00 (Asia/Jerusalem) — 🔎 WEBSITE SCAN on the customer page: one tap reads the customer's site → products + Silitex matches + R&D questions, saved on the customer; "apply" copies the matches into the recommended products. Token meter + export bar.
 import { useState } from "react";
 import { Card, btnPrimary, btnGhost } from "@/components/ui";
 import TokenMeter from "@/components/TokenMeter";
 import ExportBar from "@/components/ExportBar";
 import ScanView from "./ScanView";
-import { scanOf, withScan, skuFromScan, scanText, type ScanResult } from "@/lib/scan";
+import { scanOf, withScan, skuFromScan, scanText, type ScanResult, readScan } from "@/lib/scan";
 import type { Lead, Usage } from "@/lib/types";
 import { useLang } from "@/i18n";
 export default function ScanCard({ lead, onSave, onSpend, spend }: { lead: Lead; onSave: (l: Lead) => void; onSpend: (tokens: number, cost: number) => void; spend: { tokens: number; cost: number } }) {
@@ -15,7 +15,7 @@ export default function ScanCard({ lead, onSave, onSpend, spend }: { lead: Lead;
     setBusy(true); setErr("");
     try {
       const r = await fetch("/api/scan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: lead.name, website: lead.website, industry: lead.industry }) });
-      const j = await r.json(); if (j.usage) { setUsage(j.usage); onSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd); }
+      const j = await readScan(r); if (j.usage) { setUsage(j.usage); onSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd); }
       if (!r.ok || !j.data) throw new Error(j.error || tr("לא התקבלה תשובה"));
       const res: ScanResult = { data: j.data, at: j.at, pages: j.pages, urls: j.urls || [], sector: j.sector || "" }; onSave(withScan(lead, res));
     } catch (e) { setErr(e instanceof Error ? e.message : "error"); }

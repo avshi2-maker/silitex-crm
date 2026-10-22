@@ -1,5 +1,5 @@
 "use client";
-// MatchRequests.tsx (src/components/scan/MatchRequests.tsx) · updated 20.10.2026 18:40 (Asia/Jerusalem) — uses the AUTOMATIC run (fields.auto: WhatsApp ping, scan, draft) — ⚡ ready badge, lead created from the ready scan without re-scanning, draft pre-filled · created 18:30 — CRM review panel for FREE MATCH REPORT requests from sapirim.com: each request → ➕ lead + 🔎 website scan → 📝 AI draft in the visitor's language (editable) → 📧 open in mail to the customer / export bar → ✓ mark sent (activity on the lead). Nothing goes out without Avshi.
+// MatchRequests.tsx (src/components/scan/MatchRequests.tsx) · updated 22.10.2026 07:35 (Asia/Jerusalem) — scan response read safely · 20.10.2026 18:40 (Asia/Jerusalem) — uses the AUTOMATIC run (fields.auto: WhatsApp ping, scan, draft) — ⚡ ready badge, lead created from the ready scan without re-scanning, draft pre-filled · created 18:30 — CRM review panel for FREE MATCH REPORT requests from sapirim.com: each request → ➕ lead + 🔎 website scan → 📝 AI draft in the visitor's language (editable) → 📧 open in mail to the customer / export bar → ✓ mark sent (activity on the lead). Nothing goes out without Avshi.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -11,6 +11,7 @@ import { CRM_INDUSTRY } from "@/portal/match";
 import { fmtDateTime, uid } from "@/lib/format";
 import type { Lead, Usage } from "@/lib/types";
 import { useLang } from "@/i18n";
+import { readScan } from "@/lib/scan";
 type Auto = { at: string; ping?: { sent: boolean; provider: string }; scan?: ScanResult["data"]; pages?: number; urls?: string[]; sector?: string; scanAt?: string; draft?: string; tokens: number; cost: number; error?: string; done: boolean };
 type Sub = { id: number; created_at: string; kind: string; company: string; name: string; email: string; phone?: string; message?: string; lang?: string; fields?: Record<string, string> & { auto?: Auto } };
 const host = (u = "") => u.toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0];
@@ -30,7 +31,7 @@ export default function MatchRequests() {
     if (a?.scan) { upsertLead(withScan(l, { data: a.scan, at: a.scanAt || a.at, pages: a.pages || 0, urls: a.urls || [], sector: a.sector || "" })); addSpend(a.tokens, a.cost); if (a.draft) { setDraft((d) => ({ ...d, [s.id]: d[s.id] || a.draft || "" })); setOpen(s.id); } setBusy(""); return; }
     try {
       const r = await fetch("/api/scan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: l.name, website: l.website || s.fields?.website, industry: l.industry }) });
-      const j = await r.json(); if (j.usage) { setUsage(j.usage); addSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd); }
+      const j = await readScan(r); if (j.usage) { setUsage(j.usage); addSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd); }
       if (!r.ok || !j.data) throw new Error(j.error || "no answer");
       const res: ScanResult = { data: j.data, at: j.at, pages: j.pages, urls: j.urls || [], sector: j.sector || "" }; upsertLead(withScan(l, res));
     } catch (e) { setErr((x) => ({ ...x, [s.id]: e instanceof Error ? e.message : "error" })); }
