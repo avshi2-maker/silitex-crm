@@ -1,4 +1,4 @@
-// it.ts (src/i18n/it.ts) · updated 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 20.10.2026 18:05 — + back link · 18.10.2026 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo strings · 10:55 — + field mode strings · 15.10.2026 15:00 — + quick match, R&D stages, sample request · 15.10.2026 13:35 — + certifications strings · 10.10.2026 06:55 (Asia/Jerusalem)
+// it.ts (src/i18n/it.ts) · updated 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 20.10.2026 18:05 — + back link · 18.10.2026 12:55 — + Expo share Excel · 12:45 — + Expo send session · 12:15 — + Silitex Expo strings · 10:55 — + field mode strings · 15.10.2026 15:00 — + quick match, R&D stages, sample request · 15.10.2026 13:35 — + certifications strings · 10.10.2026 06:55 (Asia/Jerusalem)
 // Hebrew source string → Italian (for Silitex staff). Same keys as en.ts.
 export const IT: Record<string, string> = {
   "Israel portal · Phase 2 preview": "Portale Israele · anteprima Fase 2",
@@ -2046,4 +2046,17 @@ export const IT: Record<string, string> = {
   "סריקות": "scansioni",
   "נקה את כל הסריקות בלי התאמה": "Cancella tutte le scansioni senza corrispondenza",
   "נקה סריקה (הלקוח נשאר)": "Cancella scansione (il cliente resta)",
+  // 22.10.2026 — missing UI strings added (all pages)
+  "כתובת אתר לא תקינה": "Indirizzo web non valido",
+  "כבר קיים ב-CRM — סורק שוב:": "Già nel CRM — nuova scansione:",
+  "לסיווג": "Da classificare",
+  "נוסף — סורק עכשיו…": "aggiunto — scansione in corso…",
+  "אתר חדש שמצאתי — הוסף וסרוק": "Nuovo sito trovato — aggiungi e scansiona",
+  "שם החברה (לא חובה)": "Nome azienda (facoltativo)",
+  "תעשייה (לא חובה)": "Settore (facoltativo)",
+  "הוסף וסרוק": "Aggiungi e scansiona",
+  "האתר כבר קיים אצל": "Il sito è già associato a",
+  "נכנס כלקוח פוטנציאלי (Tier 3). את שם החברה, איש הקשר והטלפון משלימים אחר כך בכרטיס.": "Aggiunto come potenziale cliente (Tier 3). Nome, contatto e telefono si completano dopo nella scheda.",
+  "חובה: שם איש קשר ונייד — או אתר החברה": "Obbligatorio: contatto e cellulare — oppure il sito web",
+  "אתר החברה": "Sito aziendale",
 };

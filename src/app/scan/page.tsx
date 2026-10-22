@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/scan/page.tsx) · updated 22.10.2026 12:45 (Asia/Jerusalem) — 0️⃣ filter scans without a Silitex match + 🗑️ clear one / all of them (customer stays, back to 'not scanned') · 22.10.2026 08:35 (Asia/Jerusalem) — 🚀 SERVER SCAN: send pending / failed to the server queue (browser can be closed), live queue status + real cost per scan, results applied to the customers automatically · 22.10.2026 07:35 (Asia/Jerusalem) — scan response read safely (time-out → clear message) · 22.10.2026 07:25 (Asia/Jerusalem) — ✏️ fix the website inline (paste the corrected link → 💾 save + scan at once) · filter: only failed / no website, for cleaning · 20.10.2026 18:30 (Asia/Jerusalem) — 🎁 free-match-report requests panel on top · 10:55 — live run monitor (timer per customer, ETA, live log) · 10:45 — failed sites saved with the reason, not counted as pending, "retry failed" button · 06:00 — BATCH WEBSITE SCAN: pick an industry → every customer with a website → "scan all not yet scanned" (one by one, progress, cost) → products + Silitex matches saved on each customer → table + Excel (CSV) + export bar = the list for Pini / the Friday report.
+// page.tsx (src/app/scan/page.tsx) · updated 22.10.2026 16:35 (Asia/Jerusalem) — ➕ paste a new website (no other data) → add + scan at once · 22.10.2026 12:45 (Asia/Jerusalem) — 0️⃣ filter scans without a Silitex match + 🗑️ clear one / all of them (customer stays, back to 'not scanned') · 22.10.2026 08:35 (Asia/Jerusalem) — 🚀 SERVER SCAN: send pending / failed to the server queue (browser can be closed), live queue status + real cost per scan, results applied to the customers automatically · 22.10.2026 07:35 (Asia/Jerusalem) — scan response read safely (time-out → clear message) · 22.10.2026 07:25 (Asia/Jerusalem) — ✏️ fix the website inline (paste the corrected link → 💾 save + scan at once) · filter: only failed / no website, for cleaning · 20.10.2026 18:30 (Asia/Jerusalem) — 🎁 free-match-report requests panel on top · 10:55 — live run monitor (timer per customer, ETA, live log) · 10:45 — failed sites saved with the reason, not counted as pending, "retry failed" button · 06:00 — BATCH WEBSITE SCAN: pick an industry → every customer with a website → "scan all not yet scanned" (one by one, progress, cost) → products + Silitex matches saved on each customer → table + Excel (CSV) + export bar = the list for Pini / the Friday report.
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -8,6 +8,7 @@ import TokenMeter from "@/components/TokenMeter";
 import ExportBar from "@/components/ExportBar";
 import ScanView from "@/components/scan/ScanView";
 import RunPanel, { type RunLog } from "@/components/scan/RunPanel";
+import NewSiteScan from "@/components/scan/NewSiteScan";
 import MatchRequests from "@/components/scan/MatchRequests";
 import { scanOf, withScan, scanText, scanErr, withScanErr, errHe, type ScanResult, readScan, withoutScan, noMatch } from "@/lib/scan";
 import DelBtn from "@/components/DelBtn";
@@ -60,6 +61,7 @@ export default function ScanPage() {
           {busy ? <button className={btnGhost} onClick={() => { stopR.current = true; }}>⏹ {tr("עצור")}</button> : <><button className={btnPrimary} disabled={!todo.length} onClick={() => runAll(todo)}>▶ {tr("סרוק את כל הממתינים")} ({todo.length})</button>{failed.length > 0 && <button className={btnGhost} onClick={() => runAll(failed)}>🔁 {tr("נסה שוב את שנכשלו")} ({failed.length})</button>}</>}
           <button className={btnGhost} onClick={csv}>⬇️ Excel (CSV)</button>
         </div>
+        <NewSiteScan leads={state.leads} inds={inds} busy={!!busy} onAdd={(l) => upsertLead(l)} onScan={async (l) => { if (l.industry && l.industry !== ind) setInd(""); await scanOne(l.id, l); setBusy(""); }} />
         <div className="border border-emerald-200 bg-emerald-50/50 rounded-xl p-2 space-y-1 text-sm">
           <div className="flex flex-wrap items-center gap-2"><b>🚀 {tr("סריקה בשרת — אפשר לסגור את הדפדפן")}</b>
             <button className={btnPrimary + " text-xs"} disabled={!todo.length || sj.busy} onClick={async () => { const n = await sj.enqueue(todo); setSjMsg("✓ " + n + tr(" נשלחו לשרת")); }}>{tr("שלח לשרת את הממתינים")} ({todo.length})</button>
