@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/roadmap/page.tsx) · created 20.10.2026 13:20 (Asia/Jerusalem) — 6-MONTH ROADMAP tab: live A/B/C/D priority for every customer (score breakdown + reasons), grade × industry matrix, month-by-month plan (new accounts per month, expected first orders, milestones incl. son's hand-over), 🤖 AI strategy (Hebrew) + token meter + export bar + CSV. Rebuilds itself as leads / scans / steps change.
+// page.tsx (src/app/roadmap/page.tsx) · updated 22.10.2026 08:55 (Asia/Jerusalem) — month names translated · created 20.10.2026 13:20 (Asia/Jerusalem) — 6-MONTH ROADMAP tab: live A/B/C/D priority for every customer (score breakdown + reasons), grade × industry matrix, month-by-month plan (new accounts per month, expected first orders, milestones incl. son's hand-over), 🤖 AI strategy (Hebrew) + token meter + export bar + CSV. Rebuilds itself as leads / scans / steps change.
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -46,7 +46,7 @@ export default function RoadmapPage() {
       {view === "plan" ? (
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">{rm.months.map((m) => (
           <Card key={m.idx} className="space-y-2">
-            <div className="flex items-center justify-between"><div className="font-bold">{tr("חודש")} {m.idx + 1} · {m.label}</div>{m.tons > 0 && <Badge tone="green">{tr("PO צפוי")} ~{m.tons.toFixed(1)} t</Badge>}</div>
+            <div className="flex items-center justify-between"><div className="font-bold">{tr("חודש")} {m.idx + 1} · {m.label.replace(/^\S+/, (w) => tr(w))}</div>{m.tons > 0 && <Badge tone="green">{tr("PO צפוי")} ~{m.tons.toFixed(1)} t</Badge>}</div>
             <ul className="text-xs space-y-0.5 text-slate-700">{m.milestones.map((x) => <li key={x}>🏁 {tr(x)}</li>)}</ul>
             <div className="text-xs text-slate-500">{tr("לקוחות חדשים")} ({m.leads.length})</div>
             <ul className="text-sm divide-y">{m.leads.map((r) => <li key={r.lead.id} className="flex items-center gap-2 py-1"><Badge tone={TONE[r.s.grade]}>{r.s.grade}</Badge><Link href={"/leads/" + r.lead.id} className="flex-1 truncate hover:underline">{r.lead.name}</Link><span className="text-xs text-slate-400" dir="ltr">{r.s.total}</span></li>)}</ul>
