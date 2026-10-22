@@ -1,4 +1,4 @@
-// ru.ts (src/i18n/ru.ts) · updated 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 20.10.2026 18:05 — + back link · 18.10.2026 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 16.10.2026 18:55 (Asia/Jerusalem) — Russian UI (for Russian-speaking technicians in Israel). Same keys as en.ts / it.ts; missing key → English fallback.
+// ru.ts (src/i18n/ru.ts) · updated 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 22.10.2026 08:50 — + all missing UI strings (whole CRM) · 20.10.2026 18:05 — + back link · 18.10.2026 07:50 — + industry lines · mobile apps · field capture/inbox · field mode · 17.10.2026 08:30 — + My day / lead import · 16.10.2026 18:55 (Asia/Jerusalem) — Russian UI (for Russian-speaking technicians in Israel). Same keys as en.ts / it.ts; missing key → English fallback.
 export const RU: Record<string, string> = {
   "לא נמצא במאגר Silitex — לא ננחש": "Нет в данных Silitex — мы не гадаем",
   "המערכת עונה רק מתוך הקטלוגים, המקבילות וה-FAQ של Silitex. כשאין מקור — אין תשובה אוטומטית, ואין פנייה למקורות חיצוניים. במקום זה: שאלה ישירה לאבשי (מייל + WhatsApp), תשובה אנושית תוך 24 שעות.": "Этот инструмент отвечает только по каталогам Silitex, аналогам и FAQ. Нет источника — нет автоматического ответа и никаких внешних источников. Вместо этого вопрос уходит напрямую Avshi (email + WhatsApp), ответ специалиста в течение 24 часов.",
@@ -2046,4 +2046,13 @@ export const RU: Record<string, string> = {
   "תשובה": "Ответ",
   // 22.10.2026 — missing UI strings added (all pages)
   "האם sapirim.com מופיע? המטרה: עמוד 1": "Есть ли sapirim.com в выдаче? Цель: первая страница",
+  // 22.10.2026 — missing UI strings added (all pages)
+  "שלח ל-Silitex — בקשה טכנית מהשאלה הזו": "Отправить в Silitex — технический запрос по этому вопросу",
+  "טיוטת מייל לפדריקה": "Черновик письма Федерике",
+  "הלקוח נשאר אנונימי. בלי מחירים ובלי הבטחות — רק מה שחסר כדי לשרת את הלקוח: נתונים, נוסחת פתיחה, TDS/SDS, רגולציה, דוגמאות.": "Клиент остаётся анонимным. Без цен и обещаний — только то, чего не хватает: данные, стартовая рецептура, TDS/SDS, регуляторика, образцы.",
+  "שאלות לרישום פדריקה": "Вопросы в реестр Федерики",
+  "שלחתי — הוסף לרישום": "Отправлено — добавить в реестр",
+  "לא נבחרו שאלות": "Вопросы не выбраны",
+  "שאלות נוספו לרישום פדריקה": "вопросов добавлено в реестр Федерики",
+  "השמירה נכשלה — נסה שוב": "Не удалось сохранить — попробуйте снова",
 };

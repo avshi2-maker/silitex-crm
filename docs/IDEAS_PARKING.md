@@ -26,3 +26,14 @@ Every Monday 08:00 a short WhatsApp to Avshi: clicks + impressions last 7 days, 
 
 ## 🅿️ artfloor.co.il rebuild — PARKED 21/10/2026
 Site is ~20 years old (not in GitHub, no footer link to sapirim.com possible). Avshi: maybe rebuild next year. When rebuilt — same stack as marble-art.co.il (Next.js + Vercel), footer link "חלק מקבוצת ספירים" → www.sapirim.com/he, and tick it on CRM /promo.
+
+## 🅿️ Sapirim Distributor Toolkit — productize the CRM for other Silitex distributors — PARKED 22/10/2026
+Idea (Avshi, 22/10): sell the system we built to other Silitex distributors as a service. Draft offer page (private artifact): https://claude.ai/artifact/9ndaHRxssZX1Mx6CCQimQ1 — plans Scout €190 / Growth €340 / Pro €590 a month (50 / 100 / 200 website scans), setup €900, cost & margin calculator.
+**Modules to sell (all live in the Israel CRM):** AI website scanner + server scan queue (v0.74.0) · 🎯 potential analytics + monthly call plan (v0.73.0) · English monthly report to Silitex without customer names · sales CRM (My day, playbooks, intake, validation) · mail + WhatsApp hub · public product finder portal (code pages, regulation, match report, AI answer in the visitor's language) · **NEW: Ask Silitex → 📮 automatic technical request e-mail to Silitex + questions into the open-questions register (v0.76.0)** · Friday report register with ticker · meeting recording → transcript → summary (Whisper ~$0.006/min).
+**Measured cost:** ~$0.06 per website scan (Sonnet), real cost per scan now recorded in table scan_jobs → replace estimates after the first server runs.
+**To do when we resume:**
+1. Ask Silitex for approval (their catalogue + countertype data powers it) — best buyer = Silitex itself as one group plan.
+2. Add the Ask Silitex → Silitex-request module to the offer page.
+3. Build a full PITCH covering everything (Slides deck: problem → system tour with screenshots → measured results from Israel → plans → pilot offer) for Silitex management.
+4. One pilot distributor at a reduced fee for 3 months; per-distributor copy of the system (own Supabase + Vercel + domain, ~1–2 days setup each).
+**Don't:** show prices to Federica before Silitex approves the idea; don't build multi-tenant until a second paying distributor exists.
