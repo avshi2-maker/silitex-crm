@@ -1977,4 +1977,12 @@ export const EN: Record<string, string> = {
   "נכנס כלקוח פוטנציאלי (Tier 3). את שם החברה, איש הקשר והטלפון משלימים אחר כך בכרטיס.": "Added as a prospect (Tier 3). Fill in the company name, contact and phone later on the card.",
   "חובה: שם איש קשר ונייד — או אתר החברה": "Required: contact name and mobile — or the company website",
   "אתר החברה": "Company website",
+  // 22.10.2026 17:00 — industry pick-list + hide website requests
+  "לסיווג — בחר מהרשימה או סרוק את האתר": "To classify — pick from the list or scan the website",
+  "הסתר את המוסתרים": "Hide the hidden ones",
+  "הצג מוסתרים": "Show hidden",
+  "אין פניות חדשות": "No new requests",
+  "שחזר": "Restore",
+  "הסתר (בדיקה / לא רלוונטי) — לא נמחק": "Hide (test / not relevant) — not deleted",
+  "הסתר": "Hide",
 };

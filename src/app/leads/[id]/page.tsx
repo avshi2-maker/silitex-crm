@@ -56,7 +56,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
         <div className="space-y-4">
           <Card>
             <div className="flex flex-wrap gap-1 mb-3">{STAGES.map((s) => (<button key={s.key} onClick={() => setStage(id, s.key as Stage)} className={"text-xs px-2 py-1 rounded-full border " + (lead.stage === s.key ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{tr(s.he)}</button>))}</div>
-            <IntakeForm lead={lead} pool={buildPool(state.leads, state.contacts)} onSave={(l) => { upsertLead(l); addActivity(id, "intake", tr("טופס קליטה עודכן")); }} />
+            <IntakeForm key={lead.id + "|" + lead.industry + "|" + (lead.sub_industry || "")} lead={lead} pool={buildPool(state.leads, state.contacts)} onSave={(l) => { upsertLead(l); addActivity(id, "intake", tr("טופס קליטה עודכן")); }} />
           </Card>
           <Card>
             <AiPanel title={tr("הצעת פנייה / פיץ' ל-") + lead.name} buttonLabel={tr("צור פיץ' עם AI")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} onResult={() => addActivity(id, "ai", tr("נוצר פיץ' AI"))}

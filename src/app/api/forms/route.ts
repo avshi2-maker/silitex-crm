@@ -1,4 +1,4 @@
-// route.ts (src/app/api/forms/route.ts) · updated 20.10.2026 18:40 (Asia/Jerusalem) — FREE MATCH REPORT: after the reply, automatic WhatsApp ping + website scan + report draft (lib/match-auto), max MATCH_AUTO_DAILY runs a day; GET (list of requests) now needs the owner PIN cookie — the path is public for POST only · 09.10.2026 18:30 — POST customer form → email (Resend) + Supabase; GET lists submissions (service role)
+// route.ts (src/app/api/forms/route.ts) · updated 22.10.2026 17:00 (Asia/Jerusalem) — PATCH {id, hidden} hides / un-hides a request (hidden_at; nothing deleted, owner PIN only) · 20.10.2026 18:40 (Asia/Jerusalem) — FREE MATCH REPORT: after the reply, automatic WhatsApp ping + website scan + report draft (lib/match-auto), max MATCH_AUTO_DAILY runs a day; GET (list of requests) now needs the owner PIN cookie — the path is public for POST only · 09.10.2026 18:30 — POST customer form → email (Resend) + Supabase; GET lists submissions (service role)
 import { NextResponse, after } from "next/server";
 import { sendEmail, storeSubmission, type Submission } from "@/lib/forms";
 import { serviceClient } from "@/lib/server-data";
@@ -31,4 +31,14 @@ export async function GET() {
   const sb = serviceClient(); if (!sb) return NextResponse.json({ items: [], note: "no supabase" });
   const r = await sb.from("form_submissions").select("*").order("created_at", { ascending: false }).limit(200);
   return NextResponse.json({ items: r.data || [] });
+}
+
+export async function PATCH(req: Request) {
+  const pin = process.env.ACCESS_PIN;
+  if (pin && (await cookies()).get(GATE_COOKIE)?.value !== (await gateToken(pin))) return NextResponse.json({ error: "locked" }, { status: 401 });
+  const sb = serviceClient(); if (!sb) return NextResponse.json({ error: "no supabase" }, { status: 500 });
+  const { id, hidden } = (await req.json()) as { id: number; hidden: boolean };
+  if (!id) return NextResponse.json({ error: "id required" }, { status: 400 });
+  const r = await sb.from("form_submissions").update({ hidden_at: hidden ? new Date().toISOString() : null }).eq("id", id);
+  return r.error ? NextResponse.json({ error: r.error.message }, { status: 500 }) : NextResponse.json({ ok: true });
 }

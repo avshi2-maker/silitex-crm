@@ -1,5 +1,5 @@
 "use client";
-// IntakeForm.tsx (src/components/leads/IntakeForm.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 19.10.2026 12:35 (Asia/Jerusalem) — e-mail field takes several contacts (comma separated) for automatic mail matching · 09.10.2026 19:20 (Asia/Jerusalem) — fact-finding form: core identity (mandatory) + 8 config-driven sections (config/intake.ts) stored in lead.intake
+// IntakeForm.tsx (src/components/leads/IntakeForm.tsx) · updated 22.10.2026 16:55 (Asia/Jerusalem) — industry = 🔽 pick-list (CRM industries, typing filters, free text allowed); amber while "לסיווג" · 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 19.10.2026 12:35 (Asia/Jerusalem) — e-mail field takes several contacts (comma separated) for automatic mail matching · 09.10.2026 19:20 (Asia/Jerusalem) — fact-finding form: core identity (mandatory) + 8 config-driven sections (config/intake.ts) stored in lead.intake
 import { useState } from "react";
 import { inputCls, btnPrimary, Badge } from "@/components/ui";
 import { INTAKE, type IntakeField } from "@/config/intake";
@@ -10,6 +10,7 @@ import { useLang } from "@/i18n";
 import type { Lead } from "@/lib/types";
 import { check, type PoolItem } from "@/lib/validate";
 import ValidInput from "@/components/ValidInput";
+import { industryOptions, isUnclassified } from "@/config/industry-list";
 export default function IntakeForm({ lead, onSave, pool }: { lead: Lead; onSave: (l: Lead) => void; pool?: PoolItem[] }) {
   const { t: tr } = useLang();
   const [f, setF] = useState<Lead>({ ...lead, intake: { ...intakeOf(lead) } });
@@ -23,7 +24,7 @@ export default function IntakeForm({ lead, onSave, pool }: { lead: Lead; onSave:
     <div>
       <div className="flex items-center justify-between mb-2"><h3 className="font-bold">{tr("טופס קליטה — בירור טכני")}</h3><Badge tone={pct >= 80 ? "green" : pct >= 40 ? "amber" : "red"}>{tr("שלמות")} {pct}%</Badge></div>
       <div className="grid md:grid-cols-3 gap-2">
-        {core("name", tr("חברה"), "text", true)}{core("industry", tr("תעשייה"))}{core("sub_industry", tr("תת-תעשייה / תיאור"))}
+        {core("name", tr("חברה"), "text", true)}<label className="text-xs text-slate-500">{tr("תעשייה")} 🔽<input list="inds2" className={inputCls + " mt-1" + (isUnclassified(f.industry) ? " !border-amber-400 bg-amber-50" : "")} placeholder={tr("לסיווג — בחר מהרשימה או סרוק את האתר")} value={isUnclassified(f.industry) ? "" : f.industry} onChange={(e) => set("industry", e.target.value)} /><datalist id="inds2">{industryOptions().map((x) => <option key={x} value={x} />)}</datalist></label>{core("sub_industry", tr("תת-תעשייה / תיאור"))}
         {core("contact_name", tr("שם איש קשר"), "text", true)}<label className="text-xs text-slate-500">{tr("תפקיד")}<input list="roles2" className={inputCls + " mt-1"} value={f.contact_role || ""} onChange={(e) => set("contact_role", e.target.value)} /><datalist id="roles2">{ROLE_SUGGESTIONS.map((r) => <option key={r} value={r} />)}</datalist></label>{core("department", tr("מחלקה"))}
         <ValidInput kind="mobile" label={tr("נייד")} required value={f.contact_phone || ""} onChange={(v) => set("contact_phone", v)} pool={pool} selfKey={"lead:" + f.id} /><ValidInput kind="emails" label={tr("אימייל (כמה אנשי קשר — מופרדים בפסיק)")} value={f.contact_email || ""} onChange={(v) => set("contact_email", v)} pool={pool} selfKey={"lead:" + f.id} />{core("next_action_at", tr("פעולה הבאה (תאריך)"), "date")}
         <label className="text-xs text-slate-500 md:col-span-3">{tr("צורך / יישום")}<textarea className={inputCls + " mt-1"} rows={2} value={f.use_case} onChange={(e) => set("use_case", e.target.value)} /></label>

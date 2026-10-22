@@ -2059,4 +2059,12 @@ export const IT: Record<string, string> = {
   "נכנס כלקוח פוטנציאלי (Tier 3). את שם החברה, איש הקשר והטלפון משלימים אחר כך בכרטיס.": "Aggiunto come potenziale cliente (Tier 3). Nome, contatto e telefono si completano dopo nella scheda.",
   "חובה: שם איש קשר ונייד — או אתר החברה": "Obbligatorio: contatto e cellulare — oppure il sito web",
   "אתר החברה": "Sito aziendale",
+  // 22.10.2026 17:00 — industry pick-list + hide website requests
+  "לסיווג — בחר מהרשימה או סרוק את האתר": "Da classificare — scegli dall'elenco o scansiona il sito",
+  "הסתר את המוסתרים": "Nascondi i nascosti",
+  "הצג מוסתרים": "Mostra nascosti",
+  "אין פניות חדשות": "Nessuna nuova richiesta",
+  "שחזר": "Ripristina",
+  "הסתר (בדיקה / לא רלוונטי) — לא נמחק": "Nascondi (test / non rilevante) — non eliminato",
+  "הסתר": "Nascondi",
 };
