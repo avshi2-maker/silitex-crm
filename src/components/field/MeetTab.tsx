@@ -1,5 +1,5 @@
 "use client";
-// MeetTab.tsx (src/components/field/MeetTab.tsx) · updated 18.10.2026 06:55 (Asia/Jerusalem) — paperless meeting capture: scan business card (AI vision) or pick a customer · dictate / type note · ✨ AI summary + next step + follow-up message · save = lead + log + task (works offline: saved on the phone, synced later)
+// MeetTab.tsx (src/components/field/MeetTab.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 18.10.2026 06:55 (Asia/Jerusalem) — paperless meeting capture: scan business card (AI vision) or pick a customer · dictate / type note · ✨ AI summary + next step + follow-up message · save = lead + log + task (works offline: saved on the phone, synced later)
 import { useRef, useState } from "react";
 import { useStore, STAGES } from "@/lib/store";
 import TokenMeter from "@/components/TokenMeter";
@@ -8,6 +8,8 @@ import { uid, todayIso, addDays, fmtDate } from "@/lib/format";
 import { FIELD_INDUSTRIES } from "./AskTab";
 import type { Lead, Stage, Usage } from "@/lib/types";
 import { useLang } from "@/i18n";
+import ValidInput from "@/components/ValidInput";
+import { buildPool } from "@/lib/validate";
 type Sum = { summary?: string; products?: string[]; next_step?: string; due_days?: number; stage?: string; followup_message?: string };
 const EMPTY = { leadId: "", company: "", contact_name: "", contact_role: "", phone: "", email: "", website: "", city: "" };
 async function shrink(f: File): Promise<string> {
@@ -93,7 +95,7 @@ export default function MeetTab({ industry }: { industry: string }) {
         <label className={big + " block text-center bg-brand-500 text-white cursor-pointer"}>{busy === "card" ? tr("קורא כרטיס…") : "📷 " + tr("צלם כרטיס ביקור")}<input type="file" accept="image/*" capture="environment" className="hidden" onChange={(e) => scan(e.target.files?.[0])} /></label>
         <select className={inputCls + " text-base"} value={f.leadId} onChange={(e) => pick(e.target.value)}><option value="">{tr("— או בחר לקוח קיים —")}</option>{[...state.leads].sort((a, b) => a.name.localeCompare(b.name)).map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}</select>
         <input className={inputCls + " text-base"} placeholder={tr("חברה *")} value={f.company} onChange={(e) => set("company")(e.target.value)} />
-        <div className="grid grid-cols-2 gap-2"><input className={inputCls} placeholder={tr("איש קשר")} value={f.contact_name} onChange={(e) => set("contact_name")(e.target.value)} /><input className={inputCls} placeholder={tr("תפקיד")} value={f.contact_role} onChange={(e) => set("contact_role")(e.target.value)} /><input className={inputCls} type="tel" dir="ltr" placeholder={tr("נייד")} value={f.phone} onChange={(e) => set("phone")(e.target.value)} /><input className={inputCls} type="email" dir="ltr" placeholder={tr("אימייל")} value={f.email} onChange={(e) => set("email")(e.target.value)} /></div>
+        <div className="grid grid-cols-2 gap-2"><input className={inputCls} placeholder={tr("איש קשר")} value={f.contact_name} onChange={(e) => set("contact_name")(e.target.value)} /><input className={inputCls} placeholder={tr("תפקיד")} value={f.contact_role} onChange={(e) => set("contact_role")(e.target.value)} /><ValidInput kind="mobile" placeholder={tr("נייד")} value={f.phone} onChange={set("phone")} pool={buildPool(state.leads, state.contacts)} selfKey={f.leadId ? "lead:" + f.leadId : undefined} /><ValidInput kind="emails" placeholder={tr("אימייל")} value={f.email} onChange={set("email")} pool={buildPool(state.leads, state.contacts)} selfKey={f.leadId ? "lead:" + f.leadId : undefined} /></div>
         <select className={inputCls} value={ind} onChange={(e) => setInd(e.target.value)}><option value="">{tr("תעשייה")}</option>{FIELD_INDUSTRIES.map((i) => <option key={i.key} value={i.key}>{tr(i.he)}</option>)}</select>
       </div>
       <div className="bg-white border rounded-2xl p-3 space-y-2">

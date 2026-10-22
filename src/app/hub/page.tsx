@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/hub/page.tsx) · updated 19.10.2026 12:15 (Asia/Jerusalem) — 🗑️ delete a thread straight from the list · list newest first · 10.10.2026 10:20 — Silitex Hub: department boxes → threads (filter dept/status/ref) → thread view; paste-mail intake; Graph ingest sync (Phase B)
+// page.tsx (src/app/hub/page.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 19.10.2026 12:15 (Asia/Jerusalem) — 🗑️ delete a thread straight from the list · list newest first · 10.10.2026 10:20 — Silitex Hub: department boxes → threads (filter dept/status/ref) → thread view; paste-mail intake; Graph ingest sync (Phase B)
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
 import { Card, H1, Badge, inputCls, btnGhost } from "@/components/ui";
@@ -15,6 +15,7 @@ import { fmtDate } from "@/lib/format";
 import { useLang } from "@/i18n";
 import DelBtn from "@/components/DelBtn";
 import type { Thread, HubMsg } from "@/lib/types";
+import { buildPool } from "@/lib/validate";
 export default function HubPage() {
   const { t: tr } = useLang();
   const { state, ready, addSpend, upsertLead, upsertContact, removeContact, addThread, updateThread, removeThread, addMsg, addTask } = useStore();
@@ -32,7 +33,7 @@ export default function HubPage() {
       <H1 sub={tr("כל ההתכתבות עם Silitex לפי מחלקה, מקושרת להזמנות, משלוחים ולקוחות — במקום לרדוף אחרי מיילים. ") + state.threads.length + tr(" שרשורים · ") + late.length + tr(" ממתינים מעל 2 ימים")}>📬 Silitex Hub</H1>
       <OutlookBar onSynced={merge} />
       {synced && <div className="text-xs text-emerald-700">{synced}</div>}
-      <DeptBoxes contacts={state.contacts} leadsWithEmail={state.leads.filter((l) => l.contact_email).length} threads={state.threads} sel={dept} onSel={setDept} onSave={upsertContact} onRemove={removeContact} />
+      <DeptBoxes contacts={state.contacts} leadsWithEmail={state.leads.filter((l) => l.contact_email).length} threads={state.threads} sel={dept} onSel={setDept} onSave={upsertContact} onRemove={removeContact} pool={buildPool(state.leads, state.contacts)} />
       <PasteMail contacts={state.contacts} leads={state.leads} shipments={state.shipments} threads={state.threads} current={cur} onNewThread={(t, m) => { const th = addThread(t); addMsg({ ...m, thread_id: th.id }); setSel(th.id); }} onAppend={(tid, m) => { addMsg({ ...m, thread_id: tid }); setSel(tid); }} />
       <WaInbox leads={state.leads} contacts={state.contacts} onCreateLead={upsertLead} onAssigned={merge} />
       <PasteWhatsApp leads={state.leads} contacts={state.contacts} threads={state.threads} presetLeadId={waLead || undefined} onSave={(t, ms) => { const th = addThread(t); ms.forEach((m) => addMsg({ ...m, thread_id: th.id })); setSel(th.id); }} onAppend={(tid, ms) => { ms.forEach((m) => addMsg({ ...m, thread_id: tid })); const last = ms[ms.length - 1]; updateThread(tid, { last_at: last.at, status: last.direction === "in" ? "waiting_us" : "waiting_silitex" }); setSel(tid); }} />

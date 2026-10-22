@@ -1,5 +1,5 @@
 "use client";
-// ExpoSend.tsx (src/components/expo/ExpoSend.tsx) · updated 18.10.2026 12:55 (Asia/Jerusalem) — + 📤 Share Excel (phone Share menu → Outlook, file attached, her own account) · 12:45 — EXPO "send my session": pick period (today / last 7 days / all) → ✉️ one tap e-mails a formatted report + Excel (CSV) to her own address (Resend, server keeps nothing) · 📧 Outlook button opens the Outlook app with the summary ready · ⬇️ Excel + 5-button export bar.
+// ExpoSend.tsx (src/components/expo/ExpoSend.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 18.10.2026 12:55 (Asia/Jerusalem) — + 📤 Share Excel (phone Share menu → Outlook, file attached, her own account) · 12:45 — EXPO "send my session": pick period (today / last 7 days / all) → ✉️ one tap e-mails a formatted report + Excel (CSV) to her own address (Resend, server keeps nothing) · 📧 Outlook button opens the Outlook app with the summary ready · ⬇️ Excel + 5-button export bar.
 import { useState } from "react";
 import ExportBar from "@/components/ExportBar";
 import { inputCls } from "@/components/ui";
@@ -7,6 +7,7 @@ import { fmtDate, todayIso, addDays } from "@/lib/format";
 import { meetingsCsv, meetingsText, download } from "@/lib/expo/util";
 import type { Expo } from "@/lib/expo/store";
 import { useLang } from "@/i18n";
+import ValidInput from "@/components/ValidInput";
 const PERIODS = [["today", "היום"], ["week", "7 הימים האחרונים"], ["all", "הכל"]] as const;
 export default function ExpoSend({ expo }: { expo: Expo }) {
   const { t: tr, lang } = useLang();
@@ -43,7 +44,7 @@ export default function ExpoSend({ expo }: { expo: Expo }) {
       <div className="font-bold">✉️ {tr("שלח את הסשן למייל שלי")}</div>
       <div className="flex gap-2">{PERIODS.map(([k, he]) => <button key={k} className={chip(period === k)} onClick={() => setPeriod(k)}>{tr(he)}</button>)}</div>
       <div className="text-xs text-slate-500">{ms.length} {tr("פגישות")} · {label}</div>
-      <input className={inputCls + " text-base"} type="email" dir="ltr" placeholder="name@silitex.it" value={to} onChange={(e) => setTo(e.target.value)} />
+      <ValidInput kind="email" big placeholder="name@silitex.it" value={to} onChange={setTo} />
       <button className="w-full py-3 rounded-xl bg-brand-500 text-white disabled:opacity-40" disabled={busy || !ms.length || !to.includes("@")} onClick={send}>{busy ? tr("שולח…") : "✉️ " + tr("שלח דוח מעוצב + Excel")}</button>
       <div className="grid grid-cols-2 gap-2">
         <a className={"flex items-center justify-center text-center py-3 rounded-xl border-2 border-[#0a64ad] text-[#0a64ad] font-medium" + (ms.length ? "" : " pointer-events-none opacity-40")} href={outlook}>📧 {tr("פתח ב-Outlook")}</a>

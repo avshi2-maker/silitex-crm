@@ -1,5 +1,5 @@
 "use client";
-// DeptBoxes.tsx (src/components/hub/DeptBoxes.tsx) · updated 22.10.2026 07:10 (Asia/Jerusalem) — partner box: new contact starts with empty e-mail / phone (not info@silitex.it) · 10.10.2026 07:30 — Silitex department boxes: contacts (modal add/edit), open/waiting counts, late flag; click = filter
+// DeptBoxes.tsx (src/components/hub/DeptBoxes.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 22.10.2026 07:10 (Asia/Jerusalem) — partner box: new contact starts with empty e-mail / phone (not info@silitex.it) · 10.10.2026 07:30 — Silitex department boxes: contacts (modal add/edit), open/waiting counts, late flag; click = filter
 import { useState } from "react";
 import { DEPTS, SILITEX } from "@/config/hub";
 import { Badge, btnGhost } from "@/components/ui";
@@ -8,8 +8,9 @@ import { isLate } from "@/lib/hub";
 import { uid } from "@/lib/format";
 import { useLang } from "@/i18n";
 import type { SilitexContact, Thread } from "@/lib/types";
-type Props = { contacts: SilitexContact[]; leadsWithEmail?: number; threads: Thread[]; sel: string; onSel: (k: string) => void; onSave: (c: SilitexContact) => void; onRemove: (id: string) => void };
-export default function DeptBoxes({ contacts, leadsWithEmail = 0, threads, sel, onSel, onSave, onRemove }: Props) {
+import type { PoolItem } from "@/lib/validate";
+type Props = { contacts: SilitexContact[]; leadsWithEmail?: number; threads: Thread[]; sel: string; onSel: (k: string) => void; onSave: (c: SilitexContact) => void; onRemove: (id: string) => void; pool?: PoolItem[] };
+export default function DeptBoxes({ contacts, leadsWithEmail = 0, threads, sel, onSel, onSave, onRemove, pool }: Props) {
   const { t: tr } = useLang(); const [edit, setEdit] = useState<SilitexContact | null>(null);
   return (
     <div className="grid md:grid-cols-3 gap-2">
@@ -21,7 +22,7 @@ export default function DeptBoxes({ contacts, leadsWithEmail = 0, threads, sel, 
           <ul className="mt-2 text-xs space-y-0.5">{people.map((c) => (<li key={c.id} className="flex items-start gap-1 border-t pt-1"><div className="min-w-0 flex-1"><div className="truncate"><span className="font-medium">{c.name}</span> <span className="text-slate-400">{c.role}</span></div><div className="flex flex-wrap gap-x-2 text-[11px]" dir="ltr"><a className="text-brand-600 truncate" href={"mailto:" + c.email} onClick={(e) => e.stopPropagation()}>{c.email}</a>{c.mobile && <a className="text-emerald-700" href={"https://wa.me/" + c.mobile.replace(/\D/g, "")} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>📱 {c.mobile}</a>}{c.linkedin && <a className="text-sky-700" href={c.linkedin} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>in</a>}</div></div><button className="text-slate-400 shrink-0" onClick={(e) => { e.stopPropagation(); setEdit(c); }}>✏️</button></li>))}{people.length === 0 && d.key === "partner" && <li className="text-amber-700">{tr("הוסף את פיני: שם · מייל · נייד — ומאז הכל נכנס לבד")}</li>}{people.length === 0 && d.key !== "il" && d.key !== "partner" && <li className="text-slate-400">{tr("שמות יתווספו לאחר החוזה · ")}{SILITEX.info}</li>}{d.key === "il" && <li className="text-slate-400">{leadsWithEmail}{tr(" לקוחות פוטנציאליים עם אימייל · מסונכרן אוטומטית")}</li>}</ul>
           {d.key !== "il" && <button className={btnGhost + " mt-2 text-xs"} onClick={(e) => { e.stopPropagation(); setEdit({ id: uid("ct"), dept: d.key, name: "", role: d.key === "partner" ? "שותף טכני" : d.en, email: d.key === "partner" ? "" : SILITEX.info, phone: d.phone }); }}>{tr("+ איש קשר")}</button>}
         </div>); })}
-      {edit && <ContactModal initial={edit} exists={contacts.some((c) => c.id === edit.id)} deptLabel={tr(DEPTS.find((d) => d.key === edit.dept)?.he || "")} onSave={onSave} onRemove={onRemove} onClose={() => setEdit(null)} />}
+      {edit && <ContactModal initial={edit} exists={contacts.some((c) => c.id === edit.id)} deptLabel={tr(DEPTS.find((d) => d.key === edit.dept)?.he || "")} onSave={onSave} onRemove={onRemove} onClose={() => setEdit(null)} pool={pool} />}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/hub/whitelist/page.tsx) · updated 11.10.2026 08:20 (Asia/Jerusalem) — 📒 WhatsApp directory: the allow-list (prospects with phone + Silitex contacts + extra allow-list + blocked) with kind filter, search, add/block/unblock/remove
+// page.tsx (src/app/hub/whitelist/page.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 11.10.2026 08:20 (Asia/Jerusalem) — 📒 WhatsApp directory: the allow-list (prospects with phone + Silitex contacts + extra allow-list + blocked) with kind filter, search, add/block/unblock/remove
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Card, H1, Badge, inputCls, btnGhost, btnPrimary } from "@/components/ui";
@@ -7,6 +7,7 @@ import { DEPTS } from "@/config/hub";
 import { WA_KINDS, waKind } from "@/config/wa";
 import { fmtDateTime } from "@/lib/format";
 import { useLang } from "@/i18n";
+import ValidInput from "@/components/ValidInput";
 type Row = { phone: string; name: string; company: string; kind: string; source: "lead" | "contact" | "list" | "block"; ref: string; dept: string; notes?: string; count: number; last: string | null };
 const empty = { phone: "", name: "", company: "", kind: "partner", dept: "customer", notes: "" };
 export default function WhitelistPage() {
@@ -24,7 +25,7 @@ export default function WhitelistPage() {
       <Card>
         <div className="font-bold mb-2">➕ {tr("הוסף מספר לרשימה הלבנה")}</div>
         <div className="grid md:grid-cols-6 gap-2 text-sm">
-          <input className={inputCls} placeholder={tr("טלפון (05x / +972)")} dir="ltr" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+          <ValidInput kind="mobile" placeholder={tr("טלפון (05x / +972)")} value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} />
           <input className={inputCls} placeholder={tr("שם")} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
           <input className={inputCls} placeholder={tr("חברה")} value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} />
           <select className={inputCls} value={form.kind} onChange={(e) => setForm({ ...form, kind: e.target.value })}>{WA_KINDS.filter((k) => k.key !== "customer" && k.key !== "supplier").map((k) => <option key={k.key} value={k.key}>{k.icon} {tr(k.he)}</option>)}</select>

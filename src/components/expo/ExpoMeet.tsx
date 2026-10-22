@@ -1,5 +1,5 @@
 "use client";
-// ExpoMeet.tsx (src/components/expo/ExpoMeet.tsx) · updated 18.10.2026 11:40 (Asia/Jerusalem) — EXPO paperless meeting for Silitex staff: scan business card (AI vision) · dictate (IT/EN/current language) or type · ✨ AI summary + next step + follow-up message in the user's language · save on HER phone only (works with no signal — summarize later from Contacts)
+// ExpoMeet.tsx (src/components/expo/ExpoMeet.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 18.10.2026 11:40 (Asia/Jerusalem) — EXPO paperless meeting for Silitex staff: scan business card (AI vision) · dictate (IT/EN/current language) or type · ✨ AI summary + next step + follow-up message in the user's language · save on HER phone only (works with no signal — summarize later from Contacts)
 import { useRef, useState } from "react";
 import TokenMeter from "@/components/TokenMeter";
 import { inputCls } from "@/components/ui";
@@ -9,6 +9,7 @@ import { shrink, waNumber } from "@/lib/expo/util";
 import type { Expo, ExpoMeeting } from "@/lib/expo/store";
 import type { Usage } from "@/lib/types";
 import { useLang } from "@/i18n";
+import ValidInput from "@/components/ValidInput";
 type Sum = { summary?: string; products?: string[]; next_step?: string; due_days?: number; followup_message?: string };
 const EMPTY = { company: "", contact_name: "", contact_role: "", phone: "", email: "", website: "", city: "" };
 type Rec = { lang: string; interimResults: boolean; continuous: boolean; start: () => void; stop: () => void; onresult: (e: { results: ArrayLike<ArrayLike<{ transcript: string }> & { isFinal: boolean }>; resultIndex: number }) => void; onend: () => void };
@@ -87,8 +88,8 @@ export default function ExpoMeet({ expo, industry }: { expo: Expo; industry: str
         <div className="grid grid-cols-2 gap-2">
           <input className={inputCls} placeholder={tr("איש קשר")} value={f.contact_name} onChange={(e) => set("contact_name")(e.target.value)} />
           <input className={inputCls} placeholder={tr("תפקיד")} value={f.contact_role} onChange={(e) => set("contact_role")(e.target.value)} />
-          <input className={inputCls} type="tel" dir="ltr" placeholder={tr("נייד")} value={f.phone} onChange={(e) => set("phone")(e.target.value)} />
-          <input className={inputCls} type="email" dir="ltr" placeholder={tr("אימייל")} value={f.email} onChange={(e) => set("email")(e.target.value)} />
+          <ValidInput kind="mobile" placeholder={tr("נייד")} value={f.phone} onChange={(v) => set("phone")(v)} />
+          <ValidInput kind="email" placeholder={tr("אימייל")} value={f.email} onChange={(v) => set("email")(v)} />
         </div>
         <select className={inputCls} value={ind} onChange={(e) => setInd(e.target.value)}><option value="">{tr("תעשייה")}</option>{EXPO_INDUSTRIES.map((i) => <option key={i.key} value={i.key}>{tr(i.he)}</option>)}</select>
       </div>

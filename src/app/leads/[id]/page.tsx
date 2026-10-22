@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState, useEffect } from "react";
 import type { Thread } from "@/lib/types";
 import Link from "next/link";
@@ -28,6 +28,7 @@ import ScanCard from "@/components/scan/ScanCard";
 import HuntCard from "@/components/leads/HuntCard";
 import CodeLinks from "@/components/leads/CodeLinks";
 import { parsePlan } from "@/lib/playbook";
+import { buildPool } from "@/lib/validate";
 export default function LeadPage({ params }: { params: Promise<{ id: string }> }) {
   const { t: tr } = useLang();
   const { id } = use(params);
@@ -55,7 +56,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
         <div className="space-y-4">
           <Card>
             <div className="flex flex-wrap gap-1 mb-3">{STAGES.map((s) => (<button key={s.key} onClick={() => setStage(id, s.key as Stage)} className={"text-xs px-2 py-1 rounded-full border " + (lead.stage === s.key ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{tr(s.he)}</button>))}</div>
-            <IntakeForm lead={lead} onSave={(l) => { upsertLead(l); addActivity(id, "intake", tr("טופס קליטה עודכן")); }} />
+            <IntakeForm lead={lead} pool={buildPool(state.leads, state.contacts)} onSave={(l) => { upsertLead(l); addActivity(id, "intake", tr("טופס קליטה עודכן")); }} />
           </Card>
           <Card>
             <AiPanel title={tr("הצעת פנייה / פיץ' ל-") + lead.name} buttonLabel={tr("צור פיץ' עם AI")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} onResult={() => addActivity(id, "ai", tr("נוצר פיץ' AI"))}

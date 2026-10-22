@@ -1,5 +1,5 @@
 "use client";
-// MeetingGroup.tsx (src/components/capture/MeetingGroup.tsx) · updated 22.10.2026 07:10 (Asia/Jerusalem) — save to a PARTNER / Silitex contact (e.g. Pini) instead of a customer: summary + transcript + media links → the contact's "פגישות" thread in the Hub + task with his name; meeting labelled with a contact name is pre-selected · 19.10.2026 09:45 — 🗑️ delete unneeded item / whole meeting (two-tap confirm, permanent in Cloudinary) · 18.10.2026 07:05 — one field meeting from Cloudinary: process card (vision → contact), photos (vision → facts), voice/video (Whisper → transcript) → ✨ AI summary + next step → save to CRM (lead + log with media links + task + stage) → tagged processed in Cloudinary
+// MeetingGroup.tsx (src/components/capture/MeetingGroup.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 22.10.2026 07:10 (Asia/Jerusalem) — save to a PARTNER / Silitex contact (e.g. Pini) instead of a customer: summary + transcript + media links → the contact's "פגישות" thread in the Hub + task with his name; meeting labelled with a contact name is pre-selected · 19.10.2026 09:45 — 🗑️ delete unneeded item / whole meeting (two-tap confirm, permanent in Cloudinary) · 18.10.2026 07:05 — one field meeting from Cloudinary: process card (vision → contact), photos (vision → facts), voice/video (Whisper → transcript) → ✨ AI summary + next step → save to CRM (lead + log with media links + task + stage) → tagged processed in Cloudinary
 import { useState } from "react";
 import { useStore, STAGES } from "@/lib/store";
 import TokenMeter from "@/components/TokenMeter";
@@ -8,8 +8,10 @@ import { inputCls, btnPrimary, btnGhost, Badge } from "@/components/ui";
 import { uid, todayIso, addDays, fmtDate, fmtDateTime } from "@/lib/format";
 import { INDUSTRIES } from "@/config/industries";
 import type { Lead, Stage, Usage } from "@/lib/types";
+import { buildPool } from "@/lib/validate";
 import type { InboxGroup, InboxItem } from "@/app/api/capture/inbox/route";
 import { useLang } from "@/i18n";
+import ValidInput from "@/components/ValidInput";
 type Sum = { summary?: string; products?: string[]; next_step?: string; due_days?: number; stage?: string; followup_message?: string };
 const KIND_ICON: Record<string, string> = { card: "📇", photo: "📷", audio: "🎙", video: "🎥", note: "📝" };
 export default function MeetingGroup({ g, onDone }: { g: InboxGroup; onDone: () => void }) {
@@ -105,8 +107,8 @@ export default function MeetingGroup({ g, onDone }: { g: InboxGroup; onDone: () 
         <input className={inputCls} placeholder={tr("חברה *")} value={f.company} onChange={(e) => setF({ ...f, company: e.target.value })} disabled={!!leadId} />
         <input className={inputCls} placeholder={tr("איש קשר")} value={f.contact_name} onChange={(e) => setF({ ...f, contact_name: e.target.value })} />
         <input className={inputCls} placeholder={tr("תפקיד")} value={f.contact_role} onChange={(e) => setF({ ...f, contact_role: e.target.value })} />
-        <input className={inputCls} dir="ltr" placeholder={tr("נייד")} value={f.phone} onChange={(e) => setF({ ...f, phone: e.target.value })} />
-        <input className={inputCls} dir="ltr" placeholder={tr("אימייל")} value={f.email} onChange={(e) => setF({ ...f, email: e.target.value })} />
+        <ValidInput kind="mobile" placeholder={tr("נייד")} value={f.phone} onChange={(v) => setF({ ...f, phone: v })} pool={ct ? undefined : buildPool(state.leads, state.contacts)} selfKey={leadId ? "lead:" + leadId : undefined} />
+        <ValidInput kind="emails" placeholder={tr("אימייל")} value={f.email} onChange={(v) => setF({ ...f, email: v })} pool={ct ? undefined : buildPool(state.leads, state.contacts)} selfKey={leadId ? "lead:" + leadId : undefined} />
         <select className={inputCls} value={ind} onChange={(e) => setInd(e.target.value)}><option value="">{tr("תעשייה")}</option>{INDUSTRIES.filter((i) => i.key !== "food").map((i) => <option key={i.key} value={i.key}>{tr(i.he)}</option>)}</select>
         <button className={btnGhost} disabled={!!busy || !combined()} onClick={summarize}>{busy === "sum" ? tr("מסכם…") : "✨ " + tr("סכם + צעד הבא")}</button>
       </div>

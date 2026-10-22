@@ -1,5 +1,5 @@
 "use client";
-// IntakeForm.tsx (src/components/leads/IntakeForm.tsx) · updated 19.10.2026 12:35 (Asia/Jerusalem) — e-mail field takes several contacts (comma separated) for automatic mail matching · 09.10.2026 19:20 (Asia/Jerusalem) — fact-finding form: core identity (mandatory) + 8 config-driven sections (config/intake.ts) stored in lead.intake
+// IntakeForm.tsx (src/components/leads/IntakeForm.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 19.10.2026 12:35 (Asia/Jerusalem) — e-mail field takes several contacts (comma separated) for automatic mail matching · 09.10.2026 19:20 (Asia/Jerusalem) — fact-finding form: core identity (mandatory) + 8 config-driven sections (config/intake.ts) stored in lead.intake
 import { useState } from "react";
 import { inputCls, btnPrimary, Badge } from "@/components/ui";
 import { INTAKE, type IntakeField } from "@/config/intake";
@@ -8,14 +8,16 @@ import { fmtDate } from "@/lib/format";
 import { ROLE_SUGGESTIONS } from "@/config/roles";
 import { useLang } from "@/i18n";
 import type { Lead } from "@/lib/types";
-export default function IntakeForm({ lead, onSave }: { lead: Lead; onSave: (l: Lead) => void }) {
+import { check, type PoolItem } from "@/lib/validate";
+import ValidInput from "@/components/ValidInput";
+export default function IntakeForm({ lead, onSave, pool }: { lead: Lead; onSave: (l: Lead) => void; pool?: PoolItem[] }) {
   const { t: tr } = useLang();
   const [f, setF] = useState<Lead>({ ...lead, intake: { ...intakeOf(lead) } });
   const [open, setOpen] = useState<number>(3); const [err, setErr] = useState("");
   const set = (k: keyof Lead, v: string) => setF({ ...f, [k]: v });
   const setI = (id: string, v: string) => setF({ ...f, intake: { ...(f.intake || {}), [id]: v } });
   const core = (k: keyof Lead, label: string, type = "text", req = false) => (<label className="text-xs text-slate-500">{label}{req && " *"}<input type={type} className={inputCls + " mt-1"} value={(f[k] as string) || ""} onChange={(e) => set(k, e.target.value)} /></label>);
-  const save = () => { if (!f.name || !f.contact_name || !f.contact_phone) return setErr(tr("חובה: חברה, שם איש קשר, נייד")); setErr(""); onSave(f); };
+  const save = () => { if (!f.name || !f.contact_name || !f.contact_phone) return setErr(tr("חובה: חברה, שם איש קשר, נייד")); if (check("mobile", f.contact_phone) === false) return setErr(tr("מספר נייד לא תקין")); if (check("emails", f.contact_email) === false) return setErr(tr("אימייל לא תקין")); setErr(""); onSave(f); };
   const pct = intakePct(f);
   return (
     <div>
@@ -23,7 +25,7 @@ export default function IntakeForm({ lead, onSave }: { lead: Lead; onSave: (l: L
       <div className="grid md:grid-cols-3 gap-2">
         {core("name", tr("חברה"), "text", true)}{core("industry", tr("תעשייה"))}{core("sub_industry", tr("תת-תעשייה / תיאור"))}
         {core("contact_name", tr("שם איש קשר"), "text", true)}<label className="text-xs text-slate-500">{tr("תפקיד")}<input list="roles2" className={inputCls + " mt-1"} value={f.contact_role || ""} onChange={(e) => set("contact_role", e.target.value)} /><datalist id="roles2">{ROLE_SUGGESTIONS.map((r) => <option key={r} value={r} />)}</datalist></label>{core("department", tr("מחלקה"))}
-        {core("contact_phone", tr("נייד"), "tel", true)}{core("contact_email", tr("אימייל (כמה אנשי קשר — מופרדים בפסיק)"), "text")}{core("next_action_at", tr("פעולה הבאה (תאריך)"), "date")}
+        <ValidInput kind="mobile" label={tr("נייד")} required value={f.contact_phone || ""} onChange={(v) => set("contact_phone", v)} pool={pool} selfKey={"lead:" + f.id} /><ValidInput kind="emails" label={tr("אימייל (כמה אנשי קשר — מופרדים בפסיק)")} value={f.contact_email || ""} onChange={(v) => set("contact_email", v)} pool={pool} selfKey={"lead:" + f.id} />{core("next_action_at", tr("פעולה הבאה (תאריך)"), "date")}
         <label className="text-xs text-slate-500 md:col-span-3">{tr("צורך / יישום")}<textarea className={inputCls + " mt-1"} rows={2} value={f.use_case} onChange={(e) => set("use_case", e.target.value)} /></label>
       </div>
       <div className="mt-3 space-y-1">

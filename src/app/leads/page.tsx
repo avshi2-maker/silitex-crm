@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/page.tsx) · updated 17.10.2026 08:20 — + import from Excel / SAP button · 09.10.2026 19:20 (Asia/Jerusalem) — potential customers list + CRM intake (NewLeadForm) + website inbox
+// page.tsx (src/app/leads/page.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 17.10.2026 08:20 — + import from Excel / SAP button · 09.10.2026 19:20 (Asia/Jerusalem) — potential customers list + CRM intake (NewLeadForm) + website inbox
 import Link from "next/link";
 import { purchasesOf } from "@/components/market/PurchaseHistory";
 import { useState } from "react";
@@ -12,6 +12,7 @@ import { ROLE_GROUPS, roleGroupOf } from "@/config/roles";
 import NewLeadForm from "@/components/leads/NewLeadForm";
 import InboxCard from "@/components/leads/InboxCard";
 import { useLang } from "@/i18n";
+import { buildPool } from "@/lib/validate";
 export default function LeadsPage() {
   const { t: tr } = useLang();
   const { state, ready, upsertLead, removeLead } = useStore();
@@ -30,7 +31,7 @@ export default function LeadsPage() {
         <button className={btnPrimary} onClick={() => setShowNew((v) => !v)}>{tr("+ לקוח חדש")}</button>
         <Link href="/leads/import" className="px-3 py-2 rounded-lg border text-sm bg-white hover:bg-slate-50">{tr("📥 ייבוא מ-Excel / SAP")}</Link>
       </Card>
-      {showNew && <NewLeadForm initial={prefill} onSave={(l) => { upsertLead(l); setShowNew(false); setPrefill({}); }} onCancel={() => setShowNew(false)} />}
+      {showNew && <NewLeadForm pool={buildPool(state.leads, state.contacts)} initial={prefill} onSave={(l) => { upsertLead(l); setShowNew(false); setPrefill({}); }} onCancel={() => setShowNew(false)} />}
       <InboxCard existing={state.leads.map((l) => l.name)} onImport={(sb) => { setPrefill({ name: sb.company, contact_name: sb.name, contact_phone: sb.phone || "", contact_email: sb.email, source: "טופס אתר", use_case: [sb.product, sb.fields?.application, sb.message].filter(Boolean).join(" · ") }); setShowNew(true); window.scrollTo({ top: 0, behavior: "smooth" }); }} />
       <Card className="p-0 overflow-x-auto">
         <table className="w-full text-sm">

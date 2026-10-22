@@ -1,12 +1,14 @@
 "use client";
-// ContactModal.tsx (src/components/hub/ContactModal.tsx) · updated 10.10.2026 07:05 (Asia/Jerusalem) — add/edit Silitex contact; paste-signature auto-fill
+// ContactModal.tsx (src/components/hub/ContactModal.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 10.10.2026 07:05 (Asia/Jerusalem) — add/edit Silitex contact; paste-signature auto-fill
 import { useState } from "react";
 import { inputCls, btnGhost, btnPrimary } from "@/components/ui";
 import { parseSignature } from "@/lib/parse-signature";
 import { useLang } from "@/i18n";
 import type { SilitexContact } from "@/lib/types";
-type Props = { initial: SilitexContact; exists: boolean; deptLabel: string; onSave: (c: SilitexContact) => void; onRemove: (id: string) => void; onClose: () => void };
-export default function ContactModal({ initial, exists, deptLabel, onSave, onRemove, onClose }: Props) {
+import type { PoolItem } from "@/lib/validate";
+import ValidInput from "@/components/ValidInput";
+type Props = { initial: SilitexContact; exists: boolean; deptLabel: string; onSave: (c: SilitexContact) => void; onRemove: (id: string) => void; onClose: () => void; pool?: PoolItem[] };
+export default function ContactModal({ initial, exists, deptLabel, onSave, onRemove, onClose, pool }: Props) {
   const { t: tr } = useLang(); const [c, setC] = useState<SilitexContact>(initial); const [sig, setSig] = useState("");
   const set = (k: keyof SilitexContact) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setC({ ...c, [k]: e.target.value });
   const fill = () => { const p = parseSignature(sig); setC({ ...c, ...Object.fromEntries(Object.entries(p).filter(([, v]) => v)) }); };
@@ -22,8 +24,8 @@ export default function ContactModal({ initial, exists, deptLabel, onSave, onRem
         </div>
         <div className="grid md:grid-cols-2 gap-2">
           {F("name", tr("שם"))}{F("role", tr("תפקיד"))}
-          {F("email", "Email", true)}{F("mobile", tr("נייד"), true)}
-          {F("phone", tr("טלפון"), true)}{F("linkedin", "LinkedIn", true)}
+          <ValidInput kind="email" label="Email" value={c.email || ""} onChange={(v) => setC({ ...c, email: v })} pool={pool} selfKey={"ct:" + c.id} /><ValidInput kind="mobile" label={tr("נייד")} value={c.mobile || ""} onChange={(v) => setC({ ...c, mobile: v })} pool={pool} selfKey={"ct:" + c.id} />
+          <ValidInput kind="phone" label={tr("טלפון")} value={c.phone || ""} onChange={(v) => setC({ ...c, phone: v })} pool={pool} selfKey={"ct:" + c.id} />{F("linkedin", "LinkedIn", true)}
           <label className="text-xs text-slate-500 md:col-span-2">{tr("כתובת")}<input className={inputCls + " mt-0.5"} value={c.address || ""} onChange={set("address")} dir="ltr" /></label>
           <label className="text-xs text-slate-500 md:col-span-2">{tr("הערות")}<textarea className={inputCls + " mt-0.5 h-16"} value={c.notes || ""} onChange={set("notes")} /></label>
         </div>
