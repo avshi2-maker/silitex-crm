@@ -1,6 +1,7 @@
-// lead-import.ts (src/lib/lead-import.ts) · updated 22.10.2026 17:40 (Asia/Jerusalem) — + Sub-industry column; tier for NEW rows is a parameter (search-prompt imports = Tier 3); unknown industry = "לסיווג" · 17.10.2026 07:45 (Asia/Jerusalem) — Excel / CSV / SAP export → leads. Auto-maps column headers (Hebrew, English, SAP), de-duplicates by company name, builds the template + "export all leads" in the SAME format.
+// lead-import.ts (src/lib/lead-import.ts) · updated 22.10.2026 18:50 (Asia/Jerusalem) — rows with SHIFTED columns (AI answers, NotebookLM 22/10) are repaired automatically (lib/lead-repair) and flagged 🔧 · 17:40 (Asia/Jerusalem) — + Sub-industry column; tier for NEW rows is a parameter (search-prompt imports = Tier 3); unknown industry = "לסיווג" · 17.10.2026 07:45 (Asia/Jerusalem) — Excel / CSV / SAP export → leads. Auto-maps column headers (Hebrew, English, SAP), de-duplicates by company name, builds the template + "export all leads" in the SAME format.
 import type { Lead } from "./types";
 import { uid } from "./format";
+import { looksShifted, repairRec, REC_KEYS, type Rec } from "./lead-repair";
 
 export type FieldKey = "name" | "contact_name" | "contact_role" | "contact_phone" | "contact_email" | "industry" | "sub_industry" | "product_match" | "competitor" | "use_case" | "volume_tons" | "value_usd" | "city" | "sap_no" | "last_purchase" | "website" | "notes" | "source";
 /** column order = the template / export format */
@@ -37,19 +38,21 @@ export function autoMap(headers: string[]): Record<number, FieldKey | ""> {
 const num = (v: unknown) => { const n = Number(String(v ?? "").replace(/[^0-9.\-]/g, "")); return isFinite(n) ? n : 0; };
 const dmy = (v: unknown) => { if (typeof v === "number" && v > 20000 && v < 80000) { const d = new Date(Math.round((v - 25569) * 86400000)); return d.toISOString().slice(0, 10).split("-").reverse().join("/"); } const t = String(v ?? "").trim(); const m = t.match(/^(\d{4})-(\d{2})-(\d{2})/); return m ? m[3] + "/" + m[2] + "/" + m[1] : t; };
 
-export type ImportRow = { row: Record<FieldKey, string>; existingId?: string; action: "new" | "update" | "skip"; problem?: string };
+export type ImportRow = { row: Record<FieldKey, string>; existingId?: string; action: "new" | "update" | "skip"; problem?: string; fixed?: boolean };
 export function buildRows(data: unknown[][], map: Record<number, FieldKey | "">, existing: Lead[]): ImportRow[] {
   const byName = new Map(existing.map((l) => [normName(l.name), l.id]));
   const seen = new Set<string>();
   return data.map((cells) => {
     const row = Object.fromEntries(FIELDS.map((f) => [f.key, ""])) as Record<FieldKey, string>;
     Object.entries(map).forEach(([i, k]) => { if (k) { const v = cells[Number(i)]; row[k] = k === "last_purchase" ? dmy(v) : String(v ?? "").trim(); } });
+    let fixed = false; const rec = Object.fromEntries(REC_KEYS.map((k) => [k, row[k as FieldKey] || ""])) as Rec;
+    if (looksShifted(rec)) { const rp = repairRec(rec); REC_KEYS.forEach((k) => { row[k as FieldKey] = rp[k]; }); fixed = true; } // AI answer with shifted columns → each value back to its field
     const key = normName(row.name);
     if (!key) return { row, action: "skip" as const, problem: "no company" };
     if (seen.has(key)) return { row, action: "skip" as const, problem: "duplicate in file" };
     seen.add(key);
     const ex = byName.get(key);
-    return ex ? { row, existingId: ex, action: "update" as const } : { row, action: "new" as const };
+    return ex ? { row, existingId: ex, action: "update" as const, fixed } : { row, action: "new" as const, fixed };
   }).filter((r) => Object.values(r.row).some(Boolean));
 }
 /** imported row → Lead; on update keeps everything already in the CRM and only fills/refreshes imported fields */

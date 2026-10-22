@@ -2113,4 +2113,6 @@ export const IT: Record<string, string> = {
   "לשלוח לסריקת שרת": "Invia alla scansione server",
   "קובץ": "File",
   "חיפוש ברשת": "Ricerca web",
+  "עמודות מוזזות תוקנו": "colonne spostate corrette",
+  "העמודות בשורה הזאת היו מוזזות — כל ערך הוחזר לשדה שלו": "Le colonne di questa riga erano spostate — ogni valore è tornato al suo campo",
 };

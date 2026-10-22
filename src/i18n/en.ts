@@ -2031,4 +2031,6 @@ export const EN: Record<string, string> = {
   "לשלוח לסריקת שרת": "Send to server scan",
   "קובץ": "File",
   "חיפוש ברשת": "Web search",
+  "עמודות מוזזות תוקנו": "shifted columns repaired",
+  "העמודות בשורה הזאת היו מוזזות — כל ערך הוחזר לשדה שלו": "The columns in this row were shifted — every value was put back in its field",
 };

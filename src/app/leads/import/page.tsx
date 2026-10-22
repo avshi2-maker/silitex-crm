@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/import/page.tsx) · updated 22.10.2026 18:25 (Asia/Jerusalem) — Source no longer defaults to "SAP — Dow Corning": auto = file name + date / "חיפוש ברשת" + date for pasted CSV / the 🧲 search label; typing your own wins · 18:10 — search-round log attached to the first imported customer (FK fix) · 18:00 — 🔎 after import: companies with a website (new / never scanned) go straight to the server scan queue (est. cost shown) · search rounds from 🧲 logged for the search history · 17:40 — + paste CSV (answer from Comet / NotebookLM) + hand-off from 🧲 /leads/prompt (source + Tier 3 carried over) · 17.10.2026 07:55 (Asia/Jerusalem) — import leads from Excel / CSV / SAP export: auto column mapping (HE/EN/SAP headers), preview, new vs update (same company name), skip; template + export-all in the SAME format
+// page.tsx (src/app/leads/import/page.tsx) · updated 22.10.2026 18:50 (Asia/Jerusalem) — 🔧 shifted-column rows repaired + flagged in the preview · search round without industry → logged under the industry most rows carry · 18:25 — Source no longer defaults to "SAP — Dow Corning": auto = file name + date / "חיפוש ברשת" + date for pasted CSV / the 🧲 search label; typing your own wins · 18:10 — search-round log attached to the first imported customer (FK fix) · 18:00 — 🔎 after import: companies with a website (new / never scanned) go straight to the server scan queue (est. cost shown) · search rounds from 🧲 logged for the search history · 17:40 — + paste CSV (answer from Comet / NotebookLM) + hand-off from 🧲 /leads/prompt (source + Tier 3 carried over) · 17.10.2026 07:55 (Asia/Jerusalem) — import leads from Excel / CSV / SAP export: auto column mapping (HE/EN/SAP headers), preview, new vs update (same company name), skip; template + export-all in the SAME format
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -10,9 +10,12 @@ import { todayIso, fmtDate } from "@/lib/format";
 import { useLang } from "@/i18n";
 import { PASTE_KEY, extractCsv, huntLogText, type PastePayload } from "@/lib/hunt-prompt";
 import { useScanJobs } from "@/lib/use-scan-jobs";
+import { INDUSTRY_LIST } from "@/config/industry-list";
 import { scanOf } from "@/lib/scan";
 type Sheet = { name: string; headers: string[]; data: unknown[][] };
 async function xlsx() { return await import("xlsx"); }
+/** search round without an industry picked → the CRM industry most rows carry */
+const topIndustry = (ls: { industry: string }[]) => { const c: Record<string, number> = {}; ls.forEach((l) => { if (INDUSTRY_LIST.includes(l.industry)) c[l.industry] = (c[l.industry] || 0) + 1; }); return Object.entries(c).sort((a, b) => b[1] - a[1])[0]?.[0] || ""; };
 async function download(rows: (string | number)[][], file: string) {
   const X = await xlsx(); const ws = X.utils.aoa_to_sheet(rows); ws["!cols"] = rows[0].map(() => ({ wch: 22 }));
   const wb = X.utils.book_new(); X.utils.book_append_sheet(wb, ws, "Leads"); X.writeFile(wb, file);
@@ -59,7 +62,7 @@ export default function ImportLeadsPage() {
     importLeads(leads);
     let sent = 0;
     if (autoScan) { const toScan = leads.filter((l) => l.website && !scanOf(l)); if (toScan.length) { try { sent = await jobs.enqueue(toScan); } catch { sent = 0; } } }
-    if (hunt && leads[0]) { const h = hunt, first = leads[0].id, n = nNew, u = nUpd, sc = sent; setTimeout(() => addActivity(first, "import", huntLogText(h.tool || "search", [h.industry, h.sub].filter(Boolean).join(" → ") || "—", n, u, sc)), 2500); } // after the customer rows reach the cloud (FK)
+    if (hunt && leads[0]) { const h = hunt, first = leads[0].id, n = nNew, u = nUpd, sc = sent; setTimeout(() => addActivity(first, "import", huntLogText(h.tool || "search", [h.industry || topIndustry(leads), h.sub].filter(Boolean).join(" → ") || "—", n, u, sc)), 2500); } // after the customer rows reach the cloud (FK)
     setDone(tr("יובאו ") + nNew + tr(" חדשים · עודכנו ") + nUpd + (sent ? " · 🔎 " + sent + tr(" נשלחו לסריקת שרת") : "")); setSheets([]); setHunt(null); setBusy(false); setSrcTouched(false); setSrcRaw(""); setTier("Tier 2 - Old account"); setPaste("");
   };
   return (
@@ -91,14 +94,14 @@ export default function ImportLeadsPage() {
             {!hasName && <div className="text-sm text-red-600">{tr("חובה לבחור עמודת חברה")}</div>}
           </Card>
           <Card className="space-y-2">
-            <div className="flex flex-wrap items-center gap-2"><h3 className="font-bold">{tr("תצוגה מקדימה")}</h3><Badge tone="green">{nNew} {tr("חדשים")}</Badge><Badge tone="amber">{nUpd} {tr("עדכון קיים")}</Badge><Badge>{rows.length - active.length} {tr("דילוג")}</Badge>
+            <div className="flex flex-wrap items-center gap-2"><h3 className="font-bold">{tr("תצוגה מקדימה")}</h3><Badge tone="green">{nNew} {tr("חדשים")}</Badge><Badge tone="amber">{nUpd} {tr("עדכון קיים")}</Badge>{rows.some((x) => x.fixed) && <Badge tone="blue">🔧 {rows.filter((x) => x.fixed).length} {tr("עמודות מוזזות תוקנו")}</Badge>}<Badge>{rows.length - active.length} {tr("דילוג")}</Badge>
               <label className="ms-auto text-xs text-slate-600 flex items-center gap-1" title={tr("החברות עם אתר נסרקות בשרת: תעשייה, תת-ענף והתאמת מוצרי Silitex — אפשר לסגור את הדפדפן")}><input type="checkbox" checked={autoScan} onChange={(e) => setAutoScan(e.target.checked)} />🔎 {tr("לשלוח לסריקת שרת")} ({scanable}{jobs.st?.avgCost ? " · ≈ $" + (scanable * jobs.st.avgCost).toFixed(2) : ""})</label>
               <button className={btnPrimary} disabled={!hasName || !active.length || busy} onClick={run}>📥 {tr("ייבא")} {active.length}</button></div>
             <div className="overflow-x-auto max-h-[28rem] overflow-y-auto"><table className="w-full text-xs"><thead className="bg-slate-50 sticky top-0"><tr><th className="p-1"></th><th className="p-1 text-start">{tr("פעולה")}</th>{FIELDS.filter((f) => Object.values(map).includes(f.key)).map((f) => <th key={f.key} className="p-1 text-start whitespace-nowrap">{tr(f.he)}</th>)}</tr></thead>
               <tbody>{rows.slice(0, 300).map((r, i) => (
                 <tr key={i} className={"border-t " + (r.action === "skip" || skip[i] ? "opacity-40" : "")}>
                   <td className="p-1"><input type="checkbox" disabled={r.action === "skip"} checked={r.action !== "skip" && !skip[i]} onChange={() => setSkip({ ...skip, [i]: !skip[i] })} /></td>
-                  <td className="p-1 whitespace-nowrap">{r.action === "new" ? <Badge tone="green">{tr("חדש")}</Badge> : r.action === "update" ? <Badge tone="amber">{tr("עדכון")}</Badge> : <Badge>{tr(r.problem === "duplicate in file" ? "כפול בקובץ" : "אין חברה")}</Badge>}</td>
+                  <td className="p-1 whitespace-nowrap">{r.action === "new" ? <Badge tone="green">{tr("חדש")}</Badge> : r.action === "update" ? <Badge tone="amber">{tr("עדכון")}</Badge> : <Badge>{tr(r.problem === "duplicate in file" ? "כפול בקובץ" : "אין חברה")}</Badge>}{r.fixed && <span title={tr("העמודות בשורה הזאת היו מוזזות — כל ערך הוחזר לשדה שלו")}> 🔧</span>}</td>
                   {FIELDS.filter((f) => Object.values(map).includes(f.key)).map((f) => <td key={f.key} className="p-1 max-w-[14rem] truncate" dir="auto" title={r.row[f.key]}>{r.row[f.key]}</td>)}
                 </tr>))}</tbody></table></div>
             {rows.length > 300 && <div className="text-xs text-slate-500">{tr("מוצגות 300 שורות ראשונות — כולן ייובאו.")}</div>}
