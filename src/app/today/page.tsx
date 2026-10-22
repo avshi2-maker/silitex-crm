@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/today/page.tsx) · updated 21.10.2026 17:10 (Asia/Jerusalem) — + 📮 Friday-report ticker (Silitex open questions) · 11:30 — + 🎯 daily hunt: 5 leads without a contact person (rotating, best priority first) · 19.10.2026 12:05 — idle customers A→Z · waiting list = all playbook steps owed by others + e-mails waiting for Silitex / customer reply (from the Hub, red after 2 days = follow up) · 🗑️ delete a task · 11:45 — playbook steps: step badge + owner, ✓ opens the next step automatically, steps owned by Silitex / customer / Pini in "waiting for others" · 17.10.2026 08:15 — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
+// page.tsx (src/app/today/page.tsx) · updated 22.10.2026 07:50 (Asia/Jerusalem) — quick add: pick a SUPPLIER / partner too (Pini 🧑‍🔬 on top, Silitex) → task with his name, link to the Hub · 21.10.2026 17:10 (Asia/Jerusalem) — + 📮 Friday-report ticker (Silitex open questions) · 11:30 — + 🎯 daily hunt: 5 leads without a contact person (rotating, best priority first) · 19.10.2026 12:05 — idle customers A→Z · waiting list = all playbook steps owed by others + e-mails waiting for Silitex / customer reply (from the Hub, red after 2 days = follow up) · 🗑️ delete a task · 11:45 — playbook steps: step badge + owner, ✓ opens the next step automatically, steps owned by Silitex / customer / Pini in "waiting for others" · 17.10.2026 08:15 — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
 import { useState } from "react";
 import Link from "next/link";
 import { useStore, stageHe } from "@/lib/store";
@@ -60,7 +60,7 @@ export default function TodayPage() {
           <div className="flex-1 min-w-[12rem]">
             <div className="font-medium">{t.title}</div>
             <div className="text-xs text-slate-500 flex flex-wrap gap-2 items-center">
-              {l ? <Link href={"/leads/" + l.id} className="text-brand-700 font-medium hover:underline">{l.name}</Link> : t.lead_id === "silitex" ? <Link href="/meetings" className="text-brand-700 hover:underline">Silitex</Link> : <span>{t.lead_name}</span>}
+              {l ? <Link href={"/leads/" + l.id} className="text-brand-700 font-medium hover:underline">{l.name}</Link> : t.lead_id === "silitex" ? <Link href="/meetings" className="text-brand-700 hover:underline">Silitex</Link> : t.lead_id.startsWith("ct:") ? <Link href="/hub" className="text-brand-700 hover:underline">🧑‍🔬 {t.lead_name}</Link> : <span>{t.lead_name}</span>}
               {l && <Badge tone="blue">{tr(stageHe(l.stage))}</Badge>}
               {l?.contact_name && <span>{l.contact_name}</span>}
               <span className={t.due < today ? "text-red-600 font-bold" : ""}>{fmtDate(t.due)}</span>
@@ -78,7 +78,7 @@ export default function TodayPage() {
       </li>
     );
   };
-  const addQuick = () => { const l = state.leads.find((x) => x.id === q.lead); if (!q.title.trim()) return; addTask({ lead_id: l?.id || "", lead_name: l?.name || tr("כללי"), title: q.title.trim(), due: q.due, cadence: "once", kind: "manual" }); setQ({ ...q, title: "" }); };
+  const addQuick = () => { const l = state.leads.find((x) => x.id === q.lead); const c = state.contacts.find((x) => "ct:" + x.id === q.lead); if (!q.title.trim()) return; addTask({ lead_id: c ? "ct:" + c.id : l?.id || "", lead_name: c ? c.name : l?.name || tr("כללי"), title: q.title.trim(), due: q.due, cadence: "once", kind: "manual" }); setQ({ ...q, title: "" }); };
   const planIdle = (l: Lead) => { addTask({ lead_id: l.id, lead_name: l.name, title: plan[l.id] || tr("שיחת בירור: מוצר בשימוש, כמויות, מחיר יעד"), due: today, cadence: "once", kind: "followup" }); };
   return (
     <div className="space-y-4">
@@ -89,7 +89,7 @@ export default function TodayPage() {
       <FqNudge />
       {ready && <HuntToday leads={state.leads} tasks={state.tasks} activities={state.activities} />}
       <Card className="grid md:grid-cols-[1fr_2fr_auto_auto] gap-2 items-end">
-        <label className="text-xs text-slate-500">{tr("לקוח")}<select className={inputCls + " mt-1"} value={q.lead} onChange={(e) => setQ({ ...q, lead: e.target.value })}><option value="">{tr("— כללי —")}</option>{[...state.leads].sort((a, b) => a.name.localeCompare(b.name)).map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}</select></label>
+        <label className="text-xs text-slate-500">{tr("לקוח")}<select className={inputCls + " mt-1"} value={q.lead} onChange={(e) => setQ({ ...q, lead: e.target.value })}><option value="">{tr("— כללי —")}</option>{state.contacts.length > 0 && <optgroup label={tr("ספקים ושותפים (פיני, Silitex)")}>{[...state.contacts].sort((a, b) => (a.dept === "partner" ? 0 : 1) - (b.dept === "partner" ? 0 : 1) || a.name.localeCompare(b.name)).map((c) => <option key={c.id} value={"ct:" + c.id}>{(c.dept === "partner" ? "🧑‍🔬 " : "🇮🇹 ") + c.name}</option>)}</optgroup>}<optgroup label={tr("לקוחות")}>{[...state.leads].sort((a, b) => a.name.localeCompare(b.name)).map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}</optgroup></select></label>
         <label className="text-xs text-slate-500">{tr("משימה")}<input className={inputCls + " mt-1"} placeholder={tr("למשל: להתקשר ללקוח ישן מ-SAP")} value={q.title} onChange={(e) => setQ({ ...q, title: e.target.value })} onKeyDown={(e) => e.key === "Enter" && addQuick()} /></label>
         <label className="text-xs text-slate-500">{tr("תאריך")}<input type="date" className={inputCls + " mt-1"} value={q.due} onChange={(e) => setQ({ ...q, due: e.target.value })} /></label>
         <button className={btnPrimary} onClick={addQuick}>+ {tr("הוסף")}</button>

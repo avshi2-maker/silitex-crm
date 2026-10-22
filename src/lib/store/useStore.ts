@@ -1,5 +1,5 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
+// useStore.ts (src/lib/store/useStore.ts) · updated 22.10.2026 07:50 (Asia/Jerusalem) — completeTask: a done task of a supplier / partner (lead_id ct:…) is logged on his Hub thread · 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
@@ -47,6 +47,7 @@ export function useStore() {
       if (o.stage && o.stage !== lead.stage) setStage(lead.id, o.stage);
       if (o.nextDue) { const nl = { ...lead, stage: o.stage || lead.stage, next_action_at: o.nextDue, updated_at: new Date().toISOString() }; update((s) => ({ ...s, leads: s.leads.map((l) => (l.id === lead.id ? nl : l)) })); sync("leads", nl); }
     }
+    if (t.lead_id.startsWith("ct:")) { const cid = t.lead_id.slice(3); const ct = state.contacts.find((c) => c.id === cid); if (ct) { const now = new Date().toISOString(); const ex = state.threads.find((x) => x.contact_id === cid && x.topic === "technical" && x.subject.startsWith("פגישות")); const th = ex || addThread({ dept: ct.dept, contact_id: cid, subject: "פגישות · " + ct.name, topic: "technical", refs: {}, owner: "sapirim", status: "open", created_at: now, last_at: now }); addMsg({ thread_id: th.id, at: now, from: "Avshi Sapir", to: ct.name, direction: "out", body: "✓ " + t.title + (o.note.trim() ? " — " + o.note.trim() : ""), source: "manual" }); } }
     if (o.nextDue && o.nextTitle?.trim()) addTask({ lead_id: t.lead_id, lead_name: t.lead_name, title: o.nextTitle.trim(), due: o.nextDue, cadence: "once", kind: "followup" });
   };
   /** ACCOUNT PLAYBOOKS — start: creates step 1 (or any step) as a real task */
