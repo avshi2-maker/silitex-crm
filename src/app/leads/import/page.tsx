@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/import/page.tsx) · updated 22.10.2026 17:40 (Asia/Jerusalem) — + paste CSV (answer from Comet / NotebookLM) + hand-off from 🧲 /leads/prompt (source + Tier 3 carried over) · 17.10.2026 07:55 (Asia/Jerusalem) — import leads from Excel / CSV / SAP export: auto column mapping (HE/EN/SAP headers), preview, new vs update (same company name), skip; template + export-all in the SAME format
+// page.tsx (src/app/leads/import/page.tsx) · updated 22.10.2026 18:00 (Asia/Jerusalem) — 🔎 after import: companies with a website (new / never scanned) go straight to the server scan queue (est. cost shown) · search rounds from 🧲 logged for the search history · 17:40 — + paste CSV (answer from Comet / NotebookLM) + hand-off from 🧲 /leads/prompt (source + Tier 3 carried over) · 17.10.2026 07:55 (Asia/Jerusalem) — import leads from Excel / CSV / SAP export: auto column mapping (HE/EN/SAP headers), preview, new vs update (same company name), skip; template + export-all in the SAME format
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -8,7 +8,9 @@ import { FIELDS, autoMap, buildRows, toLead, leadsToSheet, type FieldKey, type I
 import { LEAD_SOURCES } from "@/config/sales";
 import { todayIso } from "@/lib/format";
 import { useLang } from "@/i18n";
-import { PASTE_KEY, extractCsv, type PastePayload } from "@/lib/hunt-prompt";
+import { PASTE_KEY, extractCsv, HUNT_LEAD, huntLogText, type PastePayload } from "@/lib/hunt-prompt";
+import { useScanJobs } from "@/lib/use-scan-jobs";
+import { scanOf } from "@/lib/scan";
 type Sheet = { name: string; headers: string[]; data: unknown[][] };
 async function xlsx() { return await import("xlsx"); }
 async function download(rows: (string | number)[][], file: string) {
@@ -17,13 +19,15 @@ async function download(rows: (string | number)[][], file: string) {
 }
 export default function ImportLeadsPage() {
   const { t: tr } = useLang();
-  const { state, ready, importLeads } = useStore();
+  const { state, ready, importLeads, upsertLead, addActivity } = useStore();
+  const jobs = useScanJobs(state.leads, upsertLead, ready);
+  const [hunt, setHunt] = useState<PastePayload | null>(null); const [autoScan, setAutoScan] = useState(true); const [busy, setBusy] = useState(false);
   const [sheets, setSheets] = useState<Sheet[]>([]); const [si, setSi] = useState(0);
   const [map, setMap] = useState<Record<number, FieldKey | "">>({});
   const [src, setSrc] = useState("SAP — לקוחות Dow Corning"); const [err, setErr] = useState(""); const [done, setDone] = useState("");
   const [skip, setSkip] = useState<Record<number, boolean>>({});
   const [tier, setTier] = useState("Tier 2 - Old account"); const [paste, setPaste] = useState("");
-  useEffect(() => { if (!ready) return; try { const raw = sessionStorage.getItem(PASTE_KEY); if (!raw) return; sessionStorage.removeItem(PASTE_KEY); const p = JSON.parse(raw) as PastePayload; setSrc(p.src); setTier(p.tier); loadText(p.csv); } catch {} }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (!ready) return; try { const raw = sessionStorage.getItem(PASTE_KEY); if (!raw) return; sessionStorage.removeItem(PASTE_KEY); const p = JSON.parse(raw) as PastePayload; setSrc(p.src); setTier(p.tier); setHunt(p); loadText(p.csv); } catch {} }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!ready) return null;
   const sheet = sheets[si];
   const load = async (f?: File | null) => {
@@ -47,9 +51,15 @@ export default function ImportLeadsPage() {
   const active = rows.map((r, i) => ({ r, i })).filter(({ r, i }) => r.action !== "skip" && !skip[i]);
   const nNew = active.filter(({ r }) => r.action === "new").length, nUpd = active.filter(({ r }) => r.action === "update").length;
   const hasName = Object.values(map).includes("name");
-  const run = () => {
+  const scanable = active.filter(({ r }) => r.row.website && (r.action === "new" || !scanOf(state.leads.find((l) => l.id === r.existingId) || ({} as never)))).length;
+  const run = async () => {
+    setBusy(true);
     const leads = active.map(({ r }) => toLead(r, state.leads, src, tier));
-    importLeads(leads); setDone(tr("יובאו ") + nNew + tr(" חדשים · עודכנו ") + nUpd); setSheets([]);
+    importLeads(leads);
+    let sent = 0;
+    if (autoScan) { const toScan = leads.filter((l) => l.website && !scanOf(l)); if (toScan.length) { try { sent = await jobs.enqueue(toScan); } catch { sent = 0; } } }
+    if (hunt) addActivity(HUNT_LEAD(hunt.industry || "—"), "import", huntLogText(hunt.tool || "search", [hunt.industry, hunt.sub].filter(Boolean).join(" → ") || "—", nNew, nUpd, sent));
+    setDone(tr("יובאו ") + nNew + tr(" חדשים · עודכנו ") + nUpd + (sent ? " · 🔎 " + sent + tr(" נשלחו לסריקת שרת") : "")); setSheets([]); setHunt(null); setBusy(false);
   };
   return (
     <div className="space-y-4">
@@ -67,7 +77,7 @@ export default function ImportLeadsPage() {
         </div>
         <div className="flex flex-wrap items-end gap-2"><label className="text-xs text-slate-500 flex-1 min-w-[16rem]">{tr("או הדבק CSV (תשובה מ-Comet / NotebookLM)")} · <Link className="underline text-brand-600" href="/leads/prompt">🧲 {tr("בונה פרומפט חיפוש לקוחות")}</Link><textarea rows={2} dir="ltr" className={inputCls + " mt-1 font-mono text-[12px]"} value={paste} onChange={(e) => setPaste(e.target.value)} placeholder="Company,Website,City,…" /></label><button className={btnGhost} disabled={!paste.trim()} onClick={() => { setTier("Tier 3 - New (to qualify)"); loadText(paste); }}>📋 {tr("טען CSV מודבק")}</button></div>
         {err && <div className="text-sm text-red-600">{err}</div>}
-        {done && <div className="text-sm text-green-700 font-bold">✓ {done} · <Link className="underline" href="/leads">{tr("לרשימת הלקוחות")}</Link> · <Link className="underline" href="/today">{tr("להיום שלי")}</Link></div>}
+        {done && <div className="text-sm text-green-700 font-bold">✓ {done} · <Link className="underline" href="/scan">🔎 {tr("סריקת אתרי לקוחות")}</Link> · <Link className="underline" href="/leads">{tr("לרשימת הלקוחות")}</Link> · <Link className="underline" href="/today">{tr("להיום שלי")}</Link></div>}
       </Card>
       {sheet && (
         <>
@@ -81,7 +91,8 @@ export default function ImportLeadsPage() {
           </Card>
           <Card className="space-y-2">
             <div className="flex flex-wrap items-center gap-2"><h3 className="font-bold">{tr("תצוגה מקדימה")}</h3><Badge tone="green">{nNew} {tr("חדשים")}</Badge><Badge tone="amber">{nUpd} {tr("עדכון קיים")}</Badge><Badge>{rows.length - active.length} {tr("דילוג")}</Badge>
-              <button className={btnPrimary + " ms-auto"} disabled={!hasName || !active.length} onClick={run}>📥 {tr("ייבא")} {active.length}</button></div>
+              <label className="ms-auto text-xs text-slate-600 flex items-center gap-1" title={tr("החברות עם אתר נסרקות בשרת: תעשייה, תת-ענף והתאמת מוצרי Silitex — אפשר לסגור את הדפדפן")}><input type="checkbox" checked={autoScan} onChange={(e) => setAutoScan(e.target.checked)} />🔎 {tr("לשלוח לסריקת שרת")} ({scanable}{jobs.st?.avgCost ? " · ≈ $" + (scanable * jobs.st.avgCost).toFixed(2) : ""})</label>
+              <button className={btnPrimary} disabled={!hasName || !active.length || busy} onClick={run}>📥 {tr("ייבא")} {active.length}</button></div>
             <div className="overflow-x-auto max-h-[28rem] overflow-y-auto"><table className="w-full text-xs"><thead className="bg-slate-50 sticky top-0"><tr><th className="p-1"></th><th className="p-1 text-start">{tr("פעולה")}</th>{FIELDS.filter((f) => Object.values(map).includes(f.key)).map((f) => <th key={f.key} className="p-1 text-start whitespace-nowrap">{tr(f.he)}</th>)}</tr></thead>
               <tbody>{rows.slice(0, 300).map((r, i) => (
                 <tr key={i} className={"border-t " + (r.action === "skip" || skip[i] ? "opacity-40" : "")}>

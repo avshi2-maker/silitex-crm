@@ -1,4 +1,4 @@
-// hunt-prompt.ts (src/lib/hunt-prompt.ts) · created 22.10.2026 17:40 (Asia/Jerusalem) — builds the "find companies we miss" research prompt for Comet / NotebookLM / Perplexity / Deep Research. The CSV header = the CRM import column names, so the answer pastes straight into /leads/import (auto-mapped, de-duplicated).
+// hunt-prompt.ts (src/lib/hunt-prompt.ts) · updated 22.10.2026 18:00 (Asia/Jerusalem) — payload carries industry / sub / tool + search-round log helpers · created 17:40 — builds the "find companies we miss" research prompt for Comet / NotebookLM / Perplexity / Deep Research. The CSV header = the CRM import column names, so the answer pastes straight into /leads/import (auto-mapped, de-duplicated).
 import { hintFor } from "@/config/hunt-uses";
 
 export type HuntTool = "comet" | "notebooklm" | "perplexity" | "deep";
@@ -70,4 +70,10 @@ export function extractCsv(text: string): string {
   return (hi >= 0 ? lines.slice(hi) : lines).join("\n").trim();
 }
 export const PASTE_KEY = "silitex-import-paste";
-export type PastePayload = { csv: string; src: string; tier: string };
+export type PastePayload = { csv: string; src: string; tier: string; industry?: string; sub?: string; tool?: string };
+/** one search round logged as an activity (lead_id "hunt:<industry>", kind "import") — parsed back by the search history */
+export const HUNT_LEAD = (industry: string) => "hunt:" + industry;
+export const huntLogText = (tool: string, seg: string, n: number, u: number, s: number) => "🧲 " + tool + " · " + seg + " · new " + n + " · updated " + u + " · scan " + s;
+export function parseHuntLog(t: string): { tool: string; seg: string; n: number; u: number; s: number } | null {
+  const m = t.match(/^🧲 (.*?) · (.*) · new (\d+) · updated (\d+) · scan (\d+)$/); return m ? { tool: m[1], seg: m[2], n: +m[3], u: +m[4], s: +m[5] } : null;
+}

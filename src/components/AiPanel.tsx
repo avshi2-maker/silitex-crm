@@ -1,5 +1,5 @@
 "use client";
-// AiPanel.tsx (src/components/AiPanel.tsx) · updated 13.10.2026 07:30 — animated AI button (ring pulse until first run) (Asia/Jerusalem)
+// AiPanel.tsx (src/components/AiPanel.tsx) · updated 22.10.2026 18:00 — optional lang override (English answers for the search-prompt sharpen) · 13.10.2026 07:30 — animated AI button (ring pulse until first run) (Asia/Jerusalem)
 // Reusable "ask Claude" panel: runs /api/ai, shows output + TokenMeter + ExportBar (the standing footer). Used by leads, campaign, KB.
 import { useState } from "react";
 import TokenMeter from "./TokenMeter";
@@ -7,9 +7,9 @@ import ExportBar from "./ExportBar";
 import { btnPrimary } from "./ui";
 import type { Usage } from "@/lib/types";
 import { useLang } from "@/i18n";
-type Props = { title: string; buttonLabel: string; buildPrompt: () => { prompt: string; context?: string }; onUsage: (u: Usage) => void; sessionTokens: number; sessionCost: number; onResult?: (text: string) => void };
-export default function AiPanel({ title, buttonLabel, buildPrompt, onUsage, sessionTokens, sessionCost, onResult }: Props) {
-  const { t: tr, lang } = useLang();
+type Props = { title: string; buttonLabel: string; buildPrompt: () => { prompt: string; context?: string }; onUsage: (u: Usage) => void; sessionTokens: number; sessionCost: number; onResult?: (text: string) => void; lang?: "any" | "en" };
+export default function AiPanel({ title, buttonLabel, buildPrompt, onUsage, sessionTokens, sessionCost, onResult, lang: forceLang }: Props) {
+  const { t: tr, lang: uiLang } = useLang(); const lang = forceLang || uiLang;
   const [busy, setBusy] = useState(false);
   const [text, setText] = useState("");
   const [usage, setUsage] = useState<Usage | null>(null);

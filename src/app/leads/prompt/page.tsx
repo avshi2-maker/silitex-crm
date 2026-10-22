@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/prompt/page.tsx) · created 22.10.2026 17:40 (Asia/Jerusalem) — 🧲 search-prompt builder: industry / sub-industry / "similar to" / free notes → ready prompt for Comet / NotebookLM / Perplexity / Deep Research (excludes companies already in the CRM) → paste the CSV answer back → /leads/import preview (new vs update, Tier 3, source stamped). ?lead=ID pre-fills from a customer card.
+// page.tsx (src/app/leads/prompt/page.tsx) · updated 22.10.2026 18:00 (Asia/Jerusalem) — + 📚 search history per industry (gaps in amber) + ✨ AI sharpen (meter + export bar) + hand-off carries industry / sub / tool for the log · created 17:40 — 🧲 search-prompt builder: industry / sub-industry / "similar to" / free notes → ready prompt for Comet / NotebookLM / Perplexity / Deep Research (excludes companies already in the CRM) → paste the CSV answer back → /leads/import preview (new vs update, Tier 3, source stamped). ?lead=ID pre-fills from a customer card.
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,10 +10,12 @@ import { industryOptions, isUnclassified } from "@/config/industry-list";
 import { HUNT_TOOLS, buildHuntPrompt, discoverQuery, extractCsv, PASTE_KEY, type HuntTool, type PastePayload } from "@/lib/hunt-prompt";
 import { normName } from "@/lib/lead-import";
 import { fmtDate } from "@/lib/format";
+import HuntHistory from "@/components/hunt/HuntHistory";
+import HuntSharpen, { type HuntFields } from "@/components/hunt/HuntSharpen";
 
 export default function HuntPromptPage() {
   const { t: tr } = useLang(); const router = useRouter();
-  const { state, ready } = useStore();
+  const { state, ready, addSpend } = useStore();
   const [industry, setIndustry] = useState(""); const [sub, setSub] = useState(""); const [similar, setSimilar] = useState("");
   const [notes, setNotes] = useState(""); const [region, setRegion] = useState("Israel"); const [rows, setRows] = useState(30);
   const [tool, setTool] = useState<HuntTool>("comet"); const [useEx, setUseEx] = useState(true);
@@ -34,15 +36,17 @@ export default function HuntPromptPage() {
   const newCount = useEx && csv ? csv.split("\n").slice(1).filter((l) => l.trim() && !state.leads.some((x) => normName(x.name) && normName(l.split(",")[0].replace(/"/g, "")) === normName(x.name))).length : csvRows;
   const toImport = () => {
     if (csvRows < 1) return setErr(tr("לא זוהה CSV — הדבק את כל התשובה (כולל שורת הכותרת)"));
-    const payload: PastePayload = { csv, src: t0.label + " — " + (sub || industry) + " " + fmtDate(new Date()), tier: "Tier 3 - New (to qualify)" };
+    const payload: PastePayload = { csv, src: t0.label + " — " + (sub || industry) + " " + fmtDate(new Date()), tier: "Tier 3 - New (to qualify)", industry: industry || "", sub, tool: t0.label };
     try { sessionStorage.setItem(PASTE_KEY, JSON.stringify(payload)); } catch {}
     router.push("/leads/import");
   };
+  const applyAi = (p: Partial<HuntFields>) => { if (p.industry !== undefined) setIndustry(p.industry); if (p.sub !== undefined) setSub(p.sub); if (p.similar !== undefined) setSimilar(p.similar); if (p.notes !== undefined) setNotes(p.notes); };
   const step = "flex items-center justify-center w-6 h-6 rounded-full bg-brand-500 text-white text-xs font-bold shrink-0";
   return (
     <div className="space-y-4">
       <Link href="/leads" className="text-sm text-brand-600 underline">← {tr("לקוחות פוטנציאליים")}</Link>
       <H1 sub={tr("ענף / תת-ענף / חברה דומה / מה שקראת → פרומפט מוכן ל-Comet או NotebookLM → מדביקים את ה-CSV חזרה → ייבוא ל-CRM")}>🧲 {tr("בונה פרומפט חיפוש לקוחות")}</H1>
+      <Card><HuntHistory leads={state.leads} activities={state.activities} current={industry} onPick={(i) => { setIndustry(i); window.scrollTo({ top: 0, behavior: "smooth" }); }} /></Card>
       <Card className="space-y-3">
         <div className="flex items-center gap-2 font-bold"><span className={step}>1</span>{tr("מה מחפשים")}</div>
         <div className="grid md:grid-cols-3 gap-2">
@@ -57,6 +61,7 @@ export default function HuntPromptPage() {
           <div className="text-xs text-slate-500">{tr("כלי")}<div className="flex flex-wrap gap-1 mt-1">{HUNT_TOOLS.map((x) => <button key={x.id} className={x.id === tool ? btnPrimary : btnGhost} onClick={() => setTool(x.id)}>{x.label}</button>)}</div></div>
           <label className="text-xs text-slate-600 flex items-center gap-1"><input type="checkbox" checked={useEx} onChange={(e) => setUseEx(e.target.checked)} />{tr("לא להחזיר חברות שכבר ב-CRM")} <Badge>{known.length}</Badge></label>
         </div>
+        <div className="border-t pt-2"><HuntSharpen f={{ industry, sub, similar, notes }} onApply={applyAi} spend={state.spend} addSpend={addSpend} /></div>
       </Card>
       <Card className="space-y-2">
         <div className="flex flex-wrap items-center gap-2 font-bold"><span className={step}>2</span>{tr("הפרומפט — העתק והדבק ב-")}{t0.label}
