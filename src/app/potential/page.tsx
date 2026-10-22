@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/potential/page.tsx) · created 22.10.2026 08:05 (Asia/Jerusalem) — 🎯 POTENTIAL ANALYTICS: live from every customer + website scan + A/B/C/D priority. KPIs · tons by industry (matched vs all) · Silitex grades most in demand · ranked target list (filter industry / grade / scanned) · 📅 put the top targets into the next month's tasks (Sun–Thu, N per day) · 🇮🇹 Federica view: English, counts only, no company names · CSV + export bar.
+// page.tsx (src/app/potential/page.tsx) · updated 22.10.2026 08:35 (Asia/Jerusalem) — server-scan results applied here too (report always synced) · created 22.10.2026 08:05 (Asia/Jerusalem) — 🎯 POTENTIAL ANALYTICS: live from every customer + website scan + A/B/C/D priority. KPIs · tons by industry (matched vs all) · Silitex grades most in demand · ranked target list (filter industry / grade / scanned) · 📅 put the top targets into the next month's tasks (Sun–Thu, N per day) · 🇮🇹 Federica view: English, counts only, no company names · CSV + export bar.
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -10,11 +10,13 @@ import { rowsOf, byIndustry, byGrade, matched, federicaText, csvOf, schedule, ta
 import { fmtDate, todayIso } from "@/lib/format";
 import type { Grade } from "@/lib/priority";
 import { useLang } from "@/i18n";
+import { useScanJobs } from "@/lib/use-scan-jobs";
 const TONE: Record<Grade, string> = { A: "green", B: "blue", C: "amber", D: "slate" };
 const r1 = (n: number) => Math.round(n * 10) / 10;
 export default function PotentialPage() {
   const { t: tr } = useLang();
-  const { state, ready, addTask } = useStore();
+  const { state, ready, addTask, upsertLead } = useStore();
+  const sj = useScanJobs(state.leads, upsertLead, ready);
   const [ind, setInd] = useState(""); const [g, setG] = useState<Grade | "">(""); const [onlyM, setOnlyM] = useState(false); const [tab, setTab] = useState<"me" | "fed">("me");
   const [n, setN] = useState(20); const [perDay, setPerDay] = useState(2); const [msg, setMsg] = useState("");
   const rows = useMemo(() => rowsOf(state.leads, state.tasks), [state.leads, state.tasks]);
@@ -32,6 +34,7 @@ export default function PotentialPage() {
   return (
     <div className="space-y-4">
       <H1 sub={tr("מתעדכן לבד מכל לקוח, כל סריקת אתר ומנוע העדיפויות A/B/C/D. מי הכי מתאים ל-Silitex ובאיזה נפח — כדי לפנות אליהם קודם.")}>🎯 {tr("פוטנציאל — מי קודם")}</H1>
+      {sj.busy && sj.st && <div className="text-xs text-emerald-700">🚀 {tr("סריקה בשרת פעילה:")} {sj.st.queued} {tr("בתור")} — {tr("הדוח מתעדכן לבד")}</div>}
       <div className="flex flex-wrap gap-2"><button className={tabCls(tab === "me")} onClick={() => setTab("me")}>🎯 {tr("רשימת יעדים שלי")}</button><button className={tabCls(tab === "fed")} onClick={() => setTab("fed")}>🇮🇹 {tr("לפדריקה — באנגלית, בלי שמות")}</button></div>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
         {kpi(rows.length, tr("לקוחות בתיק"), tr("ללא מזון"))}

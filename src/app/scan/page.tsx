@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/scan/page.tsx) · updated 22.10.2026 07:35 (Asia/Jerusalem) — scan response read safely (time-out → clear message) · 22.10.2026 07:25 (Asia/Jerusalem) — ✏️ fix the website inline (paste the corrected link → 💾 save + scan at once) · filter: only failed / no website, for cleaning · 20.10.2026 18:30 (Asia/Jerusalem) — 🎁 free-match-report requests panel on top · 10:55 — live run monitor (timer per customer, ETA, live log) · 10:45 — failed sites saved with the reason, not counted as pending, "retry failed" button · 06:00 — BATCH WEBSITE SCAN: pick an industry → every customer with a website → "scan all not yet scanned" (one by one, progress, cost) → products + Silitex matches saved on each customer → table + Excel (CSV) + export bar = the list for Pini / the Friday report.
+// page.tsx (src/app/scan/page.tsx) · updated 22.10.2026 08:35 (Asia/Jerusalem) — 🚀 SERVER SCAN: send pending / failed to the server queue (browser can be closed), live queue status + real cost per scan, results applied to the customers automatically · 22.10.2026 07:35 (Asia/Jerusalem) — scan response read safely (time-out → clear message) · 22.10.2026 07:25 (Asia/Jerusalem) — ✏️ fix the website inline (paste the corrected link → 💾 save + scan at once) · filter: only failed / no website, for cleaning · 20.10.2026 18:30 (Asia/Jerusalem) — 🎁 free-match-report requests panel on top · 10:55 — live run monitor (timer per customer, ETA, live log) · 10:45 — failed sites saved with the reason, not counted as pending, "retry failed" button · 06:00 — BATCH WEBSITE SCAN: pick an industry → every customer with a website → "scan all not yet scanned" (one by one, progress, cost) → products + Silitex matches saved on each customer → table + Excel (CSV) + export bar = the list for Pini / the Friday report.
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -10,7 +10,8 @@ import ScanView from "@/components/scan/ScanView";
 import RunPanel, { type RunLog } from "@/components/scan/RunPanel";
 import MatchRequests from "@/components/scan/MatchRequests";
 import { scanOf, withScan, scanText, scanErr, withScanErr, errHe, type ScanResult, readScan } from "@/lib/scan";
-import { fmtDate } from "@/lib/format";
+import { fmtDate, fmtDateTime } from "@/lib/format";
+import { useScanJobs } from "@/lib/use-scan-jobs";
 import type { Usage, Lead } from "@/lib/types";
 const normUrl = (u: string) => { const t = u.trim().replace(/\s+/g, ""); return !t ? "" : /^https?:\/\//i.test(t) ? t : "https://" + t; };
 import { useLang } from "@/i18n";
@@ -18,6 +19,7 @@ export default function ScanPage() {
   const { t: tr } = useLang();
   const { state, ready, upsertLead, addSpend } = useStore();
   const [ind, setInd] = useState("Personal Care & Cosmetics"); const [busy, setBusy] = useState(""); const [done, setDone] = useState(0); const [usage, setUsage] = useState<Usage | null>(null); const [runCost, setRunCost] = useState(0); const [errs, setErrs] = useState<Record<string, string>>({}); const [open, setOpen] = useState(""); const [qn, setQn] = useState(0); const [log, setLog] = useState<RunLog[]>([]); const [curStart, setCurStart] = useState(0); const [runStart, setRunStart] = useState(0); const stopR = useRef(false); const [ed, setEd] = useState(""); const [url, setUrl] = useState(""); const [fix, setFix] = useState(false);
+  const sj = useScanJobs(state.leads, upsertLead, ready); const [sjMsg, setSjMsg] = useState("");
   if (!ready) return null;
   const inds = Array.from(new Set(state.leads.map((l) => l.industry))).sort();
   const list = state.leads.filter((l) => (!ind || l.industry === ind) && (!fix || !l.website || !!scanErr(l))).sort((a, b) => a.name.localeCompare(b.name));
@@ -54,6 +56,16 @@ export default function ScanPage() {
           <label className="text-xs flex items-center gap-1 border rounded-lg px-2 py-2 bg-amber-50"><input type="checkbox" checked={fix} onChange={(e) => setFix(e.target.checked)} />🧹 {tr("רק נכשלו / בלי אתר")}</label>
           {busy ? <button className={btnGhost} onClick={() => { stopR.current = true; }}>⏹ {tr("עצור")}</button> : <><button className={btnPrimary} disabled={!todo.length} onClick={() => runAll(todo)}>▶ {tr("סרוק את כל הממתינים")} ({todo.length})</button>{failed.length > 0 && <button className={btnGhost} onClick={() => runAll(failed)}>🔁 {tr("נסה שוב את שנכשלו")} ({failed.length})</button>}</>}
           <button className={btnGhost} onClick={csv}>⬇️ Excel (CSV)</button>
+        </div>
+        <div className="border border-emerald-200 bg-emerald-50/50 rounded-xl p-2 space-y-1 text-sm">
+          <div className="flex flex-wrap items-center gap-2"><b>🚀 {tr("סריקה בשרת — אפשר לסגור את הדפדפן")}</b>
+            <button className={btnPrimary + " text-xs"} disabled={!todo.length || sj.busy} onClick={async () => { const n = await sj.enqueue(todo); setSjMsg("✓ " + n + tr(" נשלחו לשרת")); }}>{tr("שלח לשרת את הממתינים")} ({todo.length})</button>
+            {failed.length > 0 && <button className={btnGhost + " text-xs"} disabled={sj.busy} onClick={async () => { const n = await sj.enqueue(failed); setSjMsg("✓ " + n + tr(" נשלחו לשרת")); }}>🔁 {tr("שלח לשרת את שנכשלו")} ({failed.length})</button>}
+            {sj.st && sj.st.queued > 0 && <button className={btnGhost + " text-xs text-red-600"} onClick={sj.cancel}>⏹ {tr("בטל את התור")}</button>}
+            {sjMsg && <span className="text-emerald-700 text-xs">{sjMsg}</span>}
+          </div>
+          {sj.st && <div className="text-xs text-slate-600 flex flex-wrap gap-x-3"><span>{tr("בתור:")} <b dir="ltr">{sj.st.queued}</b></span><span>{tr("רץ עכשיו:")} {sj.st.running.length ? sj.st.running.map((r) => r.name).join(" · ") : "—"}</span><span>{tr("24 שעות:")} ✓ <b dir="ltr">{sj.st.done24}</b> · ⚠️ <b dir="ltr">{sj.st.failed24}</b></span><span dir="ltr">${sj.st.cost24.toFixed(2)}</span>{sj.st.avgCost > 0 && <span>{tr("עלות אמיתית לסריקה:")} <b dir="ltr">${sj.st.avgCost.toFixed(3)}</b></span>}{sj.applied > 0 && <span className="text-emerald-700">✓ {sj.applied} {tr("תוצאות נכנסו ללקוחות")}</span>}</div>}
+          {sj.st && sj.st.recent.length > 0 && <details className="text-xs"><summary className="cursor-pointer text-slate-500">{tr("אחרונים בשרת")}</summary><ul className="mt-1 space-y-0.5">{sj.st.recent.map((r, i) => <li key={i}>{r.status === "done" ? "✓" : r.status === "failed" ? "⚠️" : r.status === "running" ? "⏳" : "·"} {r.name} {r.finished_at ? "· " + fmtDateTime(r.finished_at) : ""} {r.error ? "· " + errHe(r.error) : ""}</li>)}</ul></details>}
         </div>
         {(busy || log.length > 0) && <RunPanel current={busy ? state.leads.find((l) => l.id === busy)?.name || "" : ""} curStart={curStart} runStart={runStart} done={done} total={qn} cost={runCost} log={log} />}
         <div className="text-[11px] text-slate-400">{tr("כ-20–60 שניות ללקוח · עלות משוערת 2–5 סנט ללקוח")}</div>
