@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/import/page.tsx) · updated 22.10.2026 18:00 (Asia/Jerusalem) — 🔎 after import: companies with a website (new / never scanned) go straight to the server scan queue (est. cost shown) · search rounds from 🧲 logged for the search history · 17:40 — + paste CSV (answer from Comet / NotebookLM) + hand-off from 🧲 /leads/prompt (source + Tier 3 carried over) · 17.10.2026 07:55 (Asia/Jerusalem) — import leads from Excel / CSV / SAP export: auto column mapping (HE/EN/SAP headers), preview, new vs update (same company name), skip; template + export-all in the SAME format
+// page.tsx (src/app/leads/import/page.tsx) · updated 22.10.2026 18:10 (Asia/Jerusalem) — search-round log attached to the first imported customer (FK fix) · 18:00 — 🔎 after import: companies with a website (new / never scanned) go straight to the server scan queue (est. cost shown) · search rounds from 🧲 logged for the search history · 17:40 — + paste CSV (answer from Comet / NotebookLM) + hand-off from 🧲 /leads/prompt (source + Tier 3 carried over) · 17.10.2026 07:55 (Asia/Jerusalem) — import leads from Excel / CSV / SAP export: auto column mapping (HE/EN/SAP headers), preview, new vs update (same company name), skip; template + export-all in the SAME format
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -8,7 +8,7 @@ import { FIELDS, autoMap, buildRows, toLead, leadsToSheet, type FieldKey, type I
 import { LEAD_SOURCES } from "@/config/sales";
 import { todayIso } from "@/lib/format";
 import { useLang } from "@/i18n";
-import { PASTE_KEY, extractCsv, HUNT_LEAD, huntLogText, type PastePayload } from "@/lib/hunt-prompt";
+import { PASTE_KEY, extractCsv, huntLogText, type PastePayload } from "@/lib/hunt-prompt";
 import { useScanJobs } from "@/lib/use-scan-jobs";
 import { scanOf } from "@/lib/scan";
 type Sheet = { name: string; headers: string[]; data: unknown[][] };
@@ -58,7 +58,7 @@ export default function ImportLeadsPage() {
     importLeads(leads);
     let sent = 0;
     if (autoScan) { const toScan = leads.filter((l) => l.website && !scanOf(l)); if (toScan.length) { try { sent = await jobs.enqueue(toScan); } catch { sent = 0; } } }
-    if (hunt) addActivity(HUNT_LEAD(hunt.industry || "—"), "import", huntLogText(hunt.tool || "search", [hunt.industry, hunt.sub].filter(Boolean).join(" → ") || "—", nNew, nUpd, sent));
+    if (hunt && leads[0]) { const h = hunt, first = leads[0].id, n = nNew, u = nUpd, sc = sent; setTimeout(() => addActivity(first, "import", huntLogText(h.tool || "search", [h.industry, h.sub].filter(Boolean).join(" → ") || "—", n, u, sc)), 2500); } // after the customer rows reach the cloud (FK)
     setDone(tr("יובאו ") + nNew + tr(" חדשים · עודכנו ") + nUpd + (sent ? " · 🔎 " + sent + tr(" נשלחו לסריקת שרת") : "")); setSheets([]); setHunt(null); setBusy(false);
   };
   return (

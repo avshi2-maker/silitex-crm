@@ -1,24 +1,24 @@
 "use client";
-// HuntHistory.tsx (src/components/hunt/HuntHistory.tsx) · created 22.10.2026 18:00 (Asia/Jerusalem) — 🧲 search history: per industry → customers in the CRM, search rounds, last search, new found; never-searched industries in amber (the gaps). Click an industry → it fills the builder. Data = activities lead_id "hunt:<industry>" (synced, every device).
+// HuntHistory.tsx (src/components/hunt/HuntHistory.tsx) · updated 22.10.2026 18:10 (Asia/Jerusalem) — rounds found by the log text (stored on a real customer, FK fix) · created 18:00 — 🧲 search history: per industry → customers in the CRM, search rounds, last search, new found; never-searched industries in amber (the gaps). Click an industry → it fills the builder. Data = activities lead_id "hunt:<industry>" (synced, every device).
 import { useMemo } from "react";
 import type { Lead, Activity } from "@/lib/types";
 import { useLang } from "@/i18n";
 import { Badge } from "@/components/ui";
 import { industryOptions } from "@/config/industry-list";
-import { HUNT_LEAD, parseHuntLog } from "@/lib/hunt-prompt";
+import { parseHuntLog } from "@/lib/hunt-prompt";
 import { fmtDate } from "@/lib/format";
 
 export default function HuntHistory({ leads, activities, current, onPick }: { leads: Lead[]; activities: Activity[]; current: string; onPick: (industry: string) => void }) {
   const { t: tr } = useLang();
   const rows = useMemo(() => {
-    const hunts = activities.filter((a) => a.lead_id.startsWith("hunt:"));
+    const hunts = activities.map((a) => ({ a, p: parseHuntLog(a.text) })).filter((x) => x.p);
     return industryOptions(leads.map((l) => l.industry)).map((ind) => {
-      const mine = hunts.filter((a) => a.lead_id === HUNT_LEAD(ind)).sort((a, b) => b.at.localeCompare(a.at));
-      const found = mine.reduce((s, a) => s + (parseHuntLog(a.text)?.n || 0), 0);
-      return { ind, customers: leads.filter((l) => l.industry === ind).length, rounds: mine.length, last: mine[0]?.at || "", found };
+      const mine = hunts.filter((x) => x.p!.industry === ind).sort((x, y) => y.a.at.localeCompare(x.a.at));
+      const found = mine.reduce((s, x) => s + x.p!.n, 0);
+      return { ind, customers: leads.filter((l) => l.industry === ind).length, rounds: mine.length, last: mine[0]?.a.at || "", found };
     }).sort((a, b) => (a.rounds ? 1 : 0) - (b.rounds ? 1 : 0) || b.customers - a.customers);
   }, [leads, activities]);
-  const recent = useMemo(() => activities.filter((a) => a.lead_id.startsWith("hunt:")).sort((a, b) => b.at.localeCompare(a.at)).slice(0, 8), [activities]);
+  const recent = useMemo(() => activities.filter((a) => parseHuntLog(a.text)).sort((a, b) => b.at.localeCompare(a.at)).slice(0, 8), [activities]);
   const never = rows.filter((r) => !r.rounds).length;
   return (
     <details className="group">

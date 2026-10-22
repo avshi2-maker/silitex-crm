@@ -1,4 +1,4 @@
-// hunt-prompt.ts (src/lib/hunt-prompt.ts) · updated 22.10.2026 18:00 (Asia/Jerusalem) — payload carries industry / sub / tool + search-round log helpers · created 17:40 — builds the "find companies we miss" research prompt for Comet / NotebookLM / Perplexity / Deep Research. The CSV header = the CRM import column names, so the answer pastes straight into /leads/import (auto-mapped, de-duplicated).
+// hunt-prompt.ts (src/lib/hunt-prompt.ts) · updated 22.10.2026 18:10 (Asia/Jerusalem) — search-round log goes on a REAL customer (FK fix: lead_id "hunt:…" was rejected by the cloud); industry parsed from the log text · 18:00 — payload carries industry / sub / tool + search-round log helpers · created 17:40 — builds the "find companies we miss" research prompt for Comet / NotebookLM / Perplexity / Deep Research. The CSV header = the CRM import column names, so the answer pastes straight into /leads/import (auto-mapped, de-duplicated).
 import { hintFor } from "@/config/hunt-uses";
 
 export type HuntTool = "comet" | "notebooklm" | "perplexity" | "deep";
@@ -71,9 +71,8 @@ export function extractCsv(text: string): string {
 }
 export const PASTE_KEY = "silitex-import-paste";
 export type PastePayload = { csv: string; src: string; tier: string; industry?: string; sub?: string; tool?: string };
-/** one search round logged as an activity (lead_id "hunt:<industry>", kind "import") — parsed back by the search history */
-export const HUNT_LEAD = (industry: string) => "hunt:" + industry;
+/** one search round logged as an activity (kind "import") on the FIRST imported customer (activities.lead_id must be a real customer — FK) — parsed back by the search history */
 export const huntLogText = (tool: string, seg: string, n: number, u: number, s: number) => "🧲 " + tool + " · " + seg + " · new " + n + " · updated " + u + " · scan " + s;
-export function parseHuntLog(t: string): { tool: string; seg: string; n: number; u: number; s: number } | null {
-  const m = t.match(/^🧲 (.*?) · (.*) · new (\d+) · updated (\d+) · scan (\d+)$/); return m ? { tool: m[1], seg: m[2], n: +m[3], u: +m[4], s: +m[5] } : null;
+export function parseHuntLog(t: string): { tool: string; seg: string; industry: string; n: number; u: number; s: number } | null {
+  const m = (t || "").match(/^🧲 (.*?) · (.*) · new (\d+) · updated (\d+) · scan (\d+)$/); return m ? { tool: m[1], seg: m[2], industry: m[2].split(" → ")[0], n: +m[3], u: +m[4], s: +m[5] } : null;
 }
