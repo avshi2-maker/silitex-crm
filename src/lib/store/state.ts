@@ -1,9 +1,10 @@
-// state.ts (src/lib/store/state.ts) · updated 22.10.2026 18:20 (Asia/Jerusalem) — a write that reaches the cloud BEFORE its customer (foreign-key race, e.g. import notes) waits and retries (5×, 1.5 → 7.5 s) instead of failing · 17:20 — every cloud write / delete fires the save signal (green "נשמר בהצלחה" toast) · 21.10.2026 13:30 (Asia/Jerusalem) — contacts filled per account (new researched contacts arrive in existing browsers too) + seed patches once (21/10 packaging: Nirotek phones · car-care re-classification: Rose Chemicals, Nano-Z; notes merged, never overwritten) · 09:20 — researched contacts filled once (seed contact_name/phone/email/notes into accounts that have none, e.g. Tambour + Nirlat) · 20.10.2026 13:15 — duplicate GES (LEAD-071 = LEAD-011) removed once, also from Supabase · 08:05 — PHANTOM + BERETEX 350 / SH 1300 · 05:40 — researched addresses filled once · 05:20 — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
+// state.ts (src/lib/store/state.ts) · updated 22.10.2026 18:30 (Asia/Jerusalem) — relabelOnce: 30 Gemini imports labelled Comet → Gemini + Gemini round logged · 18:20 — a write that reaches the cloud BEFORE its customer (foreign-key race, e.g. import notes) waits and retries (5×, 1.5 → 7.5 s) instead of failing · 17:20 — every cloud write / delete fires the save signal (green "נשמר בהצלחה" toast) · 21.10.2026 13:30 (Asia/Jerusalem) — contacts filled per account (new researched contacts arrive in existing browsers too) + seed patches once (21/10 packaging: Nirotek phones · car-care re-classification: Rose Chemicals, Nano-Z; notes merged, never overwritten) · 09:20 — researched contacts filled once (seed contact_name/phone/email/notes into accounts that have none, e.g. Tambour + Nirlat) · 20.10.2026 13:15 — duplicate GES (LEAD-071 = LEAD-011) removed once, also from Supabase · 08:05 — PHANTOM + BERETEX 350 / SH 1300 · 05:40 — researched addresses filled once · 05:20 — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
 import { emitSave } from "@/lib/save-signal";
 import { seedPlans } from "@/lib/playbook";
+import { RELABEL_FLAG, GEMINI_IDS, GEMINI_ROUND } from "@/data/relabel-2210";
 import type { Lead, Task, Activity, KbDoc, KbChunk, Sample, Doc, Shipment, SilitexContact, Thread, HubMsg } from "@/lib/types";
 export type State = { leads: Lead[]; tasks: Task[]; activities: Activity[]; samples: Sample[]; docs: Doc[]; shipments: Shipment[]; contacts: SilitexContact[]; threads: Thread[]; msgs: HubMsg[]; kbDocs: KbDoc[]; kbChunks: KbChunk[]; spend: { tokens: number; cost: number }; demo?: boolean };
 export const STORAGE_KEY = "silitex-crm-v1";
@@ -37,6 +38,14 @@ const SEED_PATCHES: { flag: string; ids: string[]; fields: (keyof Lead)[] }[] = 
   { flag: "silitex-patch-packaging-notes-v1", ids: ["LEAD-105"], fields: ["notes"] },
   { flag: "silitex-patch-lubes-notes-v1", ids: ["LEAD-117"], fields: ["notes"] },
 ];
+function relabelOnce(st: State) {
+  try { if (localStorage.getItem(RELABEL_FLAG)) return; const fixed: Lead[] = []; const ids = new Set(GEMINI_IDS);
+    st.leads = st.leads.map((l) => { if (!ids.has(l.id) || !/^Comet/.test(l.source || "")) return l; const n = { ...l, source: (l.source || "").replace(/^Comet/, "Gemini") }; fixed.push(n); return n; });
+    const acts: Activity[] = []; st.activities = st.activities.map((a) => { if (!ids.has(a.lead_id) || a.kind !== "import" || !a.text.includes("· Comet")) return a; const n = { ...a, text: a.text.replace("· Comet", "· Gemini") }; acts.push(n); return n; });
+    if (!st.activities.some((a) => a.id === GEMINI_ROUND.id) && st.leads.some((l) => l.id === GEMINI_ROUND.lead_id)) { st.activities = [GEMINI_ROUND as Activity, ...st.activities]; acts.push(GEMINI_ROUND as Activity); }
+    saveState(st); fixed.forEach((l) => sync("leads", l)); setTimeout(() => acts.forEach((a) => sync("activities", a)), 2000); localStorage.setItem(RELABEL_FLAG, "1");
+  } catch {}
+}
 function patchOnce(st: State) {
   try { for (const p of SEED_PATCHES) { if (localStorage.getItem(p.flag)) continue; const fixed: Lead[] = [];
       st.leads = st.leads.map((l) => { if (!p.ids.includes(l.id)) return l; const seed = LEADS_SEED.find((x) => x.id === l.id); if (!seed) return l; const n = { ...l } as Record<string, unknown>; for (const f of p.fields) { const v = seed[f]; if (v === undefined) continue; if (f === "notes" && typeof n.notes === "string" && n.notes) { if (!n.notes.includes(String(v))) n.notes = n.notes + "\n" + v; } else n[f] = v; } fixed.push(n as Lead); return n as Lead; });
@@ -59,7 +68,7 @@ export function loadState(): State {
       // seed accounts added later (e.g. AHAVA 11.10.2026) that the browser has never seen
       for (const seed of LEADS_SEED) if (!st.leads.some((l) => l.id === seed.id)) { st.leads = [...st.leads, seed]; fixed.push(seed); }
       if (fixed.length) { saveState(st); fixed.forEach((l) => sync("leads", l)); }
-      seedOnce(st); fixOnce(st); addrOnce(st); dropOnce(st); contactOnce(st); patchOnce(st);
+      seedOnce(st); fixOnce(st); addrOnce(st); dropOnce(st); contactOnce(st); patchOnce(st); relabelOnce(st);
       return st;
     }
   } catch {}
