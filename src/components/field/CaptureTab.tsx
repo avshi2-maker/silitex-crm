@@ -22,7 +22,7 @@ export default function CaptureTab() {
     push(); return () => { clearInterval(t); window.removeEventListener("online", on); };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const start = () => {
-    const l = state.leads.find((x) => x.id === lead); const name = (l?.name || label).trim(); if (!name) return setMsg(tr("בחר לקוח או כתוב שם"));
+    const l = state.leads.find((x) => x.id === lead); const ct = state.contacts.find((x) => "ct:" + x.id === lead); const name = (ct?.name || l?.name || label).trim(); if (!name) return setMsg(tr("בחר לקוח או כתוב שם"));
     const m: Meet = { id: "m" + new Date().toISOString().slice(0, 10).replace(/-/g, "") + Math.random().toString(36).slice(2, 7), label: name, lead_id: l?.id || "", started: new Date().toISOString() };
     setMeet(m); setMsg(""); try { localStorage.setItem(KEY, JSON.stringify(m)); } catch {}
   };
@@ -53,7 +53,7 @@ export default function CaptureTab() {
       {!meet ? (
         <div className="bg-white border rounded-2xl p-3 space-y-2">
           <div className="font-bold">{tr("פגישה חדשה")}</div>
-          <select className={inputCls + " text-base"} value={lead} onChange={(e) => setLead(e.target.value)}><option value="">{tr("— לקוח קיים —")}</option>{[...state.leads].sort((a, b) => a.name.localeCompare(b.name)).map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}</select>
+          <select className={inputCls + " text-base"} value={lead} onChange={(e) => setLead(e.target.value)}><option value="">{tr("— לקוח / ספק קיים —")}</option>{state.contacts.length > 0 && <optgroup label={tr("ספקים ושותפים (פיני, Silitex)")}>{[...state.contacts].sort((a, b) => (a.dept === "partner" ? 0 : 1) - (b.dept === "partner" ? 0 : 1) || a.name.localeCompare(b.name)).map((c) => <option key={c.id} value={"ct:" + c.id}>{(c.dept === "partner" ? "🧑‍🔬 " : "🇮🇹 ") + c.name}</option>)}</optgroup>}<optgroup label={tr("לקוחות")}>{[...state.leads].sort((a, b) => a.name.localeCompare(b.name)).map((l) => <option key={l.id} value={l.id}>{l.name}</option>)}</optgroup></select>
           {!lead && <input className={inputCls + " text-base"} placeholder={tr("או שם חברה / דוכן חדש")} value={label} onChange={(e) => setLabel(e.target.value)} />}
           <button className={big + " bg-brand-500 text-white"} onClick={start}>▶ {tr("התחל פגישה")}</button>
         </div>
