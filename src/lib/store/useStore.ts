@@ -1,5 +1,5 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 22.10.2026 07:50 (Asia/Jerusalem) — completeTask: a done task of a supplier / partner (lead_id ct:…) is logged on his Hub thread · 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
+// useStore.ts (src/lib/store/useStore.ts) · updated 22.10.2026 18:20 (Asia/Jerusalem) — importLeads: import notes sent 2 s after the customers (no foreign-key race) · 07:50 — completeTask: a done task of a supplier / partner (lead_id ct:…) is logged on his Hub thread · 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
@@ -75,7 +75,9 @@ export function useStore() {
     const now = new Date().toISOString(); const list = rows.map((r) => ({ ...r, created_at: r.created_at || now, updated_at: now }));
     update((s) => { const ids = new Set(list.map((l) => l.id)); return { ...s, leads: [...list, ...s.leads.filter((l) => !ids.has(l.id))] }; });
     list.forEach((l) => sync("leads", l));
-    list.forEach((l) => { const a: Activity = { id: uid("act"), lead_id: l.id, at: now, kind: "import", text: "יובא מ-Excel / SAP" + (l.source ? " · " + l.source : "") }; update((s) => ({ ...s, activities: [a, ...s.activities] })); sync("activities", a); });
+    const acts: Activity[] = list.map((l) => ({ id: uid("act"), lead_id: l.id, at: now, kind: "import", text: "יובא מ-Excel / SAP" + (l.source ? " · " + l.source : "") }));
+    update((s) => ({ ...s, activities: [...acts, ...s.activities] }));
+    setTimeout(() => acts.forEach((a) => sync("activities", a)), 2000); // customers first, their import notes after (foreign key)
   };
   const addSpend = (tokens: number, cost: number) => update((s) => ({ ...s, spend: { tokens: s.spend.tokens + tokens, cost: s.spend.cost + cost } }));
   const addKbDoc = (doc: KbDoc, chunks: KbChunk[]) => { update((s) => ({ ...s, kbDocs: [doc, ...s.kbDocs], kbChunks: [...chunks, ...s.kbChunks] })); sync("kb_docs", doc); chunks.forEach((c) => sync("kb_chunks", c)); };
