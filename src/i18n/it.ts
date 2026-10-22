@@ -2067,4 +2067,8 @@ export const IT: Record<string, string> = {
   "שחזר": "Ripristina",
   "הסתר (בדיקה / לא רלוונטי) — לא נמחק": "Nascondi (test / non rilevante) — non eliminato",
   "הסתר": "Nascondi",
+  "✓ נשמר בהצלחה": "✓ Salvato con successo",
+  "✓ נמחק": "✓ Eliminato",
+  "⏳ נשמר במכשיר — יסונכרן כשיחזור חיבור": "⏳ Salvato sul dispositivo — si sincronizzerà al ritorno della connessione",
+  "✗ השמירה נכשלה": "✗ Salvataggio non riuscito",
 };

@@ -1985,4 +1985,8 @@ export const EN: Record<string, string> = {
   "שחזר": "Restore",
   "הסתר (בדיקה / לא רלוונטי) — לא נמחק": "Hide (test / not relevant) — not deleted",
   "הסתר": "Hide",
+  "✓ נשמר בהצלחה": "✓ Saved successfully",
+  "✓ נמחק": "✓ Deleted",
+  "⏳ נשמר במכשיר — יסונכרן כשיחזור חיבור": "⏳ Saved on the device — will sync when back online",
+  "✗ השמירה נכשלה": "✗ Save failed",
 };

@@ -1,7 +1,8 @@
-// state.ts (src/lib/store/state.ts) · updated 21.10.2026 13:30 (Asia/Jerusalem) — contacts filled per account (new researched contacts arrive in existing browsers too) + seed patches once (21/10 packaging: Nirotek phones · car-care re-classification: Rose Chemicals, Nano-Z; notes merged, never overwritten) · 09:20 — researched contacts filled once (seed contact_name/phone/email/notes into accounts that have none, e.g. Tambour + Nirlat) · 20.10.2026 13:15 — duplicate GES (LEAD-071 = LEAD-011) removed once, also from Supabase · 08:05 — PHANTOM + BERETEX 350 / SH 1300 · 05:40 — researched addresses filled once · 05:20 — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
+// state.ts (src/lib/store/state.ts) · updated 22.10.2026 17:20 (Asia/Jerusalem) — every cloud write / delete fires the save signal (green "נשמר בהצלחה" toast) · 21.10.2026 13:30 (Asia/Jerusalem) — contacts filled per account (new researched contacts arrive in existing browsers too) + seed patches once (21/10 packaging: Nirotek phones · car-care re-classification: Rose Chemicals, Nano-Z; notes merged, never overwritten) · 09:20 — researched contacts filled once (seed contact_name/phone/email/notes into accounts that have none, e.g. Tambour + Nirlat) · 20.10.2026 13:15 — duplicate GES (LEAD-071 = LEAD-011) removed once, also from Supabase · 08:05 — PHANTOM + BERETEX 350 / SH 1300 · 05:40 — researched addresses filled once · 05:20 — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
+import { emitSave } from "@/lib/save-signal";
 import { seedPlans } from "@/lib/playbook";
 import type { Lead, Task, Activity, KbDoc, KbChunk, Sample, Doc, Shipment, SilitexContact, Thread, HubMsg } from "@/lib/types";
 export type State = { leads: Lead[]; tasks: Task[]; activities: Activity[]; samples: Sample[]; docs: Doc[]; shipments: Shipment[]; contacts: SilitexContact[]; threads: Thread[]; msgs: HubMsg[]; kbDocs: KbDoc[]; kbChunks: KbChunk[]; spend: { tokens: number; cost: number }; demo?: boolean };
@@ -67,8 +68,8 @@ export function loadState(): State {
 export function saveState(s: State) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {} }
 export function clearState() { try { localStorage.removeItem(STORAGE_KEY); } catch {} }
 export function remove(table: string, id: string) {
-  const sb = supabase(); if (!sb) return;
-  sb.from(table).delete().eq("id", id).then(({ error }) => { if (error) console.warn("supabase delete", table, error.message); });
+  const sb = supabase(); if (!sb) { emitSave("deleted"); return; }
+  sb.from(table).delete().eq("id", id).then(({ error }) => { if (error) { console.warn("supabase delete", table, error.message); emitSave("err", error.message); } else emitSave("deleted"); });
 }
 // Offline queue (17.10.2026): a write that fails for network reasons (show floor, plane, no signal) is kept in localStorage and replayed when the device is back online.
 const QUEUE_KEY = "silitex-sync-queue";
@@ -81,9 +82,9 @@ const isNet = (m: string) => /fetch|network|load failed|timeout|offline/i.test(m
 /** a column the database does not have yet (e.g. a new field before its SQL was run) → retry without it, so the rest of the row is never lost */
 const missingCol = (m: string) => /could not find the '([a-z0-9_]+)' column/i.exec(m)?.[1] || /column "?([a-z0-9_]+)"? (?:of relation \S+ )?does not exist/i.exec(m)?.[1] || "";
 export function sync(table: string, row: object, tries = 0) {
-  const sb = supabase(); if (!sb) return;
-  if (typeof navigator !== "undefined" && !navigator.onLine) { enqueue(table, row); return; }
-  sb.from(table).upsert(row).then(({ error }) => { if (error) { const col = missingCol(error.message); if (col && tries < 4 && col in row) { const r = { ...(row as Record<string, unknown>) }; delete r[col]; sync(table, r, tries + 1); return; } console.warn("supabase", table, error.message); if (isNet(error.message)) enqueue(table, row); } }, () => enqueue(table, row));
+  const sb = supabase(); if (!sb) { emitSave("ok"); return; }
+  if (typeof navigator !== "undefined" && !navigator.onLine) { enqueue(table, row); emitSave("queued"); return; }
+  sb.from(table).upsert(row).then(({ error }) => { if (error) { const col = missingCol(error.message); if (col && tries < 4 && col in row) { const r = { ...(row as Record<string, unknown>) }; delete r[col]; sync(table, r, tries + 1); return; } console.warn("supabase", table, error.message); if (isNet(error.message)) { enqueue(table, row); emitSave("queued"); } else emitSave("err", error.message); return; } emitSave("ok"); }, () => { enqueue(table, row); emitSave("queued"); });
 }
 let flushing = false;
 export async function flushQueue(): Promise<number> {
