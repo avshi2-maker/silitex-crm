@@ -1,4 +1,4 @@
-// hunt-prompt.ts (src/lib/hunt-prompt.ts) · updated 23.10.2026 06:10 (Asia/Jerusalem) — NotebookLM: website + source as bare domains (its link filter erased every URL 22/10) · every row exactly 12 cells (Comet's notes slid into E-mail) · 22.10.2026 18:10 (Asia/Jerusalem) — search-round log goes on a REAL customer (FK fix: lead_id "hunt:…" was rejected by the cloud); industry parsed from the log text · 18:00 — payload carries industry / sub / tool + search-round log helpers · created 17:40 — builds the "find companies we miss" research prompt for Comet / NotebookLM / Perplexity / Deep Research. The CSV header = the CRM import column names, so the answer pastes straight into /leads/import (auto-mapped, de-duplicated).
+// hunt-prompt.ts (src/lib/hunt-prompt.ts) · updated 23.10.2026 16:15 (Asia/Jerusalem) — search round keeps its NotebookLM notebook / chat link (📓) · earlier: 23.10.2026 06:10 (Asia/Jerusalem) — NotebookLM: website + source as bare domains (its link filter erased every URL 22/10) · every row exactly 12 cells (Comet's notes slid into E-mail) · 22.10.2026 18:10 (Asia/Jerusalem) — search-round log goes on a REAL customer (FK fix: lead_id "hunt:…" was rejected by the cloud); industry parsed from the log text · 18:00 — payload carries industry / sub / tool + search-round log helpers · created 17:40 — builds the "find companies we miss" research prompt for Comet / NotebookLM / Perplexity / Deep Research. The CSV header = the CRM import column names, so the answer pastes straight into /leads/import (auto-mapped, de-duplicated).
 import { hintFor } from "@/config/hunt-uses";
 
 export type HuntTool = "comet" | "notebooklm" | "perplexity" | "deep";
@@ -57,7 +57,7 @@ export function buildHuntPrompt(i: HuntInput): string {
     "After the code block, list in one short line each any company you were unsure about.",
   ];
   const body = lines.filter((l): l is string => typeof l === "string").join("\n").replace(/\n{3,}/g, "\n\n");
-  if (i.tool === "notebooklm") return "STEP 1 — In NotebookLM: Sources → \"Discover\" → paste this search, import the web sources:\n" + discoverQuery(i) + "\n\nSTEP 2 — Paste everything below into the notebook chat:\n\n" + body;
+  if (i.tool === "notebooklm") return "STEP 1 — In NotebookLM: Sources → \"Discover\" → paste this search, import the web sources:\n" + discoverQuery(i) + "\n\nSTEP 2 — Paste everything below into the notebook chat.\nSTEP 3 — Copy the notebook address from the browser bar → paste it in the CRM import box \"🔗 קישור לסבב\" (so this round can be reopened later).\n\n" + body;
   return body;
 }
 
@@ -72,7 +72,10 @@ export function extractCsv(text: string): string {
 export const PASTE_KEY = "silitex-import-paste";
 export type PastePayload = { csv: string; src: string; tier: string; industry?: string; sub?: string; tool?: string };
 /** one search round logged as an activity (kind "import") on the FIRST imported customer (activities.lead_id must be a real customer — FK) — parsed back by the search history */
-export const huntLogText = (tool: string, seg: string, n: number, u: number, s: number) => "🧲 " + tool + " · " + seg + " · new " + n + " · updated " + u + " · scan " + s;
-export function parseHuntLog(t: string): { tool: string; seg: string; industry: string; n: number; u: number; s: number } | null {
-  const m = (t || "").match(/^🧲 (.*?) · (.*) · new (\d+) · updated (\d+) · scan (\d+)$/); return m ? { tool: m[1], seg: m[2], industry: m[2].split(" → ")[0], n: +m[3], u: +m[4], s: +m[5] } : null;
+export const huntLogText = (tool: string, seg: string, n: number, u: number, s: number, link = "") => "🧲 " + tool + " · " + seg + " · new " + n + " · updated " + u + " · scan " + s + (link ? " · 📓 " + link : "");
+/** link = the search session to reopen later (NotebookLM notebook / Gemini or Comet chat), optional */
+export function parseHuntLog(t: string): { tool: string; seg: string; industry: string; n: number; u: number; s: number; link: string } | null {
+  const m = (t || "").match(/^🧲 (.*?) · (.*) · new (\d+) · updated (\d+) · scan (\d+)(?: · 📓 (\S+))?$/); return m ? { tool: m[1], seg: m[2], industry: m[2].split(" → ")[0], n: +m[3], u: +m[4], s: +m[5], link: m[6] || "" } : null;
 }
+/** a pasted session link → https URL or "" */
+export const cleanLink = (v: string) => { const u = (v || "").trim().split(/\s+/)[0]; return /^https:\/\/[^\s]+\.[^\s]+/.test(u) ? u : ""; };

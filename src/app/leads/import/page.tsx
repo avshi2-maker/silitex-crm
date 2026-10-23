@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/import/page.tsx) · updated 22.10.2026 18:50 (Asia/Jerusalem) — 🔧 shifted-column rows repaired + flagged in the preview · search round without industry → logged under the industry most rows carry · 18:25 — Source no longer defaults to "SAP — Dow Corning": auto = file name + date / "חיפוש ברשת" + date for pasted CSV / the 🧲 search label; typing your own wins · 18:10 — search-round log attached to the first imported customer (FK fix) · 18:00 — 🔎 after import: companies with a website (new / never scanned) go straight to the server scan queue (est. cost shown) · search rounds from 🧲 logged for the search history · 17:40 — + paste CSV (answer from Comet / NotebookLM) + hand-off from 🧲 /leads/prompt (source + Tier 3 carried over) · 17.10.2026 07:55 (Asia/Jerusalem) — import leads from Excel / CSV / SAP export: auto column mapping (HE/EN/SAP headers), preview, new vs update (same company name), skip; template + export-all in the SAME format
+// page.tsx (src/app/leads/import/page.tsx) · updated 23.10.2026 16:15 (Asia/Jerusalem) — 🔗 search-round link (NotebookLM notebook / chat) saved with the round · earlier: 22.10.2026 18:50 (Asia/Jerusalem) — 🔧 shifted-column rows repaired + flagged in the preview · search round without industry → logged under the industry most rows carry · 18:25 — Source no longer defaults to "SAP — Dow Corning": auto = file name + date / "חיפוש ברשת" + date for pasted CSV / the 🧲 search label; typing your own wins · 18:10 — search-round log attached to the first imported customer (FK fix) · 18:00 — 🔎 after import: companies with a website (new / never scanned) go straight to the server scan queue (est. cost shown) · search rounds from 🧲 logged for the search history · 17:40 — + paste CSV (answer from Comet / NotebookLM) + hand-off from 🧲 /leads/prompt (source + Tier 3 carried over) · 17.10.2026 07:55 (Asia/Jerusalem) — import leads from Excel / CSV / SAP export: auto column mapping (HE/EN/SAP headers), preview, new vs update (same company name), skip; template + export-all in the SAME format
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useStore } from "@/lib/store";
@@ -8,7 +8,7 @@ import { FIELDS, autoMap, buildRows, toLead, leadsToSheet, type FieldKey, type I
 import { LEAD_SOURCES } from "@/config/sales";
 import { todayIso, fmtDate } from "@/lib/format";
 import { useLang } from "@/i18n";
-import { PASTE_KEY, extractCsv, huntLogText, type PastePayload } from "@/lib/hunt-prompt";
+import { PASTE_KEY, extractCsv, huntLogText, cleanLink, type PastePayload } from "@/lib/hunt-prompt";
 import { useScanJobs } from "@/lib/use-scan-jobs";
 import { INDUSTRY_LIST } from "@/config/industry-list";
 import { scanOf } from "@/lib/scan";
@@ -20,6 +20,7 @@ async function download(rows: (string | number)[][], file: string) {
   const X = await xlsx(); const ws = X.utils.aoa_to_sheet(rows); ws["!cols"] = rows[0].map(() => ({ wch: 22 }));
   const wb = X.utils.book_new(); X.utils.book_append_sheet(wb, ws, "Leads"); X.writeFile(wb, file);
 }
+const toolFromSrc = (s: string) => /notebook/i.test(s) ? "NotebookLM" : /gemini/i.test(s) ? "Gemini" : /comet/i.test(s) ? "Comet" : /perplexity/i.test(s) ? "Perplexity" : "search";
 export default function ImportLeadsPage() {
   const { t: tr } = useLang();
   const { state, ready, importLeads, upsertLead, addActivity } = useStore();
@@ -29,7 +30,7 @@ export default function ImportLeadsPage() {
   const [map, setMap] = useState<Record<number, FieldKey | "">>({});
   const [src, setSrcRaw] = useState(""); const [srcTouched, setSrcTouched] = useState(false); const setSrc = (v: string) => { setSrcRaw(v); setSrcTouched(true); }; const autoSrc = (v: string) => { if (!srcTouched) setSrcRaw(v); }; const [err, setErr] = useState(""); const [done, setDone] = useState("");
   const [skip, setSkip] = useState<Record<number, boolean>>({});
-  const [tier, setTier] = useState("Tier 2 - Old account"); const [paste, setPaste] = useState("");
+  const [tier, setTier] = useState("Tier 2 - Old account"); const [paste, setPaste] = useState(""); const [pasted, setPasted] = useState(false); const [nb, setNb] = useState("");
   useEffect(() => { if (!ready) return; try { const raw = sessionStorage.getItem(PASTE_KEY); if (!raw) return; sessionStorage.removeItem(PASTE_KEY); const p = JSON.parse(raw) as PastePayload; setSrc(p.src); setTier(p.tier); setHunt(p); loadText(p.csv); } catch {} }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!ready) return null;
   const sheet = sheets[si];
@@ -62,8 +63,9 @@ export default function ImportLeadsPage() {
     importLeads(leads);
     let sent = 0;
     if (autoScan) { const toScan = leads.filter((l) => l.website && !scanOf(l)); if (toScan.length) { try { sent = await jobs.enqueue(toScan); } catch { sent = 0; } } }
-    if (hunt && leads[0]) { const h = hunt, first = leads[0].id, n = nNew, u = nUpd, sc = sent; setTimeout(() => addActivity(first, "import", huntLogText(h.tool || "search", [h.industry || topIndustry(leads), h.sub].filter(Boolean).join(" → ") || "—", n, u, sc)), 2500); } // after the customer rows reach the cloud (FK)
-    setDone(tr("יובאו ") + nNew + tr(" חדשים · עודכנו ") + nUpd + (sent ? " · 🔎 " + sent + tr(" נשלחו לסריקת שרת") : "")); setSheets([]); setHunt(null); setBusy(false); setSrcTouched(false); setSrcRaw(""); setTier("Tier 2 - Old account"); setPaste("");
+    const link = cleanLink(nb);
+    if ((hunt || pasted || link) && leads[0]) { const h = hunt || { tool: toolFromSrc(src) } as PastePayload, first = leads[0].id, n = nNew, u = nUpd, sc = sent; setTimeout(() => addActivity(first, "import", huntLogText(h.tool || "search", [h.industry || topIndustry(leads), h.sub].filter(Boolean).join(" → ") || "—", n, u, sc, link)), 2500); } // after the customer rows reach the cloud (FK) · 📓 = session link to reopen the round
+    setDone(tr("יובאו ") + nNew + tr(" חדשים · עודכנו ") + nUpd + (sent ? " · 🔎 " + sent + tr(" נשלחו לסריקת שרת") : "")); setSheets([]); setHunt(null); setPasted(false); setNb(""); setBusy(false); setSrcTouched(false); setSrcRaw(""); setTier("Tier 2 - Old account"); setPaste("");
   };
   return (
     <div className="space-y-4">
@@ -79,7 +81,8 @@ export default function ImportLeadsPage() {
           <label className="text-xs text-slate-500 md:col-span-2">{tr("קובץ Excel / CSV")}<input type="file" accept=".xlsx,.xls,.csv" className={inputCls + " mt-1"} onChange={(e) => load(e.target.files?.[0])} /></label>
           <label className="text-xs text-slate-500">{tr("מקור (לכל השורות)")}<input list="srcs" className={inputCls + " mt-1"} value={src} onChange={(e) => setSrc(e.target.value)} /><datalist id="srcs">{["SAP — לקוחות Dow Corning", "NuSil spot", "Univar spot", ...LEAD_SOURCES].map((s) => <option key={s} value={s} />)}</datalist></label>
         </div>
-        <div className="flex flex-wrap items-end gap-2"><label className="text-xs text-slate-500 flex-1 min-w-[16rem]">{tr("או הדבק CSV (תשובה מ-Comet / NotebookLM)")} · <Link className="underline text-brand-600" href="/leads/prompt">🧲 {tr("בונה פרומפט חיפוש לקוחות")}</Link><textarea rows={2} dir="ltr" className={inputCls + " mt-1 font-mono text-[12px]"} value={paste} onChange={(e) => setPaste(e.target.value)} placeholder="Company,Website,City,…" /></label><button className={btnGhost} disabled={!paste.trim()} onClick={() => { setTier("Tier 3 - New (to qualify)"); autoSrc(tr("חיפוש ברשת") + " · " + fmtDate(new Date())); loadText(paste); }}>📋 {tr("טען CSV מודבק")}</button></div>
+        <div className="flex flex-wrap items-end gap-2"><label className="text-xs text-slate-500 flex-1 min-w-[16rem]">{tr("או הדבק CSV (תשובה מ-Comet / NotebookLM)")} · <Link className="underline text-brand-600" href="/leads/prompt">🧲 {tr("בונה פרומפט חיפוש לקוחות")}</Link><textarea rows={2} dir="ltr" className={inputCls + " mt-1 font-mono text-[12px]"} value={paste} onChange={(e) => setPaste(e.target.value)} placeholder="Company,Website,City,…" /></label><button className={btnGhost} disabled={!paste.trim()} onClick={() => { setTier("Tier 3 - New (to qualify)"); autoSrc(tr("חיפוש ברשת") + " · " + fmtDate(new Date())); setPasted(true); loadText(paste); }}>📋 {tr("טען CSV מודבק")}</button></div>
+        {(hunt || pasted) && <label className="block text-xs text-slate-500">🔗 {tr("קישור לסבב — כתובת מחברת NotebookLM / שיחת Gemini / Comet (לא חובה, לפתוח שוב בעתיד)")}<input dir="ltr" className={inputCls + " mt-1" + (nb && !cleanLink(nb) ? " border-red-400" : "")} value={nb} onChange={(e) => setNb(e.target.value)} placeholder="https://notebooklm.google.com/notebook/…" /></label>}
         {err && <div className="text-sm text-red-600">{err}</div>}
         {done && <div className="text-sm text-green-700 font-bold">✓ {done} · <Link className="underline" href="/scan">🔎 {tr("סריקת אתרי לקוחות")}</Link> · <Link className="underline" href="/leads">{tr("לרשימת הלקוחות")}</Link> · <Link className="underline" href="/today">{tr("להיום שלי")}</Link></div>}
       </Card>

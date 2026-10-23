@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 22.10.2026 17:40 (Asia/Jerusalem) — + 🧲 "find similar companies" → search-prompt builder pre-filled from this customer · 07:30 — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 23.10.2026 16:10 (Asia/Jerusalem) — 📎 source + confidence chips under the name · 22.10.2026 17:40 — + 🧲 "find similar companies" → search-prompt builder pre-filled from this customer · 07:30 — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState, useEffect } from "react";
 import type { Thread } from "@/lib/types";
 import Link from "next/link";
@@ -27,6 +27,7 @@ import LocationCard from "@/components/visits/LocationCard";
 import ScanCard from "@/components/scan/ScanCard";
 import HuntCard from "@/components/leads/HuntCard";
 import CodeLinks from "@/components/leads/CodeLinks";
+import TrustChips from "@/components/leads/TrustChips";
 import { parsePlan } from "@/lib/playbook";
 import { buildPool } from "@/lib/validate";
 export default function LeadPage({ params }: { params: Promise<{ id: string }> }) {
@@ -49,7 +50,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
   return (
     <div className="space-y-4">
       <div className="flex items-start justify-between gap-2">
-        <H1 sub={lead.industry + " · " + lead.tier + (lead.source ? " · " + tr(lead.source) : "") + (lead.contact_phone ? " · 📱 " + lead.contact_phone : "")}>{lead.name}</H1>
+        <div><H1 sub={lead.industry + " · " + lead.tier + (lead.source ? " · " + tr(lead.source) : "") + (lead.contact_phone ? " · 📱 " + lead.contact_phone : "")}>{lead.name}</H1><TrustChips lead={lead} /></div>
         <div className="text-end text-xs text-slate-500"><div>{tr("נוצר")}: {lead.created_at ? fmtDateTime(lead.created_at) : tr("מאגר")}</div><div>{tr("עודכן")}: {lead.updated_at ? fmtDateTime(lead.updated_at) : "—"}</div><Link className="inline-block mt-1 text-brand-600 underline" href={"/leads/prompt?lead=" + id}>🧲 {tr("מצא חברות דומות")}</Link><div className="mt-1"><RowActions id={id} name={lead.name} hideEdit onDelete={() => { removeLead(id); router.push("/leads"); }} /></div></div>
       </div>
       <div className="grid lg:grid-cols-[1fr_380px] gap-4 items-start">

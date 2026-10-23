@@ -1,5 +1,5 @@
 "use client";
-// HuntHistory.tsx (src/components/hunt/HuntHistory.tsx) · updated 22.10.2026 18:10 (Asia/Jerusalem) — rounds found by the log text (stored on a real customer, FK fix) · created 18:00 — 🧲 search history: per industry → customers in the CRM, search rounds, last search, new found; never-searched industries in amber (the gaps). Click an industry → it fills the builder. Data = activities lead_id "hunt:<industry>" (synced, every device).
+// HuntHistory.tsx (src/components/hunt/HuntHistory.tsx) · updated 23.10.2026 16:15 (Asia/Jerusalem) — 📓 reopen the round (NotebookLM notebook / chat link) · 22.10.2026 18:10 — rounds found by the log text (stored on a real customer, FK fix) · created 18:00 — 🧲 search history: per industry → customers in the CRM, search rounds, last search, new found; never-searched industries in amber (the gaps). Click an industry → it fills the builder. Data = activities lead_id "hunt:<industry>" (synced, every device).
 import { useMemo } from "react";
 import type { Lead, Activity } from "@/lib/types";
 import { useLang } from "@/i18n";
@@ -15,7 +15,7 @@ export default function HuntHistory({ leads, activities, current, onPick }: { le
     return industryOptions(leads.map((l) => l.industry)).map((ind) => {
       const mine = hunts.filter((x) => x.p!.industry === ind).sort((x, y) => y.a.at.localeCompare(x.a.at));
       const found = mine.reduce((s, x) => s + x.p!.n, 0);
-      return { ind, customers: leads.filter((l) => l.industry === ind).length, rounds: mine.length, last: mine[0]?.a.at || "", found };
+      return { ind, customers: leads.filter((l) => l.industry === ind).length, rounds: mine.length, last: mine[0]?.a.at || "", found, link: mine.find((x) => x.p!.link)?.p!.link || "" };
     }).sort((a, b) => (a.rounds ? 1 : 0) - (b.rounds ? 1 : 0) || b.customers - a.customers);
   }, [leads, activities]);
   const recent = useMemo(() => activities.filter((a) => parseHuntLog(a.text)).sort((a, b) => b.at.localeCompare(a.at)).slice(0, 8), [activities]);
@@ -27,9 +27,9 @@ export default function HuntHistory({ leads, activities, current, onPick }: { le
         <thead className="bg-slate-50"><tr><th className="p-1 text-start">{tr("תעשייה")}</th><th className="p-1">{tr("לקוחות ב-CRM")}</th><th className="p-1">{tr("סבבי חיפוש")}</th><th className="p-1">{tr("חיפוש אחרון")}</th><th className="p-1">{tr("חדשות שנמצאו")}</th></tr></thead>
         <tbody>{rows.map((r) => (
           <tr key={r.ind} className={"border-t cursor-pointer hover:bg-brand-50 " + (r.ind === current ? "bg-brand-50 font-bold " : "") + (!r.rounds ? "text-amber-700" : "")} onClick={() => onPick(r.ind)} title={tr("לחץ — למלא בבונה")}>
-            <td className="p-1" dir="ltr">{!r.rounds && "⚠ "}{r.ind}</td><td className="p-1 text-center">{r.customers}</td><td className="p-1 text-center">{r.rounds || "—"}</td><td className="p-1 text-center">{r.last ? fmtDate(r.last) : "—"}</td><td className="p-1 text-center">{r.rounds ? r.found : "—"}</td>
+            <td className="p-1" dir="ltr">{!r.rounds && "⚠ "}{r.ind}</td><td className="p-1 text-center">{r.customers}</td><td className="p-1 text-center">{r.rounds || "—"}</td><td className="p-1 text-center">{r.last ? fmtDate(r.last) : "—"}{r.link && <a className="ms-1" href={r.link} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} title={tr("לפתוח את מחברת / שיחת החיפוש")}>📓</a>}</td><td className="p-1 text-center">{r.rounds ? r.found : "—"}</td>
           </tr>))}</tbody></table></div>
-      {recent.length > 0 && <ul className="mt-2 text-xs text-slate-600 space-y-0.5">{recent.map((a) => { const p = parseHuntLog(a.text); return <li key={a.id} dir="auto">{fmtDate(a.at)} · {p ? p.tool + " · " + p.seg + " · " + p.n + " " + tr("חדשים") + " · " + p.u + " " + tr("עודכנו") + " · " + p.s + " " + tr("לסריקה") : a.text}</li>; })}</ul>}
+      {recent.length > 0 && <ul className="mt-2 text-xs text-slate-600 space-y-0.5">{recent.map((a) => { const p = parseHuntLog(a.text); return <li key={a.id} dir="auto">{fmtDate(a.at)} · {p ? p.tool + " · " + p.seg + " · " + p.n + " " + tr("חדשים") + " · " + p.u + " " + tr("עודכנו") + " · " + p.s + " " + tr("לסריקה") : a.text}{p?.link && <a className="ms-1 text-brand-600 underline" href={p.link} target="_blank" rel="noreferrer">📓 {tr("פתח סבב")}</a>}</li>; })}</ul>}
     </details>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/page.tsx) · updated 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 17.10.2026 08:20 — + import from Excel / SAP button · 09.10.2026 19:20 (Asia/Jerusalem) — potential customers list + CRM intake (NewLeadForm) + website inbox
+// page.tsx (src/app/leads/page.tsx) · updated 23.10.2026 16:10 (Asia/Jerusalem) — ✅/🟡/⚠ trust icon per customer + "אמינות" filter (⚠ verify first) · 22.10.2026 07:30 — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 17.10.2026 08:20 — + import from Excel / SAP button · 09.10.2026 19:20 (Asia/Jerusalem) — potential customers list + CRM intake (NewLeadForm) + website inbox
 import Link from "next/link";
 import { purchasesOf } from "@/components/market/PurchaseHistory";
 import { useState } from "react";
@@ -13,20 +13,23 @@ import NewLeadForm from "@/components/leads/NewLeadForm";
 import InboxCard from "@/components/leads/InboxCard";
 import { useLang } from "@/i18n";
 import { buildPool } from "@/lib/validate";
+import TrustChips from "@/components/leads/TrustChips";
+import { trustOf, TRUST_UI, type Trust } from "@/lib/lead-trust";
 export default function LeadsPage() {
   const { t: tr } = useLang();
   const { state, ready, upsertLead, removeLead } = useStore();
-  const [q, setQ] = useState(""); const [ind, setInd] = useState(""); const [role, setRole] = useState(""); const [showNew, setShowNew] = useState(false);
+  const [q, setQ] = useState(""); const [ind, setInd] = useState(""); const [role, setRole] = useState(""); const [showNew, setShowNew] = useState(false); const [trust, setTrust] = useState<Trust | "">("");
   const [prefill, setPrefill] = useState<Record<string, string>>({});
   if (!ready) return null;
   const inds = Array.from(new Set(state.leads.map((l) => l.industry)));
-  const list = state.leads.filter((l) => (!ind || l.industry === ind) && (!role || roleGroupOf((l.contact_role || "") + " " + (l.department || "") + " " + (l.contact_name || "")) === role) && (!q || (l.name + l.sub_industry + l.product_match + l.use_case).toLowerCase().includes(q.toLowerCase()))).sort((a, b) => a.name.localeCompare(b.name));
+  const list = state.leads.filter((l) => (!trust || trustOf(l).level === trust) && (!ind || l.industry === ind) && (!role || roleGroupOf((l.contact_role || "") + " " + (l.department || "") + " " + (l.contact_name || "")) === role) && (!q || (l.name + l.sub_industry + l.product_match + l.use_case).toLowerCase().includes(q.toLowerCase()))).sort((a, b) => a.name.localeCompare(b.name));
   return (
     <div className="space-y-4">
       <H1 sub={tr("מאגר יעדים בישראל לפי תעשייה — Tier, פוטנציאל שנתי, התאמת מוצר")}>{tr("לקוחות פוטנציאליים — ")}{list.length}</H1>
       <Card className="flex flex-wrap gap-2 items-center">
         <input className={inputCls + " flex-1 min-w-[240px]"} placeholder={tr("חיפוש חברה / יישום / מוצר")} value={q} onChange={(e) => setQ(e.target.value)} />
         <select className={inputCls + " w-60"} value={ind} onChange={(e) => setInd(e.target.value)}><option value="">{tr("כל התעשיות")}</option>{inds.map((i) => <option key={i}>{i}</option>)}</select>
+        <select className={inputCls + " w-48"} value={trust} onChange={(e) => setTrust(e.target.value as Trust | "")} title={tr("אמינות: בכמה כלי חיפוש נמצאה החברה + האם האתר נסרק")}><option value="">{tr("כל רמות האמינות")}</option>{(["low", "medium", "high", "manual"] as Trust[]).map((k) => <option key={k} value={k}>{TRUST_UI[k].icon} {tr(TRUST_UI[k].he)} ({state.leads.filter((l) => trustOf(l).level === k).length})</option>)}</select>
         <select className={inputCls + " w-56"} value={role} onChange={(e) => setRole(e.target.value)}><option value="">{tr("כל התפקידים")}</option>{ROLE_GROUPS.map((g) => <option key={g.key} value={g.key}>{tr(g.he)}</option>)}</select>
         <button className={btnPrimary} onClick={() => setShowNew((v) => !v)}>{tr("+ לקוח חדש")}</button>
         <Link href="/leads/import" className="px-3 py-2 rounded-lg border text-sm bg-white hover:bg-slate-50">{tr("📥 ייבוא מ-Excel / SAP")}</Link>
@@ -36,7 +39,7 @@ export default function LeadsPage() {
       <Card className="p-0 overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-slate-50"><tr><th className="p-2 text-start">{tr("חברה")}</th><th className="p-2 text-start">{tr("תעשייה")}</th><th className="p-2 text-start">{tr("התאמת מוצר")}</th><th className="p-2 text-start">{tr("איש קשר")}</th><th className="p-2 text-start">Tier</th><th className="p-2 text-start">{tr("יעד שנה 1")}</th><th className="p-2 text-start">{tr("שלב")}</th><th className="p-2 text-start">{tr("קליטה")}</th><th className="p-2 text-start">{tr("נוצר")}</th><th className="p-2"></th></tr></thead>
-          <tbody>{list.map((l) => (<tr key={l.id} className="border-t hover:bg-slate-50"><td className="p-2"><Link href={"/leads/" + l.id} className="font-medium text-brand-700 hover:underline">{l.name}</Link>{purchasesOf(l.id).length > 0 && <span title="bought from Sapirim before" className="ms-1">🕰️</span>}<div className="text-xs text-slate-500 line-clamp-1">{l.sub_industry}</div></td><td className="p-2">{l.industry}</td><td className="p-2 text-xs">{l.product_match}</td><td className="p-2 text-xs">{l.contact_name && <div className="font-medium">{l.contact_name}</div>}<div className="text-slate-500">{l.contact_role}</div></td><td className="p-2"><Badge tone={/Tier 1/.test(l.tier) ? "green" : "amber"}>{l.tier}</Badge></td><td className="p-2 whitespace-nowrap">{fmtUsd(l.value_usd)}<div className="text-xs text-slate-500">{l.volume_tons}{tr(" טון")}{l.tam_tons ? " · TAM " + l.tam_tons + tr(" טון") : ""}</div></td><td className="p-2"><Badge tone="blue">{tr(stageHe(l.stage))}</Badge></td><td className="p-2">{(() => { const p = intakePct(l); return <Badge tone={p >= 80 ? "green" : p >= 40 ? "amber" : "red"}>{p}%</Badge>; })()}</td><td className="p-2 text-xs text-slate-500 whitespace-nowrap">{l.created_at ? fmtDate(l.created_at) : tr("מאגר")}</td><td className="p-2"><RowActions id={l.id} name={l.name} onDelete={() => removeLead(l.id)} /></td></tr>))}</tbody>
+          <tbody>{list.map((l) => (<tr key={l.id} className="border-t hover:bg-slate-50"><td className="p-2"><Link href={"/leads/" + l.id} className="font-medium text-brand-700 hover:underline">{l.name}</Link><TrustChips lead={l} compact />{purchasesOf(l.id).length > 0 && <span title="bought from Sapirim before" className="ms-1">🕰️</span>}<div className="text-xs text-slate-500 line-clamp-1">{l.sub_industry}</div></td><td className="p-2">{l.industry}</td><td className="p-2 text-xs">{l.product_match}</td><td className="p-2 text-xs">{l.contact_name && <div className="font-medium">{l.contact_name}</div>}<div className="text-slate-500">{l.contact_role}</div></td><td className="p-2"><Badge tone={/Tier 1/.test(l.tier) ? "green" : "amber"}>{l.tier}</Badge></td><td className="p-2 whitespace-nowrap">{fmtUsd(l.value_usd)}<div className="text-xs text-slate-500">{l.volume_tons}{tr(" טון")}{l.tam_tons ? " · TAM " + l.tam_tons + tr(" טון") : ""}</div></td><td className="p-2"><Badge tone="blue">{tr(stageHe(l.stage))}</Badge></td><td className="p-2">{(() => { const p = intakePct(l); return <Badge tone={p >= 80 ? "green" : p >= 40 ? "amber" : "red"}>{p}%</Badge>; })()}</td><td className="p-2 text-xs text-slate-500 whitespace-nowrap">{l.created_at ? fmtDate(l.created_at) : tr("מאגר")}</td><td className="p-2"><RowActions id={l.id} name={l.name} onDelete={() => removeLead(l.id)} /></td></tr>))}</tbody>
         </table>
       </Card>
     </div>
