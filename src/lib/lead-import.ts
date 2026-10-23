@@ -1,7 +1,8 @@
-// lead-import.ts (src/lib/lead-import.ts) · updated 22.10.2026 18:50 (Asia/Jerusalem) — rows with SHIFTED columns (AI answers, NotebookLM 22/10) are repaired automatically (lib/lead-repair) and flagged 🔧 · 17:40 (Asia/Jerusalem) — + Sub-industry column; tier for NEW rows is a parameter (search-prompt imports = Tier 3); unknown industry = "לסיווג" · 17.10.2026 07:45 (Asia/Jerusalem) — Excel / CSV / SAP export → leads. Auto-maps column headers (Hebrew, English, SAP), de-duplicates by company name, builds the template + "export all leads" in the SAME format.
+// lead-import.ts (src/lib/lead-import.ts) · updated 23.10.2026 05:20 (Asia/Jerusalem) — smarter duplicate check (name without "(Hebrew)" / generic words, website domain, name prefix) + an update only FILLS EMPTY fields (NotebookLM had overwritten good Gemini websites) · 22.10.2026 18:50 (Asia/Jerusalem) — rows with SHIFTED columns (AI answers, NotebookLM 22/10) are repaired automatically (lib/lead-repair) and flagged 🔧 · 17:40 (Asia/Jerusalem) — + Sub-industry column; tier for NEW rows is a parameter (search-prompt imports = Tier 3); unknown industry = "לסיווג" · 17.10.2026 07:45 (Asia/Jerusalem) — Excel / CSV / SAP export → leads. Auto-maps column headers (Hebrew, English, SAP), de-duplicates by company name, builds the template + "export all leads" in the SAME format.
 import type { Lead } from "./types";
 import { uid } from "./format";
 import { looksShifted, repairRec, REC_KEYS, type Rec } from "./lead-repair";
+import { isUnclassified } from "@/config/industry-list";
 
 export type FieldKey = "name" | "contact_name" | "contact_role" | "contact_phone" | "contact_email" | "industry" | "sub_industry" | "product_match" | "competitor" | "use_case" | "volume_tons" | "value_usd" | "city" | "sap_no" | "last_purchase" | "website" | "notes" | "source";
 /** column order = the template / export format */
@@ -27,6 +28,14 @@ export const FIELDS: { key: FieldKey; he: string; en: string; required?: boolean
 ];
 const nrm = (s: string) => String(s || "").toLowerCase().replace(/[^a-z0-9֐-׿]+/g, " ").trim();
 export const normName = (s: string) => nrm(s).replace(/\b(ltd|inc|co|bv|srl|spa|gmbh|בע מ|בעמ)\b/g, "").replace(/\s+/g, " ").trim();
+/** duplicate key: no "(Hebrew name)", no legal / generic words, letters only — "R.O.P. Ltd." = "ROP Industries", "Tama Group (תמה…)" = "Tama Plastic Industry" */
+export const dupKey = (s: string) => nrm(String(s || "").replace(/\([^)]*\)/g, " ")).replace(/\b(ltd|inc|co|bv|srl|spa|gmbh|group|industries|industry|company|companies|products|product|plastic|plastics|technology|technologies|international|israel|il|the|and|\d{4})\b/g, " ").replace(/[^a-z0-9֐-׿]/g, "");
+export const domainOf = (u?: string) => { const m = String(u || "").toLowerCase().match(/^(?:https?:\/\/)?(?:www\.)?([^/\s?#]+)/); return m && m[1].includes(".") ? m[1] : ""; };
+/** existing customer that is the same company: same key, same website domain, or one key is the start of the other (≥ 5 letters) */
+export function findDup(name: string, website: string, existing: Lead[]): Lead | undefined {
+  const k = dupKey(name), d = domainOf(website); if (!k && !d) return undefined;
+  return existing.find((l) => { const lk = dupKey(l.name); return (!!k && lk === k) || (!!d && domainOf(l.website) === d) || (!!k && !!lk && Math.min(k.length, lk.length) >= 5 && (k.startsWith(lk) || lk.startsWith(k))); });
+}
 
 /** best guess header → field (exact synonym first, then contains) */
 export function autoMap(headers: string[]): Record<number, FieldKey | ""> {
@@ -51,7 +60,7 @@ export function buildRows(data: unknown[][], map: Record<number, FieldKey | "">,
     if (!key) return { row, action: "skip" as const, problem: "no company" };
     if (seen.has(key)) return { row, action: "skip" as const, problem: "duplicate in file" };
     seen.add(key);
-    const ex = byName.get(key);
+    const ex = byName.get(key) || findDup(row.name, row.website, existing)?.id;
     return ex ? { row, existingId: ex, action: "update" as const, fixed } : { row, action: "new" as const, fixed };
   }).filter((r) => Object.values(r.row).some(Boolean));
 }
@@ -59,11 +68,11 @@ export function buildRows(data: unknown[][], map: Record<number, FieldKey | "">,
 export function toLead(r: ImportRow, existing: Lead[], defaultSource: string, newTier = "Tier 2 - Old account"): Lead {
   const x = r.row; const prev = r.existingId ? existing.find((l) => l.id === r.existingId) : undefined;
   const extra = [x.competitor && "ספק נוכחי: " + x.competitor, x.sap_no && "SAP #" + x.sap_no, x.last_purchase && "רכישה אחרונה: " + x.last_purchase, x.notes].filter(Boolean).join(" · ");
-  const keep = (a: string, b?: string) => a || b || "";
+  const keep = (a: string, b?: string) => (prev ? b || a : a || b) || ""; // update = fill only what is still EMPTY (a weaker answer never overwrites good data)
   return {
     ...(prev || {}),
     id: prev?.id || uid("LEAD"), name: x.name || prev?.name || "",
-    industry: keep(x.industry, prev?.industry) || "לסיווג", sub_industry: keep(x.sub_industry, prev?.sub_industry),
+    industry: (prev && !isUnclassified(prev.industry) ? prev.industry : x.industry || prev?.industry) || "לסיווג", sub_industry: keep(x.sub_industry, prev?.sub_industry),
     product_match: keep(x.product_match, prev?.product_match), use_case: keep(x.use_case, prev?.use_case),
     volume_tons: x.volume_tons ? num(x.volume_tons) : prev?.volume_tons || 0, value_usd: x.value_usd ? num(x.value_usd) : prev?.value_usd || 0,
     tier: prev?.tier || newTier, department: prev?.department || "", contact_role: keep(x.contact_role, prev?.contact_role),
