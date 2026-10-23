@@ -2040,4 +2040,9 @@ export const EN: Record<string, string> = {
   "הדפדפן חסם העתקת תמונה — השתמש ב-⬇ PNG": "The browser blocked copying the picture — use ⬇ PNG",
   "✓ הכיתוב הועתק": "✓ Caption copied",
   "בלי שמות חברות (כלל Silitex). הנפחים — הערכה לפי Tier עד שהלקוח מאשר; מתעדכן לבד מכל סריקה.": "No company names (Silitex rule). Volumes are tier-based estimates until the customer confirms; updates itself after every scan.",
+  "הסריקה הסתיימה": "Scan finished",
+  "סורק בשרת": "Scanning on server",
+  "נותרו": "left",
+  "עכשיו:": "now:",
+  "דק'": "min",
 };

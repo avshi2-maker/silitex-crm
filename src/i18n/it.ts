@@ -2122,4 +2122,9 @@ export const IT: Record<string, string> = {
   "הדפדפן חסם העתקת תמונה — השתמש ב-⬇ PNG": "Il browser ha bloccato la copia — usa ⬇ PNG",
   "✓ הכיתוב הועתק": "✓ Didascalia copiata",
   "בלי שמות חברות (כלל Silitex). הנפחים — הערכה לפי Tier עד שהלקוח מאשר; מתעדכן לבד מכל סריקה.": "Nessun nome di azienda (regola Silitex). Volumi stimati per Tier finché il cliente non conferma; si aggiorna dopo ogni scansione.",
+  "הסריקה הסתיימה": "Scansione completata",
+  "סורק בשרת": "Scansione sul server",
+  "נותרו": "rimanenti",
+  "עכשיו:": "ora:",
+  "דק'": "min",
 };
