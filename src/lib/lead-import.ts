@@ -1,8 +1,8 @@
-// lead-import.ts (src/lib/lead-import.ts) · updated 23.10.2026 05:20 (Asia/Jerusalem) — smarter duplicate check (name without "(Hebrew)" / generic words, website domain, name prefix) + an update only FILLS EMPTY fields (NotebookLM had overwritten good Gemini websites) · 22.10.2026 18:50 (Asia/Jerusalem) — rows with SHIFTED columns (AI answers, NotebookLM 22/10) are repaired automatically (lib/lead-repair) and flagged 🔧 · 17:40 (Asia/Jerusalem) — + Sub-industry column; tier for NEW rows is a parameter (search-prompt imports = Tier 3); unknown industry = "לסיווג" · 17.10.2026 07:45 (Asia/Jerusalem) — Excel / CSV / SAP export → leads. Auto-maps column headers (Hebrew, English, SAP), de-duplicates by company name, builds the template + "export all leads" in the SAME format.
+// lead-import.ts (src/lib/lead-import.ts) · updated 23.10.2026 06:40 (Asia/Jerusalem) — an update never renames a customer · industry outside the CRM list → search industry (or לסיווג) + text kept as sub-industry · a URL / removed link in the Source column becomes the website, not the source label · 05:20 — smarter duplicate check (name without "(Hebrew)" / generic words, website domain, name prefix) + an update only FILLS EMPTY fields (NotebookLM had overwritten good Gemini websites) · 22.10.2026 18:50 (Asia/Jerusalem) — rows with SHIFTED columns (AI answers, NotebookLM 22/10) are repaired automatically (lib/lead-repair) and flagged 🔧 · 17:40 (Asia/Jerusalem) — + Sub-industry column; tier for NEW rows is a parameter (search-prompt imports = Tier 3); unknown industry = "לסיווג" · 17.10.2026 07:45 (Asia/Jerusalem) — Excel / CSV / SAP export → leads. Auto-maps column headers (Hebrew, English, SAP), de-duplicates by company name, builds the template + "export all leads" in the SAME format.
 import type { Lead } from "./types";
 import { uid } from "./format";
 import { looksShifted, repairRec, REC_KEYS, type Rec } from "./lead-repair";
-import { isUnclassified } from "@/config/industry-list";
+import { isUnclassified, INDUSTRY_LIST } from "@/config/industry-list";
 
 export type FieldKey = "name" | "contact_name" | "contact_role" | "contact_phone" | "contact_email" | "industry" | "sub_industry" | "product_match" | "competitor" | "use_case" | "volume_tons" | "value_usd" | "city" | "sap_no" | "last_purchase" | "website" | "notes" | "source";
 /** column order = the template / export format */
@@ -67,21 +67,26 @@ export function buildRows(data: unknown[][], map: Record<number, FieldKey | "">,
   }).filter((r) => Object.values(r.row).some(Boolean));
 }
 /** imported row → Lead; on update keeps everything already in the CRM and only fills/refreshes imported fields */
-export function toLead(r: ImportRow, existing: Lead[], defaultSource: string, newTier = "Tier 2 - Old account"): Lead {
+export function toLead(r: ImportRow, existing: Lead[], defaultSource: string, newTier = "Tier 2 - Old account", searchIndustry = ""): Lead {
   const x = r.row; const prev = r.existingId ? existing.find((l) => l.id === r.existingId) : undefined;
   const extra = [x.competitor && "ספק נוכחי: " + x.competitor, x.sap_no && "SAP #" + x.sap_no, x.last_purchase && "רכישה אחרונה: " + x.last_purchase, x.notes].filter(Boolean).join(" · ");
+  // AI answers: an industry outside the CRM list → the search's industry (or "לסיווג" for the scan to classify), its text kept as sub-industry; a "source" that is a URL / removed link is not a source label (it is the website)
+  const badInd = !!x.industry && !INDUSTRY_LIST.includes(x.industry) && !isUnclassified(x.industry) && !existing.some((l) => l.industry === x.industry);
+  const rowInd = badInd ? searchIndustry || "לסיווג" : x.industry;
+  const srcIsLink = /^(https?:\/\/|www\.)|\[suspicious link removed\]/i.test(x.source || ""); const srcOk = !!x.source && !srcIsLink;
+  if (srcIsLink && !x.website && /^(https?:\/\/|www\.)/i.test(x.source)) x.website = x.source;
   const keep = (a: string, b?: string) => (prev ? b || a : a || b) || ""; // update = fill only what is still EMPTY (a weaker answer never overwrites good data)
   return {
     ...(prev || {}),
-    id: prev?.id || uid("LEAD"), name: x.name || prev?.name || "",
-    industry: (prev && !isUnclassified(prev.industry) ? prev.industry : x.industry || prev?.industry) || "לסיווג", sub_industry: keep(x.sub_industry, prev?.sub_industry),
+    id: prev?.id || uid("LEAD"), name: prev?.name || x.name || "", // an update never renames an existing customer
+    industry: (prev && !isUnclassified(prev.industry) ? prev.industry : rowInd || prev?.industry) || "לסיווג", sub_industry: keep(x.sub_industry || (badInd ? x.industry : ""), prev?.sub_industry),
     product_match: keep(x.product_match, prev?.product_match), use_case: keep(x.use_case, prev?.use_case),
     volume_tons: x.volume_tons ? num(x.volume_tons) : prev?.volume_tons || 0, value_usd: x.value_usd ? num(x.value_usd) : prev?.value_usd || 0,
     tier: prev?.tier || newTier, department: prev?.department || "", contact_role: keep(x.contact_role, prev?.contact_role),
     status: prev?.status || "new", stage: prev?.stage || "prospect",
     contact_name: keep(x.contact_name, prev?.contact_name), contact_phone: keep(x.contact_phone, prev?.contact_phone), contact_email: keep(x.contact_email, prev?.contact_email),
     competitor_offset: keep(x.competitor, prev?.competitor_offset), website: keep(fullUrl(x.website), prev?.website), city: keep(x.city, prev?.city),
-    notes: [prev?.notes, extra].filter(Boolean).join("\n"), source: keep(x.source, prev?.source) || defaultSource,
+    notes: [prev?.notes, extra].filter(Boolean).join("\n"), source: keep(srcOk ? x.source : "", prev?.source) || defaultSource,
   } as Lead;
 }
 /** leads → rows in the template format (for "export all" and the empty template) */

@@ -58,7 +58,7 @@ export default function ImportLeadsPage() {
   const scanable = active.filter(({ r }) => r.row.website && (r.action === "new" || !scanOf(state.leads.find((l) => l.id === r.existingId) || ({} as never)))).length;
   const run = async () => {
     setBusy(true);
-    const leads = active.map(({ r }) => toLead(r, state.leads, src, tier));
+    const leads = active.map(({ r }) => toLead(r, state.leads, src, tier, hunt?.industry || ""));
     importLeads(leads);
     let sent = 0;
     if (autoScan) { const toScan = leads.filter((l) => l.website && !scanOf(l)); if (toScan.length) { try { sent = await jobs.enqueue(toScan); } catch { sent = 0; } } }

@@ -1,4 +1,4 @@
-// state.ts (src/lib/store/state.ts) · updated 23.10.2026 05:45 (Asia/Jerusalem) — mergeOnce: approved merge of 21 duplicate customers (20 groups) · 05:20 — repair2Once: exact fix of the 30 NotebookLM-damaged customers (websites recovered, city, industry) + re-sent to the server scan · 22.10.2026 18:50 (Asia/Jerusalem) — repairOnce: NotebookLM import with shifted columns (24 new + 6 updated) repaired, labelled, re-sent to the server scan · 18:30 — relabelOnce: 30 Gemini imports labelled Comet → Gemini + Gemini round logged · 18:20 — a write that reaches the cloud BEFORE its customer (foreign-key race, e.g. import notes) waits and retries (5×, 1.5 → 7.5 s) instead of failing · 17:20 — every cloud write / delete fires the save signal (green "נשמר בהצלחה" toast) · 21.10.2026 13:30 (Asia/Jerusalem) — contacts filled per account (new researched contacts arrive in existing browsers too) + seed patches once (21/10 packaging: Nirotek phones · car-care re-classification: Rose Chemicals, Nano-Z; notes merged, never overwritten) · 09:20 — researched contacts filled once (seed contact_name/phone/email/notes into accounts that have none, e.g. Tambour + Nirlat) · 20.10.2026 13:15 — duplicate GES (LEAD-071 = LEAD-011) removed once, also from Supabase · 08:05 — PHANTOM + BERETEX 350 / SH 1300 · 05:40 — researched addresses filled once · 05:20 — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
+// state.ts (src/lib/store/state.ts) · updated 23.10.2026 06:40 (Asia/Jerusalem) — fireFixOnce: 10 NotebookLM fire-safety rows → right industry + source, 3 renamed customers get their names back · 05:45 — mergeOnce: approved merge of 21 duplicate customers (20 groups) · 05:20 — repair2Once: exact fix of the 30 NotebookLM-damaged customers (websites recovered, city, industry) + re-sent to the server scan · 22.10.2026 18:50 (Asia/Jerusalem) — repairOnce: NotebookLM import with shifted columns (24 new + 6 updated) repaired, labelled, re-sent to the server scan · 18:30 — relabelOnce: 30 Gemini imports labelled Comet → Gemini + Gemini round logged · 18:20 — a write that reaches the cloud BEFORE its customer (foreign-key race, e.g. import notes) waits and retries (5×, 1.5 → 7.5 s) instead of failing · 17:20 — every cloud write / delete fires the save signal (green "נשמר בהצלחה" toast) · 21.10.2026 13:30 (Asia/Jerusalem) — contacts filled per account (new researched contacts arrive in existing browsers too) + seed patches once (21/10 packaging: Nirotek phones · car-care re-classification: Rose Chemicals, Nano-Z; notes merged, never overwritten) · 09:20 — researched contacts filled once (seed contact_name/phone/email/notes into accounts that have none, e.g. Tambour + Nirlat) · 20.10.2026 13:15 — duplicate GES (LEAD-071 = LEAD-011) removed once, also from Supabase · 08:05 — PHANTOM + BERETEX 350 / SH 1300 · 05:40 — researched addresses filled once · 05:20 — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
@@ -8,6 +8,7 @@ import { RELABEL_FLAG, GEMINI_IDS, GEMINI_ROUND } from "@/data/relabel-2210";
 import { REPAIR_FLAG, REPAIR_SINCE, NLM_SOURCE, NLM_LOG } from "@/data/repair-2210";
 import { REPAIR2_FLAG, REPAIR2, REPAIR2_INDUSTRY } from "@/data/repair-2310";
 import { MERGE_FLAG, MERGES } from "@/data/merge-2310";
+import { FIREFIX_FLAG, FIRE_IND, FIRE_SRC, FIRE_IDS, NAME_BACK } from "@/data/fire-fix-2310";
 import { mergeInto } from "@/lib/lead-merge";
 import { looksShifted, repairRec, type Rec } from "@/lib/lead-repair";
 import type { Lead, Task, Activity, KbDoc, KbChunk, Sample, Doc, Shipment, SilitexContact, Thread, HubMsg } from "@/lib/types";
@@ -99,6 +100,17 @@ function mergeOnce(st: State) {
     localStorage.setItem(MERGE_FLAG, "1");
   } catch {}
 }
+function fireFixOnce(st: State) {
+  try { if (localStorage.getItem(FIREFIX_FLAG)) return; const fixed: Lead[] = [];
+    st.leads = st.leads.map((l) => {
+      let n = l;
+      if (FIRE_IDS.includes(l.id)) n = { ...l, industry: FIRE_IND, sub_industry: l.sub_industry || (l.industry !== FIRE_IND && !/^לסיווג$/.test(l.industry) ? l.industry : ""), source: FIRE_SRC, website: /suspicious link/i.test(l.website || "") ? "" : l.website };
+      if (NAME_BACK[l.id] && l.name !== NAME_BACK[l.id]) n = { ...n, name: NAME_BACK[l.id] };
+      if (n !== l) fixed.push(n); return n;
+    });
+    saveState(st); fixed.forEach((l) => sync("leads", l)); localStorage.setItem(FIREFIX_FLAG, "1");
+  } catch {}
+}
 function relabelOnce(st: State) {
   try { if (localStorage.getItem(RELABEL_FLAG)) return; const fixed: Lead[] = []; const ids = new Set(GEMINI_IDS);
     st.leads = st.leads.map((l) => { if (!ids.has(l.id) || !/^Comet/.test(l.source || "")) return l; const n = { ...l, source: (l.source || "").replace(/^Comet/, "Gemini") }; fixed.push(n); return n; });
@@ -129,7 +141,7 @@ export function loadState(): State {
       // seed accounts added later (e.g. AHAVA 11.10.2026) that the browser has never seen
       for (const seed of LEADS_SEED) if (!st.leads.some((l) => l.id === seed.id)) { st.leads = [...st.leads, seed]; fixed.push(seed); }
       if (fixed.length) { saveState(st); fixed.forEach((l) => sync("leads", l)); }
-      seedOnce(st); fixOnce(st); addrOnce(st); dropOnce(st); contactOnce(st); patchOnce(st); relabelOnce(st); repairOnce(st); repair2Once(st); mergeOnce(st);
+      seedOnce(st); fixOnce(st); addrOnce(st); dropOnce(st); contactOnce(st); patchOnce(st); relabelOnce(st); repairOnce(st); repair2Once(st); mergeOnce(st); fireFixOnce(st);
       return st;
     }
   } catch {}
