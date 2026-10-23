@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/prompt/page.tsx) · updated 22.10.2026 18:00 (Asia/Jerusalem) — + 📚 search history per industry (gaps in amber) + ✨ AI sharpen (meter + export bar) + hand-off carries industry / sub / tool for the log · created 17:40 — 🧲 search-prompt builder: industry / sub-industry / "similar to" / free notes → ready prompt for Comet / NotebookLM / Perplexity / Deep Research (excludes companies already in the CRM) → paste the CSV answer back → /leads/import preview (new vs update, Tier 3, source stamped). ?lead=ID pre-fills from a customer card.
+// page.tsx (src/app/leads/prompt/page.tsx) · updated 23.10.2026 06:10 (Asia/Jerusalem) — pre-fill from the link (?industry=&sub=&similar=&notes=) · 22.10.2026 18:00 (Asia/Jerusalem) — + 📚 search history per industry (gaps in amber) + ✨ AI sharpen (meter + export bar) + hand-off carries industry / sub / tool for the log · created 17:40 — 🧲 search-prompt builder: industry / sub-industry / "similar to" / free notes → ready prompt for Comet / NotebookLM / Perplexity / Deep Research (excludes companies already in the CRM) → paste the CSV answer back → /leads/import preview (new vs update, Tier 3, source stamped). ?lead=ID pre-fills from a customer card.
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -21,7 +21,9 @@ export default function HuntPromptPage() {
   const [tool, setTool] = useState<HuntTool>("comet"); const [useEx, setUseEx] = useState(true);
   const [copied, setCopied] = useState(""); const [answer, setAnswer] = useState(""); const [err, setErr] = useState("");
   useEffect(() => {
-    if (!ready) return; const id = new URLSearchParams(window.location.search).get("lead"); const l = id ? state.leads.find((x) => x.id === id) : undefined; if (!l) return;
+    if (!ready) return; const q = new URLSearchParams(window.location.search);
+    if (q.get("industry")) setIndustry(q.get("industry") || ""); if (q.get("sub")) setSub(q.get("sub") || ""); if (q.get("similar")) setSimilar(q.get("similar") || ""); if (q.get("notes")) setNotes(q.get("notes") || ""); // pre-filled search link (?industry=&sub=&similar=&notes=)
+    const id = q.get("lead"); const l = id ? state.leads.find((x) => x.id === id) : undefined; if (!l) return;
     if (!isUnclassified(l.industry)) setIndustry(l.industry); setSub(l.sub_industry || ""); setSimilar(l.name + (l.website ? " (" + l.website + ")" : ""));
     if (l.use_case) setNotes(l.use_case);
   }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps

@@ -1,4 +1,4 @@
-// hunt-prompt.ts (src/lib/hunt-prompt.ts) · updated 22.10.2026 18:10 (Asia/Jerusalem) — search-round log goes on a REAL customer (FK fix: lead_id "hunt:…" was rejected by the cloud); industry parsed from the log text · 18:00 — payload carries industry / sub / tool + search-round log helpers · created 17:40 — builds the "find companies we miss" research prompt for Comet / NotebookLM / Perplexity / Deep Research. The CSV header = the CRM import column names, so the answer pastes straight into /leads/import (auto-mapped, de-duplicated).
+// hunt-prompt.ts (src/lib/hunt-prompt.ts) · updated 23.10.2026 06:10 (Asia/Jerusalem) — NotebookLM: website + source as bare domains (its link filter erased every URL 22/10) · every row exactly 12 cells (Comet's notes slid into E-mail) · 22.10.2026 18:10 (Asia/Jerusalem) — search-round log goes on a REAL customer (FK fix: lead_id "hunt:…" was rejected by the cloud); industry parsed from the log text · 18:00 — payload carries industry / sub / tool + search-round log helpers · created 17:40 — builds the "find companies we miss" research prompt for Comet / NotebookLM / Perplexity / Deep Research. The CSV header = the CRM import column names, so the answer pastes straight into /leads/import (auto-mapped, de-duplicated).
 import { hintFor } from "@/config/hunt-uses";
 
 export type HuntTool = "comet" | "notebooklm" | "perplexity" | "deep";
@@ -37,7 +37,7 @@ export function buildHuntPrompt(i: HuntInput): string {
     "Typical silicone uses in this segment (for the Application column — function only): " + h.uses + ".",
     ex.length ? "\nALREADY IN MY LIST — do NOT return these (or their subsidiaries / other names):\n" + ex.join("; ") : "",
     "",
-    "Return " + i.rows + " rows, most relevant / largest first.",
+    "Return " + i.rows + " rows, most relevant / largest first. Every row must have exactly " + HUNT_COLUMNS.length + " cells — write an empty cell (,,) when a value is unknown, never skip a column.",
     HOW[i.tool],
     "",
     "OUTPUT: ONE CSV inside a single code block. Comma-separated; wrap any cell containing a comma in double quotes. Header row EXACTLY:",
@@ -45,14 +45,14 @@ export function buildHuntPrompt(i: HuntInput): string {
     "",
     "Column rules:",
     "- Company: official company name (English; Hebrew name in brackets if known).",
-    "- Website: the real company homepage (https://…).",
+    i.tool === "notebooklm" ? "- Website: the company domain ONLY, written as plain text without https:// or www (e.g. example.co.il) — never a link." : "- Website: the real company homepage (https://…).",
     "- City: city / industrial zone of the plant in " + where + ".",
     "- Industry: exactly \"" + i.industry + "\" in every row.",
     "- Sub-industry: a few words on what THIS company makes" + (i.sub ? " (e.g. \"" + i.sub + "\")" : "") + ".",
     "- Application: the most likely silicone function(s) for this company — function only. Do NOT name any supplier product, brand or grade.",
     "- Current supplier: only if publicly stated (distributor / brand), else empty.",
     "- Contact name, Role, Phone, Email: only from the company's own website or public listings (R&D, technical, purchasing or plant manager preferred). Empty if not found — never guess.",
-    "- Notes: \"Main products: …; Employees: ~…; Address: …; Why relevant: …; Confidence: High/Medium/Low; Source: <URL>\".",
+    "- Notes: \"Main products: …; Employees: ~…; Address: …; Why relevant: …; Confidence: High/Medium/Low; Source: " + (i.tool === "notebooklm" ? "<domain of the source page, plain text, no link>" : "<URL>") + "\".",
     "- Never invent companies, people, phones, e-mails or numbers. An empty cell is better than a guess.",
     "After the code block, list in one short line each any company you were unsure about.",
   ];

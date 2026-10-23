@@ -1,9 +1,9 @@
-// priority.ts (src/lib/priority.ts) · updated 23.10.2026 05:45 (Asia/Jerusalem) — plastics & rubber raised: fit 10 → 14 (20 for compounders / masterbatch / extrusion / film / foam / pipe), speed 6 → 10 (they buy for themselves) · created 20.10.2026 13:20 (Asia/Jerusalem) — PRIORITY ENGINE A/B/C/D: transparent 0–100 score per customer = volume (0–30) + Silitex fit (0–30, by industry + website-scan matches) + access/warmth (0–25: former Sapirim customer, relationship, tier, stage, contacts, open steps) + speed (0–15: buys for itself vs through a service company). Food parked → capped at D. Recomputes live as leads, scans and steps change.
+// priority.ts (src/lib/priority.ts) · updated 23.10.2026 06:10 (Asia/Jerusalem) — + flame retardants & fire safety: fit 24 (DC 1107-type powder treatment = proven big volume), speed 10 · 05:45 — plastics & rubber raised: fit 10 → 14 (20 for compounders / masterbatch / extrusion / film / foam / pipe), speed 6 → 10 (they buy for themselves) · created 20.10.2026 13:20 (Asia/Jerusalem) — PRIORITY ENGINE A/B/C/D: transparent 0–100 score per customer = volume (0–30) + Silitex fit (0–30, by industry + website-scan matches) + access/warmth (0–25: former Sapirim customer, relationship, tier, stage, contacts, open steps) + speed (0–15: buys for itself vs through a service company). Food parked → capped at D. Recomputes live as leads, scans and steps change.
 import type { Lead, Task } from "@/lib/types";
 import { scanOf } from "@/lib/scan";
 export type Grade = "A" | "B" | "C" | "D";
 export type Score = { total: number; grade: Grade; vol: number; fit: number; access: number; speed: number; tons: number; why: string[] };
-const FIT: [RegExp, number][] = [[/cosmetic|personal care/i, 24], [/detergent|clean/i, 26], [/paint|coating|varnish|ink/i, 26], [/building|repellent|construction/i, 26], [/car care/i, 22], [/textile/i, 22], [/water treatment/i, 22], [/hygiene|tissue|nonwoven/i, 20], [/paper|packag/i, 20], [/agri|agro/i, 18], [/power|cooling/i, 16], [/adhesive|label/i, 16], [/pharma/i, 16], [/metalwork|lubric/i, 14], [/rubber|plastic/i, 10], [/oil|gas|hydrocarbon/i, 10], [/irrigation/i, 8], [/food/i, 4]];
+const FIT: [RegExp, number][] = [[/flame|fire/i, 24], [/cosmetic|personal care/i, 24], [/detergent|clean/i, 26], [/paint|coating|varnish|ink/i, 26], [/building|repellent|construction/i, 26], [/car care/i, 22], [/textile/i, 22], [/water treatment/i, 22], [/hygiene|tissue|nonwoven/i, 20], [/paper|packag/i, 20], [/agri|agro/i, 18], [/power|cooling/i, 16], [/adhesive|label/i, 16], [/pharma/i, 16], [/metalwork|lubric/i, 14], [/rubber|plastic/i, 10], [/oil|gas|hydrocarbon/i, 10], [/irrigation/i, 8], [/food/i, 4]];
 const DEFVOL: Record<string, number> = { "Tier 1": 3, "Tier 2": 1.5, "Tier 3": 0.8, "Tier 4": 0.2 };
 const STAGE_PTS: Record<string, number> = { prospect: 0, contacted: 4, sample: 8, pilot: 11, rd_approved: 13, rfq: 14, quote: 15, negotiation: 15, won: 15, lost: -20 };
 export const GRADE_HE: Record<Grade, string> = { A: "A — מלא ורציני: להתחיל עכשיו", B: "B — טוב: אחרי ה-A", C: "C — לטפח: סריקה ומייל", D: "D — מעקב בלבד" };
@@ -23,7 +23,7 @@ export function scoreLead(l: Lead, tasks: Task[] = []): Score {
   if (l.contact_email || l.intake?.contact_email) access += 2;
   if (tasks.some((x) => x.lead_id === l.id && !x.done)) { access += 3; why.push("יש צעד פתוח"); }
   access = Math.max(0, Math.min(25, access));
-  let speed = /cosmetic|detergent|paint|coating|building|car care|textile|hygiene|agri|rubber|plastic/i.test(l.industry) ? 10 : 6; // plastics processors buy for themselves (23.10.2026)
+  let speed = /cosmetic|detergent|paint|coating|building|car care|textile|hygiene|agri|rubber|plastic|flame|fire/i.test(l.industry) ? 10 : 6; // plastics processors buy for themselves (23.10.2026)
   if (/oil|gas|irrigation/i.test(l.industry)) { speed = 3; why.push("קונים דרך חברת שירות / חלקים"); }
   if (t === "Tier 4") speed = Math.min(speed, 3);
   let total = Math.round(vol + fit + access + speed);

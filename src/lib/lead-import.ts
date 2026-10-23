@@ -30,6 +30,8 @@ const nrm = (s: string) => String(s || "").toLowerCase().replace(/[^a-z0-9֐-׿]
 export const normName = (s: string) => nrm(s).replace(/\b(ltd|inc|co|bv|srl|spa|gmbh|בע מ|בעמ)\b/g, "").replace(/\s+/g, " ").trim();
 /** duplicate key: no "(Hebrew name)", no legal / generic words, letters only — "R.O.P. Ltd." = "ROP Industries", "Tama Group (תמה…)" = "Tama Plastic Industry" */
 export const dupKey = (s: string) => nrm(String(s || "").replace(/\([^)]*\)/g, " ")).replace(/\b(ltd|inc|co|bv|srl|spa|gmbh|group|industries|industry|company|companies|products|product|plastic|plastics|technology|technologies|international|israel|il|the|and|\d{4})\b/g, " ").replace(/[^a-z0-9֐-׿]/g, "");
+/** "kafrit.com" (NotebookLM plain domain) → "https://kafrit.com" */
+export const fullUrl = (u: string) => { const t = (u || "").trim(); return !t || /^https?:\/\//i.test(t) || !/^[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(t.replace(/^www\./i, "")) ? t : "https://" + t; };
 export const domainOf = (u?: string) => { const m = String(u || "").toLowerCase().match(/^(?:https?:\/\/)?(?:www\.)?([^/\s?#]+)/); return m && m[1].includes(".") ? m[1] : ""; };
 /** existing customer that is the same company: same key, same website domain, or one key is the start of the other (≥ 5 letters) */
 export function findDup(name: string, website: string, existing: Lead[]): Lead | undefined {
@@ -78,7 +80,7 @@ export function toLead(r: ImportRow, existing: Lead[], defaultSource: string, ne
     tier: prev?.tier || newTier, department: prev?.department || "", contact_role: keep(x.contact_role, prev?.contact_role),
     status: prev?.status || "new", stage: prev?.stage || "prospect",
     contact_name: keep(x.contact_name, prev?.contact_name), contact_phone: keep(x.contact_phone, prev?.contact_phone), contact_email: keep(x.contact_email, prev?.contact_email),
-    competitor_offset: keep(x.competitor, prev?.competitor_offset), website: keep(x.website, prev?.website), city: keep(x.city, prev?.city),
+    competitor_offset: keep(x.competitor, prev?.competitor_offset), website: keep(fullUrl(x.website), prev?.website), city: keep(x.city, prev?.city),
     notes: [prev?.notes, extra].filter(Boolean).join("\n"), source: keep(x.source, prev?.source) || defaultSource,
   } as Lead;
 }

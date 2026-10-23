@@ -1,10 +1,10 @@
-// industry-list.ts (src/config/industry-list.ts) · created 22.10.2026 16:55 (Asia/Jerusalem) — the CRM's customer industries (same names as the customer list) for the 🔽 pick-lists + the website scan's automatic classification. "לסיווג" = not classified yet → the next scan fills it.
+// industry-list.ts (src/config/industry-list.ts) · updated 23.10.2026 06:10 (Asia/Jerusalem) — + Flame Retardants & Fire Safety · created 22.10.2026 16:55 (Asia/Jerusalem) — the CRM's customer industries (same names as the customer list) for the 🔽 pick-lists + the website scan's automatic classification. "לסיווג" = not classified yet → the next scan fills it.
 export const INDUSTRY_LIST = [
   "Personal Care & Cosmetics", "Paints, Coatings & Varnishes", "Water Treatment & Purification", "Detergents & Cleaning Formulations",
   "Hygiene, Tissue & Nonwovens", "Oil, Gas & Hydrocarbons", "Adhesives, Labels & Release Coatings", "Pharmaceutical & OTC (non-food)",
   "Paper & Packaging", "Rubber & Plastics Processing", "Textiles & Technical Fabrics", "Agriculture & Agrochemicals",
   "Irrigation & Water Equipment", "Car Care & Ceramic Coatings", "Lubricants & Metalworking Fluids", "Power Generation & Cooling Water",
-  "Water Repellents & Building Protection", "Food & Bio-Fermentation", "Metalworking & Machining", "Electronics & Electrical",
+  "Water Repellents & Building Protection", "Food & Bio-Fermentation", "Metalworking & Machining", "Electronics & Electrical", "Flame Retardants & Fire Safety",
 ];
 export const UNCLASSIFIED = "לסיווג";
 /** empty / "לסיווג" (also its saved translations) / old "אחר" = waiting for classification */
