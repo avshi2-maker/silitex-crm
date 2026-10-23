@@ -2033,4 +2033,11 @@ export const EN: Record<string, string> = {
   "חיפוש ברשת": "Web search",
   "עמודות מוזזות תוקנו": "shifted columns repaired",
   "העמודות בשורה הזאת היו מוזזות — כל ערך הוחזר לשדה שלו": "The columns in this row were shifted — every value was put back in its field",
+  "גרף אחד להנהלה — פדריקה מעבירה לבוסים": "One chart for management — Federica forwards it to her bosses",
+  "העתק תמונה": "Copy picture",
+  "העתק כיתוב (3 שורות)": "Copy caption (3 lines)",
+  "✓ התמונה הועתקה — הדבק במייל (Ctrl+V)": "✓ Picture copied — paste into the e-mail (Ctrl+V)",
+  "הדפדפן חסם העתקת תמונה — השתמש ב-⬇ PNG": "The browser blocked copying the picture — use ⬇ PNG",
+  "✓ הכיתוב הועתק": "✓ Caption copied",
+  "בלי שמות חברות (כלל Silitex). הנפחים — הערכה לפי Tier עד שהלקוח מאשר; מתעדכן לבד מכל סריקה.": "No company names (Silitex rule). Volumes are tier-based estimates until the customer confirms; updates itself after every scan.",
 };

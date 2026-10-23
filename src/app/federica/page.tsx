@@ -1,9 +1,10 @@
 "use client";
-// page.tsx (src/app/federica/page.tsx) · updated 22.10.2026 08:40 (Asia/Jerusalem) — all UI text through tr() (EN / IT / RU) · created 21.10.2026 17:05 (Asia/Jerusalem) — 📮 FRIDAY REPORT TO FEDERICA (owner): ticker (blockers · oldest waiting · days to Friday) + Silitex open-questions register (add / edit / answer / close, filters) + weekly report builder. The register lives in Supabase, so nothing is lost between weeks and every question shows how long it has waited.
+// page.tsx (src/app/federica/page.tsx) · updated 23.10.2026 05:30 (Asia/Jerusalem) — + 📊 one-picture management chart (copy picture / PNG / caption) · 22.10.2026 08:40 (Asia/Jerusalem) — all UI text through tr() (EN / IT / RU) · created 21.10.2026 17:05 (Asia/Jerusalem) — 📮 FRIDAY REPORT TO FEDERICA (owner): ticker (blockers · oldest waiting · days to Friday) + Silitex open-questions register (add / edit / answer / close, filters) + weekly report builder. The register lives in Supabase, so nothing is lost between weeks and every question shows how long it has waited.
 import { useEffect, useState } from "react";
 import { Card, H1, Badge, btnPrimary, inputCls } from "@/components/ui";
 import FqRow from "@/components/federica/FqRow";
 import ReportPanel from "@/components/federica/ReportPanel";
+import PotentialChart from "@/components/federica/PotentialChart";
 import { CATS, WHO, PRIO, isOpen, daysOpen, nextFriday, fmtD, type Fq } from "@/lib/fq-types";
 import { useLang } from "@/i18n";
 type Tab = "open" | "ours" | "answered" | "closed" | "all";
@@ -45,6 +46,7 @@ export default function FedericaPage() {
         </div>
       </Card>
       <ReportPanel issues={items} onMarkSent={markSent} />
+      <PotentialChart />
     </div>
   );
 }

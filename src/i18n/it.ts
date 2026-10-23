@@ -2115,4 +2115,11 @@ export const IT: Record<string, string> = {
   "חיפוש ברשת": "Ricerca web",
   "עמודות מוזזות תוקנו": "colonne spostate corrette",
   "העמודות בשורה הזאת היו מוזזות — כל ערך הוחזר לשדה שלו": "Le colonne di questa riga erano spostate — ogni valore è tornato al suo campo",
+  "גרף אחד להנהלה — פדריקה מעבירה לבוסים": "Un grafico per la direzione — Federica lo inoltra ai suoi capi",
+  "העתק תמונה": "Copia immagine",
+  "העתק כיתוב (3 שורות)": "Copia didascalia (3 righe)",
+  "✓ התמונה הועתקה — הדבק במייל (Ctrl+V)": "✓ Immagine copiata — incolla nell'e-mail (Ctrl+V)",
+  "הדפדפן חסם העתקת תמונה — השתמש ב-⬇ PNG": "Il browser ha bloccato la copia — usa ⬇ PNG",
+  "✓ הכיתוב הועתק": "✓ Didascalia copiata",
+  "בלי שמות חברות (כלל Silitex). הנפחים — הערכה לפי Tier עד שהלקוח מאשר; מתעדכן לבד מכל סריקה.": "Nessun nome di azienda (regola Silitex). Volumi stimati per Tier finché il cliente non conferma; si aggiorna dopo ogni scansione.",
 };
