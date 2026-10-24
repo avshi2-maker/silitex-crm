@@ -1,5 +1,5 @@
 // scan.ts (src/lib/scan.ts) · updated 22.10.2026 16:55 (Asia/Jerusalem) — withScan() also fills industry (when "לסיווג") + sub-industry from the scan · 22.10.2026 12:45 (Asia/Jerusalem) — withoutScan() + noMatch() (clear scans without a Silitex match) · 22.10.2026 07:35 (Asia/Jerusalem) — timeout → clear Hebrew message + readScan() (HTML time-out page no longer shown as 'invalid AI answer') · 20.10.2026 10:45 (Asia/Jerusalem) — failed scans remembered on the lead (intake.scan_err) so "scan all" skips them; separate retry · 06:00 — CUSTOMER WEBSITE SCAN result type + where it lives on the lead (intake.scan_json / scan_at — no database change) + text for export / Pini list.
-import { INDUSTRY_LIST, isUnclassified } from "@/config/industry-list";
+import { allIndustries, isUnclassified } from "@/config/industry-list";
 import type { Lead } from "@/lib/types";
 export type ScanData = { industry?: string; sub_industry?: string; summary?: string; product_lines?: { name: string; type?: string; examples?: string[] }[]; silicone_uses?: { function: string; where: string }[]; matches?: { silitex: string; code?: string; countertype?: string; for?: string; why?: string; confidence?: string }[]; questions?: string[]; value_angle?: string; not_found?: string };
 export type ScanResult = { data: ScanData; at: string; pages: number; urls: string[]; sector: string };
@@ -7,7 +7,7 @@ export function scanOf(l: Lead): ScanResult | null { try { const s = l.intake?.s
 /** saves the scan + fills the industry when the customer is still "לסיווג" (only a name from the CRM list) and the sub-industry when empty */
 export const withScan = (l: Lead, r: ScanResult): Lead => {
   const it: Record<string, unknown> = { ...(l.intake || {}), scan_json: JSON.stringify(r), scan_at: r.at }; delete it.scan_err;
-  const ind = INDUSTRY_LIST.find((x) => x.toLowerCase() === String(r.data.industry || "").trim().toLowerCase());
+  const ind = allIndustries().find((x) => x.toLowerCase() === String(r.data.industry || "").trim().toLowerCase());
   const sub = String(r.data.sub_industry || "").trim().slice(0, 80);
   return { ...l, ...(ind && isUnclassified(l.industry) ? { industry: ind } : {}), ...(sub && !(l.sub_industry || "").trim() ? { sub_industry: sub } : {}), intake: it as Lead["intake"] };
 };

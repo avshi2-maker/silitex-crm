@@ -1,5 +1,5 @@
 // lead-repair.ts (src/lib/lead-repair.ts) · updated 23.10.2026 05:20 (Asia/Jerusalem) — handles NotebookLM's "[suspicious link removed]" (its link filter swallowed the website, the comma and the next word): no fake website, city rebuilt from the Address · created 22.10.2026 18:45 — repairs SHIFTED columns from AI search answers (NotebookLM 22/10: "url city industry" glued into Website, phone in Role, e-mail in Phone, notes in E-mail). Every value is put back by what it IS: URL / CRM industry / phone / e-mail / "Main products…" notes / job title / person name; the remaining descriptions keep their order → city, sub-industry, application. Used on import rows AND once on the damaged customers.
-import { INDUSTRY_LIST } from "@/config/industry-list";
+import { allIndustries } from "@/config/industry-list";
 
 export type Rec = { website: string; city: string; industry: string; sub_industry: string; use_case: string; competitor: string; contact_name: string; contact_role: string; contact_phone: string; contact_email: string; notes: string };
 export const REC_KEYS: (keyof Rec)[] = ["website", "city", "industry", "sub_industry", "use_case", "competitor", "contact_name", "contact_role", "contact_phone", "contact_email", "notes"];
@@ -11,8 +11,8 @@ const MAIL_RE = /^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/;
 const NOTES_RE = /^(main products|employees|address|why relevant|confidence|source)\s*:/i;
 const ROLE_RE = /^(president|ceo|cto|coo|cfo|owner|founder|co-founder|chairman|vp\b.*|.*\b(manager|director|engineer|chemist|buyer|head of .*|purchasing|procurement)\b.*)$/i;
 const NAME_RE = /^[A-Z][a-zA-Z.'-]*(\s+[A-Z][a-zA-Z.'-]*){0,3}$|^[֐-׿"'\s]{3,30}$/;
-const indOf = (v: string) => INDUSTRY_LIST.find((x) => x.toLowerCase() === v.trim().toLowerCase());
-const indSuffix = (v: string) => { const t = v.trim().toLowerCase(); return INDUSTRY_LIST.find((x) => t.endsWith(" " + x.toLowerCase()) || t === x.toLowerCase()) || (t.length >= 6 ? INDUSTRY_LIST.find((x) => x.toLowerCase().endsWith(t)) : undefined); }; // also the tail the link filter left ("& Plastics Processing")
+const indOf = (v: string) => allIndustries().find((x) => x.toLowerCase() === v.trim().toLowerCase());
+const indSuffix = (v: string) => { const t = v.trim().toLowerCase(); return allIndustries().find((x) => t.endsWith(" " + x.toLowerCase()) || t === x.toLowerCase()) || (t.length >= 6 ? allIndustries().find((x) => x.toLowerCase().endsWith(t)) : undefined); }; // also the tail the link filter left ("& Plastics Processing")
 
 /** does this record look column-shifted? */
 export function looksShifted(r: Rec): boolean {

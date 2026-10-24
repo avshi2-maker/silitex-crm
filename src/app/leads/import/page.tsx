@@ -10,12 +10,12 @@ import { todayIso, fmtDate } from "@/lib/format";
 import { useLang } from "@/i18n";
 import { PASTE_KEY, extractCsv, huntLogText, cleanLink, type PastePayload } from "@/lib/hunt-prompt";
 import { useScanJobs } from "@/lib/use-scan-jobs";
-import { INDUSTRY_LIST } from "@/config/industry-list";
+import { allIndustries } from "@/config/industry-list";
 import { scanOf } from "@/lib/scan";
 type Sheet = { name: string; headers: string[]; data: unknown[][] };
 async function xlsx() { return await import("xlsx"); }
 /** search round without an industry picked → the CRM industry most rows carry */
-const topIndustry = (ls: { industry: string }[]) => { const c: Record<string, number> = {}; ls.forEach((l) => { if (INDUSTRY_LIST.includes(l.industry)) c[l.industry] = (c[l.industry] || 0) + 1; }); return Object.entries(c).sort((a, b) => b[1] - a[1])[0]?.[0] || ""; };
+const topIndustry = (ls: { industry: string }[]) => { const c: Record<string, number> = {}; ls.forEach((l) => { if (allIndustries().includes(l.industry)) c[l.industry] = (c[l.industry] || 0) + 1; }); return Object.entries(c).sort((a, b) => b[1] - a[1])[0]?.[0] || ""; };
 async function download(rows: (string | number)[][], file: string) {
   const X = await xlsx(); const ws = X.utils.aoa_to_sheet(rows); ws["!cols"] = rows[0].map(() => ({ wch: 22 }));
   const wb = X.utils.book_new(); X.utils.book_append_sheet(wb, ws, "Leads"); X.writeFile(wb, file);

@@ -1,7 +1,7 @@
 // scan.ts (src/prompts/scan.ts) · updated 22.10.2026 16:55 (Asia/Jerusalem) — scan also classifies the company: industry (from the CRM list) + Hebrew sub-industry · 20.10.2026 08:55 (Asia/Jerusalem) — + Car care · 08:40 — + Rubber molding (release agents / PDMS fluids) · 08:20 — + Oil & gas / power (process + cooling-water antifoams, PDMS fluids) · 08:05 — + Irrigation & water equipment (PDMS fluids / water-treatment antifoams / coatings) · 06:10 — + multi-sector industries (hygiene / tissue / nonwovens / paper) · 06:00 — CUSTOMER WEBSITE SCAN prompt: what the company makes + where silicones are used + match ONLY to the Silitex grades given (cosmetics = official cosmetic range + countertypes). Hebrew output, strict JSON. Honest: no invented products, no "identical / drop-in", confidence per match.
 import { CAT26 } from "@/lib/catalog";
 import { COSMETIC_COUNTERTYPES } from "@/config/cosmetic-range";
-import { INDUSTRY_LIST } from "@/config/industry-list";
+import { allIndustries } from "@/config/industry-list";
 /** multi-sector industries: which Silitex catalogues are relevant (hygiene / tissue / paper = softeners + process antifoams + wipe-lotion silicones) */
 export const SECTOR_MIX: Record<string, string[]> = {
   "Hygiene": ["Detergency", "Food & Agri", "Cosmetics", "Water Treatment"],
@@ -41,7 +41,7 @@ TASK
 2. For each product type, say where silicones are typically used (function: feel, spreading, shine, water resistance, emulsifier, antifoam in process, etc.).
 3. Match to Silitex grades from THIS LIST ONLY (${o.sector || "all sectors"}). ${o.sector === "Hygiene" || o.sector === "Paper" ? "For tissue / nonwovens / paper think: silicone softeners for tissue and nonwoven softness, process antifoams for pulp, binder and wet-end, wipe-lotion silicones (cosmetic grades only for skin-contact lotions), release agents. " : ""}${o.sector === "Cosmetics" ? "For cosmetics, prefer the ★ official Silitex cosmetic range with its countertype; use other listed cosmetic grades only if clearly better, and never propose non-cosmetic grades." : "This sector's product map is still under Silitex review — mark matches as draft."}
    Never write "identical", "drop-in" or "full replacement" — write "equivalent to check in the lab".
-4. Classify the company: "industry" = EXACTLY one name from this list (copy it as written): ${INDUSTRY_LIST.join(" | ")}. "sub_industry" = 3–8 Hebrew words on what they make (e.g. "מאסטרבאץ' ותוספים לפלסטיק").
+4. Classify the company: "industry" = EXACTLY one name from this list (copy it as written): ${allIndustries().join(" | ")}. "sub_industry" = 3–8 Hebrew words on what they make (e.g. "מאסטרבאץ' ותוספים לפלסטיק").
 5. Give 3–5 sharp R&D questions for the first meeting, and one sentence of value angle for the sales approach.
 
 SILITEX LIST

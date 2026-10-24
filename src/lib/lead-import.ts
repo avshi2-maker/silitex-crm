@@ -2,7 +2,7 @@
 import type { Lead } from "./types";
 import { uid } from "./format";
 import { looksShifted, repairRec, REC_KEYS, type Rec } from "./lead-repair";
-import { isUnclassified, INDUSTRY_LIST } from "@/config/industry-list";
+import { isUnclassified, allIndustries } from "@/config/industry-list";
 
 export type FieldKey = "name" | "contact_name" | "contact_role" | "contact_phone" | "contact_email" | "industry" | "sub_industry" | "product_match" | "competitor" | "use_case" | "volume_tons" | "value_usd" | "city" | "sap_no" | "last_purchase" | "website" | "notes" | "source";
 /** column order = the template / export format */
@@ -71,7 +71,7 @@ export function toLead(r: ImportRow, existing: Lead[], defaultSource: string, ne
   const x = r.row; const prev = r.existingId ? existing.find((l) => l.id === r.existingId) : undefined;
   const extra = [x.competitor && "ספק נוכחי: " + x.competitor, x.sap_no && "SAP #" + x.sap_no, x.last_purchase && "רכישה אחרונה: " + x.last_purchase, x.notes].filter(Boolean).join(" · ");
   // AI answers: an industry outside the CRM list → the search's industry (or "לסיווג" for the scan to classify), its text kept as sub-industry; a "source" that is a URL / removed link is not a source label (it is the website)
-  const badInd = !!x.industry && !INDUSTRY_LIST.includes(x.industry) && !isUnclassified(x.industry) && !existing.some((l) => l.industry === x.industry);
+  const badInd = !!x.industry && !allIndustries().includes(x.industry) && !isUnclassified(x.industry) && !existing.some((l) => l.industry === x.industry);
   const rowInd = badInd ? searchIndustry || "לסיווג" : x.industry;
   const srcIsLink = /^(https?:\/\/|www\.)|\[suspicious link removed\]/i.test(x.source || ""); const srcOk = !!x.source && !srcIsLink;
   if (srcIsLink && !x.website && /^(https?:\/\/|www\.)/i.test(x.source)) x.website = x.source;

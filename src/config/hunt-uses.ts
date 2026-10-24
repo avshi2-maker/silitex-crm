@@ -1,4 +1,5 @@
-// hunt-uses.ts (src/config/hunt-uses.ts) · updated 23.10.2026 16:25 (Asia/Jerusalem) — + Sealants & Construction Chemicals, Metal Surface Treatment, Mining & Minerals; Food widened to food processing (frying oil, potato, juice) · 06:10 — + Flame Retardants & Fire Safety (DC 1107-type methylhydrogen siloxane) · created 22.10.2026 17:40 (Asia/Jerusalem) — per CRM industry: who to look for + the typical silicone FUNCTIONS (no product / grade names) — feeds the 🧲 search-prompt builder (/leads/prompt) so Comet / NotebookLM know what "relevant" means.
+// hunt-uses.ts (src/config/hunt-uses.ts) · updated 24.10.2026 06:00 (Asia/Jerusalem) — hintFor() also reads radar-added industries · 23.10.2026 16:25 — + Sealants & Construction Chemicals, Metal Surface Treatment, Mining & Minerals; Food widened to food processing (frying oil, potato, juice) · 06:10 — + Flame Retardants & Fire Safety (DC 1107-type methylhydrogen siloxane) · created 22.10.2026 17:40 (Asia/Jerusalem) — per CRM industry: who to look for + the typical silicone FUNCTIONS (no product / grade names) — feeds the 🧲 search-prompt builder (/leads/prompt) so Comet / NotebookLM know what "relevant" means.
+import { extraIndustries } from "@/lib/industries-extra";
 export type HuntHint = { who: string; uses: string };
 export const HUNT_HINTS: Record<string, HuntHint> = {
   "Personal Care & Cosmetics": { who: "cosmetics & toiletries manufacturers, private-label / contract fillers, hair-care, skin-care, sun-care and deodorant producers", uses: "emollient silicone fluids, cyclomethicone alternatives (D4/D5/D6-free), silicone elastomer gels, amino-silicone hair conditioning, silicone emulsifiers, film formers" },
@@ -27,4 +28,4 @@ export const HUNT_HINTS: Record<string, HuntHint> = {
   "Electronics & Electrical": { who: "electronics assemblers, PCB, cable, transformer and electrical-equipment manufacturers", uses: "dielectric gels and fluids, thermal compounds, conformal coatings, potting compounds" },
 };
 export const DEFAULT_HINT: HuntHint = { who: "manufacturers, formulators and processing plants", uses: "any silicone function (antifoams, release agents, lubricants, softeners, water repellents, additives)" };
-export const hintFor = (industry: string) => HUNT_HINTS[industry] || DEFAULT_HINT;
+export const hintFor = (industry: string): HuntHint => { const x = extraIndustries().find((e) => e.name === industry); return HUNT_HINTS[industry] || (x && (x.who || x.uses) ? { who: x.who || DEFAULT_HINT.who, uses: x.uses || DEFAULT_HINT.uses } : DEFAULT_HINT); }; // + radar-added industries (DB)

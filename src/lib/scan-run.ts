@@ -1,7 +1,8 @@
-// scan-run.ts (src/lib/scan-run.ts) · created 22.10.2026 08:30 (Asia/Jerusalem) — server only. ONE website-scan run (crawl max 40 s → AI inside the 112 s budget) shared by the browser route /api/scan and the server queue worker /api/scan/worker.
+// scan-run.ts (src/lib/scan-run.ts) · updated 24.10.2026 06:00 (Asia/Jerusalem) — classification list includes radar-added industries · created 22.10.2026 08:30 (Asia/Jerusalem) — server only. ONE website-scan run (crawl max 40 s → AI inside the 112 s budget) shared by the browser route /api/scan and the server queue worker /api/scan/worker.
 import { scanSite, bundle } from "@/lib/sitescan";
 import { scanPrompt, sectorOf, silitexList } from "@/prompts/scan";
 import { ask } from "@/lib/ai";
+import { loadExtraServer } from "@/lib/industries-extra-server";
 import { parseLoose } from "@/lib/studio/json";
 import type { Usage } from "@/lib/types";
 import type { ScanData } from "@/lib/scan";
@@ -10,7 +11,7 @@ export async function runScan(name: string, website: string, industry: string, b
   if (!website) return { ok: false, error: "no website", pages: 0 };
   const t0 = Date.now(); const { pages, error } = await scanSite(website, 8, 40000);
   if (!pages.length) return { ok: false, error: error || "nothing read", pages: 0 };
-  const sector = sectorOf(industry);
+  const sector = sectorOf(industry); await loadExtraServer(); // radar-added industries join the classification list
   try {
     const left = budget - (Date.now() - t0);
     const { text, usage } = await ask(scanPrompt({ name, industry, sector, site: bundle(pages, left < 60000 ? 16000 : 24000), list: silitexList(sector) }), undefined, left < 60000 ? 2200 : 3000, "any", Math.max(20000, left));

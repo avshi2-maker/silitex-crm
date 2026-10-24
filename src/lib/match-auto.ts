@@ -1,7 +1,8 @@
-// match-auto.ts (src/lib/match-auto.ts) · created 20.10.2026 18:40 (Asia/Jerusalem) — server only · AUTOMATIC RUN after a FREE MATCH REPORT request: (1) WhatsApp ping to Avshi, (2) website scan, (3) report draft in the visitor's language → saved on the request row (fields.auto). Nothing is sent to the customer — Avshi reviews on /scan.
+// match-auto.ts (src/lib/match-auto.ts) · updated 24.10.2026 06:00 (Asia/Jerusalem) — + radar-added industries in the classification · created 20.10.2026 18:40 (Asia/Jerusalem) — server only · AUTOMATIC RUN after a FREE MATCH REPORT request: (1) WhatsApp ping to Avshi, (2) website scan, (3) report draft in the visitor's language → saved on the request row (fields.auto). Nothing is sent to the customer — Avshi reviews on /scan.
 import { scanSite, bundle } from "./sitescan";
 import { scanPrompt, sectorOf, silitexList } from "@/prompts/scan";
 import { ask } from "./ai";
+import { loadExtraServer } from "./industries-extra-server";
 import { parseLoose } from "./studio/json";
 import { sendWhatsApp } from "./whatsapp";
 import { reportPrompt, REPORT_LANG } from "./match-report";
@@ -17,7 +18,7 @@ export async function runAuto(id: number | null, s: Submission): Promise<AutoRun
     if (!f.website) throw new Error("no website");
     const { pages, error } = await scanSite(f.website);
     if (!pages.length) throw new Error(error || "nothing read");
-    const sector = sectorOf(f.industry || "");
+    const sector = sectorOf(f.industry || ""); await loadExtraServer();
     const a = await ask(scanPrompt({ name: s.company, industry: f.industry || "", sector, site: bundle(pages), list: silitexList(sector) }), undefined, 3500, "any");
     run.tokens += a.usage.input_tokens + a.usage.output_tokens; run.cost += a.usage.cost_usd;
     const data = parseLoose(a.text); if (!data) throw new Error("scan: no JSON");

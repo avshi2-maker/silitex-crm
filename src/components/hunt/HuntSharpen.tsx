@@ -4,12 +4,12 @@ import { useState } from "react";
 import AiPanel from "@/components/AiPanel";
 import { useLang } from "@/i18n";
 import { btnGhost } from "@/components/ui";
-import { INDUSTRY_LIST } from "@/config/industry-list";
+import { allIndustries } from "@/config/industry-list";
 
 export type HuntFields = { industry: string; sub: string; similar: string; notes: string };
 export function parseSharpen(text: string): Partial<HuntFields> {
   const get = (k: string) => (text.match(new RegExp("^\\s*\\**" + k + "\\**\\s*:\\s*(.+)$", "im"))?.[1] || "").replace(/\*+/g, "").trim();
-  const ind = get("INDUSTRY"); const hit = INDUSTRY_LIST.find((x) => x.toLowerCase() === ind.toLowerCase());
+  const ind = get("INDUSTRY"); const hit = allIndustries().find((x) => x.toLowerCase() === ind.toLowerCase());
   const out: Partial<HuntFields> = {}; if (hit) out.industry = hit;
   const sub = get("SUB"), sim = get("SIMILAR"), focus = get("FOCUS");
   if (sub) out.sub = sub; if (sim && !/^(none|-|n\/a)$/i.test(sim)) out.similar = sim; if (focus) out.notes = focus;
@@ -24,7 +24,7 @@ export default function HuntSharpen({ f, onApply, spend, addSpend }: { f: HuntFi
     prompt: [
       "I distribute Silitex (Italy) silicone chemicals in Israel: antifoams, release agents, silicone fluids and emulsions, softeners, water repellents, additives. I am hunting NEW industrial customers.",
       "Turn my rough input into a precise search brief. Answer in ENGLISH, exactly these 4 lines and nothing else:",
-      "INDUSTRY: <exactly one of: " + INDUSTRY_LIST.join(" | ") + ">",
+      "INDUSTRY: <exactly one of: " + allIndustries().join(" | ") + ">",
       "SUB: <the sub-industry, max 8 words>",
       "SIMILAR: <2-5 example companies in Israel of this type that you are confident exist, comma-separated — or none>",
       "FOCUS: <2-4 sentences: which kinds of plants to target, which processes they run, where silicone is used — functions only, no product or brand names>",
