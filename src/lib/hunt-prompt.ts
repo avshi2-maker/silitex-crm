@@ -1,8 +1,9 @@
-// hunt-prompt.ts (src/lib/hunt-prompt.ts) · updated 23.10.2026 16:15 (Asia/Jerusalem) — search round keeps its NotebookLM notebook / chat link (📓) · earlier: 23.10.2026 06:10 (Asia/Jerusalem) — NotebookLM: website + source as bare domains (its link filter erased every URL 22/10) · every row exactly 12 cells (Comet's notes slid into E-mail) · 22.10.2026 18:10 (Asia/Jerusalem) — search-round log goes on a REAL customer (FK fix: lead_id "hunt:…" was rejected by the cloud); industry parsed from the log text · 18:00 — payload carries industry / sub / tool + search-round log helpers · created 17:40 — builds the "find companies we miss" research prompt for Comet / NotebookLM / Perplexity / Deep Research. The CSV header = the CRM import column names, so the answer pastes straight into /leads/import (auto-mapped, de-duplicated).
+// hunt-prompt.ts (src/lib/hunt-prompt.ts) · updated 24.10.2026 05:40 (Asia/Jerusalem) — 🤖 "Claude (web search)" tool: the search runs inside the CRM (no Comet / copy-paste) · 23.10.2026 16:15 — search round keeps its NotebookLM notebook / chat link (📓) · earlier: 23.10.2026 06:10 (Asia/Jerusalem) — NotebookLM: website + source as bare domains (its link filter erased every URL 22/10) · every row exactly 12 cells (Comet's notes slid into E-mail) · 22.10.2026 18:10 (Asia/Jerusalem) — search-round log goes on a REAL customer (FK fix: lead_id "hunt:…" was rejected by the cloud); industry parsed from the log text · 18:00 — payload carries industry / sub / tool + search-round log helpers · created 17:40 — builds the "find companies we miss" research prompt for Comet / NotebookLM / Perplexity / Deep Research. The CSV header = the CRM import column names, so the answer pastes straight into /leads/import (auto-mapped, de-duplicated).
 import { hintFor } from "@/config/hunt-uses";
 
-export type HuntTool = "comet" | "notebooklm" | "perplexity" | "deep";
+export type HuntTool = "claude" | "comet" | "notebooklm" | "perplexity" | "deep";
 export const HUNT_TOOLS: { id: HuntTool; label: string; url: string }[] = [
+  { id: "claude", label: "Claude (web search)", url: "" }, // runs INSIDE the CRM — /api/hunt/search, no copy-paste
   { id: "comet", label: "Comet", url: "https://www.perplexity.ai/" },
   { id: "notebooklm", label: "NotebookLM", url: "https://notebooklm.google.com/" },
   { id: "perplexity", label: "Perplexity (Research)", url: "https://www.perplexity.ai/" },
@@ -18,6 +19,7 @@ export function discoverQuery(i: HuntInput): string {
 }
 
 const HOW: Record<HuntTool, string> = {
+  claude: "Use the web_search tool thoroughly BEFORE answering: run many searches (company websites, Israeli industry directories, Dun's 100 / BDI, Manufacturers Association of Israel, trade-show exhibitor lists, LinkedIn company pages, Hebrew-language queries too) and confirm each company's own website exists before including it.",
   comet: "Work as a web-research task: open several sources (company websites, Israeli industry directories, Dun's 100 / BDI, Manufacturers Association of Israel, trade-show exhibitor lists, LinkedIn company pages) before answering.",
   notebooklm: "Use ONLY the sources in this notebook plus what they cite. If a fact is not in the sources, leave the cell empty.",
   perplexity: "Use Research / Pro mode: search widely (company websites, Israeli directories, Dun's 100 / BDI, Manufacturers Association of Israel, exhibitor lists, LinkedIn) before answering.",

@@ -9,7 +9,7 @@ import type { Lead } from "@/lib/types";
 import { scanOf, scanErr } from "@/lib/scan";
 
 export type Trust = "high" | "medium" | "low" | "manual";
-const TOOLS: [string, RegExp][] = [["Deep Research", /deep research/i], ["NotebookLM", /notebook\s*lm/i], ["Comet", /comet/i], ["Gemini", /gemini/i], ["Perplexity", /perplexity/i], ["ChatGPT", /chatgpt|gpt/i]];
+const TOOLS: [string, RegExp][] = [["Claude", /claude/i], ["Deep Research", /deep research/i], ["NotebookLM", /notebook\s*lm/i], ["Comet", /comet/i], ["Gemini", /gemini/i], ["Perplexity", /perplexity/i], ["ChatGPT", /chatgpt|gpt/i]];
 
 /** distinct AI tools that found this customer, in the order they found it */
 export function toolsOf(source?: string): string[] {

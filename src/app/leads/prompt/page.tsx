@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/prompt/page.tsx) · updated 23.10.2026 06:10 (Asia/Jerusalem) — pre-fill from the link (?industry=&sub=&similar=&notes=) · 22.10.2026 18:00 (Asia/Jerusalem) — + 📚 search history per industry (gaps in amber) + ✨ AI sharpen (meter + export bar) + hand-off carries industry / sub / tool for the log · created 17:40 — 🧲 search-prompt builder: industry / sub-industry / "similar to" / free notes → ready prompt for Comet / NotebookLM / Perplexity / Deep Research (excludes companies already in the CRM) → paste the CSV answer back → /leads/import preview (new vs update, Tier 3, source stamped). ?lead=ID pre-fills from a customer card.
+// page.tsx (src/app/leads/prompt/page.tsx) · updated 24.10.2026 05:40 (Asia/Jerusalem) — 🤖 default tool = Claude (web search) inside the CRM: one click → answer in box 3 → import (Comet / NotebookLM stay as options) · 23.10.2026 06:10 — pre-fill from the link (?industry=&sub=&similar=&notes=) · 22.10.2026 18:00 (Asia/Jerusalem) — + 📚 search history per industry (gaps in amber) + ✨ AI sharpen (meter + export bar) + hand-off carries industry / sub / tool for the log · created 17:40 — 🧲 search-prompt builder: industry / sub-industry / "similar to" / free notes → ready prompt for Comet / NotebookLM / Perplexity / Deep Research (excludes companies already in the CRM) → paste the CSV answer back → /leads/import preview (new vs update, Tier 3, source stamped). ?lead=ID pre-fills from a customer card.
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,13 +12,14 @@ import { normName } from "@/lib/lead-import";
 import { fmtDate } from "@/lib/format";
 import HuntHistory from "@/components/hunt/HuntHistory";
 import HuntSharpen, { type HuntFields } from "@/components/hunt/HuntSharpen";
+import HuntClaude from "@/components/hunt/HuntClaude";
 
 export default function HuntPromptPage() {
   const { t: tr } = useLang(); const router = useRouter();
   const { state, ready, addSpend } = useStore();
   const [industry, setIndustry] = useState(""); const [sub, setSub] = useState(""); const [similar, setSimilar] = useState("");
   const [notes, setNotes] = useState(""); const [region, setRegion] = useState("Israel"); const [rows, setRows] = useState(30);
-  const [tool, setTool] = useState<HuntTool>("comet"); const [useEx, setUseEx] = useState(true);
+  const [tool, setTool] = useState<HuntTool>("claude"); const [useEx, setUseEx] = useState(true);
   const [copied, setCopied] = useState(""); const [answer, setAnswer] = useState(""); const [err, setErr] = useState("");
   useEffect(() => {
     if (!ready) return; const q = new URLSearchParams(window.location.search);
@@ -66,13 +67,14 @@ export default function HuntPromptPage() {
         <div className="border-t pt-2"><HuntSharpen f={{ industry, sub, similar, notes }} onApply={applyAi} spend={state.spend} addSpend={addSpend} /></div>
       </Card>
       <Card className="space-y-2">
-        <div className="flex flex-wrap items-center gap-2 font-bold"><span className={step}>2</span>{tr("הפרומפט — העתק והדבק ב-")}{t0.label}
+        <div className="flex flex-wrap items-center gap-2 font-bold"><span className={step}>2</span>{tool === "claude" ? tr("החיפוש — Claude מחפש ברשת בתוך ה-CRM") : <>{tr("הפרומפט — העתק והדבק ב-")}{t0.label}</>}
           <span className="ms-auto flex flex-wrap gap-1 font-normal">
             {tool === "notebooklm" && prompt && <button className={btnGhost} onClick={() => copy(discoverQuery(input), "q")}>{copied === "q" ? "✓ " : "🔎 "}{tr("העתק חיפוש מקורות")}</button>}
-            <button className={btnPrimary} disabled={!prompt} onClick={() => copy(prompt, "p")}>{copied === "p" ? "✓ " + tr("הועתק") : "📋 " + tr("העתק פרומפט")}</button>
-            <a className={btnGhost} href={t0.url} target="_blank" rel="noreferrer">↗ {tr("פתח")} {t0.label}</a>
+            <button className={tool === "claude" ? btnGhost : btnPrimary} disabled={!prompt} onClick={() => copy(prompt, "p")}>{copied === "p" ? "✓ " + tr("הועתק") : "📋 " + tr("העתק פרומפט")}</button>
+            {t0.url && <a className={btnGhost} href={t0.url} target="_blank" rel="noreferrer">↗ {tr("פתח")} {t0.label}</a>}
           </span></div>
-        {prompt ? <textarea readOnly rows={14} dir="ltr" className={inputCls + " font-mono text-[12px]"} value={prompt} /> : <div className="text-sm text-slate-500">{tr("בחר תעשייה או כתוב תת-ענף — הפרומפט ייבנה כאן")}</div>}
+        {tool === "claude" && <HuntClaude prompt={prompt} title={"Claude search — " + (sub || industry)} onAnswer={(t) => { setAnswer(t); setErr(""); }} spend={state.spend} addSpend={addSpend} />}
+        {prompt ? <textarea readOnly rows={tool === "claude" ? 6 : 14} dir="ltr" className={inputCls + " font-mono text-[12px]"} value={prompt} /> : <div className="text-sm text-slate-500">{tr("בחר תעשייה או כתוב תת-ענף — הפרומפט ייבנה כאן")}</div>}
       </Card>
       <Card className="space-y-2">
         <div className="flex items-center gap-2 font-bold"><span className={step}>3</span>{tr("הדבק כאן את התשובה (כל הטקסט — ה-CSV יזוהה לבד)")}</div>
