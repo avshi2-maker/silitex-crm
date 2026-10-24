@@ -1,4 +1,4 @@
-// route.ts (src/app/api/hunt/search/route.ts) · created 24.10.2026 05:40 (Asia/Jerusalem)
+// route.ts (src/app/api/hunt/search/route.ts) · updated 24.10.2026 05:30 (Asia/Jerusalem) — removed user_location (IL not supported) · created 24.10.2026 05:40
 // 🤖 CUSTOMER SEARCH INSIDE THE CRM: the builder's prompt → Claude + the web_search server tool (Israel-localised, up to 20 searches)
 // → answer with the CSV → back to the builder (box 3) → import. Replaces the Comet / NotebookLM copy-paste round.
 // Owner only (middleware: partners get 403 on /api/*). Handles pause_turn (long searches). Cost = tokens + $0.01 per search.
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   let prompt = ""; try { prompt = String((await req.json()).prompt || "").slice(0, 20000); } catch {}
   if (!prompt) return NextResponse.json({ error: "prompt required" }, { status: 400 });
   const messages: { role: "user" | "assistant"; content: unknown }[] = [{ role: "user", content: prompt }];
-  const tools = [{ type: "web_search_20250305", name: "web_search", max_uses: 20, user_location: { type: "approximate", country: "IL", timezone: "Asia/Jerusalem" } }];
+  const tools = [{ type: "web_search_20250305", name: "web_search", max_uses: 20 }]; // no user_location: the search API rejects country "IL" — the prompt itself says Israel (+ Hebrew queries)
   let inTok = 0, outTok = 0, searches = 0; const texts: string[] = []; const t0 = Date.now();
   try {
     for (let turn = 0; turn < 5; turn++) {
