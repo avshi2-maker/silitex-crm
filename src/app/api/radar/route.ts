@@ -1,4 +1,4 @@
-// route.ts (src/app/api/radar/route.ts) · created 24.10.2026 06:00 (Asia/Jerusalem)
+// route.ts (src/app/api/radar/route.ts) · updated 24.10.2026 06:10 (Asia/Jerusalem) — fix "no table": text blocks joined without separators (citations split the JSON) + repair pass without search · created 24.10.2026 06:00
 // 🛰️ GAP RADAR — owner only. GET → saved runs (newest first, 12). POST {ours: string[]} → Claude + web search over the 5 producers' industry pages
 // → rows (fit + match to our list) → saved in radar_runs. Cost = tokens + $0.01 per search (meter in the UI).
 import { NextResponse } from "next/server";
@@ -34,8 +34,15 @@ export async function POST(req: Request) {
       messages.push({ role: "assistant", content: j.content });
     }
   } catch (e) { if (!texts.length) return NextResponse.json({ error: e instanceof Error && e.name === "AbortError" ? "timeout" : "network error" }, { status: 504 }); }
-  const raw = texts.join("\n"); const rows = parseRows(raw);
-  if (!rows.length) return NextResponse.json({ error: "no table in the answer — run again", raw: raw.slice(0, 1500) }, { status: 502 });
+  const raw = texts.join(""); // web-search answers come as many text blocks split at citations — join WITHOUT separators or JSON strings break
+  let rows = parseRows(raw);
+  if (!rows.length && raw.trim()) { // repair pass: same model, no tools — turn the research text into the JSON table
+    try {
+      const r2 = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "content-type": "application/json", "x-api-key": key, "anthropic-version": "2023-06-01" }, body: JSON.stringify({ model: MODEL, max_tokens: 12000, messages: [{ role: "user", content: radarPrompt(ours).split("Output ONLY")[0] + "\nBelow is research text already collected. Do NOT search again. Convert it into the JSON array exactly as specified (fields: industry, producers, functions, silitex_fit, our_match, israel, who, uses, sources). Output ONLY one ```json block.\n\nRESEARCH TEXT:\n" + raw.slice(-60000) }] }) });
+      const j2 = await r2.json(); if (r2.ok) { const u = j2.usage || {}; inTok += u.input_tokens || 0; outTok += u.output_tokens || 0; rows = parseRows(((j2.content || []) as { type: string; text?: string }[]).filter((b) => b.type === "text").map((b) => b.text).join("")); }
+    } catch {}
+  }
+  if (!rows.length) { console.log(JSON.stringify({ radar: "no-table", searches, inTok, outTok, tail: raw.slice(-400) })); return NextResponse.json({ error: "no table in the answer — run again (" + searches + " searches, $" + (costUsd(MODEL, inTok, outTok) + searches * WEB_SEARCH_USD).toFixed(2) + ")" }, { status: 502 }); }
   const cost = costUsd(MODEL, inTok, outTok) + searches * WEB_SEARCH_USD;
   const run = { model: MODEL, searches, input_tokens: inTok, output_tokens: outTok, cost_usd: +cost.toFixed(4), rows, raw };
   const sb = serviceClient(); let saved: Record<string, unknown> = { ...run, id: "local-" + Date.now(), created_at: new Date().toISOString() };

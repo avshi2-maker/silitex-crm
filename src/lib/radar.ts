@@ -1,4 +1,4 @@
-// radar.ts (src/lib/radar.ts) · created 24.10.2026 06:00 (Asia/Jerusalem)
+// radar.ts (src/lib/radar.ts) · updated 24.10.2026 06:10 (Asia/Jerusalem) — tolerant JSON parse · created 24.10.2026 06:00
 // 🛰️ INDUSTRY GAP RADAR — prompt + row type. Claude (web search) reads the industry / market pages of the 5 global silicone producers,
 // keeps only industries where Silitex-type products (fluids, emulsions, antifoams, softeners, waxes, release agents, water repellents) sell,
 // and maps each to our CRM industry list → the rows with no match are the GAPS.
@@ -27,7 +27,7 @@ export function radarPrompt(ours: string[]): string {
 }
 
 export function parseRows(text: string): RadarRow[] {
-  const m = text.match(/```(?:json)?\s*([\s\S]*?)```/); const body = (m ? m[1] : text).trim();
+  const m = text.match(/```(?:json)?\s*([\s\S]*?)```/); const body = (m ? m[1] : text).trim().replace(/[\u0000-\u001f]+/g, " "); // stray newlines inside strings → spaces
   const s = body.indexOf("["), e = body.lastIndexOf("]"); if (s < 0 || e <= s) return [];
   try {
     const arr = JSON.parse(body.slice(s, e + 1)) as Partial<RadarRow>[];

@@ -36,5 +36,5 @@ export async function POST(req: Request) {
   }
   const cost = costUsd(MODEL, inTok, outTok) + searches * WEB_SEARCH_USD;
   console.log(JSON.stringify({ hunt: "claude-search", model: MODEL, searches, inTok, outTok, cost: +cost.toFixed(3), sec: Math.round((Date.now() - t0) / 1000) }));
-  return NextResponse.json({ text: texts.join("\n"), usage: { input_tokens: inTok, output_tokens: outTok, searches, cost_usd: cost, model: MODEL, seconds: Math.round((Date.now() - t0) / 1000) } });
+  return NextResponse.json({ text: texts.join(""), /* text blocks are split at citations — no separator, or CSV rows break */ usage: { input_tokens: inTok, output_tokens: outTok, searches, cost_usd: cost, model: MODEL, seconds: Math.round((Date.now() - t0) / 1000) } });
 }
