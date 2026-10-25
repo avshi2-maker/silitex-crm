@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/sheet/page.tsx) · updated 25.10.2026 10:00 (Asia/Jerusalem) — v0.92.2 e-mail "To" filled from the saved contact (פיני → his e-mail) · 25.10.2026 08:25 (Asia/Jerusalem) — 📤 WhatsApp / share with PDF + Excel files · ✉ e-mail with PDF + Excel · 📋 ticks → tasks (TDS to send / sample to request) · 08:10 — #1 meeting tool: 🔎 zoom on ONE company (on-site visit) · "מקבילה מתחרה (הערכה)" (✓ when confirmed in the intake form) · Silitex matches ONE PER LINE in a second full-width row, each with the other producers' equivalents · tick boxes saved on the customer: לקוח של פיני / TDS נדרש / דוגמה נדרשת · landscape note · 06:45 — ✉ e-mail · created 06:30 — printable meeting sheet per industry
+// page.tsx (src/app/sheet/page.tsx) · updated 25.10.2026 10:50 (Asia/Jerusalem) — v0.92.4 print + PDF: one customer per page · 10:00 v0.92.2 e-mail "To" filled from the saved contact (פיני → his e-mail) · 25.10.2026 08:25 (Asia/Jerusalem) — 📤 WhatsApp / share with PDF + Excel files · ✉ e-mail with PDF + Excel · 📋 ticks → tasks (TDS to send / sample to request) · 08:10 — #1 meeting tool: 🔎 zoom on ONE company (on-site visit) · "מקבילה מתחרה (הערכה)" (✓ when confirmed in the intake form) · Silitex matches ONE PER LINE in a second full-width row, each with the other producers' equivalents · tick boxes saved on the customer: לקוח של פיני / TDS נדרש / דוגמה נדרשת · landscape note · 06:45 — ✉ e-mail · created 06:30 — printable meeting sheet per industry
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "@/lib/store";
 import { useLang } from "@/i18n";
@@ -14,7 +14,7 @@ import type { Lead } from "@/lib/types";
 import { sheetXlsx, sheetPdf, shareFiles, download } from "@/lib/sheet-files";
 
 const RANK: Record<Grade, number> = { A: 0, B: 1, C: 2, D: 3 };
-const PRINT_CSS = "@media print { @page { size: A4 landscape; margin: 9mm; } body { background: #fff !important; } .sheet-table { font-size: 9pt; } .sheet-table thead { display: table-header-group; } .sheet-table tbody { break-inside: avoid; } }";
+const PRINT_CSS = "@media print { @page { size: A4 landscape; margin: 9mm; } body { background: #fff !important; } .sheet-table thead { display: table-header-group; } .sheet-table { font-size: 11pt; } .sheet-table tbody { break-inside: avoid; break-after: page; } .sheet-table tbody:last-of-type { break-after: auto; } }";
 const cut = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
 const TICKS = [{ k: "SHEET_PINI", he: "לקוח של" }, { k: "SHEET_TDS", he: "דפי מידע (TDS) נדרשים" }, { k: "SHEET_SAMPLE", he: "דוגמה נדרשת" }];
 const yn = (v?: string) => (v === "yes" ? "כן" : v === "no" ? "לא" : "");
@@ -94,14 +94,14 @@ export default function SheetPage() {
           <span className="text-sm text-slate-600">{tr("פגישה עם")} {who} · {fmtDate(todayIso())} · {rows.length} {tr("לקוחות")} · ~{tons} {tr("טון/שנה (הערכה)")}</span>
           <span className="text-xs text-slate-500">{tr("ספירים — Silitex ישראל · פנימי")}</span>
         </div>
-        <div className="text-[11px] text-slate-500 mb-2">📄 {tr("המסמך מיועד לצפייה ולהדפסה לרוחב (Landscape) — לתצוגה מיטבית.")} · {tr("\"מקבילה מתחרה\" היא הערכה מתוכנית השוק; ✓ = אושר מול הלקוח (טופס קליטה).")}</div>
+        <div className="text-[11px] text-slate-500 mb-2">📄 {tr("הדפסה ו-PDF: לרוחב (Landscape), לקוח אחד בכל עמוד.")} · {tr("\"מקבילה מתחרה\" היא הערכה מתוכנית השוק; ✓ = אושר מול הלקוח (טופס קליטה).")}</div>
         <table className={"sheet-table w-full border-collapse text-[12px]" + big}>
           <thead><tr>
             <th className={th + " w-6"}>#</th><th className={th + " w-[14%]"}>{tr("חברה / עיר")}</th><th className={th + " w-[11%]"}>{tr("איש קשר")}</th><th className={th + " w-[18%]"}>{tr("מה מייצרים")}</th><th className={th + " w-[13%]"}>{tr("מקבילה מתחרה (הערכה)")}</th><th className={th + " w-10"}>{tr("ט'/שנה")}</th><th className={th + " w-8"}>{tr("עדיפות")}</th>
             <th className={th + " w-14"}>{tr("לקוח של")} {who}</th><th className={th + " w-14"}>{tr("דפי מידע (TDS) נדרשים")}</th><th className={th + " w-14"}>{tr("דוגמה נדרשת")}</th><th className={th + " w-[16%]"}>{tr("עדכון / הערות")} — {who}</th>
           </tr></thead>
           {rows.map((r, i) => (
-            <tbody key={r.l.id} className="border-t-2 border-slate-500">
+            <tbody key={r.l.id} data-pdf-page="1" className="border-t-2 border-slate-500">
               <tr>
                 <td className={td}>{i + 1}</td>
                 <td className={td}><b dir={dirOf(r.l.name)} className="block">{r.l.name}</b>{r.l.city && <div className="text-slate-500">{r.l.city}</div>}</td>
