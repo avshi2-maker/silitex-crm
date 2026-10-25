@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/sheet/page.tsx) · updated 25.10.2026 11:00 (Asia/Jerusalem) — v0.92.5 ⬇️ PDF button (straight to Downloads) · 10:50 v0.92.4 print + PDF: one customer per page · 10:00 v0.92.2 e-mail "To" filled from the saved contact (פיני → his e-mail) · 25.10.2026 08:25 (Asia/Jerusalem) — 📤 WhatsApp / share with PDF + Excel files · ✉ e-mail with PDF + Excel · 📋 ticks → tasks (TDS to send / sample to request) · 08:10 — #1 meeting tool: 🔎 zoom on ONE company (on-site visit) · "מקבילה מתחרה (הערכה)" (✓ when confirmed in the intake form) · Silitex matches ONE PER LINE in a second full-width row, each with the other producers' equivalents · tick boxes saved on the customer: לקוח של פיני / TDS נדרש / דוגמה נדרשת · landscape note · 06:45 — ✉ e-mail · created 06:30 — printable meeting sheet per industry
+// page.tsx (src/app/sheet/page.tsx) · updated 25.10.2026 17:50 (Asia/Jerusalem) — v0.93.0 INCI first (Pini): Silitex matches + competitor product shown by INCI, producer P/N in small print — screen, print, PDF, Excel, mail · 11:00 v0.92.5 ⬇️ PDF button (straight to Downloads) · 10:50 v0.92.4 print + PDF: one customer per page · 10:00 v0.92.2 e-mail "To" filled from the saved contact (פיני → his e-mail) · 25.10.2026 08:25 (Asia/Jerusalem) — 📤 WhatsApp / share with PDF + Excel files · ✉ e-mail with PDF + Excel · 📋 ticks → tasks (TDS to send / sample to request) · 08:10 — #1 meeting tool: 🔎 zoom on ONE company (on-site visit) · "מקבילה מתחרה (הערכה)" (✓ when confirmed in the intake form) · Silitex matches ONE PER LINE in a second full-width row, each with the other producers' equivalents · tick boxes saved on the customer: לקוח של פיני / TDS נדרש / דוגמה נדרשת · landscape note · 06:45 — ✉ e-mail · created 06:30 — printable meeting sheet per industry
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "@/lib/store";
 import { useLang } from "@/i18n";
@@ -7,7 +7,7 @@ import { Card, H1, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui
 import { scanOf } from "@/lib/scan";
 import { scoreLead, type Grade } from "@/lib/priority";
 import { fmtDate, todayIso } from "@/lib/format";
-import { offsetsFor } from "@/lib/sheet-offsets";
+import { offsetsFor, inciOf, inciOfCompetitor } from "@/lib/sheet-offsets";
 import SheetEmail from "@/components/sheet/SheetEmail";
 import YesNo from "@/components/sheet/YesNo";
 import type { Lead } from "@/lib/types";
@@ -30,16 +30,16 @@ export default function SheetPage() {
   const rows = useMemo(() => state.leads.filter((l) => (co ? l.id === co : (!ind || l.industry === ind) && l.stage !== "lost")).map((l) => {
     const sc = scanOf(l); const s = scoreLead(l, state.tasks);
     const ms = (sc?.data.matches || []).filter((m) => m.confidence !== "low").sort((a, b) => (a.confidence === "high" ? 0 : 1) - (b.confidence === "high" ? 0 : 1));
-    const seen = new Set<string>(); const sil = ms.filter((m) => !seen.has(m.silitex.toUpperCase()) && seen.add(m.silitex.toUpperCase())).slice(0, 6).map((m) => ({ name: m.silitex, conf: m.confidence || "", eq: offsetsFor(m.silitex, m.countertype), use: m.for || "" }));
-    if (!sil.length && l.recommended_sku) l.recommended_sku.split(/,\s*/).slice(0, 6).forEach((x) => sil.push({ name: x.replace(/\s+—.*$/, ""), conf: "plan", eq: offsetsFor(x), use: "" }));
+    const seen = new Set<string>(); const sil = ms.filter((m) => !seen.has(m.silitex.toUpperCase()) && seen.add(m.silitex.toUpperCase())).slice(0, 6).map((m) => ({ name: m.silitex.replace(/^[★*\s]+/, ""), inci: inciOf(m.silitex), conf: m.confidence || "", eq: offsetsFor(m.silitex, m.countertype), use: m.for || "" }));
+    if (!sil.length && l.recommended_sku) l.recommended_sku.split(/,\s*/).slice(0, 6).forEach((x) => sil.push({ name: x.replace(/\s+—.*$/, ""), inci: inciOf(x.replace(/\s+—.*$/, "")), conf: "plan", eq: offsetsFor(x), use: "" }));
     const conf = [l.intake?.BEN_001, l.intake?.BEN_002].filter(Boolean).join(" · ");
-    return { l, s, sil, make: sc?.data.summary || l.sub_industry || l.use_case || "", conf, est: l.competitor_offset || "", scanned: !!sc };
+    const cmp = conf || l.competitor_offset || ""; return { l, s, sil, cInci: inciOfCompetitor(cmp), make: sc?.data.summary || l.sub_industry || l.use_case || "", conf, est: l.competitor_offset || "", scanned: !!sc };
   }).filter((r) => co || (RANK[r.s.grade] <= RANK[minG] && (!onlyScan || r.scanned))).sort((a, b) => RANK[a.s.grade] - RANK[b.s.grade] || b.s.total - a.s.total), [state.leads, state.tasks, ind, minG, onlyScan, co]);
   if (!ready) return null;
   const tons = Math.round(rows.reduce((a, r) => a + r.s.tons, 0) * 10) / 10;
   const setTick = (l: Lead, k: string, v: string) => upsertLead({ ...l, intake: { ...(l.intake || {}), [k]: v } as Lead["intake"] });
-  const head = ["#", "חברה / עיר", "איש קשר / טלפון", "מה מייצרים", "מקבילה מתחרה (הערכה)", "התאמות Silitex — ומקבילות אצל יצרנים אחרים", "ט'/שנה", "עדיפות", "לקוח של " + who, "TDS נדרש", "דוגמה נדרשת", "עדכון / הערות — " + who];
-  const table: (string | number)[][] = rows.map((r, i) => [i + 1, r.l.name + (r.l.city ? " · " + r.l.city : ""), [r.l.contact_name, r.l.contact_role, r.l.contact_phone].filter(Boolean).join(" · "), cut(r.make, 220), r.conf ? "✓ " + r.conf : r.est, r.sil.map((x) => x.name + (x.eq ? " = " + x.eq : "")).join("\n") || (r.scanned ? "אין התאמה" : "לא נסרק"), r.s.tons, r.s.grade, yn(r.l.intake?.SHEET_PINI), yn(r.l.intake?.SHEET_TDS), yn(r.l.intake?.SHEET_SAMPLE), ""]);
+  const head = ["#", "חברה / עיר", "איש קשר / טלפון", "מה מייצרים", "מוצר מתחרה — INCI (הערכה)", "התאמות Silitex לפי INCI — שם מוצר Silitex ומקבילות", "ט'/שנה", "עדיפות", "לקוח של " + who, "TDS נדרש", "דוגמה נדרשת", "עדכון / הערות — " + who];
+  const table: (string | number)[][] = rows.map((r, i) => [i + 1, r.l.name + (r.l.city ? " · " + r.l.city : ""), [r.l.contact_name, r.l.contact_role, r.l.contact_phone].filter(Boolean).join(" · "), cut(r.make, 220), (r.conf ? "✓ " : "") + (r.cInci ? r.cInci + " (" + (r.conf || r.est) + ")" : r.conf || r.est), r.sil.map((x) => (x.inci ? x.inci + " — " : "") + "Silitex " + x.name + (x.eq ? " = " + x.eq : "")).join("\n") || (r.scanned ? "אין התאמה" : "לא נסרק"), r.s.tons, r.s.grade, yn(r.l.intake?.SHEET_PINI), yn(r.l.intake?.SHEET_TDS), yn(r.l.intake?.SHEET_SAMPLE), ""]);
   const csv = () => {
     const esc = (v: string | number) => '"' + String(v ?? "").replace(/"/g, '""') + '"';
     const b = new Blob(["﻿" + [head.map(esc).join(","), ...table.map((r) => r.map(esc).join(","))].join("\n")], { type: "text/csv;charset=utf-8" }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "meeting_sheet_" + (focus ? focus.name : ind || "all").replace(/\W+/g, "_") + "_" + todayIso() + ".csv"; a.click();
@@ -96,10 +96,10 @@ export default function SheetPage() {
           <span className="text-sm text-slate-600">{tr("פגישה עם")} {who} · {fmtDate(todayIso())} · {rows.length} {tr("לקוחות")} · ~{tons} {tr("טון/שנה (הערכה)")}</span>
           <span className="text-xs text-slate-500">{tr("ספירים — Silitex ישראל · פנימי")}</span>
         </div>
-        <div className="text-[11px] text-slate-500 mb-2">📄 {tr("הדפסה ו-PDF: לרוחב (Landscape), לקוח אחד בכל עמוד.")} · {tr("\"מקבילה מתחרה\" היא הערכה מתוכנית השוק; ✓ = אושר מול הלקוח (טופס קליטה).")}</div>
+        <div className="text-[11px] text-slate-500 mb-2">📄 {tr("הדפסה ו-PDF: לרוחב (Landscape), לקוח אחד בכל עמוד.")} · {tr("שמות החומרים לפי INCI; שם המוצר של היצרן בקטן. \"מוצר מתחרה\" הוא הערכה מתוכנית השוק; ✓ = אושר מול הלקוח (טופס קליטה).")}</div>
         <table className={"sheet-table w-full border-collapse text-[12px]" + big}>
           <thead><tr>
-            <th className={th + " w-6"}>#</th><th className={th + " w-[14%]"}>{tr("חברה / עיר")}</th><th className={th + " w-[11%]"}>{tr("איש קשר")}</th><th className={th + " w-[18%]"}>{tr("מה מייצרים")}</th><th className={th + " w-[13%]"}>{tr("מקבילה מתחרה (הערכה)")}</th><th className={th + " w-10"}>{tr("ט'/שנה")}</th><th className={th + " w-8"}>{tr("עדיפות")}</th>
+            <th className={th + " w-6"}>#</th><th className={th + " w-[14%]"}>{tr("חברה / עיר")}</th><th className={th + " w-[11%]"}>{tr("איש קשר")}</th><th className={th + " w-[18%]"}>{tr("מה מייצרים")}</th><th className={th + " w-[13%]"}>{tr("מוצר מתחרה — INCI (הערכה)")}</th><th className={th + " w-10"}>{tr("ט'/שנה")}</th><th className={th + " w-8"}>{tr("עדיפות")}</th>
             <th className={th + " w-14"}>{tr("לקוח של")} {who}</th><th className={th + " w-14"}>{tr("דפי מידע (TDS) נדרשים")}</th><th className={th + " w-14"}>{tr("דוגמה נדרשת")}</th><th className={th + " w-[16%]"}>{tr("עדכון / הערות")} — {who}</th>
           </tr></thead>
           {rows.map((r, i) => (
@@ -109,7 +109,7 @@ export default function SheetPage() {
                 <td className={td}><b dir={dirOf(r.l.name)} className="block">{r.l.name}</b>{r.l.city && <div className="text-slate-500">{r.l.city}</div>}</td>
                 <td className={td}>{r.l.contact_name || "—"}{r.l.contact_role && <div className="text-slate-500">{r.l.contact_role}</div>}{r.l.contact_phone && <div dir="ltr" className="text-end">{r.l.contact_phone}</div>}</td>
                 <td className={td} dir="auto">{cut(r.make, co ? 600 : 170) || "—"}</td>
-                <td className={td} dir="ltr">{r.conf ? <b>✓ {r.conf}</b> : r.est ? <span className="text-slate-600">{r.est}</span> : "—"}</td>
+                <td className={td} dir="ltr">{r.cInci ? <><b>{r.conf ? "✓ " : ""}{r.cInci}</b><div className="text-[10px] text-slate-500">{r.conf || r.est}</div></> : r.conf ? <b>✓ {r.conf}</b> : r.est ? <span className="text-slate-600">{r.est}</span> : "—"}</td>
                 <td className={td + " text-center"}>{r.s.tons}</td>
                 <td className={td + " text-center"}><Badge tone={r.s.grade === "A" ? "green" : r.s.grade === "B" ? "blue" : r.s.grade === "C" ? "amber" : "slate"}>{r.s.grade}</Badge></td>
                 {TICKS.map((t) => <td key={t.k} className={td}><YesNo v={r.l.intake?.[t.k] || ""} onChange={(v) => setTick(r.l, t.k, v)} /></td>)}
@@ -118,9 +118,9 @@ export default function SheetPage() {
               <tr className="bg-slate-50/70">
                 <td className={td}></td>
                 <td className={td} colSpan={10}>
-                  <div className="text-[11px] font-bold text-slate-600 mb-0.5">{tr("התאמות Silitex — ומקבילות אצל יצרנים אחרים")}{r.sil.some((x) => x.conf === "plan") && <span className="font-normal"> ({tr("מתוכנית השוק — לא נסרק")})</span>}</div>
+                  <div className="text-[11px] font-bold text-slate-600 mb-0.5">{tr("התאמות Silitex לפי INCI — שם מוצר Silitex ומקבילות בקטן")}{r.sil.some((x) => x.conf === "plan") && <span className="font-normal"> ({tr("מתוכנית השוק — לא נסרק")})</span>}</div>
                   {r.sil.length ? r.sil.map((x) => (
-                    <div key={x.name} dir="ltr" className="text-start leading-5"><b>{x.name}</b>{x.conf === "high" && <span className="text-emerald-700"> ●</span>}{x.eq && <span className="text-slate-700"> = {x.eq}</span>}{x.use && <span className="text-slate-500" dir="auto"> — {cut(x.use, co ? 200 : 90)}</span>}</div>
+                    <div key={x.name} dir="ltr" className="text-start leading-5"><b className="text-[13px]">{x.inci || x.name}</b>{x.conf === "high" && <span className="text-emerald-700"> ●</span>}<span className="text-[11px] text-slate-600"> — Silitex {x.name}</span>{x.eq && <span className="text-[10px] text-slate-500"> = {x.eq}</span>}{x.use && <span className="text-slate-500" dir="auto"> — {cut(x.use, co ? 200 : 90)}</span>}</div>
                   )) : <span className="text-slate-400">{r.scanned ? tr("אין התאמה") : tr("לא נסרק")}</span>}
                 </td>
               </tr>
