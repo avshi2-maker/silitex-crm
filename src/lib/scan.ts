@@ -1,9 +1,17 @@
-// scan.ts (src/lib/scan.ts) · updated 22.10.2026 16:55 (Asia/Jerusalem) — withScan() also fills industry (when "לסיווג") + sub-industry from the scan · 22.10.2026 12:45 (Asia/Jerusalem) — withoutScan() + noMatch() (clear scans without a Silitex match) · 22.10.2026 07:35 (Asia/Jerusalem) — timeout → clear Hebrew message + readScan() (HTML time-out page no longer shown as 'invalid AI answer') · 20.10.2026 10:45 (Asia/Jerusalem) — failed scans remembered on the lead (intake.scan_err) so "scan all" skips them; separate retry · 06:00 — CUSTOMER WEBSITE SCAN result type + where it lives on the lead (intake.scan_json / scan_at — no database change) + text for export / Pini list.
+// scan.ts (src/lib/scan.ts) · updated 25.10.2026 05:45 (Asia/Jerusalem) — scanOf() normalises AI match lists (misspelt "sitelx" key crashed /potential) · updated 22.10.2026 16:55 (Asia/Jerusalem) — withScan() also fills industry (when "לסיווג") + sub-industry from the scan · 22.10.2026 12:45 (Asia/Jerusalem) — withoutScan() + noMatch() (clear scans without a Silitex match) · 22.10.2026 07:35 (Asia/Jerusalem) — timeout → clear Hebrew message + readScan() (HTML time-out page no longer shown as 'invalid AI answer') · 20.10.2026 10:45 (Asia/Jerusalem) — failed scans remembered on the lead (intake.scan_err) so "scan all" skips them; separate retry · 06:00 — CUSTOMER WEBSITE SCAN result type + where it lives on the lead (intake.scan_json / scan_at — no database change) + text for export / Pini list.
 import { allIndustries, isUnclassified } from "@/config/industry-list";
 import type { Lead } from "@/lib/types";
 export type ScanData = { industry?: string; sub_industry?: string; summary?: string; product_lines?: { name: string; type?: string; examples?: string[] }[]; silicone_uses?: { function: string; where: string }[]; matches?: { silitex: string; code?: string; countertype?: string; for?: string; why?: string; confidence?: string }[]; questions?: string[]; value_angle?: string; not_found?: string };
 export type ScanResult = { data: ScanData; at: string; pages: number; urls: string[]; sector: string };
-export function scanOf(l: Lead): ScanResult | null { try { const s = l.intake?.scan_json; return s ? (JSON.parse(s) as ScanResult) : null; } catch { return null; } }
+/** read the saved scan — and NORMALISE the AI's match list: a misspelt key (e.g. "sitelx", 25.10.2026 crash on /potential) or a missing grade name never reaches the pages */
+export function scanOf(l: Lead): ScanResult | null {
+  try {
+    const s = l.intake?.scan_json; if (!s) return null; const r = JSON.parse(s) as ScanResult; if (!r || typeof r !== "object" || !r.data) return null;
+    const ms = Array.isArray(r.data.matches) ? r.data.matches : [];
+    r.data.matches = ms.map((m) => { const x = (m || {}) as Record<string, unknown>; const name = x.silitex ?? x.sitelx ?? x.silitx ?? x.product ?? x.grade ?? ""; return { ...(x as object), silitex: String(name || "").trim(), confidence: String(x.confidence || "medium") } as NonNullable<ScanData["matches"]>[number]; }).filter((m) => m.silitex);
+    return r;
+  } catch { return null; }
+}
 /** saves the scan + fills the industry when the customer is still "לסיווג" (only a name from the CRM list) and the sub-industry when empty */
 export const withScan = (l: Lead, r: ScanResult): Lead => {
   const it: Record<string, unknown> = { ...(l.intake || {}), scan_json: JSON.stringify(r), scan_at: r.at }; delete it.scan_err;
