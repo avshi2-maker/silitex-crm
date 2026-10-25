@@ -2118,4 +2118,11 @@ export const EN: Record<string, string> = {
   "הוסף לרשימה": "Add to list",
   "נוסף": "Added",
   "חפש": "Search",
+  "שגרה יומית": "Daily routine",
+  "לקוחות ומכירות": "Customers & sales",
+  "איתור לקוחות חדשים": "Finding new customers",
+  "מוצרים וידע": "Products & knowledge",
+  "Silitex — שותפות": "Silitex — partnership",
+  "קידום ודוחות": "Promotion & reports",
+  "חיפוש לקוחות עם Claude": "Customer search with Claude",
 };

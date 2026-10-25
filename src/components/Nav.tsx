@@ -1,5 +1,5 @@
 "use client";
-// Nav.tsx (src/components/Nav.tsx) · updated 24.10.2026 06:00 — + 🛰️ /radar industry gap radar (owner) · 22.10.2026 17:40 — + 🧲 /leads/prompt search-prompt builder (owner) · 08:05 — + 🎯 /potential analytics (owner) · 21.10.2026 17:10 — + 📮 /federica Friday report & Silitex open questions (owner) · 11:15 — + 📣 /promo promotion & Google (owner) · 20.10.2026 13:20 — + 🧭 /roadmap 6-month priorities · 12:45 — menu sorted א→ת by the Hebrew label (other languages A→Z by their own label) · 09:40 — + 🗺️ /matrix market map (Pini / Federica) · 07:10 — + 🥊 /competitors register (owner only) · 05:20 — + 🚗 /visits planner · 🔎 /scan websites · 19.10.2026 09:30 — 📥 Field inbox nudge: red counter on the menu item + pop-up when something new arrives from the phone · 18.10.2026 18:55 — + /social plan · 17:55 — Dashboard pinned, all other items A→Z by English name · 17:30 — menu sorted · 19:10 — + /visibility AI bot · 18:40 — + /he public portal draft · 17:25 — + /studio Post Studio · 12:00 — hidden on /expo too · 18.10.2026 07:35 — + /mobile apps (QR install, pinned 5th) · 18.10.2026 07:05 — + /capture field inbox (pinned 4th) · + /field mobile field mode (pinned 3rd, sidebar hidden there) · 17.10.2026 08:20 — + /today "My day" pinned under Dashboard · 16.10.2026 18:25 — + owner link /meetings (Meetings online — Silitex, English label) · + owner links: Silitex partner view (/partner) and Israel portal preview (/partner/preview) · 15.10.2026 14:30 — items sorted A→Z by the label in the current language (HE/EN/IT), Dashboard pinned on top · 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
+// Nav.tsx (src/components/Nav.tsx) · updated 25.10.2026 04:45 — owner menu by WORK ORDER: Dashboard + 6 groups (daily routine · customers & sales · finding new customers open; knowledge · Silitex partnership · promotion & reports closed, remembered) · 🧲 renamed "חיפוש לקוחות עם Claude" · partner view unchanged · 24.10.2026 06:00 — + 🛰️ /radar industry gap radar (owner) · 22.10.2026 17:40 — + 🧲 /leads/prompt search-prompt builder (owner) · 08:05 — + 🎯 /potential analytics (owner) · 21.10.2026 17:10 — + 📮 /federica Friday report & Silitex open questions (owner) · 11:15 — + 📣 /promo promotion & Google (owner) · 20.10.2026 13:20 — + 🧭 /roadmap 6-month priorities · 12:45 — menu sorted א→ת by the Hebrew label (other languages A→Z by their own label) · 09:40 — + 🗺️ /matrix market map (Pini / Federica) · 07:10 — + 🥊 /competitors register (owner only) · 05:20 — + 🚗 /visits planner · 🔎 /scan websites · 19.10.2026 09:30 — 📥 Field inbox nudge: red counter on the menu item + pop-up when something new arrives from the phone · 18.10.2026 18:55 — + /social plan · 17:55 — Dashboard pinned, all other items A→Z by English name · 17:30 — menu sorted · 19:10 — + /visibility AI bot · 18:40 — + /he public portal draft · 17:25 — + /studio Post Studio · 12:00 — hidden on /expo too · 18.10.2026 07:35 — + /mobile apps (QR install, pinned 5th) · 18.10.2026 07:05 — + /capture field inbox (pinned 4th) · + /field mobile field mode (pinned 3rd, sidebar hidden there) · 17.10.2026 08:20 — + /today "My day" pinned under Dashboard · 16.10.2026 18:25 — + owner link /meetings (Meetings online — Silitex, English label) · + owner links: Silitex partner view (/partner) and Israel portal preview (/partner/preview) · 15.10.2026 14:30 — items sorted A→Z by the label in the current language (HE/EN/IT), Dashboard pinned on top · 13.10.2026 06:40 — partner mode: Silitex staff see knowledge items only + confidentiality footer (Asia/Jerusalem)
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { OWNER } from "@/config/app";
@@ -7,6 +7,7 @@ import LangSwitch from "./LangSwitch";
 import Clock from "./Clock";
 import VersionStamp from "./VersionStamp";
 import { useLang } from "@/i18n";
+import { NAV_GROUPS, NAV_OPEN_KEY } from "@/config/nav-groups";
 import { EN } from "@/i18n/en";
 const enName = (he: string) => (EN[he] || he).replace(/^[^A-Za-z0-9]+/, "");
 import { useEffect, useState } from "react";
@@ -17,7 +18,7 @@ const ITEMS = [
   { href: "/today", he: "היום שלי", icon: "☀️" },
   { href: "/visits", he: "תכנון ביקורים", icon: "🚗" },
   { href: "/scan", he: "סריקת אתרי לקוחות", icon: "🔎" },
-  { href: "/leads/prompt", he: "בונה פרומפט חיפוש לקוחות", icon: "🧲", owner: true },
+  { href: "/leads/prompt", he: "חיפוש לקוחות עם Claude", icon: "🧲", owner: true },
   { href: "/radar", he: "מכ״ם פערי תעשייה", icon: "🛰️", owner: true },
   { href: "/roadmap", he: "מפת דרכים — 6 חודשים", icon: "🧭", owner: true },
   { href: "/potential", he: "פוטנציאל — מי קודם", icon: "🎯", owner: true },
@@ -64,10 +65,22 @@ export default function Nav() {
   const key = (he: string) => (lang === "he" ? he : tr(he)).replace(/^[^\p{L}\p{N}]+/u, "");
   const sorted = [ITEMS[0], ...ITEMS.slice(1).sort((a, b) => key(a.he).localeCompare(key(b.he), lang === "he" ? "he" : lang, { sensitivity: "base", numeric: true }))]; // Dashboard first, then A→Z (א→ת in Hebrew) by the label shown in the current language
   const [partner, setPartner] = useState("");
+  // owner menu by work order: groups open / closed (remembered in this browser); the group holding the current page always opens
+  const [open, setOpen] = useState<Record<string, boolean>>(() => Object.fromEntries(NAV_GROUPS.map((g) => [g.id, g.open])));
+  useEffect(() => { try { const v = JSON.parse(localStorage.getItem(NAV_OPEN_KEY) || "null"); if (v && typeof v === "object") setOpen((o) => ({ ...o, ...v })); } catch {} }, []);
+  const toggle = (id: string) => setOpen((o) => { const n = { ...o, [id]: !o[id] }; try { localStorage.setItem(NAV_OPEN_KEY, JSON.stringify(n)); } catch {} return n; });
+  const listed = new Set(NAV_GROUPS.flatMap((g) => g.hrefs));
+  const groups = NAV_GROUPS.map((g, i) => ({ ...g, items: [...g.hrefs.map((h) => ITEMS.find((it) => it.href === h)).filter((x): x is (typeof ITEMS)[number] => !!x), ...(i === NAV_GROUPS.length - 1 ? ITEMS.slice(1).filter((it) => !listed.has(it.href)) : [])] }));
   useEffect(() => { try { const m = document.cookie.match(new RegExp("(?:^|; )" + PARTNER_NAME_COOKIE + "=([^;]*)")); setPartner(m ? decodeURIComponent(m[1]) : ""); } catch {} }, [path]);
   const hidden = path.startsWith("/request") || path.startsWith("/survey") || path.startsWith("/notes") || path.startsWith("/login") || path.startsWith("/field") || path.startsWith("/expo");
   const inbox = useInbox(!partner && !hidden, path.startsWith("/capture"));
   if (path.startsWith("/request") || path.startsWith("/survey") || path.startsWith("/notes") || path.startsWith("/login") || path.startsWith("/field") || path.startsWith("/expo")) return null;
+  const isActive = (href: string) => href === "/" ? path === "/" : href === "/market" || href === "/partner" || href === "/leads" ? path === href || (href === "/leads" && /^\/leads\/(?!prompt)/.test(path)) : path.startsWith(href);
+  const item = (it: (typeof ITEMS)[number]) => {
+    const cls = "flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (isActive(it.href) ? "bg-brand-500" : "hover:bg-ink-700");
+    const badge = it.href === "/capture" && inbox.count > 0 ? <span className={"ms-auto min-w-[1.4rem] h-5 px-1.5 rounded-full bg-red-500 text-white text-[11px] font-bold flex items-center justify-center" + (inbox.fresh ? " animate-pulse" : "")}>{inbox.count}</span> : null;
+    return (<Link key={it.href} href={it.href} className={cls}><span>{it.icon}</span><span>{tr(it.he)}</span>{badge}</Link>);
+  };
   return (
     <aside className="w-60 shrink-0 bg-ink-900 text-white min-h-screen p-4 print:hidden">
       <div className="mb-6">
@@ -79,12 +92,20 @@ export default function Nav() {
       </div>
       <nav className="flex flex-col gap-1">
         {partner && <Link href="/partner" className={"flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (path === "/partner" ? "bg-brand-500" : "hover:bg-ink-700")}><span>🤝</span><span>{tr("Partner home")}</span></Link>}
-        {(partner ? sorted.filter((it) => isPartnerPath(it.href) && !(it as { owner?: boolean }).owner) : sorted).map((it) => {
-          const active = it.href === "/" ? path === "/" : it.href === "/market" || it.href === "/partner" ? path === it.href : path.startsWith(it.href);
-          const cls = "flex items-center gap-2 px-3 py-2 rounded-lg text-sm " + (active ? "bg-brand-500" : "hover:bg-ink-700");
-          const badge = it.href === "/capture" && inbox.count > 0 ? <span className={"ms-auto min-w-[1.4rem] h-5 px-1.5 rounded-full bg-red-500 text-white text-[11px] font-bold flex items-center justify-center" + (inbox.fresh ? " animate-pulse" : "")}>{inbox.count}</span> : null;
-          return (<Link key={it.href} href={it.href} className={cls}><span>{it.icon}</span><span>{tr(it.he)}</span>{badge}</Link>);
-        })}
+        {partner ? sorted.filter((it) => isPartnerPath(it.href) && !(it as { owner?: boolean }).owner).map(item) : (
+          <>
+            {item(ITEMS[0])}
+            {groups.map((g, i) => {
+              const here = g.items.some((it) => isActive(it.href)); const show = open[g.id] || here;
+              const head = "mt-2 flex items-center justify-between px-3 py-1.5 rounded-lg text-[11px] font-bold tracking-wide " + (show ? "text-brand-100" : "text-slate-300 hover:bg-ink-700");
+              return (
+                <div key={g.id} className="flex flex-col gap-1">
+                  <button type="button" className={head} onClick={() => toggle(g.id)} aria-expanded={show}><span>{i + 1} · {tr(g.he)}{!show && " (" + g.items.length + ")"}</span><span aria-hidden="true">{show ? "▾" : "▸"}</span></button>
+                  {show && g.items.map(item)}
+                </div>);
+            })}
+          </>
+        )}
       </nav>
       {inbox.fresh && !path.startsWith("/capture") && <div className="fixed bottom-4 start-4 z-50 bg-white text-ink-900 rounded-2xl shadow-xl border-2 border-red-400 p-3 w-72 animate-bounce [animation-iteration-count:2]">
         <div className="font-bold">📥 {tr("הגיע חומר חדש מהשטח")}</div>
