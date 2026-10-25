@@ -2207,4 +2207,8 @@ export const IT: Record<string, string> = {
   "Silitex — שותפות": "Silitex — partnership",
   "קידום ודוחות": "Promozione e report",
   "חיפוש לקוחות עם Claude": "Ricerca clienti con Claude",
+  "נוסח מאושר": "Testo approvato",
+  "העתק נושא": "Copia oggetto",
+  "העתק גוף": "Copia testo",
+  "דטרגנטים וניקוי — מייל (נוסח מאושר 25/10/2026)": "Detergenti e pulizia — e-mail (approvata 25/10/2026)",
 };
