@@ -1,6 +1,6 @@
 "use client";
-// page.tsx (src/app/sheet/page.tsx) · updated 25.10.2026 08:10 (Asia/Jerusalem) — #1 meeting tool: 🔎 zoom on ONE company (on-site visit) · "מקבילה מתחרה (הערכה)" (✓ when confirmed in the intake form) · Silitex matches ONE PER LINE in a second full-width row, each with the other producers' equivalents · tick boxes saved on the customer: לקוח של פיני / TDS נדרש / דוגמה נדרשת · landscape note · 06:45 — ✉ e-mail · created 06:30 — printable meeting sheet per industry
-import { useEffect, useMemo, useState } from "react";
+// page.tsx (src/app/sheet/page.tsx) · updated 25.10.2026 08:25 (Asia/Jerusalem) — 📤 WhatsApp / share with PDF + Excel files · ✉ e-mail with PDF + Excel · 📋 ticks → tasks (TDS to send / sample to request) · 08:10 — #1 meeting tool: 🔎 zoom on ONE company (on-site visit) · "מקבילה מתחרה (הערכה)" (✓ when confirmed in the intake form) · Silitex matches ONE PER LINE in a second full-width row, each with the other producers' equivalents · tick boxes saved on the customer: לקוח של פיני / TDS נדרש / דוגמה נדרשת · landscape note · 06:45 — ✉ e-mail · created 06:30 — printable meeting sheet per industry
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "@/lib/store";
 import { useLang } from "@/i18n";
 import { Card, H1, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui";
@@ -11,15 +11,18 @@ import { offsetsFor } from "@/lib/sheet-offsets";
 import SheetEmail from "@/components/sheet/SheetEmail";
 import YesNo from "@/components/sheet/YesNo";
 import type { Lead } from "@/lib/types";
+import { sheetXlsx, sheetPdf, shareFiles, download } from "@/lib/sheet-files";
 
 const RANK: Record<Grade, number> = { A: 0, B: 1, C: 2, D: 3 };
 const PRINT_CSS = "@media print { @page { size: A4 landscape; margin: 9mm; } body { background: #fff !important; } .sheet-table { font-size: 9pt; } .sheet-table thead { display: table-header-group; } .sheet-table tbody { break-inside: avoid; } }";
 const cut = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
 const TICKS = [{ k: "SHEET_PINI", he: "לקוח של" }, { k: "SHEET_TDS", he: "דפי מידע (TDS) נדרשים" }, { k: "SHEET_SAMPLE", he: "דוגמה נדרשת" }];
 const yn = (v?: string) => (v === "yes" ? "כן" : v === "no" ? "לא" : "");
+/** Latin names get dir="ltr" — keeps "(Israel)" brackets right in the PDF picture */
+const dirOf = (s: string) => (/[\u0590-\u05FF]/.test(s.replace(/\(.*?\)|\[.*?\]/g, "")) ? "rtl" : "ltr");
 
 export default function SheetPage() {
-  const { t: tr } = useLang(); const { state, ready, upsertLead } = useStore();
+  const { t: tr } = useLang(); const { state, ready, upsertLead, addTask } = useStore(); const sheetRef = useRef<HTMLDivElement>(null); const [busy, setBusy] = useState(""); const [note, setNote] = useState("");
   const [ind, setInd] = useState("Personal Care & Cosmetics"); const [minG, setMinG] = useState<Grade>("D"); const [onlyScan, setOnlyScan] = useState(false); const [who, setWho] = useState("פיני"); const [mail, setMail] = useState(false); const [co, setCo] = useState("");
   useEffect(() => { const q = new URLSearchParams(window.location.search); if (q.get("industry")) setInd(q.get("industry") || ""); if (q.get("lead")) setCo(q.get("lead") || ""); }, []);
   const inds = useMemo(() => Array.from(new Set(state.leads.map((l) => l.industry))).sort(), [state.leads]);
@@ -41,6 +44,29 @@ export default function SheetPage() {
     const esc = (v: string | number) => '"' + String(v ?? "").replace(/"/g, '""') + '"';
     const b = new Blob(["﻿" + [head.map(esc).join(","), ...table.map((r) => r.map(esc).join(","))].join("\n")], { type: "text/csv;charset=utf-8" }); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "meeting_sheet_" + (focus ? focus.name : ind || "all").replace(/\W+/g, "_") + "_" + todayIso() + ".csv"; a.click();
   };
+  const base = "meeting_sheet_" + (focus ? focus.name : ind || "all").replace(/\W+/g, "_") + "_" + todayIso();
+  const makePdf = async () => { if (!sheetRef.current) throw new Error("no sheet"); return sheetPdf(sheetRef.current, base + ".pdf"); };
+  const share = async () => {
+    setBusy("share"); setNote("");
+    try {
+      const files = [await makePdf(), await sheetXlsx(head, table, base + ".xlsx")];
+      const text = "דף פגישה — " + (focus ? focus.name : ind || "כל התעשיות") + " — " + fmtDate(todayIso()) + " · " + rows.length + " לקוחות. מצורפים PDF ו-Excel.\nאבשי ספיר · ספירים — Silitex ישראל · 050-5231042";
+      const ok = await shareFiles(files, "דף פגישה", text);
+      if (!ok) { files.forEach(download); window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank"); setNote(tr("הקבצים ירדו למחשב — צרף אותם בצ׳אט של WhatsApp שנפתח")); }
+    } catch { setNote(tr("יצירת הקבצים נכשלה — נסה שוב")); }
+    setBusy("");
+  };
+  // 📋 Ferrari: ticks → ready tasks in "My day" (TDS to send / sample to request), no duplicates of an open task
+  const toTasks = () => {
+    let n = 0;
+    for (const r of rows) {
+      const g = r.sil.slice(0, 3).map((x) => x.name).join(", ");
+      const want = [r.l.intake?.SHEET_TDS === "yes" && "📄 לשלוח TDS" + (g ? ": " + g : ""), r.l.intake?.SHEET_SAMPLE === "yes" && "🧪 בקשת דוגמה מ-Silitex" + (g ? ": " + g : "")].filter(Boolean) as string[];
+      for (const title of want) if (!state.tasks.some((t) => t.lead_id === r.l.id && !t.done && t.title === title)) { addTask({ lead_id: r.l.id, lead_name: r.l.name, title, due: todayIso(), cadence: "once", kind: "followup" }); n++; }
+    }
+    setNote(n ? "✓ " + n + " " + tr("משימות נוספו ל'היום שלי'") : tr("אין סימוני TDS / דוגמה חדשים"));
+  };
+  const nTicks = rows.filter((r) => r.l.intake?.SHEET_TDS === "yes" || r.l.intake?.SHEET_SAMPLE === "yes").length;
   const th = "border border-slate-400 p-1 text-start align-bottom bg-slate-100"; const td = "border border-slate-300 p-1 align-top"; const big = co ? " text-[15px]" : "";
   return (
     <div className="space-y-3">
@@ -56,10 +82,13 @@ export default function SheetPage() {
           <button className={btnPrimary} onClick={() => window.print()}>🖨️ {tr("הדפס / PDF")}</button>
           <button className={btnGhost} onClick={csv}>⬇️ Excel</button>
           <button className={btnGhost} disabled={!rows.length} onClick={() => setMail((m) => !m)}>✉ {tr("שלח במייל")}</button>
+          <button className={btnGhost} disabled={!rows.length || !!busy} onClick={share}>{busy === "share" ? "⏳" : "📤"} {tr("WhatsApp / שיתוף — PDF + Excel")}</button>
+          <button className={btnGhost} disabled={!nTicks} onClick={toTasks} title={tr("כל סימון TDS / דוגמה = משימה ב'היום שלי'")}>📋 {tr("משימות מהדף")} ({nTicks})</button>
+          {note && <span className="text-sm text-emerald-700">{note}</span>}
         </Card>
-        {mail && <SheetEmail head={head} rows={table} ind={focus ? focus.name : ind} who={who} date={fmtDate(todayIso())} tons={tons} onClose={() => setMail(false)} />}
+        {mail && <SheetEmail head={head} rows={table} ind={focus ? focus.name : ind} who={who} date={fmtDate(todayIso())} tons={tons} onClose={() => setMail(false)} makePdf={makePdf} />}
       </div>
-      <div dir="rtl" className="bg-white">
+      <div dir="rtl" className="bg-white p-1" ref={sheetRef}>
         <div className="flex flex-wrap items-baseline gap-x-4 mb-1">
           <h2 className="text-lg font-bold">{tr("דף פגישה")} — {focus ? focus.name : ind || tr("כל התעשיות")}</h2>
           <span className="text-sm text-slate-600">{tr("פגישה עם")} {who} · {fmtDate(todayIso())} · {rows.length} {tr("לקוחות")} · ~{tons} {tr("טון/שנה (הערכה)")}</span>
@@ -75,7 +104,7 @@ export default function SheetPage() {
             <tbody key={r.l.id} className="border-t-2 border-slate-500">
               <tr>
                 <td className={td}>{i + 1}</td>
-                <td className={td}><b>{r.l.name}</b>{r.l.city && <div className="text-slate-500">{r.l.city}</div>}</td>
+                <td className={td}><b dir={dirOf(r.l.name)} className="block">{r.l.name}</b>{r.l.city && <div className="text-slate-500">{r.l.city}</div>}</td>
                 <td className={td}>{r.l.contact_name || "—"}{r.l.contact_role && <div className="text-slate-500">{r.l.contact_role}</div>}{r.l.contact_phone && <div dir="ltr" className="text-end">{r.l.contact_phone}</div>}</td>
                 <td className={td} dir="auto">{cut(r.make, co ? 600 : 170) || "—"}</td>
                 <td className={td} dir="ltr">{r.conf ? <b>✓ {r.conf}</b> : r.est ? <span className="text-slate-600">{r.est}</span> : "—"}</td>

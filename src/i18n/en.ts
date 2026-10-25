@@ -2175,4 +2175,12 @@ export const EN: Record<string, string> = {
   "המסמך מיועד לצפייה ולהדפסה לרוחב (Landscape) — לתצוגה מיטבית.": "View and print this document in landscape for the best layout.",
   "\"מקבילה מתחרה\" היא הערכה מתוכנית השוק; ✓ = אושר מול הלקוח (טופס קליטה).": "\"Competitor equivalent\" is an estimate from the market plan; ✓ = confirmed with the customer (intake form).",
   "מתוכנית השוק — לא נסרק": "from the market plan — not scanned",
+  "PDF מצורף": "PDF attached",
+  "WhatsApp / שיתוף — PDF + Excel": "WhatsApp / share — PDF + Excel",
+  "משימות מהדף": "Tasks from the sheet",
+  "כל סימון TDS / דוגמה = משימה ב'היום שלי'": "Every TDS / sample tick = a task in My day",
+  "הקבצים ירדו למחשב — צרף אותם בצ׳אט של WhatsApp שנפתח": "Files downloaded — attach them in the WhatsApp chat that opened",
+  "יצירת הקבצים נכשלה — נסה שוב": "Making the files failed — try again",
+  "משימות נוספו ל'היום שלי'": "tasks added to My day",
+  "אין סימוני TDS / דוגמה חדשים": "No new TDS / sample ticks",
 };

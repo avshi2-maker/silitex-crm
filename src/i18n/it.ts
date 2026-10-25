@@ -2257,4 +2257,12 @@ export const IT: Record<string, string> = {
   "המסמך מיועד לצפייה ולהדפסה לרוחב (Landscape) — לתצוגה מיטבית.": "Visualizzare e stampare in orizzontale per una resa ottimale.",
   "\"מקבילה מתחרה\" היא הערכה מתוכנית השוק; ✓ = אושר מול הלקוח (טופס קליטה).": "\"Equivalente concorrente\" è una stima dal piano di mercato; ✓ = confermato con il cliente.",
   "מתוכנית השוק — לא נסרק": "dal piano di mercato — non analizzato",
+  "PDF מצורף": "PDF allegato",
+  "WhatsApp / שיתוף — PDF + Excel": "WhatsApp / condividi — PDF + Excel",
+  "משימות מהדף": "Attività dalla scheda",
+  "כל סימון TDS / דוגמה = משימה ב'היום שלי'": "Ogni spunta TDS / campione = un'attività in La mia giornata",
+  "הקבצים ירדו למחשב — צרף אותם בצ׳אט של WhatsApp שנפתח": "File scaricati — allegali nella chat WhatsApp aperta",
+  "יצירת הקבצים נכשלה — נסה שוב": "Creazione file non riuscita — riprova",
+  "משימות נוספו ל'היום שלי'": "attività aggiunte a La mia giornata",
+  "אין סימוני TDS / דוגמה חדשים": "Nessuna nuova spunta TDS / campione",
 };

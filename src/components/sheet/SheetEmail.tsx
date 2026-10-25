@@ -1,22 +1,23 @@
 "use client";
-// SheetEmail.tsx (src/components/sheet/SheetEmail.tsx) · created 25.10.2026 06:45 (Asia/Jerusalem) — ✉ send the meeting sheet by e-mail: To / CC, subject + short Hebrew body (editable), ✓ Excel attached, ✓ table inside the mail (prints from Outlook). PDF: print → Save as PDF (attach by hand).
+// SheetEmail.tsx (src/components/sheet/SheetEmail.tsx) · updated 25.10.2026 08:25 (Asia/Jerusalem) — + PDF attached (A4 landscape) · created 06:45 — ✉ send the meeting sheet by e-mail: To / CC, subject + short Hebrew body (editable), ✓ Excel attached, ✓ table inside the mail (prints from Outlook). PDF: print → Save as PDF (attach by hand).
 import { useState } from "react";
 import { useLang } from "@/i18n";
 import { inputCls, btnPrimary, btnGhost } from "@/components/ui";
 
-type Props = { head: string[]; rows: (string | number)[][]; ind: string; who: string; date: string; tons: number; onClose: () => void };
-export default function SheetEmail({ head, rows, ind, who, date, tons, onClose }: Props) {
+type Props = { head: string[]; rows: (string | number)[][]; ind: string; who: string; date: string; tons: number; onClose: () => void; makePdf: () => Promise<{ base64: string; filename: string }> };
+export default function SheetEmail({ head, rows, ind, who, date, tons, onClose, makePdf }: Props) {
   const { t: tr } = useLang();
   const [to, setTo] = useState(""); const [cc, setCc] = useState("avshi@sapirim.com");
   const [subject, setSubject] = useState("דף פגישה — " + (ind || "כל התעשיות") + " — " + date);
   const [body, setBody] = useState("שלום " + who + ",\n\nמצורף דף הפגישה לתעשיית " + (ind || "כל התעשיות") + " — " + rows.length + " לקוחות, ~" + tons + " טון/שנה (הערכה), מסודר לפי עדיפות.\nלכל לקוח: מה מייצרים, הספק / המוצר הנוכחי והתאמת Silitex מסריקת האתר.\nנעבור עליו יחד — עמודת \"עדכון / הערות\" ריקה לסימון.\n\nבברכה,\nאבשי ספיר\nספירים — Silitex ישראל\n050-5231042");
-  const [xl, setXl] = useState(true); const [inBody, setInBody] = useState(true); const [busy, setBusy] = useState(false); const [msg, setMsg] = useState("");
+  const [xl, setXl] = useState(true); const [pdf, setPdf] = useState(true); const [inBody, setInBody] = useState(true); const [busy, setBusy] = useState(false); const [msg, setMsg] = useState("");
   const send = async () => {
     setBusy(true); setMsg("");
     try {
       let xlsx = ""; const filename = "meeting_sheet_" + (ind || "all").replace(/\W+/g, "_") + "_" + date.replace(/\//g, "-") + ".xlsx";
       if (xl) { const X = await import("xlsx"); const ws = X.utils.aoa_to_sheet([head, ...rows]); ws["!cols"] = head.map((_, i) => ({ wch: [4, 34, 22, 40, 24, 36, 8, 8, 36][i] || 14 })); (ws as Record<string, unknown>)["!views"] = [{ RTL: true }]; const wb = X.utils.book_new(); X.utils.book_append_sheet(wb, ws, "Sheet"); xlsx = X.write(wb, { type: "base64", bookType: "xlsx" }); }
-      const r = await fetch("/api/sheet/email", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ to, cc, subject, body, head, rows, inBody, xlsx, filename }) });
+      const p = pdf ? await makePdf() : null;
+      const r = await fetch("/api/sheet/email", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ to, cc, subject, body, head, rows, inBody, xlsx, filename, pdf: p?.base64 || "", pdfName: p?.filename || "" }) });
       const j = await r.json().catch(() => ({})); setMsg(r.ok ? "✓ " + tr("נשלח") : "⚠ " + (j.error || tr("השליחה נכשלה")));
     } catch { setMsg("⚠ " + tr("השליחה נכשלה")); }
     setBusy(false);
@@ -34,7 +35,7 @@ export default function SheetEmail({ head, rows, ind, who, date, tons, onClose }
       <div className="flex flex-wrap items-center gap-3 text-sm">
         <label className="flex items-center gap-1"><input type="checkbox" checked={xl} onChange={(e) => setXl(e.target.checked)} />📎 {tr("Excel מצורף")}</label>
         <label className="flex items-center gap-1"><input type="checkbox" checked={inBody} onChange={(e) => setInBody(e.target.checked)} />📋 {tr("הטבלה בתוך המייל")}</label>
-        <span className="text-xs text-slate-500">{tr("PDF: הדפס → שמור כ-PDF וצרף ידנית")}</span>
+        <label className="flex items-center gap-1"><input type="checkbox" checked={pdf} onChange={(e) => setPdf(e.target.checked)} />📎 {tr("PDF מצורף")}</label>
         <button className={btnPrimary + " ms-auto"} disabled={busy || !to.trim()} onClick={send}>{busy ? "…" : "✉ " + tr("שלח")}</button>
         <a className={btnGhost} href={"mailto:" + encodeURIComponent(to) + "?cc=" + encodeURIComponent(cc) + "&subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body)}>{tr("פתח ב-Outlook")}</a>
       </div>
