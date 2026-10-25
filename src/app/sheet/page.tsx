@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/sheet/page.tsx) · updated 25.10.2026 10:50 (Asia/Jerusalem) — v0.92.4 print + PDF: one customer per page · 10:00 v0.92.2 e-mail "To" filled from the saved contact (פיני → his e-mail) · 25.10.2026 08:25 (Asia/Jerusalem) — 📤 WhatsApp / share with PDF + Excel files · ✉ e-mail with PDF + Excel · 📋 ticks → tasks (TDS to send / sample to request) · 08:10 — #1 meeting tool: 🔎 zoom on ONE company (on-site visit) · "מקבילה מתחרה (הערכה)" (✓ when confirmed in the intake form) · Silitex matches ONE PER LINE in a second full-width row, each with the other producers' equivalents · tick boxes saved on the customer: לקוח של פיני / TDS נדרש / דוגמה נדרשת · landscape note · 06:45 — ✉ e-mail · created 06:30 — printable meeting sheet per industry
+// page.tsx (src/app/sheet/page.tsx) · updated 25.10.2026 11:00 (Asia/Jerusalem) — v0.92.5 ⬇️ PDF button (straight to Downloads) · 10:50 v0.92.4 print + PDF: one customer per page · 10:00 v0.92.2 e-mail "To" filled from the saved contact (פיני → his e-mail) · 25.10.2026 08:25 (Asia/Jerusalem) — 📤 WhatsApp / share with PDF + Excel files · ✉ e-mail with PDF + Excel · 📋 ticks → tasks (TDS to send / sample to request) · 08:10 — #1 meeting tool: 🔎 zoom on ONE company (on-site visit) · "מקבילה מתחרה (הערכה)" (✓ when confirmed in the intake form) · Silitex matches ONE PER LINE in a second full-width row, each with the other producers' equivalents · tick boxes saved on the customer: לקוח של פיני / TDS נדרש / דוגמה נדרשת · landscape note · 06:45 — ✉ e-mail · created 06:30 — printable meeting sheet per industry
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "@/lib/store";
 import { useLang } from "@/i18n";
@@ -46,6 +46,7 @@ export default function SheetPage() {
   };
   const base = "meeting_sheet_" + (focus ? focus.name : ind || "all").replace(/\W+/g, "_") + "_" + todayIso();
   const makePdf = async () => { if (!sheetRef.current) throw new Error("no sheet"); return sheetPdf(sheetRef.current, base + ".pdf"); };
+  const pdfDown = async () => { setBusy("pdf"); setNote(""); try { download(await makePdf()); setNote("✓ " + tr("ה-PDF ירד לתיקיית ההורדות — לקוח אחד בכל עמוד")); } catch { setNote(tr("יצירת הקבצים נכשלה — נסה שוב")); } setBusy(""); };
   const share = async () => {
     setBusy("share"); setNote("");
     try {
@@ -81,6 +82,7 @@ export default function SheetPage() {
           <label className="text-xs flex items-center gap-1 border rounded-lg px-2 py-2"><input type="checkbox" disabled={!!co} checked={onlyScan} onChange={(e) => setOnlyScan(e.target.checked)} />{tr("רק לקוחות שנסרקו")}</label>
           <button className={btnPrimary} onClick={() => window.print()}>🖨️ {tr("הדפס / PDF")}</button>
           <button className={btnGhost} onClick={csv}>⬇️ Excel</button>
+          <button className={btnGhost} disabled={!rows.length || !!busy} onClick={pdfDown}>{busy === "pdf" ? "⏳" : "⬇️"} PDF</button>
           <button className={btnGhost} disabled={!rows.length} onClick={() => setMail((m) => !m)}>✉ {tr("שלח במייל")}</button>
           <button className={btnGhost} disabled={!rows.length || !!busy} onClick={share}>{busy === "share" ? "⏳" : "📤"} {tr("WhatsApp / שיתוף — PDF + Excel")}</button>
           <button className={btnGhost} disabled={!nTicks} onClick={toTasks} title={tr("כל סימון TDS / דוגמה = משימה ב'היום שלי'")}>📋 {tr("משימות מהדף")} ({nTicks})</button>
