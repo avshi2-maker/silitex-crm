@@ -20,6 +20,7 @@ const ITEMS = [
   { href: "/scan", he: "סריקת אתרי לקוחות", icon: "🔎" },
   { href: "/leads/prompt", he: "חיפוש לקוחות עם Claude", icon: "🧲", owner: true },
   { href: "/radar", he: "מכ״ם פערי תעשייה", icon: "🛰️", owner: true },
+  { href: "/sheet", he: "דף פגישה להדפסה", icon: "🖨️", owner: true },
   { href: "/roadmap", he: "מפת דרכים — 6 חודשים", icon: "🧭", owner: true },
   { href: "/potential", he: "פוטנציאל — מי קודם", icon: "🎯", owner: true },
   { href: "/promo", he: "קידום אתר וגוגל", icon: "📣", owner: true },

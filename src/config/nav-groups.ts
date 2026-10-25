@@ -5,7 +5,7 @@
 export type NavGroup = { id: string; he: string; open: boolean; hrefs: string[] };
 export const NAV_GROUPS: NavGroup[] = [
   { id: "daily", he: "שגרה יומית", open: true, hrefs: ["/today", "/schedule", "/brief", "/hub", "/visits", "/capture", "/field"] },
-  { id: "sales", he: "לקוחות ומכירות", open: true, hrefs: ["/leads", "/pipeline", "/potential", "/scan", "/logistics", "/satisfaction", "/federica"] },
+  { id: "sales", he: "לקוחות ומכירות", open: true, hrefs: ["/leads", "/sheet", "/pipeline", "/potential", "/scan", "/logistics", "/satisfaction", "/federica"] },
   { id: "hunt", he: "איתור לקוחות חדשים", open: true, hrefs: ["/leads/prompt", "/radar", "/sniper", "/market", "/matrix", "/competitors"] },
   { id: "know", he: "מוצרים וידע", open: false, hrefs: ["/products", "/offsets", "/ask", "/formulations", "/faq", "/kb"] },
   { id: "silitex", he: "Silitex — שותפות", open: false, hrefs: ["/meetings", "/report", "/roadmap", "/partners", "/partner", "/pitch", "/market/gaps", "/notes", "/team"] },
