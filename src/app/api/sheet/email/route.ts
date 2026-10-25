@@ -1,10 +1,10 @@
-// route.ts (src/app/api/sheet/email/route.ts) · updated 25.10.2026 08:25 (Asia/Jerusalem) — + PDF attachment · created 06:45
+// route.ts (src/app/api/sheet/email/route.ts) · updated 25.10.2026 (Asia/Jerusalem) — v0.92.1 full UTF-8 HTML document (Outlook Hebrew fix) · 08:25 + PDF attachment · created 06:45
 // ✉ e-mail the 🖨️ meeting sheet (owner only): short Hebrew body + the full table in the mail (prints from Outlook) + Excel attachment, via Resend.
 // Reply-To = avshi@sapirim.com so answers come back to Outlook. Nothing is stored on the server.
 import { NextResponse } from "next/server";
+import { sheetMailHtml } from "@/lib/sheet-mail";
 export const runtime = "nodejs";
 const isEmail = (s: string) => /^[^\s@,;]+@[^\s@,;]+\.[a-z]{2,}$/i.test(s);
-const esc = (s: unknown) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 export async function POST(req: Request) {
   const key = process.env.RESEND_API_KEY; if (!key) return NextResponse.json({ error: "email service not configured (RESEND_API_KEY)" }, { status: 503 });
@@ -13,8 +13,7 @@ export async function POST(req: Request) {
   if (!to.length || ![...to, ...cc].every(isEmail)) return NextResponse.json({ error: "כתובת מייל לא תקינה" }, { status: 400 });
   const subject = String(b.subject || "דף פגישה").slice(0, 200); const body = String(b.body || "").slice(0, 4000);
   const head: string[] = Array.isArray(b.head) ? b.head.map(String).slice(0, 20) : []; const rows: unknown[][] = Array.isArray(b.rows) ? b.rows.slice(0, 600) : [];
-  const table = b.inBody && head.length ? '<table dir="rtl" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:12px;margin-top:14px"><thead><tr>' + head.map((h) => '<th style="border:1px solid #999;background:#f1f3f6;padding:4px 6px;text-align:right">' + esc(h) + "</th>").join("") + "</tr></thead><tbody>" + rows.map((r) => "<tr>" + (r as unknown[]).map((c) => '<td style="border:1px solid #ccc;padding:4px 6px;vertical-align:top;text-align:right">' + esc(c) + "</td>").join("") + "</tr>").join("") + "</tbody></table>" : "";
-  const html = '<div dir="rtl" style="font-family:Arial,sans-serif;font-size:14px;line-height:1.5">' + esc(body).replace(/\n/g, "<br>") + table + "</div>";
+  const html = sheetMailHtml(body, head, rows, !!b.inBody);
   const attachments: { filename: string; content: string }[] = [];
   if (b.xlsx) attachments.push({ filename: String(b.filename || "meeting_sheet.xlsx").replace(/[^\w.\-]/g, "_"), content: String(b.xlsx) });
   if (b.pdf) attachments.push({ filename: String(b.pdfName || "meeting_sheet.pdf").replace(/[^\w.\-]/g, "_"), content: String(b.pdf) });

@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AppShell from "@/components/AppShell";
+import MailtoOutlook from "@/components/MailtoOutlook";
 import { LangProvider } from "@/i18n";
 export const metadata: Metadata = { title: "Silitex CRM · Israel", description: "Silitex S.r.l. — Israel distribution CRM", icons: { icon: "/favicon.png", apple: "/field-icon-192.png" }, appleWebApp: { capable: false, title: "Silitex", statusBarStyle: "black" } };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -11,6 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <LangProvider>
           <AppShell>{children}</AppShell>
+          <MailtoOutlook />
         </LangProvider>
       </body>
     </html>
