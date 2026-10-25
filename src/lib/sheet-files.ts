@@ -1,4 +1,4 @@
-// sheet-files.ts (src/lib/sheet-files.ts) · created 25.10.2026 08:25 (Asia/Jerusalem)
+// sheet-files.ts (src/lib/sheet-files.ts) · updated 25.10.2026 10:15 (Asia/Jerusalem) — v0.92.3 lighter PDF (~half size, still sharp) · created 08:25
 // Files of the 🖨️ meeting sheet, made in the browser: Excel (xlsx, RTL sheet) and PDF (A4 landscape — a picture of the sheet as it looks on screen, so Hebrew is always right).
 // Libraries load only when a file is made (no weight on the page).
 export type SheetFile = { blob: Blob; base64: string; filename: string };
@@ -14,13 +14,13 @@ export async function sheetXlsx(head: string[], rows: (string | number)[][], fil
 
 export async function sheetPdf(el: HTMLElement, filename: string): Promise<SheetFile> {
   const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import("html2canvas"), import("jspdf")]);
-  const canvas = await html2canvas(el, { scale: 2, backgroundColor: "#ffffff", useCORS: true, windowWidth: Math.max(1300, el.scrollWidth) });
+  const canvas = await html2canvas(el, { scale: 1.6, backgroundColor: "#ffffff", useCORS: true, windowWidth: Math.max(1300, el.scrollWidth) });
   const pdf = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
   const m = 8, W = 297 - 2 * m, H = 210 - 2 * m; const pxPerMm = canvas.width / W; const pageH = Math.floor(H * pxPerMm);
   for (let y = 0, page = 0; y < canvas.height; y += pageH, page++) {
     const h = Math.min(pageH, canvas.height - y); const c = document.createElement("canvas"); c.width = canvas.width; c.height = h;
     const ctx = c.getContext("2d"); if (!ctx) break; ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, h); ctx.drawImage(canvas, 0, y, canvas.width, h, 0, 0, canvas.width, h);
-    if (page > 0) pdf.addPage(); pdf.addImage(c.toDataURL("image/jpeg", 0.9), "JPEG", m, m, W, h / pxPerMm);
+    if (page > 0) pdf.addPage(); pdf.addImage(c.toDataURL("image/jpeg", 0.75), "JPEG", m, m, W, h / pxPerMm);
   }
   const buf = pdf.output("arraybuffer");
   return { blob: new Blob([buf], { type: "application/pdf" }), base64: b64(buf), filename };

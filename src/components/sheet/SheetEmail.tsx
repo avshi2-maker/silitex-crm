@@ -1,5 +1,5 @@
 "use client";
-// SheetEmail.tsx (src/components/sheet/SheetEmail.tsx) · updated 25.10.2026 10:00 (Asia/Jerusalem) — v0.92.2 "To" auto-filled from saved contacts (name in "meeting with") + one-click contact chips · v0.92.1 📧 Outlook draft (.eml) with PDF + Excel attached, Hebrew-safe (replaces the mailto link that garbled Hebrew and could not attach) · 08:25 — + PDF attached (A4 landscape) · created 06:45 — ✉ send the meeting sheet by e-mail: To / CC, subject + short Hebrew body (editable), ✓ Excel attached, ✓ table inside the mail (prints from Outlook). PDF: print → Save as PDF (attach by hand).
+// SheetEmail.tsx (src/components/sheet/SheetEmail.tsx) · updated 25.10.2026 10:15 (Asia/Jerusalem) — v0.92.3 clear reason when direct send fails (size / service) · v0.92.2 "To" auto-filled from saved contacts (name in "meeting with") + one-click contact chips · v0.92.1 📧 Outlook draft (.eml) with PDF + Excel attached, Hebrew-safe (replaces the mailto link that garbled Hebrew and could not attach) · 08:25 — + PDF attached (A4 landscape) · created 06:45 — ✉ send the meeting sheet by e-mail: To / CC, subject + short Hebrew body (editable), ✓ Excel attached, ✓ table inside the mail (prints from Outlook). PDF: print → Save as PDF (attach by hand).
 import { useState } from "react";
 import { useLang } from "@/i18n";
 import { inputCls, btnPrimary, btnGhost } from "@/components/ui";
@@ -33,7 +33,7 @@ export default function SheetEmail({ head, rows, ind, who, people = [], date, to
     try {
       const f = await files(); const p = f.find((x) => x.type === "application/pdf"); const x = f.find((y) => y.filename.endsWith(".xlsx"));
       const r = await fetch("/api/sheet/email", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ to, cc, subject, body, head, rows, inBody, xlsx: x?.base64 || "", filename: x?.filename || "", pdf: p?.base64 || "", pdfName: p?.filename || "" }) });
-      const j = await r.json().catch(() => ({})); setMsg(r.ok ? "✓ " + tr("נשלח") : "⚠ " + (j.error || tr("השליחה נכשלה")));
+      const j = await r.json().catch(() => ({})); setMsg(r.ok ? "✓ " + tr("נשלח") : "⚠ " + (r.status === 413 ? tr("הקבצים גדולים מדי לשליחה ישירה — השתמש ב\"טיוטה ל-Outlook\"") : j.error || tr("השליחה נכשלה") + " (" + r.status + ")"));
     } catch { setMsg("⚠ " + tr("השליחה נכשלה")); }
     setBusy(false);
   };
