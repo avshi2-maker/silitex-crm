@@ -1,5 +1,5 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 22.10.2026 18:20 (Asia/Jerusalem) — importLeads: import notes sent 2 s after the customers (no foreign-key race) · 07:50 — completeTask: a done task of a supplier / partner (lead_id ct:…) is logged on his Hub thread · 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
+// useStore.ts (src/lib/store/useStore.ts) · updated 25.10.2026 06:15 (Asia/Jerusalem) — one row per customer id everywhere (duplicate list rows fixed + cleaned on load; import dedupes a file) · 22.10.2026 18:20 — importLeads: import notes sent 2 s after the customers (no foreign-key race) · 07:50 — completeTask: a done task of a supplier / partner (lead_id ct:…) is logged on his Hub thread · 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
@@ -10,13 +10,20 @@ import type { Lead, Task, Activity, KbDoc, KbChunk, Stage, Sample, Doc, Shipment
 import { FOLLOWUP_DAYS } from "@/config/sales";
 import { buildDemo } from "@/data/demo";
 import { PLAYBOOKS } from "@/config/playbooks";
+/** one entry per lead id — keeps the most recently updated copy, original order */
+function uniqLeads(leads: Lead[]): Lead[] {
+  const best = new Map<string, Lead>(); for (const l of leads) { const b = best.get(l.id); if (!b || (l.updated_at || "") > (b.updated_at || "")) best.set(l.id, l); }
+  if (best.size === leads.length) return leads;
+  const seen = new Set<string>(); const out: Lead[] = []; for (const l of leads) { if (seen.has(l.id)) continue; seen.add(l.id); out.push(best.get(l.id)!); } return out;
+}
 import { parsePlan, stepTask } from "@/lib/playbook";
 
 export function useStore() {
   const [state, setState] = useState<State>(EMPTY);
   const [ready, setReady] = useState(false);
-  useEffect(() => { setState(loadState()); setReady(true); }, []);
-  const update = useCallback((fn: (s: State) => State) => { setState((prev) => { const next = fn(prev); saveState(next); return next; }); }, []);
+  useEffect(() => { const st = loadState(); const leads = uniqLeads(st.leads); const out = leads === st.leads ? st : { ...st, leads }; if (out !== st) saveState(out); setState(out); setReady(true); }, []);
+  // every write passes uniqLeads: one row per customer id (a search file listing the same company twice used to add it twice — ICL ×4, 25.10.2026)
+  const update = useCallback((fn: (s: State) => State) => { setState((prev) => { const next = fn(prev); const leads = uniqLeads(next.leads); const out = leads === next.leads ? next : { ...next, leads }; saveState(out); return out; }); }, []);
 
   const addActivity = (lead_id: string, kind: string, text: string) => {
     const a: Activity = { id: uid("act"), lead_id, at: new Date().toISOString(), kind, text };
@@ -72,7 +79,7 @@ export function useStore() {
   const stopPlan = (leadId: string) => { const open = state.tasks.filter((x) => x.lead_id === leadId && !x.done && parsePlan(x.kind)); update((s) => ({ ...s, tasks: s.tasks.filter((x) => !open.some((o) => o.id === x.id)) })); open.forEach((x) => remove("tasks", x.id)); addActivity(leadId, "plan", "תוכנית העבודה הופסקה"); };
   /** bulk import (Excel / SAP export): new leads added, existing (same id) replaced */
   const importLeads = (rows: Lead[]) => {
-    const now = new Date().toISOString(); const list = rows.map((r) => ({ ...r, created_at: r.created_at || now, updated_at: now }));
+    const now = new Date().toISOString(); const list = uniqLeads(rows.map((r) => ({ ...r, created_at: r.created_at || now, updated_at: now }))); // same company twice in one file → once
     update((s) => { const ids = new Set(list.map((l) => l.id)); return { ...s, leads: [...list, ...s.leads.filter((l) => !ids.has(l.id))] }; });
     list.forEach((l) => sync("leads", l));
     const acts: Activity[] = list.map((l) => ({ id: uid("act"), lead_id: l.id, at: now, kind: "import", text: "יובא מ-Excel / SAP" + (l.source ? " · " + l.source : "") }));
