@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/sheet/page.tsx) · updated 25.10.2026 08:25 (Asia/Jerusalem) — 📤 WhatsApp / share with PDF + Excel files · ✉ e-mail with PDF + Excel · 📋 ticks → tasks (TDS to send / sample to request) · 08:10 — #1 meeting tool: 🔎 zoom on ONE company (on-site visit) · "מקבילה מתחרה (הערכה)" (✓ when confirmed in the intake form) · Silitex matches ONE PER LINE in a second full-width row, each with the other producers' equivalents · tick boxes saved on the customer: לקוח של פיני / TDS נדרש / דוגמה נדרשת · landscape note · 06:45 — ✉ e-mail · created 06:30 — printable meeting sheet per industry
+// page.tsx (src/app/sheet/page.tsx) · updated 25.10.2026 10:00 (Asia/Jerusalem) — v0.92.2 e-mail "To" filled from the saved contact (פיני → his e-mail) · 25.10.2026 08:25 (Asia/Jerusalem) — 📤 WhatsApp / share with PDF + Excel files · ✉ e-mail with PDF + Excel · 📋 ticks → tasks (TDS to send / sample to request) · 08:10 — #1 meeting tool: 🔎 zoom on ONE company (on-site visit) · "מקבילה מתחרה (הערכה)" (✓ when confirmed in the intake form) · Silitex matches ONE PER LINE in a second full-width row, each with the other producers' equivalents · tick boxes saved on the customer: לקוח של פיני / TDS נדרש / דוגמה נדרשת · landscape note · 06:45 — ✉ e-mail · created 06:30 — printable meeting sheet per industry
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useStore } from "@/lib/store";
 import { useLang } from "@/i18n";
@@ -86,7 +86,7 @@ export default function SheetPage() {
           <button className={btnGhost} disabled={!nTicks} onClick={toTasks} title={tr("כל סימון TDS / דוגמה = משימה ב'היום שלי'")}>📋 {tr("משימות מהדף")} ({nTicks})</button>
           {note && <span className="text-sm text-emerald-700">{note}</span>}
         </Card>
-        {mail && <SheetEmail head={head} rows={table} ind={focus ? focus.name : ind} who={who} date={fmtDate(todayIso())} tons={tons} onClose={() => setMail(false)} makePdf={makePdf} />}
+        {mail && <SheetEmail head={head} rows={table} ind={focus ? focus.name : ind} who={who} people={state.contacts.filter((c) => c.email).map((c) => ({ name: c.name, email: c.email || "" }))} date={fmtDate(todayIso())} tons={tons} onClose={() => setMail(false)} makePdf={makePdf} />}
       </div>
       <div dir="rtl" className="bg-white p-1" ref={sheetRef}>
         <div className="flex flex-wrap items-baseline gap-x-4 mb-1">

@@ -1,5 +1,5 @@
 "use client";
-// SheetEmail.tsx (src/components/sheet/SheetEmail.tsx) · updated 25.10.2026 (Asia/Jerusalem) — v0.92.1 📧 Outlook draft (.eml) with PDF + Excel attached, Hebrew-safe (replaces the mailto link that garbled Hebrew and could not attach) · 08:25 — + PDF attached (A4 landscape) · created 06:45 — ✉ send the meeting sheet by e-mail: To / CC, subject + short Hebrew body (editable), ✓ Excel attached, ✓ table inside the mail (prints from Outlook). PDF: print → Save as PDF (attach by hand).
+// SheetEmail.tsx (src/components/sheet/SheetEmail.tsx) · updated 25.10.2026 10:00 (Asia/Jerusalem) — v0.92.2 "To" auto-filled from saved contacts (name in "meeting with") + one-click contact chips · v0.92.1 📧 Outlook draft (.eml) with PDF + Excel attached, Hebrew-safe (replaces the mailto link that garbled Hebrew and could not attach) · 08:25 — + PDF attached (A4 landscape) · created 06:45 — ✉ send the meeting sheet by e-mail: To / CC, subject + short Hebrew body (editable), ✓ Excel attached, ✓ table inside the mail (prints from Outlook). PDF: print → Save as PDF (attach by hand).
 import { useState } from "react";
 import { useLang } from "@/i18n";
 import { inputCls, btnPrimary, btnGhost } from "@/components/ui";
@@ -7,10 +7,11 @@ import { sheetXlsx } from "@/lib/sheet-files";
 import { downloadEml, type EmlFile } from "@/lib/eml";
 import { sheetMailHtml } from "@/lib/sheet-mail";
 
-type Props = { head: string[]; rows: (string | number)[][]; ind: string; who: string; date: string; tons: number; onClose: () => void; makePdf: () => Promise<{ base64: string; filename: string }> };
-export default function SheetEmail({ head, rows, ind, who, date, tons, onClose, makePdf }: Props) {
+type Props = { head: string[]; rows: (string | number)[][]; ind: string; who: string; people?: { name: string; email: string }[]; date: string; tons: number; onClose: () => void; makePdf: () => Promise<{ base64: string; filename: string }> };
+export default function SheetEmail({ head, rows, ind, who, people = [], date, tons, onClose, makePdf }: Props) {
   const { t: tr } = useLang();
-  const [to, setTo] = useState(""); const [cc, setCc] = useState("avshi@sapirim.com");
+  const w = who.trim().split(/\s+/)[0] || "-"; const match = people.find((p) => p.name.includes(w));
+  const [to, setTo] = useState(match?.email || ""); const [cc, setCc] = useState("avshi@sapirim.com");
   const [subject, setSubject] = useState("דף פגישה — " + (ind || "כל התעשיות") + " — " + date);
   const [body, setBody] = useState("שלום " + who + ",\n\nמצורף דף הפגישה לתעשיית " + (ind || "כל התעשיות") + " — " + rows.length + " לקוחות, ~" + tons + " טון/שנה (הערכה), מסודר לפי עדיפות.\nלכל לקוח: מה מייצרים, הספק / המוצר הנוכחי והתאמת Silitex מסריקת האתר.\nנעבור עליו יחד — עמודת \"עדכון / הערות\" ריקה לסימון.\n\nבברכה,\nאבשי ספיר\nספירים — Silitex ישראל\n050-5231042");
   const [xl, setXl] = useState(true); const [pdf, setPdf] = useState(true); const [inBody, setInBody] = useState(true); const [busy, setBusy] = useState(false); const [msg, setMsg] = useState("");
@@ -44,6 +45,7 @@ export default function SheetEmail({ head, rows, ind, who, date, tons, onClose, 
         <label className={lbl}>{tr("אל")}<input dir="ltr" className={inputCls + " mt-1"} value={to} onChange={(e) => setTo(e.target.value)} placeholder="name@company.com" /></label>
         <label className={lbl}>{tr("עותק (CC)")}<input dir="ltr" className={inputCls + " mt-1"} value={cc} onChange={(e) => setCc(e.target.value)} /></label>
       </div>
+      {people.length > 0 && <div className="flex flex-wrap gap-1 text-xs">{people.map((p, i) => <button key={i} type="button" className={"px-2 py-0.5 rounded-full border " + (to.includes(p.email) ? "bg-brand-50 border-brand-500" : "bg-white")} onClick={() => setTo((t) => t.includes(p.email) ? t : (t.trim() ? t.trim() + "; " : "") + p.email)}>+ {p.name}</button>)}</div>}
       <label className={lbl + " block"}>{tr("נושא")}<input className={inputCls + " mt-1"} value={subject} onChange={(e) => setSubject(e.target.value)} /></label>
       <label className={lbl + " block"}>{tr("גוף המייל")}<textarea rows={8} className={inputCls + " mt-1"} value={body} onChange={(e) => setBody(e.target.value)} /></label>
       <div className="flex flex-wrap items-center gap-3 text-sm">
