@@ -2155,4 +2155,13 @@ export const EN: Record<string, string> = {
   "התאמת Silitex": "Silitex match",
   "עדכון / הערות": "Update / notes",
   "אין לקוחות לפי הסינון.": "No customers for this filter.",
+  "שלח במייל": "Send by e-mail",
+  "שליחת הדף במייל": "Send the sheet by e-mail",
+  "עותק (CC)": "CC",
+  "גוף המייל": "Mail body",
+  "Excel מצורף": "Excel attached",
+  "הטבלה בתוך המייל": "Table inside the mail",
+  "PDF: הדפס → שמור כ-PDF וצרף ידנית": "PDF: print → Save as PDF and attach by hand",
+  "שלח": "Send",
+  "השליחה נכשלה": "Sending failed",
 };

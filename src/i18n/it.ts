@@ -2237,4 +2237,13 @@ export const IT: Record<string, string> = {
   "התאמת Silitex": "Corrispondenza Silitex",
   "עדכון / הערות": "Aggiornamento / note",
   "אין לקוחות לפי הסינון.": "Nessun cliente per questo filtro.",
+  "שלח במייל": "Invia per e-mail",
+  "שליחת הדף במייל": "Invia la scheda per e-mail",
+  "עותק (CC)": "CC",
+  "גוף המייל": "Testo della mail",
+  "Excel מצורף": "Excel allegato",
+  "הטבלה בתוך המייל": "Tabella nella mail",
+  "PDF: הדפס → שמור כ-PDF וצרף ידנית": "PDF: stampa → Salva come PDF e allega a mano",
+  "שלח": "Invia",
+  "השליחה נכשלה": "Invio non riuscito",
 };
