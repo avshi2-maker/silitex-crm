@@ -1,4 +1,4 @@
-// page.tsx (src/app/(portal)/[lang]/codes/[slug]/page.tsx) · updated 21.10.2026 11:45 (Asia/Jerusalem) — a code listed in several families shows each Silitex equivalent · created 10:40 — PUBLIC PORTAL competitor-code landing page: "<code> alternative" → Silitex family equivalent, INCI, certificates, sibling codes, sample CTA. Honest wording (equivalent to verify in the lab).
+// page.tsx (src/app/(portal)/[lang]/codes/[slug]/page.tsx) · updated 26.10.2026 11:35 (Asia/Jerusalem) — v0.99.0 unverified notice · 21.10.2026 11:45 (Asia/Jerusalem) — a code listed in several families shows each Silitex equivalent · created 10:40 — PUBLIC PORTAL competitor-code landing page: "<code> alternative" → Silitex family equivalent, INCI, certificates, sibling codes, sample CTA. Honest wording (equivalent to verify in the lab).
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -8,6 +8,8 @@ import { meta } from "@/portal/seo";
 import { P_CODES, codeBySlug, CT } from "@/portal/codes";
 import { familyProducts } from "@/portal/data";
 import { PORTAL_LANGS, CONTACT, type PLang } from "@/portal/config";
+import { TrustBanner, Unverified } from "@/components/TrustTag";
+import { PORTAL_NOTE, isVerifiedProducer } from "@/lib/offsets-trust";
 export const dynamicParams = false;
 export function generateStaticParams() { return PORTAL_LANGS.flatMap((lang) => P_CODES.map((c) => ({ lang, slug: c.slug }))); }
 export async function generateMetadata({ params }: { params: Promise<{ lang: PLang; slug: string }> }): Promise<Metadata> {
@@ -22,7 +24,8 @@ export default async function Code({ params }: { params: Promise<{ lang: PLang; 
   return (
     <PortalPage lang={lang} path={"/codes/" + slug} crumbs={[{ name: t("home"), url: b }, { name: CT.all[lang], url: b + "/codes" }, { name: c.code, url: b + "/codes/" + slug }]}>
       <h1 className="text-3xl font-bold">{CT.h1[lang]}<span dir="ltr">{c.code}</span></h1>
-      <div className="text-slate-700">{CT.by[lang]}: <b dir="ltr">{c.producer}</b></div>
+      <div className="text-slate-700">{CT.by[lang]}: <b dir="ltr">{c.producer}</b>{!isVerifiedProducer(c.producer) && <> <Unverified lang={lang} /></>}</div>
+      {!isVerifiedProducer(c.producer) && <TrustBanner lang={lang} text={PORTAL_NOTE[lang]} />}
       {c.families.map((fam) => (
         <section key={fam.slug} className="rounded-2xl border-2 border-brand-200 bg-white/80 p-4 space-y-1" dir="ltr">
           <div className="text-xs text-slate-500">{CT.family[lang]}: <Link href={b + "/alternatives/" + fam.slug} className="underline">{fam.family}</Link> · {CT.eq[lang]}</div>

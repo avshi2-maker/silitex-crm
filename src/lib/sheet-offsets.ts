@@ -1,9 +1,11 @@
-// sheet-offsets.ts (src/lib/sheet-offsets.ts) · updated 25.10.2026 17:40 (Asia/Jerusalem) — v0.93.0 + inciOf / inciOfCompetitor (INCI first on the meeting sheet) · created 08:10
+// sheet-offsets.ts (src/lib/sheet-offsets.ts) · updated 26.10.2026 11:30 (Asia/Jerusalem) — v0.99.0 truth rule: equivalents / INCI not from the official Silitex leaflet end with " ⚠" (unverified) · 25.10.2026 17:40 v0.93.0 + inciOf / inciOfCompetitor (INCI first on the meeting sheet) · created 08:10
 // For the 🖨️ meeting sheet: each Silitex grade → its equivalents from the other producers, from our own data only:
 // Federica's cosmetic countertypes leaflet (19/10/2026) · the offsets table (Dow / Shin-Etsu / Momentive / Wacker / Evonik / Elkem / KCC …) · the catalogue's Dow benchmark · the website scan's countertype.
 import { COSMETIC_COUNTERTYPES } from "@/config/cosmetic-range";
 import { OFFSETS, PRODUCTS } from "@/lib/data";
 import { CAT26 } from "@/lib/catalog";
+import nusil from "@/data/nusil_caresil.json";
+const HIST = (nusil as { israel_history: { dc: string; inci: string }[] }).israel_history;
 
 const U = (s: string) => (s || "").toUpperCase().replace(/\s+/g, " ").trim();
 const base = (s: string) => U(s).replace(/^[★*\s]+/, "").replace(/\s*\(.*$/, "").trim();
@@ -12,14 +14,14 @@ const short = (p: string) => p.split(" ")[0].replace(/[()]/g, "");
 
 export function offsetsFor(silitex: string, countertype?: string): string {
   const n = base(silitex); if (!n) return countertype || "";
-  const out: string[] = []; const add = (who: string, v?: string) => { const t = (v || "").trim(); if (t && t !== "-" && !out.some((x) => x.endsWith(": " + t))) out.push(who + ": " + t); };
+  const out: string[] = []; const add = (who: string, v?: string, ok = false) => { const t = (v || "").trim(); if (t && t !== "-" && !/^n\/?a\b/i.test(t) && !out.some((x) => x.replace(/ ⚠$/, "").endsWith(": " + t))) out.push(who + ": " + t + (ok ? "" : " ⚠")); };
   const c = COSMETIC_COUNTERTYPES.find((r) => U(r.product) === n || base(r.product) === n);
-  if (c) { add("Dow", c.dow); add("Momentive", c.momentive); add("Wacker", c.wacker); add("BRB", c.brb); }
+  if (c) { add("Dow", c.dow, true); add("Momentive", c.momentive, true); add("Wacker", c.wacker, true); add("BRB", c.brb, true); } // ✓ official Silitex leaflet
   const first = n.split(" ")[0];
   const o = first.length >= 5 ? OFFSETS.rows.find((r) => U(r.silitex_product).startsWith(first) || U(r.silitex_product).includes(n)) : undefined;
-  if (o) { add("Dow", o.dow_corning); for (const [k, v] of Object.entries(o.offsets || {})) if (KEEP.some((x) => k.startsWith(x))) add(short(k), v); }
+  if (o) { add("Dow", o.dow_corning); for (const [k, v] of Object.entries(o.offsets || {})) if (KEEP.some((x) => k.startsWith(x))) add(short(k), v); } // ⚠ market table — unverified
   const p = PRODUCTS.find((x) => U(x.product_name) === n || base(x.product_name) === n); if (p) add("Dow", p.dow_corning_offset_benchmark);
-  if (countertype && !out.some((x) => U(x).includes(U(countertype)))) out.unshift(countertype);
+  if (countertype && !/^[-—]$|לא צוין/.test(countertype.trim()) && !out.some((x) => U(x).includes(U(countertype)))) out.unshift(countertype + (c && [c.dow, c.brb, c.momentive, c.wacker].some((f) => f && U(countertype).includes(U(f).split(" / ")[0])) ? "" : " ⚠"));
   return out.slice(0, 6).join(" · ");
 }
 
@@ -42,8 +44,9 @@ export function inciOfCompetitor(name: string): string {
   for (const t of tokens(name)) {
     const c = COSMETIC_COUNTERTYPES.find((r) => [r.dow, r.brb, r.momentive, r.wacker].some((f) => f && hit(f, t)));
     let v = clean(c?.inci);
-    if (!v) { const o = OFFSETS.rows.find((r) => hit(r.dow_corning, t) || Object.values(r.offsets || {}).some((f) => f && hit(f, t))); v = clean(o?.inci); }
-    if (!v) { const p = PRODUCTS.find((x) => x.dow_corning_offset_benchmark && hit(x.dow_corning_offset_benchmark, t)); v = clean(p?.inci_chemical_name); }
+    if (!v) { const h = HIST.find((x) => hit(x.dc, t)); v = clean(h?.inci); } // ✓ Sapirim's own Dow purchasing 2010–2013 (real records)
+    if (!v) { const o = OFFSETS.rows.find((r) => hit(r.dow_corning, t) || Object.values(r.offsets || {}).some((f) => f && hit(f, t))); v = clean(o?.inci); if (v) v += " ⚠"; }
+    if (!v) { const p = PRODUCTS.find((x) => x.dow_corning_offset_benchmark && hit(x.dow_corning_offset_benchmark, t)); v = clean(p?.inci_chemical_name); if (v) v += " ⚠"; }
     if (v && !out.includes(v)) out.push(v);
   }
   return out.join(" · ");

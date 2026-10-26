@@ -1,10 +1,11 @@
 "use client";
-// QuickMatch.tsx (src/components/QuickMatch.tsx) · updated 18.10.2026 07:45 (Asia/Jerusalem) — + examples prop (per industry in field mode) · 16.10.2026 09:40 — + ✕ Clear button / Esc · — competitor-code quick search: type a Dow / XIAMETER / Wacker / Momentive / Evonik … code → Silitex equivalent + catalogue rows + PDF. Client-side (lib/equiv-search.ts), no AI cost; AI fallback link to /ask. Used on dashboard, /offsets, /partner.
+// QuickMatch.tsx (src/components/QuickMatch.tsx) · updated 26.10.2026 11:25 (Asia/Jerusalem) — v0.99.0 ⚠ unverified on market-table hits · 18.10.2026 07:45 (Asia/Jerusalem) — + examples prop (per industry in field mode) · 16.10.2026 09:40 — + ✕ Clear button / Esc · — competitor-code quick search: type a Dow / XIAMETER / Wacker / Momentive / Evonik … code → Silitex equivalent + catalogue rows + PDF. Client-side (lib/equiv-search.ts), no AI cost; AI fallback link to /ask. Used on dashboard, /offsets, /partner.
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Badge, inputCls, certTone } from "@/components/ui";
 import { searchEquiv } from "@/lib/equiv-search";
 import { useLang } from "@/i18n";
+import { Unverified } from "@/components/TrustTag";
 const EXAMPLES = ["OFX-0193", "DC 5225C", "9040", "Silsoft 034", "ABIL EM 90", "SAG 30", "PMX-200"];
 export default function QuickMatch({ autoFocus = false, examples }: { autoFocus?: boolean; examples?: string[] }) {
   const { t: tr } = useLang();
@@ -23,7 +24,7 @@ export default function QuickMatch({ autoFocus = false, examples }: { autoFocus?
         {hits.map((h) => (
           <li key={h.key} className="border rounded-xl p-3">
             <div className="flex flex-wrap items-center gap-2 text-sm">
-              {h.kind === "catalogue" ? <Badge tone="purple">{tr("קטלוג Silitex")}</Badge> : <><span className="font-medium">{h.competitor}</span>{h.producer && <span className="text-xs text-slate-400">{h.producer}</span>}<span className="text-slate-400">→</span></>}
+              {h.kind === "catalogue" ? <Badge tone="purple">{tr("קטלוג Silitex")}</Badge> : <><span className="font-medium">{h.competitor}</span>{h.producer && <span className="text-xs text-slate-400">{h.producer}</span>}{!h.verified && <Unverified />}<span className="text-slate-400">→</span></>}
               <span className="font-bold text-brand-700">{h.silitexNames.length ? h.silitexNames.slice(0, 4).join(" · ") : h.silitex.slice(0, 90)}</span>
               <Badge tone={h.exact ? "green" : "amber"}>{h.exact ? tr("התאמת קוד") : tr("התאמה חלקית")}</Badge>
               {h.certs.map((c) => <Badge key={c} tone={certTone(c)}>{c}</Badge>)}

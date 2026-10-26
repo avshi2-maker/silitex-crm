@@ -1,4 +1,4 @@
-// context.ts (src/lib/studio/context.ts) · updated 18.10.2026 17:10 (Asia/Jerusalem) — POST STUDIO sources: partner-safe index (no customer records / owner strategy), competitor-code equivalents, industry catalogue rows, fixed regulation facts. Same data the public portal will use.
+// context.ts (src/lib/studio/context.ts) · updated 26.10.2026 11:25 (Asia/Jerusalem) — v0.99.0 unverified equivalences flagged to the AI (never claimed as fact) · 18.10.2026 17:10 — POST STUDIO sources: partner-safe index (no customer records / owner strategy), competitor-code equivalents, industry catalogue rows, fixed regulation facts. Same data the public portal will use.
 import { searchPartner } from "@/lib/search-partner";
 import { searchEquiv } from "@/lib/equiv-search";
 import { industryLine } from "@/lib/industry-lines";
@@ -14,7 +14,7 @@ export function studioSources(kind: StudioKind, value: string): { topic: string;
     searchPartner(topic, 5).forEach((h) => parts.push(h.title + ": " + h.text.slice(0, 500)));
   } else if (kind === "code") {
     topic = "Equivalent to competitor code " + value;
-    searchEquiv(value, 4).forEach((h) => parts.push("Competitor " + h.producer + " " + h.competitor + " (" + h.family + ", INCI " + h.inci + ") → Silitex: " + h.silitex + (h.certs.length ? " · certs: " + h.certs.join(", ") : "") + (h.rows[0] ? " · " + h.rows[0].description : "")));
+    searchEquiv(value, 4).forEach((h) => parts.push((h.verified ? "" : "[UNVERIFIED equivalence — do NOT claim it as fact; say \"to be checked in your lab\"] ") + "Competitor " + h.producer + " " + h.competitor + " (" + h.family + ", INCI " + h.inci + ") → Silitex: " + h.silitex + (h.certs.length ? " · certs: " + h.certs.join(", ") : "") + (h.rows[0] ? " · " + h.rows[0].description : "")));
   } else if (kind === "regulation") {
     topic = "Cyclic siloxanes D4 / D5 / D6 — what changed in the rules and what it means for formulators";
     parts.push(REGULATION_FACTS); searchPartner("D4 D5 D6 cyclic siloxane regulation", 4).forEach((h) => parts.push(h.title + ": " + h.text.slice(0, 500)));

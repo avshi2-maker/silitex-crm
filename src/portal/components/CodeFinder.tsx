@@ -1,10 +1,11 @@
 "use client";
-// CodeFinder.tsx (src/portal/components/CodeFinder.tsx) · updated 20.10.2026 18:40 (Asia/Jerusalem) — never a dead end: competitor code → equivalents; free text ("קרם הגנה לשמש") → catalogue products by use (need-search); "ask the AI" answer with product links; WhatsApp (query pre-filled) + free match report always offered · 17:55 — + Italian · 18.10.2026 18:00 — PUBLIC competitor-code finder (same engine as the CRM quick match, public-safe gaps_lite data)
+// CodeFinder.tsx (src/portal/components/CodeFinder.tsx) · updated 26.10.2026 11:25 (Asia/Jerusalem) — v0.99.0 ⚠ unverified competitor codes labelled · 20.10.2026 18:40 (Asia/Jerusalem) — never a dead end: competitor code → equivalents; free text ("קרם הגנה לשמש") → catalogue products by use (need-search); "ask the AI" answer with product links; WhatsApp (query pre-filled) + free match report always offered · 17:55 — + Italian · 18.10.2026 18:00 — PUBLIC competitor-code finder (same engine as the CRM quick match, public-safe gaps_lite data)
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { searchEquiv } from "@/lib/equiv-search";
 import { needSearch } from "../need-search";
 import { CONTACT, type PLang } from "../config";
+import { Unverified } from "@/components/TrustTag";
 const slugify = (s: string) => s.toLowerCase().normalize("NFKD").replace(/[®™]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 70);
 const F: Record<string, Record<PLang, string>> = {
   full: { he: "לעמוד ההשוואה המלא", en: "Full comparison page", ru: "Полная таблица аналогов", it: "Tabella completa delle equivalenze" },
@@ -40,7 +41,7 @@ export default function CodeFinder({ lang, title, hint, none, examples }: { lang
       {ok && !hits.length && !need.length && <div className="text-sm text-slate-600">{none}</div>}
       {hits.length > 0 && <ul className="space-y-2">{hits.map((h) => (
         <li key={h.key} className="border rounded-xl p-3" dir="ltr">
-          <div className="text-xs text-slate-500">{h.producer} · {h.competitor}</div>
+          <div className="text-xs text-slate-500">{h.producer} · {h.competitor}{h.kind !== "catalogue" && !h.verified && <> <Unverified lang={lang} /></>}</div>
           <div className="font-bold text-brand-700">→ {h.silitex.replace(/\s+—\s+full lines.*$/i, "")}</div>
           <div className="text-xs text-slate-500">{h.family}{h.inci ? " · " + h.inci : ""}{h.certs.length ? " · " + h.certs.join(", ") : ""}</div>
           {h.kind === "offset" && <Link href={"/" + lang + "/alternatives/" + slugify(h.family)} className="text-sm text-brand-600 underline">{F.full[lang]} ›</Link>}
