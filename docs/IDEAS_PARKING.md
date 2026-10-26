@@ -37,3 +37,13 @@ Idea (Avshi, 22/10): sell the system we built to other Silitex distributors as a
 3. Build a full PITCH covering everything (Slides deck: problem → system tour with screenshots → measured results from Israel → plans → pilot offer) for Silitex management.
 4. One pilot distributor at a reduced fee for 3 months; per-distributor copy of the system (own Supabase + Vercel + domain, ~1–2 days setup each).
 **Don't:** show prices to Federica before Silitex approves the idea; don't build multi-tenant until a second paying distributor exists.
+
+## 🅿️ Expo Ready — research packs for Federica's 2 shows — PARKED 26/10/2026 (deadline: PDF to Federica ~03–04/11/2026)
+Shows: **Fi Europe** Frankfurt 17–19/11/2026 + **Paint & Coatings** Barcelona 18–19/11/2026 — decided 25/10: build BOTH.
+**Process (per show):** 1) exhibitor list (official site / floor plan) → 2) Claude web search scores each exhibitor for silicone fit (antifoam, emulsions, softeners, release, coatings additives) A/B/C → 3) top 30–40 with stand + hall + "where Silitex fits" + 3 opening questions + what to avoid → 4) day route per hall (stand-by-stand, booked meetings blocked in) → 5) English PDF "gift" to Federica ~2 weeks before the show.
+**Mock-up done 24/10:** Design canvas "Expo Ready" (Day route · Stand brief · After the meeting — card scan + voice note → summary, next steps, follow-up mail via Outlook). Existing CRM pieces to reuse: /expo (partner field mode on silitex-field), ExpoList / ExpoMeet, QR_Silitex_Expo.png.
+**Rules:** food sector stays out (Fi Europe = food ingredients → only non-food angles: fermentation/process antifoam for ingredient makers, disclosed to Federica); English only; no "local stock" claims.
+
+## 🅿️ Sales meetings & calls tab ("🤝 פגישות ושיחות מכירה") — PROPOSED 26/10/2026, mock-up pending
+Gap: meetings with Pini (partner) / customers — physical, phone, Teams, WhatsApp — fit neither /meetings (Silitex Teams) nor /field (visit capture) nor the customer-card transcript box.
+Idea: one tab in "לקוחות ומכירות": who + type + date → notes box (type / paste / dictate) → AI: summary, per-customer decision + next step, tasks to "My day", updates each customer card; links the meeting sheet + its ticks. First record: Pini 25/10/2026 cosmetics meeting.
