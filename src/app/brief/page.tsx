@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/brief/page.tsx) · updated 09.10.2026 12:30 (Asia/Jerusalem) — daily brief: run now, send to WhatsApp
+// page.tsx (src/app/brief/page.tsx) · updated 26.10.2026 07:20 (Asia/Jerusalem) — v0.97.0 real delivery report from Meta (✅ delivered / ❌ failed) after send · 09.10.2026 12:30 — daily brief: run now, send to WhatsApp
 import { useState } from "react";
 import { useStore } from "@/lib/store";
 import { Card, H1, Badge, btnPrimary, btnGhost } from "@/components/ui";
@@ -12,11 +12,12 @@ type R = { text: string; usage: Usage; source: string; delivery?: { sent: boolea
 export default function BriefPage() {
   const { t: tr, lang } = useLang();
   const { state, ready, addSpend } = useStore();
-  const [busy, setBusy] = useState(false); const [r, setR] = useState<R | null>(null); const [err, setErr] = useState("");
+  const [busy, setBusy] = useState(false); const [r, setR] = useState<R | null>(null); const [err, setErr] = useState(""); const [dl, setDl] = useState("");
   if (!ready) return null;
   const run = async (send: boolean) => {
     setBusy(true); setErr("");
-    try { const res = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ send, lang }) }); const j = await res.json(); if (!res.ok) throw new Error(j.error); setR(j); addSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd); }
+    try { const res = await fetch("/api/brief", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ send, lang }) }); const j = await res.json(); if (!res.ok) throw new Error(j.error); setR(j); addSpend(j.usage.input_tokens + j.usage.output_tokens, j.usage.cost_usd);
+      if (send && j.delivery?.sent) { const t0 = Date.now(); setDl("⏳ " + tr("מחכה לאישור מסירה מ-Meta…")); const poll = async () => { const s = await fetch("/api/brief", { cache: "no-store" }).then((x) => x.json()).catch(() => ({})); if (s.at && new Date(s.at).getTime() >= t0 - 5000 && /✅|❌/.test(s.status || "")) { setDl(s.status); return; } if (Date.now() - t0 < 60000) setTimeout(poll, 3000); else setDl("⚠ " + tr("אין אישור מסירה תוך דקה — בדוק בטלפון")); }; setTimeout(poll, 3000); } }
     catch (e: unknown) { setErr(e instanceof Error ? e.message : tr("שגיאה")); }
     setBusy(false);
   };
@@ -27,7 +28,8 @@ export default function BriefPage() {
         <button className={btnPrimary} disabled={busy} onClick={() => run(false)}>{busy ? tr("מעבד…") : tr("צור תדריך עכשיו")}</button>
         <button className={btnGhost} disabled={busy} onClick={() => run(true)}>{tr("צור ושלח ל-WhatsApp (בוט)")}</button>
         {r && <Badge tone={r.source === "supabase" ? "green" : "amber"}>{r.source === "supabase" ? tr("נתונים: Supabase") : tr("נתונים: seed (ללא Supabase)")}</Badge>}
-        {r?.delivery && <Badge tone={r.delivery.sent ? "green" : "red"}>{r.delivery.sent ? tr("נשלח · ") + r.delivery.provider : tr("לא נשלח — אין ספק WhatsApp מוגדר; השתמש בכפתור WhatsApp למטה")}</Badge>}
+        {r?.delivery && <Badge tone={r.delivery.sent ? "green" : "red"}>{r.delivery.sent ? tr("נשלח · ") + r.delivery.provider : r.delivery.provider === "none" ? tr("לא נשלח — אין ספק WhatsApp מוגדר; השתמש בכפתור WhatsApp למטה") : tr("נדחה ע״י Meta") + ": " + (r.delivery.error || "").slice(0, 160)}</Badge>}
+        {dl && <Badge tone={dl.startsWith("✅") ? "green" : dl.startsWith("❌") ? "red" : "amber"}>{dl.replace(/→ \d+/, "")}</Badge>}
       </Card>
       <TokenMeter usage={r?.usage} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} busy={busy} />
       {err && <div className="text-sm text-red-600">{err}</div>}
