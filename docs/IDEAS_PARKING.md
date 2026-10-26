@@ -47,3 +47,8 @@ Shows: **Fi Europe** Frankfurt 17–19/11/2026 + **Paint & Coatings** Barcelona 
 ## 🅿️ Sales meetings & calls tab ("🤝 פגישות ושיחות מכירה") — PROPOSED 26/10/2026, mock-up pending
 Gap: meetings with Pini (partner) / customers — physical, phone, Teams, WhatsApp — fit neither /meetings (Silitex Teams) nor /field (visit capture) nor the customer-card transcript box.
 Idea: one tab in "לקוחות ומכירות": who + type + date → notes box (type / paste / dictate) → AI: summary, per-customer decision + next step, tasks to "My day", updates each customer card; links the meeting sheet + its ticks. First record: Pini 25/10/2026 cosmetics meeting.
+
+## 🅿️ Verify competitor codes → turn ⚠ into ✓ — PARKED 26/10/2026
+Since v0.99.0 every competitor code not from a verified source shows 🟨 "⚠ לא מאומת" (CRM, meeting sheet, search, post studio, public portal).
+Verified today: Silitex column · Silitex official cosmetic countertype leaflet (Dow/BRB/Momentive/Wacker) · NuSil CareSil docs (2013–2016) · Sapirim Dow purchasing 2010–2013 (INCI of every Dow product bought).
+**Plan:** one producer at a time with Claude web search against the producer's own data sheet / product page — start Dow (biggest, and the market-table Dow column has known errors, e.g. Dow 556 under quaternary microemulsions), then Wacker, Momentive, Shin-Etsu, Evonik … Each confirmed code → listed in `verified_producers` / per-code verified list in offsets.json with the source URL → ✓, notice disappears. Wrong codes → corrected or cleared ("? לא ידוע"). Never mark ✓ without a producer source.
