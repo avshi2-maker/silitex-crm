@@ -1,0 +1,648 @@
+{
+ "source": "NuSil CareSil Selection Guide 12/11/2013 + New Product Insert 03/2014 + CareSil price list 04/05/2016 (55-gal drum, USD/kg ex-works) · Sapirim Dow Corning purchasing 2010–2013 (kg/yr, EUR/kg CIF Haifa drum)",
+ "updated": "26/10/2026",
+ "caresil": [
+  {
+   "code": "CXG-1101",
+   "family": "Elastomer gel",
+   "inci": "Cyclopentasiloxane (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
+   "viscosity": "400,000–700,000 cPs",
+   "d4": "<0.05% D4",
+   "cyclic": "D5",
+   "price_usd_kg_drum_2016": 20,
+   "dow_equiv": "DC 9040 / 9045"
+  },
+  {
+   "code": "CXG-1103",
+   "family": "Elastomer gel",
+   "inci": "Cyclopentasiloxane (and) Cyclohexasiloxane (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
+   "viscosity": "50,000–70,000 cPs",
+   "d4": "<0.05% D4",
+   "cyclic": "D5+D6",
+   "price_usd_kg_drum_2016": 20.25,
+   "dow_equiv": "DC 9546"
+  },
+  {
+   "code": "CXG-1104",
+   "family": "Elastomer gel",
+   "inci": "Dimethicone (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
+   "viscosity": "500,000–700,000 cPs",
+   "d4": "<0.05% D4",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 22.5,
+   "dow_equiv": "DC 9041 / EL-9240"
+  },
+  {
+   "code": "CSF-3100",
+   "family": "Pure fluid",
+   "inci": "Dimethicone",
+   "viscosity": "5, 20, 50, 100, 350, 1,000 cSt",
+   "d4": "<0.05% D4",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 6.65,
+   "dow_equiv": "PMX-200 (all cSt)"
+  },
+  {
+   "code": "CSF-3101",
+   "family": "Pure fluid (USP/NF)",
+   "inci": "Dimethicone",
+   "viscosity": "20, 50, 100, 350, 1,000 cSt",
+   "d4": "<0.05% D4",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 7.2,
+   "dow_equiv": "PMX-200"
+  },
+  {
+   "code": "CSF-3500",
+   "family": "Gum blend",
+   "inci": "Cyclopentasiloxane (and) Dimethicone",
+   "viscosity": "6,000–15,000 cPs",
+   "d4": "<0.05% D4",
+   "cyclic": "D5",
+   "price_usd_kg_drum_2016": 11.7,
+   "dow_equiv": "PMX-1411"
+  },
+  {
+   "code": "CSF-3501",
+   "family": "Gum blend — 15% dimethiconol",
+   "inci": "Cyclopentasiloxane (and) Dimethiconol",
+   "viscosity": "4,900 cPs",
+   "d4": "<0.05% D4",
+   "cyclic": "D5",
+   "price_usd_kg_drum_2016": 11.7,
+   "dow_equiv": "PMX-1501"
+  },
+  {
+   "code": "CSF-3502",
+   "family": "Gum blend — 15% dimethiconol",
+   "inci": "Dimethicone (and) Dimethiconol",
+   "viscosity": "3,400 cPs",
+   "d4": "<0.05% D4",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 11.7,
+   "dow_equiv": "PMX-1501 (D5-free swap)"
+  },
+  {
+   "code": "CSF-3503",
+   "family": "Gum blend — 50% dimethiconol",
+   "inci": "Cyclopentasiloxane (and) Dimethiconol",
+   "viscosity": ">1,000,000 cPs",
+   "d4": "<0.1% D4",
+   "cyclic": "D5",
+   "price_usd_kg_drum_2016": 40,
+   "dow_equiv": "—"
+  },
+  {
+   "code": "CSF-3504",
+   "family": "Gum blend — 50% dimethiconol",
+   "inci": "Dimethicone (and) Dimethiconol",
+   "viscosity": "1,000,000 cPs",
+   "d4": "<0.1% D4",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 40,
+   "dow_equiv": "PMX-1503 / 1507 type"
+  },
+  {
+   "code": "CSV-3000",
+   "family": "Volatile",
+   "inci": "Cyclopentasiloxane",
+   "viscosity": "4 cSt",
+   "d4": "<0.05% D4",
+   "cyclic": "D5",
+   "price_usd_kg_drum_2016": 6.65,
+   "dow_equiv": "PMX-0245"
+  },
+  {
+   "code": "CSV-3001",
+   "family": "Volatile",
+   "inci": "Cyclopentasiloxane (and) Cyclohexasiloxane",
+   "viscosity": "4.7 cSt",
+   "d4": "<0.05% D4",
+   "cyclic": "D5+D6",
+   "price_usd_kg_drum_2016": 6.8,
+   "dow_equiv": "PMX-0345"
+  },
+  {
+   "code": "CSV-3002",
+   "family": "Volatile",
+   "inci": "Cyclohexasiloxane",
+   "viscosity": "—",
+   "d4": "—",
+   "cyclic": "D6",
+   "price_usd_kg_drum_2016": 18,
+   "dow_equiv": "PMX-0246"
+  },
+  {
+   "code": "CPF-3200",
+   "family": "Phenyl fluid",
+   "inci": "Diphenyl Dimethicone",
+   "viscosity": "350, 1,000, 10,000 cPs",
+   "d4": "<0.3% D4",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 9.8,
+   "dow_equiv": "—"
+  },
+  {
+   "code": "CPF-3300",
+   "family": "Phenyl fluid",
+   "inci": "Phenyl Trimethicone",
+   "viscosity": "20, 40 cSt",
+   "d4": "—",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 12.2,
+   "dow_equiv": "DC 556"
+  },
+  {
+   "code": "CFF-3400",
+   "family": "Fluoro fluid",
+   "inci": "Trifluoropropyl Methicone",
+   "viscosity": "350, 1,000, 12,500 cPs",
+   "d4": "—",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 377,
+   "dow_equiv": "—"
+  },
+  {
+   "code": "CFF-3401",
+   "family": "Fluoro fluid",
+   "inci": "Trifluoropropyl Dimethicone",
+   "viscosity": "350, 1,000, 12,500 cPs",
+   "d4": "—",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 341,
+   "dow_equiv": "—"
+  },
+  {
+   "code": "CFF-3402",
+   "family": "Fluoro fluid",
+   "inci": "Trifluoropropyl Dimethicone",
+   "viscosity": "350, 1,000, 12,500 cPs",
+   "d4": "—",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 309,
+   "dow_equiv": "—"
+  },
+  {
+   "code": "CSS-7300",
+   "family": "Surfactant — W/Si emulsifier",
+   "inci": "PEG/PPG-18/18 Dimethicone (and) Cyclopentasiloxane",
+   "viscosity": "21 cSt",
+   "d4": "—",
+   "cyclic": "D5",
+   "price_usd_kg_drum_2016": 12,
+   "dow_equiv": "DC 5225C"
+  },
+  {
+   "code": "CSS-7301",
+   "family": "Surfactant",
+   "inci": "PEG-12 Dimethicone",
+   "viscosity": "270 cSt",
+   "d4": "—",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 17.15,
+   "dow_equiv": "OFX-0193"
+  },
+  {
+   "code": "CSS-7302",
+   "family": "Surfactant",
+   "inci": "PEG-10 Dimethicone",
+   "viscosity": "—",
+   "d4": "—",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 17.4,
+   "dow_equiv": "—"
+  },
+  {
+   "code": "CAS-3131",
+   "family": "Amino silicone",
+   "inci": "Amodimethicone",
+   "viscosity": "—",
+   "d4": "—",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 63,
+   "dow_equiv": "(MEM-0949 is an emulsion)"
+  },
+  {
+   "code": "CES-1104",
+   "family": "Encapsulated silicone",
+   "inci": "Dimethicone (and) Aqua (and) Glycerin (and) Pentylene Glycol",
+   "viscosity": "—",
+   "d4": "—",
+   "cyclic": "free",
+   "price_usd_kg_drum_2016": 30,
+   "dow_equiv": "—"
+  }
+ ],
+ "israel_history": [
+  {
+   "dc": "PMX-0245 Cyclopentasiloxan",
+   "inci": "Cyclopentasiloxane",
+   "nusil": "CARESIL - V CSV - 3000",
+   "jeen": "JEESILC CPS-211",
+   "chemsil": "VOLASIL™ 995",
+   "kg_year": 331980.0,
+   "eur_kg": 2.4,
+   "cyclic": true
+  },
+  {
+   "dc": "PMX-200 Sil Fluid 350cs",
+   "inci": "Dimethicone",
+   "nusil": "CARESIL - F CSF - 3100 @ 350 cSt",
+   "jeen": "JEESILC PDS-350",
+   "chemsil": "VOLASIL™ DM-350",
+   "kg_year": 300140.0,
+   "eur_kg": 1.7,
+   "cyclic": false
+  },
+  {
+   "dc": "Pmx-0344 Siloxane Blend",
+   "inci": "Cyclotetrasiloxane and Cyclopentasiloxane",
+   "nusil": "",
+   "jeen": "JEESILC CPS-311",
+   "chemsil": "VOLASIL™ 8515",
+   "kg_year": 97385.0,
+   "eur_kg": 1.95,
+   "cyclic": true
+  },
+  {
+   "dc": "Pmx-200 Sil Fluid 1000cs",
+   "inci": "Dimethicone",
+   "nusil": "CARESIL - F CSF - 3100 @ 1,000 cSt",
+   "jeen": "JEESILC PDS-1000",
+   "chemsil": "VOLASIL™ DM-1000",
+   "kg_year": 73020.0,
+   "eur_kg": 1.92,
+   "cyclic": false
+  },
+  {
+   "dc": "Pmx-200 Sil Fluid 50cs",
+   "inci": "Dimethicone",
+   "nusil": "CARESIL - F CSF - 3100 @ 50 cSt",
+   "jeen": "JEESILC PDS-50",
+   "chemsil": "VOLASIL™ DM-50",
+   "kg_year": 53000.0,
+   "eur_kg": 1.7,
+   "cyclic": false
+  },
+  {
+   "dc": "Mem-1664 Emulsion",
+   "inci": "Dimethicone (and) Laureth-4 (and) Laureth-23",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 45600.0,
+   "eur_kg": 3.1,
+   "cyclic": false
+  },
+  {
+   "dc": "Pmx-200 Sil Fluid 10,000C",
+   "inci": "Dimethicone",
+   "nusil": "",
+   "jeen": "JEESILC PDS-10000",
+   "chemsil": "VOLASIL™ DM-10000",
+   "kg_year": 38760.0,
+   "eur_kg": 2.15,
+   "cyclic": false
+  },
+  {
+   "dc": "PMX-1411 Fluid",
+   "inci": "Cyclopentasiloxane and Dimethicone",
+   "nusil": "CARESIL - F CSF - 3500",
+   "jeen": "JEESILC DMC-141",
+   "chemsil": "COSMETIC FLUID 1486-DM",
+   "kg_year": 24642.0,
+   "eur_kg": 3.23,
+   "cyclic": true
+  },
+  {
+   "dc": "OFX-0193 FLUID",
+   "inci": "PEG-12 Dimethicone",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "EMULSIL® S-393",
+   "kg_year": 22400.0,
+   "eur_kg": 6.66,
+   "cyclic": false
+  },
+  {
+   "dc": "PMX-0345 Siloxane Blend",
+   "inci": "Cyclopentasiloxane (and) Cyclohexasiloxane",
+   "nusil": "CARESIL - V CSV - 3000",
+   "jeen": "JEESILC CPS-312",
+   "chemsil": "VOLASIL™ 7525",
+   "kg_year": 17695.0,
+   "eur_kg": 3.27,
+   "cyclic": true
+  },
+  {
+   "dc": "5225C Formulation Aid",
+   "inci": "Cyclopentasiloxane (and) PEG/PPG-18/18 Dimethicone",
+   "nusil": "",
+   "jeen": "JEESILC DMC 522",
+   "chemsil": "EMULSIL® WO-5115",
+   "kg_year": 12185.0,
+   "eur_kg": 8.48,
+   "cyclic": true
+  },
+  {
+   "dc": "PMX-200 Sil Fluid 100cs",
+   "inci": "Dimethicone",
+   "nusil": "CARESIL - F CSF - 3100 @ 100 cSt",
+   "jeen": "JEESILC PDS-100",
+   "chemsil": "VOLASIL™ DM-100",
+   "kg_year": 11000.0,
+   "eur_kg": null,
+   "cyclic": false
+  },
+  {
+   "dc": "PMX-1501 Fluid",
+   "inci": "Cyclopentasiloxane and Dimethiconol",
+   "nusil": "",
+   "jeen": "JEESILC DMC 151",
+   "chemsil": "COSMETIC FLUID 1585-OH",
+   "kg_year": 8760.0,
+   "eur_kg": 4.8,
+   "cyclic": true
+  },
+  {
+   "dc": "Mem-0949 Cationic Emulsion",
+   "inci": "Amodimethicone and cetrimonium chloride and trideceth-12",
+   "nusil": "",
+   "jeen": "JEESILC 94",
+   "chemsil": "EMULSIL® CC-30",
+   "kg_year": 6600.0,
+   "eur_kg": 5.5,
+   "cyclic": false
+  },
+  {
+   "dc": "9040 Elastomer Blend",
+   "inci": "Cyclopentasiloxane (and) Dimethicone Crosspolymer",
+   "nusil": "",
+   "jeen": "JEESILC 3D5LV",
+   "chemsil": "Chemsil K51",
+   "kg_year": 5130.0,
+   "eur_kg": 21.03,
+   "cyclic": true
+  },
+  {
+   "dc": "Pmx-200 Sil Fluid 10cs",
+   "inci": "Dimethicone",
+   "nusil": "",
+   "jeen": "JEESILC PDS-10",
+   "chemsil": "VOLASIL™ DM-10",
+   "kg_year": 4716.0,
+   "eur_kg": 3.25,
+   "cyclic": false
+  },
+  {
+   "dc": "HMW 2220 Emulsion",
+   "inci": "Divinyldimethicone/Dimethicone Copolymer and C12-13 Pareth-23 and C12-13 Pareth-3",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 3440.0,
+   "eur_kg": 10.95,
+   "cyclic": false
+  },
+  {
+   "dc": "Pmx-200 Sil Fluid 5,000C",
+   "inci": "Dimethicone",
+   "nusil": "",
+   "jeen": "JEESILC PDS-5000",
+   "chemsil": "VOLASIL™ DM-5000",
+   "kg_year": 2360.0,
+   "eur_kg": 2.15,
+   "cyclic": false
+  },
+  {
+   "dc": "Pmx-0246 Cyclohexasilixane",
+   "inci": "Cyclohexasiloxane (and) Cyclopentasiloxane",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "VOLASIL™ 996",
+   "kg_year": 2340.0,
+   "eur_kg": 3.08,
+   "cyclic": true
+  },
+  {
+   "dc": "5200 Formulation Aid",
+   "inci": "Lauryl PEG/PPG-18/18 Methicone",
+   "nusil": "",
+   "jeen": "JEESILC EM520",
+   "chemsil": "",
+   "kg_year": 2102.0,
+   "eur_kg": 16.54,
+   "cyclic": false
+  },
+  {
+   "dc": "9045 Elastomer Blend",
+   "inci": "Cyclopentasiloxane and Dimethicone Crosspolymer",
+   "nusil": "",
+   "jeen": "JEESILC 3D-5HV",
+   "chemsil": "",
+   "kg_year": 2100.0,
+   "eur_kg": 23.09,
+   "cyclic": true
+  },
+  {
+   "dc": "556 Fluid",
+   "inci": "Phenyl Trimethicone",
+   "nusil": "CARESIL – PF CPF - 3300",
+   "jeen": "JEESILC PTMF",
+   "chemsil": "CHEMSIL K-56",
+   "kg_year": 2084.0,
+   "eur_kg": 14.5,
+   "cyclic": false
+  },
+  {
+   "dc": "PMX-0225 SIL FLUID",
+   "inci": "Dimethicone",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 1900.0,
+   "eur_kg": 9.64,
+   "cyclic": false
+  },
+  {
+   "dc": "9041 Elastomer Blend",
+   "inci": "Dimethicone (and) Dimethicone Crosspolymer",
+   "nusil": "",
+   "jeen": "JEESILC 35C",
+   "chemsil": "",
+   "kg_year": 1890.0,
+   "eur_kg": 24.38,
+   "cyclic": false
+  },
+  {
+   "dc": "2501 Cosmetic Wax",
+   "inci": "Bis-PEG-18 Methyl Ether Dimethyl Silane",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 1712.0,
+   "eur_kg": 24.02,
+   "cyclic": false
+  },
+  {
+   "dc": "MQ-1600 Solid Resin",
+   "inci": "trimethylsiloxysilicate",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "CHEMSIL K-72",
+   "kg_year": 0,
+   "eur_kg": null,
+   "cyclic": false
+  },
+  {
+   "dc": "MEM-1785",
+   "inci": "Dimethiconol (and) TEA-Dodecylbenzenesulfonate",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "EMULSIL® CT-50",
+   "kg_year": 0,
+   "eur_kg": null,
+   "cyclic": false
+  },
+  {
+   "dc": "593 Fluid",
+   "inci": "Dimethicone (and) Trimethylsiloxysilicate",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "CHEMSIL K-74",
+   "kg_year": 0,
+   "eur_kg": null,
+   "cyclic": false
+  },
+  {
+   "dc": "DOW CORNING® 9546 SILICONE ELASTOMER BLEND",
+   "inci": "Cyclopentasiloxane (and) Dimethicone Crosspolymer (and) Dimethicone / Vinyl Dimethicone Crosspolymer (and) Dimethiconol",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 660.0,
+   "eur_kg": 21.68,
+   "cyclic": true
+  },
+  {
+   "dc": "DOW CORNING® EL-7040 HYDRO ELASTOMER BLEND",
+   "inci": "Caprylyl Methicone (and) PEG-12 Dimethicone/PPG-20 Crosspolymer",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 84.0,
+   "eur_kg": 32.0,
+   "cyclic": false
+  },
+  {
+   "dc": "DOW CORNING® 9011 SILICONE ELASTOMER BLEND",
+   "inci": "Cyclopentasiloxane (and) PEG-12 Dimethicone Crosspolymer",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 75.0,
+   "eur_kg": 19.76,
+   "cyclic": true
+  },
+  {
+   "dc": "DOW CORNING® FZ-3196",
+   "inci": "Caprylyl Methicone",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 30.0,
+   "eur_kg": 15.75,
+   "cyclic": false
+  },
+  {
+   "dc": "DOW CORNING® 7-3101 ELASTOMER BLEND HIP EMULSION",
+   "inci": "Cyclopentasiloxane (and) Dimethicone Crosspolymer (and) Dimethicone (and) Laureth-23 (and) Laureth-4",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 18.0,
+   "eur_kg": 36.4,
+   "cyclic": true
+  },
+  {
+   "dc": "DOW CORNING® EL-8050 ID SILICONE ORGANIC ELASTOMER BLEND",
+   "inci": "Isododecane (and) Dimethicone/Bis-Isobutyl PPG-20 Crosspolymer",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 0,
+   "eur_kg": 20.7,
+   "cyclic": false
+  },
+  {
+   "dc": "DOW CORNING® EL-8051 IN SILICONE ORGANIC ELASTOMER BLEND",
+   "inci": "Isodecyl Neopentanoate (and) Dimethicone/Bis-Isobutyl PPG-20 Crosspolymer",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 0,
+   "eur_kg": 30.47,
+   "cyclic": false
+  },
+  {
+   "dc": "DOW CORNING® EL-8052 IH SILICONE ORGANIC ELASTOMER BLEND",
+   "inci": "Isohexadecane (and) Dimethicone/Bis-Isobutyl PPG 20 Crosspolymer",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 0,
+   "eur_kg": 20.8,
+   "cyclic": false
+  },
+  {
+   "dc": "DOW CORNING® EL-8040 ID SILICONE ORGANIC BLEND",
+   "inci": "Isododecane (and) Dimethicone Crosspolymer",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 0,
+   "eur_kg": 12.69,
+   "cyclic": false
+  },
+  {
+   "dc": "DOW CORNING® EL-9240 SILICONE ELASTOMER BLEND",
+   "inci": "Dimethicone (and) Dimethicone Crosspolymer",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 0,
+   "eur_kg": null,
+   "cyclic": false
+  },
+  {
+   "dc": "DOW CORNING® EL-9140 DM SILICONE ELASTOMER BLEND",
+   "inci": "Dimethicone (and) Dimethicone Crosspolymer",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 0,
+   "eur_kg": null,
+   "cyclic": false
+  },
+  {
+   "dc": "DOW CORNING® CE-7080 SMART STYLE",
+   "inci": "Silicone Quaternium-16/Glycidoxy Dimethicone Crosspolymer and Undeceth-11 and Undeceth-5",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 0,
+   "eur_kg": null,
+   "cyclic": false
+  },
+  {
+   "dc": "2503 COSMETIC WAX",
+   "inci": "Stearyl Dimethicone (and) Octadecene",
+   "nusil": "",
+   "jeen": "",
+   "chemsil": "",
+   "kg_year": 200.0,
+   "eur_kg": null,
+   "cyclic": false
+  }
+ ]
+}
