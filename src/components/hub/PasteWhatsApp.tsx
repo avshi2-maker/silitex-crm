@@ -1,5 +1,5 @@
 "use client";
-// PasteWhatsApp.tsx (src/components/hub/PasteWhatsApp.tsx) · updated 10.10.2026 10:05 (Asia/Jerusalem) — paste a WhatsApp chat export OR a single copied message (free text → pick them/me) → parsed messages → auto-matched prospect / Silitex contact → one Hub thread (then AI summary/reply as any thread)
+// PasteWhatsApp.tsx (src/components/hub/PasteWhatsApp.tsx) · updated 26.10.2026 06:40 (Asia/Jerusalem) — v0.95.0 👥 group chats (each message keeps its sender, one thread per group), .txt file upload, re-import adds only new messages · 10.10.2026 10:05 — paste a WhatsApp chat export OR a single copied message (free text → pick them/me) → parsed messages → auto-matched prospect / Silitex contact → one Hub thread (then AI summary/reply as any thread)
 import { useMemo, useState } from "react";
 import { Card, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui";
 import { DEPTS } from "@/config/hub";
@@ -7,19 +7,27 @@ import { parseWhatsApp, senderList, isUs, matchLeadBySenders, matchContactBySend
 import { fmtDate } from "@/lib/format";
 import { useLang } from "@/i18n";
 import type { Lead, SilitexContact, Thread, HubMsg } from "@/lib/types";
-type Props = { leads: Lead[]; contacts: SilitexContact[]; threads: Thread[]; presetLeadId?: string; onSave: (t: Omit<Thread, "id">, msgs: Omit<HubMsg, "id" | "thread_id">[]) => void; onAppend: (threadId: string, msgs: Omit<HubMsg, "id" | "thread_id">[]) => void };
-export default function PasteWhatsApp({ leads, contacts, threads, presetLeadId, onSave, onAppend }: Props) {
+type Props = { leads: Lead[]; contacts: SilitexContact[]; threads: Thread[]; hubMsgs?: HubMsg[]; presetLeadId?: string; onSave: (t: Omit<Thread, "id">, msgs: Omit<HubMsg, "id" | "thread_id">[]) => void; onAppend: (threadId: string, msgs: Omit<HubMsg, "id" | "thread_id">[]) => void };
+export default function PasteWhatsApp({ leads, contacts, threads, hubMsgs = [], presetLeadId, onSave, onAppend }: Props) {
   const { t: tr } = useLang(); const [open, setOpen] = useState(!!presetLeadId); const [raw, setRaw] = useState(""); const [party, setParty] = useState(""); const [me, setMe] = useState(""); const [done, setDone] = useState(""); const [dir, setDir] = useState<"in" | "out">("in"); const [when, setWhen] = useState("");
   const msgs = useMemo(() => parseWhatsApp(raw), [raw]); const senders = useMemo(() => senderList(msgs), [msgs]);
   const auto = useMemo(() => { if (!msgs.length) return ""; const l = matchLeadBySenders(senders, raw, leads); if (l) return "lead:" + l.id; const c = matchContactBySenders(senders, contacts); return c ? "ct:" + c.id : ""; }, [msgs, senders, raw, leads, contacts]);
   const sel = party || (presetLeadId ? "lead:" + presetLeadId : auto); const meSel = me || senders.find(isUs) || "";
+  // 👥 group chat (Federica + Eleonora + Giorgio + me …): every message keeps its real sender, one thread per group, re-import adds only new messages
+  const others = senders.filter((x) => x !== meSel); const isGroup = others.length > 1; const [grp, setGrp] = useState(""); const grpName = (grp || others.join(", ")).trim();
+  const loadFile = (f?: File | null) => { if (!f) return; const r = new FileReader(); r.onload = () => { setRaw(String(r.result || "")); setDone(""); }; r.readAsText(f, "utf-8"); };
   const free = !msgs.length && raw.trim().length > 0; const selFree = party || (presetLeadId ? "lead:" + presetLeadId : "");
   const commit = (list: { at: string; sender: string; text: string; out: boolean }[], selKey: string) => {
     const [kind, id] = selKey.split(":"); const lead = kind === "lead" ? leads.find((l) => l.id === id) : undefined; const ct = kind === "ct" ? contacts.find((c) => c.id === id) : undefined;
     const who = lead ? (lead.contact_name || lead.name.split(" (")[0]) : ct?.name || "?"; const first = list[0].at, last = list[list.length - 1].at; const lastIn = !list[list.length - 1].out;
-    const out = list.map((m) => ({ at: m.at, from: m.out ? "Avshi Sapir" : who, to: m.out ? who : "Avshi Sapir", direction: (m.out ? "out" : "in") as HubMsg["direction"], body: m.text, source: "whatsapp" as const }));
-    const existing = threads.find((t) => t.topic === "whatsapp" && (lead ? t.refs.lead_id === lead.id : ct ? t.contact_id === ct.id : false));
-    if (existing) { onAppend(existing.id, out); setDone(tr("נוסף לשרשור: ") + existing.subject); }
+    const group = isGroup && list.length > 1; const room = group ? "👥 " + grpName : who;
+    const all = list.map((m) => ({ at: m.at, from: m.out ? "Avshi Sapir" : (group ? m.sender : who), to: m.out ? room : "Avshi Sapir", direction: (m.out ? "out" : "in") as HubMsg["direction"], body: m.text, source: "whatsapp" as const }));
+    const existing = group ? threads.find((t) => t.topic === "whatsapp-group" && t.subject.startsWith("WhatsApp · " + room)) : threads.find((t) => t.topic === "whatsapp" && (lead ? t.refs.lead_id === lead.id : ct ? t.contact_id === ct.id : false));
+    const seen = new Set(hubMsgs.filter((h) => existing && h.thread_id === existing.id).map((h) => h.at.slice(0, 16) + "|" + h.body.trim()));
+    const out = all.filter((m) => !seen.has(m.at.slice(0, 16) + "|" + m.body.trim()));
+    if (existing && !out.length) { setDone(tr("אין הודעות חדשות — הכל כבר בשרשור: ") + existing.subject); setRaw(""); return; }
+    if (existing) { onAppend(existing.id, out); setDone(tr("נוסף לשרשור: ") + existing.subject + " (+" + out.length + ")"); }
+    else if (group) { onSave({ dept: ct?.dept || (lead ? "il" : "mgmt"), contact_id: ct?.id, subject: "WhatsApp · " + room, topic: "whatsapp-group", refs: lead ? { lead_id: lead.id, lead_name: lead.name } : {}, owner: "sapirim", status: out[out.length - 1].direction === "in" ? "waiting_us" : "waiting_silitex", created_at: out[0].at, last_at: out[out.length - 1].at }, out); setDone(tr("נשמרה קבוצה: ") + room + " · " + out.length + " " + tr("הודעות")); }
     else { onSave({ dept: lead ? "il" : ct?.dept || "customer", contact_id: ct?.id, subject: "WhatsApp · " + who + " · " + fmtDate(first) + (first.slice(0, 10) !== last.slice(0, 10) ? "–" + fmtDate(last) : ""), topic: "whatsapp", refs: lead ? { lead_id: lead.id, lead_name: lead.name } : {}, owner: lastIn ? "sapirim" : "silitex", status: lastIn ? "waiting_us" : "waiting_silitex", created_at: first, last_at: last }, out); setDone(tr("נשמר: ") + list.length + tr(" הודעות → ") + who); }
     setRaw(""); setParty(""); setMe(""); setWhen("");
   };
@@ -31,6 +39,7 @@ export default function PasteWhatsApp({ leads, contacts, threads, presetLeadId, 
       <div className="flex items-center justify-between"><div className="font-bold">📱 {tr("ייבוא שיחת WhatsApp")}</div><button className={btnGhost} onClick={() => setOpen(!open)}>{open ? "▲" : "▼"}</button></div>
       {open && (<div className="mt-2 space-y-2 text-sm">
         <div className="text-xs text-slate-500">{tr("הדבק הודעה שהעתקת מוואטסאפ (לחיצה ארוכה → העתק) ובחר ממי היא — או הדבק ייצוא צ'אט שלם (⋮ → עוד → ייצוא צ'אט → ללא מדיה) והמערכת תזהה שולחים ואיש קשר לבד.")}</div>
+        <label className="text-xs text-slate-500 flex items-center gap-2">📄 {tr("או קובץ ייצוא (‎.txt)")}<input type="file" accept=".txt,text/plain" onChange={(e) => loadFile(e.target.files?.[0])} /></label>
         <textarea className={inputCls + " h-32 font-mono text-xs"} dir="ltr" placeholder={tr("הדבק כאן הודעה אחת או ייצוא צ'אט שלם…")} value={raw} onChange={(e) => { setRaw(e.target.value); setDone(""); }} />
         {msgs.length > 0 && (<div className="border rounded-xl p-2 bg-slate-50 space-y-2">
           <div className="flex flex-wrap gap-2 items-center"><Badge tone="blue">{msgs.length} {tr("הודעות")}</Badge><span className="text-xs text-slate-500">{fmtDate(msgs[0].at)} → {fmtDate(msgs[msgs.length - 1].at)}</span>{senders.map((s) => <Badge key={s} tone={isUs(s) ? "green" : "slate"}>{s}</Badge>)}</div>
@@ -39,7 +48,8 @@ export default function PasteWhatsApp({ leads, contacts, threads, presetLeadId, 
             <label className="text-xs text-slate-500">{tr("אני (השולח שלנו)")}<select className={inputCls + " mt-0.5"} value={meSel} onChange={(e) => setMe(e.target.value)}><option value="">—</option>{senders.map((s) => <option key={s} value={s}>{s}</option>)}</select></label>
           </div>
           <div className="max-h-40 overflow-auto text-xs space-y-1 bg-white border rounded-lg p-2" dir="auto">{msgs.slice(0, 50).map((m, i) => <div key={i} className={m.sender === meSel ? "text-emerald-800" : ""}><span className="text-slate-400">{m.at.slice(11, 16)}</span> <b>{m.sender}:</b> {m.text.slice(0, 160)}</div>)}{msgs.length > 50 && <div className="text-slate-400">… +{msgs.length - 50}</div>}</div>
-          <button className={btnPrimary} disabled={!sel || !meSel} onClick={save}>{tr("שמור כשרשור")}</button>{!meSel && <span className="text-xs text-amber-700 ms-2">{tr("בחר מי מהשולחים זה אתה")}</span>}
+          {isGroup && <label className="text-xs text-slate-500 block">👥 {tr("שם הקבוצה (קבוצה אחת = שרשור אחד)")}<input className={inputCls + " mt-0.5"} value={grp} placeholder={others.join(", ")} onChange={(e) => setGrp(e.target.value)} /></label>}
+          <button className={btnPrimary} disabled={!sel || !meSel} onClick={save}>{isGroup ? "👥 " + tr("שמור קבוצה") : tr("שמור כשרשור")}</button>{!meSel && <span className="text-xs text-amber-700 ms-2">{tr("בחר מי מהשולחים זה אתה")}</span>}
         </div>)}
         {free && (<div className="border rounded-xl p-2 bg-slate-50 space-y-2">
           <div className="text-xs text-slate-500">{tr("הודעה בודדת (ללא תאריכים) — בחר למי שייכת וממי נשלחה:")}</div>
