@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 23.10.2026 16:10 (Asia/Jerusalem) — 📎 source + confidence chips under the name · 22.10.2026 17:40 — + 🧲 "find similar companies" → search-prompt builder pre-filled from this customer · 07:30 — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 26.10.2026 06:55 (Asia/Jerusalem) — v0.96.0 + 👥 people at this company (many contacts per customer) · 23.10.2026 16:10 — 📎 source + confidence chips under the name · 22.10.2026 17:40 — + 🧲 "find similar companies" → search-prompt builder pre-filled from this customer · 07:30 — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState, useEffect } from "react";
 import type { Thread } from "@/lib/types";
 import Link from "next/link";
@@ -28,6 +28,7 @@ import ScanCard from "@/components/scan/ScanCard";
 import HuntCard from "@/components/leads/HuntCard";
 import CodeLinks from "@/components/leads/CodeLinks";
 import TrustChips from "@/components/leads/TrustChips";
+import PeopleCard from "@/components/leads/PeopleCard";
 import { parsePlan } from "@/lib/playbook";
 import { buildPool } from "@/lib/validate";
 export default function LeadPage({ params }: { params: Promise<{ id: string }> }) {
@@ -71,6 +72,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
           </Card>
         </div>
         <div className="space-y-4">
+          <PeopleCard lead={lead} pool={buildPool(state.leads, state.contacts)} onSave={upsertLead} onLog={(t) => addActivity(id, "note", t)} />
           <ScanCard lead={lead} onSave={upsertLead} onSpend={addSpend} spend={state.spend} />
           <HuntCard lead={lead} onSave={upsertLead} onLog={(t) => addActivity(id, "note", t)} />
           <CodeLinks lead={lead} />

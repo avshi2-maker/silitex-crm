@@ -1,6 +1,7 @@
-// whatsapp-import.ts (src/lib/whatsapp-import.ts) · updated 26.10.2026 06:40 (Asia/Jerusalem) — v0.95.0 correct Israel summer/winter time + AM/PM exports · 10.10.2026 09:50
+// whatsapp-import.ts (src/lib/whatsapp-import.ts) · updated 26.10.2026 06:55 (Asia/Jerusalem) — v0.96.0 senders matched to every person at a company · 06:40 v0.95.0 correct Israel summer/winter time + AM/PM exports · 10.10.2026 09:50
 // Parse a WhatsApp chat export (Android "dd/mm/yyyy, hh:mm - Name: text" · iPhone "[dd/mm/yyyy, hh:mm:ss] Name: text"; multi-line; LRM marks) and match senders to prospects / Silitex contacts / us.
 import type { Lead, SilitexContact } from "./types";
+import { peopleOf } from "./people";
 export type WaMsg = { at: string; sender: string; text: string };
 /** Israel offset (summer +3 / winter +2) for a wall-clock time — WhatsApp exports carry local time without a zone */
 const IL = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Jerusalem", hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
@@ -22,7 +23,7 @@ export const isUs = (sender: string) => { const c = clean(sender); return OUR_NA
 const nameHit = (a: string, b?: string | null) => { if (!b) return false; const x = clean(a), y = clean(b); if (!x || !y) return false; if (x === y || x.includes(y) || y.includes(x)) return true; const fx = x.split(" ")[0], fy = y.split(" ")[0]; return fx.length > 2 && fx === fy; };
 export function matchLeadBySenders(senders: string[], raw: string, leads: Lead[]): Lead | undefined {
   const others = senders.filter((s) => !isUs(s)); const phones = (raw.match(/\+?\d[\d\s-]{7,}\d/g) || []).map(normPhone);
-  return leads.find((l) => l.contact_phone && phones.includes(normPhone(l.contact_phone))) || leads.find((l) => others.some((s) => nameHit(s, l.contact_name))) || leads.find((l) => others.some((s) => nameHit(s, l.name.split(" (")[0])));
+  return leads.find((l) => [l.contact_phone, ...peopleOf(l).map((p) => p.mobile)].some((ph) => ph && phones.includes(normPhone(ph)))) || leads.find((l) => others.some((s) => nameHit(s, l.contact_name) || peopleOf(l).some((p) => nameHit(s, p.name)))) || leads.find((l) => others.some((s) => nameHit(s, l.name.split(" (")[0])));
 }
 export function matchContactBySenders(senders: string[], contacts: SilitexContact[]): SilitexContact | undefined {
   const others = senders.filter((s) => !isUs(s)); return contacts.find((c) => others.some((s) => nameHit(s, c.name)));

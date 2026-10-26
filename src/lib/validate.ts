@@ -1,5 +1,6 @@
-// validate.ts (src/lib/validate.ts) · created 22.10.2026 07:20 (Asia/Jerusalem) — ONE place for e-mail / mobile / phone checks used by every intake form: valid → green, invalid → red + hint, already used by another customer / contact → amber warning (e-mail + mobile are the unique keys that auto-route mail and WhatsApp).
+// validate.ts (src/lib/validate.ts) · updated 26.10.2026 06:55 (Asia/Jerusalem) — v0.96.0 duplicate check also covers every person at a company · created 22.10.2026 07:20 — ONE place for e-mail / mobile / phone checks used by every intake form: valid → green, invalid → red + hint, already used by another customer / contact → amber warning (e-mail + mobile are the unique keys that auto-route mail and WhatsApp).
 import type { Lead, SilitexContact } from "./types";
+import { peopleOf } from "./people";
 export type Kind = "email" | "emails" | "mobile" | "phone";
 const MAIL_RE = /^[^\s@,;]+@[^\s@,;]+\.[a-z]{2,}$/i;
 const digits = (v: string) => v.replace(/[^\d+]/g, "");
@@ -20,7 +21,7 @@ export type PoolItem = { key: string; label: string; emails: string[]; phones: s
 /** everyone who already owns an e-mail / phone: customers + Hub contacts (Silitex + partners) */
 export function buildPool(leads: Lead[] = [], contacts: SilitexContact[] = []): PoolItem[] {
   return [
-    ...leads.map((l) => ({ key: "lead:" + l.id, label: l.name, emails: splitMails(l.contact_email || ""), phones: [l.contact_phone].filter(Boolean).map((p) => normPhone(String(p))) })),
+    ...leads.map((l) => { const pp = peopleOf(l); return { key: "lead:" + l.id, label: l.name, emails: [...splitMails(l.contact_email || ""), ...pp.flatMap((p) => splitMails(p.email || ""))], phones: [l.contact_phone, ...pp.map((p) => p.mobile)].filter(Boolean).map((p) => normPhone(String(p))) }; }),
     ...contacts.map((c) => ({ key: "ct:" + c.id, label: c.name + " (Hub)", emails: splitMails(/^info@/i.test(c.email || "") ? "" : c.email || ""), phones: [c.mobile, c.phone].filter(Boolean).map((p) => normPhone(String(p))) })),
   ];
 }

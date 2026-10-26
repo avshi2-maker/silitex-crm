@@ -1,6 +1,8 @@
-// wa-inbound.ts (src/lib/wa-inbound.ts) · updated 11.10.2026 08:20 (Asia/Jerusalem) — server only · allowlist (wa_allowlist) as 3rd match source
+// wa-inbound.ts (src/lib/wa-inbound.ts) · updated 26.10.2026 06:55 (Asia/Jerusalem) — v0.96.0 matches every person at a customer company (intake PEOPLE) · 11.10.2026 08:20 — server only · allowlist (wa_allowlist) as 3rd match source
 // WhatsApp Cloud API inbound: normalise phone, match known numbers (prospects contact_phone / Silitex contacts mobile+phone) → append to the contact's running WhatsApp thread; unknown → wa_unmatched (unless blocklisted).
 import { serviceClient } from "./server-data";
+import { peopleOf } from "./people";
+import type { Lead } from "./types";
 import { createHmac, timingSafeEqual } from "crypto";
 export const normPhone = (p?: string | null) => { let d = String(p || "").replace(/\D/g, ""); if (d.startsWith("00")) d = d.slice(2); if (d.startsWith("0")) d = "972" + d.slice(1); return d; };
 export type WaIn = { id: string; phone: string; name?: string; at: string; body: string; direction: "in" | "out"; media_url?: string | null };
@@ -11,8 +13,9 @@ export function verifySignature(raw: string, sig: string | null): boolean {
 export type Match = { kind: "lead"; id: string; name: string; who: string } | { kind: "ct"; id: string; name: string; dept: string } | { kind: "list"; id: string; name: string; dept: string } | null;
 export async function matchPhone(phone: string): Promise<Match> {
   const sb = serviceClient(); if (!sb) return null; const p = normPhone(phone);
-  const leads = (await sb.from("leads").select("id,name,contact_name,contact_phone").not("contact_phone", "is", null)).data || [];
-  const l = leads.find((x) => normPhone(x.contact_phone) === p); if (l) return { kind: "lead", id: l.id, name: l.name, who: l.contact_name || String(l.name).split(" (")[0] };
+  const leads = (await sb.from("leads").select("id,name,contact_name,contact_phone,intake")).data || [];
+  const l = leads.find((x) => x.contact_phone && normPhone(x.contact_phone) === p); if (l) return { kind: "lead", id: l.id, name: l.name, who: l.contact_name || String(l.name).split(" (")[0] };
+  for (const x of leads) { const pp = peopleOf(x as Lead).find((q) => q.mobile && normPhone(q.mobile) === p); if (pp) return { kind: "lead", id: x.id, name: x.name, who: pp.name }; } // 👥 any person at the company
   const cts = (await sb.from("silitex_contacts").select("id,name,dept,mobile,phone")).data || [];
   const c = cts.find((x) => (x.mobile && normPhone(x.mobile) === p) || (x.phone && normPhone(x.phone) === p)); if (c) return { kind: "ct", id: c.id, name: c.name, dept: c.dept };
   const a = (await sb.from("wa_allowlist").select("phone,name,kind,dept").eq("phone", p).maybeSingle()).data; if (a) return { kind: "list", id: a.phone, name: a.name || "+" + a.phone, dept: a.dept || "customer" };
