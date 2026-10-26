@@ -1,4 +1,4 @@
-// roles.ts (src/config/roles.ts) · updated 09.10.2026 19:20 (Asia/Jerusalem)
+// roles.ts (src/config/roles.ts) · updated 26.10.2026 06:55 (Asia/Jerusalem) — v0.96.1 + DEPT_SUGGESTIONS, more roles · 09.10.2026 19:20
 // Contact job-description groups: used as the role filter on /leads and as suggestions in intake forms. Free text still allowed.
 export type RoleGroup = { key: string; he: string; match: RegExp; examples: string[] };
 export const ROLE_GROUPS: RoleGroup[] = [
@@ -8,5 +8,7 @@ export const ROLE_GROUPS: RoleGroup[] = [
   { key: "ops", he: "תפעול / ייצור", match: /operation|production|plant|process|engineer|manufactur|תפעול|ייצור|מפעל|תהליך/i, examples: ["Plant Manager", "Production Director", "Process Engineer"] },
   { key: "mgmt", he: "הנהלה / בעלים", match: /ceo|cto|coo|owner|general manager|managing|director|vp|founder|מנכ|בעלים|סמנכ/i, examples: ["CEO", "General Manager", "Owner"] },
 ];
-export const ROLE_SUGGESTIONS = ROLE_GROUPS.flatMap((g) => g.examples);
+export const ROLE_SUGGESTIONS = [...ROLE_GROUPS.flatMap((g) => g.examples), "Production Manager", "R&D Manager", "Lab Manager", "Purchasing Manager", "Personal friend"];
+/** department pick-list (free text still allowed) */
+export const DEPT_SUGGESTIONS = ["R&D / Formulation", "Laboratory", "Purchasing / Procurement", "R&D / Formulation & Purchasing", "Production / Plant", "Quality / Regulatory", "Engineering / Maintenance", "Management", "Logistics", "Sales / Marketing"];
 export const roleGroupOf = (text: string) => ROLE_GROUPS.find((g) => g.match.test(text))?.key || "";
