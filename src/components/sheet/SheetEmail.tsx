@@ -1,11 +1,12 @@
 "use client";
-// SheetEmail.tsx (src/components/sheet/SheetEmail.tsx) · updated 25.10.2026 10:15 (Asia/Jerusalem) — v0.92.3 clear reason when direct send fails (size / service) · v0.92.2 "To" auto-filled from saved contacts (name in "meeting with") + one-click contact chips · v0.92.1 📧 Outlook draft (.eml) with PDF + Excel attached, Hebrew-safe (replaces the mailto link that garbled Hebrew and could not attach) · 08:25 — + PDF attached (A4 landscape) · created 06:45 — ✉ send the meeting sheet by e-mail: To / CC, subject + short Hebrew body (editable), ✓ Excel attached, ✓ table inside the mail (prints from Outlook). PDF: print → Save as PDF (attach by hand).
+// SheetEmail.tsx (src/components/sheet/SheetEmail.tsx) · updated 26.10.2026 06:00 (Asia/Jerusalem) — v0.94.0 📧 draft straight into Outlook 365 (Drafts, PDF + Excel attached, opens in Outlook web); .eml file kept as backup · 25.10.2026 10:15 v0.92.3 clear reason when direct send fails (size / service) · v0.92.2 "To" auto-filled from saved contacts (name in "meeting with") + one-click contact chips · v0.92.1 📧 Outlook draft (.eml) with PDF + Excel attached, Hebrew-safe (replaces the mailto link that garbled Hebrew and could not attach) · 08:25 — + PDF attached (A4 landscape) · created 06:45 — ✉ send the meeting sheet by e-mail: To / CC, subject + short Hebrew body (editable), ✓ Excel attached, ✓ table inside the mail (prints from Outlook). PDF: print → Save as PDF (attach by hand).
 import { useState } from "react";
 import { useLang } from "@/i18n";
 import { inputCls, btnPrimary, btnGhost } from "@/components/ui";
 import { sheetXlsx } from "@/lib/sheet-files";
 import { downloadEml, type EmlFile } from "@/lib/eml";
 import { sheetMailHtml } from "@/lib/sheet-mail";
+import { outlookDraft, outlookUser } from "@/lib/outlook-draft";
 
 type Props = { head: string[]; rows: (string | number)[][]; ind: string; who: string; people?: { name: string; email: string }[]; date: string; tons: number; onClose: () => void; makePdf: () => Promise<{ base64: string; filename: string }> };
 export default function SheetEmail({ head, rows, ind, who, people = [], date, tons, onClose, makePdf }: Props) {
@@ -26,6 +27,13 @@ export default function SheetEmail({ head, rows, ind, who, people = [], date, to
     setBusy(true); setMsg("");
     try { downloadEml({ to, cc, subject, text: body, html: sheetMailHtml(body, head, rows, inBody), files: await files() }, subject); setMsg("✓ " + tr("הקובץ ירד — לחיצה כפולה עליו פותחת טיוטה ב-Outlook עם הקבצים, ואז שלח")); }
     catch { setMsg("⚠ " + tr("יצירת הטיוטה נכשלה")); }
+    setBusy(false);
+  };
+  const o365 = async () => {
+    const win = window.open("", "_blank"); if (!win) { setMsg("⚠ " + tr("הדפדפן חסם חלון — אפשר חלונות קופצים לאתר")); return; }
+    setBusy(true); setMsg("");
+    try { await outlookDraft({ to, cc, subject, html: sheetMailHtml(body, head, rows, inBody), files: await files() }, win); setMsg("✓ " + tr("הטיוטה מחכה ב-Outlook (טיוטות) עם הקבצים — בדוק ושלח")); }
+    catch (e) { try { win.close(); } catch { /* */ } setMsg("⚠ Outlook: " + String((e as Error)?.message || e)); }
     setBusy(false);
   };
   const send = async () => {
@@ -52,7 +60,8 @@ export default function SheetEmail({ head, rows, ind, who, people = [], date, to
         <label className="flex items-center gap-1"><input type="checkbox" checked={xl} onChange={(e) => setXl(e.target.checked)} />📎 {tr("Excel מצורף")}</label>
         <label className="flex items-center gap-1"><input type="checkbox" checked={inBody} onChange={(e) => setInBody(e.target.checked)} />📋 {tr("הטבלה בתוך המייל")}</label>
         <label className="flex items-center gap-1"><input type="checkbox" checked={pdf} onChange={(e) => setPdf(e.target.checked)} />📎 {tr("PDF מצורף")}</label>
-        <button className={btnPrimary + " ms-auto"} disabled={busy} onClick={outlook}>{busy ? "…" : "📧 " + tr("טיוטה ל-Outlook")}</button>
+        <button className={btnPrimary + " ms-auto"} disabled={busy} onClick={o365} title={outlookUser() || "avshi@sapirim.com"}>{busy ? "⏳" : "📧 " + tr("טיוטה ב-Outlook")}</button>
+        <button className={btnGhost} disabled={busy} onClick={outlook} title={tr("קובץ טיוטה להורדה — לחיצה כפולה פותחת ב-Outlook")}>⬇️ {tr("קובץ טיוטה")}</button>
         <button className={btnGhost} disabled={busy || !to.trim()} onClick={send} title={tr("שליחה ישירה מהשרת")}>{busy ? "…" : "✉ " + tr("שלח ישירות")}</button>
       </div>
       {msg && <div className={"text-sm " + (msg.startsWith("✓") ? "text-emerald-700" : "text-red-600")}>{msg}</div>}
