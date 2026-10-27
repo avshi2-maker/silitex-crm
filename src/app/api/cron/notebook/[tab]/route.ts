@@ -18,7 +18,21 @@ const parts = (rows: Row[]): string[] => { if (!rows.length) return ["empty\n"];
 const compact = (o: Row): Row => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== null && v !== undefined && v !== "" && !(Array.isArray(v) && !v.length)));
 const d = (x?: unknown) => (x ? "\u2060" + String(x).slice(0, 10).split("-").reverse().join("/") : ""); // dd/mm/yyyy as TEXT (invisible word-joiner stops Google Sheets turning it into a US date number)
 const people = (intake: unknown) => { try { const v = JSON.parse(((intake || {}) as Record<string, string>).PEOPLE || "[]"); return Array.isArray(v) ? v : []; } catch { return []; } };
-const TABS = ["customers", "people", "activities", "tasks", "meetings", "correspondence", "shipments", "silitex_contacts", "equivalents", "catalogue"];
+// Google spreadsheet per tab part (part 1 = first id). The Apps Script reads this map (?tab=map), so new parts need no script change.
+const MAP: Record<string, string[]> = {
+  overview: ["1WRw6eExgXX0u4BqI4jU1hMsYq_NznHm68W18Vq02Ol8"],
+  customers: ["1uzm3L3qSn7wlaWXuSLdDo6i5JJPENFyQ8sIx9NeD8Ws", "1RAcaD7Kw4xKKQYRs3JL_gWKaC7qsCkL6UX83rdDop9E", "1EMjjTO03oisMA3Y4vhw3FR_iAk6Bjz3SvnAGanV6niw", "1XYmVD8M3otppg_INoqvp6y1Y6VeU4Hn_-fJKsl7N43M", "1vu-tPMKS2r2ISsSI8aBvlj2x0KGNb3BRl1tqRXn7RXo", "19HwGaazXxdtp14ZRkDbmx1gGsGDS4v87NqitHQdxRoc", "1suhAJgEw0k2bSt6CbtxtI5yLHUTDqK-7fRdlOwbatHI", "1MRvIezzfz2BywD6TsAnLvL4sVa9D7IWReA0xeHUIjFE"],
+  people: ["145kCcfNyLyRzB3dxIY2SMN7ICDGP1Fj8Ov__pwj4aSU"],
+  activities: ["1KrglE50xS0tEcH8Bns7BTiYUFMo4vud2oIXkp_z4SGc"],
+  tasks: ["16VYEkRUDAqYhHPAYgbGCoMGbL3o_BVAUKqqFfP9RuKw", "1uxssOYnoU-HKUlXrmsLEGxuB5eJXVhJD2TnJQ2Q6pZk", "1vZLQULOtyJqG2uIa2hbDIYTNexh_-AdUmK6LGdti_ls"],
+  meetings: ["15bJ6AEXb2MYpU6W9gsSwO7sfz2-EBRXg9zMJTvlga7M"],
+  correspondence: ["10yHomD1ux6XBVVRcii1ew5Laz8bXNKl5P8s4mj2JrLE"],
+  shipments: ["1gWpdoysF0XsfFFjMjM7EsgiZSeYd8mRFj5k6yIbZ-WQ"],
+  silitex_contacts: ["1UturzlChmWuX-kVtWdC9w1jIGCj-Ptxkt4xOamudXHM"],
+  equivalents: ["1ZK-bkox84jUZ5BpK7oYMFIkP7OoM2DM87shAVxHjvOY"],
+  catalogue: ["1LYaevjloias0FiVNUU_ILwfRTJnIOS3jAQPaOSn6kaE"],
+};
+const TABS = ["overview", "customers", "people", "activities", "tasks", "meetings", "correspondence", "shipments", "silitex_contacts", "equivalents", "catalogue"];
 
 async function build(tab: string): Promise<Row[]> {
   if (tab === "equivalents") {
@@ -33,6 +47,11 @@ async function build(tab: string): Promise<Row[]> {
   const leads = await all("leads");
   const leadName = new Map(leads.map((l) => [l.id, l.name]));
   switch (tab) {
+    case "overview": { // counts NotebookLM can quote + one short line per customer (the big detail sits in the "Customers part N" sheets)
+      const tasks = await all("tasks"); const cnt = (k: string) => { const a: Record<string, number> = {}; for (const l of leads) { const v = String(l[k] || "—"); a[v] = (a[v] || 0) + 1; } return Object.entries(a).sort((a, b) => b[1] - a[1]).map(([v, n]) => v + ": " + n).join(" | "); };
+      const sum = [["Total customers / leads in the CRM", String(leads.length)], ["Customers by industry", cnt("industry")], ["Customers by status", cnt("status")], ["Customers by stage", cnt("stage")], ["Customers by tier", cnt("tier")], ["Open tasks", String(tasks.filter((t) => !t.done).length)], ["Done tasks", String(tasks.filter((t) => t.done).length)], ["Exported", d(new Date().toISOString()) + " (Asia/Jerusalem date)"]].map(([a, b]) => ({ id: "SUMMARY", name: a, industry: b }));
+      return [...sum, ...leads.map((l) => ({ id: l.id, name: l.name, industry: l.industry, status: l.status, stage: l.stage, tier: l.tier, product_match: l.product_match, contact_name: l.contact_name, city: l.city, next_action_at: d(l.next_action_at), updated_at: d(l.updated_at) }))];
+    }
     case "customers": return leads.map((l) => { const { intake, lat, lon, ...rest } = l; void lat; void lon; const it = { ...((intake || {}) as Row) }; delete it.PEOPLE; return { ...rest, updated_at: d(l.updated_at), created_at: d(l.created_at), next_action_at: d(l.next_action_at), people_count: people(intake).length, intake: compact(it) }; });
     case "people": return leads.flatMap((l) => people(l.intake).map((p: Row) => ({ company: l.name, industry: l.industry, ...p })));
     case "activities": return (await all("activities", "*", "at")).reverse().map((a) => ({ date: d(a.at), customer: leadName.get(a.lead_id) || a.lead_id, kind: a.kind, text: a.text }));
@@ -49,6 +68,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ tab: string }> 
   const key = process.env.NOTEBOOK_EXPORT_KEY; const u = new URL(req.url);
   if (!key || u.searchParams.get("key") !== key) return new Response("forbidden", { status: 403 });
   const { tab } = await ctx.params;
+  if (tab === "map") return Response.json(MAP);
   const all = parts(await build(tab)); const n = Math.max(1, Number(u.searchParams.get("part") || 1) || 1);
   if (u.searchParams.get("info")) return new Response("parts," + all.length + "\nbytes," + all.map((x) => Buffer.byteLength(x)).join(" ") + "\n", { headers: { "content-type": "text/csv; charset=utf-8" } });
   const body = n > all.length ? "empty\n" : all[n - 1];
