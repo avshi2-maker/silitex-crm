@@ -6,7 +6,7 @@ import offsets from "@/data/offsets.json";
 import gaps from "@/data/gaps_lite.json"; // lite copy (no owner action notes) — built by scripts/build-index.mjs
 import { CAT26, type CatRow } from "@/lib/catalog";
 import { COSMETIC_COUNTERTYPES } from "@/config/cosmetic-range";
-import { isVerifiedProducer } from "./offsets-trust";
+import { isVerifiedProducer, checkOf } from "./offsets-trust";
 
 type OffRow = { category_id: string; family: string; dow_corning?: string; inci?: string; silitex_product: string; kosher?: string; fda?: string; eco_certs?: string; offsets?: Record<string, string> };
 type GapRow = { id: string; query: string; aliases: string[]; producers: string; silitex: string; status: string };
@@ -65,7 +65,7 @@ let ENTRIES: Entry[] | null = null;
 function entries(): Entry[] {
   if (ENTRIES) return ENTRIES;
   const out: Entry[] = [];
-  const add = (e: Omit<Entry, "norm" | "toks" | "verified">) => out.push({ ...e, verified: e.ref.startsWith("SILITEX-COS-") || e.ref.startsWith("NUSIL-") || (e.kind === "offset" && !!e.producer && isVerifiedProducer(e.producer)), norm: norm(e.competitor), toks: toks(e.competitor + " " + e.producer) });
+  const add = (e0: Omit<Entry, "norm" | "toks" | "verified">) => { const ck = e0.kind === "offset" && e0.producer ? checkOf(e0.producer, e0.competitor) : undefined; const e = ck?.status === "ok" && ck.inci ? { ...e0, inci: ck.inci } : e0; out.push({ ...e, verified: e.ref.startsWith("SILITEX-COS-") || e.ref.startsWith("NUSIL-") || (e.kind === "offset" && !!e.producer && (isVerifiedProducer(e.producer) || ck?.status === "ok")), norm: norm(e.competitor), toks: toks(e.competitor + " " + e.producer) }); }; // v1.1.0 ✓ per-code INCI check
   // OFFICIAL Silitex cosmetic countertypes (leaflet from Federica, 19/10/2026) — listed first, marked as official
   for (const c of COSMETIC_COUNTERTYPES) {
     const base = { kind: "offset" as const, family: "Cosmetic range (official Silitex countertype)", inci: c.inci, silitex: c.product + " (" + c.code + ")", silitexNames: [c.product.toUpperCase()], certs: ["✓ Silitex official"], ref: "SILITEX-COS-" + c.code };

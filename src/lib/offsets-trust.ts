@@ -1,4 +1,4 @@
-// offsets-trust.ts (src/lib/offsets-trust.ts) · created 26.10.2026 11:10 (Asia/Jerusalem) — v0.99.0
+// offsets-trust.ts (src/lib/offsets-trust.ts) · updated 27.10.2026 07:10 (Asia/Jerusalem) — v1.1.0 per-code INCI checks (136 main-producer codes checked one by one on producer pages: ✓ ok / ⚠ unconfirmed / wrong family; fake codes removed from the table) · created 26.10.2026 11:10 — v0.99.0
 // TRUTH RULE (Avshi 26/10/2026: "100% real data — where we don't know, a yellow notice, so our claim is true").
 // Verified sources only: Silitex column (silitex.it + 2026 catalogues, 12–13/10/2026) · Silitex OFFICIAL cosmetic countertype leaflet
 // (Federica 19/10/2026: Dow / BRB / Momentive / Wacker per cosmetic product) · NuSil column (CareSil documents 2013–2016).
@@ -21,3 +21,18 @@ export const PORTAL_NOTE: Record<"he" | "en" | "it" | "ru", string> = {
   it: "I codici dei concorrenti in questa pagina provengono da una tabella comparativa di mercato e non sono ancora stati verificati con la scheda tecnica di ciascun produttore. Sono un punto di partenza per un test di laboratorio, non una corrispondenza confermata.",
   ru: "Коды конкурентов на этой странице взяты из рыночной сравнительной таблицы и ещё не сверены с техническими листами производителей. Это отправная точка для лабораторного теста, а не подтверждённое соответствие.",
 };
+
+// ── v1.1.0 per-code INCI checks (offsets.json → inci_checks, 27/10/2026) ──
+export type InciCheck = { cat: string; status: "ok" | "unconfirmed" | "wrong_family"; inci?: string; cyclic?: boolean | null; src?: string; note?: string };
+const nk = (s: string) => (s || "").toLowerCase().replace(/dow corning|[®™]/g, (m) => (m === "dow corning" ? "dc" : "")).replace(/[^a-z0-9]/g, "");
+const np = (p: string) => nk(p.split(/[\s(/]/)[0]);
+const IDX = new Map<string, InciCheck>();
+for (const [k, v] of Object.entries(((offsets as { inci_checks?: Record<string, InciCheck> }).inci_checks) || {})) { const i = k.indexOf("|"); IDX.set(np(k.slice(0, i)) + "|" + nk(k.slice(i + 1)), v); }
+/** the INCI check for one competitor code (producer column name + code as written in the table) */
+export const checkOf = (producer: string, code: string): InciCheck | undefined => IDX.get(np(producer) + "|" + nk(code));
+/** ✓ code: producer column verified, or this exact code confirmed with a real INCI */
+export const isVerifiedCode = (producer: string, code: string) => isVerifiedProducer(producer) || checkOf(producer, code)?.status === "ok";
+/** "A / B / C" → ["A","B","C"] */
+export const splitCell = (s?: string) => (s || "").split(/\s+\/\s+/).map((x) => x.trim()).filter(Boolean);
+export type Removed = { producer: string; code: string; status: "fake" | "wrong_family"; inci?: string; note: string; src?: string };
+export const INCI_CHECK_META = ((offsets as { inci_check_meta?: { date: string; checked: number } }).inci_check_meta) || { date: "", checked: 0 };

@@ -38,10 +38,10 @@
    "fda": "No",
    "eco_certs": "ISO 9001 / ISO 14001",
    "offsets": {
-    "Shin-Etsu": "KF-8020",
-    "Momentive": "Silsoft Q / Silsoft Q-100",
+    "Shin-Etsu": "",
+    "Momentive": "Silsoft Q",
     "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL ADM Quat Series",
-    "Evonik (ABIL / TEGO)": "ABIL Quat 3676 / ABIL Quat 3272 / ABIL ME 45 MB",
+    "Evonik (ABIL / TEGO)": "ABIL Quat 3272 / ABIL ME 45 MB",
     "Bluestar / Elkem (Mirasil)": "Mirasil Quat Series",
     "KCC Corp. / Basil (SeraSense)": "SeraSense Q",
     "Grant Industries (Gransil)": "Gransil Quat",
@@ -55,7 +55,7 @@
     "Chemsil Silicone": "Chemsil Quat",
     "Jeen International": "Jeesilc Quat",
     "Siltech": "Siltech Quat",
-    "BRB & Others": "BRB Quat 200",
+    "BRB & Others": "",
     "Croda": "Crodamol Quat",
     "BASF / Cognis": "Cetiol Quat",
     "Lubrizol / Noveon": "Schercemol Quat",
@@ -64,12 +64,46 @@
     "Inolex": "Lexfeel Quat",
     "SEPPIC": "SEPPIC Quat",
     "Others": "Sasil Quat"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Shin-Etsu",
+     "code": "KF-8020",
+     "status": "wrong_family",
+     "inci": "Aminopropyl Dimethicone (and) Dimethicone",
+     "note": "Shin-Etsu lists INCI 'Aminopropyl Dimethicone/Dimethicone', type Amino Fluids/Blends (amino gum in 20cs dimethicone) - not a quat microemulsion",
+     "src": "https://www.shinetsusilicones.com/fluid_print.aspx?ID=KF-8020"
+    },
+    {
+     "producer": "Momentive",
+     "code": "Silsoft Q-100",
+     "status": "fake",
+     "inci": "",
+     "note": "Not in Momentive brochure or any listing; exact-name search found nothing",
+     "src": "https://www.momentive.com/docs/default-source/productdocuments/silshine-151/personal_care_brochure_web.pdf"
+    },
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "ABIL Quat 3676",
+     "status": "fake",
+     "inci": "",
+     "note": "Exact-name search returns no hits; Evonik's silicone quats are ABIL Quat 3272 (Quaternium-80) and ABIL Quat 3474",
+     "src": ""
+    },
+    {
+     "producer": "BRB & Others",
+     "code": "BRB Quat 200",
+     "status": "fake",
+     "inci": "",
+     "note": "Not found in BRB International cosmetic listings nor by exact-name web search (BRB DM fluids listed only up to DM 1000; BRB PDMS emulsions are sold under other names, e.g. industrial grades)",
+     "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-brb-international-bv/c-ingredients-silicones-silicone-fluids"
+    }
+   ]
   },
   {
    "category_id": "CAT-02",
    "family": "Cosmetic Reactive Silicone Fluid",
-   "dow_corning": "Dow Corning® 2-8566 / DOWSIL™ 2-8566 / DC 8040",
+   "dow_corning": "Dow Corning® 2-8566 / DOWSIL™ 2-8566",
    "inci": "Amodimethicone",
    "silitex_product": "AMODIMETHICONE (PO551, 100%) · BODYAMISIL 35 / 20 / 50 / LF · BODYAMODIMETISIL 60 · MICROAMODIMETISIL 200 (2026 Cosmetics catalogue)",
    "kosher": "No",
@@ -79,9 +113,9 @@
     "Shin-Etsu": "KF-8004 / KF-8005S",
     "Momentive": "SF1708 / SF1706",
     "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL ADM 1370 / BELSIL ADM 1650",
-    "Evonik (ABIL / TEGO)": "ABIL Soft AF 100",
+    "Evonik (ABIL / TEGO)": "",
     "Bluestar / Elkem (Mirasil)": "Mirasil ADM 403",
-    "KCC Corp. / Basil (SeraSense)": "TC-2810 / SeraSense AC 15",
+    "KCC Corp. / Basil (SeraSense)": "",
     "Grant Industries (Gransil)": "Gransil AMI",
     "NuSil (Avantor NuSil Technology)": "CareSil CAS-3131 (Amodimethicone, neat fluid)",
     "TINCI": "TC-Amodimethicone",
@@ -102,7 +136,41 @@
     "Inolex": "Lexfeel AM",
     "SEPPIC": "SEPPIC Soft",
     "Others": "Sasil AM"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Dow / DOWSIL / XIAMETER",
+     "code": "DC 8040",
+     "status": "fake",
+     "inci": "",
+     "note": "No Dow amino fluid 'DC 8040'. Only similar real code is DOWSIL EL-8040 ID, a silicone organic elastomer blend (different chemistry)",
+     "src": ""
+    },
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "ABIL Soft AF 100",
+     "status": "wrong_family",
+     "inci": "Methoxy PEG/PPG-7/3 Aminopropyl Dimethicone",
+     "note": "Evonik distributor page. Self-emulsifying amino-silicone polyether - not Amodimethicone, and not a macroemulsion",
+     "src": "https://glenncorp.com/?p=6738"
+    },
+    {
+     "producer": "KCC Corp. / Basil (SeraSense)",
+     "code": "TC-2810",
+     "status": "fake",
+     "inci": "",
+     "note": "Code not found in KCC's cosmetic catalog (SeraSense/SeraSilk/SeraSoft/SeraShine/SeraSol) nor by exact-name web search",
+     "src": "https://www.specialchem.com/cosmetics/supplier/kcc-silicone/all-products"
+    },
+    {
+     "producer": "KCC Corp. / Basil (SeraSense)",
+     "code": "SeraSense AC 15",
+     "status": "wrong_family",
+     "inci": "Cyclopentasiloxane (and) Acrylates/Dimethicone Copolymer",
+     "note": "SpecialChem SeraSense list: acrylate-silicone FILM FORMER in D5 - not an amodimethicone / amino fluid or emulsion",
+     "src": "https://cosmetics.specialchem.com/selectors/tr-serasense"
+    }
+   ]
   },
   {
    "category_id": "CAT-03",
@@ -382,10 +450,10 @@
    "offsets": {
     "Shin-Etsu": "KF-995 / TMF-1.5",
     "Momentive": "SF1202 / SF1204 / SF1256",
-    "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL CM 040 / BELSIL CM 1000",
-    "Evonik (ABIL / TEGO)": "Tegosoft AC / ABIL B 8832",
-    "Bluestar / Elkem (Mirasil)": "Mirasil CM 5 / Mirasil CM 12",
-    "KCC Corp. / Basil (SeraSense)": "SF0005Z / SeraSense SF D5",
+    "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL CM 040",
+    "Evonik (ABIL / TEGO)": "Tegosoft AC",
+    "Bluestar / Elkem (Mirasil)": "Mirasil CM 5",
+    "KCC Corp. / Basil (SeraSense)": "SeraSense SF D5",
     "Grant Industries (Gransil)": "Gransil GCM-5 / Gransil RPS",
     "NuSil (Avantor NuSil Technology)": "CareSil CSV-3000 (D5) / CSV-3001 (D5 + D6) / CSV-3002 (D6)",
     "TINCI": "TCS-6500",
@@ -406,7 +474,41 @@
     "Inolex": "Lexfeel D5",
     "SEPPIC": "SEPPIC D5",
     "Others": "SiClone SR-5"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+     "code": "BELSIL CM 1000",
+     "status": "wrong_family",
+     "inci": "Cyclopentasiloxane (and) Dimethiconol",
+     "note": "SpecialChem Wacker listing. This is a dimethiconol gum blend in D5, not a plain volatile cyclomethicone",
+     "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-skin-care/s-wacker"
+    },
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "ABIL B 8832",
+     "status": "wrong_family",
+     "inci": "Bis-PEG/PPG-20/20 Dimethicone",
+     "note": "Evonik distributor page: nonionic silicone polyether surfactant - not a cyclomethicone/volatile",
+     "src": "https://glenncorp.com/shop/abil-b-8832/"
+    },
+    {
+     "producer": "Bluestar / Elkem (Mirasil)",
+     "code": "Mirasil CM 12",
+     "status": "fake",
+     "inci": "",
+     "note": "Not in the complete 52-product Mirasil list (Elkem) on SpecialChem",
+     "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+    },
+    {
+     "producer": "KCC Corp. / Basil (SeraSense)",
+     "code": "SF0005Z",
+     "status": "fake",
+     "inci": "",
+     "note": "Code not found in KCC's cosmetic catalog (SeraSense/SeraSilk/SeraSoft/SeraShine/SeraSol) nor by exact-name web search",
+     "src": "https://www.specialchem.com/cosmetics/supplier/kcc-silicone/all-products"
+    }
+   ]
   },
   {
    "category_id": "CAT-11",
@@ -421,9 +523,9 @@
     "Shin-Etsu": "KF-96A (5cs - 1000cs) / DM-Fluid",
     "Momentive": "Element14 PDMS (5-1000) / SF96-5 to SF96-1000",
     "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL DM 5 to DM 1000 / BELSIL DM 350",
-    "Evonik (ABIL / TEGO)": "ABIL Fluid 5 to 1000",
+    "Evonik (ABIL / TEGO)": "",
     "Bluestar / Elkem (Mirasil)": "Mirasil DM 5 to DM 1000",
-    "KCC Corp. / Basil (SeraSense)": "SF1000N (5-1000 cSt) / SeraSense SF",
+    "KCC Corp. / Basil (SeraSense)": "SeraSense SF",
     "Grant Industries (Gransil)": "Gransil DM-5",
     "NuSil (Avantor NuSil Technology)": "CareSil CSF-3100 / CSF-3101 USP-NF (Dimethicone 5 – 1,000 cSt)",
     "TINCI": "TCS-10/100M",
@@ -444,7 +546,25 @@
     "Inolex": "Lexfeel 7/350",
     "SEPPIC": "SEPPIC DM",
     "Others": "Sasil M-100/350"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "ABIL Fluid 5 to 1000",
+     "status": "fake",
+     "inci": "",
+     "note": "No 'ABIL Fluid' range exists; Evonik's only listed PDMS was ABIL 350 (Dimethicone) - DISCONTINUED",
+     "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-skin-care/s-evonik/c-ingredients-silicones/tr-abil"
+    },
+    {
+     "producer": "KCC Corp. / Basil (SeraSense)",
+     "code": "SF1000N (5-1000 cSt)",
+     "status": "fake",
+     "inci": "",
+     "note": "Code not found in KCC's cosmetic catalog (SeraSense/SeraSilk/SeraSoft/SeraShine/SeraSol) nor by exact-name web search",
+     "src": "https://www.specialchem.com/cosmetics/supplier/kcc-silicone/all-products"
+    }
+   ]
   },
   {
    "category_id": "CAT-12",
@@ -459,9 +579,9 @@
     "Shin-Etsu": "KF-96H (12,500cs - 1,000,000cs)",
     "Momentive": "Element14 PDMS 60K - 1M / SF96-60K",
     "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL DM 12500 to DM 100000 / BELSIL DM 500,000",
-    "Evonik (ABIL / TEGO)": "ABIL Fluid 12500+",
+    "Evonik (ABIL / TEGO)": "",
     "Bluestar / Elkem (Mirasil)": "Mirasil DM 60000 to DM 500000",
-    "KCC Corp. / Basil (SeraSense)": "TCS-10M to TCS-100M / SeraSense SF 60k",
+    "KCC Corp. / Basil (SeraSense)": "SeraSense SF 60k",
     "Grant Industries (Gransil)": "Gransil DM-60k",
     "NuSil (Avantor NuSil Technology)": "",
     "TINCI": "TC-PDMS High",
@@ -473,7 +593,7 @@
     "Chemsil Silicone": "Chemsil DM High",
     "Jeen International": "Jeesilc PDS High",
     "Siltech": "Siltech High DM",
-    "BRB & Others": "BRB DM 12500 to 100000",
+    "BRB & Others": "",
     "Croda": "N/A",
     "BASF / Cognis": "Cetiol HV",
     "Lubrizol / Noveon": "N/A",
@@ -482,7 +602,33 @@
     "Inolex": "Lexfeel N200-N350",
     "SEPPIC": "N/A",
     "Others": "Sasil M-1000+"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "ABIL Fluid 12500+",
+     "status": "fake",
+     "inci": "",
+     "note": "No 'ABIL Fluid' range exists; Evonik lists no high-viscosity PDMS fluid",
+     "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-skin-care/s-evonik/c-ingredients-silicones/tr-abil"
+    },
+    {
+     "producer": "KCC Corp. / Basil (SeraSense)",
+     "code": "TCS-10M to TCS-100M",
+     "status": "fake",
+     "inci": "",
+     "note": "Code not found in KCC's cosmetic catalog (SeraSense/SeraSilk/SeraSoft/SeraShine/SeraSol) nor by exact-name web search",
+     "src": "https://www.specialchem.com/cosmetics/supplier/kcc-silicone/all-products"
+    },
+    {
+     "producer": "BRB & Others",
+     "code": "BRB DM 12500 to 100000",
+     "status": "fake",
+     "inci": "",
+     "note": "Not found in BRB International cosmetic listings nor by exact-name web search (BRB DM fluids listed only up to DM 1000; BRB PDMS emulsions are sold under other names, e.g. industrial grades)",
+     "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-brb-international-bv/c-ingredients-silicones-silicone-fluids"
+    }
+   ]
   },
   {
    "category_id": "CAT-13",
@@ -534,8 +680,8 @@
    "offsets": {
     "Shin-Etsu": "N/A",
     "Momentive": "Harmonie NatuVel / Harmonie NatuDerma",
-    "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL eco EG 3001 (Bio-based carbon)",
-    "Evonik (ABIL / TEGO)": "TEGO Green / REWOPOL Bio",
+    "Wacker (BELSIL / SILFOAM / SILRES)": "",
+    "Evonik (ABIL / TEGO)": "",
     "Bluestar / Elkem (Mirasil)": "N/A",
     "KCC Corp. / Basil (SeraSense)": "N/A",
     "Grant Industries (Gransil)": "N/A",
@@ -558,12 +704,38 @@
     "Inolex": "N/A",
     "SEPPIC": "Lexfeel N Series (100% Natural)",
     "Others": "SEPPIC Eco-Emollient"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+     "code": "BELSIL eco EG 3001 (Bio-based carbon)",
+     "status": "wrong_family",
+     "inci": "Undecane (and) Tridecane (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
+     "note": "Wacker: silicone elastomer GEL in bio-based undecane/tridecane (crosspolymer is mass-balance renewable, REDcert2). Not a plant-based emollient/softener emulsion and the silicone network is not biodegradable - belongs with elastomer gels.",
+     "src": "https://www.wacker.com/h/en-kr/c/belsil-eco-eg-3001/p/000099936"
+    },
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "TEGO Green",
+     "status": "fake",
+     "inci": "",
+     "note": "No Evonik product with this exact name found on Evonik personal-care, SpecialChem or distributor pages",
+     "src": ""
+    },
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "REWOPOL Bio",
+     "status": "fake",
+     "inci": "",
+     "note": "No Evonik product with this exact name found on Evonik personal-care, SpecialChem or distributor pages",
+     "src": ""
+    }
+   ]
   },
   {
    "category_id": "CAT-15",
    "family": "Standard Water-Based Silicone PDMS Emulsions",
-   "dow_corning": "Dow Corning® 36 Emulsion / XIAMETER® MEM-0036 / DC 350 Emulsion",
+   "dow_corning": "Dow Corning® 36 Emulsion / XIAMETER® MEM-0036",
    "inci": "Dimethicone Water Emulsion (PDMS)",
    "silitex_product": "EVERSIL (3.5 / 6.0 / 35 / 60 / 350 / 3500) - Signature silicone PDMS water emulsion range (35%-60% active)",
    "kosher": "No",
@@ -573,9 +745,9 @@
     "Shin-Etsu": "KM-90 / KM-902 / KM-910",
     "Momentive": "SM 2163 / SM 2138 / SM 2140",
     "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL MEM 35 / BELSIL E 10 / BELSIL DM 5102 E",
-    "Evonik (ABIL / TEGO)": "TEGO Mold Release / ABIL Emulsion Series",
-    "Bluestar / Elkem (Mirasil)": "Mirasil EM 350 / Mirasil EM 600",
-    "KCC Corp. / Basil (SeraSense)": "TC-Release 36 / SeraSense EM 350",
+    "Evonik (ABIL / TEGO)": "ABIL Emulsion Series",
+    "Bluestar / Elkem (Mirasil)": "",
+    "KCC Corp. / Basil (SeraSense)": "",
     "Grant Industries (Gransil)": "Gransil EM",
     "NuSil (Avantor NuSil Technology)": "",
     "TINCI": "TC-Emulsion",
@@ -587,7 +759,7 @@
     "Chemsil Silicone": "Chemsil MR-350",
     "Jeen International": "Jeesilc MR-36",
     "Siltech": "Siltech E-350",
-    "BRB & Others": "BRB Emulsion 35 / BRB Emulsion 60",
+    "BRB & Others": "",
     "Croda": "N/A",
     "BASF / Cognis": "N/A",
     "Lubrizol / Noveon": "N/A",
@@ -596,7 +768,73 @@
     "Inolex": "N/A",
     "SEPPIC": "N/A",
     "Others": "N/A"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Dow / DOWSIL / XIAMETER",
+     "code": "DC 350 Emulsion",
+     "status": "fake",
+     "inci": "",
+     "note": "No Dow product named 'DC 350 Emulsion' found (DC 350 / XIAMETER PMX-200 350 cSt is a fluid, not an emulsion)",
+     "src": ""
+    },
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "TEGO Mold Release",
+     "status": "fake",
+     "inci": "",
+     "note": "No Evonik product with this exact name found on Evonik personal-care, SpecialChem or distributor pages",
+     "src": ""
+    },
+    {
+     "producer": "Bluestar / Elkem (Mirasil)",
+     "code": "Mirasil EM 350",
+     "status": "fake",
+     "inci": "",
+     "note": "Not in the complete 52-product Mirasil list (Elkem) on SpecialChem",
+     "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+    },
+    {
+     "producer": "Bluestar / Elkem (Mirasil)",
+     "code": "Mirasil EM 600",
+     "status": "fake",
+     "inci": "",
+     "note": "Not in the complete 52-product Mirasil list (Elkem) on SpecialChem",
+     "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+    },
+    {
+     "producer": "KCC Corp. / Basil (SeraSense)",
+     "code": "TC-Release 36",
+     "status": "fake",
+     "inci": "",
+     "note": "Code not found in KCC's cosmetic catalog (SeraSense/SeraSilk/SeraSoft/SeraShine/SeraSol) nor by exact-name web search",
+     "src": "https://www.specialchem.com/cosmetics/supplier/kcc-silicone/all-products"
+    },
+    {
+     "producer": "KCC Corp. / Basil (SeraSense)",
+     "code": "SeraSense EM 350",
+     "status": "fake",
+     "inci": "",
+     "note": "Not in the complete 51-product SeraSense list (SeraSense has no EM emulsion grades listed)",
+     "src": "https://cosmetics.specialchem.com/selectors/tr-serasense"
+    },
+    {
+     "producer": "BRB & Others",
+     "code": "BRB Emulsion 35",
+     "status": "fake",
+     "inci": "",
+     "note": "Not found in BRB International cosmetic listings nor by exact-name web search (BRB DM fluids listed only up to DM 1000; BRB PDMS emulsions are sold under other names, e.g. industrial grades)",
+     "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-brb-international-bv/c-ingredients-silicones-silicone-fluids"
+    },
+    {
+     "producer": "BRB & Others",
+     "code": "BRB Emulsion 60",
+     "status": "fake",
+     "inci": "",
+     "note": "Not found in BRB International cosmetic listings nor by exact-name web search (BRB DM fluids listed only up to DM 1000; BRB PDMS emulsions are sold under other names, e.g. industrial grades)",
+     "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-brb-international-bv/c-ingredients-silicones-silicone-fluids"
+    }
+   ]
   },
   {
    "category_id": "CAT-16",
@@ -610,8 +848,8 @@
    "offsets": {
     "Shin-Etsu": "N/A",
     "Momentive": "Harmonie NatuVel",
-    "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL eco EG 3001",
-    "Evonik (ABIL / TEGO)": "TEGO Green Technology",
+    "Wacker (BELSIL / SILFOAM / SILRES)": "",
+    "Evonik (ABIL / TEGO)": "",
     "Bluestar / Elkem (Mirasil)": "N/A",
     "KCC Corp. / Basil (SeraSense)": "N/A",
     "Grant Industries (Gransil)": "N/A",
@@ -634,7 +872,25 @@
     "Inolex": "N/A",
     "SEPPIC": "Lexfeel Natural",
     "Others": "SEPPIC Green"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+     "code": "BELSIL eco EG 3001",
+     "status": "wrong_family",
+     "inci": "Undecane (and) Tridecane (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
+     "note": "Wacker: silicone elastomer GEL in bio-based undecane/tridecane (crosspolymer is mass-balance renewable, REDcert2). Not a plant-based emollient/softener emulsion and the silicone network is not biodegradable - belongs with elastomer gels.",
+     "src": "https://www.wacker.com/h/en-kr/c/belsil-eco-eg-3001/p/000099936"
+    },
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "TEGO Green Technology",
+     "status": "fake",
+     "inci": "",
+     "note": "No Evonik product with this exact name found on Evonik personal-care, SpecialChem or distributor pages",
+     "src": ""
+    }
+   ]
   },
   {
    "category_id": "CAT-17",
@@ -765,7 +1021,7 @@
     "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL DMC 6031",
     "Evonik (ABIL / TEGO)": "ABIL B 8843",
     "Bluestar / Elkem (Mirasil)": "Mirasil DMCO",
-    "KCC Corp. / Basil (SeraSense)": "TC-3011 / SeraSense SF 193",
+    "KCC Corp. / Basil (SeraSense)": "",
     "Grant Industries (Gransil)": "Gransil 530",
     "NuSil (Avantor NuSil Technology)": "CareSil CSS-7301 (PEG-12 Dimethicone) / CSS-7302 (PEG-10 Dimethicone)",
     "TINCI": "TC-3011",
@@ -777,7 +1033,7 @@
     "Chemsil Silicone": "Chemsil PE-20",
     "Jeen International": "Jeesilc 193",
     "Siltech": "Siltech C-101",
-    "BRB & Others": "BRB 526 / BRB 544",
+    "BRB & Others": "BRB 526",
     "Croda": "Crodamol PE",
     "BASF / Cognis": "Cetiol HE",
     "Lubrizol / Noveon": "Schercemol PE",
@@ -786,7 +1042,33 @@
     "Inolex": "Lexfeel PE",
     "SEPPIC": "SEPPIC Fluid",
     "Others": "Sasil PE-193"
-   }
+   },
+   "removed": [
+    {
+     "producer": "KCC Corp. / Basil (SeraSense)",
+     "code": "TC-3011",
+     "status": "fake",
+     "inci": "",
+     "note": "Code not found in KCC's cosmetic catalog (SeraSense/SeraSilk/SeraSoft/SeraShine/SeraSol) nor by exact-name web search",
+     "src": "https://www.specialchem.com/cosmetics/supplier/kcc-silicone/all-products"
+    },
+    {
+     "producer": "KCC Corp. / Basil (SeraSense)",
+     "code": "SeraSense SF 193",
+     "status": "fake",
+     "inci": "",
+     "note": "Not in the complete 51-product SeraSense list; '193' looks borrowed from Dow Corning 193 (PEG-12 Dimethicone)",
+     "src": "https://cosmetics.specialchem.com/selectors/tr-serasense"
+    },
+    {
+     "producer": "BRB & Others",
+     "code": "BRB 544",
+     "status": "fake",
+     "inci": "",
+     "note": "Not found in BRB International cosmetic listings nor by exact-name web search (BRB DM fluids listed only up to DM 1000; BRB PDMS emulsions are sold under other names, e.g. industrial grades)",
+     "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-brb-international-bv/c-ingredients-silicones-silicone-fluids"
+    }
+   ]
   },
   {
    "category_id": "CAT-21",
@@ -905,19 +1187,19 @@
   {
    "category_id": "CAT-24",
    "family": "D4/D5-Free Amino Silicone Macroemulsions",
-   "dow_corning": "Dow Corning® 2-8566 / XIAMETER® MEM-0863",
+   "dow_corning": "",
    "inci": "Amodimethicone / Amino Silicone Macroemulsion (D4/D5 Free)",
    "silitex_product": "MACROAMISIL / MACROAMISIL SLR / MACROAMISIL (E1386) - D4/D5-free high-reactivity amino silicone emulsions conferring soft velvet/silky hand feel",
    "kosher": "No",
    "fda": "No",
    "eco_certs": "ISO 9001 / ISO 14001",
    "offsets": {
-    "Shin-Etsu": "KF-8004",
-    "Momentive": "SF1708",
+    "Shin-Etsu": "",
+    "Momentive": "",
     "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL ADM 6057 E",
-    "Evonik (ABIL / TEGO)": "ABIL Soft AF 100",
-    "Bluestar / Elkem (Mirasil)": "Mirasil ADM 403",
-    "KCC Corp. / Basil (SeraSense)": "SeraSense AC 15",
+    "Evonik (ABIL / TEGO)": "",
+    "Bluestar / Elkem (Mirasil)": "",
+    "KCC Corp. / Basil (SeraSense)": "",
     "Grant Industries (Gransil)": "Gransil AMI",
     "NuSil (Avantor NuSil Technology)": "",
     "TINCI": "TC-Amodimethicone",
@@ -938,7 +1220,65 @@
     "Inolex": "Lexfeel AM",
     "SEPPIC": "SEPPIC Soft",
     "Others": "Sasil AM-200"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Dow / DOWSIL / XIAMETER",
+     "code": "Dow Corning® 2-8566",
+     "status": "wrong_family",
+     "inci": "Amodimethicone",
+     "note": "Neat amino FLUID, not a macroemulsion. Legacy name of DOWSIL 2-8566 Amino Fluid (Dow Corning brand renamed DOWSIL); neat amino fluid",
+     "src": "https://knowde.com/stores/dow-north-america/products/dowsil-tm-2-8566-amino-fluid"
+    },
+    {
+     "producer": "Dow / DOWSIL / XIAMETER",
+     "code": "XIAMETER® MEM-0863",
+     "status": "fake",
+     "inci": "",
+     "note": "Exact-name search returns no Dow/XIAMETER product",
+     "src": ""
+    },
+    {
+     "producer": "Shin-Etsu",
+     "code": "KF-8004",
+     "status": "wrong_family",
+     "inci": "Amodimethicone",
+     "note": "Neat amino FLUID, not a macroemulsion. SpecialChem names it Amodimethicone; amino-modified silicone fluid (neat fluid, not an emulsion)",
+     "src": "https://www.specialchem.com/cosmetics/product/shin-etsu-kf-8004"
+    },
+    {
+     "producer": "Momentive",
+     "code": "SF1708",
+     "status": "wrong_family",
+     "inci": "Amodimethicone",
+     "note": "Neat amino FLUID, not a macroemulsion. SpecialChem Momentive listing: 'SF 1708 - AMODIMETHICONE' (neat amino fluid)",
+     "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-momentive-performance-materials/c-ingredients-silicones"
+    },
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "ABIL Soft AF 100",
+     "status": "wrong_family",
+     "inci": "Methoxy PEG/PPG-7/3 Aminopropyl Dimethicone",
+     "note": "Evonik distributor page. Self-emulsifying amino-silicone polyether - not Amodimethicone, and not a macroemulsion",
+     "src": "https://glenncorp.com/?p=6738"
+    },
+    {
+     "producer": "Bluestar / Elkem (Mirasil)",
+     "code": "Mirasil ADM 403",
+     "status": "wrong_family",
+     "inci": "Amodimethicone",
+     "note": "Neat amino FLUID, not a macroemulsion (Elkem emulsion grade is MIRASIL ADME-NP). SpecialChem complete Mirasil list (Elkem): neat amino fluid",
+     "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+    },
+    {
+     "producer": "KCC Corp. / Basil (SeraSense)",
+     "code": "SeraSense AC 15",
+     "status": "wrong_family",
+     "inci": "Cyclopentasiloxane (and) Acrylates/Dimethicone Copolymer",
+     "note": "SpecialChem SeraSense list: acrylate-silicone FILM FORMER in D5 - not an amodimethicone / amino fluid or emulsion",
+     "src": "https://cosmetics.specialchem.com/selectors/tr-serasense"
+    }
+   ]
   },
   {
    "category_id": "CAT-25",
@@ -952,7 +1292,7 @@
    "offsets": {
     "Shin-Etsu": "X-21-5666",
     "Momentive": "Silsoft 1215",
-    "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL CM / DM Micro",
+    "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL CM",
     "Evonik (ABIL / TEGO)": "ABIL OSW",
     "Bluestar / Elkem (Mirasil)": "Mirasil C-DML",
     "KCC Corp. / Basil (SeraSense)": "SeraSense GB 10",
@@ -976,7 +1316,17 @@
     "Inolex": "N/A",
     "SEPPIC": "N/A",
     "Others": "N/A"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+     "code": "DM Micro",
+     "status": "fake",
+     "inci": "",
+     "note": "No Wacker product named 'DM Micro' found; not a BELSIL trade name",
+     "src": ""
+    }
+   ]
   },
   {
    "category_id": "CAT-26",
@@ -1143,8 +1493,8 @@
     "Shin-Etsu": "KSG-15 / KSG-16 / USG-103",
     "Momentive": "Velvesil 125 / Velvesil DM Silicone / SF-839",
     "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL RG 100 / BELSIL RG 1100 / BELSIL EG 3000",
-    "Evonik (ABIL / TEGO)": "ABIL Care Gel / ABIL Elastomer Gel",
-    "Bluestar / Elkem (Mirasil)": "Mirasil Velvet Rubber",
+    "Evonik (ABIL / TEGO)": "",
+    "Bluestar / Elkem (Mirasil)": "",
     "KCC Corp. / Basil (SeraSense)": "GRANSIL GCM-5 / GRANSIL DM-5",
     "Grant Industries (Gransil)": "Gransil RPS",
     "NuSil (Avantor NuSil Technology)": "CareSil CXG-1101 (D5) / CXG-1103 (D5 + D6) · cyclic-free: CXG-1104 (in Dimethicone)",
@@ -1166,7 +1516,33 @@
     "Inolex": "N/A",
     "SEPPIC": "N/A",
     "Others": "Sasil 8230"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "ABIL Care Gel",
+     "status": "fake",
+     "inci": "",
+     "note": "No Evonik product with this exact name found on Evonik personal-care, SpecialChem or distributor pages",
+     "src": ""
+    },
+    {
+     "producer": "Evonik (ABIL / TEGO)",
+     "code": "ABIL Elastomer Gel",
+     "status": "fake",
+     "inci": "",
+     "note": "No Evonik product with this exact name found on Evonik personal-care, SpecialChem or distributor pages",
+     "src": ""
+    },
+    {
+     "producer": "Bluestar / Elkem (Mirasil)",
+     "code": "Mirasil Velvet Rubber",
+     "status": "fake",
+     "inci": "",
+     "note": "Not in the complete 52-product Mirasil list (Elkem) on SpecialChem",
+     "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+    }
+   ]
   },
   {
    "category_id": "CAT-31",
@@ -1372,7 +1748,7 @@
     "Momentive": "SR1000 / SS4230 / SS4267",
     "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL TMS 803 / BELSIL REG 1103 B",
     "Evonik (ABIL / TEGO)": "ABIL MQ 803",
-    "Bluestar / Elkem (Mirasil)": "Mirasil TMS",
+    "Bluestar / Elkem (Mirasil)": "",
     "KCC Corp. / Basil (SeraSense)": "TC-7010 / SeraSense RB 10",
     "Grant Industries (Gransil)": "Gransil TMS",
     "NuSil (Avantor NuSil Technology)": "",
@@ -1385,7 +1761,7 @@
     "Chemsil Silicone": "Chemsil MQ-50",
     "Jeen International": "Jeesilc TMS",
     "Siltech": "Siltech MQ-1",
-    "BRB & Others": "BRB TMS 50 / BRB TMS 80",
+    "BRB & Others": "BRB TMS 50",
     "Croda": "N/A",
     "BASF / Cognis": "N/A",
     "Lubrizol / Noveon": "N/A",
@@ -1394,7 +1770,25 @@
     "Inolex": "Lexfeel Shine",
     "SEPPIC": "N/A",
     "Others": "N/A"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Bluestar / Elkem (Mirasil)",
+     "code": "Mirasil TMS",
+     "status": "fake",
+     "inci": "",
+     "note": "Not in the complete 52-product Mirasil list (Elkem) on SpecialChem",
+     "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+    },
+    {
+     "producer": "BRB & Others",
+     "code": "BRB TMS 80",
+     "status": "fake",
+     "inci": "",
+     "note": "Not in BRB listings; BRB TMS range = BRB TMS (neat Trimethylsiloxysilicate), TMS-30D, TMS-50C, TMS-50I",
+     "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-long-lasting/a-sun-care/s-brb-international-bv"
+    }
+   ]
   },
   {
    "category_id": "CAT-37",
@@ -1407,10 +1801,10 @@
    "eco_certs": "ISO 9001 / ISO 14001",
    "offsets": {
     "Shin-Etsu": "KF-6028 / KF-6038 / KF-6050",
-    "Momentive": "Silsoft 900 / SF1528 / SF1540",
-    "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL WO 5000 / BELSIL WO 3700",
+    "Momentive": "SF1528 / SF1540",
+    "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL WO 3700",
     "Evonik (ABIL / TEGO)": "ABIL EM 90 / ABIL EM 180 / ABIL EM 97 S / ABIL Care XL 80 MB",
-    "Bluestar / Elkem (Mirasil)": "Mirasil WO 8210",
+    "Bluestar / Elkem (Mirasil)": "",
     "KCC Corp. / Basil (SeraSense)": "TC-3028 / SeraSense LA 10",
     "Grant Industries (Gransil)": "Gransil 501",
     "NuSil (Avantor NuSil Technology)": "CareSil CSS-7300 (PEG/PPG-18/18 Dimethicone in D5)",
@@ -1432,7 +1826,33 @@
     "Inolex": "N/A",
     "SEPPIC": "N/A",
     "Others": "N/A"
-   }
+   },
+   "removed": [
+    {
+     "producer": "Momentive",
+     "code": "Silsoft 900",
+     "status": "wrong_family",
+     "inci": "PPG-12 Dimethicone",
+     "note": "Momentive brochure lists it as a dimethicone copolyol (PPG-modified), not as a W/O or W/Si emulsifier; no D5",
+     "src": "https://www.momentive.com/docs/default-source/productdocuments/silshine-151/personal_care_brochure_web.pdf"
+    },
+    {
+     "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+     "code": "BELSIL WO 5000",
+     "status": "wrong_family",
+     "inci": "Dimethicone (and) Caprylyl Dimethicone Ethoxy Glucoside",
+     "note": "Wacker: W/O & W/Si emulsifier (category right) - ~30% silicone polyglucoside in dimethicone; not a PEG/PPG dimethicone and no D5",
+     "src": "https://www.wacker.com/h/en-us/c/belsil-wo-5000/p/000004742"
+    },
+    {
+     "producer": "Bluestar / Elkem (Mirasil)",
+     "code": "Mirasil WO 8210",
+     "status": "fake",
+     "inci": "",
+     "note": "Not in the complete 52-product Mirasil list (Elkem) on SpecialChem",
+     "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+    }
+   ]
   }
  ],
  "source": "full_offset_silicone_products_with_silitex-v6.csv; Silitex column verified against silitex.it product pages 12/10/2026 (CAT-02/10/11/12 corrected, CAT-30/36/37 marked GAP); Silitex column updated from the 5 sector catalogues 2026 (13/10/2026); NuSil column replaced with real CareSil codes 26/10/2026 (blank = no confirmed NuSil product)",
@@ -1440,5 +1860,664 @@
  "verified_producers": {
   "NuSil (Avantor NuSil Technology)": "NuSil CareSil™ Product Selection Guide (12/11/2013) + New Product Insert (03/2014) + CareSil price list (04/05/2016) — verified 26/10/2026"
  },
- "unverified_note": "All other producer columns (incl. Dow) come from the v6 market table and are NOT yet verified against the producers' data sheets. Silitex column verified 12–13/10/2026."
+ "unverified_note": "All other producer columns (incl. Dow) come from the v6 market table and are NOT yet verified against the producers' data sheets. Silitex column verified 12–13/10/2026.",
+ "inci_checks": {
+  "Shin-Etsu|KF-8020": {
+   "cat": "CAT-01",
+   "status": "wrong_family",
+   "inci": "Aminopropyl Dimethicone (and) Dimethicone",
+   "cyclic": false,
+   "src": "https://www.shinetsusilicones.com/fluid_print.aspx?ID=KF-8020",
+   "note": "Shin-Etsu lists INCI 'Aminopropyl Dimethicone/Dimethicone', type Amino Fluids/Blends (amino gum in 20cs dimethicone) - not a quat microemulsion"
+  },
+  "Momentive|Silsoft Q": {
+   "cat": "CAT-01",
+   "status": "unconfirmed",
+   "note": "No product named exactly 'Silsoft Q'. Momentive's quat microemulsion is 'Silsoft Q PF' = Water (and) Silicone Quaternium-18 (and) Trideceth-6 (and) Trideceth-12",
+   "src": "https://www.momentive.com/docs/default-source/productdocuments/silshine-151/personal_care_brochure_web.pdf"
+  },
+  "Evonik (ABIL / TEGO)|ABIL Quat 3272": {
+   "cat": "CAT-01",
+   "status": "ok",
+   "inci": "Quaternium-80",
+   "cyclic": false,
+   "src": "https://personal-care.evonik.com/pim/fragment/personal-care/en/product/PR_52004039"
+  },
+  "Evonik (ABIL / TEGO)|ABIL ME 45 MB": {
+   "cat": "CAT-01",
+   "status": "ok",
+   "inci": "Silicone Quaternium-22 (and) Polyglyceryl-3 Caprate (and) Dipropylene Glycol (and) Cocamidopropyl Betaine",
+   "cyclic": false,
+   "src": "https://glenncorp.com/shop/abil-me-45-mb/"
+  },
+  "KCC Corp. / Basil (SeraSense)|SeraSense Q": {
+   "cat": "CAT-01",
+   "status": "unconfirmed",
+   "note": "No product named 'SeraSense Q' in the full 51-product SeraSense list. Real SeraSense quats: SQ 40 (Silicone Quaternium-17) and SQ-41 (Silicone Quaternium-8)",
+   "src": "https://cosmetics.specialchem.com/selectors/tr-serasense"
+  },
+  "Dow / DOWSIL / XIAMETER|Dow Corning® 2-8566": {
+   "cat": "CAT-02",
+   "status": "ok",
+   "inci": "Amodimethicone",
+   "cyclic": false,
+   "src": "https://knowde.com/stores/dow-north-america/products/dowsil-tm-2-8566-amino-fluid",
+   "note": "Neat amino FLUID, not a macroemulsion. Legacy name of DOWSIL 2-8566 Amino Fluid (Dow Corning brand renamed DOWSIL); neat amino fluid"
+  },
+  "Dow / DOWSIL / XIAMETER|DOWSIL™ 2-8566": {
+   "cat": "CAT-02",
+   "status": "ok",
+   "inci": "Amodimethicone",
+   "cyclic": false,
+   "src": "https://knowde.com/stores/dow-north-america/products/dowsil-tm-2-8566-amino-fluid"
+  },
+  "Shin-Etsu|KF-8004": {
+   "cat": "CAT-02",
+   "status": "ok",
+   "inci": "Amodimethicone",
+   "cyclic": false,
+   "src": "https://www.specialchem.com/cosmetics/product/shin-etsu-kf-8004",
+   "note": "Neat amino FLUID, not a macroemulsion. SpecialChem names it Amodimethicone; amino-modified silicone fluid (neat fluid, not an emulsion)"
+  },
+  "Shin-Etsu|KF-8005S": {
+   "cat": "CAT-02",
+   "status": "ok",
+   "inci": "Aminoethylaminopropyl Dimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/inci-ingredients/aminoethylaminopropyl-dimethicone"
+  },
+  "Momentive|SF1708": {
+   "cat": "CAT-02",
+   "status": "ok",
+   "inci": "Amodimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-momentive-performance-materials/c-ingredients-silicones",
+   "note": "Neat amino FLUID, not a macroemulsion. SpecialChem Momentive listing: 'SF 1708 - AMODIMETHICONE' (neat amino fluid)"
+  },
+  "Momentive|SF1706": {
+   "cat": "CAT-02",
+   "status": "unconfirmed",
+   "note": "Not in Momentive personal care brochure or SpecialChem Momentive fluid listings (SF1708 is the amodimethicone)",
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-momentive-performance-materials/c-ingredients-silicones-silicone-fluids"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL ADM 1370": {
+   "cat": "CAT-02",
+   "status": "ok",
+   "inci": "Amodimethicone",
+   "cyclic": false,
+   "src": "https://wacker.com/h/en-il/c/belsil-adm-1370/p/000004623"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL ADM 1650": {
+   "cat": "CAT-02",
+   "status": "ok",
+   "inci": "Amodimethicone",
+   "cyclic": false,
+   "src": "https://www.wacker.com/h/en-us/c/belsil-adm-1650/p/000003456"
+  },
+  "Evonik (ABIL / TEGO)|ABIL Soft AF 100": {
+   "cat": "CAT-24",
+   "status": "wrong_family",
+   "inci": "Methoxy PEG/PPG-7/3 Aminopropyl Dimethicone",
+   "cyclic": false,
+   "src": "https://glenncorp.com/?p=6738",
+   "note": "Evonik distributor page. Self-emulsifying amino-silicone polyether - not Amodimethicone, and not a macroemulsion"
+  },
+  "Bluestar / Elkem (Mirasil)|Mirasil ADM 403": {
+   "cat": "CAT-02",
+   "status": "ok",
+   "inci": "Amodimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil",
+   "note": "Neat amino FLUID, not a macroemulsion (Elkem emulsion grade is MIRASIL ADME-NP). SpecialChem complete Mirasil list (Elkem): neat amino fluid"
+  },
+  "KCC Corp. / Basil (SeraSense)|SeraSense AC 15": {
+   "cat": "CAT-24",
+   "status": "wrong_family",
+   "inci": "Cyclopentasiloxane (and) Acrylates/Dimethicone Copolymer",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/selectors/tr-serasense",
+   "note": "SpecialChem SeraSense list: acrylate-silicone FILM FORMER in D5 - not an amodimethicone / amino fluid or emulsion"
+  },
+  "Shin-Etsu|KF-995": {
+   "cat": "CAT-10",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-silky-feel/s-shin-etsu/c-ingredients-silicones-silicone-fluids"
+  },
+  "Shin-Etsu|TMF-1.5": {
+   "cat": "CAT-10",
+   "status": "ok",
+   "inci": "Methyl Trimethicone",
+   "cyclic": false,
+   "src": "https://precision.fda.gov/uniisearch/srs/unii/S73ZQI0GXM"
+  },
+  "Momentive|SF1202": {
+   "cat": "CAT-10",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-momentive-performance-materials/c-ingredients-silicones"
+  },
+  "Momentive|SF1204": {
+   "cat": "CAT-10",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane (and) Cyclotetrasiloxane",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-lubrication/s-momentive-performance-materials/c-ingredients-silicones-silicone-fluids"
+  },
+  "Momentive|SF1256": {
+   "cat": "CAT-10",
+   "status": "ok",
+   "inci": "Cyclohexasiloxane (and) Cyclopentasiloxane",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-lubrication/s-momentive-performance-materials/c-ingredients-silicones-silicone-fluids"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL CM 040": {
+   "cat": "CAT-10",
+   "status": "unconfirmed",
+   "note": "No product page found for 'BELSIL CM 040' on Wacker or SpecialChem listings (current BELSIL CM products: CM 1000, CM 3092, CM 740, CM 7026 VP)",
+   "src": ""
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL CM 1000": {
+   "cat": "CAT-10",
+   "status": "wrong_family",
+   "inci": "Cyclopentasiloxane (and) Dimethiconol",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-skin-care/s-wacker",
+   "note": "SpecialChem Wacker listing. This is a dimethiconol gum blend in D5, not a plain volatile cyclomethicone"
+  },
+  "Evonik (ABIL / TEGO)|Tegosoft AC": {
+   "cat": "CAT-10",
+   "status": "unconfirmed",
+   "note": "Only appears in old Evonik press attachments that could not be read; not in current TEGOSOFT range. TEGOSOFT is Evonik's organic (non-silicone) emollient brand, so it would not be a cyclomethicone in any case",
+   "src": ""
+  },
+  "Evonik (ABIL / TEGO)|ABIL B 8832": {
+   "cat": "CAT-10",
+   "status": "wrong_family",
+   "inci": "Bis-PEG/PPG-20/20 Dimethicone",
+   "cyclic": false,
+   "src": "https://glenncorp.com/shop/abil-b-8832/",
+   "note": "Evonik distributor page: nonionic silicone polyether surfactant - not a cyclomethicone/volatile"
+  },
+  "Bluestar / Elkem (Mirasil)|Mirasil CM 5": {
+   "cat": "CAT-10",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+  },
+  "KCC Corp. / Basil (SeraSense)|SeraSense SF D5": {
+   "cat": "CAT-10",
+   "status": "unconfirmed",
+   "note": "No 'SF D5' in the SeraSense range; the D5 product is 'SeraSense SF CM5' = Cyclopentasiloxane (and SF CM56 = Cyclohexasiloxane, Cyclopentasiloxane)",
+   "src": "https://cosmetics.specialchem.com/selectors/tr-serasense"
+  },
+  "BRB & Others|BRB CM 50": {
+   "cat": "CAT-10",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-sun-care/s-brb-international-bv"
+  },
+  "BRB & Others|BRB CM 56": {
+   "cat": "CAT-10",
+   "status": "unconfirmed",
+   "note": "No grade named exactly 'BRB CM 56'; BRB sells 'BRB CM 56-S' = Cyclopentasiloxane (and) Cyclohexasiloxane (D5/D6)",
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-sun-care/s-brb-international-bv"
+  },
+  "Momentive|Element14 PDMS (5-1000)": {
+   "cat": "CAT-11",
+   "status": "ok",
+   "inci": "Dimethicone",
+   "cyclic": false,
+   "src": "https://www.essentialingredients.com/Products/Detail/MM-SF96100-440-DR"
+  },
+  "Momentive|SF96-5 to SF96-1000": {
+   "cat": "CAT-11",
+   "status": "ok",
+   "inci": "Dimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-momentive-performance-materials/c-ingredients-silicones-silicone-fluids"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL DM 350": {
+   "cat": "CAT-11",
+   "status": "ok",
+   "inci": "Dimethicone",
+   "cyclic": false,
+   "src": "https://www.wacker.com/h/en-il/c/belsil-dm-350/p/000004675"
+  },
+  "KCC Corp. / Basil (SeraSense)|SeraSense SF": {
+   "cat": "CAT-11",
+   "status": "ok",
+   "inci": "Dimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/selectors/tr-serasense"
+  },
+  "Shin-Etsu|KF-96H (12,500cs - 1,000,000cs)": {
+   "cat": "CAT-12",
+   "status": "unconfirmed",
+   "note": "Series range. SpecialChem has a cosmetic page for 'KF-96H 100,000cs' but it could not be read; no INCI verified. KF-96H is generally Shin-Etsu's high-viscosity (industrial-grade) dimethyl fluid line",
+   "src": ""
+  },
+  "Momentive|Element14 PDMS 60K - 1M": {
+   "cat": "CAT-12",
+   "status": "unconfirmed",
+   "note": "Momentive Element14 brand page lists no grades/INCI; no 60K-1M Element14 grade with INCI found. Element14 is positioned mainly as industrial PDMS.",
+   "src": "https://momentive.com/en-us/brands/element14"
+  },
+  "Momentive|SF96-60K": {
+   "cat": "CAT-12",
+   "status": "unconfirmed",
+   "note": "No SF96 60,000 cSt grade with INCI found in Momentive personal care listings (only SF96 5-1000 listed)",
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-momentive-performance-materials/c-ingredients-silicones-silicone-fluids"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL DM 500,000": {
+   "cat": "CAT-12",
+   "status": "ok",
+   "inci": "Dimethicone",
+   "cyclic": false,
+   "src": "https://wacker.com/h/en-gb/silicone-fluids-emulsions/silicone-fluids-inci/belsil-dm-500000/p/000009670"
+  },
+  "KCC Corp. / Basil (SeraSense)|SeraSense SF 60k": {
+   "cat": "CAT-12",
+   "status": "ok",
+   "inci": "Dimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/selectors/tr-serasense"
+  },
+  "Momentive|Harmonie NatuVel": {
+   "cat": "CAT-16",
+   "status": "unconfirmed",
+   "note": "Real product ('HARMONIE NatuVel gel') but INCI not published in any page read. It is a 100% bio-based ELASTOMER GEL (2025), not an emollient/softener emulsion",
+   "src": "https://www.cosmeticsbusiness.com/momentive-introduces-harmonie-natuvel-gel-a-new-100"
+  },
+  "Momentive|Harmonie NatuDerma": {
+   "cat": "CAT-14",
+   "status": "unconfirmed",
+   "note": "Real product (launched in-cosmetics 2026): 100% naturally derived long-chain branched alkane emollient. INCI not published in pages read",
+   "src": "https://www.personalcaremagazine.com/story/51162/momentive-gives-global-debut-to-natuderma-emollient"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL eco EG 3001 (Bio-based carbon)": {
+   "cat": "CAT-14",
+   "status": "wrong_family",
+   "inci": "Undecane (and) Tridecane (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
+   "cyclic": false,
+   "src": "https://www.wacker.com/h/en-kr/c/belsil-eco-eg-3001/p/000099936",
+   "note": "Wacker: silicone elastomer GEL in bio-based undecane/tridecane (crosspolymer is mass-balance renewable, REDcert2). Not a plant-based emollient/softener emulsion and the silicone network is not biodegradable - belongs with elastomer gels."
+  },
+  "Dow / DOWSIL / XIAMETER|Dow Corning® 36 Emulsion": {
+   "cat": "CAT-15",
+   "status": "unconfirmed",
+   "note": "Legacy industrial PDMS emulsion (now XIAMETER MEM-0036) - mold release/lubrication, no INCI or cosmetic listing found",
+   "src": "https://www.univarsolutions.co.uk/125"
+  },
+  "Dow / DOWSIL / XIAMETER|XIAMETER® MEM-0036": {
+   "cat": "CAT-15",
+   "status": "unconfirmed",
+   "note": "Real product but INDUSTRIAL: 35% nonionic PDMS emulsion for mold release / rubber & textile lubrication; no INCI / no cosmetic listing",
+   "src": "https://www.univarsolutions.co.uk/125"
+  },
+  "Shin-Etsu|KM-90": {
+   "cat": "CAT-15",
+   "status": "unconfirmed",
+   "note": "No 'KM-90' in Shin-Etsu emulsion listing (14 products: KM-901 disc., KM-902, KM-903, KM-910, KM-9729 ...)",
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-shin-etsu/c-ingredients-silicones-silicone-emulsions"
+  },
+  "Shin-Etsu|KM-902": {
+   "cat": "CAT-15",
+   "status": "ok",
+   "inci": "Dimethicone (and) Aqua (and) Laureth-23 (and) Laureth-4",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-shin-etsu/c-ingredients-silicones-silicone-emulsions"
+  },
+  "Shin-Etsu|KM-910": {
+   "cat": "CAT-15",
+   "status": "ok",
+   "inci": "Dimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-shin-etsu/c-ingredients-silicones-silicone-emulsions"
+  },
+  "Momentive|SM 2163": {
+   "cat": "CAT-15",
+   "status": "unconfirmed",
+   "note": "Exists but listed only as an INDUSTRIAL silicone emulsion (textile coating), no INCI - not a cosmetic grade",
+   "src": "https://www.specialchem.com/polymer-additives/supplier/momentive-performance-materials/sm"
+  },
+  "Momentive|SM 2138": {
+   "cat": "CAT-15",
+   "status": "unconfirmed",
+   "note": "Not in Momentive SM emulsion listings (industrial or personal care)",
+   "src": "https://www.specialchem.com/polymer-additives/supplier/momentive-performance-materials/sm"
+  },
+  "Momentive|SM 2140": {
+   "cat": "CAT-15",
+   "status": "unconfirmed",
+   "note": "Not in Momentive SM emulsion listings (industrial or personal care)",
+   "src": "https://www.specialchem.com/polymer-additives/supplier/momentive-performance-materials/sm"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL eco EG 3001": {
+   "cat": "CAT-16",
+   "status": "wrong_family",
+   "inci": "Undecane (and) Tridecane (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
+   "cyclic": false,
+   "src": "https://www.wacker.com/h/en-kr/c/belsil-eco-eg-3001/p/000099936",
+   "note": "Wacker: silicone elastomer GEL in bio-based undecane/tridecane (crosspolymer is mass-balance renewable, REDcert2). Not a plant-based emollient/softener emulsion and the silicone network is not biodegradable - belongs with elastomer gels."
+  },
+  "Shin-Etsu|KF-6011": {
+   "cat": "CAT-20",
+   "status": "ok",
+   "inci": "PEG-11 Methyl Ether Dimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/inci-ingredients/peg-11-methyl-ether-dimethicone"
+  },
+  "Shin-Etsu|KF-6012": {
+   "cat": "CAT-20",
+   "status": "ok",
+   "inci": "PEG/PPG-20/22 Butyl Ether Dimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/inci-ingredients/peg-ppg-20-22-butyl-ether-dimethicone"
+  },
+  "Momentive|Silsoft 880": {
+   "cat": "CAT-20",
+   "status": "ok",
+   "inci": "PEG-12 Dimethicone",
+   "cyclic": false,
+   "src": "https://www.momentive.com/docs/default-source/productdocuments/silshine-151/personal_care_brochure_web.pdf"
+  },
+  "Momentive|SF1288": {
+   "cat": "CAT-20",
+   "status": "ok",
+   "inci": "PEG-12 Dimethicone",
+   "cyclic": false,
+   "src": "https://www.momentive.com/docs/default-source/productdocuments/silshine-151/personal_care_brochure_web.pdf"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL DMC 6031": {
+   "cat": "CAT-20",
+   "status": "ok",
+   "inci": "PEG/PPG-25/25 Dimethicone",
+   "cyclic": false,
+   "src": "https://www.wacker.com/h/en-us/c/belsil-dmc-6031/p/000004706"
+  },
+  "Evonik (ABIL / TEGO)|ABIL B 8843": {
+   "cat": "CAT-20",
+   "status": "ok",
+   "inci": "PEG-14 Dimethicone",
+   "cyclic": false,
+   "src": "https://glenncorp.com/shop/abil-b-8843"
+  },
+  "Bluestar / Elkem (Mirasil)|Mirasil DMCO": {
+   "cat": "CAT-20",
+   "status": "ok",
+   "inci": "PEG/PPG-22/24 Dimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+  },
+  "BRB & Others|BRB 526": {
+   "cat": "CAT-20",
+   "status": "ok",
+   "inci": "PEG-12 Dimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-sun-care/s-brb-international-bv"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL ADM 6057 E": {
+   "cat": "CAT-24",
+   "status": "ok",
+   "inci": "Amodimethicone (and) Cetrimonium Chloride (and) Trideceth-10",
+   "cyclic": false,
+   "src": "https://wacker.com/h/en-nl/c/belsil-adm-6057-e/p/000004626"
+  },
+  "Shin-Etsu|X-21-5666": {
+   "cat": "CAT-25",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane (and) Dimethiconol",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-long-lasting/a-decorative-cosmetics-make-up/s-shin-etsu"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL CM": {
+   "cat": "CAT-25",
+   "status": "unconfirmed",
+   "note": "Generic series prefix, not a product. Real BELSIL CM products (CM 1000 / CM 3092 / CM 740 = Cyclopentasiloxane (and) Dimethiconol) are D5 gum blends, not microemulsions",
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-skin-care/s-wacker"
+  },
+  "Evonik (ABIL / TEGO)|ABIL OSW": {
+   "cat": "CAT-25",
+   "status": "unconfirmed",
+   "note": "Series name, not a single product. The listed grade ABIL OSW 5 (DISCONTINUED) is Cyclopentasiloxane (and) Dimethiconol - a D5/dimethiconol blend, not a microemulsion",
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-skin-care/s-evonik/c-ingredients-silicones/tr-abil"
+  },
+  "Bluestar / Elkem (Mirasil)|Mirasil C-DML": {
+   "cat": "CAT-25",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane (and) Dimethiconol",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+  },
+  "Shin-Etsu|KSG-15": {
+   "cat": "CAT-30",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
+   "cyclic": true,
+   "src": "https://www.specialchem.com/cosmetics/product/shin-etsu-ksg-15"
+  },
+  "Shin-Etsu|KSG-16": {
+   "cat": "CAT-30",
+   "status": "unconfirmed",
+   "note": "Real Shin-Etsu elastomer gel (listed by UL Prospector/distributors) but no readable page stating its INCI was reached (SpecialChem product pages blocked)",
+   "src": ""
+  },
+  "Shin-Etsu|USG-103": {
+   "cat": "CAT-30",
+   "status": "ok",
+   "inci": "Dimethicone/Vinyl Dimethicone Crosspolymer (and) Cyclopentasiloxane",
+   "cyclic": true,
+   "src": "https://www.specialchem.com/cosmetics/product/shin-etsu-usg-103"
+  },
+  "Momentive|Velvesil 125": {
+   "cat": "CAT-30",
+   "status": "ok",
+   "inci": "C30-45 Alkyl Cetearyl Dimethicone Crosspolymer (and) Cyclopentasiloxane",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-skin-care-facial-care/s-momentive-performance-materials/c-ingredients-silicones"
+  },
+  "Momentive|Velvesil DM Silicone": {
+   "cat": "CAT-30",
+   "status": "ok",
+   "inci": "Dimethicone (and) Cetearyl Dimethicone Crosspolymer",
+   "cyclic": false,
+   "src": "https://www.momentive.com/docs/default-source/productdocuments/silshine-151/personal_care_brochure_web.pdf"
+  },
+  "Momentive|SF-839": {
+   "cat": "CAT-30",
+   "status": "unconfirmed",
+   "note": "No product 'SF-839'. Momentive has SFE839 = Cyclopentasiloxane (and) Dimethicone/Vinyl Dimethicone Crosspolymer - code may be a typo for SFE839 but not confirmed",
+   "src": "https://www.momentive.com/docs/default-source/productdocuments/silshine-151/personal_care_brochure_web.pdf"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL RG 100": {
+   "cat": "CAT-30",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane (and) Dimethicone/Vinyltrimethylsiloxysilicate Crosspolymer",
+   "cyclic": true,
+   "src": "https://www.wacker.com/h/en-us/c/belsil-rg-100/p/000004733"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL RG 1100": {
+   "cat": "CAT-30",
+   "status": "unconfirmed",
+   "note": "No Wacker product 'BELSIL RG 1100' found. Closest real Wacker gel is BELSIL REG 1102 (INCI Dimethicone (and) Dimethicone/Vinyltrimethylsiloxysilicate Crosspolymer) - possibly a garbled code, not confirmed.",
+   "src": "https://wacker.com/h/de-il/siliconharze/elastomer-gels-inci/belsil-reg-1102/p/000004732"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL EG 3000": {
+   "cat": "CAT-30",
+   "status": "ok",
+   "inci": "Isohexadecane (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
+   "cyclic": false,
+   "src": "https://www.wacker.com/h/en-us/c/belsil-eg-3000/p/000099153"
+  },
+  "KCC Corp. / Basil (SeraSense)|GRANSIL GCM-5": {
+   "cat": "CAT-30",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane (and) Polysilicone-11",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-tackiness-reducing-non-tacky/a-creams-lotions-gels/s-grant-industries"
+  },
+  "KCC Corp. / Basil (SeraSense)|GRANSIL DM-5": {
+   "cat": "CAT-30",
+   "status": "unconfirmed",
+   "note": "WRONG PRODUCER: Gransil is Grant Industries, not KCC. No plain 'Gransil DM-5' found; the real grade is 'Gransil DM-5/LC' = Dimethicone (and) Polysilicone-11",
+   "src": "https://www.gcimagazine.com/home/product/22684293/grant-industries-gransil-dm5lc-grant-industries"
+  },
+  "BRB & Others|BRB SG 106": {
+   "cat": "CAT-30",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-long-lasting/a-sun-care/s-brb-international-bv"
+  },
+  "BRB & Others|BRB SG 506": {
+   "cat": "CAT-30",
+   "status": "ok",
+   "inci": "Dimethicone (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-long-lasting/a-sun-care/s-brb-international-bv"
+  },
+  "Shin-Etsu|KF-7312J": {
+   "cat": "CAT-36",
+   "status": "ok",
+   "inci": "Trimethylsiloxysilicate (and) Cyclopentasiloxane",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-water-resistant-waterproof/s-shin-etsu"
+  },
+  "Shin-Etsu|KF-7312K": {
+   "cat": "CAT-36",
+   "status": "ok",
+   "inci": "Dimethicone (and) Trimethylsiloxysilicate",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-water-resistant-waterproof/s-shin-etsu"
+  },
+  "Shin-Etsu|KF-7312L": {
+   "cat": "CAT-36",
+   "status": "ok",
+   "inci": "Trimethylsiloxysilicate (and) Dimethicone",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-water-resistant-waterproof/s-shin-etsu"
+  },
+  "Momentive|SR1000": {
+   "cat": "CAT-36",
+   "status": "ok",
+   "inci": "Trimethylsiloxysilicate",
+   "cyclic": false,
+   "src": "https://www.momentive.com/docs/default-source/productdocuments/silshine-151/personal_care_brochure_web.pdf"
+  },
+  "Momentive|SS4230": {
+   "cat": "CAT-36",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane (and) Trimethylsiloxysilicate",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-skin-care-facial-care/s-momentive-performance-materials/c-ingredients-silicones"
+  },
+  "Momentive|SS4267": {
+   "cat": "CAT-36",
+   "status": "ok",
+   "inci": "Dimethicone (and) Trimethylsiloxysilicate",
+   "cyclic": false,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-skin-care-facial-care/s-momentive-performance-materials/c-ingredients-silicones"
+  },
+  "BRB & Others|BRB TMS 50": {
+   "cat": "CAT-36",
+   "status": "unconfirmed",
+   "note": "No grade named exactly 'BRB TMS 50'. Real 50% grades: BRB TMS-50C = Cyclopentasiloxane (and) Trimethylsiloxysilicate; BRB TMS-50I = Isododecane (and) Trimethylsiloxysilicate",
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-long-lasting/a-sun-care/s-brb-international-bv"
+  },
+  "Shin-Etsu|KF-6028": {
+   "cat": "CAT-37",
+   "status": "ok",
+   "inci": "PEG-9 Polydimethylsiloxyethyl Dimethicone",
+   "cyclic": false,
+   "src": "https://www.specialchem.com/cosmetics/inci-ingredients/peg-9-polydimethylsiloxyethyl-dimethicone"
+  },
+  "Shin-Etsu|KF-6038": {
+   "cat": "CAT-37",
+   "status": "ok",
+   "inci": "Lauryl PEG-9 Polydimethylsiloxyethyl Dimethicone",
+   "cyclic": false,
+   "src": "https://www.specialchem.com/cosmetics/product/shin-etsu-kf-6038"
+  },
+  "Shin-Etsu|KF-6050": {
+   "cat": "CAT-37",
+   "status": "unconfirmed",
+   "note": "Real product (listed in Shin-Etsu Silicones of America UL Prospector catalog, with KF-6050L) but no page read states its INCI",
+   "src": "https://www.ulprospector.com/zh-tw/la/PersonalCare/Suppliers/5455"
+  },
+  "Momentive|Silsoft 900": {
+   "cat": "CAT-37",
+   "status": "wrong_family",
+   "inci": "PPG-12 Dimethicone",
+   "cyclic": false,
+   "src": "https://www.momentive.com/docs/default-source/productdocuments/silshine-151/personal_care_brochure_web.pdf",
+   "note": "Momentive brochure lists it as a dimethicone copolyol (PPG-modified), not as a W/O or W/Si emulsifier; no D5"
+  },
+  "Momentive|SF1528": {
+   "cat": "CAT-37",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane (and) PEG/PPG-20/15 Dimethicone",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-momentive-performance-materials/c-ingredients-silicones"
+  },
+  "Momentive|SF1540": {
+   "cat": "CAT-37",
+   "status": "ok",
+   "inci": "Cyclopentasiloxane (and) PEG/PPG-20/15 Dimethicone",
+   "cyclic": true,
+   "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-momentive-performance-materials/c-ingredients-silicones"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL WO 5000": {
+   "cat": "CAT-37",
+   "status": "wrong_family",
+   "inci": "Dimethicone (and) Caprylyl Dimethicone Ethoxy Glucoside",
+   "cyclic": false,
+   "src": "https://www.wacker.com/h/en-us/c/belsil-wo-5000/p/000004742",
+   "note": "Wacker: W/O & W/Si emulsifier (category right) - ~30% silicone polyglucoside in dimethicone; not a PEG/PPG dimethicone and no D5"
+  },
+  "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL WO 3700": {
+   "cat": "CAT-37",
+   "status": "ok",
+   "inci": "Cetyl PEG/PPG-10/1 Dimethicone",
+   "cyclic": false,
+   "src": "https://www.wacker.com/h/en-gb/c/belsil-wo-3700/p/000096254"
+  },
+  "Evonik (ABIL / TEGO)|ABIL EM 90": {
+   "cat": "CAT-37",
+   "status": "ok",
+   "inci": "Cetyl PEG/PPG-10/1 Dimethicone",
+   "cyclic": false,
+   "src": "https://glenncorp.com/shop/abil-em-90/"
+  },
+  "Evonik (ABIL / TEGO)|ABIL EM 180": {
+   "cat": "CAT-37",
+   "status": "ok",
+   "inci": "Cetyl PEG/PPG-10/1 Dimethicone",
+   "cyclic": false,
+   "src": "https://personal-care.evonik.com/pim/fragment/personal-care/en/product/PR_52020876"
+  },
+  "Evonik (ABIL / TEGO)|ABIL EM 97 S": {
+   "cat": "CAT-37",
+   "status": "ok",
+   "inci": "Bis-PEG/PPG-14/14 Dimethicone (and) Dimethicone",
+   "cyclic": false,
+   "src": "https://glenncorp.com/shop/abil-em-97-s/"
+  },
+  "Evonik (ABIL / TEGO)|ABIL Care XL 80 MB": {
+   "cat": "CAT-37",
+   "status": "ok",
+   "inci": "Bis-PEG/PPG-20/5 PEG/PPG-20/5 Dimethicone (and) Methoxy PEG/PPG-25/4 Dimethicone (and) Caprylic/Capric Triglyceride",
+   "cyclic": false,
+   "src": "https://www.specialchem.com/cosmetics/product/evonik-abil-care-xl-80-mb"
+  }
+ },
+ "inci_check_meta": {
+  "date": "27/10/2026",
+  "checked": 136,
+  "method": "Producer pages / SpecialChem / distributor listings, one by one. Fake codes removed from cells (kept under rows[].removed)."
+ }
 }

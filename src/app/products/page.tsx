@@ -2,7 +2,7 @@
 // page.tsx (src/app/products/page.tsx) · updated 26.10.2026 11:15 (Asia/Jerusalem) — v0.99.0 producer equivalents marked ⚠ unverified · 13.10.2026 06:10 (Asia/Jerusalem) — catalog filtered by industry + spec + INCI + certification
 import { useMemo, useState } from "react";
 import { Unverified } from "@/components/TrustTag";
-import { isVerifiedProducer, isUnknown } from "@/lib/offsets-trust";
+import { isVerifiedCode, isUnknown, splitCell } from "@/lib/offsets-trust";
 import { PRODUCTS, INDUSTRIES, industriesOf, offsetForProduct } from "@/lib/data";
 import { Card, H1, Badge, inputCls, certTone } from "@/components/ui";
 import ExportBar from "@/components/ExportBar";
@@ -62,13 +62,13 @@ function Detail({ p }: { p: Product }) {
   const { t: tr } = useLang();
   const off = offsetForProduct(p);
   const rows: [string, string][] = [[tr("משפחה"), p.brand_family], ["INCI", p.inci_chemical_name], [tr("חומר פעיל"), p.active_matter_type], [tr("ריכוז"), p.active_content_pct], [tr("מראה"), p.appearance], [tr("צמיגות"), p.viscosity], [tr("יוניות"), p.ionicity], ["pH", p.ph_range], [tr("מסיסות"), p.dilution_solubility], [tr("אישורים"), p.food_grade_certifications], [tr("תכונות"), p.key_features], [tr("יישומים"), p.application_field], [tr("מקבילה Dow / אחרים"), p.dow_corning_offset_benchmark]];
-  const text = rows.map(([k, v]) => k + ": " + v).join("\n") + (off ? tr("\n\nמקבילות עולמיות (") + off.category_id + "):\n" + Object.entries(off.offsets).filter(([, v]) => !isUnknown(v)).map(([k, v]) => k + " → " + v + (isVerifiedProducer(k) ? "" : " (unverified)")).join("\n") : "");
+  const text = rows.map(([k, v]) => k + ": " + v).join("\n") + (off ? tr("\n\nמקבילות עולמיות (") + off.category_id + "):\n" + Object.entries(off.offsets).filter(([, v]) => !isUnknown(v)).map(([k, v]) => k + " → " + splitCell(v).map((c) => c + (isVerifiedCode(k, c) ? " ✓" : " (unverified)")).join(" / ")).join("\n") : "");
   return (
     <div>
       <div className="font-bold text-lg">{p.product_name}</div>
       <div className="text-xs text-slate-500 mb-2">{p.id} · {p.category_sector}</div>
       <dl className="text-sm space-y-1">{rows.map(([k, v]) => (<div key={k} className="grid grid-cols-[110px_1fr] gap-1"><dt className="text-slate-500">{k}</dt><dd>{v}</dd></div>))}</dl>
-      {off && (<div className="mt-3"><div className="font-medium text-sm mb-1">{tr("מקבילות יצרנים (")}{off.category_id})</div><div className="flex flex-wrap gap-1">{Object.entries(off.offsets).filter(([, v]) => !isUnknown(v)).slice(0, 12).map(([k, v]) => <span key={k} className="inline-flex items-center gap-1"><Badge>{k}: {v}</Badge>{!isVerifiedProducer(k) && <Unverified />}</span>)}</div></div>)}
+      {off && (<div className="mt-3"><div className="font-medium text-sm mb-1">{tr("מקבילות יצרנים (")}{off.category_id})</div><div className="flex flex-wrap gap-1">{Object.entries(off.offsets).filter(([, v]) => !isUnknown(v)).slice(0, 12).map(([k, v]) => <span key={k} className="inline-flex items-center gap-1"><Badge>{k}: {v}</Badge>{!splitCell(v).every((c) => isVerifiedCode(k, c)) && <Unverified />}</span>)}</div></div>)}
       <ExportBar title={"Silitex " + p.product_name + tr(" — מפרט")} text={text} />
     </div>
   );
