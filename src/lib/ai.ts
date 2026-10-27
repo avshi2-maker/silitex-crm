@@ -1,4 +1,4 @@
-// ai.ts (src/lib/ai.ts) · updated 22.10.2026 07:35 (Asia/Jerusalem) — ask(): optional timeout (scan stays inside the server limit) · 18.10.2026 17:45 — + lang "any" (multi-language tasks, e.g. Post Studio) · 06:30 — + askImage (card scan), askImageUrl (Cloudinary photos) · 16.10.2026 18:45 — + Russian answers · 09.10.2026 10:30 (Asia/Jerusalem)  — server only
+// ai.ts (src/lib/ai.ts) · updated 27.10.2026 04:55 (Asia/Jerusalem) — + askWithImages (handwritten meeting notes, several photos in one call) · 22.10.2026 07:35 — ask(): optional timeout (scan stays inside the server limit) · 18.10.2026 17:45 — + lang "any" (multi-language tasks, e.g. Post Studio) · 06:30 — + askImage (card scan), askImageUrl (Cloudinary photos) · 16.10.2026 18:45 — + Russian answers · 09.10.2026 10:30 (Asia/Jerusalem)  — server only
 // One Claude entry point. Without ANTHROPIC_API_KEY it returns a deterministic demo answer with simulated usage so the meter + export bar still work.
 import Anthropic from "@anthropic-ai/sdk";
 import { MODEL, costUsd } from "./pricing";
@@ -48,4 +48,15 @@ function demo(prompt: string, lang: "he" | "en" | "it" | "ru"): string {
   return "[מצב דמו — אין ANTHROPIC_API_KEY ב-.env.local]\n\n" +
     "להלן מבנה התשובה שייווצר על ידי Claude עבור הבקשה:\n«" + prompt.slice(0, 160) + (prompt.length > 160 ? "…" : "") + "»\n\n" +
     "1. פתיח מותאם לתעשייה של הלקוח\n2. 2–3 מוצרי Silitex מומלצים + המקבילה של Dow/Wacker שהם מחליפים\n3. יתרון מסחרי: מלאי מקומי, מחיר, אישורי FDA/Kosher\n4. קריאה לפעולה: דגימה חינם / פגישה טכנית\n\nאבשי ספיר · 050-5231042";
+}
+
+/** text + several images (e.g. photos of handwritten meeting notes) in ONE call — 27.10.2026 v1.0.0 */
+export async function askWithImages(prompt: string, context: string, images: { data: string; type: "image/jpeg" | "image/png" | "image/webp" }[], maxTokens = 3000): Promise<{ text: string; usage: Usage }> {
+  const key = process.env.ANTHROPIC_API_KEY;
+  if (!key) return { text: "{}", usage: { input_tokens: 0, output_tokens: 0, cost_usd: 0, model: MODEL, mock: true } };
+  const client = new Anthropic({ apiKey: key });
+  const content = [...images.map((im) => ({ type: "image" as const, source: { type: "base64" as const, media_type: im.type, data: im.data } })), { type: "text" as const, text: "הקשר:\n" + context + "\n\n---\nמשימה:\n" + prompt }];
+  const res = await client.messages.create({ model: MODEL, max_tokens: maxTokens, system: SYSTEM, messages: [{ role: "user", content }] });
+  const text = res.content.map((b) => (b.type === "text" ? b.text : "")).join(""); const u = res.usage;
+  return { text, usage: { input_tokens: u.input_tokens, output_tokens: u.output_tokens, cost_usd: costUsd(MODEL, u.input_tokens, u.output_tokens), model: MODEL } };
 }
