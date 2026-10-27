@@ -1,4 +1,5 @@
 // route.ts (src/app/api/cron/notebook/[tab]/route.ts) · created 27.10.2026 07:40 (Asia/Jerusalem) — v1.1.0 📓 NotebookLM live export
+// · 27.10.2026 08:20 — split into ≤450 KB parts (?part=2 …, ?info=1 shows the count): Google IMPORTDATA max size
 // Each CRM tab as CSV → a Google Sheet pulls it with =IMPORTDATA("<this url>?key=…") (Google refreshes it ~hourly)
 // → NotebookLM syncs Google Sheets from Drive automatically. No Google Cloud setup, no AI cost.
 // Under /api/cron so the PIN gate lets Google in; protected by NOTEBOOK_EXPORT_KEY instead (long secret in the URL).
@@ -8,9 +9,13 @@ import products from "@/data/products.json";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 type Row = Record<string, unknown>;
-const MAX = 45000; // Google Sheets cell limit is 50,000 chars
+const MAX = 20000; // Google Sheets cell limit is 50,000 chars
 const cell = (v: unknown) => { let s = v == null ? "" : typeof v === "object" ? JSON.stringify(v) : String(v); s = s.replace(/\r?\n+/g, " ⏎ "); if (s.length > MAX) s = s.slice(0, MAX) + " …"; return '"' + s.replace(/"/g, '""') + '"'; }; // newlines → ⏎ : one record = one line (IMPORTDATA splits on newlines)
-const csv = (rows: Row[]) => { if (!rows.length) return "empty\n"; const cols = Array.from(rows.reduce((a, r) => { Object.keys(r).forEach((k) => a.add(k)); return a; }, new Set<string>())); return [cols.map(cell).join(","), ...rows.map((r) => cols.map((c) => cell(r[c])).join(","))].join("\n") + "\n"; };
+const CHUNK = 450_000; // bytes per part — Google IMPORTDATA rejects big files ("exceeded maximum size")
+const head = (rows: Row[]) => Array.from(rows.reduce((a, r) => { Object.keys(r).forEach((k) => a.add(k)); return a; }, new Set<string>()));
+/** CSV split into parts of ≤ CHUNK bytes, each with the header row; part n of the list */
+const parts = (rows: Row[]): string[] => { if (!rows.length) return ["empty\n"]; const cols = head(rows); const h = cols.map(cell).join(",") + "\n"; const out: string[] = []; let cur = h; for (const r of rows) { const line = cols.map((c) => cell(r[c])).join(",") + "\n"; if (cur.length > h.length && Buffer.byteLength(cur + line) > CHUNK) { out.push(cur); cur = h; } cur += line; } out.push(cur); return out; };
+const compact = (o: Row): Row => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== null && v !== undefined && v !== "" && !(Array.isArray(v) && !v.length)));
 const d = (x?: unknown) => (x ? String(x).slice(0, 10).split("-").reverse().join("/") : ""); // dd/mm/yyyy
 const people = (intake: unknown) => { try { const v = JSON.parse(((intake || {}) as Record<string, string>).PEOPLE || "[]"); return Array.isArray(v) ? v : []; } catch { return []; } };
 const TABS = ["customers", "people", "activities", "tasks", "meetings", "correspondence", "shipments", "silitex_contacts", "equivalents", "catalogue"];
@@ -28,7 +33,7 @@ async function build(tab: string): Promise<Row[]> {
   const leads = await all("leads");
   const leadName = new Map(leads.map((l) => [l.id, l.name]));
   switch (tab) {
-    case "customers": return leads.map((l) => { const { intake, lat, lon, ...rest } = l; void lat; void lon; const it = { ...((intake || {}) as Row) }; delete it.PEOPLE; return { ...rest, updated_at: d(l.updated_at), created_at: d(l.created_at), next_action_at: d(l.next_action_at), people_count: people(intake).length, intake: it }; });
+    case "customers": return leads.map((l) => { const { intake, lat, lon, ...rest } = l; void lat; void lon; const it = { ...((intake || {}) as Row) }; delete it.PEOPLE; return { ...rest, updated_at: d(l.updated_at), created_at: d(l.created_at), next_action_at: d(l.next_action_at), people_count: people(intake).length, intake: compact(it) }; });
     case "people": return leads.flatMap((l) => people(l.intake).map((p: Row) => ({ company: l.name, industry: l.industry, ...p })));
     case "activities": return (await all("activities", "*", "at")).reverse().map((a) => ({ date: d(a.at), customer: leadName.get(a.lead_id) || a.lead_id, kind: a.kind, text: a.text }));
     case "tasks": { const cut = new Date(Date.now() - 90 * 864e5).toISOString().slice(0, 10); return (await all("tasks", "*", "due")).filter((t) => !t.done || String(t.due || "") >= cut).map((t) => ({ due: d(t.due), customer: t.lead_name || leadName.get(t.lead_id) || "", title: t.title, kind: t.kind, cadence: t.cadence, done: t.done ? "done" : "open" })); }
@@ -44,6 +49,8 @@ export async function GET(req: Request, ctx: { params: Promise<{ tab: string }> 
   const key = process.env.NOTEBOOK_EXPORT_KEY; const u = new URL(req.url);
   if (!key || u.searchParams.get("key") !== key) return new Response("forbidden", { status: 403 });
   const { tab } = await ctx.params;
-  const rows = await build(tab);
-  return new Response(csv(rows), { headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store" } });
+  const all = parts(await build(tab)); const n = Math.max(1, Number(u.searchParams.get("part") || 1) || 1);
+  if (u.searchParams.get("info")) return new Response("parts," + all.length + "\nbytes," + all.map((x) => Buffer.byteLength(x)).join(" ") + "\n", { headers: { "content-type": "text/csv; charset=utf-8" } });
+  const body = n > all.length ? "empty\n" : all[n - 1];
+  return new Response(body, { headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store", "x-parts": String(all.length) } });
 }
