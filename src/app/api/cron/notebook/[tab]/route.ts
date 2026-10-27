@@ -16,7 +16,7 @@ const head = (rows: Row[]) => Array.from(rows.reduce((a, r) => { Object.keys(r).
 /** CSV split into parts of ≤ CHUNK bytes, each with the header row; part n of the list */
 const parts = (rows: Row[]): string[] => { if (!rows.length) return ["empty\n"]; const cols = head(rows); const h = cols.map(cell).join(",") + "\n"; const out: string[] = []; let cur = h; for (const r of rows) { const line = cols.map((c) => cell(r[c])).join(",") + "\n"; if (cur.length > h.length && Buffer.byteLength(cur + line) > CHUNK) { out.push(cur); cur = h; } cur += line; } out.push(cur); return out; };
 const compact = (o: Row): Row => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== null && v !== undefined && v !== "" && !(Array.isArray(v) && !v.length)));
-const d = (x?: unknown) => (x ? String(x).slice(0, 10).split("-").reverse().join("/") : ""); // dd/mm/yyyy
+const d = (x?: unknown) => (x ? "\u2060" + String(x).slice(0, 10).split("-").reverse().join("/") : ""); // dd/mm/yyyy as TEXT (invisible word-joiner stops Google Sheets turning it into a US date number)
 const people = (intake: unknown) => { try { const v = JSON.parse(((intake || {}) as Record<string, string>).PEOPLE || "[]"); return Array.isArray(v) ? v : []; } catch { return []; } };
 const TABS = ["customers", "people", "activities", "tasks", "meetings", "correspondence", "shipments", "silitex_contacts", "equivalents", "catalogue"];
 
