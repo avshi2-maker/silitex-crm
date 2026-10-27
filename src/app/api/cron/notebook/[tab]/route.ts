@@ -9,7 +9,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 type Row = Record<string, unknown>;
 const MAX = 45000; // Google Sheets cell limit is 50,000 chars
-const cell = (v: unknown) => { let s = v == null ? "" : typeof v === "object" ? JSON.stringify(v) : String(v); if (s.length > MAX) s = s.slice(0, MAX) + " …"; return '"' + s.replace(/"/g, '""') + '"'; };
+const cell = (v: unknown) => { let s = v == null ? "" : typeof v === "object" ? JSON.stringify(v) : String(v); s = s.replace(/\r?\n+/g, " ⏎ "); if (s.length > MAX) s = s.slice(0, MAX) + " …"; return '"' + s.replace(/"/g, '""') + '"'; }; // newlines → ⏎ : one record = one line (IMPORTDATA splits on newlines)
 const csv = (rows: Row[]) => { if (!rows.length) return "empty\n"; const cols = Array.from(rows.reduce((a, r) => { Object.keys(r).forEach((k) => a.add(k)); return a; }, new Set<string>())); return [cols.map(cell).join(","), ...rows.map((r) => cols.map((c) => cell(r[c])).join(","))].join("\n") + "\n"; };
 const d = (x?: unknown) => (x ? String(x).slice(0, 10).split("-").reverse().join("/") : ""); // dd/mm/yyyy
 const people = (intake: unknown) => { try { const v = JSON.parse(((intake || {}) as Record<string, string>).PEOPLE || "[]"); return Array.isArray(v) ? v : []; } catch { return []; } };
