@@ -1,4 +1,4 @@
-// middleware.ts (src/middleware.ts) · updated 21.10.2026 11:00 (Asia/Jerusalem) — portal host serves the IndexNow key file (/<32 hex>.txt) · 20.10.2026 18:40 — portal host: /login + /api/login allowed (fixes the redirect loop while PORTAL_PUBLIC is not 1) · portal host may call /api/portal/ask · 18.10.2026 18:25 — public portal domain (PORTAL_HOST / PORTAL_PUBLIC) · 12:00 — partners on the field host → /expo (Silitex Expo); /expo login opens in partner mode · 10:30 — field host silitex-field.* → field mode only (UA phone-guessing removed) · 13.10.2026 06:40 — gate everything except PUBLIC_PREFIXES; partner cookie opens PARTNER_PREFIXES only (x-partner header forwarded to API routes); noindex header on all responses. Disabled when ACCESS_PIN is unset (local dev).
+// middleware.ts (src/middleware.ts) · updated 28.10.2026 10:40 (Asia/Jerusalem) — partner login hint only for /expo itself (not /expo-ready, owner page) · 21.10.2026 11:00 — portal host serves the IndexNow key file (/<32 hex>.txt) · 20.10.2026 18:40 — portal host: /login + /api/login allowed (fixes the redirect loop while PORTAL_PUBLIC is not 1) · portal host may call /api/portal/ask · 18.10.2026 18:25 — public portal domain (PORTAL_HOST / PORTAL_PUBLIC) · 12:00 — partners on the field host → /expo (Silitex Expo); /expo login opens in partner mode · 10:30 — field host silitex-field.* → field mode only (UA phone-guessing removed) · 13.10.2026 06:40 — gate everything except PUBLIC_PREFIXES; partner cookie opens PARTNER_PREFIXES only (x-partner header forwarded to API routes); noindex header on all responses. Disabled when ACCESS_PIN is unset (local dev).
 import { NextResponse, type NextRequest } from "next/server";
 import { PORTAL_PATH } from "@/portal/config";
 import { GATE_COOKIE, PARTNER_COOKIE, PARTNER_NAME_COOKIE, isPublicPath, isPartnerPath, gateToken, partnerToken, partnerPins } from "@/lib/gate";
@@ -40,7 +40,7 @@ export async function middleware(req: NextRequest) {
     const u = req.nextUrl.clone(); u.pathname = "/partner"; return NextResponse.redirect(u);
   }
   if (p.startsWith("/api/")) return NextResponse.json({ error: "locked" }, { status: 401 });
-  const url = req.nextUrl.clone(); url.pathname = "/login"; url.searchParams.set("next", p + req.nextUrl.search); if (p.startsWith("/expo")) url.searchParams.set("partner", "1");
+  const url = req.nextUrl.clone(); url.pathname = "/login"; url.searchParams.set("next", p + req.nextUrl.search); if (/^\/expo(\/|$)/.test(p)) url.searchParams.set("partner", "1");
   return NextResponse.redirect(url);
 }
 export const config = { matcher: ["/((?!_next/static|_next/image).*)"] };

@@ -38,11 +38,12 @@ Idea (Avshi, 22/10): sell the system we built to other Silitex distributors as a
 4. One pilot distributor at a reduced fee for 3 months; per-distributor copy of the system (own Supabase + Vercel + domain, ~1–2 days setup each).
 **Don't:** show prices to Federica before Silitex approves the idea; don't build multi-tenant until a second paying distributor exists.
 
-## 🅿️ Expo Ready — research packs for Federica's 2 shows — PARKED 26/10/2026 (deadline: PDF to Federica ~03–04/11/2026)
+## ✅ Expo Ready — research packs for Federica's 2 shows — BUILT 28/10/2026 (v1.3.0, /expo-ready) — was PARKED 26/10/2026
 Shows: **Fi Europe** Frankfurt 17–19/11/2026 + **Paint & Coatings** Barcelona 18–19/11/2026 — decided 25/10: build BOTH.
 **Process (per show):** 1) exhibitor list (official site / floor plan) → 2) Claude web search scores each exhibitor for silicone fit (antifoam, emulsions, softeners, release, coatings additives) A/B/C → 3) top 30–40 with stand + hall + "where Silitex fits" + 3 opening questions + what to avoid → 4) day route per hall (stand-by-stand, booked meetings blocked in) → 5) English PDF "gift" to Federica ~2 weeks before the show.
 **Mock-up done 24/10:** Design canvas "Expo Ready" (Day route · Stand brief · After the meeting — card scan + voice note → summary, next steps, follow-up mail via Outlook). Existing CRM pieces to reuse: /expo (partner field mode on silitex-field), ExpoList / ExpoMeet, QR_Silitex_Expo.png.
-**Rules:** food sector stays out (Fi Europe = food ingredients → only non-food angles: fermentation/process antifoam for ingredient makers, disclosed to Federica); English only; no "local stock" claims.
+**Rules:** ~~food sector stays out~~ → CHANGED 28/10/2026 by Avshi: the packs are for Federica's OWN market, not the Israeli market, so ALL food angles are in (food processing, fermentation, release, non-food). The "no food" rule still applies only to Sapirim's Israeli promotion. English only; no "local stock" claims.
+**Built 28/10:** Fi Europe — 1,532 exhibitors keyword-screened, 118 assessed, 40 briefs (27 A), Silitex itself at 41N56. Paint & Coatings — all 151 exhibitors screened, only 10 producer targets (supplier-side show; producers come as visitors) + 29 distributors + 8 competitors. Data: src/data/expo-ready/*.json · PDFs: public/expo-ready/ · NotebookLM website sources: /api/cron/expo/<slug> (slugs in that route).
 
 ## 🅿️ Sales meetings & calls tab ("🤝 פגישות ושיחות מכירה") — PROPOSED 26/10/2026, mock-up pending
 Gap: meetings with Pini (partner) / customers — physical, phone, Teams, WhatsApp — fit neither /meetings (Silitex Teams) nor /field (visit capture) nor the customer-card transcript box.

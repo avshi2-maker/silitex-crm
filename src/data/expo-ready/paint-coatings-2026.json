@@ -1,0 +1,1327 @@
+{
+ "show": {
+  "name": "Paint & Coatings 2026 (Barcelona)",
+  "city": "L'Hospitalet de Llobregat (Barcelona), Spain",
+  "venue": "La Farga, Carrer de Barcelona 2, 08901 L'Hospitalet de Llobregat",
+  "dates": "18–19/11/2026",
+  "hours": "Wed 18/11 09:00–18:00; Thu 19/11 09:00–17:30",
+  "own_stand": null,
+  "halls": [
+   "La Farga (single exhibition floor; stands 100–724)"
+  ],
+  "sources": [
+   "https://www.paint-coatings.es/",
+   "https://www.paint-coatings.es/lista-de-expositores/",
+   "https://www.paint-coatings.es/en/exhibitor-list-2/",
+   "https://www.paint-coatings.es/en/category/paint-coating-raw-materials/additives/",
+   "https://www.paint-coatings.es/venue-2/",
+   "https://www.paint-coatings.es/wp-content/uploads/sites/17/2026/10/Paint-Coatings-Full-Ticket-2026-7.pdf",
+   "https://www.interempresas.net/Industria-Pintura/615892-Record-de-asistencia-en-Paint-Coatings-2025.html",
+   "https://www.neventum.com/tradeshows/paint-coatings-nxu",
+   "https://expogage.com/events/paint-coatings"
+  ],
+  "notes": "Silitex is NOT exhibiting. Single floor at La Farga, stands 100–724 (official 2026 list, 151 exhibitors). This is a supplier-side show: most exhibitors are raw-material suppliers, distributors and equipment makers — paint, ink and adhesive producers mostly come as VISITORS. So: (1) visit the 10 producer targets below (mostly emulsion / polymer makers — defoamers in polymerisation and let-down), (2) meet the distributors as possible Iberian sales partners, (3) book meetings in advance with visiting producers. Free visitor registration: https://step-exhibitions.eventszone.net/myCongress/form.php?thisFormCongress=paint26&thisFormLanguage=en&thisFormCode=vis01 · Organiser: STEP Exhibitions Iberia SL (paintandcoatings@step-exhibitions.com)."
+ },
+ "screened_count": 151,
+ "top": [
+  {
+   "company": "Stahl Europe B.V.",
+   "country": "Netherlands",
+   "hall": "La Farga",
+   "stand": "124",
+   "stand_verified": true,
+   "list_year": 2026,
+   "website": "https://www.stahl.com",
+   "listing_url": "https://www.paint-coatings.es/lista-de-expositores/",
+   "what_they_make": "Leather chemicals and performance coatings group, including water-based polymers and finishing auxiliaries for leather and flexible substrates.",
+   "grade": "B",
+   "silitex_products": [
+    "DYNAPAN 301",
+    "CHEROX 100 I",
+    "BRILAX",
+    "DYNAWEED MS"
+   ],
+   "why_silitex": "Silitex has antifoams written specifically for tannery auxiliaries (DYNAPAN 301) and leather-finishing auxiliaries (CHEROX 100 I, BRILAX), plus DYNAWEED MS for acrylate/PU resins.",
+   "opening_questions": [
+    "Which of your Iberian plants formulate leather finishing auxiliaries locally?",
+    "Is foam or micro-foam an issue in your PU/acrylic finishing dispersions?",
+    "Would you test a European-made alternative for a tannery auxiliary line?"
+   ],
+   "avoid": "Large global group with central procurement; Stahl also sells its own process auxiliaries, so position as a raw material, not a finished additive.",
+   "sources": [
+    "https://www.paint-coatings.es/lista-de-expositores/",
+    "https://www.paint-coatings.es/en/category/paint-coating-raw-materials/additives/"
+   ]
+  },
+  {
+   "company": "BÜFA",
+   "country": "Germany",
+   "hall": "La Farga",
+   "stand": "136",
+   "stand_verified": true,
+   "list_year": 2026,
+   "website": "https://www.buefa.de",
+   "listing_url": "https://www.paint-coatings.es/lista-de-expositores/",
+   "what_they_make": "German chemicals group known for composite resins and gelcoats (BÜFA Composite Systems); it shares stand 136 with Ecoimpress, Kalfrisa and Renzmann, so which BÜFA division attends is not confirmed.",
+   "grade": "B",
+   "silitex_products": [
+    "DYNAWEED 100",
+    "AS 100"
+   ],
+   "why_silitex": "Gelcoat and resin production needs strong de-aeration; DYNAWEED 100 is a strong antifoam/de-aerator and AS 100 is a base for solvent-system antifoams.",
+   "opening_questions": [
+    "Which BÜFA business unit is on the stand this year?",
+    "Do you have air-release or foam issues in gelcoat or resin production?",
+    "Who handles additive sourcing for your Spanish activities?"
+   ],
+   "avoid": "Stand is shared with cleaning/recycling equipment firms; check which division is present before pitching resins.",
+   "sources": [
+    "https://www.paint-coatings.es/lista-de-expositores/",
+    "https://www.compositesworld.com/products/bufa-gelcoat-targets-en-45545-2-rail-fire-standards"
+   ]
+  },
+  {
+   "company": "VINAVIL",
+   "country": "Italy",
+   "hall": "La Farga",
+   "stand": "142",
+   "stand_verified": true,
+   "list_year": 2026,
+   "website": "https://www.vinavil.com",
+   "listing_url": "https://www.paint-coatings.es/lista-de-expositores/",
+   "what_they_make": "Italian producer of vinyl and acrylic polymer emulsions used in adhesives, paints and construction products.",
+   "grade": "A",
+   "silitex_products": [
+    "CHEROX 703",
+    "CHEROX 704",
+    "DYNAPAN 16 D",
+    "DYNAWEED MS"
+   ],
+   "why_silitex": "Emulsion and glue production is foam-prone; CHEROX 703/704 are written for glues and medium/high-viscosity systems and DYNAWEED MS targets acrylate and styrene-acrylate resins.",
+   "opening_questions": [
+    "Which defoamer types do you use in polymerisation versus finished glues?",
+    "Are you looking for silicone-free options for adhesive grades?",
+    "Who decides additive approvals for the Spanish market: Italy or the local team?"
+   ],
+   "avoid": "Shares stand 142 with Stockmeier/Intercoat, which distributes Vinavil in Iberia; Italian-to-Italian contact may already exist, so check before pitching.",
+   "sources": [
+    "https://www.paint-coatings.es/lista-de-expositores/",
+    "https://adhesives.specialchem.com/supplier/vinavil",
+    "https://assets.stockmeier.com/companys/STOCKMEIER_Chemie/Datasheets/Vinavil_catalogue_2025.pdf"
+   ]
+  },
+  {
+   "company": "IGM Resins",
+   "country": "Netherlands",
+   "hall": "La Farga",
+   "stand": "242",
+   "stand_verified": true,
+   "list_year": 2026,
+   "website": "https://www.igmresins.com",
+   "listing_url": "https://www.paint-coatings.es/lista-de-expositores/",
+   "what_they_make": "Producer of photoinitiators and energy-curing (UV/EB) resins for inks, coatings and adhesives.",
+   "grade": "B",
+   "silitex_products": [
+    "DYNAWEED 201",
+    "DYNAWEED MG",
+    "DYNAWEED MS"
+   ],
+   "why_silitex": "Ink and overprint varnish formulations need levelling and defoaming; DYNAWEED 201 and DYNAWEED MG are written for printing/flexo inks and overprints.",
+   "opening_questions": [
+    "Do your application labs recommend antifoams to UV ink customers?",
+    "Is foam an issue in your waterborne UV dispersions?",
+    "Would a starter-formulation partnership make sense?"
+   ],
+   "avoid": "Mostly 100%-solids UV chemistry; compatibility of Silitex grades in UV systems is untested, so offer lab samples only.",
+   "sources": [
+    "https://www.paint-coatings.es/lista-de-expositores/",
+    "https://www.paint-coatings.es/en/category/paint-coating-raw-materials/additives/"
+   ]
+  },
+  {
+   "company": "LAIEX",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "312",
+   "stand_verified": true,
+   "list_year": 2026,
+   "website": "https://laiex.com",
+   "listing_url": "https://www.paint-coatings.es/lista-de-expositores/",
+   "what_they_make": "Producer of water-based polymers (LAICRIL, LAITEX ranges) for paints, facade coatings, waterproofing, mortars and microcement; reports 400+ products, 39 countries and 3,000+ customers.",
+   "grade": "A",
+   "silitex_products": [
+    "DYNAWEED MS",
+    "CHEROX 704",
+    "DYNAPAN 16 D",
+    "SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)"
+   ],
+   "why_silitex": "A waterborne-polymer maker that serves both paint and construction needs antifoams/de-aerators for emulsions and mortars; DYNAWEED MS is written for styrene-acrylate and polyacrylate resins.",
+   "opening_questions": [
+    "Which antifoams do you specify in your starter formulations for customers?",
+    "Is de-aeration in mortar and microcement grades a pain point?",
+    "Would you co-test a hydrophobic additive alongside LAICRIL facade binders?"
+   ],
+   "avoid": "",
+   "sources": [
+    "https://www.paint-coatings.es/lista-de-expositores/",
+    "https://www.interempresas.net/Industria-Pintura/609104-LAIEX-irrumpe-Paint-Coatings-2025-propuesta-conjunta-para-pintura-construccion.html"
+   ]
+  },
+  {
+   "company": "Synthomer plc",
+   "country": "United Kingdom",
+   "hall": "La Farga",
+   "stand": "321",
+   "stand_verified": true,
+   "list_year": 2026,
+   "website": "https://www.synthomer.com",
+   "listing_url": "https://www.paint-coatings.es/lista-de-expositores/",
+   "what_they_make": "Global producer of emulsion polymers and specialty polymers for coatings, construction and adhesives.",
+   "grade": "A",
+   "silitex_products": [
+    "DYNAWEED MS",
+    "CHEROX 703",
+    "DYNAWEED 2-100"
+   ],
+   "why_silitex": "Emulsion polymer production and customer starter formulations both use defoamers and wetting agents; DYNAWEED MS targets acrylic and styrene-acrylic resins.",
+   "opening_questions": [
+    "Do Iberian application labs recommend defoamers to your paint customers?",
+    "Is there an open spec for a polymerisation defoamer at a European plant?",
+    "Who is the right procurement contact for additives?"
+   ],
+   "avoid": "Large group with global procurement; shares stand 321 with Vidara Spain. Expect long qualification cycles.",
+   "sources": [
+    "https://www.paint-coatings.es/lista-de-expositores/",
+    "https://epca.eu/company/synthomer"
+   ]
+  },
+  {
+   "company": "Chem Spec",
+   "country": "Italy",
+   "hall": "La Farga",
+   "stand": "418",
+   "stand_verified": true,
+   "list_year": 2026,
+   "website": "https://www.chemspec.it",
+   "listing_url": "https://www.paint-coatings.es/lista-de-expositores/",
+   "what_they_make": "Italian developer and distributor of chemical specialties for building construction and monument restoration.",
+   "grade": "B",
+   "silitex_products": [
+    "SILWALL PRF 100 / BRILSAR 1000 (silane-siloxane water repellents)",
+    "CHEROX 704"
+   ],
+   "why_silitex": "Construction and restoration specialties use water repellents and plaster/paste antifoams that are in the Silitex range.",
+   "opening_questions": [
+    "Which of your products do you make yourselves and which do you resell?",
+    "Do you formulate water repellents for stone or masonry?",
+    "Are you looking for an Italian additive source?"
+   ],
+   "avoid": "Described as developer AND distributor, so it may be a channel or a competitor rather than a buyer; qualify first.",
+   "sources": [
+    "https://www.paint-coatings.es/lista-de-expositores/",
+    "https://expogage.com/events/paint-coatings"
+   ]
+  },
+  {
+   "company": "Organik Kimya",
+   "country": "Turkey",
+   "hall": "La Farga",
+   "stand": "418",
+   "stand_verified": true,
+   "list_year": 2026,
+   "website": "http://www.organik.com.tr",
+   "listing_url": "https://www.paint-coatings.es/lista-de-expositores/",
+   "what_they_make": "Producer of liquid polymer emulsions (Orgal), redispersible powders (ORP) and hotmelts, with about 200,000 tpa emulsion capacity in Istanbul and Rotterdam.",
+   "grade": "A",
+   "silitex_products": [
+    "DYNAWEED MS",
+    "CHEROX 704",
+    "DYNAWEED 400"
+   ],
+   "why_silitex": "A large emulsion producer serving coatings, construction and adhesives uses defoamers both in manufacturing and in customer formulations.",
+   "opening_questions": [
+    "Which plant, Istanbul or Rotterdam, buys defoamers for coatings emulsions?",
+    "Do you recommend antifoams in your Orgal starter formulations?",
+    "Is a silicone-free option needed for adhesive grades?"
+   ],
+   "avoid": "Shares stand 418 with Arquímica, Lamberti and others; Lamberti is an additive maker, so be discreet on the shared stand.",
+   "sources": [
+    "https://www.paint-coatings.es/lista-de-expositores/",
+    "https://epca.eu/company/organik-kimya"
+   ]
+  },
+  {
+   "company": "BEAR QUIMICA S.A",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "533",
+   "stand_verified": true,
+   "list_year": 2026,
+   "website": "https://www.bearquimica.com",
+   "listing_url": "https://www.paint-coatings.es/lista-de-expositores/",
+   "what_they_make": "Spanish maker of water-borne resins (emulsions and dispersions) for coatings, textiles, wood coatings, construction and detergency, now entering adhesives; plants in Mollet del Vallès and Masdenverge.",
+   "grade": "A",
+   "silitex_products": [
+    "DYNAWEED MS",
+    "CHEROX 100",
+    "FISIOREX 1000",
+    "DYNAWEED 510"
+   ],
+   "why_silitex": "A mid-size local emulsion maker is the ideal size for a flexible Italian supplier: defoamers for polymerisation and finished binders, plus a vegetable-based option for eco-label customers.",
+   "opening_questions": [
+    "Which defoamer types do you use during polymerisation and in final binders?",
+    "Are eco-label customers asking for vegetable-based antifoams?",
+    "Who approves new additive suppliers?"
+   ],
+   "avoid": "",
+   "sources": [
+    "https://www.paint-coatings.es/lista-de-expositores/",
+    "https://suppliers.catalonia.com/detail/bear-quimica-sa/416",
+    "https://expogage.com/events/paint-coatings"
+   ]
+  },
+  {
+   "company": "Mirodur SPA",
+   "country": "Italy",
+   "hall": "La Farga",
+   "stand": "612",
+   "stand_verified": true,
+   "list_year": 2026,
+   "website": "https://www.mirodur.com",
+   "listing_url": "https://www.paint-coatings.es/lista-de-expositores/",
+   "what_they_make": "Italian paint producer (since 1957) of solvent-borne, water-borne and high-solids industrial paints for metal and bodywork, with the MIROMIX tinting system.",
+   "grade": "A",
+   "silitex_products": [
+    "AS 3°",
+    "AS 5°",
+    "DYNAWEED 600 E",
+    "DYNAWEED 260 SE"
+   ],
+   "why_silitex": "A real paint producer running solvent and water-borne lines can use both the AS solvent antifoams and the DYNAWEED water-borne antifoam/levelling grades.",
+   "opening_questions": [
+    "Which solvent systems (white spirit, acetates) do your industrial lines use?",
+    "Do you have cratering or foam issues in water-borne metal primers?",
+    "Who handles additive sourcing: the Aprilia plant or a central team?"
+   ],
+   "avoid": "Italian company exhibiting in Spain, probably to sell its own paints; it may already be approached by Silitex in Italy, so check internally first.",
+   "sources": [
+    "https://www.paint-coatings.es/lista-de-expositores/",
+    "https://www.paintexpo.de/exhibitors-products/product/paintexpo/424071/175888"
+   ]
+  }
+ ],
+ "distributors": [
+  {
+   "company": "Azelis España, S.A.U.",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "640",
+   "one_line": "Spanish arm of global specialty chemicals distributor Azelis.",
+   "website": "https://www.azelis.com"
+  },
+  {
+   "company": "Barcelonesa Chemicals",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "403",
+   "one_line": "Spanish chemical distributor and provider of specialty formulations.",
+   "website": "https://www.barcelonesa.com"
+  },
+  {
+   "company": "Biesterfeld Ibérica SLU",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "239",
+   "one_line": "Iberian arm of Biesterfeld, international distributor of plastics and specialty chemicals.",
+   "website": "https://www.biesterfeld.com"
+  },
+  {
+   "company": "Brenntag Quimica SAU",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "551",
+   "one_line": "Spanish arm of global chemical distributor Brenntag.",
+   "website": "https://www.brenntag.com"
+  },
+  {
+   "company": "Brugués S.A",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "300",
+   "one_line": "Distributor and packager of basic and specialty chemicals with 2,000+ active customers.",
+   "website": "http://www.brugues.com"
+  },
+  {
+   "company": "BTC Europe",
+   "country": "France",
+   "hall": "La Farga",
+   "stand": "415",
+   "one_line": "BASF-owned distributor of specialty chemicals in small and medium quantities; shares stand 415 with BASF.",
+   "website": "https://www.btc-europe.com"
+  },
+  {
+   "company": "CALDIC IBÉRICA",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "115",
+   "one_line": "Iberian arm of chemicals and food-ingredients distributor Caldic.",
+   "website": "https://www.caldic.com"
+  },
+  {
+   "company": "Comindex – part of Impag Group",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "203",
+   "one_line": "Spanish raw-materials distributor, part of the Impag group.",
+   "website": "https://www.comindex.es"
+  },
+  {
+   "company": "DKSH Marketing Services Spain, S.A.U",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "215",
+   "one_line": "Spanish arm of DKSH, market-expansion services and specialty chemicals distribution.",
+   "website": "https://www.dksh.com"
+  },
+  {
+   "company": "Agami – Sociedade de Representações, Lda",
+   "country": "Portugal",
+   "hall": "La Farga",
+   "stand": "630",
+   "one_line": "Portuguese distributor of raw materials and specialty chemicals.",
+   "website": "https://www.agami.pt"
+  },
+  {
+   "company": "Additives & Surfactants",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "712",
+   "one_line": "Family-owned distributor of raw materials and specialty additives for Spain and Portugal.",
+   "website": "https://www.additives-surfactants.com"
+  },
+  {
+   "company": "BERPLISA SL",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "506",
+   "one_line": "Distributor of raw materials and additives for coatings, rubber and plastics.",
+   "website": "https://www.berceochemicals.com"
+  },
+  {
+   "company": "DELTA TECNIC",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "439",
+   "one_line": "Spanish distributor of effect and colour pigments and additives (Eckart, Cabot and others).",
+   "website": "https://deltatecnic.com"
+  },
+  {
+   "company": "INTERCOAT Specialties",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "142",
+   "one_line": "Spanish specialty chemicals distributor, majority-owned by Stockmeier since 2025.",
+   "website": null
+  },
+  {
+   "company": "STOCKMEIER Química",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "142",
+   "one_line": "Spanish arm of the Stockmeier chemical distribution group; distributes Vinavil emulsions.",
+   "website": "https://www.stockmeier.com"
+  },
+  {
+   "company": "Helm Ibérica",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "233",
+   "one_line": "Iberian arm of the HELM chemical marketing and distribution group.",
+   "website": "https://www.helmag.com"
+  },
+  {
+   "company": "Safic Alcan Especialidades",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "509",
+   "one_line": "Spanish arm of specialty chemicals distributor Safic-Alcan.",
+   "website": "https://www.safic-alcan.com"
+  },
+  {
+   "company": "UNIVAR SOLUTIONS SPA",
+   "country": "Italy",
+   "hall": "La Farga",
+   "stand": "218",
+   "one_line": "Univar Solutions, global chemical and ingredients distributor.",
+   "website": "https://www.univarsolutions.com"
+  },
+  {
+   "company": "Keyser & Mackay",
+   "country": "Netherlands",
+   "hall": "La Farga",
+   "stand": "433",
+   "one_line": "European specialty chemicals distributor for coatings, adhesives and other industries.",
+   "website": "https://www.keysermackay.com"
+  },
+  {
+   "company": "QUIMIDROGA",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "400",
+   "one_line": "Spanish chemical distributor; shares stand 400 with Evonik Coating Additives.",
+   "website": "https://www.quimidroga.com"
+  },
+  {
+   "company": "Grolman Iberia S. L. U.",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "230",
+   "one_line": "Iberian arm of Grolman, specialty chemicals distributor for paints and coatings.",
+   "website": "https://www.grolman-group.com"
+  },
+  {
+   "company": "Dolder España, SLU",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "451",
+   "one_line": "Spanish arm of the Dolder chemicals distribution group.",
+   "website": "https://www.dolder.com"
+  },
+  {
+   "company": "EIGENMANN & VERONELLI IBERICA, S.L.U",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "315",
+   "one_line": "Iberian arm of Italian chemical distributor Eigenmann & Veronelli.",
+   "website": "https://www.eigenmann-veronelli.com"
+  },
+  {
+   "company": "KRAHN IBERIA",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "454",
+   "one_line": "Iberian arm of Krahn Chemie, distributor of specialty chemicals for coatings; shares stand 454 with Sekisui Kasei.",
+   "website": "https://www.krahn.eu"
+  },
+  {
+   "company": "Comercial Química Massó S.A.",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "412",
+   "one_line": "Spanish chemicals distributor.",
+   "website": "https://www.quimicamasso.com"
+  },
+  {
+   "company": "TER AS PRODUCTOS SL",
+   "country": "Spain",
+   "hall": "La Farga",
+   "stand": "333",
+   "one_line": "Spanish arm of the TER Group chemicals distributor.",
+   "website": "https://www.ter-group.com"
+  },
+  {
+   "company": "TER AS PORTUGAL",
+   "country": "Portugal",
+   "hall": "La Farga",
+   "stand": "527",
+   "one_line": "Portuguese arm of the TER Group chemicals distributor.",
+   "website": "https://www.ter-group.com"
+  },
+  {
+   "company": "KROMACHEM GmbH",
+   "country": "Germany",
+   "hall": "La Farga",
+   "stand": "327",
+   "one_line": "Specialty chemicals distributor for paints and coatings.",
+   "website": "https://www.kromachem.com"
+  },
+  {
+   "company": "ADVANCED KIMYA",
+   "country": "Turkey",
+   "hall": "La Farga",
+   "stand": "606",
+   "one_line": "Turkish raw-material supplier to the paint and coatings industry.",
+   "website": "https://www.advancedkimya.com"
+  }
+ ],
+ "competitors": [
+  {
+   "company": "BYK-Chemie GmbH",
+   "hall": "La Farga",
+   "stand": "309",
+   "one_line": "Major additives maker (defoamers, wetting and levelling); the additives category also lists stand 303."
+  },
+  {
+   "company": "Evonik Operations GmbH – Coating Additives",
+   "hall": "La Farga",
+   "stand": "400",
+   "one_line": "TEGO defoamers, wetting and levelling additives; shares stand 400 with Quimidroga and LANXESS."
+  },
+  {
+   "company": "MÜNZING CHEMIE Iberia S.A.U.",
+   "hall": "La Farga",
+   "stand": "303",
+   "one_line": "Defoamers, wetting agents and rheology additives maker."
+  },
+  {
+   "company": "AFCONA Additives B.V.",
+   "hall": "La Farga",
+   "stand": "448",
+   "one_line": "Maker of wetting/dispersing and specialty additives for paints, inks and coatings."
+  },
+  {
+   "company": "Siltech Corporation",
+   "hall": "La Farga",
+   "stand": "345",
+   "one_line": "Silicone additives maker (wetting, slip, defoaming)."
+  },
+  {
+   "company": "BASF",
+   "hall": "La Farga",
+   "stand": "415",
+   "one_line": "Dispersions plus coating additives, including defoamers and wetting agents."
+  },
+  {
+   "company": "Lamberti",
+   "hall": "La Farga",
+   "stand": "418",
+   "one_line": "Italian specialty chemicals including coating additives; shares stand 418 with Organik Kimya and others."
+  },
+  {
+   "company": "CHEMIPOL, S.A.",
+   "hall": "La Farga",
+   "stand": "130",
+   "one_line": "Terrassa (Spain) maker of biocides and additives, including defoamers, dispersants, thickeners and wetting agents."
+  }
+ ],
+ "others": [
+  {
+   "company": "AECQ – Asociación Española del Comercio Químico",
+   "hall": "La Farga",
+   "stand": "709",
+   "grade": "C",
+   "one_line": "Spanish chemical-distributors trade association."
+  },
+  {
+   "company": "AGUILAR & PINEDA S.L",
+   "hall": "La Farga",
+   "stand": "615",
+   "grade": "C",
+   "one_line": "Representative for machinery and QC equipment makers."
+  },
+  {
+   "company": "AKPA KIMYA AMBALAJ SAN. VE TIC A.S.",
+   "hall": "La Farga",
+   "stand": "139",
+   "grade": "C",
+   "one_line": "Turkish maker of organic peroxides, initiators, accelerators and paint driers (supplier, not a defoamer buyer)."
+  },
+  {
+   "company": "ALFA-ECOPROJECT",
+   "hall": "La Farga",
+   "stand": "100",
+   "grade": "C",
+   "one_line": "Italian maker of industrial equipment and production lines."
+  },
+  {
+   "company": "Altakem Chemicals SL",
+   "hall": "La Farga",
+   "stand": "103",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "Arquímica",
+   "hall": "La Farga",
+   "stand": "418",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "Arxada",
+   "hall": "La Farga",
+   "stand": "409",
+   "grade": "C",
+   "one_line": "Swiss microbial-control (biocides) specialist."
+  },
+  {
+   "company": "Ashapura Minechem Limited",
+   "hall": "La Farga",
+   "stand": "351",
+   "grade": "C",
+   "one_line": "Indian industrial minerals producer."
+  },
+  {
+   "company": "Asteroid Microns Pvt. Ltd.",
+   "hall": "La Farga",
+   "stand": "524",
+   "grade": "C",
+   "one_line": "Indian kaolin and industrial minerals processor."
+  },
+  {
+   "company": "BYK-Gardner GmbH",
+   "hall": "La Farga",
+   "stand": "309",
+   "grade": "C",
+   "one_line": "Testing instruments for colour and appearance."
+  },
+  {
+   "company": "Cabo S.r.l.",
+   "hall": "La Farga",
+   "stand": "200",
+   "grade": "C",
+   "one_line": "Italian maker of mixers for paint and ink producers (stand 200 group)."
+  },
+  {
+   "company": "Calmit Llierca, S.A.",
+   "hall": "La Farga",
+   "stand": "542",
+   "grade": "C",
+   "one_line": "Spanish lime and precipitated calcium carbonate producer."
+  },
+  {
+   "company": "COLORIS",
+   "hall": "La Farga",
+   "stand": "715",
+   "grade": "C",
+   "one_line": "Name suggests colour/colorant activity (a possible pigment-paste producer); not verified, so check at the stand."
+  },
+  {
+   "company": "CONCENTROL S.A.",
+   "hall": "La Farga",
+   "stand": "436",
+   "grade": "C",
+   "one_line": "Listed in the Additives category; may be a surfactant/defoamer maker (possible competitor), not verified."
+  },
+  {
+   "company": "COROB IBERIA, SLU",
+   "hall": "La Farga",
+   "stand": "503",
+   "grade": "C",
+   "one_line": "Tinting and mixing equipment."
+  },
+  {
+   "company": "DACHSER Spain",
+   "hall": "La Farga",
+   "stand": "336",
+   "grade": "C",
+   "one_line": "Logistics."
+  },
+  {
+   "company": "DEMIX DISTRIBUCIONES SL",
+   "hall": "La Farga",
+   "stand": "448",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "DISTEL MAQUINARIA, S.L.",
+   "hall": "La Farga",
+   "stand": "133",
+   "grade": "C",
+   "one_line": "Machinery."
+  },
+  {
+   "company": "Ecoimpress",
+   "hall": "La Farga",
+   "stand": "136",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "EL CONFIDENCIAL QUÍMICO, S.L.",
+   "hall": "La Farga",
+   "stand": "703",
+   "grade": "C",
+   "one_line": "Trade media."
+  },
+  {
+   "company": "ELASTOQUIM, S.L.",
+   "hall": "La Farga",
+   "stand": "242",
+   "grade": "C",
+   "one_line": "Shares stand 242 with IGM Resins; activity not verified. Listed in the Additives category."
+  },
+  {
+   "company": "EMSA TECNOLOGÍA QUÍMICA",
+   "hall": "La Farga",
+   "stand": "330",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "EQUIPOS Y PROCESOS LEVANTE S.L.",
+   "hall": "La Farga",
+   "stand": "206",
+   "grade": "C",
+   "one_line": "Process equipment."
+  },
+  {
+   "company": "ERICHSEN GmbH & Co. KG",
+   "hall": "La Farga",
+   "stand": "145",
+   "grade": "C",
+   "one_line": "Testing instruments."
+  },
+  {
+   "company": "ESQUIM",
+   "hall": "La Farga",
+   "stand": "724",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "EUROFINS PRODUCT TESTING, COSMETICS & PERSONAL CARE SPAIN, S.L.U.",
+   "hall": "La Farga",
+   "stand": "339",
+   "grade": "C",
+   "one_line": "Testing laboratory."
+  },
+  {
+   "company": "euroMinerals GmbH",
+   "hall": "La Farga",
+   "stand": "542",
+   "grade": "C",
+   "one_line": "Industrial minerals."
+  },
+  {
+   "company": "EURORESIN (Química Europea de Resinas)",
+   "hall": "La Farga",
+   "stand": "348",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "Fast & Fluid",
+   "hall": "La Farga",
+   "stand": "200",
+   "grade": "C",
+   "one_line": "Tinting/dispensing equipment (stand 200 group)."
+  },
+  {
+   "company": "FOSHAN TGM MACHINE CO.,LTD",
+   "hall": "La Farga",
+   "stand": "548",
+   "grade": "C",
+   "one_line": "Chinese machinery maker."
+  },
+  {
+   "company": "G&C COLORS",
+   "hall": "La Farga",
+   "stand": "518",
+   "grade": "C",
+   "one_line": "Spanish producer of inorganic pigments (ChromaFer iron and chromium oxides); a supplier, though pigment slurries could use antifoams."
+  },
+  {
+   "company": "GLC QUÍMICA",
+   "hall": "La Farga",
+   "stand": "324",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "GRUPO ADI",
+   "hall": "La Farga",
+   "stand": "557",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "Grupo RNM",
+   "hall": "La Farga",
+   "stand": "209",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "HIGHCHEMIE, S.L.",
+   "hall": "La Farga",
+   "stand": "318",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "Hoffmann Mineral GmbH",
+   "hall": "La Farga",
+   "stand": "342",
+   "grade": "C",
+   "one_line": "Functional fillers (Neuburg siliceous earth)."
+  },
+  {
+   "company": "I-Tech",
+   "hall": "La Farga",
+   "stand": "200",
+   "grade": "C",
+   "one_line": "Name suggests colour/colorant activity (a possible pigment-paste producer); not verified, so check at the stand."
+  },
+  {
+   "company": "IBERFLUID INSTRUMENTS",
+   "hall": "La Farga",
+   "stand": "221",
+   "grade": "C",
+   "one_line": "Instruments."
+  },
+  {
+   "company": "Ideas y Colores, S.L.",
+   "hall": "La Farga",
+   "stand": "515",
+   "grade": "C",
+   "one_line": "Name suggests colour/colorant activity (a possible pigment-paste producer); not verified, so check at the stand."
+  },
+  {
+   "company": "Immea",
+   "hall": "La Farga",
+   "stand": "418",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "IMPLICA SCRAP DE ENVASES INDUSTRIALES Y COMERCIALES",
+   "hall": "La Farga",
+   "stand": "554",
+   "grade": "C",
+   "one_line": "Packaging recycling."
+  },
+  {
+   "company": "IMTO",
+   "hall": "La Farga",
+   "stand": "235",
+   "grade": "C",
+   "one_line": "Not verified."
+  },
+  {
+   "company": "INTEREMPRESAS",
+   "hall": "La Farga",
+   "stand": "705",
+   "grade": "C",
+   "one_line": "Trade media."
+  },
+  {
+   "company": "INTEX SYSTEM SRL",
+   "hall": "La Farga",
+   "stand": "148",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "Iris Green",
+   "hall": "La Farga",
+   "stand": "200",
+   "grade": "C",
+   "one_line": "Name suggests colour/colorant activity (a possible pigment-paste producer); not verified, so check at the stand."
+  },
+  {
+   "company": "IRISEM",
+   "hall": "La Farga",
+   "stand": "539",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "Jiangsu Farfly Industrial Intelligent Equipment Co.,Ltd.",
+   "hall": "La Farga",
+   "stand": "512",
+   "grade": "C",
+   "one_line": "Chinese equipment maker."
+  },
+  {
+   "company": "KALFRISA",
+   "hall": "La Farga",
+   "stand": "136",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "Keey Aerogel",
+   "hall": "La Farga",
+   "stand": "721",
+   "grade": "C",
+   "one_line": "Aerogel materials."
+  },
+  {
+   "company": "LabV Intelligent Solutions GmbH",
+   "hall": "La Farga",
+   "stand": "530",
+   "grade": "C",
+   "one_line": "Lab software."
+  },
+  {
+   "company": "Lamirsa Solutions, S.L.",
+   "hall": "La Farga",
+   "stand": "424",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "Lankem",
+   "hall": "La Farga",
+   "stand": "109",
+   "grade": "C",
+   "one_line": "Listed in the Additives category; may be a surfactant/defoamer maker (possible competitor), not verified."
+  },
+  {
+   "company": "LANXESS",
+   "hall": "La Farga",
+   "stand": "400",
+   "grade": "C",
+   "one_line": "Specialty chemicals (biocides, pigments); shares stand 400."
+  },
+  {
+   "company": "LISAM",
+   "hall": "La Farga",
+   "stand": "636",
+   "grade": "C",
+   "one_line": "Regulatory/SDS software."
+  },
+  {
+   "company": "LYDRA SRL",
+   "hall": "La Farga",
+   "stand": "448",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "Maicolor",
+   "hall": "La Farga",
+   "stand": "200",
+   "grade": "C",
+   "one_line": "Name suggests colour/colorant activity (a possible pigment-paste producer); not verified, so check at the stand."
+  },
+  {
+   "company": "Majumi Chemicals sp. z o.o.",
+   "hall": "La Farga",
+   "stand": "524",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "Minerals i Derivats, S.A.",
+   "hall": "La Farga",
+   "stand": "245",
+   "grade": "C",
+   "one_line": "Industrial minerals."
+  },
+  {
+   "company": "Nanjing Tianshi New Material Technologies Co., Ltd",
+   "hall": "La Farga",
+   "stand": "648",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "NETZSCH Molienda & Dispersión",
+   "hall": "La Farga",
+   "stand": "633",
+   "grade": "C",
+   "one_line": "Grinding and dispersing equipment."
+  },
+  {
+   "company": "NEURTEK S.L.",
+   "hall": "La Farga",
+   "stand": "236",
+   "grade": "C",
+   "one_line": "Instruments."
+  },
+  {
+   "company": "NOVACHEM srl",
+   "hall": "La Farga",
+   "stand": "448",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "Novasol Chemicals",
+   "hall": "La Farga",
+   "stand": "621",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "OLIVER Y BATLLE S.A.U.",
+   "hall": "La Farga",
+   "stand": "212",
+   "grade": "C",
+   "one_line": "Industrial equipment."
+  },
+  {
+   "company": "OXY Aditivos SL",
+   "hall": "La Farga",
+   "stand": "109",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "PACKERSLIFE, SL",
+   "hall": "La Farga",
+   "stand": "521",
+   "grade": "C",
+   "one_line": "Packaging."
+  },
+  {
+   "company": "Phoenix",
+   "hall": "La Farga",
+   "stand": "200",
+   "grade": "C",
+   "one_line": "Name suggests colour/colorant activity (a possible pigment-paste producer); not verified, so check at the stand."
+  },
+  {
+   "company": "Pigmenta SL",
+   "hall": "La Farga",
+   "stand": "500",
+   "grade": "C",
+   "one_line": "Name suggests colour/colorant activity (a possible pigment-paste producer); not verified, so check at the stand."
+  },
+  {
+   "company": "PIGMENTSOLUTON GMBH",
+   "hall": "La Farga",
+   "stand": "448",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "Plataforma Tecnológica SENTIATECH",
+   "hall": "La Farga",
+   "stand": "118",
+   "grade": "C",
+   "one_line": "Technology platform."
+  },
+  {
+   "company": "PLIMON GLOBAL SLU",
+   "hall": "La Farga",
+   "stand": "445",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "POINTER SRL",
+   "hall": "La Farga",
+   "stand": "448",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "POLYMER SOLUTIONS, SL",
+   "hall": "La Farga",
+   "stand": "106",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "PROCERAM GMBH",
+   "hall": "La Farga",
+   "stand": "448",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "ProChema",
+   "hall": "La Farga",
+   "stand": "227",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "PRODUCTOS GALVANIZADOS SIEBEC, S.L.",
+   "hall": "La Farga",
+   "stand": "536",
+   "grade": "C",
+   "one_line": "Metal packaging."
+  },
+  {
+   "company": "PROQUIMAC PFC S.A",
+   "hall": "La Farga",
+   "stand": "127",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "PROVENÇALE SA / MARCAEL SA",
+   "hall": "La Farga",
+   "stand": "642",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "QUÁLITES",
+   "hall": "La Farga",
+   "stand": "145",
+   "grade": "C",
+   "one_line": "Not verified."
+  },
+  {
+   "company": "Quimexia Specialties s.l",
+   "hall": "La Farga",
+   "stand": "724",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "QUÍMICA MERIDIONAL S.A.",
+   "hall": "La Farga",
+   "stand": "248",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "QUIMOPROX SL",
+   "hall": "La Farga",
+   "stand": "430",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "RENZMANN",
+   "hall": "La Farga",
+   "stand": "136",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "ResourceWise",
+   "hall": "La Farga",
+   "stand": "545",
+   "grade": "C",
+   "one_line": "Market intelligence/data."
+  },
+  {
+   "company": "RNM Produtos Químicos",
+   "hall": "La Farga",
+   "stand": "209",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "SA Reverté Productos Minerales",
+   "hall": "La Farga",
+   "stand": "421",
+   "grade": "C",
+   "one_line": "Industrial minerals producer."
+  },
+  {
+   "company": "SAMECA Solutions S.L.",
+   "hall": "La Farga",
+   "stand": "624",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "SAMKA METAL PACKAGING INDUSTRY INC.",
+   "hall": "La Farga",
+   "stand": "600",
+   "grade": "C",
+   "one_line": "Metal packaging."
+  },
+  {
+   "company": "SANTINT",
+   "hall": "La Farga",
+   "stand": "515",
+   "grade": "C",
+   "one_line": "Tinting machines (shares stand 515 with Ideas y Colores)."
+  },
+  {
+   "company": "SEKISUI KASEI EUROPE",
+   "hall": "La Farga",
+   "stand": "454",
+   "grade": "C",
+   "one_line": "Polymer particles maker."
+  },
+  {
+   "company": "Serema SA",
+   "hall": "La Farga",
+   "stand": "224",
+   "grade": "C",
+   "one_line": "Industrial equipment."
+  },
+  {
+   "company": "SHANGHAI SHINRAY BIOTECH CO.,LTD",
+   "hall": "La Farga",
+   "stand": "121",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "SOLUCIONES INFORMÁTICAS AMBIENTALES, S.L. (SIAM)",
+   "hall": "La Farga",
+   "stand": "618",
+   "grade": "C",
+   "one_line": "Software."
+  },
+  {
+   "company": "TECHNICAL MINERALS AND ADDITIVES S.L.",
+   "hall": "La Farga",
+   "stand": "627",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list (Additives category)."
+  },
+  {
+   "company": "THOR ESPECIALIDADES, S.A.",
+   "hall": "La Farga",
+   "stand": "427",
+   "grade": "C",
+   "one_line": "Biocides maker."
+  },
+  {
+   "company": "TSB",
+   "hall": "La Farga",
+   "stand": "306",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "UĞUR TENEKE AMBALAJ VE PLASTIK SAN. A.Ş.",
+   "hall": "La Farga",
+   "stand": "406",
+   "grade": "C",
+   "one_line": "Metal/plastic packaging."
+  },
+  {
+   "company": "Velox & Coloris, S.A.",
+   "hall": "La Farga",
+   "stand": "200",
+   "grade": "C",
+   "one_line": "Name suggests colour/colorant activity (a possible pigment-paste producer); not verified, so check at the stand."
+  },
+  {
+   "company": "VERDER SCIENTIFIC IBERIA",
+   "hall": "La Farga",
+   "stand": "236",
+   "grade": "C",
+   "one_line": "Lab equipment."
+  },
+  {
+   "company": "Vibro Mac",
+   "hall": "La Farga",
+   "stand": "418",
+   "grade": "C",
+   "one_line": "Equipment (stand 418 group)."
+  },
+  {
+   "company": "Vidara Spain",
+   "hall": "La Farga",
+   "stand": "321",
+   "grade": "C",
+   "one_line": "Shares stand 321 with Synthomer; activity not verified. Listed in the Additives category."
+  },
+  {
+   "company": "X-Rite Pantone",
+   "hall": "La Farga",
+   "stand": "112",
+   "grade": "C",
+   "one_line": "Colour measurement."
+  },
+  {
+   "company": "XATICO Iberia, S.L.",
+   "hall": "La Farga",
+   "stand": "342",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  },
+  {
+   "company": "ZHENGZHOU HERO CHEMICAL",
+   "hall": "La Farga",
+   "stand": "442",
+   "grade": "C",
+   "one_line": "Activity not verified; listed in the official exhibitor list."
+  }
+ ]
+}
