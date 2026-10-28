@@ -1,4 +1,5 @@
-// route.ts (src/app/api/cron/notebook/[tab]/route.ts) · updated 28.10.2026 06:35 (Asia/Jerusalem) — v1.2.0 + CRM 11 knowledge (silitex.it product pages from the KB), CRM 12 website forms, CRM 13 partner portal (feedback + AI questions)
+// route.ts (src/app/api/cron/notebook/[tab]/route.ts) · updated 28.10.2026 06:45 (Asia/Jerusalem) — v1.2.1 knowledge sheet = clean product text (kbClean: no menu / languages / GDPR notice)
+// · 28.10.2026 06:35 (Asia/Jerusalem) — v1.2.0 + CRM 11 knowledge (silitex.it product pages from the KB), CRM 12 website forms, CRM 13 partner portal (feedback + AI questions)
 // · created 27.10.2026 07:40 (Asia/Jerusalem) — v1.1.0 📓 NotebookLM live export
 // · 27.10.2026 08:20 — split into ≤450 KB parts (?part=2 …, ?info=1 shows the count): Google IMPORTDATA max size
 // Each CRM tab as CSV → a Google Sheet pulls it with =IMPORTDATA("<this url>?key=…") (Google refreshes it ~hourly)
@@ -7,6 +8,7 @@
 import { serviceClient } from "@/lib/server-data";
 import offsets from "@/data/offsets.json";
 import products from "@/data/products.json";
+import { kbClean } from "@/lib/kb-clean";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 type Row = Record<string, unknown>;
@@ -68,7 +70,7 @@ async function build(tab: string): Promise<Row[]> {
       const docs = await all("kb_docs", "*", "title"); const ch = await all("kb_chunks"); const by = new Map<unknown, Row[]>();
       for (const c of ch) { const a = by.get(c.doc_id) || []; a.push(c); by.set(c.doc_id, a); }
       const clean = (t: unknown) => String(t || "").replace(/^silitex\.it · /, "").replace(/ \| Silitex S\.r\.l\. \| High emulsion technology$/, "");
-      return docs.map((x) => ({ product_or_family: clean(x.title), kind: x.product_ref ? "product page" : "family page", source: "silitex.it", added: d(x.created_at), text: (by.get(x.id) || []).sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true })).map((c) => String(c.text || "").trim()).join(" ") }));
+      return docs.map((x) => ({ product_or_family: clean(x.title), kind: x.product_ref ? "product page" : "family page", source: "silitex.it", added: d(x.created_at), text: kbClean((by.get(x.id) || []).sort((a, b) => String(a.id).localeCompare(String(b.id))).map((c) => String(c.text || "")), clean(x.title)) }));
     }
     case "forms": return (await all("form_submissions", "*", "created_at")).reverse().map((f) => ({ date: d(f.created_at), kind: f.kind, company: f.company, name: f.name, email: f.email, phone: f.phone, product: f.product, message: f.message, details: compact((f.fields || {}) as Row), lang: f.lang, hidden: f.hidden_at ? "hidden (test / spam)" : "" }));
     case "partners": { // what partners (Pini …) wrote to us + what they asked the portal AI
