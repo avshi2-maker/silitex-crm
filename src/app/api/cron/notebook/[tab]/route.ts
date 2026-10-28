@@ -1,4 +1,5 @@
-// route.ts (src/app/api/cron/notebook/[tab]/route.ts) · created 27.10.2026 07:40 (Asia/Jerusalem) — v1.1.0 📓 NotebookLM live export
+// route.ts (src/app/api/cron/notebook/[tab]/route.ts) · updated 28.10.2026 06:35 (Asia/Jerusalem) — v1.2.0 + CRM 11 knowledge (silitex.it product pages from the KB), CRM 12 website forms, CRM 13 partner portal (feedback + AI questions)
+// · created 27.10.2026 07:40 (Asia/Jerusalem) — v1.1.0 📓 NotebookLM live export
 // · 27.10.2026 08:20 — split into ≤450 KB parts (?part=2 …, ?info=1 shows the count): Google IMPORTDATA max size
 // Each CRM tab as CSV → a Google Sheet pulls it with =IMPORTDATA("<this url>?key=…") (Google refreshes it ~hourly)
 // → NotebookLM syncs Google Sheets from Drive automatically. No Google Cloud setup, no AI cost.
@@ -31,8 +32,11 @@ const MAP: Record<string, string[]> = {
   silitex_contacts: ["1UturzlChmWuX-kVtWdC9w1jIGCj-Ptxkt4xOamudXHM"],
   equivalents: ["1ZK-bkox84jUZ5BpK7oYMFIkP7OoM2DM87shAVxHjvOY"],
   catalogue: ["1LYaevjloias0FiVNUU_ILwfRTJnIOS3jAQPaOSn6kaE"],
+  knowledge: ["1-5k32w5VWWjRVjqnyrXoqR4X-0MlXhretZKXsS3BJaM"],
+  forms: ["1AKdl5CjDse7nIFfNSaEPaLEU0I-tEmHRS03slay1TVA"],
+  partners: ["1lViJgwgHzvYYienyCg_KScVbHF-BReUbZ2hlrjsk0Ys"],
 };
-const TABS = ["overview", "customers", "people", "activities", "tasks", "meetings", "correspondence", "shipments", "silitex_contacts", "equivalents", "catalogue"];
+const TABS = ["overview", "customers", "people", "activities", "tasks", "meetings", "correspondence", "shipments", "silitex_contacts", "equivalents", "catalogue", "knowledge", "forms", "partners"];
 
 async function build(tab: string): Promise<Row[]> {
   if (tab === "equivalents") {
@@ -60,6 +64,18 @@ async function build(tab: string): Promise<Row[]> {
     case "correspondence": { const th = new Map((await all("threads")).map((t) => [t.id, t])); return (await all("hub_messages", "*", "at")).reverse().map((h) => { const t = (th.get(h.thread_id) || {}) as Row; return { date: d(h.at), source: h.source, direction: h.direction, from: h.from, to: h.to, subject: t.subject || "", topic: t.topic || "", body: h.body }; }); }
     case "shipments": return (await all("shipments")).map((s) => ({ ...s, created_at: d(s.created_at), eta: d(s.eta) }));
     case "silitex_contacts": return all("silitex_contacts");
+    case "knowledge": { // KB = silitex.it product + family pages: one row per page, its chunks joined back in order
+      const docs = await all("kb_docs", "*", "title"); const ch = await all("kb_chunks"); const by = new Map<unknown, Row[]>();
+      for (const c of ch) { const a = by.get(c.doc_id) || []; a.push(c); by.set(c.doc_id, a); }
+      const clean = (t: unknown) => String(t || "").replace(/^silitex\.it · /, "").replace(/ \| Silitex S\.r\.l\. \| High emulsion technology$/, "");
+      return docs.map((x) => ({ product_or_family: clean(x.title), kind: x.product_ref ? "product page" : "family page", source: "silitex.it", added: d(x.created_at), text: (by.get(x.id) || []).sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true })).map((c) => String(c.text || "").trim()).join(" ") }));
+    }
+    case "forms": return (await all("form_submissions", "*", "created_at")).reverse().map((f) => ({ date: d(f.created_at), kind: f.kind, company: f.company, name: f.name, email: f.email, phone: f.phone, product: f.product, message: f.message, details: compact((f.fields || {}) as Row), lang: f.lang, hidden: f.hidden_at ? "hidden (test / spam)" : "" }));
+    case "partners": { // what partners (Pini …) wrote to us + what they asked the portal AI
+      const fb = (await all("partner_feedback", "*", "at")).map((f) => ({ date: d(f.at), sort: String(f.at), type: "feedback", partner: f.partner, page: f.page, topic: f.topic, text: f.message, status: f.replied_at ? "replied " + d(f.replied_at) : "open", lang: f.lang }));
+      const us = (await all("partner_usage", "*", "at")).filter((u) => u.question).map((u) => ({ date: d(u.at), sort: String(u.at), type: "AI question (" + u.kind + ")", partner: u.partner, page: u.path, topic: "", text: u.question, status: "", lang: u.lang }));
+      return [...fb, ...us].sort((a, b) => b.sort.localeCompare(a.sort)).map(({ sort, ...r }) => { void sort; return r; });
+    }
   }
   return [{ error: "unknown tab", tabs: TABS.join(", ") }];
 }
