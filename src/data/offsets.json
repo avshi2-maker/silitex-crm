@@ -3564,6 +3564,69 @@
       "status": "ok",
       "inci": "Dimethicone",
       "note": "Added 28/10/2026 (gap fill). Neat fluid, not an emulsion; healthcare-grade rubber/plastic lubricant"
+    },
+    "Dow / DOWSIL / XIAMETER|XIAMETER® PMX-0245": {
+      "cat": "CAT-10",
+      "status": "ok",
+      "inci": "Cyclopentasiloxane",
+      "cyclic": true,
+      "src": "Sapirim Dow purchase records 2010–2013 (PMX-0245 Cyclopentasiloxan)",
+      "checked": "28/10/2026",
+      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
+    },
+    "Dow / DOWSIL / XIAMETER|XIAMETER® PMX-200 Silicone Fluid (5-1,000 cSt)": {
+      "cat": "CAT-11",
+      "status": "ok",
+      "inci": "Dimethicone",
+      "cyclic": false,
+      "src": "Sapirim Dow purchase records 2010–2013 (PMX-200 Sil Fluid 350cs)",
+      "checked": "28/10/2026",
+      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
+    },
+    "Dow / DOWSIL / XIAMETER|XIAMETER® PMX-200 Silicone Fluid (12,500-2,000,000 cSt)": {
+      "cat": "CAT-12",
+      "status": "ok",
+      "inci": "Dimethicone",
+      "cyclic": false,
+      "src": "Sapirim Dow purchase records 2010–2013 (PMX-200 Sil Fluid 350cs)",
+      "checked": "28/10/2026",
+      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
+    },
+    "Dow / DOWSIL / XIAMETER|XIAMETER® OFX-0193": {
+      "cat": "CAT-20",
+      "status": "ok",
+      "inci": "PEG-12 Dimethicone",
+      "cyclic": false,
+      "src": "Sapirim Dow purchase records 2010–2013 (OFX-0193 FLUID)",
+      "checked": "28/10/2026",
+      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
+    },
+    "Dow / DOWSIL / XIAMETER|XIAMETER® PMX-200": {
+      "cat": "CAT-23",
+      "status": "ok",
+      "inci": "Dimethicone",
+      "cyclic": false,
+      "src": "Sapirim Dow purchase records 2010–2013 (PMX-200 Sil Fluid 350cs)",
+      "checked": "28/10/2026",
+      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
+    },
+    "Dow / DOWSIL / XIAMETER|XIAMETER® PMX-1501": {
+      "cat": "CAT-25",
+      "status": "ok",
+      "inci": "Cyclopentasiloxane and Dimethiconol",
+      "cyclic": true,
+      "src": "Sapirim Dow purchase records 2010–2013 (PMX-1501 Fluid)",
+      "checked": "28/10/2026",
+      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
+    },
+    "Dow / DOWSIL / XIAMETER|Dow Corning® MQ-1600 Solid Resin": {
+      "cat": "CAT-36",
+      "status": "ok",
+      "inci": "trimethylsiloxysilicate",
+      "cyclic": false,
+      "src": "Sapirim Dow purchase records 2010–2013 (MQ-1600 Solid Resin)",
+      "checked": "28/10/2026",
+      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
     }
   },
   "inci_check_meta": {
