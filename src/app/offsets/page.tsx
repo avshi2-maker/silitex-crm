@@ -1,6 +1,6 @@
 "use client";
-// page.tsx (src/app/offsets/page.tsx) · updated 27.10.2026 07:10 (Asia/Jerusalem) — v1.1.0 per-code ✓ INCI (producer page) / ⚠; fake codes removed (count + list per row) · updated 26.10.2026 11:15 (Asia/Jerusalem) — v0.99.0 truth rule: ⚠ unverified / ? unknown on every non-verified producer cell (incl. Dow), banner, export says so · 15.10.2026 14:30 — + ⚡ quick match on top — global producers cross-reference matrix (37 categories × 24 producers)
-import { useMemo, useState } from "react";
+// page.tsx (src/app/offsets/page.tsx) · updated 28.10.2026 18:10 (Asia/Jerusalem) — table in its own scroll box: header frozen on scroll down, full width scroll right (no cut columns) + ◀ ▶ scroll buttons, each producer column min 11rem · 27.10.2026 07:10 — v1.1.0 per-code ✓ INCI (producer page) / ⚠; fake codes removed (count + list per row) · updated 26.10.2026 11:15 (Asia/Jerusalem) — v0.99.0 truth rule: ⚠ unverified / ? unknown on every non-verified producer cell (incl. Dow), banner, export says so · 15.10.2026 14:30 — + ⚡ quick match on top — global producers cross-reference matrix (37 categories × 24 producers)
+import { useMemo, useRef, useState } from "react";
 import { OFFSETS, FOOD_GRADE } from "@/lib/data";
 import { Card, H1, Badge, inputCls } from "@/components/ui";
 import ExportBar from "@/components/ExportBar";
@@ -17,6 +17,12 @@ export default function OffsetsPage() {
   const [q, setQ] = useState(""); const [prod, setProd] = useState([...OFFSETS.producers.slice(0, 4), "NuSil (Avantor NuSil Technology)"]);
   const rows = useMemo(() => OFFSETS.rows.filter((r) => !q || (r.family + r.inci + r.silitex_product + r.dow_corning + Object.values(r.offsets).join(" ")).toLowerCase().includes(q.toLowerCase())), [q]);
   const toggle = (p: string) => setProd((s) => (s.includes(p) ? s.filter((x) => x !== p) : [...s, p]));
+  const box = useRef<HTMLDivElement>(null);
+  const slide = (dx: number) => box.current?.scrollBy({ left: dx, behavior: "smooth" });
+  const th = "p-2 text-start sticky top-0 z-10 bg-slate-50 border-b align-bottom";
+  const thProd = th + " min-w-[11rem]";
+  const arrowCls = "px-2 py-1 rounded-lg border bg-white text-sm hover:bg-slate-50";
+  const boxCls = "overflow-auto max-h-[calc(100vh-7rem)] relative";
   const exportText = rows.map((r) => r.category_id + " " + r.family + " | Silitex: " + r.silitex_product.split(" - ")[0] + " | Dow: " + cellTxt(DOW, r.dow_corning) + " | " + prod.map((p) => p + ": " + cellTxt(p, r.offsets[p])).join(", ")).join("\n") + "\n\n" + "Silitex + NuSil columns verified; ✓ = code checked on the producer's page (" + INCI_CHECK_META.date + "); all other codes unverified (market table).";
   return (
     <div className="space-y-4">
@@ -29,11 +35,14 @@ export default function OffsetsPage() {
         <div className="flex flex-wrap gap-1">{OFFSETS.producers.map((p) => (<button key={p} onClick={() => toggle(p)} className={"text-xs px-2 py-1 rounded-full border " + (prod.includes(p) ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{p}</button>))}</div>
       </Card>
       <GapNote q={q} rows={rows.length} />
-      <Card className="overflow-x-auto p-0">
-        <table className="text-xs w-full">
-          <thead className="bg-slate-50"><tr><th className="p-2 text-start">{tr("קט'")}</th><th className="p-2 text-start">{tr("משפחה / INCI")}</th><th className="p-2 text-start">Silitex</th><th className="p-2 text-start">Dow Corning / DOWSIL / XIAMETER</th>{prod.map((p) => <th key={p} className="p-2 text-start">{p}</th>)}<th className="p-2">{tr("אישורים")}</th></tr></thead>
+      <div className="flex items-center justify-end gap-1 print:hidden" dir="ltr"><span className="text-xs text-slate-500 me-1">{tr("גלילה לצדדים")}</span><button type="button" className={arrowCls} onClick={() => slide(-420)} aria-label="scroll left">◀</button><button type="button" className={arrowCls} onClick={() => slide(420)} aria-label="scroll right">▶</button></div>
+      <Card className="p-0 overflow-hidden">
+        <div ref={box} className={boxCls}>
+        <table className="text-xs min-w-full">
+          <thead><tr><th className={th}>{tr("קט'")}</th><th className={th + " min-w-[12rem]"}>{tr("משפחה / INCI")}</th><th className={th + " min-w-[12rem]"}>Silitex</th><th className={thProd}>Dow Corning / DOWSIL / XIAMETER</th>{prod.map((p) => <th key={p} className={thProd}>{p}</th>)}<th className={th}>{tr("אישורים")}</th></tr></thead>
           <tbody>{rows.map((r) => (<tr key={r.category_id} className="border-t align-top hover:bg-slate-50"><td className="p-2 text-slate-500">{r.category_id}</td><td className="p-2"><div className="font-medium">{r.family}</div><div className="text-slate-500">{r.inci}</div>{((r as unknown as { removed?: Removed[] }).removed || []).length > 0 && <details className="mt-1 text-[10px] text-slate-400"><summary className="cursor-pointer">{tr("הוסרו ")}{(r as unknown as { removed: Removed[] }).removed.length}{tr(" קודים (לא קיימים / משפחה שגויה)")}</summary>{(r as unknown as { removed: Removed[] }).removed.map((x) => <div key={x.producer + x.code} dir="ltr">{x.status === "fake" ? "✗" : "↪"} {x.code} ({x.producer.split(" ")[0]}){x.inci ? " = " + x.inci : ""} — {x.note}</div>)}</details>}</td><td className="p-2 font-medium text-brand-700">{r.silitex_product.split(" - ")[0]}</td><td className="p-2">{isUnknown(r.dow_corning) ? <Unknown /> : <CellCodes producer={DOW} cell={r.dow_corning} />}</td>{prod.map((p) => <td key={p} className="p-2">{isUnknown(r.offsets[p]) ? <Unknown /> : <CellCodes producer={p} cell={r.offsets[p]} />}</td>)}<td className="p-2 space-x-1 whitespace-nowrap">{/yes/i.test(r.kosher) && <Badge tone="purple">{tr("כשר")}</Badge>}{/yes/i.test(r.fda) && <Badge tone="green">FDA</Badge>}</td></tr>))}</tbody>
         </table>
+        </div>
       </Card>
       <ExportBar title={tr("Silitex — טבלת מקבילות")} text={exportText} />
       <Card>

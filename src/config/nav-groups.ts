@@ -12,3 +12,4 @@ export const NAV_GROUPS: NavGroup[] = [
   { id: "promo", he: "קידום ודוחות", open: false, hrefs: ["/promo", "/visibility", "/campaign", "/social", "/studio", "/he", "/partner/preview", "/mobile"] },
 ];
 export const NAV_OPEN_KEY = "silitex-nav-open";
+export const NAV_MINI_KEY = "silitex-nav-mini"; // ◀ ▶ icon-strip menu (28.10.2026)
