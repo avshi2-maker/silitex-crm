@@ -31,7 +31,7 @@
     {
       "category_id": "CAT-01",
       "family": "Quaternary Silicone Microemulsion",
-      "dow_corning": "DOWSIL™ 556 Cosmetic Grade Fluid / DC Quat Fluid",
+      "dow_corning": "DOWSIL™ 556 Cosmetic Grade Fluid",
       "inci": "Amino silicone quat / Quaternium-80 / Silicone Quaternium-22",
       "silitex_product": "AMINOQUAT (250 / 350 / 1000) - Silicone microemulsion for hydrophilic towel softeners and high wash-resistance",
       "kosher": "No",
@@ -40,7 +40,7 @@
       "offsets": {
         "Shin-Etsu": "",
         "Momentive": "Silsoft Q PMF emulsion",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL ADM Quat Series",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "ABIL Quat 3272 / ABIL ME 45 MB",
         "Bluestar / Elkem (Mirasil)": "Mirasil Quat Series",
         "KCC Corp. / Basil (SeraSense)": "SeraSense SQ 40",
@@ -97,6 +97,22 @@
           "inci": "",
           "note": "Not found in BRB International cosmetic listings nor by exact-name web search (BRB DM fluids listed only up to DM 1000; BRB PDMS emulsions are sold under other names, e.g. industrial grades)",
           "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-brb-international-bv/c-ingredients-silicones-silicone-fluids"
+        },
+        {
+          "producer": "Dow / DOWSIL / XIAMETER",
+          "code": "DC Quat Fluid",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No Dow product named 'Quat Fluid' on dow.com; nearest Dow quat is DOWSIL 5-7113 Silicone Quat Microemulsion (INCI Silicone Quaternium-16 (and) Undeceth-11 (and) Butyloctanol (and) Undeceth-5; hair care, not towel softener)",
+          "src": ""
+        },
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "BELSIL ADM Quat Series",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. BELSIL is Wacker's personal-care brand; Wacker's towel/hydrophilic textile softeners are WETSOFT (e.g. NE 750 = amino-silicone/polyglycol block copolymer, NE 580 microemulsion) - no quat, no INCI.",
+          "src": "https://www.wacker.com/cms/en-us/press-and-media/press/press-releases/2016/detail-69570.html"
         }
       ]
     },
@@ -184,7 +200,7 @@
       "offsets": {
         "Shin-Etsu": "N/A",
         "Momentive": "N/A",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL Pulp Softener",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "REWOQUAT WE series / TEGO Pulp Softener",
         "Bluestar / Elkem (Mirasil)": "N/A",
         "KCC Corp. / Basil (SeraSense)": "N/A",
@@ -208,7 +224,17 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "BELSIL Pulp Softener",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. No Wacker paper/tissue softener found (Wacker pulp line PULPSIL is antifoam only).",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-04",
@@ -225,7 +251,7 @@
         "Wacker (BELSIL / SILFOAM / SILRES)": "SILFOAM SE 2 / SILFOAM SE 39 / SILFOAM SE 47",
         "Evonik (ABIL / TEGO)": "TEGO Antifoam Series / TEGO Foamex",
         "Bluestar / Elkem (Mirasil)": "Mirasil AD / Mirasil AF",
-        "KCC Corp. / Basil (SeraSense)": "TC-Defoamer A",
+        "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "Gransil AF",
         "NuSil (Avantor NuSil Technology)": "MED-340 Simethicone USP/EP / MED-342 Simethicone GS",
         "TINCI": "TC-Antifoam",
@@ -246,7 +272,17 @@
         "Inolex": "Lexfeel AF",
         "SEPPIC": "SEPPIC AF",
         "Others": "Sasil AF"
-      }
+      },
+      "removed": [
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "TC-Defoamer A",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No 'TC-Defoamer' in KCC/Basildon ranges (SpecialChem 34-product KCC list, momentive.com Basildon docs, web); 'TC-' prefix looks like CHT naming. Real ex-Basildon food antifoam: Esca FD50K (silicone antifoam emulsion 50%, kosher) https://www.momentive.com/docs/default-source/tds/esca-antifoams/esca-fd50k-antifoam-tds.pdf",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-05",
@@ -260,10 +296,10 @@
       "offsets": {
         "Shin-Etsu": "KM-90 / KM-902",
         "Momentive": "SM 2163 / SM 2138",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL MEM 35 / WACKER E 10",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "WACKER E 10",
         "Evonik (ABIL / TEGO)": "TEGO Mold Release / TEGO Polish",
         "Bluestar / Elkem (Mirasil)": "Mirasil EM 350",
-        "KCC Corp. / Basil (SeraSense)": "TC-Release 36",
+        "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "Gransil Auto",
         "NuSil (Avantor NuSil Technology)": "",
         "TINCI": "TC-Polish",
@@ -284,12 +320,30 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "BELSIL MEM 35",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. Nearest real Wacker 35 % PDMS emulsions: WACKER E35 100 / E35 10000 (industrial, no INCI).",
+          "src": "https://www.wacker.com/h/de-de/c/wacker-e35-10000/p/000000809"
+        },
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "TC-Release 36",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Not found in KCC/Basildon ranges or web. Real Basildon polish/shine grades: BC 338 (silicone fluid blend + wax, shine/anti-smear), Polish Additive 63, BC 91/023 (60% PDMS nonionic emulsion, release+polish).",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-06",
       "family": "Textile Amino Microemulsion",
-      "dow_corning": "Dow Corning® 2-8566 / XIAMETER® MEM-0863",
+      "dow_corning": "Dow Corning® 2-8566",
       "inci": "Amino-functional Silicone Microemulsion",
       "silitex_product": "BIRDYSIL (LR 500 / LR 600) - Amino silicone microemulsion conferring soft velvet hand feel to fabrics",
       "kosher": "No",
@@ -322,7 +376,17 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Dow / DOWSIL / XIAMETER",
+          "code": "XIAMETER® MEM-0863",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. MEM-0863 not on dow.com; Dow textile/fabric amino emulsions found: XIAMETER MEM-8035 (35% amino), DOWSIL FM-6620 (cationic amine silicone), OFX-8803 (organofunctional textile softener) - no INCI",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-07",
@@ -336,7 +400,7 @@
       "offsets": {
         "Shin-Etsu": "N/A",
         "Momentive": "N/A",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "WACKER WAX EMULSION C",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "TEGO Wax Carnauba",
         "Bluestar / Elkem (Mirasil)": "N/A",
         "KCC Corp. / Basil (SeraSense)": "N/A",
@@ -360,7 +424,17 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "WACKER WAX EMULSION C",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. Wacker sells no carnauba emulsions; its only 'wax emulsion' is WACKER E 32 = silicone wax (not carnauba).",
+          "src": "https://www.wacker.com/h/en-us/c/wacker-e-32/p/000001928"
+        }
+      ]
     },
     {
       "category_id": "CAT-08",
@@ -374,10 +448,10 @@
       "offsets": {
         "Shin-Etsu": "KBE-3083",
         "Momentive": "Silquest A-137",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "SILRES BS 1701 / SILRES BS 29A",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "SILRES BS 1701",
         "Evonik (ABIL / TEGO)": "TEGOPHOB 6110 / TEGOPHOB 1650",
         "Bluestar / Elkem (Mirasil)": "Mirasil Hydrorep",
-        "KCC Corp. / Basil (SeraSense)": "SeraSense Hydro",
+        "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "Gransil Hydro",
         "NuSil (Avantor NuSil Technology)": "",
         "TINCI": "TC-Silane",
@@ -398,7 +472,25 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "SILRES BS 29A",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. Near real codes: SILRES BS 290 (solventless silane/siloxane concentrate) and SILRES BS 30 A (100 % siloxane/resin blend for stone/tile).",
+          "src": "https://wacker.com/h/en-gb/c/silres-bs-290/p/000010606"
+        },
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "SeraSense Hydro",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Not in SeraSense list (51 grades, SpecialChem) nor any KCC range; no KCC surface-restructuring polymer dispersion found.",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-09",
@@ -415,7 +507,7 @@
         "Wacker (BELSIL / SILFOAM / SILRES)": "SILFOAM SE 39",
         "Evonik (ABIL / TEGO)": "TEGO Antifoam Food Grade",
         "Bluestar / Elkem (Mirasil)": "Mirasil AF Food",
-        "KCC Corp. / Basil (SeraSense)": "TC-Defoamer FDA",
+        "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "Gransil FDA",
         "NuSil (Avantor NuSil Technology)": "",
         "TINCI": "TC-FDA",
@@ -436,7 +528,17 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "TC-Defoamer FDA",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Not found. Related real ex-Basildon grades: SAG 2226 (100% active silicone-free antifoam, FDA 176.210 paper, BfR) https://momentive.com/docs/default-source/tds/sag/sag-2226-antifoam_tds_07-23-2024.pdf ; Esca FD-series food antifoam emulsions.",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-10",
@@ -450,7 +552,7 @@
       "offsets": {
         "Shin-Etsu": "KF-995 / TMF-1.5",
         "Momentive": "SF1202 / SF1204 / SF1256",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL CM 040",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "Tegosoft AC",
         "Bluestar / Elkem (Mirasil)": "Mirasil CM 5",
         "KCC Corp. / Basil (SeraSense)": "SeraSense SF CM5",
@@ -507,6 +609,14 @@
           "inci": "",
           "note": "Code not found in KCC's cosmetic catalog (SeraSense/SeraSilk/SeraSoft/SeraShine/SeraSol) nor by exact-name web search",
           "src": "https://www.specialchem.com/cosmetics/supplier/kcc-silicone/all-products"
+        },
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "BELSIL CM 040",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com, SpecialChem, web for 'BELSIL CM 040' - no hits. Wacker CM grades are D5/dimethiconol gum blends (e.g. CM 740); Wacker volatile D5-free option: BELSIL DM 1 PLUS / eco DM 0.65 (Dimethicone).",
+          "src": ""
         }
       ]
     },
@@ -744,7 +854,7 @@
       "offsets": {
         "Shin-Etsu": "KM-90 / KM-902 / KM-910",
         "Momentive": "SM 2163 / SM 2128 / SM 2140",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL MEM 35 / WACKER E 10 / BELSIL DM 5102 E",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "WACKER E 10 / BELSIL DM 5102 E",
         "Evonik (ABIL / TEGO)": "ABIL Emulsion Series",
         "Bluestar / Elkem (Mirasil)": "",
         "KCC Corp. / Basil (SeraSense)": "BC 91/023 / Indusil REL 2268",
@@ -833,6 +943,14 @@
           "inci": "",
           "note": "Not found in BRB International cosmetic listings nor by exact-name web search (BRB DM fluids listed only up to DM 1000; BRB PDMS emulsions are sold under other names, e.g. industrial grades)",
           "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-brb-international-bv/c-ingredients-silicones-silicone-fluids"
+        },
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "BELSIL MEM 35",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. Nearest real Wacker 35 % PDMS emulsions: WACKER E35 100 / E35 10000 (industrial, no INCI).",
+          "src": "https://www.wacker.com/h/de-de/c/wacker-e35-10000/p/000000809"
         }
       ]
     },
@@ -895,19 +1013,19 @@
     {
       "category_id": "CAT-17",
       "family": "Reactive Silicone Rubbers & Potting Compounds",
-      "dow_corning": "Dow Corning® Silastic RTV / DOWSIL™ 3140 RTV Coating",
+      "dow_corning": "DOWSIL™ 3140 RTV Coating",
       "inci": "Reactive Silicone Rubber Fluid (80 - 5000 cSt)",
       "silitex_product": "GOMMA SILICONICA (80 / 5000) - Reactive silicone polymers that cure with catalyst to form tough, transparent silicone rubber",
       "kosher": "No",
       "fda": "No",
       "eco_certs": "ISO 9001 / ISO 14001",
       "offsets": {
-        "Shin-Etsu": "KE-12 / KE-14",
+        "Shin-Etsu": "",
         "Momentive": "RTV 108 / RTV 157",
         "Wacker (BELSIL / SILFOAM / SILRES)": "ELASTOSIL RT 601 A/B (ELASTOSIL RTV-2 range)",
         "Evonik (ABIL / TEGO)": "TEGO RTV",
         "Bluestar / Elkem (Mirasil)": "Mirasil RTV",
-        "KCC Corp. / Basil (SeraSense)": "SeraSense RTV",
+        "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "N/A",
         "NuSil (Avantor NuSil Technology)": "PLY-7500 series (PLY1/2/3/4-7500) / GEL-8100, GEL-8150 family",
         "TINCI": "N/A",
@@ -928,7 +1046,41 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Dow / DOWSIL / XIAMETER",
+          "code": "Dow Corning® Silastic RTV",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. 'Silastic RTV' is a brand range (many RTV-1/RTV-2 grades), not a single product - specific grade needed",
+          "src": ""
+        },
+        {
+          "producer": "Shin-Etsu",
+          "code": "KE-12",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Not found on shinetsusilicones.com rtv pages or SpecialChem/UL; likely a Japan-market RTV grade, chemistry unverified",
+          "src": ""
+        },
+        {
+          "producer": "Shin-Etsu",
+          "code": "KE-14",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Not found on shinetsusilicones.com rtv pages or SpecialChem/UL; likely a Japan-market RTV grade, chemistry unverified",
+          "src": ""
+        },
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "SeraSense RTV",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. SeraSense is a cosmetic fluid/blend brand; no RTV grade in the 51-product list. KCC Corp does sell RTV/LSR under other codes, not verified here.",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-18",
@@ -942,7 +1094,7 @@
       "offsets": {
         "Shin-Etsu": "N/A",
         "Momentive": "N/A",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL Eco ADM / SILFIN Organic",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "TEGO Textile Organic / ABIL Eco",
         "Bluestar / Elkem (Mirasil)": "N/A",
         "KCC Corp. / Basil (SeraSense)": "N/A",
@@ -966,7 +1118,25 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "SEPPIC Eco-Finish"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "BELSIL Eco ADM",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. BELSIL eco = bio-methanol mass-balance (TUV Nord) cosmetic DM fluids; textile eco grades are WETSOFT eco 810 LV / WACKER FINISH eco WR 1100/1300 LV - no GOTS claim found.",
+          "src": "https://www.wacker.com/cms/en-de/insights/belsil-eco.html"
+        },
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "SILFIN Organic",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. No SILFIN brand at Wacker.",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-19",
@@ -979,11 +1149,11 @@
       "eco_certs": "ISO 9001 / ISO 14001",
       "offsets": {
         "Shin-Etsu": "KF-99P / AES-3083",
-        "Momentive": "MH-1107 / SF1040",
+        "Momentive": "",
         "Wacker (BELSIL / SILFOAM / SILRES)": "WACKER L 066",
         "Evonik (ABIL / TEGO)": "TEGOSIP H-Fluid",
         "Bluestar / Elkem (Mirasil)": "Mirasil H-Fluid",
-        "KCC Corp. / Basil (SeraSense)": "SeraSense MH",
+        "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "N/A",
         "NuSil (Avantor NuSil Technology)": "XL-151 Pendent Hydride Crosslinker / XL-110, XL-150, XL-115, XL-112 crosslinkers",
         "TINCI": "N/A",
@@ -1004,7 +1174,33 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Momentive",
+          "code": "MH-1107",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Not a Momentive code - it is Dow XIAMETER MHX-1107 (methylhydrogen fluid). Momentive SiH fluid is TSF484 (side-chain SiH, 25 mm2/s) per momentive.com/content/dam/momentive/ja-jp/docs/Modifiedsiliconeoilproductcatalog.pdf",
+          "src": ""
+        },
+        {
+          "producer": "Momentive",
+          "code": "SF1040",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No SF1040 on Momentive pages, Momentive modified-fluid catalog or SpecialChem; Momentive's methylhydrogen fluids are TSF484 / XF40-C3029",
+          "src": ""
+        },
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "SeraSense MH",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No 'MH' in SeraSense. Real KCC Basildon equivalent: BC 83/132 = methyl hydrogen polysiloxane, reactive cross-linking fluid (SpecialChem https://www.specialchem.com/coatings/product/kcc-silicone-bc-83-132).",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-20",
@@ -1082,7 +1278,7 @@
       "offsets": {
         "Shin-Etsu": "N/A",
         "Momentive": "N/A",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "WACKER PE WAX EMULSION",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "TEGO PE Wax",
         "Bluestar / Elkem (Mirasil)": "N/A",
         "KCC Corp. / Basil (SeraSense)": "N/A",
@@ -1106,7 +1302,17 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "WACKER PE WAX EMULSION",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. Wacker sells no polyethylene wax emulsions.",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-22",
@@ -1149,7 +1355,7 @@
     {
       "category_id": "CAT-23",
       "family": "Sewing Thread Silicone Lubricant Emulsion",
-      "dow_corning": "Dow Corning® Thread Lubricant / DOWSIL™ Thread Lubricant / XIAMETER® PMX-200",
+      "dow_corning": "XIAMETER® PMX-200",
       "inci": "Water-based Silicone Wax Emulsion",
       "silitex_product": "LUBROFIL 4500 - Water-based silicone wax emulsion specifically designed as a high-efficiency lubricant for sewing yarn",
       "kosher": "No",
@@ -1158,10 +1364,10 @@
       "offsets": {
         "Shin-Etsu": "KM-9729",
         "Momentive": "SM 2128",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "WACKER THREAD LUBRICANT 45",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "TEGO Thread Lub",
         "Bluestar / Elkem (Mirasil)": "Mirasil Thread",
-        "KCC Corp. / Basil (SeraSense)": "SeraSense TL",
+        "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "N/A",
         "NuSil (Avantor NuSil Technology)": "",
         "TINCI": "N/A",
@@ -1182,7 +1388,41 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Dow / DOWSIL / XIAMETER",
+          "code": "Dow Corning® Thread Lubricant",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No Dow product named 'Thread Lubricant'; Dow lists XIAMETER MEM-0036 (35% PDMS emulsion) for sewing-thread lubrication - PDMS, not a wax emulsion",
+          "src": ""
+        },
+        {
+          "producer": "Dow / DOWSIL / XIAMETER",
+          "code": "DOWSIL™ Thread Lubricant",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No Dow product named 'Thread Lubricant'; Dow lists XIAMETER MEM-0036 (35% PDMS emulsion) for sewing-thread lubrication - PDMS, not a wax emulsion",
+          "src": ""
+        },
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "WACKER THREAD LUBRICANT 45",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. Wacker's sewing-thread lubricant is WACKER E 110 (nonionic macroemulsion of nonreactive PDMS, not a silicone wax).",
+          "src": "https://www.wacker.com/h/en-us/silicone-fluids-emulsions/silicone-fluid-emulsions/wacker-e-110/p/000001923"
+        },
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "SeraSense TL",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No 'TL' grade in SeraSense list or any KCC range; no KCC sewing-thread lubricant emulsion found.",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-24",
@@ -1340,7 +1580,7 @@
       "offsets": {
         "Shin-Etsu": "N/A",
         "Momentive": "N/A",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL Feather Care",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "TEGO Down Care",
         "Bluestar / Elkem (Mirasil)": "N/A",
         "KCC Corp. / Basil (SeraSense)": "N/A",
@@ -1364,7 +1604,17 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "BELSIL Feather Care",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. Wacker textile brochure 7617 has no feather/down product.",
+          "src": "https://www.wacker.com/h/en-ae/medias/7617-EN.pdf"
+        }
+      ]
     },
     {
       "category_id": "CAT-27",
@@ -1377,11 +1627,11 @@
       "eco_certs": "ISO 9001 / ISO 14001",
       "offsets": {
         "Shin-Etsu": "KF-8020",
-        "Momentive": "Silsoft Nano",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL ADM Nano",
+        "Momentive": "",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "ABIL Nano Soft",
         "Bluestar / Elkem (Mirasil)": "Mirasil Nano",
-        "KCC Corp. / Basil (SeraSense)": "SeraSense Nano",
+        "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "Gransil Nano",
         "NuSil (Avantor NuSil Technology)": "",
         "TINCI": "N/A",
@@ -1402,7 +1652,33 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Momentive",
+          "code": "Silsoft Nano",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No 'Silsoft Nano' on Momentive personal-care overview, softener/Magnasoft pages or SpecialChem; no Momentive textile nanoemulsion identified",
+          "src": ""
+        },
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "BELSIL ADM Nano",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. Wacker textile amino microemulsions (<50 nm): WACKER FINISH CT 34 E / CT 96 E, POWERSOFT PE 280 (no INCI).",
+          "src": "https://www.wacker.com/h/en-ae/medias/7617-EN.pdf"
+        },
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "SeraSense Nano",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No 'Nano' grade in SeraSense/SeraShine. Nearest KCC amino microemulsion (cosmetic, not textile): SeraShine EM 322C = Amodimethicone (and) C12-14 Pareth-5 (and) C12-14 Pareth-9, nonionic microemulsion.",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-28",
@@ -1416,7 +1692,7 @@
       "offsets": {
         "Shin-Etsu": "N/A",
         "Momentive": "N/A",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "WACKER PARAFFIN EMULSION",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "TEGO Wax Paraffin",
         "Bluestar / Elkem (Mirasil)": "N/A",
         "KCC Corp. / Basil (SeraSense)": "N/A",
@@ -1440,12 +1716,22 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "WACKER PARAFFIN EMULSION",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. Wacker sells no paraffin wax emulsions.",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-29",
       "family": "Electronics & Rubber Assembly Lubricant",
-      "dow_corning": "DOWSIL™ PH-1555 HRI Cosmetic Fluid / DOWSIL™ 555 Assembly Fluid",
+      "dow_corning": "DOWSIL™ PH-1555 HRI Cosmetic Fluid",
       "inci": "Specialized Silicone Fluid Lubricant Emulsion",
       "silitex_product": "REOGUM 500 - High-performance assembly lubricant emulsion used in electronics and rubber gasket installation",
       "kosher": "No",
@@ -1453,11 +1739,11 @@
       "eco_certs": "ISO 9001 / ISO 14001",
       "offsets": {
         "Shin-Etsu": "KS-66 / KS-69",
-        "Momentive": "G661 / G662",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "WACKER ASSEMBLY LUBRICANT",
+        "Momentive": "",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "TEGO Assembly Fluid",
         "Bluestar / Elkem (Mirasil)": "Mirasil Assembly",
-        "KCC Corp. / Basil (SeraSense)": "SeraSense AL",
+        "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "N/A",
         "NuSil (Avantor NuSil Technology)": "MED-360, MED-361 Silicone Fluid",
         "TINCI": "N/A",
@@ -1478,7 +1764,49 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Dow / DOWSIL / XIAMETER",
+          "code": "DOWSIL™ 555 Assembly Fluid",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No '555 Assembly Fluid' on dow.com; 555 was a cosmetic phenyl fluid (see Dow Corning 555 row)",
+          "src": ""
+        },
+        {
+          "producer": "Momentive",
+          "code": "G661",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Not a Momentive product - G661 is Novagard Versilube silicone grease (filler-thickened, valve/O-ring/electrical), novagard.com/product/g661-silicone-lubricant/",
+          "src": ""
+        },
+        {
+          "producer": "Momentive",
+          "code": "G662",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Not a Momentive product - G662 is a Novagard silicone compound (novagard.com/download/tds-g662)",
+          "src": ""
+        },
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "WACKER ASSEMBLY LUBRICANT",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. No Wacker product with this name; PDMS emulsions (e.g. WACKER E 10, release/lubricant) are nearest.",
+          "src": ""
+        },
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "SeraSense AL",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No 'AL' grade found. Real Basildon lubricant/release emulsions: BC 330/60 (60% PDMS emulsion, rubber/plastic release) https://www.momentive.com/docs/default-source/tds/basildondocuments/basildon-chemicals/bc-330-60-silicone-emulsion.pdf",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-30",
@@ -1495,7 +1823,7 @@
         "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL RG 100 / BELSIL EG 3000",
         "Evonik (ABIL / TEGO)": "",
         "Bluestar / Elkem (Mirasil)": "",
-        "KCC Corp. / Basil (SeraSense)": "GRANSIL GCM-5 / GRANSIL DM-5",
+        "KCC Corp. / Basil (SeraSense)": "GRANSIL GCM-5",
         "Grant Industries (Gransil)": "Gransil RPS",
         "NuSil (Avantor NuSil Technology)": "CareSil CXG-1101 (D5) / CXG-1103 (D5 + D6) · cyclic-free: CXG-1104 (in Dimethicone)",
         "TINCI": "TC-600",
@@ -1541,6 +1869,14 @@
           "inci": "",
           "note": "Not in the complete 52-product Mirasil list (Elkem) on SpecialChem",
           "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+        },
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "GRANSIL DM-5",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Wrong producer: Gransil is Grant Industries (real grade Gransil DM-5/LC = Dimethicone (and) Polysilicone-11). KCC equivalents: SeraSilk EL 60/EL 63 (Cyclopentasiloxane, Dimethicone/Vinyl Dimethicone Crosspolymer), EL 61/64/65/66 (D5-free in Dimethicone), EL 74 (Cyclopentasiloxane, Dimethicone, Polysilicone-11) https://cosmetics.specialchem.com/searchsites/searchproducts/b-softness/a-skin-care/s-kcc-basildon-momentive/c-ingredients-silicones-silicone-emulsions",
+          "src": ""
         }
       ]
     },
@@ -1556,7 +1892,7 @@
       "offsets": {
         "Shin-Etsu": "N/A",
         "Momentive": "N/A",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL Restructure",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "TEGO Restructure",
         "Bluestar / Elkem (Mirasil)": "N/A",
         "KCC Corp. / Basil (SeraSense)": "N/A",
@@ -1580,12 +1916,22 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "BELSIL Restructure",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. Wacker anti-pilling/wool restructuring: WACKER FINISH CT 27 E (RTV silicone dispersion), CT 95 E (microemulsion).",
+          "src": "https://www.wacker.com/h/en-ae/medias/7617-EN.pdf"
+        }
+      ]
     },
     {
       "category_id": "CAT-32",
       "family": "Amino Silicone Softener Microemulsion",
-      "dow_corning": "Dow Corning® 2-8566 / XIAMETER® MEM-0863",
+      "dow_corning": "Dow Corning® 2-8566",
       "inci": "Amino Silicone Microemulsion",
       "silitex_product": "STONIX (5000 / 6000) - Amino silicone microemulsion delivering exceptional soft hand feel for textiles and specialty paper",
       "kosher": "No",
@@ -1618,7 +1964,17 @@
         "Inolex": "Lexfeel AM",
         "SEPPIC": "SEPPIC Soft",
         "Others": "Sasil AM-200"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Dow / DOWSIL / XIAMETER",
+          "code": "XIAMETER® MEM-0863",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. MEM-0863 not on dow.com; Dow textile/fabric amino emulsions found: XIAMETER MEM-8035 (35% amino), DOWSIL FM-6620 (cationic amine silicone), OFX-8803 (organofunctional textile softener) - no INCI",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-33",
@@ -1632,7 +1988,7 @@
       "offsets": {
         "Shin-Etsu": "N/A",
         "Momentive": "N/A",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "SILFOAM Non-Silicone",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "TEGO Antifoam KS",
         "Bluestar / Elkem (Mirasil)": "N/A",
         "KCC Corp. / Basil (SeraSense)": "Antifoam V12 / SAG 2226",
@@ -1656,7 +2012,17 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "SILFOAM Non-Silicone",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. SILFOAM is Wacker's silicone-based foam-control brand; no silicone-free grade listed.",
+          "src": "https://wacker.com/cms/en-de/products/brands/silfoam/silfoam.html"
+        }
+      ]
     },
     {
       "category_id": "CAT-34",
@@ -1670,7 +2036,7 @@
       "offsets": {
         "Shin-Etsu": "N/A",
         "Momentive": "N/A",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL Paper Nano",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "TEGO Paper Soft",
         "Bluestar / Elkem (Mirasil)": "N/A",
         "KCC Corp. / Basil (SeraSense)": "N/A",
@@ -1694,7 +2060,17 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "BELSIL Paper Nano",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. No Wacker paper softening/bulking nanodispersion found.",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-35",
@@ -1708,7 +2084,7 @@
       "offsets": {
         "Shin-Etsu": "N/A",
         "Momentive": "N/A",
-        "Wacker (BELSIL / SILFOAM / SILRES)": "WACKER BEESWAX EMULSION",
+        "Wacker (BELSIL / SILFOAM / SILRES)": "",
         "Evonik (ABIL / TEGO)": "TEGO Wax Beeswax",
         "Bluestar / Elkem (Mirasil)": "N/A",
         "KCC Corp. / Basil (SeraSense)": "N/A",
@@ -1732,7 +2108,17 @@
         "Inolex": "N/A",
         "SEPPIC": "N/A",
         "Others": "N/A"
-      }
+      },
+      "removed": [
+        {
+          "producer": "Wacker (BELSIL / SILFOAM / SILRES)",
+          "code": "WACKER BEESWAX EMULSION",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Searched wacker.com product finder + web; no such Wacker product. Wacker sells no beeswax emulsions.",
+          "src": ""
+        }
+      ]
     },
     {
       "category_id": "CAT-36",
@@ -1749,7 +2135,7 @@
         "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL TMS 803 / BELSIL REG 1103 B",
         "Evonik (ABIL / TEGO)": "ABIL MQ 803",
         "Bluestar / Elkem (Mirasil)": "",
-        "KCC Corp. / Basil (SeraSense)": "TC-7010 / SeraSense RB 21",
+        "KCC Corp. / Basil (SeraSense)": "SeraSense RB 21",
         "Grant Industries (Gransil)": "Gransil TMS",
         "NuSil (Avantor NuSil Technology)": "",
         "TINCI": "TC-MQ",
@@ -1787,6 +2173,14 @@
           "inci": "",
           "note": "Not in BRB listings; BRB TMS range = BRB TMS (neat Trimethylsiloxysilicate), TMS-30D, TMS-50C, TMS-50I",
           "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-long-lasting/a-sun-care/s-brb-international-bv"
+        },
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "TC-7010",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Not found in KCC/Basildon ranges or web. Real KCC MQ resin blends: SeraSense RB 21 (Dimethicone, Trimethylsiloxysilicate), RB 22 (D5 + TMS), RBS 12 (Isododecane, TMS).",
+          "src": ""
         }
       ]
     },
@@ -1805,7 +2199,7 @@
         "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL WO 3700",
         "Evonik (ABIL / TEGO)": "ABIL EM 90 / ABIL EM 180 / ABIL EM 97 S / ABIL Care XL 80 MB",
         "Bluestar / Elkem (Mirasil)": "",
-        "KCC Corp. / Basil (SeraSense)": "TC-3028 / SeraSense LA 10",
+        "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "Gransil 501",
         "NuSil (Avantor NuSil Technology)": "CareSil CSS-7300 (PEG/PPG-18/18 Dimethicone in D5)",
         "TINCI": "TC-3028",
@@ -1851,6 +2245,22 @@
           "inci": "",
           "note": "Not in the complete 52-product Mirasil list (Elkem) on SpecialChem",
           "src": "https://cosmetics.specialchem.com/selectors/tr-mirasil"
+        },
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "TC-3028",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Not found in KCC ranges. Real KCC equivalents: SeraSol SC 84 = Cyclopentasiloxane, PEG/PPG-18/18 Dimethicone; SeraSol SC 83-E = Cetyl PEG/PPG-10/1 Dimethicone; SC 80 = PEG/PPG-18/18 Dimethicone (SpecialChem tr-serasol).",
+          "src": ""
+        },
+        {
+          "producer": "KCC Corp. / Basil (SeraSense)",
+          "code": "SeraSense LA 10",
+          "status": "fake",
+          "inci": "",
+          "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No 'LA 10' in SeraSense; KCC emulsifiers are the SeraSol SC line (SC 80 PEG/PPG-18/18 Dimethicone, SC 84 in D5, SC 83-E Cetyl PEG/PPG-10/1 Dimethicone) https://cosmetics.specialchem.com/selectors/tr-serasol",
+          "src": ""
         }
       ]
     }
@@ -2005,13 +2415,6 @@
       "inci": "Cyclohexasiloxane (and) Cyclopentasiloxane",
       "cyclic": true,
       "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-lubrication/s-momentive-performance-materials/c-ingredients-silicones-silicone-fluids"
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL CM 040": {
-      "cat": "CAT-10",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com, SpecialChem, web for 'BELSIL CM 040' - no hits. Wacker CM grades are D5/dimethiconol gum blends (e.g. CM 740); Wacker volatile D5-free option: BELSIL DM 1 PLUS / eco DM 0.65 (Dimethicone)."
     },
     "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL CM 1000": {
       "cat": "CAT-10",
@@ -2317,13 +2720,6 @@
       "cyclic": true,
       "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-tackiness-reducing-non-tacky/a-creams-lotions-gels/s-grant-industries"
     },
-    "KCC Corp. / Basil (SeraSense)|GRANSIL DM-5": {
-      "cat": "CAT-30",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Wrong producer: Gransil is Grant Industries (real grade Gransil DM-5/LC = Dimethicone (and) Polysilicone-11). KCC equivalents: SeraSilk EL 60/EL 63 (Cyclopentasiloxane, Dimethicone/Vinyl Dimethicone Crosspolymer), EL 61/64/65/66 (D5-free in Dimethicone), EL 74 (Cyclopentasiloxane, Dimethicone, Polysilicone-11) https://cosmetics.specialchem.com/searchsites/searchproducts/b-softness/a-skin-care/s-kcc-basildon-momentive/c-ingredients-silicones-silicone-emulsions"
-    },
     "BRB & Others|BRB SG 106": {
       "cat": "CAT-30",
       "status": "ok",
@@ -2482,13 +2878,6 @@
       "inci": "Phenyl Trimethicone",
       "note": "Listed as 'DOWSIL™ 556' before 28/10/2026. Phenyl trimethicone shine/emollient fluid, not a quaternary/amino microemulsion"
     },
-    "Dow / DOWSIL / XIAMETER|DC Quat Fluid": {
-      "cat": "CAT-01",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No Dow product named 'Quat Fluid' on dow.com; nearest Dow quat is DOWSIL 5-7113 Silicone Quat Microemulsion (INCI Silicone Quaternium-16 (and) Undeceth-11 (and) Butyloctanol (and) Undeceth-5; hair care, not towel softener)"
-    },
     "Dow / DOWSIL / XIAMETER|XIAMETER™ ACP-0001 Antifoam Compound - Food Grade": {
       "cat": "CAT-09",
       "src": "https://www.dow.com/en-us/pdp.xiameter-acp-0001-antifoam-compound-food-grade.01019848z.html",
@@ -2515,13 +2904,6 @@
       "status": "ok",
       "inci": "No INCI (industrial grade) — 20% active food-grade silicone antifoam emulsion, water-dilutable",
       "note": "No INCI on Dow page; also sold as DOWSIL™ AFE-1520 Antifoam Food Additive; paper/pulp not listed as application on Dow page"
-    },
-    "Dow / DOWSIL / XIAMETER|XIAMETER® MEM-0863": {
-      "cat": "CAT-32",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). MEM-0863 not on dow.com; Dow textile/fabric amino emulsions found: XIAMETER MEM-8035 (35% amino), DOWSIL FM-6620 (cationic amine silicone), OFX-8803 (organofunctional textile softener) - no INCI"
     },
     "Dow / DOWSIL / XIAMETER|DOWSIL™ IE 6683 Water Repellent": {
       "cat": "CAT-08",
@@ -2561,13 +2943,6 @@
       "inci": "Dimethicone",
       "note": "Listed as 'DOWSIL™ 200' before 28/10/2026. Dow Corning 200 Fluid now XIAMETER PMX-200 (also DOWSIL 200 Fluid); 0.65 cSt=Disiloxane, 1 cSt=Trisiloxane"
     },
-    "Dow / DOWSIL / XIAMETER|Dow Corning® Silastic RTV": {
-      "cat": "CAT-17",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). 'Silastic RTV' is a brand range (many RTV-1/RTV-2 grades), not a single product - specific grade needed"
-    },
     "Dow / DOWSIL / XIAMETER|DOWSIL™ 3140 RTV Coating": {
       "cat": "CAT-17",
       "src": "https://www.dow.com/en-us/pdp.dowsil-3140-rtv-coating.01015788z.html",
@@ -2595,20 +2970,6 @@
       "inci": "PEG-12 Dimethicone",
       "note": "Listed as 'DOWSIL™ 193' before 28/10/2026. Dow Corning 193 Fluid now XIAMETER OFX-0193; neat fluid, not a microemulsion"
     },
-    "Dow / DOWSIL / XIAMETER|Dow Corning® Thread Lubricant": {
-      "cat": "CAT-23",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No Dow product named 'Thread Lubricant'; Dow lists XIAMETER MEM-0036 (35% PDMS emulsion) for sewing-thread lubrication - PDMS, not a wax emulsion"
-    },
-    "Dow / DOWSIL / XIAMETER|DOWSIL™ Thread Lubricant": {
-      "cat": "CAT-23",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No Dow product named 'Thread Lubricant'; Dow lists XIAMETER MEM-0036 (35% PDMS emulsion) for sewing-thread lubrication - PDMS, not a wax emulsion"
-    },
     "Dow / DOWSIL / XIAMETER|XIAMETER™ PMX-1501 Fluid": {
       "cat": "CAT-25",
       "src": "https://www.dow.com/documents/27/27-1/27-1304-01-dow-hair-and-skin-care.pdf?iframe=true",
@@ -2627,13 +2988,6 @@
       "status": "wrong_family",
       "inci": "Trimethyl Pentaphenyl Trisiloxane",
       "note": "Listed as 'Dow Corning® 555' before 28/10/2026. Legacy DC 555 was a cosmetic phenyl fluid (link to PH-1555 not stated by Dow - verify); not an assembly lubricant emulsion"
-    },
-    "Dow / DOWSIL / XIAMETER|DOWSIL™ 555 Assembly Fluid": {
-      "cat": "CAT-29",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No '555 Assembly Fluid' on dow.com; 555 was a cosmetic phenyl fluid (see Dow Corning 555 row)"
     },
     "Dow / DOWSIL / XIAMETER|DOWSIL™ 9040 Silicone Elastomer Blend": {
       "cat": "CAT-30",
@@ -2803,20 +3157,6 @@
       "inci": "One-component high-strength acetoxy moisture-cure silicone rubber adhesive sealant, grey paste",
       "note": "Momentive TDS RTV157/RTV159 (hosted by distributor); sealant paste, not a reactive fluid"
     },
-    "Momentive|MH-1107": {
-      "cat": "CAT-19",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Not a Momentive code - it is Dow XIAMETER MHX-1107 (methylhydrogen fluid). Momentive SiH fluid is TSF484 (side-chain SiH, 25 mm2/s) per momentive.com/content/dam/momentive/ja-jp/docs/Modifiedsiliconeoilproductcatalog.pdf"
-    },
-    "Momentive|SF1040": {
-      "cat": "CAT-19",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No SF1040 on Momentive pages, Momentive modified-fluid catalog or SpecialChem; Momentive's methylhydrogen fluids are TSF484 / XF40-C3029"
-    },
     "Momentive|SM 2128": {
       "cat": "CAT-15",
       "src": "https://www.momentive.com/docs/default-source/productdocuments/indusil-ess-010/release-solutions-for-molding-challenges_brochure_am.pdf",
@@ -2835,27 +3175,6 @@
       "status": "wrong_family",
       "inci": "Cyclopentasiloxane (and) Dimethiconol",
       "note": "Cosmetic D5/gum blend for hair & skin, not a reactive hydrophobic microemulsion"
-    },
-    "Momentive|Silsoft Nano": {
-      "cat": "CAT-27",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No 'Silsoft Nano' on Momentive personal-care overview, softener/Magnasoft pages or SpecialChem; no Momentive textile nanoemulsion identified"
-    },
-    "Momentive|G661": {
-      "cat": "CAT-29",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Not a Momentive product - G661 is Novagard Versilube silicone grease (filler-thickened, valve/O-ring/electrical), novagard.com/product/g661-silicone-lubricant/"
-    },
-    "Momentive|G662": {
-      "cat": "CAT-29",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Not a Momentive product - G662 is a Novagard silicone compound (novagard.com/download/tds-g662)"
     },
     "Momentive|Silsoft Q PMF emulsion": {
       "cat": "CAT-01",
@@ -2976,20 +3295,6 @@
       "inci": "Dimethicone",
       "note": "checked via Avshi's Chrome 28/10/2026 on the producer site. Shin-Etsu: DM-Fluid series = KF-96 internationally."
     },
-    "Shin-Etsu|KE-12": {
-      "cat": "CAT-17",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Not found on shinetsusilicones.com rtv pages or SpecialChem/UL; likely a Japan-market RTV grade, chemistry unverified"
-    },
-    "Shin-Etsu|KE-14": {
-      "cat": "CAT-17",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Not found on shinetsusilicones.com rtv pages or SpecialChem/UL; likely a Japan-market RTV grade, chemistry unverified"
-    },
     "Shin-Etsu|KF-99P": {
       "cat": "CAT-19",
       "src": "https://www.shinetsusilicone-global.com/guide/cosme/products/kf-99-p/",
@@ -3035,20 +3340,6 @@
       "inci": "Amodimethicone",
       "note": "checked via Avshi's Chrome 28/10/2026 on the producer site. Cosmetic hair-care emulsion (40 % active), not a textile grade."
     },
-    "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL ADM Quat Series": {
-      "cat": "CAT-01",
-      "src": "https://www.wacker.com/cms/en-us/press-and-media/press/press-releases/2016/detail-69570.html",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. BELSIL is Wacker's personal-care brand; Wacker's towel/hydrophilic textile softeners are WETSOFT (e.g. NE 750 = amino-silicone/polyglycol block copolymer, NE 580 microemulsion) - no quat, no INCI."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL Pulp Softener": {
-      "cat": "CAT-03",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. No Wacker paper/tissue softener found (Wacker pulp line PULPSIL is antifoam only)."
-    },
     "Wacker (BELSIL / SILFOAM / SILRES)|SILFOAM SE 2": {
       "cat": "CAT-04",
       "src": "https://wacker.com/h/en-us/medias/SILFOAM-SE-2-en-2024.06.16.pdf",
@@ -3076,13 +3367,6 @@
       "inci": "No INCI (industrial grade) — Silicone antifoam emulsion, emulsifier-rich, predominantly nonionic, ~17 % solids, acid/alkali stable",
       "note": "Textile dyeing, surfactant systems, wastewater; no FDA claim in TDS."
     },
-    "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL MEM 35": {
-      "cat": "CAT-15",
-      "src": "https://www.wacker.com/h/de-de/c/wacker-e35-10000/p/000000809",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. Nearest real Wacker 35 % PDMS emulsions: WACKER E35 100 / E35 10000 (industrial, no INCI)."
-    },
     "Wacker (BELSIL / SILFOAM / SILRES)|WACKER E 10": {
       "cat": "CAT-15",
       "src": "https://www.wacker.com/h/en-us/c/wacker-e-10/p/000001919",
@@ -3092,13 +3376,6 @@
       "inci": "No INCI (industrial grade) — Nonionic o/w emulsion of medium-viscosity polydimethylsiloxane",
       "note": "Listed as 'BELSIL E 10' before 28/10/2026. Active % not stated on page."
     },
-    "Wacker (BELSIL / SILFOAM / SILRES)|WACKER WAX EMULSION C": {
-      "cat": "CAT-07",
-      "src": "https://www.wacker.com/h/en-us/c/wacker-e-32/p/000001928",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. Wacker sells no carnauba emulsions; its only 'wax emulsion' is WACKER E 32 = silicone wax (not carnauba)."
-    },
     "Wacker (BELSIL / SILFOAM / SILRES)|SILRES BS 1701": {
       "cat": "CAT-08",
       "src": "https://wacker.com/h/en-us/c/silres-bs-1701/p/000007965",
@@ -3107,13 +3384,6 @@
       "status": "ok",
       "inci": "No INCI (industrial grade) — Octyltriethoxysilane isomers (mainly iso-octyltriethoxysilane), 100 % solvent-free silane impregnant for concrete",
       "note": "Penetrating silane, not a film-forming polymer dispersion - only partial fit to CAT-08."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|SILRES BS 29A": {
-      "cat": "CAT-08",
-      "src": "https://wacker.com/h/en-gb/c/silres-bs-290/p/000010606",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. Near real codes: SILRES BS 290 (solventless silane/siloxane concentrate) and SILRES BS 30 A (100 % siloxane/resin blend for stone/tile)."
     },
     "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL DM 5 to DM 1000": {
       "cat": "CAT-11",
@@ -3151,20 +3421,6 @@
       "inci": "No INCI (industrial grade) — Addition-curing 2-part RTV-2 silicone rubber, Pt-cured, 9:1, mixed viscosity 3500 mPa.s, crystal clear",
       "note": "Listed as 'ELAFTOSIL RTV' before 28/10/2026. 'ELAFTOSIL' is a misspelling of ELASTOSIL; RT 601 chosen as transparent pourable example."
     },
-    "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL Eco ADM": {
-      "cat": "CAT-18",
-      "src": "https://www.wacker.com/cms/en-de/insights/belsil-eco.html",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. BELSIL eco = bio-methanol mass-balance (TUV Nord) cosmetic DM fluids; textile eco grades are WETSOFT eco 810 LV / WACKER FINISH eco WR 1100/1300 LV - no GOTS claim found."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|SILFIN Organic": {
-      "cat": "CAT-18",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. No SILFIN brand at Wacker."
-    },
     "Wacker (BELSIL / SILFOAM / SILRES)|WACKER L 066": {
       "cat": "CAT-19",
       "src": "https://wacker.com/h/en-gb/medias/WACKER-L-066-en-2024.06.16.pdf",
@@ -3173,76 +3429,6 @@
       "status": "wrong_family",
       "inci": "100 % polysiloxane polyethylene glycol copolymer (polyether siloxane wetting agent), 10-25 mm2/s",
       "note": "Listed as 'WACKER HYDROGEN FLUID L066' before 28/10/2026. Not an Si-H fluid; Wacker methylhydrogen equivalents are SILRES BS 94 (polymethylhydrogensiloxane) and WACKER CROSSLINKER V 24."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|WACKER PE WAX EMULSION": {
-      "cat": "CAT-21",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. Wacker sells no polyethylene wax emulsions."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|WACKER THREAD LUBRICANT 45": {
-      "cat": "CAT-23",
-      "src": "https://www.wacker.com/h/en-us/silicone-fluids-emulsions/silicone-fluid-emulsions/wacker-e-110/p/000001923",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. Wacker's sewing-thread lubricant is WACKER E 110 (nonionic macroemulsion of nonreactive PDMS, not a silicone wax)."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL Feather Care": {
-      "cat": "CAT-26",
-      "src": "https://www.wacker.com/h/en-ae/medias/7617-EN.pdf",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. Wacker textile brochure 7617 has no feather/down product."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL ADM Nano": {
-      "cat": "CAT-27",
-      "src": "https://www.wacker.com/h/en-ae/medias/7617-EN.pdf",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. Wacker textile amino microemulsions (<50 nm): WACKER FINISH CT 34 E / CT 96 E, POWERSOFT PE 280 (no INCI)."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|WACKER PARAFFIN EMULSION": {
-      "cat": "CAT-28",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. Wacker sells no paraffin wax emulsions."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|WACKER ASSEMBLY LUBRICANT": {
-      "cat": "CAT-29",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. No Wacker product with this name; PDMS emulsions (e.g. WACKER E 10, release/lubricant) are nearest."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL Restructure": {
-      "cat": "CAT-31",
-      "src": "https://www.wacker.com/h/en-ae/medias/7617-EN.pdf",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. Wacker anti-pilling/wool restructuring: WACKER FINISH CT 27 E (RTV silicone dispersion), CT 95 E (microemulsion)."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|SILFOAM Non-Silicone": {
-      "cat": "CAT-33",
-      "src": "https://wacker.com/cms/en-de/products/brands/silfoam/silfoam.html",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. SILFOAM is Wacker's silicone-based foam-control brand; no silicone-free grade listed."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL Paper Nano": {
-      "cat": "CAT-34",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. No Wacker paper softening/bulking nanodispersion found."
-    },
-    "Wacker (BELSIL / SILFOAM / SILRES)|WACKER BEESWAX EMULSION": {
-      "cat": "CAT-35",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Searched wacker.com product finder + web; no such Wacker product. Wacker sells no beeswax emulsions."
     },
     "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL TMS 803": {
       "cat": "CAT-36",
@@ -3271,55 +3457,6 @@
       "inci": "Cyclopentasiloxane and Dimethiconol",
       "note": "Listed as 'BELSIL CM' before 28/10/2026. Series prefix, not a product; CM grades are anhydrous D5 gum blends, not reactive microemulsions. INCI from SpecialChem (secondary)."
     },
-    "KCC Corp. / Basil (SeraSense)|TC-Defoamer A": {
-      "cat": "CAT-04",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No 'TC-Defoamer' in KCC/Basildon ranges (SpecialChem 34-product KCC list, momentive.com Basildon docs, web); 'TC-' prefix looks like CHT naming. Real ex-Basildon food antifoam: Esca FD50K (silicone antifoam emulsion 50%, kosher) https://www.momentive.com/docs/default-source/tds/esca-antifoams/esca-fd50k-antifoam-tds.pdf"
-    },
-    "KCC Corp. / Basil (SeraSense)|TC-Release 36": {
-      "cat": "CAT-05",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Not found in KCC/Basildon ranges or web. Real Basildon polish/shine grades: BC 338 (silicone fluid blend + wax, shine/anti-smear), Polish Additive 63, BC 91/023 (60% PDMS nonionic emulsion, release+polish)."
-    },
-    "KCC Corp. / Basil (SeraSense)|SeraSense Hydro": {
-      "cat": "CAT-08",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Not in SeraSense list (51 grades, SpecialChem) nor any KCC range; no KCC surface-restructuring polymer dispersion found."
-    },
-    "KCC Corp. / Basil (SeraSense)|TC-Defoamer FDA": {
-      "cat": "CAT-09",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Not found. Related real ex-Basildon grades: SAG 2226 (100% active silicone-free antifoam, FDA 176.210 paper, BfR) https://momentive.com/docs/default-source/tds/sag/sag-2226-antifoam_tds_07-23-2024.pdf ; Esca FD-series food antifoam emulsions."
-    },
-    "KCC Corp. / Basil (SeraSense)|SeraSense RTV": {
-      "cat": "CAT-17",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). SeraSense is a cosmetic fluid/blend brand; no RTV grade in the 51-product list. KCC Corp does sell RTV/LSR under other codes, not verified here."
-    },
-    "KCC Corp. / Basil (SeraSense)|SeraSense MH": {
-      "cat": "CAT-19",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No 'MH' in SeraSense. Real KCC Basildon equivalent: BC 83/132 = methyl hydrogen polysiloxane, reactive cross-linking fluid (SpecialChem https://www.specialchem.com/coatings/product/kcc-silicone-bc-83-132)."
-    },
-    "KCC Corp. / Basil (SeraSense)|SeraSense TL": {
-      "cat": "CAT-23",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No 'TL' grade in SeraSense list or any KCC range; no KCC sewing-thread lubricant emulsion found."
-    },
     "KCC Corp. / Basil (SeraSense)|SeraSense GB 10": {
       "cat": "CAT-25",
       "src": "https://cosmetics.specialchem.com/selectors/tr-serasense",
@@ -3330,27 +3467,6 @@
       "inci": "Cyclopentasiloxane (and) Dimethicone",
       "note": "Anhydrous gum blend, not a reactive water-based microemulsion; closest INCI to family is SeraSense GB 13 (Cyclopentasiloxane (and) Dimethiconol), also anhydrous."
     },
-    "KCC Corp. / Basil (SeraSense)|SeraSense Nano": {
-      "cat": "CAT-27",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No 'Nano' grade in SeraSense/SeraShine. Nearest KCC amino microemulsion (cosmetic, not textile): SeraShine EM 322C = Amodimethicone (and) C12-14 Pareth-5 (and) C12-14 Pareth-9, nonionic microemulsion."
-    },
-    "KCC Corp. / Basil (SeraSense)|SeraSense AL": {
-      "cat": "CAT-29",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No 'AL' grade found. Real Basildon lubricant/release emulsions: BC 330/60 (60% PDMS emulsion, rubber/plastic release) https://www.momentive.com/docs/default-source/tds/basildondocuments/basildon-chemicals/bc-330-60-silicone-emulsion.pdf"
-    },
-    "KCC Corp. / Basil (SeraSense)|TC-7010": {
-      "cat": "CAT-36",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Not found in KCC/Basildon ranges or web. Real KCC MQ resin blends: SeraSense RB 21 (Dimethicone, Trimethylsiloxysilicate), RB 22 (D5 + TMS), RBS 12 (Isododecane, TMS)."
-    },
     "KCC Corp. / Basil (SeraSense)|SeraSense RB 21": {
       "cat": "CAT-36",
       "src": "https://cosmetics.specialchem.com/selectors/tr-serasense",
@@ -3359,20 +3475,6 @@
       "status": "unconfirmed",
       "inci": "Dimethicone (and) Trimethylsiloxysilicate",
       "note": "Listed as 'SeraSense RB 10' before 28/10/2026. Second-hand source (not the producer page). No RB 10; RB series = RB 21 (D5-free carrier) and RB 22 (Cyclopentasiloxane, Trimethylsiloxysilicate; cyclic). Also SeraSense RBS 12 (Isododecane, TMS)."
-    },
-    "KCC Corp. / Basil (SeraSense)|TC-3028": {
-      "cat": "CAT-37",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Not found in KCC ranges. Real KCC equivalents: SeraSol SC 84 = Cyclopentasiloxane, PEG/PPG-18/18 Dimethicone; SeraSol SC 83-E = Cetyl PEG/PPG-10/1 Dimethicone; SC 80 = PEG/PPG-18/18 Dimethicone (SpecialChem tr-serasol)."
-    },
-    "KCC Corp. / Basil (SeraSense)|SeraSense LA 10": {
-      "cat": "CAT-37",
-      "src": "",
-      "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No 'LA 10' in SeraSense; KCC emulsifiers are the SeraSol SC line (SC 80 PEG/PPG-18/18 Dimethicone, SC 84 in D5, SC 83-E Cetyl PEG/PPG-10/1 Dimethicone) https://cosmetics.specialchem.com/selectors/tr-serasol"
     },
     "KCC Corp. / Basil (SeraSense)|SeraSense SQ 40": {
       "cat": "CAT-01",
@@ -3570,7 +3672,7 @@
   },
   "inci_check_meta": {
     "date": "28/10/2026",
-    "checked": 212,
-    "method": "27/10: 136 codes on producer pages. 28/10: all remaining codes of Dow/XIAMETER, Momentive, Shin-Etsu, Wacker, KCC/Basildon + gap fill incl. NuSil — producer page/TDS = ✓; distributor/SpecialChem = ⚠ 'second-hand'; industrial grades: 'No INCI (industrial grade)' + producer chemistry; not-found codes kept as ⚠ removal candidates for Avshi's approval."
+    "checked": 168,
+    "method": "27/10: 136 codes on producer pages. 28/10: all remaining codes of Dow/XIAMETER, Momentive, Shin-Etsu, Wacker, KCC/Basildon + gap fill incl. NuSil — producer page/TDS = ✓; distributor/SpecialChem = ⚠ 'second-hand'; industrial grades: 'No INCI (industrial grade)' + producer chemistry; not-found codes kept as ⚠ removal candidates for Avshi's approval. 29/10: 44 not-found codes hidden (moved to rows[].removed, restorable) on Avshi's approval."
   }
 }
