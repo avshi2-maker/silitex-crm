@@ -69,8 +69,8 @@ Mock-up (Design canvas, 3 boards: inbox · routing rules · flow): https://claud
 - Green-API Business ~690 RUB ≈ $8–9/mo — linked-device (like WhatsApp Web), unofficial → ban risk on the main number. Free dev tier (3 chats) for testing.
 - Whapi.cloud ~$29/mo — same linked-device method, better support/docs, same risk.
 - 360dialog Cloud API coexistence ~€49–99/mo + Meta fees — official, app keeps working, app messages mirrored; open app every 13 days; WhatsApp Web/desktop companions get unlinked.
-**Recommendation:** test Green-API free tier on a spare number first → then decide official vs $9.
-**Hub build:** new app (Supabase + Vercel), each CRM gets one ingest API endpoint. ~1 week.
+**DECISION 29/10/2026 (Avshi):** NO paid bridge for now — not taking the $9 Green-API ban risk on 050, and not paying for 360dialog yet. Messages enter the Hub by paste / share from phone. Re-evaluate in ~3 months (late 01/2027) using the Hub's own message count per week: if paste volume is high enough to justify ~$59/mo, go official (360dialog coexistence).
+**Hub build:** STARTED 29/10/2026 — new app sapirim-hub (Hub inbox + Artfloor CRM + AI Architect CRM), paste-in mode.
 
 ## 🅿️ Industrial epoxy mini-CRM — build NEXT WEEK (from 02/11/2026)
 Basic: leads, contacts, site visit (m², substrate, photos), quote, status, tasks. Same stack as other CRMs; ingest endpoint ready for the WhatsApp Hub. Current epoxy work stays as-is until then.
