@@ -53,3 +53,24 @@ Idea: one tab in "לקוחות ומכירות": who + type + date → notes box 
 Since v0.99.0 every competitor code not from a verified source shows 🟨 "⚠ לא מאומת" (CRM, meeting sheet, search, post studio, public portal).
 Verified today: Silitex column · Silitex official cosmetic countertype leaflet (Dow/BRB/Momentive/Wacker) · NuSil CareSil docs (2013–2016) · Sapirim Dow purchasing 2010–2013 (INCI of every Dow product bought).
 **Plan:** one producer at a time with Claude web search against the producer's own data sheet / product page — start Dow (biggest, and the market-table Dow column has known errors, e.g. Dow 556 under quaternary microemulsions), then Wacker, Momentive, Shin-Etsu, Evonik … Each confirmed code → listed in `verified_producers` / per-code verified list in offsets.json with the source URL → ✓, notice disappears. Wrong codes → corrected or cleared ("? לא ידוע"). Never mark ✓ without a producer source.
+
+## 🅿️ Federica Expo phone kit — offer to build, needs Federica + Silitex owners OK — PARKED 29/10/2026
+Idea: turn the Expo Ready packs into a phone tool Federica uses ON the stand floor (Fi Europe 17–19/11, Paint & Coatings 18–19/11).
+**Modules:** day route per hall (stand-by-stand, tick done) · stand brief card (fit, 3 opening questions, avoid) · business-card scan → contact · voice note → AI summary + next step · one-tap follow-up mail draft (Outlook, English) · product encyclopedia / countertype search offline · e-card / QR of Silitex.
+**Reuse:** /expo field mode on silitex-field.marble-art.co.il (encyclopedia, meeting + AI, contacts, e-card) + src/data/expo-ready/*.json.
+**Blocker:** Silitex IT blocks our CRM domain → deliver as separate domain or installable PWA on her private phone; or NotebookLM-only fallback.
+**Status:** offer mail drafted 29/10 (plain English, Outlook). Build only after Federica AND Silitex owners approve. ~2–3 days build. Deadline to decide: ~05/11 (needs testing before 17/11).
+
+## 🅿️ WhatsApp Central Hub — all WA messages → one inbox → TAG → right CRM — PARKED 29/10/2026
+Mock-up (Design canvas, 3 boards: inbox · routing rules · flow): https://claude.ai/artifact/BibmNPhNKP8e455n9JKk4x
+**Destinations (7 tags):** NutriClinic · Marble Art sinks · Artfloor · Industrial epoxy (new mini-CRM) · Silitex · AI Architect leads (new, FB + personal site) · Personal (never routed).
+**Routing order:** 1) number already in a CRM → auto · 2) source code in WA button text (#NUTRI #SINK #ART #EPOXY #SIL #AI) → auto · 3) keywords + AI with % → confirm (auto >90% optional) · 4) unknown → manual, remembered per number.
+**Bridge options (050-5231042, WhatsApp Business app):**
+- Green-API Business ~690 RUB ≈ $8–9/mo — linked-device (like WhatsApp Web), unofficial → ban risk on the main number. Free dev tier (3 chats) for testing.
+- Whapi.cloud ~$29/mo — same linked-device method, better support/docs, same risk.
+- 360dialog Cloud API coexistence ~€49–99/mo + Meta fees — official, app keeps working, app messages mirrored; open app every 13 days; WhatsApp Web/desktop companions get unlinked.
+**Recommendation:** test Green-API free tier on a spare number first → then decide official vs $9.
+**Hub build:** new app (Supabase + Vercel), each CRM gets one ingest API endpoint. ~1 week.
+
+## 🅿️ Industrial epoxy mini-CRM — build NEXT WEEK (from 02/11/2026)
+Basic: leads, contacts, site visit (m², substrate, photos), quote, status, tasks. Same stack as other CRMs; ingest endpoint ready for the WhatsApp Hub. Current epoxy work stays as-is until then.
