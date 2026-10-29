@@ -2085,12 +2085,12 @@
     },
     "Shin-Etsu|KF-96H (12,500cs - 1,000,000cs)": {
       "cat": "CAT-12",
-      "src": "https://www.specialchem.com/cosmetics/supplier/shin-etsu/all-products?tr=ksg-42a",
+      "src": "https://www.shinetsusilicone-global.com/guide/cosme/products/kf-96h-100000cs/",
       "checked": "28/10/2026",
       "chemistry": "High-viscosity linear polydimethylsiloxane fluid",
-      "status": "unconfirmed",
+      "status": "ok",
       "inci": "Dimethicone",
-      "note": "Second-hand source (not the producer page). KF-96H-500,000cs listed INCI DIMETHICONE (SpecialChem); other viscosities not individually checked"
+      "note": "checked via Avshi's Chrome 28/10/2026 on the producer site."
     },
     "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL DM 500,000": {
       "cat": "CAT-12",
@@ -2264,13 +2264,13 @@
     },
     "Shin-Etsu|KSG-16": {
       "cat": "CAT-30",
-      "src": "https://www.specialchem.com/cosmetics/product/dksh-ksg-16-sf",
+      "src": "https://www.shinetsusilicone-global.com/guide/cosme/products/ksg-16/",
       "checked": "28/10/2026",
       "cyclic": false,
       "chemistry": "Non-emulsifying silicone elastomer gel in dimethicone",
-      "status": "unconfirmed",
-      "inci": "Dimethicone (and) Dimethicone/Vinyl Dimethicone Crosspolymer",
-      "note": "Second-hand source (not the producer page). INCI from distributor DKSH page for KSG-16-SF; D5 version is KSG-15 (Cyclopentasiloxane (and) Dimethicone/Vinyl Dimethicone Crosspolymer)"
+      "status": "ok",
+      "inci": "Dimethicone/Vinyl Dimethicone Crosspolymer (and) Dimethicone",
+      "note": "checked via Avshi's Chrome 28/10/2026 on the producer site. Base oil KF-96A-6CS (D5-free)."
     },
     "Shin-Etsu|USG-103": {
       "cat": "CAT-30",
@@ -2406,7 +2406,7 @@
       "checked": "28/10/2026",
       "chemistry": "50% active emulsification vehicle for W/Si and W/O emulsions (UL Prospector)",
       "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Product is real (also KF-6050L) but no page found stating its INCI"
+      "note": "Real product — Shin-Etsu TDS KF-6050.pdf on shinetsusilicone-global.com (checked via Avshi's Chrome 28/10/2026 on the producer site.) INCI not read yet (PDF). Not a removal candidate."
     },
     "Momentive|Silsoft 900": {
       "cat": "CAT-37",
@@ -2891,7 +2891,7 @@
       "chemistry": "Naturally derived long-chain branched alkane emollient",
       "status": "unconfirmed",
       "inci": "C32-54 Isoalkanes",
-      "note": "Listed as 'Harmonie NatuDerma' before 28/10/2026. Second-hand source (not the producer page). Momentive press release confirms 'long chain branched alkane'; INCI from SpecialChem TDS listing"
+      "note": "Product confirmed on momentive.com; INCI still from SpecialChem. Listed as 'Harmonie NatuDerma' before 28/10/2026. Second-hand source (not the producer page). Momentive press release confirms 'long chain branched alkane'; INCI from SpecialChem TDS listing"
     },
     "Momentive|SFE839": {
       "cat": "CAT-30",
@@ -2915,19 +2915,20 @@
     },
     "Shin-Etsu|KM-72": {
       "cat": "CAT-04",
-      "src": "",
+      "src": "https://www.silicone.jp/guide/defoamer/km-72/",
       "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). Not on shinetsusilicones.com print pages nor SpecialChem Shin-Etsu defoamer list (KM-70/71/73/73A/73E/75/7750/7752/85/89/90/98); may be a Japan-only grade, unverified"
+      "status": "ok",
+      "note": "checked via Avshi's Chrome 28/10/2026 on the producer site.",
+      "inci": "No INCI (industrial grade) — silicone emulsion defoamer, 36 % active; food-industry grade (food additive under Japan's Food Sanitation Act) + general industrial; halal"
     },
     "Shin-Etsu|KM-73": {
       "cat": "CAT-09",
-      "src": "https://coatings.specialchem.com/searchsites/searchproducts/a-inks/pf-emulsion/s-shin-etsu/t-coatings",
+      "src": "https://www.silicone.jp/guide/defoamer/km-72/ (related products table)",
       "checked": "28/10/2026",
       "chemistry": "Silicone emulsion defoaming agent",
       "status": "wrong_family",
-      "inci": "Silicone emulsion defoaming agent",
-      "note": "Water emulsion, not 100% active self-emulsifying; no FDA claim found. Shin-Etsu self-emulsifying grades are KS-530/KS-531 (SpecialChem)"
+      "inci": "No INCI (industrial grade) — silicone emulsion defoamer, 19 % active, wastewater / general industrial",
+      "note": "Real product, checked via Avshi's Chrome 28/10/2026 on the producer site.  Family fit: see earlier note. Water emulsion, not 100% active self-emulsifying; no FDA claim found. Shin-Etsu self-emulsifying grades are KS-530/KS-531 (SpecialChem)"
     },
     "Shin-Etsu|KM-9729": {
       "cat": "CAT-23",
@@ -2951,28 +2952,29 @@
     },
     "Shin-Etsu|KBE-3083": {
       "cat": "CAT-08",
-      "src": "",
+      "src": "https://www.silicone.jp/guide/silane/kbe-3083/",
       "checked": "28/10/2026",
-      "status": "unconfirmed",
-      "note": "Not found in reachable sources 28/10/2026 — removal candidate (Avshi to approve). No page found stating KBE-3083 chemistry (SpecialChem KBE list shows 846/503/402/403/585/903/1003/502/9007). Cosmetic sister AES-3083 = Triethoxycaprylylsilane, so KBE-3083 is probably octyltriethoxysilane - UNVERIFIED"
+      "status": "ok",
+      "note": "checked via Avshi's Chrome 28/10/2026 on the producer site.",
+      "inci": "No INCI (industrial grade) — Octyltriethoxysilane (alkyl silane, water repellency)"
     },
     "Shin-Etsu|KF-96A (5cs - 1000cs)": {
       "cat": "CAT-11",
-      "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/b-protections/s-shin-etsu",
+      "src": "https://www.shinetsusilicone-global.com/guide/cosme/products/kf-96a-6cs/",
       "checked": "28/10/2026",
       "chemistry": "Linear polydimethylsiloxane fluid",
-      "status": "unconfirmed",
+      "status": "ok",
       "inci": "Dimethicone",
-      "note": "Second-hand source (not the producer page). KF-96A-10/20/30/100/200/300/1,000/3,000cs all listed INCI DIMETHICONE (SpecialChem); D4/D5 content not stated"
+      "note": "checked via Avshi's Chrome 28/10/2026 on the producer site."
     },
     "Shin-Etsu|DM-Fluid": {
       "cat": "CAT-11",
-      "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/a-sun-care-sun-protection/s-shin-etsu/c-ingredients-silicones-silicone-fluids",
+      "src": "https://www.shinetsusilicones.com/fluid.aspx?ID=DM-Fluid-1 · https://www.shinetsusilicone-global.com/guide/cosme/products/kf-96a-6cs/",
       "checked": "28/10/2026",
       "chemistry": "Linear polydimethylsiloxane fluid (cosmetic grade)",
-      "status": "unconfirmed",
+      "status": "ok",
       "inci": "Dimethicone",
-      "note": "Second-hand source (not the producer page). DM-FLUID 1.5 to 5,000cs and DM-FLUID-A grades all listed INCI DIMETHICONE (SpecialChem)"
+      "note": "checked via Avshi's Chrome 28/10/2026 on the producer site. Shin-Etsu: DM-Fluid series = KF-96 internationally."
     },
     "Shin-Etsu|KE-12": {
       "cat": "CAT-17",
@@ -2990,12 +2992,12 @@
     },
     "Shin-Etsu|KF-99P": {
       "cat": "CAT-19",
-      "src": "https://www.specialchem.com/cosmetics/product/shin-etsu-kf-99p",
+      "src": "https://www.shinetsusilicone-global.com/guide/cosme/products/kf-99-p/",
       "checked": "28/10/2026",
       "chemistry": "Methylhydrogen polysiloxane (powder surface treatment)",
-      "status": "unconfirmed",
+      "status": "ok",
       "inci": "Methicone",
-      "note": "Second-hand source (not the producer page). SpecialChem heading 'Methicone'; UL Prospector (SESA) describes methylhydrogen structure powder treatment"
+      "note": "checked via Avshi's Chrome 28/10/2026 on the producer site."
     },
     "Shin-Etsu|AES-3083": {
       "cat": "CAT-19",
@@ -3026,12 +3028,12 @@
     },
     "Shin-Etsu|X-52-2265": {
       "cat": "CAT-24",
-      "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-shin-etsu/c-ingredients-silicones-silicone-emulsions",
+      "src": "https://www.shinetsusilicone-global.com/guide/cosme/products/x-52-2265/",
       "checked": "28/10/2026",
       "chemistry": "Nonionic emulsion of amino-modified silicone oil (cosmetic)",
-      "status": "unconfirmed",
+      "status": "ok",
       "inci": "Amodimethicone",
-      "note": "Added 28/10/2026 (gap fill). Second-hand source (not the producer page). Cosmetic hair-care grade, not a textile macroemulsion; D4/D5 content not stated; 2nd option X-52-2328 = Dimethicone, Aqua, Aminopropyl Dimethicone, Laureth-23, Butylene Glycol, Laureth-4 (nonionic amino emulsion, no cyclics in INCI) https://www.specialchem.com/cosmetics/product/shin-etsu-x-52-2328"
+      "note": "checked via Avshi's Chrome 28/10/2026 on the producer site. Cosmetic hair-care emulsion (40 % active), not a textile grade."
     },
     "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL ADM Quat Series": {
       "cat": "CAT-01",
@@ -3434,7 +3436,7 @@
       "chemistry": "Silicone polyethers (100% fluids, not microemulsions)",
       "status": "unconfirmed",
       "inci": "PEG-12 Dimethicone",
-      "note": "Added 28/10/2026 (gap fill). Second-hand source (not the producer page). Also SC 81 L (PEG-12 Dimethicone), SC 93 Bis-PEG-12 Dimethicone."
+      "note": "Product confirmed on kccsilicone.com Technical Data list (TDS SM3220P / SM3320PA); INCI still from SpecialChem (TDS = PDF download). Added 28/10/2026 (gap fill). Second-hand source (not the producer page). Also SC 81 L (PEG-12 Dimethicone), SC 93 Bis-PEG-12 Dimethicone."
     },
     "KCC Corp. / Basil (SeraSense)|SeraSol SC 86A": {
       "cat": "CAT-20",
@@ -3443,7 +3445,7 @@
       "chemistry": "Silicone polyethers (100% fluids, not microemulsions)",
       "status": "unconfirmed",
       "inci": "PEG-10 Dimethicone",
-      "note": "Added 28/10/2026 (gap fill). Second-hand source (not the producer page). Also SC 81 L (PEG-12 Dimethicone), SC 93 Bis-PEG-12 Dimethicone."
+      "note": "Product confirmed on kccsilicone.com Technical Data list (TDS SM3220P / SM3320PA); INCI still from SpecialChem (TDS = PDF download). Added 28/10/2026 (gap fill). Second-hand source (not the producer page). Also SC 81 L (PEG-12 Dimethicone), SC 93 Bis-PEG-12 Dimethicone."
     },
     "KCC Corp. / Basil (SeraSense)|Antifoam V12": {
       "cat": "CAT-33",
@@ -3564,69 +3566,6 @@
       "status": "ok",
       "inci": "Dimethicone",
       "note": "Added 28/10/2026 (gap fill). Neat fluid, not an emulsion; healthcare-grade rubber/plastic lubricant"
-    },
-    "Dow / DOWSIL / XIAMETER|XIAMETER® PMX-0245": {
-      "cat": "CAT-10",
-      "status": "ok",
-      "inci": "Cyclopentasiloxane",
-      "cyclic": true,
-      "src": "Sapirim Dow purchase records 2010–2013 (PMX-0245 Cyclopentasiloxan)",
-      "checked": "28/10/2026",
-      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
-    },
-    "Dow / DOWSIL / XIAMETER|XIAMETER® PMX-200 Silicone Fluid (5-1,000 cSt)": {
-      "cat": "CAT-11",
-      "status": "ok",
-      "inci": "Dimethicone",
-      "cyclic": false,
-      "src": "Sapirim Dow purchase records 2010–2013 (PMX-200 Sil Fluid 350cs)",
-      "checked": "28/10/2026",
-      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
-    },
-    "Dow / DOWSIL / XIAMETER|XIAMETER® PMX-200 Silicone Fluid (12,500-2,000,000 cSt)": {
-      "cat": "CAT-12",
-      "status": "ok",
-      "inci": "Dimethicone",
-      "cyclic": false,
-      "src": "Sapirim Dow purchase records 2010–2013 (PMX-200 Sil Fluid 350cs)",
-      "checked": "28/10/2026",
-      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
-    },
-    "Dow / DOWSIL / XIAMETER|XIAMETER® OFX-0193": {
-      "cat": "CAT-20",
-      "status": "ok",
-      "inci": "PEG-12 Dimethicone",
-      "cyclic": false,
-      "src": "Sapirim Dow purchase records 2010–2013 (OFX-0193 FLUID)",
-      "checked": "28/10/2026",
-      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
-    },
-    "Dow / DOWSIL / XIAMETER|XIAMETER® PMX-200": {
-      "cat": "CAT-23",
-      "status": "ok",
-      "inci": "Dimethicone",
-      "cyclic": false,
-      "src": "Sapirim Dow purchase records 2010–2013 (PMX-200 Sil Fluid 350cs)",
-      "checked": "28/10/2026",
-      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
-    },
-    "Dow / DOWSIL / XIAMETER|XIAMETER® PMX-1501": {
-      "cat": "CAT-25",
-      "status": "ok",
-      "inci": "Cyclopentasiloxane and Dimethiconol",
-      "cyclic": true,
-      "src": "Sapirim Dow purchase records 2010–2013 (PMX-1501 Fluid)",
-      "checked": "28/10/2026",
-      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
-    },
-    "Dow / DOWSIL / XIAMETER|Dow Corning® MQ-1600 Solid Resin": {
-      "cat": "CAT-36",
-      "status": "ok",
-      "inci": "trimethylsiloxysilicate",
-      "cyclic": false,
-      "src": "Sapirim Dow purchase records 2010–2013 (MQ-1600 Solid Resin)",
-      "checked": "28/10/2026",
-      "note": "Same product Sapirim bought from Dow 2010–2013; INCI from those records."
     }
   },
   "inci_check_meta": {
