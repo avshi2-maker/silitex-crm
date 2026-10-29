@@ -3674,5 +3674,335 @@
     "date": "28/10/2026",
     "checked": 168,
     "method": "27/10: 136 codes on producer pages. 28/10: all remaining codes of Dow/XIAMETER, Momentive, Shin-Etsu, Wacker, KCC/Basildon + gap fill incl. NuSil — producer page/TDS = ✓; distributor/SpecialChem = ⚠ 'second-hand'; industrial grades: 'No INCI (industrial grade)' + producer chemistry; not-found codes kept as ⚠ removal candidates for Avshi's approval. 29/10: 44 not-found codes hidden (moved to rows[].removed, restorable) on Avshi's approval."
+  },
+  "none_checks": {
+    "Dow / DOWSIL / XIAMETER|CAT-03": {
+      "checked": "28/10/2026",
+      "note": "No equivalent Dow product found on dow.com"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-07": {
+      "checked": "28/10/2026",
+      "note": "No equivalent Dow product found on dow.com"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-14": {
+      "checked": "28/10/2026",
+      "note": "No equivalent Dow product found on dow.com"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-16": {
+      "checked": "28/10/2026",
+      "note": "No equivalent Dow product found on dow.com"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-18": {
+      "checked": "28/10/2026",
+      "note": "No GOTS/ICEA-certified Dow textile finish found"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-21": {
+      "checked": "28/10/2026",
+      "note": "Dow sells HYPOD polyolefin dispersions (barrier coatings), not PE wax micro/nanoemulsions"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-22": {
+      "checked": "28/10/2026",
+      "note": "No equivalent Dow product found on dow.com"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-26": {
+      "checked": "28/10/2026",
+      "note": "No equivalent Dow product found on dow.com"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-27": {
+      "checked": "28/10/2026",
+      "note": "No amino nanoemulsion found; nearest XIAMETER OFX-8803 Fluid (organofunctional textile softener, can be microemulsified) / MEM-8203 amido microemulsion"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-28": {
+      "checked": "28/10/2026",
+      "note": "No equivalent Dow product found on dow.com"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-31": {
+      "checked": "28/10/2026",
+      "note": "No restructuring anti-pilling microemulsion found on dow.com"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-34": {
+      "checked": "28/10/2026",
+      "note": "No paper/tissue silicone nanodispersion found on dow.com"
+    },
+    "Dow / DOWSIL / XIAMETER|CAT-35": {
+      "checked": "28/10/2026",
+      "note": "No equivalent Dow product found on dow.com"
+    },
+    "Momentive|CAT-03": {
+      "checked": "28/10/2026",
+      "note": "No Momentive paper/pulp softener found"
+    },
+    "Momentive|CAT-07": {
+      "checked": "28/10/2026",
+      "note": "No such product in Momentive silicone portfolio found"
+    },
+    "Momentive|CAT-13": {
+      "checked": "28/10/2026",
+      "note": "No such product in Momentive silicone portfolio found"
+    },
+    "Momentive|CAT-18": {
+      "checked": "28/10/2026",
+      "note": "No GOTS/ICEA-certified Momentive textile finish found (Magnasoft pages mention REACH/low cyclics only)"
+    },
+    "Momentive|CAT-21": {
+      "checked": "28/10/2026",
+      "note": "No such product in Momentive silicone portfolio found"
+    },
+    "Momentive|CAT-22": {
+      "checked": "28/10/2026",
+      "note": "No such product in Momentive silicone portfolio found"
+    },
+    "Momentive|CAT-26": {
+      "checked": "28/10/2026",
+      "note": "No such product in Momentive silicone portfolio found"
+    },
+    "Momentive|CAT-28": {
+      "checked": "28/10/2026",
+      "note": "No such product in Momentive silicone portfolio found"
+    },
+    "Momentive|CAT-31": {
+      "checked": "28/10/2026",
+      "note": "No Momentive anti-pilling/restructuring microemulsion found"
+    },
+    "Momentive|CAT-33": {
+      "checked": "28/10/2026",
+      "note": "Momentive industrial antifoam page lists only silicone-based antifoams (SAG, PDMS, compounds, polyether, fluorosilicone)"
+    },
+    "Momentive|CAT-34": {
+      "checked": "28/10/2026",
+      "note": "No such product in Momentive silicone portfolio found"
+    },
+    "Momentive|CAT-35": {
+      "checked": "28/10/2026",
+      "note": "No such product in Momentive silicone portfolio found"
+    },
+    "Shin-Etsu|CAT-01": {
+      "checked": "28/10/2026",
+      "note": "No Shin-Etsu silicone quat microemulsion found on SESA/SpecialChem/UL"
+    },
+    "Shin-Etsu|CAT-03": {
+      "checked": "28/10/2026",
+      "note": "Non-silicone chemistry; Shin-Etsu (silicone producer) has no such product"
+    },
+    "Shin-Etsu|CAT-07": {
+      "checked": "28/10/2026",
+      "note": "Non-silicone chemistry; Shin-Etsu (silicone producer) has no such product"
+    },
+    "Shin-Etsu|CAT-13": {
+      "checked": "28/10/2026",
+      "note": "Non-silicone chemistry; Shin-Etsu (silicone producer) has no such product"
+    },
+    "Shin-Etsu|CAT-14": {
+      "checked": "28/10/2026",
+      "note": "Non-silicone chemistry; Shin-Etsu (silicone producer) has no such product"
+    },
+    "Shin-Etsu|CAT-16": {
+      "checked": "28/10/2026",
+      "note": "Non-silicone chemistry; Shin-Etsu (silicone producer) has no such product"
+    },
+    "Shin-Etsu|CAT-18": {
+      "checked": "28/10/2026",
+      "note": "No GOTS/ICEA-certified Shin-Etsu textile finish found"
+    },
+    "Shin-Etsu|CAT-21": {
+      "checked": "28/10/2026",
+      "note": "Non-silicone chemistry; Shin-Etsu (silicone producer) has no such product"
+    },
+    "Shin-Etsu|CAT-22": {
+      "checked": "28/10/2026",
+      "note": "Non-silicone chemistry; Shin-Etsu (silicone producer) has no such product"
+    },
+    "Shin-Etsu|CAT-26": {
+      "checked": "28/10/2026",
+      "note": "No feather/down silicone product found"
+    },
+    "Shin-Etsu|CAT-28": {
+      "checked": "28/10/2026",
+      "note": "Non-silicone chemistry; Shin-Etsu (silicone producer) has no such product"
+    },
+    "Shin-Etsu|CAT-31": {
+      "checked": "28/10/2026",
+      "note": "No anti-pilling restructuring textile microemulsion found"
+    },
+    "Shin-Etsu|CAT-33": {
+      "checked": "28/10/2026",
+      "note": "Shin-Etsu defoamers are silicone-based; no silicone-free defoamer"
+    },
+    "Shin-Etsu|CAT-34": {
+      "checked": "28/10/2026",
+      "note": "No Shin-Etsu paper softening nanodispersion found"
+    },
+    "Shin-Etsu|CAT-35": {
+      "checked": "28/10/2026",
+      "note": "Non-silicone chemistry; Shin-Etsu (silicone producer) has no such product"
+    },
+    "Wacker (BELSIL / SILFOAM / SILRES)|CAT-13": {
+      "checked": "28/10/2026",
+      "note": "No Wacker perfume/odor-absorbing emulsion. Adjacent only: CAVAMAX W7 beta-cyclodextrin powder (fragrance retention), not an emulsion."
+    },
+    "Wacker (BELSIL / SILFOAM / SILRES)|CAT-14": {
+      "checked": "28/10/2026",
+      "note": "No plant-based eco-softener emulsion. Adjacent: BELNEXT EMO FH 2 (bio-based cosmetic emollient, 2026; INCI not published in Wacker release)."
+    },
+    "Wacker (BELSIL / SILFOAM / SILRES)|CAT-16": {
+      "checked": "28/10/2026",
+      "note": "No 100 % plant-based biodegradable softener; BELSIL eco / WETSOFT eco are bio-methanol mass-balance silicones, chemically identical to fossil grades."
+    },
+    "Wacker (BELSIL / SILFOAM / SILRES)|CAT-22": {
+      "checked": "28/10/2026",
+      "note": "Wacker sells no lanolin dispersions; wool finishing uses silicone (WACKER FINISH CT 95 E)."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-03": {
+      "checked": "28/10/2026",
+      "note": "No KCC/Basildon ester-quat or paper softener found."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-07": {
+      "checked": "28/10/2026",
+      "note": "No carnauba emulsion in KCC/Basildon ranges."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-13": {
+      "checked": "28/10/2026",
+      "note": "Not a KCC product area."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-14": {
+      "checked": "28/10/2026",
+      "note": "No plant-based emollient emulsion found."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-16": {
+      "checked": "28/10/2026",
+      "note": "No bio-based equivalent found."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-18": {
+      "checked": "28/10/2026",
+      "note": "No GOTS/ICEA-certified KCC textile finish found."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-21": {
+      "checked": "28/10/2026",
+      "note": "No PE wax emulsion found."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-22": {
+      "checked": "28/10/2026",
+      "note": "Not a KCC product area."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-24": {
+      "checked": "28/10/2026",
+      "note": "No textile amino macroemulsion found. Cosmetic-only analogue: SeraShine EM 301-A / EM 321-E (Amodimethicone, Trideceth-12, Cetrimonium Chloride; cationic macroemulsion, hair care; D4/D5 not stated)."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-26": {
+      "checked": "28/10/2026",
+      "note": "Not found."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-28": {
+      "checked": "28/10/2026",
+      "note": "Not found."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-31": {
+      "checked": "28/10/2026",
+      "note": "Not found."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-34": {
+      "checked": "28/10/2026",
+      "note": "Not found."
+    },
+    "KCC Corp. / Basil (SeraSense)|CAT-35": {
+      "checked": "28/10/2026",
+      "note": "Not found (BC 338 is silicone fluids + small wax, not beeswax emulsion)."
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-01": {
+      "checked": "28/10/2026",
+      "note": "No quaternary/quat-silicone microemulsion in NuSil (CareSil, healthcare or specialty polymer) ranges (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-03": {
+      "checked": "28/10/2026",
+      "note": "NuSil has no paper/pulp softener emulsions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-05": {
+      "checked": "28/10/2026",
+      "note": "No automotive polish/hydrophobic emulsion products (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-06": {
+      "checked": "28/10/2026",
+      "note": "No textile amino microemulsions; no amine-functional silicones in product guide (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-07": {
+      "checked": "28/10/2026",
+      "note": "No carnauba wax products (non-silicone) (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-08": {
+      "checked": "28/10/2026",
+      "note": "No construction/surface consolidating silane-siloxane dispersions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-09": {
+      "checked": "28/10/2026",
+      "note": "Simethicone grades (MED-340) are pharma/food; no paper-pulp self-emulsifying FDA defoamer line (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-13": {
+      "checked": "28/10/2026",
+      "note": "No fragrance/odor-control emulsions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-14": {
+      "checked": "28/10/2026",
+      "note": "No plant-based emollient/softener emulsions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-16": {
+      "checked": "28/10/2026",
+      "note": "No bio-based non-silicone technology (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-18": {
+      "checked": "28/10/2026",
+      "note": "No GOTS/ICEA textile auxiliaries (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-21": {
+      "checked": "28/10/2026",
+      "note": "No polyethylene wax emulsions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-22": {
+      "checked": "28/10/2026",
+      "note": "No lanolin dispersions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-23": {
+      "checked": "28/10/2026",
+      "note": "No sewing-thread lubricant emulsions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-24": {
+      "checked": "28/10/2026",
+      "note": "No amodimethicone/amino macroemulsion product (amodimethicone only a minor component in CES-1104 gel) (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-26": {
+      "checked": "28/10/2026",
+      "note": "No feather/down conditioning products (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-27": {
+      "checked": "28/10/2026",
+      "note": "No textile nanoemulsions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-28": {
+      "checked": "28/10/2026",
+      "note": "No paraffin wax emulsions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-31": {
+      "checked": "28/10/2026",
+      "note": "No textile restructuring microemulsions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-32": {
+      "checked": "28/10/2026",
+      "note": "No amino silicone softener microemulsions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-33": {
+      "checked": "28/10/2026",
+      "note": "No non-silicone defoamers (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-34": {
+      "checked": "28/10/2026",
+      "note": "No paper nanodispersions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-35": {
+      "checked": "28/10/2026",
+      "note": "No beeswax emulsions (searched nusil/avantorsciences product guide + CareSil range)"
+    },
+    "NuSil (Avantor NuSil Technology)|CAT-36": {
+      "checked": "28/10/2026",
+      "note": "No MQ/trimethylsiloxysilicate or silsesquioxane film former found; only reactive resins (CF-4721 MTD vinyl resin, XL-111 methyl hydride resin) for elastomer cure (searched nusil/avantorsciences product guide + CareSil range)"
+    }
   }
 }

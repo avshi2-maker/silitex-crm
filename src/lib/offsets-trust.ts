@@ -1,4 +1,4 @@
-// offsets-trust.ts (src/lib/offsets-trust.ts) · updated 27.10.2026 07:10 (Asia/Jerusalem) — v1.1.0 per-code INCI checks (136 main-producer codes checked one by one on producer pages: ✓ ok / ⚠ unconfirmed / wrong family; fake codes removed from the table) · created 26.10.2026 11:10 — v0.99.0
+// offsets-trust.ts (src/lib/offsets-trust.ts) · updated 29.10.2026 05:30 (Asia/Jerusalem) — + noneOf (empty cell checked: producer has no equivalent) · 27.10.2026 07:10 — v1.1.0 per-code INCI checks (136 main-producer codes checked one by one on producer pages: ✓ ok / ⚠ unconfirmed / wrong family; fake codes removed from the table) · created 26.10.2026 11:10 — v0.99.0
 // TRUTH RULE (Avshi 26/10/2026: "100% real data — where we don't know, a yellow notice, so our claim is true").
 // Verified sources only: Silitex column (silitex.it + 2026 catalogues, 12–13/10/2026) · Silitex OFFICIAL cosmetic countertype leaflet
 // (Federica 19/10/2026: Dow / BRB / Momentive / Wacker per cosmetic product) · NuSil column (CareSil documents 2013–2016).
@@ -34,5 +34,9 @@ export const checkOf = (producer: string, code: string): InciCheck | undefined =
 export const isVerifiedCode = (producer: string, code: string) => isVerifiedProducer(producer) || checkOf(producer, code)?.status === "ok";
 /** "A / B / C" → ["A","B","C"] */
 export const splitCell = (s?: string) => (s || "").split(/\s+\/\s+/).map((x) => x.trim()).filter(Boolean);
+// ── 29/10/2026: empty producer cells that were CHECKED — the producer really has no product for this family (offsets.json → none_checks) ──
+const NONE = ((offsets as { none_checks?: Record<string, { checked: string; note: string }> }).none_checks) || {};
+/** checked-empty cell: "<producer column>|<CAT-xx>" */
+export const noneOf = (producer: string, cat: string) => NONE[producer + "|" + cat];
 export type Removed = { producer: string; code: string; status: "fake" | "wrong_family"; inci?: string; note: string; src?: string };
 export const INCI_CHECK_META = ((offsets as { inci_check_meta?: { date: string; checked: number } }).inci_check_meta) || { date: "", checked: 0 };
