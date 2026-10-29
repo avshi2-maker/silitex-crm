@@ -1,9 +1,9 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 25.10.2026 06:15 (Asia/Jerusalem) — one row per customer id everywhere (duplicate list rows fixed + cleaned on load; import dedupes a file) · 22.10.2026 18:20 — importLeads: import notes sent 2 s after the customers (no foreign-key race) · 07:50 — completeTask: a done task of a supplier / partner (lead_id ct:…) is logged on his Hub thread · 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
+// useStore.ts (src/lib/store/useStore.ts) · updated 29.10.2026 05:45 (Asia/Jerusalem) — generateSchedule rolls open daily tasks to today (no duplicate copies) · 25.10.2026 06:15 — one row per customer id everywhere (duplicate list rows fixed + cleaned on load; import dedupes a file) · 22.10.2026 18:20 — importLeads: import notes sent 2 s after the customers (no foreign-key race) · 07:50 — completeTask: a done task of a supplier / partner (lead_id ct:…) is logged on his Hub thread · 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
-import { buildSchedule } from "./cadence";
+import { buildSchedule, rollDaily } from "./cadence";
 import { stageHe } from "@/config/stages";
 import { uid, todayIso, addDays } from "@/lib/format";
 import type { Lead, Task, Activity, KbDoc, KbChunk, Stage, Sample, Doc, Shipment, SilitexContact, Thread, HubMsg } from "@/lib/types";
@@ -89,7 +89,7 @@ export function useStore() {
   const addSpend = (tokens: number, cost: number) => update((s) => ({ ...s, spend: { tokens: s.spend.tokens + tokens, cost: s.spend.cost + cost } }));
   const addKbDoc = (doc: KbDoc, chunks: KbChunk[]) => { update((s) => ({ ...s, kbDocs: [doc, ...s.kbDocs], kbChunks: [...chunks, ...s.kbChunks] })); sync("kb_docs", doc); chunks.forEach((c) => sync("kb_chunks", c)); };
   const removeKbDoc = (id: string) => update((s) => ({ ...s, kbDocs: s.kbDocs.filter((d) => d.id !== id), kbChunks: s.kbChunks.filter((c) => c.doc_id !== id) }));
-  const generateSchedule = () => update((s) => ({ ...s, tasks: [...s.tasks, ...buildSchedule(s.leads, s.tasks, todayIso())] }));
+  const generateSchedule = () => update((s) => { const today = todayIso(); const rolled = rollDaily(s.tasks, today); const by = new Map(rolled.map((t) => [t.id, t])); const tasks = s.tasks.map((t) => by.get(t.id) || t); rolled.forEach((t) => sync("tasks", t)); return { ...s, tasks: [...tasks, ...buildSchedule(s.leads, tasks, today)] }; }); // one rolling daily task per lead (29.10.2026)
   const addSample = (sm: Omit<Sample, "id">) => { const sample: Sample = { ...sm, id: uid("smp") }; update((s) => ({ ...s, samples: [sample, ...s.samples] })); sync("samples", sample); addActivity(sm.lead_id, "sample", "Sample: " + sm.sku + " " + sm.kg + " kg"); };
   const setSampleStatus = (id: string, status: Sample["status"], result?: string) => update((s) => ({ ...s, samples: s.samples.map((x) => (x.id === id ? { ...x, status, result: result ?? x.result } : x)) }));
   const addDoc = (d: Omit<Doc, "id">) => {

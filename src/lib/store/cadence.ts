@@ -1,4 +1,4 @@
-// cadence.ts (src/lib/store/cadence.ts) · updated 19.10.2026 11:45 (Asia/Jerusalem) — leads with an open playbook step get no generic daily/weekly task · 09.10.2026 09:40
+// cadence.ts (src/lib/store/cadence.ts) · updated 29.10.2026 05:45 (Asia/Jerusalem) — FIX duplicate tasks: ONE open daily task per lead that rolls forward to today (rollDaily) instead of a new copy every day · 19.10.2026 11:45 — leads with an open playbook step get no generic daily/weekly task · 09.10.2026 09:40
 // Pure scheduling logic: given leads + existing tasks, return tasks to add. Rules live in config/cadence.ts.
 import { DAILY_BY_STAGE, WEEKLY_TITLE, WEEKLY_EVERY_DAYS } from "@/config/cadence";
 import { isClosed } from "@/config/stages";
@@ -12,10 +12,14 @@ export function buildSchedule(leads: Lead[], tasks: Task[], today: string): Task
   for (const l of leads) {
     if (isClosed(l.stage)) continue;
     if (tasks.some((t) => t.lead_id === l.id && !t.done && (t.kind || "").startsWith("plan:"))) continue;
-    const hasDaily = tasks.some((t) => t.lead_id === l.id && t.cadence === "daily" && t.due === today);
+    const hasDaily = tasks.some((t) => t.lead_id === l.id && t.cadence === "daily" && !t.done); // any open daily task (rollDaily moves it to today)
     const hasWeekly = tasks.some((t) => t.lead_id === l.id && t.cadence === "weekly" && !t.done);
     if (!hasDaily) add.push({ id: uid("task"), lead_id: l.id, lead_name: l.name, title: dailyTitle(l), due: today, cadence: "daily", done: false, kind: "followup" });
     if (!hasWeekly) add.push({ id: uid("task"), lead_id: l.id, lead_name: l.name, title: WEEKLY_TITLE, due: addDays(today, WEEKLY_EVERY_DAYS), cadence: "weekly", done: false, kind: "review" });
   }
   return add;
+}
+/** open daily tasks left from earlier days → moved to today (one rolling task per lead, never a new copy) */
+export function rollDaily(tasks: Task[], today: string): Task[] {
+  return tasks.filter((t) => t.cadence === "daily" && !t.done && t.due < today).map((t) => ({ ...t, due: today }));
 }

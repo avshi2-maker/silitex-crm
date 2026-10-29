@@ -1,8 +1,8 @@
-// server-data.ts (src/lib/server-data.ts) · updated 09.10.2026 10:05 (Asia/Jerusalem) — server only
+// server-data.ts (src/lib/server-data.ts) · updated 29.10.2026 05:45 (Asia/Jerusalem) — FIX: read ALL open tasks (Supabase returns max 1000 rows per request — the check missed tasks and created duplicates) + roll open daily tasks to today · 09.10.2026 10:05 — server only
 // Data for cron/bots. Supabase (service role) when configured; otherwise bundled seed + computed schedule.
 import { createClient } from "@supabase/supabase-js";
 import { LEADS_SEED } from "./data";
-import { buildSchedule } from "./store/cadence";
+import { buildSchedule, rollDaily } from "./store/cadence";
 import { todayIso } from "./format";
 import type { Lead, Task, KbDoc, KbChunk } from "./types";
 export function serviceClient() {
@@ -12,10 +12,14 @@ export function serviceClient() {
 export async function getLeadsAndTasks(): Promise<{ leads: Lead[]; tasks: Task[]; source: "supabase" | "seed" }> {
   const sb = serviceClient();
   if (sb) {
-    const [l, t] = await Promise.all([sb.from("leads").select("*"), sb.from("tasks").select("*").eq("done", false)]);
-    if (!l.error && l.data?.length) {
-      const leads = l.data as Lead[]; const tasks = (t.data || []) as Task[];
-      const add = buildSchedule(leads, tasks, todayIso());
+    const page = async (table: string, open = false) => { const out: Record<string, unknown>[] = []; for (let f = 0; ; f += 1000) { let q = sb.from(table).select("*").order("id").range(f, f + 999); if (open) q = q.eq("done", false); const { data, error } = await q; if (error) return null; out.push(...(data || [])); if (!data || data.length < 1000) break; } return out; };
+    const [ld, td] = await Promise.all([page("leads"), page("tasks", true)]);
+    if (ld?.length && td) {
+      const leads = ld as unknown as Lead[]; const today = todayIso();
+      const rolled = rollDaily(td as unknown as Task[], today); const byId = new Map(rolled.map((t) => [t.id, t]));
+      const tasks = (td as unknown as Task[]).map((t) => byId.get(t.id) || t);
+      const add = buildSchedule(leads, tasks, today);
+      if (rolled.length) await sb.from("tasks").upsert(rolled);
       if (add.length) await sb.from("tasks").upsert(add);
       return { leads, tasks: [...tasks, ...add], source: "supabase" };
     }

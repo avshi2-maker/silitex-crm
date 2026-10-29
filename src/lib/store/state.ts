@@ -1,4 +1,4 @@
-// state.ts (src/lib/store/state.ts) · updated 23.10.2026 06:40 (Asia/Jerusalem) — fireFixOnce: 10 NotebookLM fire-safety rows → right industry + source, 3 renamed customers get their names back · 05:45 — mergeOnce: approved merge of 21 duplicate customers (20 groups) · 05:20 — repair2Once: exact fix of the 30 NotebookLM-damaged customers (websites recovered, city, industry) + re-sent to the server scan · 22.10.2026 18:50 (Asia/Jerusalem) — repairOnce: NotebookLM import with shifted columns (24 new + 6 updated) repaired, labelled, re-sent to the server scan · 18:30 — relabelOnce: 30 Gemini imports labelled Comet → Gemini + Gemini round logged · 18:20 — a write that reaches the cloud BEFORE its customer (foreign-key race, e.g. import notes) waits and retries (5×, 1.5 → 7.5 s) instead of failing · 17:20 — every cloud write / delete fires the save signal (green "נשמר בהצלחה" toast) · 21.10.2026 13:30 (Asia/Jerusalem) — contacts filled per account (new researched contacts arrive in existing browsers too) + seed patches once (21/10 packaging: Nirotek phones · car-care re-classification: Rose Chemicals, Nano-Z; notes merged, never overwritten) · 09:20 — researched contacts filled once (seed contact_name/phone/email/notes into accounts that have none, e.g. Tambour + Nirlat) · 20.10.2026 13:15 — duplicate GES (LEAD-071 = LEAD-011) removed once, also from Supabase · 08:05 — PHANTOM + BERETEX 350 / SH 1300 · 05:40 — researched addresses filled once · 05:20 — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
+// state.ts (src/lib/store/state.ts) · updated 29.10.2026 05:50 (Asia/Jerusalem) — taskDedupe on load: one open daily + one weekly task per customer · 23.10.2026 06:40 — fireFixOnce: 10 NotebookLM fire-safety rows → right industry + source, 3 renamed customers get their names back · 05:45 — mergeOnce: approved merge of 21 duplicate customers (20 groups) · 05:20 — repair2Once: exact fix of the 30 NotebookLM-damaged customers (websites recovered, city, industry) + re-sent to the server scan · 22.10.2026 18:50 (Asia/Jerusalem) — repairOnce: NotebookLM import with shifted columns (24 new + 6 updated) repaired, labelled, re-sent to the server scan · 18:30 — relabelOnce: 30 Gemini imports labelled Comet → Gemini + Gemini round logged · 18:20 — a write that reaches the cloud BEFORE its customer (foreign-key race, e.g. import notes) waits and retries (5×, 1.5 → 7.5 s) instead of failing · 17:20 — every cloud write / delete fires the save signal (green "נשמר בהצלחה" toast) · 21.10.2026 13:30 (Asia/Jerusalem) — contacts filled per account (new researched contacts arrive in existing browsers too) + seed patches once (21/10 packaging: Nirotek phones · car-care re-classification: Rose Chemicals, Nano-Z; notes merged, never overwritten) · 09:20 — researched contacts filled once (seed contact_name/phone/email/notes into accounts that have none, e.g. Tambour + Nirlat) · 20.10.2026 13:15 — duplicate GES (LEAD-071 = LEAD-011) removed once, also from Supabase · 08:05 — PHANTOM + BERETEX 350 / SH 1300 · 05:40 — researched addresses filled once · 05:20 — sync retries without a column the database does not have yet · 19.10.2026 12:45 — Silitex guidance fix once (cosmetic range only, maps awaiting review) · 11:45 — first account playbooks seeded once · 10:55 — LEAD-008 Sano split to household-only (one-time update in browsers) · 07:25 — PE 193 / AGRIWET added to phantom SKUs (not Silitex products) · 18.10.2026 06:30 — + offline sync queue (replayed when back online) · 12.10.2026 12:25
 // Shape of mutable CRM state + persistence (localStorage always; Supabase write-through when configured).
 import { LEADS_SEED } from "@/lib/data";
 import { supabase } from "@/lib/supabase";
@@ -130,6 +130,17 @@ function dropOnce(st: State) {
 function seedOnce(st: State) {
   try { if (localStorage.getItem("silitex-plans-seed-v1")) return; const add = seedPlans(st.leads).filter((t) => !st.tasks.some((x) => x.id === t.id)); st.tasks = [...add, ...st.tasks]; saveState(st); add.forEach((t) => sync("tasks", t)); localStorage.setItem("silitex-plans-seed-v1", "1"); } catch {}
 }
+/** 29.10.2026: one open daily + one open weekly task per customer — older auto-generated copies dropped on load (the cloud copy was cleaned once by SQL; backup table tasks_backup_29102026) */
+function taskDedupe(st: State) {
+  const keep = new Map<string, Task>(); const other: Task[] = [];
+  for (const t of st.tasks) {
+    if (t.done || (t.cadence !== "daily" && t.cadence !== "weekly") || (t.kind !== "followup" && t.kind !== "review")) { other.push(t); continue; }
+    const k = t.lead_id + "|" + t.cadence; const cur = keep.get(k);
+    if (!cur || String(t.due) > String(cur.due)) keep.set(k, t);
+  }
+  const n = other.length + keep.size;
+  if (n < st.tasks.length) { st.tasks = [...other, ...keep.values()]; saveState(st); }
+}
 export function loadState(): State {
   if (typeof window === "undefined") return EMPTY;
   try {
@@ -141,7 +152,7 @@ export function loadState(): State {
       // seed accounts added later (e.g. AHAVA 11.10.2026) that the browser has never seen
       for (const seed of LEADS_SEED) if (!st.leads.some((l) => l.id === seed.id)) { st.leads = [...st.leads, seed]; fixed.push(seed); }
       if (fixed.length) { saveState(st); fixed.forEach((l) => sync("leads", l)); }
-      seedOnce(st); fixOnce(st); addrOnce(st); dropOnce(st); contactOnce(st); patchOnce(st); relabelOnce(st); repairOnce(st); repair2Once(st); mergeOnce(st); fireFixOnce(st);
+      seedOnce(st); fixOnce(st); addrOnce(st); dropOnce(st); contactOnce(st); patchOnce(st); relabelOnce(st); repairOnce(st); repair2Once(st); mergeOnce(st); fireFixOnce(st); taskDedupe(st);
       return st;
     }
   } catch {}
