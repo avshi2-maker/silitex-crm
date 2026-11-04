@@ -297,8 +297,8 @@
         "Shin-Etsu": "KM-90 / KM-902",
         "Momentive": "SM 2163 / SM 2138",
         "Wacker (BELSIL / SILFOAM / SILRES)": "WACKER E 10",
-        "Evonik (ABIL / TEGO)": "TEGO Mold Release / TEGO Polish",
-        "Bluestar / Elkem (Mirasil)": "Mirasil EM 350",
+        "Evonik (ABIL / TEGO)": "TEGO Polish",
+        "Bluestar / Elkem (Mirasil)": "",
         "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "Gransil Auto",
         "NuSil (Avantor NuSil Technology)": "",
@@ -311,7 +311,7 @@
         "Chemsil Silicone": "Chemsil Auto",
         "Jeen International": "Jeesilc Auto",
         "Siltech": "Siltech Auto",
-        "BRB & Others": "BRB Emulsion 35",
+        "BRB & Others": "",
         "Croda": "N/A",
         "BASF / Cognis": "N/A",
         "Lubrizol / Noveon": "N/A",
@@ -337,6 +337,24 @@
           "inci": "",
           "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. Not found in KCC/Basildon ranges or web. Real Basildon polish/shine grades: BC 338 (silicone fluid blend + wax, shine/anti-smear), Polish Additive 63, BC 91/023 (60% PDMS nonionic emulsion, release+polish).",
           "src": ""
+        },
+        {
+          "producer": "Evonik (ABIL / TEGO)",
+          "code": "TEGO Mold Release",
+          "status": "fake",
+          "note": "Same code checked 27/10/2026 in another family: product does not exist. Removed everywhere (04/11/2026)."
+        },
+        {
+          "producer": "Bluestar / Elkem (Mirasil)",
+          "code": "Mirasil EM 350",
+          "status": "fake",
+          "note": "Same code checked 27/10/2026 in another family: product does not exist. Removed everywhere (04/11/2026)."
+        },
+        {
+          "producer": "BRB & Others",
+          "code": "BRB Emulsion 35",
+          "status": "fake",
+          "note": "Same code checked 27/10/2026 in another family: product does not exist. Removed everywhere (04/11/2026)."
         }
       ]
     },
@@ -636,7 +654,7 @@
         "Evonik (ABIL / TEGO)": "",
         "Bluestar / Elkem (Mirasil)": "Mirasil DM 5 to DM 1000",
         "KCC Corp. / Basil (SeraSense)": "SeraSense SF",
-        "Grant Industries (Gransil)": "Gransil DM-5",
+        "Grant Industries (Gransil)": "",
         "NuSil (Avantor NuSil Technology)": "CareSil CSF-3100 / CSF-3101 USP-NF (Dimethicone 5 – 1,000 cSt)",
         "TINCI": "TCS-10/100M",
         "Si&F": "Cosmethicone SF-906",
@@ -673,6 +691,12 @@
           "inci": "",
           "note": "Code not found in KCC's cosmetic catalog (SeraSense/SeraSilk/SeraSoft/SeraShine/SeraSol) nor by exact-name web search",
           "src": "https://www.specialchem.com/cosmetics/supplier/kcc-silicone/all-products"
+        },
+        {
+          "producer": "Grant Industries (Gransil)",
+          "code": "Gransil DM-5",
+          "status": "fake",
+          "note": "Same code checked 27/10/2026 in another family: product does not exist. Removed everywhere (04/11/2026)."
         }
       ]
     },
@@ -1166,7 +1190,7 @@
         "Jeen International": "N/A",
         "Siltech": "N/A",
         "BRB & Others": "N/A",
-        "Croda": "BRB MH 1107",
+        "Croda": "",
         "BASF / Cognis": "N/A",
         "Lubrizol / Noveon": "N/A",
         "Creations Couleur": "N/A",
@@ -1199,6 +1223,12 @@
           "inci": "",
           "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No 'MH' in SeraSense. Real KCC Basildon equivalent: BC 83/132 = methyl hydrogen polysiloxane, reactive cross-linking fluid (SpecialChem https://www.specialchem.com/coatings/product/kcc-silicone-bc-83-132).",
           "src": ""
+        },
+        {
+          "producer": "Croda",
+          "code": "BRB MH 1107",
+          "status": "fake",
+          "note": "Same code checked 27/10/2026 in another family: product does not exist. Removed everywhere (04/11/2026)."
         }
       ]
     },
@@ -1220,7 +1250,7 @@
         "KCC Corp. / Basil (SeraSense)": "SeraSol SC 81 / SeraSol SC 86A",
         "Grant Industries (Gransil)": "Gransil 530",
         "NuSil (Avantor NuSil Technology)": "CareSil CSS-7301 (PEG-12 Dimethicone) / CSS-7302 (PEG-10 Dimethicone)",
-        "TINCI": "TC-3011",
+        "TINCI": "",
         "Si&F": "Cosmethicone SF-193",
         "A&E Connock": "AEC PEG-12 Dimethicone",
         "Clariant": "Clariant Polyglykol",
@@ -1263,6 +1293,12 @@
           "inci": "",
           "note": "Not found in BRB International cosmetic listings nor by exact-name web search (BRB DM fluids listed only up to DM 1000; BRB PDMS emulsions are sold under other names, e.g. industrial grades)",
           "src": "https://cosmetics.specialchem.com/searchsites/searchproducts/s-brb-international-bv/c-ingredients-silicones-silicone-fluids"
+        },
+        {
+          "producer": "TINCI",
+          "code": "TC-3011",
+          "status": "fake",
+          "note": "Same code checked 27/10/2026 in another family: product does not exist. Removed everywhere (04/11/2026)."
         }
       ]
     },
@@ -2202,7 +2238,7 @@
         "KCC Corp. / Basil (SeraSense)": "",
         "Grant Industries (Gransil)": "Gransil 501",
         "NuSil (Avantor NuSil Technology)": "CareSil CSS-7300 (PEG/PPG-18/18 Dimethicone in D5)",
-        "TINCI": "TC-3028",
+        "TINCI": "",
         "Si&F": "Cosmethicone SF-5225",
         "A&E Connock": "AEC Silicone Emulsifier",
         "Clariant": "N/A",
@@ -2261,6 +2297,12 @@
           "inci": "",
           "note": "Not found anywhere (search 28/10/2026) — hidden 29/10/2026 on Avshi's approval; restorable. No 'LA 10' in SeraSense; KCC emulsifiers are the SeraSol SC line (SC 80 PEG/PPG-18/18 Dimethicone, SC 84 in D5, SC 83-E Cetyl PEG/PPG-10/1 Dimethicone) https://cosmetics.specialchem.com/selectors/tr-serasol",
           "src": ""
+        },
+        {
+          "producer": "TINCI",
+          "code": "TC-3028",
+          "status": "fake",
+          "note": "Same code checked 27/10/2026 in another family: product does not exist. Removed everywhere (04/11/2026)."
         }
       ]
     }

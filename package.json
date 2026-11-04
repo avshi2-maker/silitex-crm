@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "index": "node scripts/build-index.mjs",
-    "prebuild": "node scripts/build-index.mjs"
+    "prebuild": "node scripts/truth-check.mjs && tsx --tsconfig tsconfig.json scripts/search-golden.ts && node scripts/build-index.mjs",
+    "truth": "node scripts/truth-check.mjs && tsx --tsconfig tsconfig.json scripts/search-golden.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.52.0",
@@ -30,6 +31,7 @@
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

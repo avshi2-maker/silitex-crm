@@ -1,4 +1,4 @@
-// equiv-search.ts (src/lib/equiv-search.ts) · updated 26.10.2026 11:20 (Asia/Jerusalem) — v0.99.0 every hit carries verified (official leaflet / NuSil docs / catalogue) or not · updated 19.10.2026 12:45 (Asia/Jerusalem) — + official Silitex cosmetic countertypes (leaflet 19/10/2026) first · 18.10.2026 12:20 — uses gaps_lite.json (no owner action notes in the browser) · 16.10.2026 08:45 — + NuSil CareSil CSF-3504 / CXG-1104
+// equiv-search.ts (src/lib/equiv-search.ts) · updated 04.11.2026 11:40 (Asia/Jerusalem) — v1.4.8 TRUTH GUARD: a typed part number must match a part number (OFX-8040 no longer "partial-matches" OFX-0190 on the brand letters) + knownCode() for real products with no Silitex equivalent · updated 26.10.2026 11:20 (Asia/Jerusalem) — v0.99.0 every hit carries verified (official leaflet / NuSil docs / catalogue) or not · updated 19.10.2026 12:45 (Asia/Jerusalem) — + official Silitex cosmetic countertypes (leaflet 19/10/2026) first · 18.10.2026 12:20 — uses gaps_lite.json (no owner action notes in the browser) · 16.10.2026 08:45 — + NuSil CareSil CSF-3504 / CXG-1104
 // Competitor-code quick search: type any Dow / XIAMETER / Wacker / Momentive / Shin-Etsu / Evonik … code (or a Silitex name, code or INCI)
 // → ranked Silitex equivalents. Sources: offsets.json (37 families × producers), gaps.json (cosmetic molecules, covered/alternative only),
 // catalog_2026.json (Silitex 2026 catalogues — for the catalogue rows + PDF behind each answer). Pure client-side, no AI cost.
@@ -7,6 +7,7 @@ import gaps from "@/data/gaps_lite.json"; // lite copy (no owner action notes) �
 import { CAT26, type CatRow } from "@/lib/catalog";
 import { COSMETIC_COUNTERTYPES } from "@/config/cosmetic-range";
 import { isVerifiedProducer, checkOf } from "./offsets-trust";
+import known from "@/data/known_codes.json";
 
 type OffRow = { category_id: string; family: string; dow_corning?: string; inci?: string; silitex_product: string; kosher?: string; fda?: string; eco_certs?: string; offsets?: Record<string, string> };
 type GapRow = { id: string; query: string; aliases: string[]; producers: string; silitex: string; status: string };
@@ -23,8 +24,8 @@ type Entry = Omit<EquivHit, "exact" | "score" | "rows" | "also"> & { norm: strin
 const ROWS = (offsets as { rows: OffRow[] }).rows;
 const GAPS = gaps as GapRow[];
 const norm = (s: string) => s.toLowerCase().replace(/[®™]/g, "").replace(/[^a-z0-9]/g, "");
-const STOP = new Set(["dow", "corning", "dowsil", "xiameter", "fluid", "emulsion", "series", "and", "the", "silicone", "for", "with", "type", "grade"]);
-const toks = (s: string) => s.toLowerCase().replace(/[®™]/g, " ").split(/[^a-z0-9]+/).filter((t) => t.length > 1 && !STOP.has(t));
+const STOP = new Set(["dc", "dow", "corning", "dowsil", "xiameter", "fluid", "emulsion", "series", "and", "the", "silicone", "for", "with", "type", "grade"]);
+const toks = (s: string) => s.toLowerCase().replace(/[®™]/g, " ").split(/[^a-z0-9]+/).map((t) => t.replace(/^0+(?=\d)/, "")).filter((t) => t.length > 1 && !STOP.has(t)); // "0245" = "245" (PMX-0245 = DC 245)
 /** split "A / B, C; D · E" on top-level separators only (keeps "(5-1,000 cSt)" intact) */
 function splitSkus(s: string): string[] {
   const out: string[] = []; let depth = 0, cur = "";
@@ -112,6 +113,7 @@ export function searchEquiv(q: string, k = 6): EquivHit[] {
     else if (qt.length) {
       let hit = 0, num = 0; const set = new Set(e.toks); for (const t of qt) if (set.has(t)) { hit++; if (/\d/.test(t)) num++; }
       score = hit / qt.length + num * 0.5; if (score < 0.5) score = 0;
+      if (qt.some((t) => /\d/.test(t)) && hit < qt.length) score = 0; // TRUTH GUARD: a query with a part number partial-matches only when EVERY word of it matches (OFX-8040 ≠ OFX-0190, SAG 30 ≠ "SA 30" / "30 cSt")
     }
     if (score) scored.push({ ...e, exact, score: score + (e.kind === "gap" ? 0.2 : 0) + (e.ref.startsWith("SILITEX-COS-") ? 1.5 : 0), rows: [], also: [] }); // official Silitex countertypes rank first
   }
@@ -130,4 +132,12 @@ export function searchEquiv(q: string, k = 6): EquivHit[] {
     for (const r of cat) out.push({ verified: true, key: "cat|" + r.id, kind: "catalogue", competitor: "", producer: "", family: r.section, inci: r.inci, silitex: r.product, silitexNames: [r.product.toUpperCase()], certs: r.compliance ? [r.compliance] : [], ref: r.code, exact: true, score: 1, rows: [r], also: [] });
   }
   return out;
+}
+
+// ── real competitor products we know, with NO verified Silitex equivalent yet (honest answer instead of a wrong match) ──
+export type KnownCode = { codes: string[]; producer: string; what: string; status: string; src: string; checked: string };
+/** the known product for a typed code (exact code match only), or undefined */
+export function knownCode(q: string): KnownCode | undefined {
+  const qn = norm(q); if (qn.length < 4) return undefined;
+  return (known as KnownCode[]).find((k) => k.codes.some((c) => norm(c) === qn));
 }
