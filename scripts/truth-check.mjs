@@ -4,6 +4,7 @@
 //  1. A code proven fake (offsets.json rows[].removed status "fake") may not appear anywhere the app shows equivalents.
 //  2. A code in known_codes.json (real product, no verified Silitex equivalent) may not be presented as an equivalent.
 //  3. Every ✓ verified INCI check must carry a source link (or be owner-confirmed: src "Avshi").
+//  4. No spreadsheets / CSV in public/ — everything there can be downloaded by anyone (old tables, lead lists). Keep them in data-archive/.
 import fs from "node:fs";
 const rd = (f) => JSON.parse(fs.readFileSync(new URL("../src/data/" + f, import.meta.url), "utf8"));
 const nz = (s) => String(s).toLowerCase().replace(/dow corning/g, "dc").replace(/[^a-z0-9]/g, "");
@@ -25,5 +26,7 @@ for (const p of rd("products.json")) scan(`products ${p.product_name} (Replaces)
 for (const g of rd("gaps.json")) { scan(`gaps ${g.id}`, g.producers); for (const a of g.aliases || []) scan(`gaps ${g.id} alias`, a); }
 const ct = rd("silitex_cosmetic_countertypes.json"); for (const c of (Array.isArray(ct) ? ct : ct.rows || [])) for (const k of ["dow", "brb", "momentive", "wacker"]) scan(`cosmetic countertypes ${c.product}`, c[k]);
 for (const [k, c] of Object.entries(offsets.inci_checks || {})) if (c.status === "ok" && !/^https?:\/\//.test(c.src || "") && c.src !== "Avshi") errors.push(`✓ verified "${k}" has no source link`);
+const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(d + "/" + e.name) : [d + "/" + e.name]));
+for (const f of walk(new URL("../public", import.meta.url).pathname)) if (/\.(csv|xlsx?|json)$/i.test(f)) errors.push(`public file can be downloaded by anyone: ${f.split("/public/")[1]} (move it to data-archive/)`);
 if (errors.length) { console.error("\n❌ TRUTH CHECK FAILED — " + errors.length + " problem(s). Fix the data, then build again:\n  " + errors.join("\n  ") + "\n"); process.exit(1); }
 console.log(`✅ truth check: ${fake.size} fake codes absent · ${known.length} no-equivalent codes not offered · verified checks all sourced`);
