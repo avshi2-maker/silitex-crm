@@ -1,6 +1,6 @@
 "use client";
-// IntakeForm.tsx (src/components/leads/IntakeForm.tsx) · updated 26.10.2026 06:55 (Asia/Jerusalem) — v0.96.1 תפקיד + מחלקה: ▾ pick-lists that always open · 22.10.2026 17:10 (Asia/Jerusalem) — only the company name is mandatory (contact name + mobile optional, still validated when filled) · 16:55 — industry = 🔽 pick-list (CRM industries, typing filters, free text allowed); amber while "לסיווג" · 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 19.10.2026 12:35 (Asia/Jerusalem) — e-mail field takes several contacts (comma separated) for automatic mail matching · 09.10.2026 19:20 (Asia/Jerusalem) — fact-finding form: core identity (mandatory) + 8 config-driven sections (config/intake.ts) stored in lead.intake
-import { useState } from "react";
+// IntakeForm.tsx (src/components/leads/IntakeForm.tsx) · updated 08.11.2026 06:45 (Asia/Jerusalem) — v1.5.0 FIX: save writes only the fields you changed onto the latest customer (a stale form no longer wipes people added in 👥 or a website scan) · industry / sub-industry filled by the scan show up without losing what you typed · 26.10.2026 06:55 — v0.96.1 תפקיד + מחלקה: ▾ pick-lists that always open · 22.10.2026 17:10 (Asia/Jerusalem) — only the company name is mandatory (contact name + mobile optional, still validated when filled) · 16:55 — industry = 🔽 pick-list (CRM industries, typing filters, free text allowed); amber while "לסיווג" · 22.10.2026 07:30 (Asia/Jerusalem) — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 19.10.2026 12:35 (Asia/Jerusalem) — e-mail field takes several contacts (comma separated) for automatic mail matching · 09.10.2026 19:20 (Asia/Jerusalem) — fact-finding form: core identity (mandatory) + 8 config-driven sections (config/intake.ts) stored in lead.intake
+import { useState, useEffect } from "react";
 import { inputCls, btnPrimary, Badge } from "@/components/ui";
 import { INTAKE, type IntakeField } from "@/config/intake";
 import { intakeOf, intakePct } from "@/lib/intake";
@@ -15,11 +15,17 @@ import { industryOptions, isUnclassified } from "@/config/industry-list";
 export default function IntakeForm({ lead, onSave, pool }: { lead: Lead; onSave: (l: Lead) => void; pool?: PoolItem[] }) {
   const { t: tr } = useLang();
   const [f, setF] = useState<Lead>({ ...lead, intake: { ...intakeOf(lead) } });
+  const [base] = useState<Lead>({ ...lead, intake: { ...intakeOf(lead) } }); // snapshot when opened → only real edits are saved
+  const LIVE = ["industry", "sub_industry", "contact_name", "contact_role", "contact_phone", "contact_email", "notes"] as const; // filled elsewhere (scan, 👥) → shown here unless you edited them
+  useEffect(() => { setF((c) => { const n = { ...c } as Record<string, unknown>; LIVE.forEach((k) => { if (c[k] === base[k]) n[k] = lead[k]; }); return n as Lead; }); }, [lead.industry, lead.sub_industry, lead.contact_name, lead.contact_role, lead.contact_phone, lead.contact_email, lead.notes, base]); // eslint-disable-line react-hooks/exhaustive-deps
   const [open, setOpen] = useState<number>(3); const [err, setErr] = useState("");
   const set = (k: keyof Lead, v: string) => setF({ ...f, [k]: v });
   const setI = (id: string, v: string) => setF({ ...f, intake: { ...(f.intake || {}), [id]: v } });
   const core = (k: keyof Lead, label: string, type = "text", req = false) => (<label className="text-xs text-slate-500">{label}{req && " *"}<input type={type} className={inputCls + " mt-1"} value={(f[k] as string) || ""} onChange={(e) => set(k, e.target.value)} /></label>);
-  const save = () => { if (!(f.name || "").trim()) return setErr(tr("חובה: שם חברה")); if (check("mobile", f.contact_phone) === false) return setErr(tr("מספר נייד לא תקין")); if (check("emails", f.contact_email) === false) return setErr(tr("אימייל לא תקין")); setErr(""); onSave(f); };
+  const save = () => { if (!(f.name || "").trim()) return setErr(tr("חובה: שם חברה")); if (check("mobile", f.contact_phone) === false) return setErr(tr("מספר נייד לא תקין")); if (check("emails", f.contact_email) === false) return setErr(tr("אימייל לא תקין")); setErr("");
+    const core: Partial<Lead> = {}; (Object.keys(f) as (keyof Lead)[]).forEach((k) => { if (k !== "intake" && f[k] !== base[k]) (core as Record<string, unknown>)[k] = f[k]; });
+    const it: Record<string, string> = {}; Object.entries(f.intake || {}).forEach(([k, v]) => { if (v !== (base.intake || {})[k]) it[k] = v; });
+    onSave({ ...lead, ...core, intake: { ...intakeOf(lead), ...it } }); };
   const pct = intakePct(f);
   return (
     <div>

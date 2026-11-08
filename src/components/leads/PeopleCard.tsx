@@ -1,5 +1,5 @@
 "use client";
-// PeopleCard.tsx (src/components/leads/PeopleCard.tsx) · created 26.10.2026 06:50 (Asia/Jerusalem) — v0.96.0
+// PeopleCard.tsx (src/components/leads/PeopleCard.tsx) · updated 08.11.2026 06:45 (Asia/Jerusalem) — v1.5.0 the first person added to a customer with no main contact becomes the ⭐ main contact (intake form fields: name / role / mobile / e-mail) · created 26.10.2026 06:50 — v0.96.0
 // 👥 People at this company: as many as needed (owner, R&D, purchasing, plant …). Paste an e-mail signature → fields fill.
 // Every e-mail here is picked up by the Outlook sync for this customer; every mobile by the WhatsApp matching. ⭐ = make main contact.
 import { useState } from "react";
@@ -22,7 +22,10 @@ export default function PeopleCard({ lead, pool, onSave, onLog }: Props) {
   const fill = () => { if (!ed) return; const p = parseSignature(sig); setEd({ ...ed, name: p.name || ed.name, role: p.role || ed.role, mobile: p.mobile || p.phone || ed.mobile, email: p.email || ed.email }); };
   const save = () => {
     if (!ed || !ed.name.trim()) return; const p = { ...ed, name: ed.name.trim(), email: (ed.email || "").trim().toLowerCase() };
-    const exists = list.some((x) => x.id === p.id); onSave(withPeople(lead, exists ? list.map((x) => (x.id === p.id ? p : x)) : [...list, p]));
+    const exists = list.some((x) => x.id === p.id);
+    const noMain = !lead.contact_name && !lead.contact_phone && !lead.contact_email;
+    if (!exists && noMain) onSave({ ...lead, contact_name: p.name, contact_role: p.role || lead.contact_role, contact_phone: p.mobile || "", contact_email: p.email || "", notes: p.notes && !lead.notes ? p.notes : lead.notes });
+    else onSave(withPeople(lead, exists ? list.map((x) => (x.id === p.id ? p : x)) : [...list, p]));
     if (!exists) onLog?.(tr("איש קשר נוסף") + ": " + p.name + (p.role ? " · " + p.role : ""));
     setEd(null); setSig("");
   };

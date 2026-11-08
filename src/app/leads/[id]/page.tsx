@@ -1,12 +1,11 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 26.10.2026 06:55 (Asia/Jerusalem) — v0.96.0 + 👥 people at this company (many contacts per customer) · 23.10.2026 16:10 — 📎 source + confidence chips under the name · 22.10.2026 17:40 — + 🧲 "find similar companies" → search-prompt builder pre-filled from this customer · 07:30 — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 08.11.2026 06:45 (Asia/Jerusalem) — v1.5.0 📧 PitchCard (reply to the customer's own e-mail or website first contact + 📎 data sheets → Outlook draft with files) · intake form no longer remounts when the scan fills the industry · 26.10.2026 06:55 — v0.96.0 + 👥 people at this company (many contacts per customer) · 23.10.2026 16:10 — 📎 source + confidence chips under the name · 22.10.2026 17:40 — + 🧲 "find similar companies" → search-prompt builder pre-filled from this customer · 07:30 — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState, useEffect } from "react";
 import type { Thread } from "@/lib/types";
 import Link from "next/link";
 import { useStore, STAGES } from "@/lib/store";
 import { PRODUCTS, industriesOf, INDUSTRIES } from "@/lib/data";
 import { Card, H1, Badge, inputCls, btnPrimary, btnGhost } from "@/components/ui";
-import AiPanel from "@/components/AiPanel";
 import PlanCard from "@/components/PlanCard";
 import PurchaseHistory from "@/components/market/PurchaseHistory";
 import SampleCard from "@/components/SampleCard";
@@ -17,7 +16,7 @@ import RowActions from "@/components/leads/RowActions";
 import IntakeForm from "@/components/leads/IntakeForm";
 import { intakeOf } from "@/lib/intake";
 import { useRouter } from "next/navigation";
-import { pitchContext, pitchPrompt } from "@/prompts/pitch";
+import PitchCard from "@/components/leads/PitchCard";
 import type { Lead, Stage } from "@/lib/types";
 import { useLang } from "@/i18n";
 import { statusHe } from "@/lib/hub";
@@ -46,7 +45,6 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
   const tasks = state.tasks.filter((t) => t.lead_id === id && !t.done && !parsePlan(t.kind));
   const indKeys = INDUSTRIES.filter((i) => i.match.test(lead.industry + " " + lead.use_case + " " + lead.product_match)).map((i) => i.key);
   const matches = PRODUCTS.filter((p) => industriesOf(p).some((k) => indKeys.includes(k))).slice(0, 8);
-  const ctx = pitchContext(lead, matches);
   const sil = intakeOf(lead).SIL_001;
   return (
     <div className="space-y-4">
@@ -58,12 +56,9 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
         <div className="space-y-4">
           <Card>
             <div className="flex flex-wrap gap-1 mb-3">{STAGES.map((s) => (<button key={s.key} onClick={() => setStage(id, s.key as Stage)} className={"text-xs px-2 py-1 rounded-full border " + (lead.stage === s.key ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{tr(s.he)}</button>))}</div>
-            <IntakeForm key={lead.id + "|" + lead.industry + "|" + (lead.sub_industry || "")} lead={lead} pool={buildPool(state.leads, state.contacts)} onSave={(l) => { upsertLead(l); addActivity(id, "intake", tr("טופס קליטה עודכן")); }} />
+            <IntakeForm key={lead.id} lead={lead} pool={buildPool(state.leads, state.contacts)} onSave={(l) => { upsertLead(l); addActivity(id, "intake", tr("טופס קליטה עודכן")); }} />
           </Card>
-          <Card>
-            <AiPanel title={tr("הצעת פנייה / פיץ' ל-") + lead.name} buttonLabel={tr("צור פיץ' עם AI")} sessionTokens={state.spend.tokens} sessionCost={state.spend.cost} onUsage={(u) => addSpend(u.input_tokens + u.output_tokens, u.cost_usd)} onResult={() => addActivity(id, "ai", tr("נוצר פיץ' AI"))}
-              buildPrompt={() => ({ context: ctx, prompt: pitchPrompt(lead) })} />
-          </Card>
+          <PitchCard lead={lead} matches={matches} spend={state.spend} addSpend={addSpend} addActivity={addActivity} addDoc={addDoc} />
           <DocsCard lead={lead} docs={state.docs.filter((d) => d.lead_id === id)} matches={matches} onAdd={addDoc} onStatus={setDocStatus} onStage={(s) => setStage(id, s)} spend={state.spend} addSpend={addSpend} />
           <TranscriptCard lead={lead} spend={state.spend} addSpend={addSpend} onLog={(t) => addActivity(id, "transcript", t)} onTask={(title, due) => addTask({ lead_id: id, lead_name: lead.name, title, due, cadence: "once", kind: "followup" })} onStage={(s) => setStage(id, s)} />
           <Card>
