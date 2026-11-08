@@ -2,7 +2,7 @@
 export const GATE_COOKIE = "silitex_gate";
 export const PARTNER_COOKIE = "silitex_partner";          // httpOnly token
 export const PARTNER_NAME_COOKIE = "silitex_partner_name"; // readable by the UI (Nav)
-export const PUBLIC_PREFIXES = ["/request", "/survey", "/login", "/api/forms", "/api/portal/ask", "/api/login", "/api/hub/outlook/cb", "/api/hub/wa/", "/silitex-logo.png", "/favicon.png", "/assets/", "/robots.txt", "/manifest.webmanifest", "/field-icon-"];
+export const PUBLIC_PREFIXES = ["/request", "/survey", "/login", "/api/forms", "/api/portal/ask", "/api/login", "/api/hub/outlook/cb", "/api/hub/wa/", "/api/wa-classify", "/silitex-logo.png", "/favicon.png", "/assets/", "/robots.txt", "/manifest.webmanifest", "/field-icon-"];
 /** what a Silitex partner may open: knowledge only — no leads, pipeline, hub, pricing, notes */
 export const PARTNER_PREFIXES = ["/expo", "/api/expo", "/api/field/card", "/api/field/note", "/partner", "/ask", "/products", "/offsets", "/formulations", "/faq", "/catalogues/", "/certs/", "/api/ai", "/api/partner/me", "/api/partner/feedback", "/api/partner/weather", "/api/partner/support"];
 export function isPublicPath(p: string): boolean { return PUBLIC_PREFIXES.some((x) => p === x || p.startsWith(x)) || p === "/api/hub/wa" || /^\/[a-f0-9]{32}\.txt$/.test(p); }

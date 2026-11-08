@@ -1,7 +1,8 @@
-// route.ts (src/app/api/hub/wa/route.ts) · updated 26.10.2026 07:20 (Asia/Jerusalem) — v0.97.0 remembers last inbound per number (24 h window) + saves delivery status for /brief · 13.10.2026 12:40 — + delivery statuses logged (failed → error code/title in Vercel logs) · WhatsApp Cloud API webhook (public): GET = Meta verification, POST = messages + coexistence echoes
+// route.ts (src/app/api/hub/wa/route.ts) · updated 08.11.2026 11:55 (Asia/Jerusalem) — v1.7.0 every customer WhatsApp message is forwarded to the Sapirim Hub, which sorts it to the right CRM (Silitex / sinks / Artfloor / AI / Nutri); old direct filing stays as fallback when the Hub is unreachable · messages from Avshi's own number only open the 24 h window · 26.10.2026 07:20 — v0.97.0 remembers last inbound per number (24 h window) + saves delivery status for /brief · 13.10.2026 12:40 — + delivery statuses logged (failed → error code/title in Vercel logs) · WhatsApp Cloud API webhook (public): GET = Meta verification, POST = messages + coexistence echoes
 import { NextResponse } from "next/server";
-import { verifySignature, routeInbound, mediaToCloudinary, type WaIn } from "@/lib/wa-inbound";
+import { verifySignature, routeInbound, mediaToCloudinary, normPhone, type WaIn } from "@/lib/wa-inbound";
 import { note } from "@/lib/whatsapp";
+import { forwardToHub, OWNER_WA } from "@/lib/hub-forward";
 export const runtime = "nodejs"; export const dynamic = "force-dynamic";
 export async function GET(req: Request) {
   const u = new URL(req.url); const mode = u.searchParams.get("hub.mode"), tok = u.searchParams.get("hub.verify_token"), ch = u.searchParams.get("hub.challenge");
@@ -21,8 +22,10 @@ export async function POST(req: Request) {
       const mediaId = m.image?.id || m.document?.id || m.audio?.id || m.video?.id; const media_url = mediaId ? await mediaToCloudinary(mediaId) : null;
       const text = m.text?.body || m.image?.caption || m.document?.caption || m.video?.caption || (m.location ? "📍 " + (m.location.name || "") + " https://maps.google.com/?q=" + m.location.latitude + "," + m.location.longitude : "") || (mediaId && !media_url ? "[" + m.type + (m.document?.filename ? " " + m.document.filename : "") + "]" : "") || "[" + m.type + "]";
       if (!echo) await note("wa_in:" + phone, "last message in"); // opens Meta's 24 h window for free-text replies
+      if (!echo && normPhone(phone) === OWNER_WA()) { out.push("owner"); continue; } // Avshi → bot: window only, not a lead
       const w: WaIn = { id: m.id, phone, name: names[phone], at: new Date(Number(m.timestamp) * 1000).toISOString(), body: text, direction: echo ? "out" : "in", media_url };
-      try { out.push(await routeInbound(w)); } catch (err) { out.push("error:" + (err instanceof Error ? err.message : "x")); }
+      const hub = await forwardToHub(w); if (hub) { out.push("hub:" + hub); continue; } // Hub sorts + files it
+      try { out.push(await routeInbound(w)); } catch (err) { out.push("error:" + (err instanceof Error ? err.message : "x")); } // fallback: Silitex filing as before
     }
   }
   return NextResponse.json({ ok: true, results: out });
