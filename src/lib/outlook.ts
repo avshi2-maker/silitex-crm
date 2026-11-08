@@ -1,4 +1,4 @@
-// outlook.ts (src/lib/outlook.ts) · updated 26.10.2026 06:10 (Asia/Jerusalem) — v0.94.1 also syncs mails with saved contacts (Pini on walla.com, partners) · 19.10.2026 12:20 — deep sync (days) for new customers' past mails · also reads the Sent Items folder explicitly + 3-day overlap on every sync (sent mails never missed; duplicates skipped) · 10.10.2026 07:30 — server only · PKCE public client (no client secret)
+// outlook.ts (src/lib/outlook.ts) · updated 08.11.2026 13:00 (Asia/Jerusalem) — v1.7.2 drafts are skipped (an unsent draft was stored as an "incoming" mail with no sender) + one copy per real mail (internetMessageId) · 26.10.2026 06:10 — v0.94.1 also syncs mails with saved contacts (Pini on walla.com, partners) · 19.10.2026 12:20 — deep sync (days) for new customers' past mails · also reads the Sent Items folder explicitly + 3-day overlap on every sync (sent mails never missed; duplicates skipped) · 10.10.2026 07:30 — server only · PKCE public client (no client secret)
 // Microsoft Graph (delegated, single mailbox): OAuth URLs, token refresh (stored in Supabase hub_tokens), pull messages to/from HUB_MAIL_DOMAIN since last sync.
 import { createHash, randomBytes } from "crypto";
 import { serviceClient } from "./server-data";
@@ -31,10 +31,10 @@ async function accessToken(): Promise<string> {
   return t.access_token;
 }
 export async function me(access: string): Promise<string> { const r = await fetch("https://graph.microsoft.com/v1.0/me?$select=mail,userPrincipalName", { headers: { Authorization: "Bearer " + access } }); const j = await r.json(); return j.mail || j.userPrincipalName || ""; }
-type GMsg = { id: string; conversationId?: string; subject?: string; receivedDateTime: string; sentDateTime?: string; from?: { emailAddress?: { address?: string; name?: string } }; toRecipients?: { emailAddress?: { address?: string } }[]; ccRecipients?: { emailAddress?: { address?: string } }[]; body?: { content?: string } };
+type GMsg = { id: string; internetMessageId?: string; isDraft?: boolean; conversationId?: string; subject?: string; receivedDateTime: string; sentDateTime?: string; from?: { emailAddress?: { address?: string; name?: string } }; toRecipients?: { emailAddress?: { address?: string } }[]; ccRecipients?: { emailAddress?: { address?: string } }[]; body?: { content?: string } };
 export async function pull(sinceIso: string, max = 200, leads: LeadLite[] = [], people: string[] = []): Promise<InMsg[]> {
   const access = await accessToken(); const dom = DOMAIN(); const out: InMsg[] = []; const isLead = leadMatcher(leads);
-  const sel = "$select=id,conversationId,subject,receivedDateTime,sentDateTime,from,toRecipients,ccRecipients,body&$top=50";
+  const sel = "$select=id,internetMessageId,isDraft,conversationId,subject,receivedDateTime,sentDateTime,from,toRecipients,ccRecipients,body&$top=50";
   // all folders (inbox + others) AND the Sent Items folder explicitly — mails you send from Outlook 365 are always picked up
   const urls = ["https://graph.microsoft.com/v1.0/me/messages?" + sel + "&$orderby=receivedDateTime desc&$filter=receivedDateTime ge " + sinceIso,
     "https://graph.microsoft.com/v1.0/me/mailFolders/sentitems/messages?" + sel + "&$orderby=sentDateTime desc&$filter=sentDateTime ge " + sinceIso];
@@ -44,7 +44,7 @@ export async function pull(sinceIso: string, max = 200, leads: LeadLite[] = [], 
     const r: Response = await fetch(url, { headers: { Authorization: "Bearer " + access, Prefer: 'outlook.body-content-type="text"' } });
     const j: { value?: GMsg[]; "@odata.nextLink"?: string; error?: { message: string } } = await r.json(); if (!r.ok) throw new Error(j.error?.message || "graph error");
     for (const m of j.value || []) {
-      if (seen.has(m.id)) continue; seen.add(m.id);
+      const key = m.internetMessageId || m.id; if (m.isDraft || seen.has(key)) continue; seen.add(key); // same mail in two folders = one copy; drafts never
       const addrs = [m.from?.emailAddress?.address, ...(m.toRecipients || []).map((x) => x.emailAddress?.address), ...(m.ccRecipients || []).map((x) => x.emailAddress?.address)].filter(Boolean).map((a) => String(a).toLowerCase());
       if (!addrs.some((a) => a.endsWith("@" + dom) || a.endsWith("." + dom) || people.includes(a) || !!isLead(a))) continue; // + saved contacts (Pini @walla, partners) even on private mail domains
       out.push({ id: m.id, conversationId: m.conversationId, subject: m.subject || "(no subject)", at: m.sentDateTime || m.receivedDateTime, from: (m.from?.emailAddress?.name ? m.from.emailAddress.name + " <" + m.from.emailAddress.address + ">" : m.from?.emailAddress?.address) || "", to: (m.toRecipients || []).map((x) => x.emailAddress?.address).filter(Boolean).join(", "), body: (m.body?.content || "").replace(/\r/g, "").trim() });

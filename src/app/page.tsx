@@ -1,18 +1,17 @@
 "use client";
-// page.tsx (src/app/page.tsx) · updated 15.10.2026 14:30 (Asia/Jerusalem) — dashboard (+ open offers) + ⚡ competitor-code quick match
+// page.tsx (src/app/page.tsx) · updated 08.11.2026 13:00 (Asia/Jerusalem) — v1.7.2 ⚙ demo-data button removed · 15.10.2026 14:30 — dashboard (+ open offers) + ⚡ competitor-code quick match
 import Link from "next/link";
 import { useStore, STAGES, isClosed } from "@/lib/store";
 import { PRODUCTS, OFFSETS } from "@/lib/data";
 import { Card, H1, Stat, Badge } from "@/components/ui";
 import { fmtUsd, todayIso, fmtDate } from "@/lib/format";
 import PrioritiesCard from "@/components/PrioritiesCard";
-import DemoMenu from "@/components/DemoMenu";
 import OffersCard from "@/components/OffersCard";
 import { useLang } from "@/i18n";
 import QuickMatch from "@/components/QuickMatch";
 export default function Dashboard() {
   const { t: tr } = useLang();
-  const { state, ready, loadDemo, reset } = useStore();
+  const { state, ready } = useStore();
   if (!ready) return null;
   const today = todayIso();
   const open = state.leads.filter((l) => !isClosed(l.stage));
@@ -22,7 +21,7 @@ export default function Dashboard() {
   const won = state.leads.filter((l) => l.stage === "won");
   return (
     <div className="space-y-6">
-      <div className="flex items-start justify-between"><H1 sub={tr("היום ") + fmtDate(new Date())}>{tr("לוח בקרה — Silitex ישראל")}</H1><DemoMenu demo={state.demo} onLoad={loadDemo} onReset={reset} /></div>
+      <div className="flex items-start justify-between"><H1 sub={tr("היום ") + fmtDate(new Date())}>{tr("לוח בקרה — Silitex ישראל")}</H1></div>
       <QuickMatch />
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <Stat label={tr("מוצרים בקטלוג")} value={PRODUCTS.length} hint={OFFSETS.rows.length + tr(" קטגוריות מקבילות")} />

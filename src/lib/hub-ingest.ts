@@ -1,4 +1,4 @@
-// hub-ingest.ts (src/lib/hub-ingest.ts) · updated 19.10.2026 12:30 (Asia/Jerusalem) — customer matching uses all contact e-mails + intake e-mails + website domain, and seed leads not yet saved in Supabase · 10.10.2026 07:30 — server only · known-contact + prospect routing
+// hub-ingest.ts (src/lib/hub-ingest.ts) · updated 08.11.2026 13:00 (Asia/Jerusalem) — v1.7.2 skip a mail already stored in the same thread at the same second (duplicate Outlook copies) · 19.10.2026 12:30 — customer matching uses all contact e-mails + intake e-mails + website domain, and seed leads not yet saved in Supabase · 10.10.2026 07:30 — server only · known-contact + prospect routing
 // Shared ingest: normalised messages → Supabase threads + hub_messages (dedup by external_id, thread by conversationId → subject). Used by /api/hub/ingest and the Outlook sync.
 import { serviceClient } from "./server-data";
 import { deptOf } from "@/config/hub";
@@ -25,6 +25,7 @@ export async function ingest(messages: InMsg[]): Promise<{ added: number; thread
     const direction = isOurs(m.from) ? "out" : "in";
     if (!th) { const id = "thr-" + m.id.replace(/[^a-z0-9]/gi, "").slice(-14); const ct = byContact(m.from + " " + m.to); const ld = ct ? undefined : matchLead(m.from + " " + m.to, leads); const r = await sb.from("threads").upsert({ id, dept: ct?.dept || (ld ? "il" : deptOf(m.subject + " " + m.body.slice(0, 600))), contact_id: ct?.id || null, subject: norm, topic: "other", refs: ld ? { lead_id: ld.id, lead_name: ld.name } : {}, owner: direction === "in" ? "sapirim" : "silitex", status: direction === "in" ? "waiting_us" : "waiting_silitex", created_at: m.at, last_at: m.at, conversation_id: m.conversationId || null }).select("id").single(); th = r.data; threads++; }
     if (!th) continue;
+    if ((await sb.from("hub_messages").select("id").eq("thread_id", th.id).eq("at", m.at).eq("direction", direction).limit(1)).data?.length) continue; // v1.7.2 same mail already stored under another Outlook id (08.11.2026)
     const r = await sb.from("hub_messages").upsert({ id: "msg-" + m.id.replace(/[^a-z0-9]/gi, "").slice(-18), thread_id: th.id, at: m.at, from: m.from, to: m.to, direction, body: m.body.slice(0, 20000), source: "graph", external_id: m.id }, { onConflict: "external_id", ignoreDuplicates: true });
     if (!r.error) { added++; const cur = (await sb.from("threads").select("last_at").eq("id", th.id).single()).data; if (!cur?.last_at || cur.last_at <= m.at) await sb.from("threads").update({ last_at: m.at, status: direction === "in" ? "waiting_us" : "waiting_silitex" }).eq("id", th.id); }
   }
