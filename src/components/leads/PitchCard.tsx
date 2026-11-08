@@ -1,5 +1,5 @@
 "use client";
-// PitchCard.tsx (src/components/leads/PitchCard.tsx) · updated 08.11.2026 07:10 (Asia/Jerusalem) — v1.6.0 after the Outlook draft: the answer is saved on the customer (quoted in the Silitex request) + 🔔 follow-up task in N days · created 08.11.2026 06:40 — v1.5.0
+// PitchCard.tsx (src/components/leads/PitchCard.tsx) · updated 08.11.2026 13:20 (Asia/Jerusalem) — v1.7.4 green line "✓ answered dd/mm hh:mm" under the customer request (your reply from Outlook) · 08.11.2026 07:10 — v1.6.0 after the Outlook draft: the answer is saved on the customer (quoted in the Silitex request) + 🔔 follow-up task in N days · created 08.11.2026 06:40 — v1.5.0
 // 📧 Pitch / first offer on the customer page. Two modes:
 //  • 📨 reply to the customer's own e-mail (from Outlook / Hub) — answers their exact request point by point, no prices, no unapproved substitutes
 //  • 🌐 first contact from the website scan — Avshi's approved template
@@ -15,7 +15,7 @@ import { scanOf } from "@/lib/scan";
 import { allPeople } from "@/lib/people";
 import { outlookDraft, type DraftFile } from "@/lib/outlook-draft";
 import { mailDoc, textToHtml } from "@/lib/eml";
-import { todayIso } from "@/lib/format";
+import { todayIso, fmtDateTime } from "@/lib/format";
 import { followDays } from "@/lib/followup";
 import { useLang } from "@/i18n";
 import type { Lead, Product, Usage, Doc, HubMsg, Thread } from "@/lib/types";
@@ -27,13 +27,13 @@ const b64 = async (url: string) => { const b = new Uint8Array(await (await fetch
 
 export default function PitchCard({ lead, matches, spend, addSpend, addActivity, addDoc, onDrafted }: Props) {
   const { t: tr } = useLang();
-  const [mails, setMails] = useState<CustomerMail[]>([]); const [lastReply, setLastReply] = useState("");
+  const [mails, setMails] = useState<CustomerMail[]>([]); const [lastReply, setLastReply] = useState(""); const [replyAt, setReplyAt] = useState("");
   const [mode, setMode] = useState<Mode>("web"); const [files, setFiles] = useState<PitchFile[]>([]);
   const [text, setText] = useState(""); const [usage, setUsage] = useState<Usage | null>(null);
   const [busy, setBusy] = useState(false); const [err, setErr] = useState(""); const [ok, setOk] = useState(""); const [days, setDays] = useState(5);
   useEffect(() => { setDays(followDays()); }, []);
   const people = allPeople(lead); const contact = people[0]?.name && people[0].name !== lead.name ? people[0].name : "";
-  useEffect(() => { fetch("/api/hub/ingest", { cache: "no-store" }).then((r) => r.json()).then((j) => { const m = mailsFor(lead.id, (j.threads || []) as Thread[], (j.msgs || []) as HubMsg[]); setMails(m.inbound); setLastReply(m.lastReply); if (m.inbound.length) setMode("reply"); }).catch(() => {}); }, [lead.id]);
+  useEffect(() => { fetch("/api/hub/ingest", { cache: "no-store" }).then((r) => r.json()).then((j) => { const m = mailsFor(lead.id, (j.threads || []) as Thread[], (j.msgs || []) as HubMsg[]); setMails(m.inbound); setLastReply(m.lastReply); setReplyAt(m.lastReplyAt); if (m.inbound.length) setMode("reply"); }).catch(() => {}); }, [lead.id]);
   const names = useMemo(() => mode === "reply" ? rowsInText(mails.slice(-2).map((m) => m.subject + " " + m.body).join(" ")).cat.map((r) => r.product) : [...(scanOf(lead)?.data.matches || []).map((m) => m.silitex), ...matches.map((p) => p.product_name)], [mode, mails, lead, matches]);
   useEffect(() => { setFiles((cur) => [...pdfsFor(names, lead.industry).map((n) => ({ name: n, kind: "catalogue" as const, on: true })), ...cur.filter((f) => f.kind === "upload")]); }, [names, lead.industry]);
   const att = files.filter((f) => f.on).map((f) => f.name);
@@ -75,7 +75,7 @@ export default function PitchCard({ lead, matches, spend, addSpend, addActivity,
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-2 flex-wrap"><h3 className="font-bold">📧 {tr("פיץ' / הצעה ראשונה ל-")}{lead.name}</h3><button className={btnPrimary + (!text && !busy ? " ai-pulse" : "")} onClick={run} disabled={busy}>{busy ? tr("מעבד…") : "✨ " + (mode === "reply" ? tr("צור תשובה למייל") : tr("צור פיץ' עם AI"))}</button></div>
         <div className="flex gap-1 flex-wrap">{tab("reply", "📨 " + tr("תשובה למייל הלקוח") + " (" + mails.length + ")", !mails.length)}{tab("web", "🌐 " + tr("פנייה ראשונה לפי האתר"))}</div>
-        {mode === "reply" && mails.length > 0 && <div className="text-xs bg-amber-50 border border-amber-200 rounded-lg p-2"><b>{tr("בקשת הלקוח")}:</b> {mails[mails.length - 1].subject} <span className="text-slate-500" dir="ltr">· {mails[mails.length - 1].from}</span><div className="text-slate-600 mt-1 line-clamp-3 whitespace-pre-wrap" dir="auto">{mails[mails.length - 1].body.slice(0, 400)}</div><div className="text-slate-500 mt-1">{tr("ה-AI עונה על כל סעיף בבקשה. מחיר / MOQ / מלאי / זמן אספקה — ״הצעה רשמית תישלח לאחר אישור Silitex״ (אין מחירון עדיין).")}</div></div>}
+        {mode === "reply" && mails.length > 0 && <div className="text-xs bg-amber-50 border border-amber-200 rounded-lg p-2"><b>{tr("בקשת הלקוח")}:</b> {mails[mails.length - 1].subject} <span className="text-slate-500" dir="ltr">· {mails[mails.length - 1].from}</span><div className="text-slate-600 mt-1 line-clamp-3 whitespace-pre-wrap" dir="auto">{mails[mails.length - 1].body.slice(0, 400)}</div>{replyAt > mails[mails.length - 1].at && <div className="text-emerald-700 mt-1 font-medium">✓ {tr("ענית ללקוח")} · {fmtDateTime(replyAt)} — {tr("ההתכתבות המלאה: 📬 התכתבות ביומן הפעילות")}</div>}<div className="text-slate-500 mt-1">{tr("ה-AI עונה על כל סעיף בבקשה. מחיר / MOQ / מלאי / זמן אספקה — ״הצעה רשמית תישלח לאחר אישור Silitex״ (אין מחירון עדיין).")}</div></div>}
         <PitchFiles files={files} setFiles={setFiles} />
         <TokenMeter usage={usage} sessionTokens={spend.tokens} sessionCost={spend.cost} busy={busy} />
         {err && <div className="text-sm text-red-600">{err}</div>}

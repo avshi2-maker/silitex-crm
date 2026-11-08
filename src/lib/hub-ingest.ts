@@ -1,10 +1,21 @@
-// hub-ingest.ts (src/lib/hub-ingest.ts) · updated 08.11.2026 13:00 (Asia/Jerusalem) — v1.7.2 skip a mail already stored in the same thread at the same second (duplicate Outlook copies) · 19.10.2026 12:30 — customer matching uses all contact e-mails + intake e-mails + website domain, and seed leads not yet saved in Supabase · 10.10.2026 07:30 — server only · known-contact + prospect routing
+// hub-ingest.ts (src/lib/hub-ingest.ts) · updated 08.11.2026 13:20 (Asia/Jerusalem) — v1.7.4 Silitex / partner threads that name ONE customer (name or website, e.g. "Sabonit Zeit" / sabonitzeit.com) are also linked to that customer card (dept stays) · 08.11.2026 13:00 — v1.7.2 skip a mail already stored in the same thread at the same second (duplicate Outlook copies) · 19.10.2026 12:30 — customer matching uses all contact e-mails + intake e-mails + website domain, and seed leads not yet saved in Supabase · 10.10.2026 07:30 — server only · known-contact + prospect routing
 // Shared ingest: normalised messages → Supabase threads + hub_messages (dedup by external_id, thread by conversationId → subject). Used by /api/hub/ingest and the Outlook sync.
 import { serviceClient } from "./server-data";
 import { deptOf } from "@/config/hub";
 import { leadMatcher, isOurs, type LeadLite } from "./hub-match";
 import { LEADS_SEED } from "./data";
 type SB = NonNullable<ReturnType<typeof serviceClient>>;
+const normTxt = (s: string) => s.toLowerCase().replace(/[^a-z0-9\u0590-\u05ff]/g, "");
+const SUFFIX = /\b(ltd|inc|group|industries|limited|co|company|s\.?r\.?l|בע"מ)\b\.?/gi;
+/** exactly ONE customer named in the text (company name or website name, ≥ 6 letters) — several → none (a report about many customers stays unlinked) */
+export function leadByName(text: string, leads: LeadLite[]): LeadLite | undefined {
+  const t = normTxt(text); const hit = new Map<string, LeadLite>();
+  for (const l of leads) {
+    const keys = [normTxt(String(l.name).split(" (")[0].split(" — ")[0].replace(SUFFIX, "")), normTxt(String(l.website || "").replace(/^https?:\/\//, "").replace(/^www\./, "").split(/[./?#]/)[0])];
+    if (keys.some((k) => k.length >= 6 && t.includes(k))) hit.set(l.id, l);
+  }
+  return hit.size === 1 ? [...hit.values()][0] : undefined;
+}
 /** every customer the mail can belong to: Supabase leads (latest edits) + seed leads never edited yet */
 export async function matchLeads(sb: SB): Promise<LeadLite[]> {
   const rows = ((await sb.from("leads").select("id,name,contact_email,website,intake")).data || []) as LeadLite[];
@@ -35,6 +46,14 @@ export async function ingest(messages: InMsg[]): Promise<{ added: number; thread
     const msgs = (await sb.from("hub_messages").select("from,to").eq("thread_id", th.id).limit(5)).data || [];
     const txt = msgs.map((x) => x.from + " " + x.to).join(" "); const ct = byContact(txt); if (ct) { await sb.from("threads").update({ dept: ct.dept, contact_id: ct.id }).eq("id", th.id); continue; }
     const ld = matchLead(txt, leads); if (ld) await sb.from("threads").update({ dept: "il", refs: { lead_id: ld.id, lead_name: ld.name } }).eq("id", th.id);
+  }
+  // Silitex / partner threads about a customer (lead request, RFQ forward …) → also on that customer card. Dept + contact stay.
+  const since = new Date(Date.now() - 60 * 864e5).toISOString();
+  const staff = ((await sb.from("threads").select("id,subject,refs").neq("dept", "il").gte("last_at", since).limit(200)).data || []).filter((t) => !(t.refs as { lead_id?: string } | null)?.lead_id);
+  for (const th of staff) {
+    const msgs = (await sb.from("hub_messages").select("body").eq("thread_id", th.id).order("at", { ascending: true }).limit(3)).data || [];
+    const ld = leadByName(th.subject + " " + msgs.map((x) => String(x.body || "").slice(0, 4000)).join(" "), leads);
+    if (ld) await sb.from("threads").update({ refs: { ...((th.refs as object) || {}), lead_id: ld.id, lead_name: ld.name } }).eq("id", th.id);
   }
   return { added, threads };
 }
