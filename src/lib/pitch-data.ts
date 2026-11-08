@@ -1,4 +1,4 @@
-// pitch-data.ts (src/lib/pitch-data.ts) · created 08.11.2026 06:40 (Asia/Jerusalem) — v1.5.0
+// pitch-data.ts (src/lib/pitch-data.ts) · updated 08.11.2026 13:35 (Asia/Jerusalem) — v1.7.5 customer request / our reply read from customer threads only · created 08.11.2026 06:40 — v1.5.0
 // Data for the 📧 pitch card: the customer's own e-mails (Hub / Outlook), the Silitex catalogue rows that answer them,
 // and the catalogue PDFs to attach. Only real data — rows are picked by INCI / product name that appear in the mail.
 import offsets from "@/data/offsets.json";
@@ -12,7 +12,7 @@ const emailIn = (s: string) => ((s || "").match(/[\w.+-]+@[\w-]+\.[\w.-]+/) || [
 
 /** customer's inbound mails (newest last) + our latest reply, for one lead */
 export function mailsFor(leadId: string, threads: Thread[], msgs: HubMsg[]) {
-  const ids = new Set(threads.filter((t) => t.refs?.lead_id === leadId).map((t) => t.id));
+  const ids = new Set(threads.filter((t) => t.refs?.lead_id === leadId && t.dept === "il").map((t) => t.id)); // customer threads only (Silitex mails about the customer are not "our reply")
   const subj = (id: string) => threads.find((t) => t.id === id)?.subject || "";
   const mine = msgs.filter((m) => ids.has(m.thread_id)).sort((a, b) => a.at.localeCompare(b.at));
   const inbound: CustomerMail[] = mine.filter((m) => m.direction === "in" && m.from && !/sapirim\.com/i.test(m.from)).map((m) => ({ subject: subj(m.thread_id), from: emailIn(m.from), at: m.at, body: clean(m.body) }));

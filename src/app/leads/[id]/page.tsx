@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 08.11.2026 07:15 (Asia/Jerusalem) — v1.6.0 🇮🇹 transparent Silitex lead request card · pitch draft → answer saved on the customer + 🔔 follow-up task · 08.11.2026 06:45 — v1.5.0 📧 PitchCard (reply to the customer's own e-mail or website first contact + 📎 data sheets → Outlook draft with files) · intake form no longer remounts when the scan fills the industry · 26.10.2026 06:55 — v0.96.0 + 👥 people at this company (many contacts per customer) · 23.10.2026 16:10 — 📎 source + confidence chips under the name · 22.10.2026 17:40 — + 🧲 "find similar companies" → search-prompt builder pre-filled from this customer · 07:30 — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 08.11.2026 13:35 (Asia/Jerusalem) — v1.7.5 📬 all correspondence (customer in/out + Silitex + WhatsApp) in one card at the top · 08.11.2026 07:15 — v1.6.0 🇮🇹 transparent Silitex lead request card · pitch draft → answer saved on the customer + 🔔 follow-up task · 08.11.2026 06:45 — v1.5.0 📧 PitchCard (reply to the customer's own e-mail or website first contact + 📎 data sheets → Outlook draft with files) · intake form no longer remounts when the scan fills the industry · 26.10.2026 06:55 — v0.96.0 + 👥 people at this company (many contacts per customer) · 23.10.2026 16:10 — 📎 source + confidence chips under the name · 22.10.2026 17:40 — + 🧲 "find similar companies" → search-prompt builder pre-filled from this customer · 07:30 — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState, useEffect } from "react";
 import type { Thread } from "@/lib/types";
 import Link from "next/link";
@@ -18,6 +18,7 @@ import { intakeOf } from "@/lib/intake";
 import { useRouter } from "next/navigation";
 import PitchCard from "@/components/leads/PitchCard";
 import SilitexLeadRequest from "@/components/leads/SilitexLeadRequest";
+import CorrespondenceCard from "@/components/leads/CorrespondenceCard";
 import { followKind } from "@/lib/followup";
 import type { Lead, Stage } from "@/lib/types";
 import { useLang } from "@/i18n";
@@ -56,6 +57,7 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
       </div>
       <div className="grid lg:grid-cols-[1fr_380px] gap-4 items-start">
         <div className="space-y-4">
+          <CorrespondenceCard lead={lead} />
           <Card>
             <div className="flex flex-wrap gap-1 mb-3">{STAGES.map((s) => (<button key={s.key} onClick={() => setStage(id, s.key as Stage)} className={"text-xs px-2 py-1 rounded-full border " + (lead.stage === s.key ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{tr(s.he)}</button>))}</div>
             <IntakeForm key={lead.id} lead={lead} pool={buildPool(state.leads, state.contacts)} onSave={(l) => { upsertLead(l); addActivity(id, "intake", tr("טופס קליטה עודכן")); }} />
