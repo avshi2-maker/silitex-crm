@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/leads/[id]/page.tsx) · updated 08.11.2026 06:45 (Asia/Jerusalem) — v1.5.0 📧 PitchCard (reply to the customer's own e-mail or website first contact + 📎 data sheets → Outlook draft with files) · intake form no longer remounts when the scan fills the industry · 26.10.2026 06:55 — v0.96.0 + 👥 people at this company (many contacts per customer) · 23.10.2026 16:10 — 📎 source + confidence chips under the name · 22.10.2026 17:40 — + 🧲 "find similar companies" → search-prompt builder pre-filled from this customer · 07:30 — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
+// page.tsx (src/app/leads/[id]/page.tsx) · updated 08.11.2026 07:15 (Asia/Jerusalem) — v1.6.0 🇮🇹 transparent Silitex lead request card · pitch draft → answer saved on the customer + 🔔 follow-up task · 08.11.2026 06:45 — v1.5.0 📧 PitchCard (reply to the customer's own e-mail or website first contact + 📎 data sheets → Outlook draft with files) · intake form no longer remounts when the scan fills the industry · 26.10.2026 06:55 — v0.96.0 + 👥 people at this company (many contacts per customer) · 23.10.2026 16:10 — 📎 source + confidence chips under the name · 22.10.2026 17:40 — + 🧲 "find similar companies" → search-prompt builder pre-filled from this customer · 07:30 — e-mail / mobile / phone fields validated: green ✓ valid, red + hint invalid, amber when already used by another customer / contact (lib/validate.ts + ValidInput) · 21.10.2026 11:35 (Asia/Jerusalem) — + 📎 ready-to-send comparison links (competitor code → sapirim.com page) · 11:10 — + 🔎 smart Google search card (decision makers, verify, news, supplier, SDS) · 19.10.2026 12:05 — 🔎 website scan + Silitex match · 📍 address / Waze / nearby customers · customer mails pulled live from Outlook (Hub) · 🗑️ delete task / log entry · 11:45 — + 🗺️ account playbook card (real step flow) · 15.10.2026 14:50 (Asia/Jerusalem) — + sample request to Silitex · lead file: intake, stage, documents/offers, transcript, samples, timeline, AI pitch
 import { use, useState, useEffect } from "react";
 import type { Thread } from "@/lib/types";
 import Link from "next/link";
@@ -11,12 +11,14 @@ import PurchaseHistory from "@/components/market/PurchaseHistory";
 import SampleCard from "@/components/SampleCard";
 import DocsCard from "@/components/leads/DocsCard";
 import TranscriptCard from "@/components/leads/TranscriptCard";
-import { fmtDateTime, fmtDate, todayIso } from "@/lib/format";
+import { fmtDateTime, fmtDate, todayIso, addDays } from "@/lib/format";
 import RowActions from "@/components/leads/RowActions";
 import IntakeForm from "@/components/leads/IntakeForm";
 import { intakeOf } from "@/lib/intake";
 import { useRouter } from "next/navigation";
 import PitchCard from "@/components/leads/PitchCard";
+import SilitexLeadRequest from "@/components/leads/SilitexLeadRequest";
+import { followKind } from "@/lib/followup";
 import type { Lead, Stage } from "@/lib/types";
 import { useLang } from "@/i18n";
 import { statusHe } from "@/lib/hub";
@@ -58,7 +60,8 @@ export default function LeadPage({ params }: { params: Promise<{ id: string }> }
             <div className="flex flex-wrap gap-1 mb-3">{STAGES.map((s) => (<button key={s.key} onClick={() => setStage(id, s.key as Stage)} className={"text-xs px-2 py-1 rounded-full border " + (lead.stage === s.key ? "bg-brand-500 text-white border-brand-500" : "bg-white")}>{tr(s.he)}</button>))}</div>
             <IntakeForm key={lead.id} lead={lead} pool={buildPool(state.leads, state.contacts)} onSave={(l) => { upsertLead(l); addActivity(id, "intake", tr("טופס קליטה עודכן")); }} />
           </Card>
-          <PitchCard lead={lead} matches={matches} spend={state.spend} addSpend={addSpend} addActivity={addActivity} addDoc={addDoc} />
+          <PitchCard lead={lead} matches={matches} spend={state.spend} addSpend={addSpend} addActivity={addActivity} addDoc={addDoc} onDrafted={(d) => { upsertLead({ ...lead, intake: { ...(lead.intake || {}), LAST_PITCH: d.text, LAST_PITCH_AT: new Date().toISOString(), LAST_PITCH_SUBJECT: d.subject, LAST_PITCH_FILES: d.files.join(", ") } }); if (d.days) addTask({ lead_id: id, lead_name: lead.name, title: "🔔 " + tr("מעקב: אין תשובה ל-") + "«" + d.subject.slice(0, 90) + "»", due: addDays(todayIso(), d.days), cadence: "once", kind: followKind() }); }} />
+          <SilitexLeadRequest lead={lead} contacts={state.contacts} spend={state.spend} addSpend={addSpend} addActivity={addActivity} />
           <DocsCard lead={lead} docs={state.docs.filter((d) => d.lead_id === id)} matches={matches} onAdd={addDoc} onStatus={setDocStatus} onStage={(s) => setStage(id, s)} spend={state.spend} addSpend={addSpend} />
           <TranscriptCard lead={lead} spend={state.spend} addSpend={addSpend} onLog={(t) => addActivity(id, "transcript", t)} onTask={(title, due) => addTask({ lead_id: id, lead_name: lead.name, title, due, cadence: "once", kind: "followup" })} onStage={(s) => setStage(id, s)} />
           <Card>

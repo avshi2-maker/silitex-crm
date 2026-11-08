@@ -17,7 +17,7 @@ export function mailsFor(leadId: string, threads: Thread[], msgs: HubMsg[]) {
   const mine = msgs.filter((m) => ids.has(m.thread_id)).sort((a, b) => a.at.localeCompare(b.at));
   const inbound: CustomerMail[] = mine.filter((m) => m.direction === "in" && m.from && !/sapirim\.com/i.test(m.from)).map((m) => ({ subject: subj(m.thread_id), from: emailIn(m.from), at: m.at, body: clean(m.body) }));
   const out = mine.filter((m) => m.direction === "out").pop();
-  return { inbound, lastReply: out ? clean(out.body).slice(0, 1500) : "" };
+  return { inbound, lastReply: out ? clean(out.body).slice(0, 1500) : "", lastReplyAt: out?.at || "" };
 }
 
 const OFF = (offsets as unknown as { rows: OffsetRow[] }).rows;

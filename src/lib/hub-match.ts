@@ -1,11 +1,11 @@
-// hub-match.ts (src/lib/hub-match.ts) · updated 19.10.2026 12:30 (Asia/Jerusalem) — customer matching for hundreds of leads: every e-mail in the contact field (several allowed: a@x.com, b@y.com) + any e-mail in the intake form + the company WEBSITE domain → mail lands in that customer's box with no extra typing · 10.10.2026 07:30
+// hub-match.ts (src/lib/hub-match.ts) · updated 08.11.2026 07:15 (Asia/Jerusalem) — v1.6.0 our own (sapirim.com / marble-art.co.il) and Silitex addresses are never a customer key (a saved pitch / quoted mail on a customer can no longer pull our own mails into that customer) · 19.10.2026 12:30 — customer matching for hundreds of leads: every e-mail in the contact field (several allowed: a@x.com, b@y.com) + any e-mail in the intake form + the company WEBSITE domain → mail lands in that customer's box with no extra typing · 10.10.2026 07:30
 // Match an email's addresses to a Silitex contact or an Israeli prospect (lead contact email / company domain). Shared by Outlook sync, server ingest and paste-mail.
 export const GENERIC_DOMAINS = /^(gmail|googlemail|yahoo|hotmail|outlook|live|walla|icloud|me|msn|aol|proton|protonmail|013|012|bezeqint|netvision|zahav)\./i;
 export type LeadLite = { id: string; name: string; contact_email?: string | null; website?: string | null; intake?: Record<string, string> | null };
 const EMAIL_RE = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi;
 export const siteDomain = (w?: string | null) => { const h = String(w || "").toLowerCase().replace(/^https?:\/\//, "").split(/[/?#]/)[0].replace(/^www\./, ""); return h && h.includes(".") && !GENERIC_DOMAINS.test(h) ? h : ""; };
 export function leadKeys(l: LeadLite): { emails: string[]; domains: string[] } {
-  const emails = [...(String(l.contact_email || "").match(EMAIL_RE) || []), ...(Object.values(l.intake || {}).join(" ").match(EMAIL_RE) || [])].map((e) => e.toLowerCase());
+  const emails = [...(String(l.contact_email || "").match(EMAIL_RE) || []), ...(Object.values(l.intake || {}).join(" ").match(EMAIL_RE) || [])].map((e) => e.toLowerCase()).filter((e) => !OUR_DOMAINS.some((d) => e.endsWith("@" + d)) && !/@silitex\./.test(e));
   const domains = [...new Set([...emails.map(emailDomain), siteDomain(l.website)].filter(Boolean))].filter((d) => !OUR_DOMAINS.includes(d) && !/silitex\./.test(d));
   return { emails: [...new Set(emails)], domains };
 }

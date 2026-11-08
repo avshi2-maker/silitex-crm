@@ -1,5 +1,5 @@
 "use client";
-// PitchCard.tsx (src/components/leads/PitchCard.tsx) · created 08.11.2026 06:40 (Asia/Jerusalem) — v1.5.0
+// PitchCard.tsx (src/components/leads/PitchCard.tsx) · updated 08.11.2026 07:10 (Asia/Jerusalem) — v1.6.0 after the Outlook draft: the answer is saved on the customer (quoted in the Silitex request) + 🔔 follow-up task in N days · created 08.11.2026 06:40 — v1.5.0
 // 📧 Pitch / first offer on the customer page. Two modes:
 //  • 📨 reply to the customer's own e-mail (from Outlook / Hub) — answers their exact request point by point, no prices, no unapproved substitutes
 //  • 🌐 first contact from the website scan — Avshi's approved template
@@ -16,19 +16,22 @@ import { allPeople } from "@/lib/people";
 import { outlookDraft, type DraftFile } from "@/lib/outlook-draft";
 import { mailDoc, textToHtml } from "@/lib/eml";
 import { todayIso } from "@/lib/format";
+import { followDays } from "@/lib/followup";
 import { useLang } from "@/i18n";
 import type { Lead, Product, Usage, Doc, HubMsg, Thread } from "@/lib/types";
 
-type Props = { lead: Lead; matches: Product[]; spend: { tokens: number; cost: number }; addSpend: (t: number, c: number) => void; addActivity: (id: string, kind: string, text: string) => void; addDoc: (d: Omit<Doc, "id">) => void };
+export type Drafted = { subject: string; text: string; files: string[]; days: number };
+type Props = { lead: Lead; matches: Product[]; spend: { tokens: number; cost: number }; addSpend: (t: number, c: number) => void; addActivity: (id: string, kind: string, text: string) => void; addDoc: (d: Omit<Doc, "id">) => void; onDrafted?: (d: Drafted) => void };
 type Mode = "reply" | "web";
 const b64 = async (url: string) => { const b = new Uint8Array(await (await fetch(url)).arrayBuffer()); let s = ""; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode(...b.subarray(i, i + 0x8000)); return btoa(s); };
 
-export default function PitchCard({ lead, matches, spend, addSpend, addActivity, addDoc }: Props) {
+export default function PitchCard({ lead, matches, spend, addSpend, addActivity, addDoc, onDrafted }: Props) {
   const { t: tr } = useLang();
   const [mails, setMails] = useState<CustomerMail[]>([]); const [lastReply, setLastReply] = useState("");
   const [mode, setMode] = useState<Mode>("web"); const [files, setFiles] = useState<PitchFile[]>([]);
   const [text, setText] = useState(""); const [usage, setUsage] = useState<Usage | null>(null);
-  const [busy, setBusy] = useState(false); const [err, setErr] = useState(""); const [ok, setOk] = useState("");
+  const [busy, setBusy] = useState(false); const [err, setErr] = useState(""); const [ok, setOk] = useState(""); const [days, setDays] = useState(5);
+  useEffect(() => { setDays(followDays()); }, []);
   const people = allPeople(lead); const contact = people[0]?.name && people[0].name !== lead.name ? people[0].name : "";
   useEffect(() => { fetch("/api/hub/ingest", { cache: "no-store" }).then((r) => r.json()).then((j) => { const m = mailsFor(lead.id, (j.threads || []) as Thread[], (j.msgs || []) as HubMsg[]); setMails(m.inbound); setLastReply(m.lastReply); if (m.inbound.length) setMode("reply"); }).catch(() => {}); }, [lead.id]);
   const names = useMemo(() => mode === "reply" ? rowsInText(mails.slice(-2).map((m) => m.subject + " " + m.body).join(" ")).cat.map((r) => r.product) : [...(scanOf(lead)?.data.matches || []).map((m) => m.silitex), ...matches.map((p) => p.product_name)], [mode, mails, lead, matches]);
@@ -61,7 +64,8 @@ export default function PitchCard({ lead, matches, spend, addSpend, addActivity,
       await outlookDraft({ to, subject, html, files: out }, win);
       addActivity(lead.id, "mail", tr("טיוטת Outlook נוצרה") + ": " + subject + (out.length ? " · 📎 " + out.length : ""));
       files.filter((x) => x.on).forEach((f) => addDoc({ lead_id: lead.id, lead_name: lead.name, kind: f.kind === "upload" ? "tds" : "other", title: f.name + " (" + tr("טיוטה") + ")", sent_at: todayIso(), via: "Outlook", status: "sent" }));
-      setOk("✓ " + tr("הטיוטה מוכנה ב-Outlook עם הקבצים — בדוק ולחץ Send"));
+      onDrafted?.({ subject, text: bodyTxt, files: files.filter((x) => x.on).map((x) => x.name), days });
+      setOk("✓ " + tr("הטיוטה מוכנה ב-Outlook עם הקבצים — בדוק ולחץ Send") + (days ? " · 🔔 " + tr("מעקב בעוד") + " " + days + " " + tr("ימים") : ""));
     } catch (e: unknown) { try { win.close(); } catch { /* */ } setErr(e instanceof Error ? e.message : tr("שגיאה")); }
   };
 
@@ -77,7 +81,7 @@ export default function PitchCard({ lead, matches, spend, addSpend, addActivity,
         {err && <div className="text-sm text-red-600">{err}</div>}
         {text && <>
           <textarea className={inputCls + " leading-6"} rows={16} dir="auto" value={text} onChange={(e) => setText(e.target.value)} />
-          <div className="flex items-center gap-2 flex-wrap"><button className={btnPrimary} onClick={draft}>📧 {tr("טיוטה ב-Outlook עם הקבצים")} ({att.length})</button><button className={btnGhost} onClick={run} disabled={busy}>↻ {tr("צור מחדש")}</button>{ok && <span className="text-xs text-emerald-700">{ok}</span>}</div>
+          <div className="flex items-center gap-2 flex-wrap"><button className={btnPrimary} onClick={draft}>📧 {tr("טיוטה ב-Outlook עם הקבצים")} ({att.length})</button><label className="text-xs text-slate-500 flex items-center gap-1">🔔 {tr("מעקב אם אין תשובה")}<select className={inputCls + " !w-auto !py-1"} value={days} onChange={(e) => setDays(Number(e.target.value))}><option value={0}>{tr("בלי")}</option>{[2, 3, 5, 7, 10, 14].map((n) => <option key={n} value={n}>{n} {tr("ימים")}</option>)}</select></label><button className={btnGhost} onClick={run} disabled={busy}>↻ {tr("צור מחדש")}</button>{ok && <span className="text-xs text-emerald-700">{ok}</span>}</div>
           <ExportBar title={"Pitch — " + lead.name} text={text} />
         </>}
       </div>

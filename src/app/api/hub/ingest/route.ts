@@ -11,6 +11,6 @@ export async function POST(req: Request) {
 }
 export async function GET() {
   const sb = serviceClient(); if (!sb) return NextResponse.json({ threads: [], msgs: [], note: "no supabase" });
-  const [t, m] = await Promise.all([sb.from("threads").select("*").order("last_at", { ascending: false }).limit(300), sb.from("hub_messages").select("*").order("at", { ascending: true }).limit(2000)]);
-  return NextResponse.json({ threads: t.data || [], msgs: m.data || [] });
+  const [t, m] = await Promise.all([sb.from("threads").select("*").order("last_at", { ascending: false }).limit(300), sb.from("hub_messages").select("*").order("at", { ascending: false }).limit(2000)]); // newest 2,000 (was oldest 2,000 — new mails would drop off)
+  return NextResponse.json({ threads: t.data || [], msgs: (m.data || []).reverse() });
 }
