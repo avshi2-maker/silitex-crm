@@ -15,6 +15,10 @@
     {
       "path": "/api/cron/visibility",
       "schedule": "0 6 1 * *"
+    },
+    {
+      "path": "/api/cron/insight",
+      "schedule": "30 3 * * 0"
     }
   ]
 }
