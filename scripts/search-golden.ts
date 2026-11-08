@@ -13,6 +13,7 @@ const CASES: Case[] = [
   { q: "DC 245", top: /CYCLOPENTASILOXANE/ },
   { q: "PMX-200", top: /DIMETHICONE|LUBROFIL/, never: /PMX-1503|PMX-0345|PMX-1508/ },
   { q: "SF1708", top: /AMODIMETHICONE|STONIX/ },
+  { q: "SF1706", top: /BEAUTY CAR/, never: /AMODIMETHICONE/ },              // 08/11/2026: industrial car-polish fluid, moved CAT-02 → CAT-05
   { q: "9040", top: /SILIBLEND|Cosmetics catalogue/ },
 ];
 let bad = 0;

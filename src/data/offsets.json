@@ -127,7 +127,7 @@
       "eco_certs": "ISO 9001 / ISO 14001",
       "offsets": {
         "Shin-Etsu": "KF-8004 / KF-8005S",
-        "Momentive": "SF1708 / SF1706",
+        "Momentive": "SF1708",
         "Wacker (BELSIL / SILFOAM / SILRES)": "BELSIL ADM 1370 / BELSIL ADM 1650",
         "Evonik (ABIL / TEGO)": "",
         "Bluestar / Elkem (Mirasil)": "Mirasil ADM 403",
@@ -295,7 +295,7 @@
       "eco_certs": "ISO 9001 / ISO 14001",
       "offsets": {
         "Shin-Etsu": "KM-90 / KM-902",
-        "Momentive": "SM 2163 / SM 2138",
+        "Momentive": "SM 2163 / SM 2138 / SF1706",
         "Wacker (BELSIL / SILFOAM / SILRES)": "WACKER E 10",
         "Evonik (ABIL / TEGO)": "TEGO Polish",
         "Bluestar / Elkem (Mirasil)": "",
@@ -2376,11 +2376,11 @@
       "note": "Neat amino FLUID, not a macroemulsion. SpecialChem Momentive listing: 'SF 1708 - AMODIMETHICONE' (neat amino fluid)"
     },
     "Momentive|SF1706": {
-      "cat": "CAT-02",
+      "cat": "CAT-05",
       "status": "ok",
       "inci": "Industrial grade (car polish) — confirmed real by Avshi 27/10/2026",
-      "note": "Not found by the 28/10 web search; kept on Avshi's own confirmation.",
-      "checked": "28/10/2026",
+      "note": "Moved 08/11/2026 from CAT-02 (cosmetic amodimethicone) to CAT-05 (automotive polish) on Avshi's approval — industrial car-polish amine fluid, not cosmetic. Not found by the 28/10 web search; kept on Avshi's own confirmation.",
+      "checked": "08/11/2026",
       "src": "Avshi"
     },
     "Wacker (BELSIL / SILFOAM / SILRES)|BELSIL ADM 1370": {
