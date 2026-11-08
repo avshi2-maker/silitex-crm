@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/today/page.tsx) · updated 08.11.2026 07:15 (Asia/Jerusalem) — v1.6.0 🔔 follow-up bot (customer mails without answer → task on the reminder day) + ✉ reminder button on 🔔 tasks (AI friendly reminder → Outlook draft) · 22.10.2026 07:50 — quick add: pick a SUPPLIER / partner too (Pini 🧑‍🔬 on top, Silitex) → task with his name, link to the Hub · 21.10.2026 17:10 (Asia/Jerusalem) — + 📮 Friday-report ticker (Silitex open questions) · 11:30 — + 🎯 daily hunt: 5 leads without a contact person (rotating, best priority first) · 19.10.2026 12:05 — idle customers A→Z · waiting list = all playbook steps owed by others + e-mails waiting for Silitex / customer reply (from the Hub, red after 2 days = follow up) · 🗑️ delete a task · 11:45 — playbook steps: step badge + owner, ✓ opens the next step automatically, steps owned by Silitex / customer / Pini in "waiting for others" · 17.10.2026 08:15 — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
+// page.tsx (src/app/today/page.tsx) · updated 08.11.2026 12:35 (Asia/Jerusalem) — v1.7.1 "customers with no next step" collapsed to one line (▸ show) · 08.11.2026 07:15 — v1.6.0 🔔 follow-up bot (customer mails without answer → task on the reminder day) + ✉ reminder button on 🔔 tasks (AI friendly reminder → Outlook draft) · 22.10.2026 07:50 — quick add: pick a SUPPLIER / partner too (Pini 🧑‍🔬 on top, Silitex) → task with his name, link to the Hub · 21.10.2026 17:10 (Asia/Jerusalem) — + 📮 Friday-report ticker (Silitex open questions) · 11:30 — + 🎯 daily hunt: 5 leads without a contact person (rotating, best priority first) · 19.10.2026 12:05 — idle customers A→Z · waiting list = all playbook steps owed by others + e-mails waiting for Silitex / customer reply (from the Hub, red after 2 days = follow up) · 🗑️ delete a task · 11:45 — playbook steps: step badge + owner, ✓ opens the next step automatically, steps owned by Silitex / customer / Pini in "waiting for others" · 17.10.2026 08:15 — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
 import { useState } from "react";
 import Link from "next/link";
 import { useStore, stageHe } from "@/lib/store";
@@ -28,7 +28,7 @@ export default function TodayPage() {
   const { state, ready, completeTask, toggleTask, addTask, advancePlan, removeTask } = useStore();
   const [mails, setMails] = useState<Thread[]>([]);
   useEffect(() => { fetch("/api/hub/ingest", { cache: "no-store" }).then((r) => r.json()).then((j) => setMails(((j.threads || []) as Thread[]).filter((t) => t.status === "waiting_silitex"))).catch(() => {}); }, []);
-  const [pnote, setPnote] = useState(""); const [rem, setRem] = useState("");
+  const [pnote, setPnote] = useState(""); const [rem, setRem] = useState(""); const [showIdle, setShowIdle] = useState(false);
   const [open, setOpen] = useState(""); const [q, setQ] = useState({ lead: "", title: "", due: todayIso() }); const [plan, setPlan] = useState<Record<string, string>>({});
   if (!ready) return null;
   const today = todayIso(); const week = addDays(today, 7); const weekAgo = addDays(today, -7);
@@ -107,8 +107,8 @@ export default function TodayPage() {
         </Card>
       ))}
       <Card className="space-y-2">
-        <div className="flex flex-wrap items-center justify-between gap-2"><h2 className="font-bold">🧭 {tr("לקוחות פעילים בלי צעד הבא")} <Badge tone="amber">{idle.length}</Badge></h2><Link href="/leads/import" className={btnGhost + " text-sm"}>📥 {tr("ייבוא לקוחות מ-Excel / SAP")}</Link></div>
-        <p className="text-xs text-slate-500">{tr("ממוין לפי א-ב (שם באנגלית). כל לקוח פעיל צריך משימה פתוחה — אחרת הוא נשכח.")}</p>
+        <div className="flex flex-wrap items-center justify-between gap-2"><h2 className="font-bold">🧭 {tr("לקוחות פעילים בלי צעד הבא")} <Badge tone="amber">{idle.length}</Badge></h2><button className={btnGhost + " text-xs"} onClick={() => setShowIdle(!showIdle)}>{showIdle ? "▾ " + tr("הסתר") : "▸ " + tr("הצג רשימה")}</button><Link href="/leads/import" className={btnGhost + " text-sm"}>📥 {tr("ייבוא לקוחות מ-Excel / SAP")}</Link></div>
+        {showIdle && <><p className="text-xs text-slate-500">{tr("ממוין לפי א-ב (שם באנגלית). כל לקוח פעיל צריך משימה פתוחה — אחרת הוא נשכח.")}</p>
         <ul className="divide-y">{idle.slice(0, 40).map((l) => (
           <li key={l.id} className="py-2 flex flex-wrap items-center gap-2 text-sm">
             <Link href={"/leads/" + l.id} className="font-medium text-brand-700 hover:underline min-w-[10rem]">{l.name}</Link>
@@ -116,7 +116,7 @@ export default function TodayPage() {
             <input className={inputCls + " flex-1 min-w-[12rem]"} placeholder={tr("שיחת בירור: מוצר בשימוש, כמויות, מחיר יעד")} value={plan[l.id] || ""} onChange={(e) => setPlan({ ...plan, [l.id]: e.target.value })} />
             <button className={btnGhost + " text-xs"} onClick={() => planIdle(l)}>+ {tr("להיום")}</button>
           </li>))}</ul>
-        {idle.length > 40 && <div className="text-xs text-slate-500">+{idle.length - 40} {tr("נוספים")} · <Link className="underline" href="/leads">{tr("כל הלקוחות")}</Link></div>}
+        {idle.length > 40 && <div className="text-xs text-slate-500">+{idle.length - 40} {tr("נוספים")} · <Link className="underline" href="/leads">{tr("כל הלקוחות")}</Link></div>}</>}
       </Card>
       <ExportBar title={tr("תוכנית עבודה ") + fmtDate(today)} text={text} />
     </div>
