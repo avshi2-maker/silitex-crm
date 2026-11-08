@@ -1,9 +1,10 @@
-// route.ts (src/app/api/hub/wa/route.ts) · updated 08.11.2026 11:55 (Asia/Jerusalem) — v1.7.0 every customer WhatsApp message is forwarded to the Sapirim Hub, which sorts it to the right CRM (Silitex / sinks / Artfloor / AI / Nutri); old direct filing stays as fallback when the Hub is unreachable · messages from Avshi's own number only open the 24 h window · 26.10.2026 07:20 — v0.97.0 remembers last inbound per number (24 h window) + saves delivery status for /brief · 13.10.2026 12:40 — + delivery statuses logged (failed → error code/title in Vercel logs) · WhatsApp Cloud API webhook (public): GET = Meta verification, POST = messages + coexistence echoes
-import { NextResponse } from "next/server";
+// route.ts (src/app/api/hub/wa/route.ts) · updated 08.11.2026 18:45 (Asia/Jerusalem) — v1.9.0 🎙️ Avshi's own text / voice notes → voice inbox (tasks via the Hub, answer on WhatsApp) · 11:55 v1.7.0 every customer WhatsApp message is forwarded to the Sapirim Hub, which sorts it to the right CRM (Silitex / sinks / Artfloor / AI / Nutri); old direct filing stays as fallback when the Hub is unreachable · messages from Avshi's own number only open the 24 h window · 26.10.2026 07:20 — v0.97.0 remembers last inbound per number (24 h window) + saves delivery status for /brief · 13.10.2026 12:40 — + delivery statuses logged (failed → error code/title in Vercel logs) · WhatsApp Cloud API webhook (public): GET = Meta verification, POST = messages + coexistence echoes
+import { NextResponse, after } from "next/server";
+import { ownerNote } from "@/lib/voice-inbox";
 import { verifySignature, routeInbound, mediaToCloudinary, normPhone, type WaIn } from "@/lib/wa-inbound";
 import { note } from "@/lib/whatsapp";
 import { forwardToHub, OWNER_WA } from "@/lib/hub-forward";
-export const runtime = "nodejs"; export const dynamic = "force-dynamic";
+export const runtime = "nodejs"; export const dynamic = "force-dynamic"; export const maxDuration = 60; // room for the 🎙️ voice note (Whisper + AI) after the answer to Meta
 export async function GET(req: Request) {
   const u = new URL(req.url); const mode = u.searchParams.get("hub.mode"), tok = u.searchParams.get("hub.verify_token"), ch = u.searchParams.get("hub.challenge");
   if (mode === "subscribe" && tok && tok === process.env.WA_VERIFY_TOKEN && ch) return new NextResponse(ch, { status: 200 });
@@ -22,7 +23,9 @@ export async function POST(req: Request) {
       const mediaId = m.image?.id || m.document?.id || m.audio?.id || m.video?.id; const media_url = mediaId ? await mediaToCloudinary(mediaId) : null;
       const text = m.text?.body || m.image?.caption || m.document?.caption || m.video?.caption || (m.location ? "📍 " + (m.location.name || "") + " https://maps.google.com/?q=" + m.location.latitude + "," + m.location.longitude : "") || (mediaId && !media_url ? "[" + m.type + (m.document?.filename ? " " + m.document.filename : "") + "]" : "") || "[" + m.type + "]";
       if (!echo) await note("wa_in:" + phone, "last message in"); // opens Meta's 24 h window for free-text replies
-      if (!echo && normPhone(phone) === OWNER_WA()) { out.push("owner"); continue; } // Avshi → bot: window only, not a lead
+      if (!echo && normPhone(phone) === OWNER_WA()) { // Avshi → bot: never a lead. Voice note / text of 6+ chars = 🎙️ voice inbox (after the answer to Meta)
+        if ((m.type === "audio" && media_url) || (m.type === "text" && text.trim().length >= 6)) { const n = { id: m.id, type: m.type, body: text, media_url, at: new Date(Number(m.timestamp) * 1000).toISOString() }; after(() => ownerNote(n)); out.push("owner-note"); } else out.push("owner");
+        continue; }
       const w: WaIn = { id: m.id, phone, name: names[phone], at: new Date(Number(m.timestamp) * 1000).toISOString(), body: text, direction: echo ? "out" : "in", media_url };
       const hub = await forwardToHub(w); if (hub) { out.push("hub:" + hub); continue; } // Hub sorts + files it
       try { out.push(await routeInbound(w)); } catch (err) { out.push("error:" + (err instanceof Error ? err.message : "x")); } // fallback: Silitex filing as before
