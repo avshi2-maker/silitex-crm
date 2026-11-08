@@ -1,4 +1,4 @@
-// voice-inbox.ts (src/lib/voice-inbox.ts) · updated 08.11.2026 18:58 step trail in hub_tokens (id voice) · created 08.11.2026 18:45 (Asia/Jerusalem) — v1.9.0
+// voice-inbox.ts (src/lib/voice-inbox.ts) · updated 08.11.2026 19:00 voice from Meta directly (Cloudinary upload failed for audio) · 18:58 step trail in hub_tokens (id voice) · created 08.11.2026 18:45 (Asia/Jerusalem) — v1.9.0
 // 🎙️ Avshi → the bot number (WhatsApp): a voice note is transcribed here (Whisper, OPENAI_API_KEY), a text note goes as is →
 // sent to the Sapirim Hub (/api/wa/owner), which turns it into tasks in the right CRM → the Hub's answer is sent back on WhatsApp
 // (the 24 h window is open because Avshi just wrote). Runs AFTER the webhook answered Meta (no retries / timeouts).
@@ -7,12 +7,24 @@ import { audioUrl } from "./cloudinary";
 import { sendWhatsApp, note } from "./whatsapp";
 import { HUB_URL } from "./hub-forward";
 
-export async function ownerNote(m: { id: string; type: string; body: string; media_url: string | null; at: string }): Promise<void> {
+/** voice note straight from Meta → Whisper (WhatsApp sends ogg/opus, Whisper reads it; no Cloudinary step) */
+async function transcribeMeta(mediaId: string): Promise<string> {
+  const tok = process.env.WA_TOKEN, key = process.env.OPENAI_API_KEY; if (!tok || !key) throw new Error("WA_TOKEN / OPENAI_API_KEY missing");
+  const meta = await (await fetch("https://graph.facebook.com/v21.0/" + mediaId, { headers: { Authorization: "Bearer " + tok } })).json() as { url?: string; mime_type?: string };
+  if (!meta.url) throw new Error("Meta media not found");
+  const bin = await (await fetch(meta.url, { headers: { Authorization: "Bearer " + tok } })).arrayBuffer();
+  const fd = new FormData(); fd.append("file", new Blob([bin], { type: "audio/ogg" }), "voice.ogg"); fd.append("model", "whisper-1"); fd.append("response_format", "text"); fd.append("language", "he");
+  const r = await fetch("https://api.openai.com/v1/audio/transcriptions", { method: "POST", headers: { Authorization: "Bearer " + key }, body: fd });
+  if (!r.ok) throw new Error("Whisper " + r.status + ": " + (await r.text()).slice(0, 150));
+  return (await r.text()).trim();
+}
+
+export async function ownerNote(m: { id: string; type: string; body: string; media_url: string | null; media_id?: string | null; at: string }): Promise<void> {
   const key = process.env.HUB_WA_KEY; if (!key) return;
   let text = m.body || ""; let transcribed = false; let whisperUsd = 0;
   try {
     await note("voice", "2 started " + m.type);
-    if (m.type === "audio" && m.media_url) { text = await transcribe(audioUrl({ secure_url: m.media_url })); transcribed = true; whisperUsd = Math.max(0.001, (text.length / 900) * WHISPER_USD_PER_MIN); }
+    if (m.type === "audio") { text = m.media_id ? await transcribeMeta(m.media_id) : m.media_url ? await transcribe(audioUrl({ secure_url: m.media_url })) : ""; transcribed = true; whisperUsd = Math.max(0.001, (text.length / 900) * WHISPER_USD_PER_MIN); }
     await note("voice", "3 text " + text.length + " chars" + (transcribed ? " (transcribed)" : ""));
     if (text.trim().length < 3) return;
     const r = await fetch(HUB_URL() + "/api/wa/owner", { method: "POST", headers: { "content-type": "application/json", "x-hub-wa-key": key }, body: JSON.stringify({ id: m.id, text, transcribed, media_url: m.media_url, at: m.at, whisper_usd: whisperUsd }), signal: AbortSignal.timeout(50000), cache: "no-store" });
