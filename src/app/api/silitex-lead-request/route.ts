@@ -1,4 +1,4 @@
-// route.ts (src/app/api/silitex-lead-request/route.ts) · created 08.11.2026 07:10 (Asia/Jerusalem) — v1.6.0
+// route.ts (src/app/api/silitex-lead-request/route.ts) · updated 09.11.2026 12:05 (Asia/Jerusalem) — v1.9.6 ENGLISH ONLY: Hebrew / WhatsApp text is translated, never pasted (no Hebrew in the mail) · created 08.11.2026 07:10 — v1.6.0
 // 🇮🇹 ONE CUSTOMER → SILITEX (owner only, 100% transparent — Avshi's policy): customer name + website + the customer's own request
 // + what Sapirim already answered → English e-mail to Federica / Eleonora asking for focused technical support,
 // + the open points as Federica-register items. Rules: never invent data, no prices from us, quote faithfully.
@@ -20,11 +20,12 @@ Avshi's policy is 100% transparency with Silitex about his leads: NAME the custo
 Write ONE professional, friendly English e-mail:
 1. Subject: "New lead Israel — <customer> — <product asked>".
 2. Short intro: the customer (name, city, what they make, website URL as given) and who contacted us (name, role).
-3. "The customer's request" — a faithful summary of every point they asked (product, grade, specification, quantities, documents, conditions such as "no substitute approved"). Quote key sentences verbatim in quotation marks.
+3. "The customer's request" — a faithful summary of every point they asked (product, grade, specification, quantities, documents, conditions such as "no substitute approved"). Quote key sentences in quotation marks IN ENGLISH (translate faithfully).
 4. "Our first answer (sent)" — a faithful short summary of what Sapirim already replied / offered, quoting the key lines. Mention attached files we sent.
 5. "What we need from Silitex" — a numbered, focused list: exact Silitex grade + code that matches, full specification (e.g. viscosity and measurement temperature), confirmation of cosmetic suitability / INCI, TDS, SDS, current-batch CoA, sample availability and size for the customer's pilot, smallest pack + MOQ, price indication for that pack (EUR, Incoterm), lead time, shelf life. Only items still open given our answer; add anything the request needs that the Silitex data does not show.
 6. Close warmly; signature: Avshi Sapir · Sapirim — Silitex distribution Israel · avshi@sapirim.com · +972 50 523 1042.
 Rules: never invent product data, codes or prices; use only SILITEX DATA for grade names; plain text, no Markdown.
+LANGUAGE: the whole e-mail and every register item in ENGLISH ONLY. The customer text below may be Hebrew (often a WhatsApp chat with Avshi's replies marked "↩ אבשי:") — translate the meaning; NEVER copy Hebrew characters into the subject, body or questions. Product codes and company names stay as written. If the request came by WhatsApp, say "by WhatsApp" instead of "e-mail".
 Also return each numbered request as a register item: short question (English, max 200 chars, start with the customer name), category from [${CATS.join(" | ")}], priority blocker|important|nice (blocker = customer cannot test without it).
 Return ONLY JSON: {"subject":"...","body":"...","questions":[{"q":"...","cat":"...","prio":"..."}]}
 
@@ -34,7 +35,7 @@ INDUSTRY / WHAT THEY MAKE: ${industry || "—"}
 WEBSITE: ${website || "—"}
 CONTACT: ${contact || "—"}
 
-THE CUSTOMER'S REQUEST (their e-mail):
+THE CUSTOMER'S REQUEST (their e-mail or WhatsApp — may be Hebrew, translate):
 ${request || "(no e-mail — see our answer)"}
 
 OUR FIRST ANSWER (already sent):
