@@ -1,5 +1,5 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 29.10.2026 05:45 (Asia/Jerusalem) — generateSchedule rolls open daily tasks to today (no duplicate copies) · 25.10.2026 06:15 — one row per customer id everywhere (duplicate list rows fixed + cleaned on load; import dedupes a file) · 22.10.2026 18:20 — importLeads: import notes sent 2 s after the customers (no foreign-key race) · 07:50 — completeTask: a done task of a supplier / partner (lead_id ct:…) is logged on his Hub thread · 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
+// useStore.ts (src/lib/store/useStore.ts) · updated 09.11.2026 11:55 (Asia/Jerusalem) — v1.9.5 pulls server-created customers (Hub WhatsApp / forms) into the browser · 29.10.2026 05:45 — generateSchedule rolls open daily tasks to today (no duplicate copies) · 25.10.2026 06:15 — one row per customer id everywhere (duplicate list rows fixed + cleaned on load; import dedupes a file) · 22.10.2026 18:20 — importLeads: import notes sent 2 s after the customers (no foreign-key race) · 07:50 — completeTask: a done task of a supplier / partner (lead_id ct:…) is logged on his Hub thread · 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
@@ -18,10 +18,15 @@ function uniqLeads(leads: Lead[]): Lead[] {
 }
 import { parsePlan, stepTask } from "@/lib/playbook";
 
+let pulled: Promise<Lead[]> | null = null; // one request per page load, shared by every useStore()
+function pullServerLeads(): Promise<Lead[]> { if (!pulled) pulled = fetch("/api/lead/pull", { cache: "no-store" }).then((r) => (r.ok ? r.json() : { leads: [] })).then((j) => (j.leads || []) as Lead[]).catch(() => []); return pulled; }
+
 export function useStore() {
   const [state, setState] = useState<State>(EMPTY);
   const [ready, setReady] = useState(false);
   useEffect(() => { const st = loadState(); const leads = uniqLeads(st.leads); const out = leads === st.leads ? st : { ...st, leads }; if (out !== st) saveState(out); setState(out); setReady(true); }, []);
+  // ⬇ customers created on the server (Hub WhatsApp routing, forms) → added to this browser once (local copies are never overwritten)
+  useEffect(() => { if (!ready) return; pullServerLeads().then((srv) => { if (!srv.length) return; update((s) => { const have = new Set(s.leads.map((l) => l.id)); const add = srv.filter((l) => !have.has(l.id)); return add.length ? { ...s, leads: [...add, ...s.leads] } : s; }); }); }, [ready]); // eslint-disable-line react-hooks/exhaustive-deps
   // every write passes uniqLeads: one row per customer id (a search file listing the same company twice used to add it twice — ICL ×4, 25.10.2026)
   const update = useCallback((fn: (s: State) => State) => { setState((prev) => { const next = fn(prev); const leads = uniqLeads(next.leads); const out = leads === next.leads ? next : { ...next, leads }; saveState(out); return out; }); }, []);
 
