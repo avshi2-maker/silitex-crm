@@ -1,6 +1,7 @@
-// wa-inbound.ts (src/lib/wa-inbound.ts) · updated 26.10.2026 06:55 (Asia/Jerusalem) — v0.96.0 matches every person at a customer company (intake PEOPLE) · 11.10.2026 08:20 — server only · allowlist (wa_allowlist) as 3rd match source
+// wa-inbound.ts (src/lib/wa-inbound.ts) · updated 10.11.2026 14:05 (Asia/Jerusalem) — v1.9.8 customer WhatsApp asking for data / sample / price → 📁 project opens at once · 26.10.2026 06:55 — v0.96.0 matches every person at a customer company (intake PEOPLE) · 11.10.2026 08:20 — server only · allowlist (wa_allowlist) as 3rd match source
 // WhatsApp Cloud API inbound: normalise phone, match known numbers (prospects contact_phone / Silitex contacts mobile+phone) → append to the contact's running WhatsApp thread; unknown → wa_unmatched (unless blocklisted).
 import { serviceClient } from "./server-data";
+import { sweepSafe } from "./projects-server";
 import { peopleOf } from "./people";
 import type { Lead } from "./types";
 import { createHmac, timingSafeEqual } from "crypto";
@@ -35,7 +36,7 @@ export async function appendToThread(m: WaIn, match: NonNullable<Match>): Promis
 export async function routeInbound(m: WaIn): Promise<"saved" | "unmatched" | "blocked"> {
   const sb = serviceClient(); if (!sb) throw new Error("no supabase"); const p = normPhone(m.phone);
   if ((await sb.from("wa_blocklist").select("phone").eq("phone", p).maybeSingle()).data) return "blocked";
-  const match = await matchPhone(p); if (match) { await appendToThread(m, match); return "saved"; }
+  const match = await matchPhone(p); if (match) { await appendToThread(m, match); if (match.kind === "lead" && m.direction === "in") await sweepSafe(); return "saved"; }
   if (m.direction === "out") return "blocked"; // our own message to an unknown number — not a lead signal
   await sb.from("wa_unmatched").upsert({ id: "wa-" + m.id.replace(/[^a-z0-9]/gi, "").slice(-20), phone: p, name: m.name || null, at: m.at, body: (m.media_url ? "📎 " + m.media_url + "\n" : "") + m.body }, { onConflict: "id", ignoreDuplicates: true });
   return "unmatched";

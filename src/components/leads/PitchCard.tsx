@@ -1,5 +1,5 @@
 "use client";
-// PitchCard.tsx (src/components/leads/PitchCard.tsx) · updated 08.11.2026 13:20 (Asia/Jerusalem) — v1.7.4 green line "✓ answered dd/mm hh:mm" under the customer request (your reply from Outlook) · 08.11.2026 07:10 — v1.6.0 after the Outlook draft: the answer is saved on the customer (quoted in the Silitex request) + 🔔 follow-up task in N days · created 08.11.2026 06:40 — v1.5.0
+// PitchCard.tsx (src/components/leads/PitchCard.tsx) · updated 10.11.2026 13:55 (Asia/Jerusalem) — v1.9.8 📁 customer mail subject starts with the project tag [#SPR-0002 · v1] (customer sees the same number) · 08.11.2026 13:20 — v1.7.4 green line "✓ answered dd/mm hh:mm" under the customer request (your reply from Outlook) · 08.11.2026 07:10 — v1.6.0 after the Outlook draft: the answer is saved on the customer (quoted in the Silitex request) + 🔔 follow-up task in N days · created 08.11.2026 06:40 — v1.5.0
 // 📧 Pitch / first offer on the customer page. Two modes:
 //  • 📨 reply to the customer's own e-mail (from Outlook / Hub) — answers their exact request point by point, no prices, no unapproved substitutes
 //  • 🌐 first contact from the website scan — Avshi's approved template
@@ -18,14 +18,15 @@ import { mailDoc, textToHtml } from "@/lib/eml";
 import { todayIso, fmtDateTime } from "@/lib/format";
 import { followDays } from "@/lib/followup";
 import { useLang } from "@/i18n";
-import type { Lead, Product, Usage, Doc, HubMsg, Thread } from "@/lib/types";
+import type { Lead, Product, Usage, Doc, HubMsg, Thread, Project } from "@/lib/types";
+import { stampSubject } from "@/lib/projects";
 
 export type Drafted = { subject: string; text: string; files: string[]; days: number };
-type Props = { lead: Lead; matches: Product[]; spend: { tokens: number; cost: number }; addSpend: (t: number, c: number) => void; addActivity: (id: string, kind: string, text: string) => void; addDoc: (d: Omit<Doc, "id">) => void; onDrafted?: (d: Drafted) => void };
+type Props = { lead: Lead; project?: Project | null; matches: Product[]; spend: { tokens: number; cost: number }; addSpend: (t: number, c: number) => void; addActivity: (id: string, kind: string, text: string) => void; addDoc: (d: Omit<Doc, "id">) => void; onDrafted?: (d: Drafted) => void };
 type Mode = "reply" | "web";
 const b64 = async (url: string) => { const b = new Uint8Array(await (await fetch(url)).arrayBuffer()); let s = ""; for (let i = 0; i < b.length; i += 0x8000) s += String.fromCharCode(...b.subarray(i, i + 0x8000)); return btoa(s); };
 
-export default function PitchCard({ lead, matches, spend, addSpend, addActivity, addDoc, onDrafted }: Props) {
+export default function PitchCard({ lead, project, matches, spend, addSpend, addActivity, addDoc, onDrafted }: Props) {
   const { t: tr } = useLang();
   const [mails, setMails] = useState<CustomerMail[]>([]); const [lastReply, setLastReply] = useState(""); const [replyAt, setReplyAt] = useState("");
   const [mode, setMode] = useState<Mode>("web"); const [files, setFiles] = useState<PitchFile[]>([]);
@@ -61,8 +62,8 @@ export default function PitchCard({ lead, matches, spend, addSpend, addActivity,
       const out: DraftFile[] = [];
       for (const f of files.filter((x) => x.on)) out.push(f.file || { filename: f.name, base64: await b64(pdfUrl(f.name)), type: "application/pdf" });
       const html = rtl ? mailDoc(textToHtml(bodyTxt)) : mailDoc(textToHtml(bodyTxt)).replace(/dir="rtl"/g, 'dir="ltr"').replace('lang="he"', 'lang="en"').replace("direction:rtl;text-align:right", "direction:ltr;text-align:left");
-      await outlookDraft({ to, subject, html, files: out }, win);
-      addActivity(lead.id, "mail", tr("טיוטת Outlook נוצרה") + ": " + subject + (out.length ? " · 📎 " + out.length : ""));
+      await outlookDraft({ to, subject: stampSubject(subject, project), html, files: out }, win);
+      addActivity(lead.id, "mail", tr("טיוטת Outlook נוצרה") + ": " + stampSubject(subject, project) + (out.length ? " · 📎 " + out.length : ""));
       files.filter((x) => x.on).forEach((f) => addDoc({ lead_id: lead.id, lead_name: lead.name, kind: f.kind === "upload" ? "tds" : "other", title: f.name + " (" + tr("טיוטה") + ")", sent_at: todayIso(), via: "Outlook", status: "sent" }));
       onDrafted?.({ subject, text: bodyTxt, files: files.filter((x) => x.on).map((x) => x.name), days });
       setOk("✓ " + tr("הטיוטה מוכנה ב-Outlook עם הקבצים — בדוק ולחץ Send") + (days ? " · 🔔 " + tr("מעקב בעוד") + " " + days + " " + tr("ימים") : ""));

@@ -1,4 +1,4 @@
-// types.ts (src/lib/types.ts) · updated 10.10.2026 05:50 (Asia/Jerusalem)
+// types.ts (src/lib/types.ts) · updated 10.11.2026 12:30 (Asia/Jerusalem) — v1.9.8 + Project, ThreadRefs.project · 10.10.2026 05:50
 export type Product = {
   id: string; product_name: string; brand_family: string; category_sector: string;
   application_field: string; appearance: string; active_content_pct: string; active_matter_type: string;
@@ -38,6 +38,8 @@ export type Usage = { input_tokens: number; output_tokens: number; cost_usd: num
 export type ShipLine = { sku: string; kg: number; pack: string };
 export type Shipment = { id: string; ref: string; lead_id?: string; lead_name: string; consignee: "sapirim" | "customer"; mode: "sea" | "air"; lines: ShipLine[]; values: Record<string, string>; docs: Record<string, boolean>; status: string; created_at: string; eta?: string; notes?: string };
 export type SilitexContact = { id: string; dept: string; name: string; role: string; email: string; phone?: string; mobile?: string; linkedin?: string; address?: string; notes?: string };
-export type ThreadRefs = { shipment_id?: string; shipment_ref?: string; lead_id?: string; lead_name?: string; sku?: string; po?: string; invoice?: string; lot?: string };
+export type ThreadRefs = { shipment_id?: string; shipment_ref?: string; lead_id?: string; lead_name?: string; sku?: string; po?: string; invoice?: string; lot?: string; project?: string };
 export type Thread = { id: string; dept: string; contact_id?: string; subject: string; topic: string; refs: ThreadRefs; due?: string; owner: "sapirim" | "silitex"; status: string; next?: string; created_at: string; last_at: string; conversation_id?: string };
 export type HubMsg = { id: string; thread_id: string; at: string; from: string; to: string; direction: "in" | "out"; body: string; source: "paste" | "graph" | "manual" | "whatsapp"; external_id?: string };
+export type ProjectMember = { name: string; email: string; org: string; role: "to" | "cc" };
+export type Project = { id: string; lead_id: string; lead_name: string; opened_at: string; version: number; description: string; request: string; stage: string; quote_ref?: string | null; quote_at?: string | null; po_sample?: string | null; po_sample_at?: string | null; po_product?: string | null; po_product_at?: string | null; invoice?: string | null; invoice_at?: string | null; team: ProjectMember[]; history: { v: number; at: string; text: string }[]; source: string; notes?: string | null; created_at: string; updated_at: string };

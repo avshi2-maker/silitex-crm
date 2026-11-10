@@ -1,5 +1,5 @@
 "use client";
-// useStore.ts (src/lib/store/useStore.ts) · updated 09.11.2026 11:55 (Asia/Jerusalem) — v1.9.5 pulls server-created customers (Hub WhatsApp / forms) into the browser · 29.10.2026 05:45 — generateSchedule rolls open daily tasks to today (no duplicate copies) · 25.10.2026 06:15 — one row per customer id everywhere (duplicate list rows fixed + cleaned on load; import dedupes a file) · 22.10.2026 18:20 — importLeads: import notes sent 2 s after the customers (no foreign-key race) · 07:50 — completeTask: a done task of a supplier / partner (lead_id ct:…) is logged on his Hub thread · 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
+// useStore.ts (src/lib/store/useStore.ts) · updated 10.11.2026 13:30 (Asia/Jerusalem) — v1.9.8 mergeServerTasks: tasks opened on the server (📁 project follow-up) join this browser · 09.11.2026 11:55 — v1.9.5 pulls server-created customers (Hub WhatsApp / forms) into the browser · 29.10.2026 05:45 — generateSchedule rolls open daily tasks to today (no duplicate copies) · 25.10.2026 06:15 — one row per customer id everywhere (duplicate list rows fixed + cleaned on load; import dedupes a file) · 22.10.2026 18:20 — importLeads: import notes sent 2 s after the customers (no foreign-key race) · 07:50 — completeTask: a done task of a supplier / partner (lead_id ct:…) is logged on his Hub thread · 19.10.2026 12:05 (Asia/Jerusalem) — + removeTask / removeActivity (delete garbage) · 11:45 — + account playbooks: startPlan / advancePlan / setTaskDue / stopPlan · 17.10.2026 07:40 — + completeTask (done + log + stage + next step), importLeads (Excel/SAP), toggleTask now syncs to Supabase · 10.10.2026 05:50
 // React hook exposing state + mutations. Each mutation: update local → save → sync to Supabase.
 import { useEffect, useState, useCallback } from "react";
 import { EMPTY, loadState, saveState, clearState, sync, remove, type State } from "./state";
@@ -78,6 +78,8 @@ export function useStore() {
     if (lead && next) { const nt = stepTask(lead, p.tpl, p.seq + 1, addDays(todayIso(), next.wait)); if (nt) { update((s) => ({ ...s, tasks: [nt, ...s.tasks] })); sync("tasks", nt); } }
     else if (lead) addActivity(lead.id, "plan", "תוכנית העבודה הושלמה ✓");
   };
+  /** tasks created on the server (📁 project 🔔 follow-up) → into this browser once (local copies win) */
+  const mergeServerTasks = (rows: Task[]) => { if (!rows?.length) return; update((s) => { const have = new Set(s.tasks.map((t) => t.id)); const add = rows.filter((t) => !have.has(t.id)); return add.length ? { ...s, tasks: [...add, ...s.tasks] } : s; }); };
   const removeTask = (id: string) => { update((s) => ({ ...s, tasks: s.tasks.filter((x) => x.id !== id) })); remove("tasks", id); };
   const removeActivity = (id: string) => { update((s) => ({ ...s, activities: s.activities.filter((x) => x.id !== id) })); remove("activities", id); };
   const setTaskDue = (id: string, due: string) => { const t = state.tasks.find((x) => x.id === id); if (!t || !due) return; const n = { ...t, due }; update((s) => ({ ...s, tasks: s.tasks.map((x) => (x.id === id ? n : x)) })); sync("tasks", n); };
@@ -120,5 +122,5 @@ export function useStore() {
   const loadDemo = () => update((s) => ({ ...s, ...buildDemo(), demo: true }));
   const reset = () => { clearState(); setState(EMPTY); };
 
-  return { state, ready, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, completeTask, startPlan, advancePlan, setTaskDue, stopPlan, removeTask, removeActivity, importLeads, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, addShipment, updateShipment, removeShipment, upsertContact, removeContact, addThread, updateThread, removeThread, addMsg, loadDemo, reset };
+  return { state, ready, mergeServerTasks, upsertLead, removeLead, addActivity, setStage, addTask, toggleTask, completeTask, startPlan, advancePlan, setTaskDue, stopPlan, removeTask, removeActivity, importLeads, addSpend, addKbDoc, removeKbDoc, generateSchedule, addSample, setSampleStatus, addDoc, setDocStatus, addShipment, updateShipment, removeShipment, upsertContact, removeContact, addThread, updateThread, removeThread, addMsg, loadDemo, reset };
 }

@@ -1,5 +1,5 @@
 "use client";
-// SilitexLeadRequest.tsx (src/components/leads/SilitexLeadRequest.tsx) · created 08.11.2026 07:10 (Asia/Jerusalem) — v1.6.0
+// SilitexLeadRequest.tsx (src/components/leads/SilitexLeadRequest.tsx) · updated 10.11.2026 13:50 (Asia/Jerusalem) — v1.9.8 📁 subject starts with the project tag [#SPR-0002 · v1], TO / CC = project team, project moves to "בקשה לסיליטקס" · created 08.11.2026 07:10 — v1.6.0
 // 🇮🇹 On the customer page: transparent lead report to Silitex (Federica, CC Eleonora) — customer name + website, the customer's own
 // request (Outlook / Hub), our first answer (Hub sent mail, or the pitch drafted here) → focused technical-support request.
 // Outlook draft (you press Send) + the open points go into the Federica register linked to this customer. Token meter + export bar.
@@ -12,16 +12,19 @@ import { PRIO } from "@/lib/fq-types";
 import { mailsFor, rowsInText, catLine, offLine, type CustomerMail } from "@/lib/pitch-data";
 import { splitMail, cleanUrl } from "@/lib/mail-text";
 import { outlookDraft } from "@/lib/outlook-draft";
+import { stampSubject } from "@/lib/projects";
 import { useLang } from "@/i18n";
-import type { Lead, SilitexContact, Usage, HubMsg, Thread } from "@/lib/types";
+import type { Lead, SilitexContact, Usage, HubMsg, Thread, Project } from "@/lib/types";
 
 type Qi = { q: string; cat: string; prio: "blocker" | "important" | "nice"; on: boolean };
-type Props = { lead: Lead; contacts: SilitexContact[]; spend: { tokens: number; cost: number }; addSpend: (t: number, c: number) => void; addActivity: (id: string, kind: string, text: string) => void };
+type Props = { lead: Lead; project?: Project | null; onSent?: () => void; contacts: SilitexContact[]; spend: { tokens: number; cost: number }; addSpend: (t: number, c: number) => void; addActivity: (id: string, kind: string, text: string) => void };
 
-export default function SilitexLeadRequest({ lead, contacts, spend, addSpend, addActivity }: Props) {
+export default function SilitexLeadRequest({ lead, project, onSent, contacts, spend, addSpend, addActivity }: Props) {
   const { t: tr } = useLang();
   const mg = contacts.filter((c) => c.dept === "mgmt" && c.email && !/^info@/i.test(c.email));
-  const to = (mg.find((c) => /federica/i.test(c.name)) || mg[0])?.email || "info@silitex.it"; const cc = mg.map((c) => c.email).filter((e) => e !== to).join(";");
+  const pt = project?.team || []; // 📁 project team wins (TO / CC chosen on the project card)
+  const to = pt.length ? pt.filter((m) => m.role === "to").map((m) => m.email).join(";") || pt[0].email : (mg.find((c) => /federica/i.test(c.name)) || mg[0])?.email || "info@silitex.it";
+  const cc = pt.length ? pt.filter((m) => m.role === "cc" && !to.includes(m.email)).map((m) => m.email).join(";") : mg.map((c) => c.email).filter((e) => e !== to).join(";");
   const [mails, setMails] = useState<CustomerMail[]>([]); const [reply, setReply] = useState({ text: "", at: "" });
   const [extra, setExtra] = useState(""); const [busy, setBusy] = useState(false); const [err, setErr] = useState(""); const [ok, setOk] = useState("");
   const [usage, setUsage] = useState<Usage | null>(null); const [text, setText] = useState(""); const [qs, setQs] = useState<Qi[]>([]);
@@ -45,7 +48,7 @@ export default function SilitexLeadRequest({ lead, contacts, spend, addSpend, ad
   const draft = async () => {
     const win = window.open("", "_blank"); if (!win) return setErr(tr("הדפדפן חסם חלון — אפשר חלונות קופצים לאתר"));
     try {
-      const m = splitMail(text, "New lead Israel — " + lead.name); await outlookDraft({ to, cc, subject: m.subject, html: m.html }, win);
+      const m0 = splitMail(text, "New lead Israel — " + lead.name); const m = { ...m0, subject: stampSubject(m0.subject, project) }; await outlookDraft({ to, cc, subject: m.subject, html: m.html }, win); onSent?.();
       const pick = qs.filter((x) => x.on); const now = new Date().toISOString(); const stamp = Date.now().toString(36);
       const items = pick.map((x, i) => ({ id: "fq-" + stamp + "-" + i, q: x.q, cat: x.cat, who: "Federica", prio: x.prio, party: "silitex", status: "asked", asked: [now], answer: "", answered_at: null, leads: [lead.id], note: "Lead request: " + lead.name + " · " + m.subject.slice(0, 120), created_at: now, due: null }));
       const r = items.length ? await fetch("/api/federica", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items }) }) : null;
