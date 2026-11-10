@@ -1,5 +1,5 @@
 // outlook.ts (src/lib/outlook.ts) · updated 08.11.2026 13:00 (Asia/Jerusalem) — v1.7.2 drafts are skipped (an unsent draft was stored as an "incoming" mail with no sender) + one copy per real mail (internetMessageId) · 26.10.2026 06:10 — v0.94.1 also syncs mails with saved contacts (Pini on walla.com, partners) · 19.10.2026 12:20 — deep sync (days) for new customers' past mails · also reads the Sent Items folder explicitly + 3-day overlap on every sync (sent mails never missed; duplicates skipped) · 10.10.2026 07:30 — server only · PKCE public client (no client secret)
-// Microsoft Graph (delegated, single mailbox): OAuth URLs, token refresh (stored in Supabase hub_tokens), pull messages to/from HUB_MAIL_DOMAIN since last sync.
+// v1.10.1 10.11.2026 13:50 (Asia/Jerusalem): mails with a #SPR project tag are always pulled · Microsoft Graph (delegated, single mailbox): OAuth URLs, token refresh (stored in Supabase hub_tokens), pull messages to/from HUB_MAIL_DOMAIN since last sync.
 import { createHash, randomBytes } from "crypto";
 import { serviceClient } from "./server-data";
 import type { InMsg } from "./hub-ingest";
@@ -46,7 +46,7 @@ export async function pull(sinceIso: string, max = 200, leads: LeadLite[] = [], 
     for (const m of j.value || []) {
       const key = m.internetMessageId || m.id; if (m.isDraft || seen.has(key)) continue; seen.add(key); // same mail in two folders = one copy; drafts never
       const addrs = [m.from?.emailAddress?.address, ...(m.toRecipients || []).map((x) => x.emailAddress?.address), ...(m.ccRecipients || []).map((x) => x.emailAddress?.address)].filter(Boolean).map((a) => String(a).toLowerCase());
-      if (!addrs.some((a) => a.endsWith("@" + dom) || a.endsWith("." + dom) || people.includes(a) || !!isLead(a))) continue; // + saved contacts (Pini @walla, partners) even on private mail domains
+      if (!addrs.some((a) => a.endsWith("@" + dom) || a.endsWith("." + dom) || people.includes(a) || !!isLead(a)) && !/SPR-\d{4}/i.test(m.subject || "")) continue; // v1.10.1 + any mail tagged with a 📁 project number (customer with no e-mail on the card yet, e.g. a WhatsApp lead) // + saved contacts (Pini @walla, partners) even on private mail domains
       out.push({ id: m.id, conversationId: m.conversationId, subject: m.subject || "(no subject)", at: m.sentDateTime || m.receivedDateTime, from: (m.from?.emailAddress?.name ? m.from.emailAddress.name + " <" + m.from.emailAddress.address + ">" : m.from?.emailAddress?.address) || "", to: (m.toRecipients || []).map((x) => x.emailAddress?.address).filter(Boolean).join(", "), body: (m.body?.content || "").replace(/\r/g, "").trim() });
     }
     url = j["@odata.nextLink"] || null;
