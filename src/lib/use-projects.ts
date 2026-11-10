@@ -1,13 +1,13 @@
 "use client";
-// use-projects.ts (src/lib/use-projects.ts) · created 10.11.2026 12:45 (Asia/Jerusalem) — v1.9.8 📁 Projects — client hook over /api/projects
+// use-projects.ts (src/lib/use-projects.ts) · updated 10.11.2026 14:40 — { lite } for the 📞 search · created 10.11.2026 12:45 (Asia/Jerusalem) — v1.9.8 📁 Projects — client hook over /api/projects
 import { useCallback, useEffect, useState } from "react";
 import { ENDED } from "@/config/projects";
 import { emitSave } from "./save-signal";
 import type { Project, Task } from "./types";
 
-/** no arg = all projects (runs the auto-open sweep) · { lead } = one customer · { id } = one project */
-export function useProjects(by?: { lead?: string; id?: string }) {
-  const lead = by?.lead ? "?lead=" + encodeURIComponent(by.lead) : by?.id ? "?id=" + encodeURIComponent(by.id) : "";
+/** no arg = all projects (runs the auto-open sweep) · { lite } = all, no sweep (📞 search) · { lead } = one customer · { id } = one project */
+export function useProjects(by?: { lead?: string; id?: string; lite?: boolean }) {
+  const lead = by?.lead ? "?lead=" + encodeURIComponent(by.lead) : by?.id ? "?id=" + encodeURIComponent(by.id) : by?.lite ? "?lite=1" : "";
   const [list, setList] = useState<Project[] | null>(null); const [opened, setOpened] = useState<string[]>([]); const [err, setErr] = useState(""); const [tasks, setTasks] = useState<Task[]>([]);
   const reload = useCallback(() => {
     fetch("/api/projects" + lead, { cache: "no-store" }).then((r) => r.json())

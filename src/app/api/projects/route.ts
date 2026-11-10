@@ -1,5 +1,5 @@
 // route.ts (src/app/api/projects/route.ts) · created 10.11.2026 12:40 (Asia/Jerusalem) — v1.9.8 📁 Projects (behind the PIN gate)
-// GET  → auto-open sweep, then all projects (newest first) + open project tasks · ?lead=<id> → that customer's projects + open tasks · ?id=SPR-0002 → that project + its customer's open tasks
+// GET  → auto-open sweep, then all projects (newest first) + open project tasks · ?lead=<id> → that customer's projects + open tasks · ?id=SPR-0002 → that project + its customer's open tasks · ?lite=1 → all, no sweep (📞 search)
 // POST → open a project by hand {lead_id, lead_name, description?, request?}
 // PATCH → {id, patch, bump?: "note"} — fields whitelist; bump = new version (v+1) with a history line. PO / quote / invoice changes always bump.
 import { NextResponse } from "next/server";
@@ -17,7 +17,7 @@ export async function GET(req: Request) {
   const sp = new URL(req.url).searchParams; const id = sp.get("id");
   let lead = sp.get("lead");
   if (id) lead = ((await sb.from("projects").select("lead_id").eq("id", id).maybeSingle()).data?.lead_id as string) || "-";
-  const opened = lead ? [] : await sweep(sb).catch(() => [] as string[]);
+  const opened = lead || sp.get("lite") ? [] : await sweep(sb).catch(() => [] as string[]);
   let q = sb.from("projects").select("*").order("opened_at", { ascending: false }).limit(500); if (id) q = q.eq("id", id); else if (lead) q = q.eq("lead_id", lead);
   const r = await q; if (r.error) return NextResponse.json({ projects: [], error: r.error.message }, { status: 500 });
   // open tasks for the browser (server-made 🔔 project follow-ups reach My day; the project card lists the customer's open tasks)

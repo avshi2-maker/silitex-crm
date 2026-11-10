@@ -2268,4 +2268,6 @@ export const EN: Record<string, string> = {
   "מספר ההזמנה של הלקוח לדוגמה": "Customer's order number for the sample",
   "מספר ההזמנה של הלקוח למוצר": "Customer's order number for the product",
   "חשבונית מקומית — מספר הפרויקט בשדה אסמכתא": "Local invoice — project number in the reference field",
+  "#SPR / לקוח / מוצר / PO / חשבונית…": "#SPR / customer / product / PO / invoice…",
+  "שם חברה / איש קשר / טלפון / אתר / #SPR…": "Company / contact / phone / website / #SPR…",
 };
