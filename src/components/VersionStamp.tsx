@@ -5,5 +5,5 @@ export default function VersionStamp() {
   const sha = process.env.NEXT_PUBLIC_COMMIT || "local"; const at = process.env.NEXT_PUBLIC_BUILD_AT || "";
   const d = at ? new Date(at) : null;
   const built = d ? d.toLocaleString("en-GB", { timeZone: "Asia/Jerusalem", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }).replace(",", "") : "";
-  return (<div className="mt-1 text-[10px] text-slate-400 font-mono text-center" dir="ltr" title="version · commit · build time">{APP_VERSION} · {sha} · {built}</div>);
+  return (<div className="mt-1 text-[10px] text-slate-400 font-mono text-center" dir="ltr" title="version · commit · build time">{APP_VERSION} · {sha} · {built} · <span title="🛡️ Vercel Firewall · protected site (10/11/2026)" aria-label="protected">🛡️</span></div>);
 }

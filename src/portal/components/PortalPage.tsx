@@ -49,7 +49,7 @@ export default function PortalPage({ lang, path, crumbs, children }: { lang: PLa
           <nav className="flex flex-wrap items-center justify-center gap-x-7 gap-y-2 text-[15px] opacity-95 flex-1 min-w-0">{nav.slice(1).map(([p, k]) => k === "regulation" ? <RegNav key={k} lang={lang} href={base + p} label={t(k)} /> : <Link key={k} href={base + p} className="hover:underline">{t(k)}</Link>)}<Link href={base + "/complementary"} className="hover:underline">{st(lang, "comp").split("—")[0].trim()}</Link><Link href={base + "/group"} className="px-3 py-1 rounded-full bg-amber-400 text-ink-900 font-bold text-base hover:bg-amber-300">{gt(lang, "group")}</Link></nav>
           <div className="flex items-center gap-3 shrink-0">
             <PortalClock />
-            <span className="text-[11px] font-mono opacity-60" dir="ltr" title="version · commit">{APP_VERSION} · {COMMIT}</span>
+            <span className="text-[11px] font-mono opacity-60" dir="ltr" title="version · commit">{APP_VERSION} · {COMMIT} 🛡️</span>
             <div className="flex gap-1 text-xs" aria-label={t("lang")}>{PORTAL_LANGS.map((l) => <Link key={l} href={"/" + l + path} hrefLang={l} className={"px-2 py-0.5 rounded " + (l === lang ? "bg-brand-500" : "opacity-80 hover:opacity-100")}>{LN[l]}</Link>)}</div>
           </div>
         </div>
