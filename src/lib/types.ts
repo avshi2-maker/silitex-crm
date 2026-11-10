@@ -1,4 +1,4 @@
-// types.ts (src/lib/types.ts) · updated 10.11.2026 12:30 (Asia/Jerusalem) — v1.9.8 + Project, ThreadRefs.project · 10.10.2026 05:50
+// types.ts (src/lib/types.ts) · updated 10.11.2026 13:20 (Asia/Jerusalem) — v1.10.0 Project files / silitex_answer / hold_until · 12:30 — v1.9.8 + Project, ThreadRefs.project · 10.10.2026 05:50
 export type Product = {
   id: string; product_name: string; brand_family: string; category_sector: string;
   application_field: string; appearance: string; active_content_pct: string; active_matter_type: string;
@@ -42,4 +42,6 @@ export type ThreadRefs = { shipment_id?: string; shipment_ref?: string; lead_id?
 export type Thread = { id: string; dept: string; contact_id?: string; subject: string; topic: string; refs: ThreadRefs; due?: string; owner: "sapirim" | "silitex"; status: string; next?: string; created_at: string; last_at: string; conversation_id?: string };
 export type HubMsg = { id: string; thread_id: string; at: string; from: string; to: string; direction: "in" | "out"; body: string; source: "paste" | "graph" | "manual" | "whatsapp"; external_id?: string };
 export type ProjectMember = { name: string; email: string; org: string; role: "to" | "cc" };
-export type Project = { id: string; lead_id: string; lead_name: string; opened_at: string; version: number; description: string; request: string; stage: string; quote_ref?: string | null; quote_at?: string | null; po_sample?: string | null; po_sample_at?: string | null; po_product?: string | null; po_product_at?: string | null; invoice?: string | null; invoice_at?: string | null; team: ProjectMember[]; history: { v: number; at: string; text: string }[]; source: string; notes?: string | null; created_at: string; updated_at: string };
+export type Project = { id: string; lead_id: string; lead_name: string; opened_at: string; version: number; description: string; request: string; stage: string; quote_ref?: string | null; quote_at?: string | null; po_sample?: string | null; po_sample_at?: string | null; po_product?: string | null; po_product_at?: string | null; invoice?: string | null; invoice_at?: string | null; team: ProjectMember[]; history: { v: number; at: string; text: string }[]; source: string; notes?: string | null; created_at: string; updated_at: string; files?: ProjectFile[]; silitex_answer?: SilitexAnswer | null; answer_at?: string | null; answer_msg?: string | null; hold_until?: string | null };
+export type ProjectFile = { kind: string; url: string; name: string; at: string; text?: string };
+export type SilitexAnswer = { grade?: string; price?: string; currency?: string; unit?: string; moq?: string; lead_time?: string; pack?: string; tds?: boolean; sds?: boolean; sample?: string; notes?: string; from?: string; at?: string };

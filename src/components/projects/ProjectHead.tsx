@@ -1,9 +1,9 @@
 "use client";
-// ProjectHead.tsx (src/components/projects/ProjectHead.tsx) · created 10.11.2026 13:00 (Asia/Jerusalem) — v1.9.8 📁 project number + short description + customer facts
+// ProjectHead.tsx (src/components/projects/ProjectHead.tsx) · updated 10.11.2026 14:05 (Asia/Jerusalem) — v1.10.0 ⏰ stall banner + ⏸ hold until · created 13:00 — v1.9.8 📁 project number + short description + customer facts
 import { useState } from "react";
 import Link from "next/link";
 import { Card, Badge, inputCls, btnGhost, btnPrimary } from "@/components/ui";
-import { refLabel, stageText } from "@/lib/projects";
+import { refLabel, stageText, stallInfo } from "@/lib/projects";
 import { fmtDate, fmtDateTime } from "@/lib/format";
 import { useLang } from "@/i18n";
 import type { Project, Lead } from "@/lib/types";
@@ -11,7 +11,7 @@ import type { Project, Lead } from "@/lib/types";
 type Props = { p: Project; lead?: Lead; onSave: (patch: Partial<Project>, bump?: string) => Promise<unknown> };
 export default function ProjectHead({ p, lead, onSave }: Props) {
   const { t: tr } = useLang();
-  const [desc, setDesc] = useState(p.description); const [note, setNote] = useState(""); const [copied, setCopied] = useState(false); const [busy, setBusy] = useState(false);
+  const [desc, setDesc] = useState(p.description); const [note, setNote] = useState(""); const [copied, setCopied] = useState(false); const [busy, setBusy] = useState(false); const [hold, setHold] = useState(p.hold_until || ""); const st = stallInfo(p);
   const copy = () => { navigator.clipboard?.writeText(refLabel(p)).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1500); }).catch(() => {}); };
   const save = async (bump?: string) => { setBusy(true); try { await onSave({ description: desc }, bump); setNote(""); } catch { /* toast shows */ } setBusy(false); };
   const row = (k: string, v: React.ReactNode) => <div className="flex justify-between gap-3 text-sm"><span className="text-slate-500">{tr(k)}</span><span className="text-end">{v}</span></div>;
@@ -36,6 +36,10 @@ export default function ProjectHead({ p, lead, onSave }: Props) {
           <input className={inputCls + " flex-1 min-w-[200px]"} value={note} onChange={(e) => setNote(e.target.value)} placeholder={tr("שינוי מפרט / בקשה חדשה מאותו לקוח → גרסה חדשה")} />
           <button type="button" className={btnGhost + " min-h-[40px]"} disabled={busy || !note.trim()} onClick={() => save(note)}>⬆ v{p.version + 1}</button>
         </div>
+        {st.stalled && <div className="text-sm bg-red-50 border border-red-200 text-red-800 rounded-lg p-2">⏰ {tr("תקוע")} {st.days} {tr("ימים בשלב הזה")} ({tr("מעל")} {st.limit}) — {tr("לקדם, או ⏸ לדחות עד תאריך")}</div>}
+        <div className="flex flex-wrap items-center gap-2 text-sm"><span className="text-slate-500">⏸ {tr("השתק התראה עד")}</span><input type="date" className={inputCls + " w-44"} value={hold} onChange={(e) => setHold(e.target.value)} aria-label={tr("השתק התראה עד")} />
+          <button type="button" className={btnGhost + " min-h-[40px]"} disabled={busy || hold === (p.hold_until || "")} onClick={async () => { setBusy(true); try { await onSave({ hold_until: hold || null }); } catch { /* */ } setBusy(false); }}>{tr("שמור")}</button>
+          {st.held && <span className="text-xs text-slate-500">⏸ {tr("מושתק עד")} {fmtDate(p.hold_until)}</span>}</div>
         {p.request && <div className="text-xs bg-amber-50 border border-amber-200 rounded-lg p-2" dir="auto"><b>{tr("הבקשה")}:</b> {p.request}</div>}
       </div>
       <div className="w-72 max-w-full space-y-2">

@@ -1,4 +1,4 @@
-// projects.ts (src/config/projects.ts) · created 10.11.2026 12:25 (Asia/Jerusalem) — v1.9.8 📁 Projects
+// projects.ts (src/config/projects.ts) · updated 10.11.2026 13:25 (Asia/Jerusalem) — v1.10.0 ⏰ stall days per stage · created 12:25 — v1.9.8 📁 Projects
 // One project per RFQ. Ref #SPR-0001 (Sapirim running number) · open date · version. Edit stages / RFQ words / follow-up here only.
 export const PROJECT_PREFIX = "SPR";
 /** A → Z, in order. "closed" / "lost" end the project (a new RFQ from the same customer then opens a new number). */
@@ -29,3 +29,5 @@ export const PROJECT_FILTERS: { id: string; he: string; stages: string[] }[] = [
   { id: "invoice", he: "חשבונית", stages: ["invoice"] },
   { id: "ended", he: "סגורים", stages: ["closed", "lost"] },
 ];
+/** ⏰ stall alarm: days a project may sit in one stage before it shows red (list, card, Hub tab, 07:00 brief). ⏸ "hold until" on the card pauses it. */
+export const STALL_DAYS: Record<string, number> = { rfq: 1, silitex: 5, offer: 4, po_sample: 3, sample: 10, po: 5, invoice: 7 };

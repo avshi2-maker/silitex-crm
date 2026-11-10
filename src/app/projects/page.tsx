@@ -1,12 +1,12 @@
 "use client";
-// page.tsx (src/app/projects/page.tsx) · created 10.11.2026 12:50 (Asia/Jerusalem) — v1.9.8 📁 Projects tab
+// page.tsx (src/app/projects/page.tsx) · updated 10.11.2026 14:15 (Asia/Jerusalem) — v1.10.0 ⏰ stalled projects in red + 🇮🇹 answer badge · created 12:50 — v1.9.8 📁 Projects tab
 // Every RFQ = one #SPR number (customer, Silitex and Sapirim see the same one). Opens itself from the customer's message; filter, search, → project card A–Z.
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Card, H1, Badge } from "@/components/ui";
 import { useProjects } from "@/lib/use-projects";
 import { useStore } from "@/lib/store";
-import { refLabel, stageText } from "@/lib/projects";
+import { refLabel, stageText, stallInfo } from "@/lib/projects";
 import { PROJECT_FILTERS } from "@/config/projects";
 import { fmtDate } from "@/lib/format";
 import { useLang } from "@/i18n";
@@ -55,7 +55,7 @@ export default function ProjectsPage() {
                 <td className="p-3 whitespace-nowrap text-slate-600" dir="auto">{docs(p)}</td>
                 <td className="p-3 whitespace-nowrap text-slate-600">{p.invoice ? p.invoice + (p.invoice_at ? " · " + fmtDate(p.invoice_at) : "") : "—"}</td>
                 <td className="p-3 whitespace-nowrap text-slate-600">{p.team.map((m) => m.name.split(" ")[0]).join(" · ") || "—"}</td>
-                <td className="p-3 whitespace-nowrap text-slate-600">{nt ? fmtDate(nt.due) : "—"}</td>
+                <td className="p-3 whitespace-nowrap text-slate-600">{nt ? fmtDate(nt.due) : "—"}{(() => { const st = stallInfo(p); return st.stalled ? <div className="text-xs font-bold text-red-600">⏰ {st.days} {tr("ימים")}</div> : st.held ? <div className="text-xs text-slate-400">⏸ {fmtDate(p.hold_until)}</div> : null; })()}{p.silitex_answer && <div className="text-xs text-emerald-700">🇮🇹 {tr("תשובה הגיעה")}</div>}</td>
               </tr>); })}
           </tbody>
         </table>

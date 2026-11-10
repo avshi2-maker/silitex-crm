@@ -25,3 +25,9 @@ create table if not exists projects (
 create unique index if not exists projects_one_open_per_lead on projects (lead_id) where stage not in ('closed', 'lost');
 create index if not exists projects_opened on projects (opened_at desc);
 alter table projects enable row level security; -- server routes only (service role, behind the PIN gate)
+-- 10.11.2026 v1.10.0: Silitex answer read from the Hub mail · files (PO / invoice photos on Cloudinary) · hold (stall alarm paused until a date)
+alter table projects add column if not exists files jsonb not null default '[]';     -- [{kind, url, name, at, text}]
+alter table projects add column if not exists silitex_answer jsonb;                    -- {grade, price, currency, unit, moq, lead_time, pack, tds, sds, sample, notes}
+alter table projects add column if not exists answer_at timestamptz;
+alter table projects add column if not exists answer_msg text;                         -- last Silitex mail already read (id)
+alter table projects add column if not exists hold_until date;

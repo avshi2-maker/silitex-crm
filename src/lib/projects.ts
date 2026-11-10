@@ -1,7 +1,7 @@
-// projects.ts (src/lib/projects.ts) · created 10.11.2026 12:30 (Asia/Jerusalem) — v1.9.8 📁 Projects
+// projects.ts (src/lib/projects.ts) · updated 10.11.2026 13:25 (Asia/Jerusalem) — v1.10.0 ⏰ stallInfo · created 12:30 — v1.9.8 📁 Projects
 // Shared (client + server): the project number as everyone sees it, the mail-subject tag, and the plain-text A–Z summary for the export bar.
 import { fmtDate } from "./format";
-import { stageOf, PROJECT_STAGES } from "@/config/projects";
+import { stageOf, PROJECT_STAGES, STALL_DAYS } from "@/config/projects";
 import type { Project } from "./types";
 
 /** "#SPR-0002 · 09/11/2026 · v1" — the one number the customer, Silitex and Sapirim all see */
@@ -28,4 +28,10 @@ export function projectText(p: Project): string {
   const team = p.team.map((m) => (m.role === "to" ? "TO " : "CC ") + m.name + " <" + m.email + ">" + (m.org ? " · " + m.org : "")).join("\n");
   const hist = p.history.map((h) => fmtDate(h.at) + " · v" + h.v + " · " + h.text).join("\n");
   return ["פרויקט " + refLabel(p), "לקוח: " + p.lead_name, "תיאור: " + p.description, p.request ? "בקשה: " + p.request : "", "שלב: " + stageText(p.stage), "", "שלבים:", steps, "", "מסמכים:", docs, "", "צוות:", team, "", "היסטוריה:", hist].filter((x) => x !== null).join("\n");
+}
+/** ⏰ days since the project last moved (newest history line) and whether it is over the stage limit; ⏸ hold_until (in the future) silences it */
+export function stallInfo(p: Pick<Project, "stage" | "history" | "updated_at" | "opened_at" | "hold_until">, now = Date.now()): { days: number; limit: number; stalled: boolean; held: boolean } {
+  const limit = STALL_DAYS[p.stage] || 0; const last = (p.history || []).reduce((m, h) => (h.at > m ? h.at : m), p.opened_at);
+  const days = Math.floor((now - new Date(last).getTime()) / 864e5); const held = !!p.hold_until && new Date(p.hold_until + "T23:59:59").getTime() >= now;
+  return { days, limit, held, stalled: !!limit && days >= limit && !held };
 }

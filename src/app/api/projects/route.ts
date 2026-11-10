@@ -9,7 +9,7 @@ import { fmtDate } from "@/lib/format";
 import { stageOf } from "@/config/projects";
 import type { Project } from "@/lib/types";
 export const runtime = "nodejs"; export const dynamic = "force-dynamic";
-const FIELDS = ["description", "request", "stage", "quote_ref", "quote_at", "po_sample", "po_sample_at", "po_product", "po_product_at", "invoice", "invoice_at", "team", "notes"] as const;
+const FIELDS = ["description", "request", "stage", "quote_ref", "quote_at", "po_sample", "po_sample_at", "po_product", "po_product_at", "invoice", "invoice_at", "team", "notes", "hold_until"] as const;
 const DOCS: Record<string, string> = { quote_ref: "הצעת מחיר", po_sample: "PO דוגמה", po_product: "PO מוצר", invoice: "חשבונית ספירים" };
 
 export async function GET(req: Request) {

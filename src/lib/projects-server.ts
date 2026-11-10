@@ -1,8 +1,9 @@
-// projects-server.ts (src/lib/projects-server.ts) · created 10.11.2026 12:35 (Asia/Jerusalem) — v1.9.8 📁 Projects — server only
+// projects-server.ts (src/lib/projects-server.ts) · updated 10.11.2026 13:35 (Asia/Jerusalem) — v1.10.0 sweep also reads new Silitex answers (project-answer.ts) · created 12:35 — v1.9.8 📁 Projects — server only
 // Auto-open: a customer message that asks for technical data / sample / price (RFQ_RE) on a customer with no open project → new #SPR number
 // (DB sequence), Silitex team attached (Management box: Federica TO, the rest CC), 🔔 follow-up task, every thread of that customer tagged.
 // Runs on every /projects load and after each Outlook sync (cron every 15 min). Nothing is deleted.
 import { serviceClient } from "./server-data";
+import { readSilitexAnswers } from "./project-answer";
 import { RFQ_RE, ENDED, PROJECT_FOLLOWUP_DAYS } from "@/config/projects";
 import { addDays, todayIso, fmtDate } from "./format";
 import type { Project, ProjectMember } from "./types";
@@ -37,7 +38,7 @@ export async function openProject(sb: SB, n: NewProject): Promise<{ project: Pro
 export async function sweep(sb: SB): Promise<string[]> {
   const since = new Date(Date.now() - 120 * 864e5).toISOString();
   const ths = ((await sb.from("threads").select("id,refs").eq("dept", "il").gte("last_at", since).limit(1000)).data || []).filter((t) => (t.refs as { lead_id?: string } | null)?.lead_id);
-  if (!ths.length) return [];
+  if (!ths.length) { try { await readSilitexAnswers(sb); } catch { /* */ } return []; }
   const byThread = new Map(ths.map((t) => [t.id, t.refs as { lead_id: string; lead_name?: string }]));
   const msgs = (await sb.from("hub_messages").select("thread_id,at,body").in("thread_id", [...byThread.keys()]).eq("direction", "in").gte("at", since).order("at", { ascending: true }).limit(3000)).data || [];
   const projs = ((await sb.from("projects").select("lead_id,stage,updated_at")).data || []) as Pick<Project, "lead_id" | "stage" | "updated_at">[];
@@ -50,6 +51,7 @@ export async function sweep(sb: SB): Promise<string[]> {
     cands.set(ref.lead_id, { lead_id: ref.lead_id, lead_name: ref.lead_name || ref.lead_id, at: m.at, body: String(m.body || ""), wa: m.thread_id.startsWith("thr-wa-") });
   }
   const opened: string[] = [];
+  try { await readSilitexAnswers(sb); } catch { /* never block the list */ }
   for (const c of [...cands.values()].sort((a, b) => a.at.localeCompare(b.at))) {
     const lead = (await sb.from("leads").select("name").eq("id", c.lead_id).maybeSingle()).data;
     const { project, created } = await openProject(sb, { lead_id: c.lead_id, lead_name: lead?.name || c.lead_name, opened_at: c.at, request: c.body.replace(/\s+/g, " ").slice(0, 400), source: c.wa ? "auto:whatsapp" : "auto:mail" });
