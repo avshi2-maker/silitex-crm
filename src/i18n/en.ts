@@ -2293,4 +2293,11 @@ export const EN: Record<string, string> = {
   "השתק התראה עד": "Silence the alarm until",
   "מושתק עד": "silenced until",
   "תשובה הגיעה": "answer in",
+  "הסתר ציטוט": "hide quoted",
+  "הצג ציטוט": "show quoted",
+  "החדש למעלה": "newest on top",
+  "פתח כרטיס פרויקט": "Open project card",
+  "עוד התכתבות באותו פרויקט:": "More correspondence in this project:",
+  "תשובה עם מספר הפרויקט": "Reply with the project ref",
+  "נמענים": "recipients",
 };
