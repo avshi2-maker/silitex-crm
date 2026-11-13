@@ -7,7 +7,7 @@ export const NAV_GROUPS: NavGroup[] = [
   { id: "daily", he: "שגרה יומית", open: true, hrefs: ["/today", "/insight", "/schedule", "/brief", "/hub", "/visits", "/capture", "/field"] },
   { id: "sales", he: "לקוחות ומכירות", open: true, hrefs: ["/leads", "/projects", "/sheet", "/sales-meetings", "/pipeline", "/potential", "/scan", "/logistics", "/satisfaction", "/federica"] },
   { id: "hunt", he: "איתור לקוחות חדשים", open: true, hrefs: ["/leads/prompt", "/radar", "/sniper", "/market", "/matrix", "/competitors"] },
-  { id: "know", he: "מוצרים וידע", open: false, hrefs: ["/products", "/offsets", "/nusil", "/ask", "/formulations", "/faq", "/kb"] },
+  { id: "know", he: "מוצרים וידע", open: false, hrefs: ["/products", "/pricelist", "/offsets", "/nusil", "/ask", "/formulations", "/faq", "/kb"] },
   { id: "silitex", he: "Silitex — שותפות", open: false, hrefs: ["/meetings", "/expo-ready", "/report", "/roadmap", "/partners", "/partner", "/pitch", "/market/gaps", "/notes", "/team"] },
   { id: "promo", he: "קידום ודוחות", open: false, hrefs: ["/promo", "/visibility", "/campaign", "/social", "/studio", "/he", "/partner/preview", "/mobile"] },
 ];

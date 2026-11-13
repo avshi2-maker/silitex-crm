@@ -37,6 +37,7 @@ const ITEMS = [
   { href: "/team", he: "הצוות ותהליך המכירה", icon: "👥" },
   { href: "/ask", he: "שאל את Silitex", icon: "🔎" },
   { href: "/products", he: "קטלוג מוצרים", icon: "🧪" },
+  { href: "/pricelist", he: "מחירון Silitex", icon: "💶", owner: true },
   { href: "/offsets", he: "מקבילות עולמיות", icon: "🌍" },
   { href: "/sales-meetings", he: "פגישות ושיחות מכירה", icon: "🤝", owner: true },
   { href: "/nusil", he: "NuSil CareSil — מעבר ל-cyclic-free", icon: "🧬", owner: true },

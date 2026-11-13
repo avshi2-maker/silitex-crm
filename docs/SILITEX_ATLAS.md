@@ -22,6 +22,7 @@ Hebrew RTL CRM for distributing Silitex S.r.l. products in Israel. Next.js 15 / 
 | Lead pitch wording | `src/prompts/pitch.ts` |
 | Campaign wording | `src/prompts/campaign.ts` |
 | RAG answer wording / citation rule | `src/prompts/rag.ts` |
+| 💶 Price list (all catalogue names, INCI, CAS, packs × €/kg, RDA, TDS/MSDS, PO ref, landed cost, AI quote reader) | `src/app/pricelist/page.tsx` · `components/pricelist/*` · `lib/pricelist.ts` · `/api/pricelist` (+ `/parse`) · table `price_list` (`supabase/price_list.sql`) |
 | Model + $/token prices | `src/lib/pricing.ts` |
 | Product catalog / offsets / leads seed | `src/data/*.json` (originals in `public/assets/`) |
 | Product ↔ industry classification | `industriesOf()` in `src/lib/data.ts` |
