@@ -1,5 +1,5 @@
 "use client";
-// SecurityReview.tsx (src/components/agent/SecurityReview.tsx) · created 16.11.2026 20:30 (Asia/Jerusalem) — v1.14.2 🚨 forced review of security events on /agent#security:
+// SecurityReview.tsx (src/components/agent/SecurityReview.tsx) · updated 16.11.2026 20:50 (Asia/Jerusalem) — v1.14.3 says what is still missing under the button (the note box was easy to miss) · created 16.11.2026 20:30 — v1.14.2 🚨 forced review of security events on /agent#security:
 // each event: sender · reason · date · 📧 full mail → tick BOTH checks + write what you checked (min 5 chars) → only then "✓ checked — close". 🧪 test alarm button.
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
@@ -17,8 +17,9 @@ function One({ e, onDone }: { e: Ev; onDone: () => void }) {
       <div className="text-xs text-slate-600" dir="auto">✉ {e.sender} · {e.subject} · {fmtDate(e.msg_at)}{e.thread_id && <> · <Link href={"/hub?thread=" + e.thread_id} className="underline font-bold">📧 פתח את המייל המלא</Link></>}</div>
       <label className="flex items-center gap-2 text-sm min-h-[36px]"><input type="checkbox" className="w-5 h-5" checked={a} onChange={(x) => setA(x.target.checked)} /> פתחתי ובדקתי את המייל המלא ואת השולח</label>
       <label className="flex items-center gap-2 text-sm min-h-[36px]"><input type="checkbox" className="w-5 h-5" checked={b} onChange={(x) => setB(x.target.checked)} /> לא לחצתי על קישורים, לא שילמתי ולא עניתי לשולח</label>
-      <input className={inputCls} value={note} onChange={(x) => setNote(x.target.value)} placeholder="מה בדקת / מה עשית (חובה) — למשל: ספאם, השולח נחסם ב-Outlook" dir="auto" />
+      <input className={inputCls + (a && b && note.trim().length < 5 ? " ring-2 ring-red-400 border-red-400" : "")} value={note} onChange={(x) => setNote(x.target.value)} placeholder="מה בדקת / מה עשית (חובה) — למשל: ספאם, השולח נחסם ב-Outlook" dir="auto" />
       <button className={btnPrimary + " min-h-[44px]"} disabled={!ok || busy} onClick={close}>✓ בדקתי — סגור</button>
+      {!ok && <span className="text-xs text-red-700 ms-2">{!a || !b ? "☐ סמן את שתי הבדיקות" : "✍ כתוב בתיבה מה בדקת (לפחות 5 תווים) — ואז הכפתור נפתח"}</span>}
       {err && <span className="text-xs text-red-700 ms-2">{err}</span>}
     </div>
   );
