@@ -1,4 +1,4 @@
-// agent-guard.ts (src/lib/agent-guard.ts) · created 16.11.2026 19:50 (Asia/Jerusalem) — v1.14.1 🛡 guards for the 🤖 back-office agent — server only
+// agent-guard.ts (src/lib/agent-guard.ts) · updated 16.11.2026 21:20 (Asia/Jerusalem) — v1.15.0 📅 meeting actions: start must be one of your free slots, attendees only known people · created 16.11.2026 19:50 — v1.14.1 🛡 guards for the 🤖 back-office agent — server only
 // 1 SCREEN before any AI cost: no-reply / bounce / newsletter / bulk senders, oversize mails, flood (same sender > N mails a day) → card "🛡 blocked" (no AI, never retried)
 // 2 BUDGET: today's agent AI spend capped (agent_state.daily_usd, default $1) · ⏸ pause switch · "run now" at most once a minute
 // 3 INJECTION: the mail is fenced as untrusted data; the AI answer is CHECKED — mail actions may go only to addresses already known
@@ -33,7 +33,7 @@ export function screen(m: { from: string; body: string; subject?: string }, know
 const URL = /\b(https?:\/\/|www\.)[^\s)]+/gi;
 const digits = (s = "") => s.replace(/\D/g, "").replace(/^972/, "0");
 /** keep only actions that go to known people; strip links; WhatsApp / call only to known numbers */
-export function checkActions(actions: AgentAction[], allowedMail: Set<string>, allowedPhones: Set<string>): { ok: AgentAction[]; dropped: number } {
+export function checkActions(actions: AgentAction[], allowedMail: Set<string>, allowedPhones: Set<string>, slots: Set<string> = new Set()): { ok: AgentAction[]; dropped: number } {
   let dropped = 0; const ok: AgentAction[] = [];
   for (const a of actions.slice(0, 3)) {
     const clean = { ...a, body: (a.body || "").replace(URL, "[קישור הוסר]").slice(0, 4000), subject: (a.subject || "").slice(0, 200), title: (a.title || "").slice(0, 160) };
@@ -43,6 +43,8 @@ export function checkActions(actions: AgentAction[], allowedMail: Set<string>, a
       ok.push({ ...clean, to: to.join("; "), cc: cc.filter((x) => allowedMail.has(x)).join("; ") }); continue;
     }
     if (a.kind === "whatsapp" || a.kind === "call") { if (!a.phone || !allowedPhones.has(digits(a.phone))) { dropped++; continue; } ok.push(clean); continue; }
+    if (a.kind === "meeting") { const st = (a.start || "").slice(0, 16); const to = (a.to || "").split(/[;,]/).map(addr).filter(Boolean);
+      if (!slots.has(st) || !to.every((x) => allowedMail.has(x))) { dropped++; continue; } ok.push({ ...clean, start: st, to: to.join("; "), location: (a.location || "").slice(0, 120) }); continue; }
     if (a.kind === "task") { ok.push(clean); continue; }
     dropped++;
   }

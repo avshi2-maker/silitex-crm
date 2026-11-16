@@ -2441,4 +2441,10 @@ export const EN: Record<string, string> = {
   "פעולות הוסרו": "actions removed",
   "🛡 נחסם": "🛡 Blocked",
   "נחסם לפני AI (בלי עלות): no-reply, דיוור, מייל ענק, הצפה משולח אחד. אחרי AI: מייל נשמר כ\"נתונים\" בלבד, פעולות רק לאנשים מוכרים, קישורים מוסרים, שולח לא מוכר לא פותח הזמנה. שום דבר לא נשלח בלי הלחיצה שלך.": "Blocked before AI (no cost): no-reply, newsletters, huge mails, a flood from one sender. After AI: the mail is treated as data only, actions only to known people, links removed, an unknown sender cannot open an order. Nothing is sent without your click.",
+  "ליומן שלי": "To my calendar",
+  "שלח הזמנה": "Send invitation",
+  "פתח ביומן": "Open in calendar",
+  "היומן עוד לא מחובר — הסוכן לא מציע פגישות. חיבור מחדש של Outlook פעם אחת (כניסה אחת) מוסיף הרשאת יומן.": "Calendar not connected yet — the agent does not propose meetings. Reconnecting Outlook once (one sign-in) adds the calendar permission.",
+  "חבר יומן (פעם אחת)": "Connect calendar (once)",
+  "יומן Outlook מחובר — הסוכן מציע פגישות רק בזמנים פנויים.": "Outlook calendar connected — the agent proposes meetings only in free slots.",
 };

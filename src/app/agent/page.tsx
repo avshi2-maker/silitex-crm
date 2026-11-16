@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/agent/page.tsx) · updated 16.11.2026 20:30 (Asia/Jerusalem) — v1.14.2 🚨 security review on top (forced check + close) · 20:05 — v1.14.1 🛡 guard panel (pause, $ cap, per-sender cap, last run) + 🛡 blocked tab · created 16.11.2026 19:25 — v1.14.0 🤖 Back-office agent — "only my last click". Mobile-first.
+// page.tsx (src/app/agent/page.tsx) · updated 16.11.2026 21:30 (Asia/Jerusalem) — v1.15.0 📅 meeting actions (📅 to my calendar / 📨 send invitation) + calendar status / one-time reconnect · 20:30 — v1.14.2 🚨 security review on top (forced check + close) · 20:05 — v1.14.1 🛡 guard panel (pause, $ cap, per-sender cap, last run) + 🛡 blocked tab · created 16.11.2026 19:25 — v1.14.0 🤖 Back-office agent — "only my last click". Mobile-first.
 // Every new mail (synced from Outlook every 15 min) is read by the agent every 30 min → a card: who · what · urgency + ready actions:
 // ✉ mail (opens prepared mail) · 📱 WhatsApp · 📞 call · 🔔 → task · 📦 draft order made from the mail. Each action: one click to do it, then ✓.
 // Nothing is sent by itself. ▶ run now · token + cost meter · export bar of the open cards.
@@ -15,9 +15,10 @@ import { fmtDate } from "@/lib/format";
 import { useLang } from "@/i18n";
 import type { Usage } from "@/lib/types";
 
-type Act = { kind: string; title: string; to?: string; cc?: string; subject?: string; body?: string; phone?: string; due?: string; done?: boolean };
+type Act = { kind: string; start?: string; location?: string; link?: string; title: string; to?: string; cc?: string; subject?: string; body?: string; phone?: string; due?: string; done?: boolean };
 type Item = { id: string; lead_id?: string; lead_name: string; project_id?: string; subject: string; sender: string; msg_at: string; intent: string; urgency: string; summary: string; actions: Act[]; order_id?: string; status: string; usage?: Usage; thread_id?: string };
-const ICON: Record<string, string> = { mail_customer: "✉", mail_silitex: "🇮🇹", whatsapp: "📱", call: "📞", task: "🔔" };
+const ICON: Record<string, string> = { mail_customer: "✉", mail_silitex: "🇮🇹", whatsapp: "📱", call: "📞", task: "🔔", meeting: "📅" };
+const when = (s = "") => (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(s) ? s.slice(8, 10) + "/" + s.slice(5, 7) + "/" + s.slice(0, 4) + " " + s.slice(11, 16) : s);
 const INTENT: Record<string, string> = { sample_request: "בקשת דוגמה", order: "הזמנה", rfq: "בקשת מחיר / נתונים", silitex_answer: "תשובת Silitex", logistics: "לוגיסטיקה", question: "שאלה", followup: "מעקב", other: "אחר", junk: "זבל" };
 const intl = (p = "") => { const d = p.replace(/\D/g, ""); return d.startsWith("0") ? "972" + d.slice(1) : d; };
 const link = (a: Act) => a.kind === "whatsapp" && a.phone ? "https://wa.me/" + intl(a.phone) + "?text=" + encodeURIComponent(a.body || "") : a.kind === "call" && a.phone ? "tel:" + a.phone : a.kind.startsWith("mail") ? "mailto:" + encodeURIComponent(a.to || "") + "?subject=" + encodeURIComponent(a.subject || "") + (a.cc ? "&cc=" + encodeURIComponent(a.cc) : "") + "&body=" + encodeURIComponent(a.body || "") : "";
@@ -25,11 +26,11 @@ const link = (a: Act) => a.kind === "whatsapp" && a.phone ? "https://wa.me/" + i
 export default function AgentPage() {
   const { t: tr } = useLang(); const { state, addSpend } = useStore();
   const [st, setSt] = useState("pending"); const [items, setItems] = useState<Item[] | null>(null); const [busy, setBusy] = useState(""); const [msg, setMsg] = useState(""); const [open, setOpen] = useState<Record<string, boolean>>({});
-  const [guard, setGuard] = useState<{ state: GuardState | null; spent: number; last: LastRun }>({ state: null, spent: 0, last: null });
-  const load = useCallback(() => { fetch("/api/agent?status=" + st, { cache: "no-store" }).then((r) => r.json()).then((j) => { setItems(j.items || []); setGuard({ state: j.state || null, spent: Number(j.spent || 0), last: j.last || null }); }).catch(() => setItems([])); }, [st]);
+  const [guard, setGuard] = useState<{ state: GuardState | null; spent: number; last: LastRun }>({ state: null, spent: 0, last: null }); const [cal, setCal] = useState<boolean | null>(null);
+  const load = useCallback(() => { fetch("/api/agent?status=" + st, { cache: "no-store" }).then((r) => r.json()).then((j) => { setItems(j.items || []); setCal(!!j.calendar); setGuard({ state: j.state || null, spent: Number(j.spent || 0), last: j.last || null }); }).catch(() => setItems([])); }, [st]);
   const setState = async (x: Partial<GuardState>) => { const r = await fetch("/api/agent", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ state: x }) }); const j = await r.json(); if (j.state) setGuard((g) => ({ ...g, state: j.state })); };
   useEffect(() => { load(); }, [load]);
-  const patch = async (b: Record<string, unknown>) => { const r = await fetch("/api/agent", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(b) }); const j = await r.json(); if (j.item) setItems((cur) => (cur || []).map((x) => (x.id === j.item.id ? j.item : x)).filter((x) => st === "all" || x.status === st)); };
+  const patch = async (b: Record<string, unknown>) => { const r = await fetch("/api/agent", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(b) }); const j = await r.json(); if (j.error) setMsg("⚠ " + j.error); if (j.item) setItems((cur) => (cur || []).map((x) => (x.id === j.item.id ? j.item : x)).filter((x) => st === "all" || x.status === st)); };
   const run = async () => { setBusy("run"); setMsg(""); try { const r = await fetch("/api/agent", { method: "POST" }); const j = await r.json(); setMsg(j.error || "🤖 " + tr("נקראו") + " " + j.read + " · " + tr("כרטיסים חדשים") + " " + j.cards + " · 🛡 " + tr("נחסמו") + " " + (j.blocked || 0) + (j.orders?.length ? " · 📦 " + j.orders.join(", ") : "") + " · $" + Number(j.cost || 0).toFixed(3) + (j.stopped ? " · " + j.stopped : "")); if (j.cost) addSpend(0, j.cost); load(); } catch (e) { setMsg(String(e)); } setBusy(""); };
   const list = items || []; const total = list.reduce((a, x) => a + (x.usage?.cost_usd || 0), 0); const toks = list.reduce((a, x) => a + (x.usage ? x.usage.input_tokens + x.usage.output_tokens : 0), 0);
   const text = list.map((x) => (x.urgency === "high" ? "🔴 " : "• ") + x.lead_name + " — " + x.summary + "\n" + x.actions.map((a) => "   " + (a.done ? "✓ " : "☐ ") + (ICON[a.kind] || "") + " " + a.title).join("\n") + (x.order_id ? "\n   📦 " + x.order_id : "")).join("\n\n");
@@ -42,6 +43,8 @@ export default function AgentPage() {
       </div>
       {msg && <div className="text-sm text-slate-600">{msg}</div>}
       <SecurityReview />
+      {cal === false && <Card className="text-sm border-sky-300 bg-sky-50 flex flex-wrap items-center gap-2"><span className="flex-1">📅 {tr("היומן עוד לא מחובר — הסוכן לא מציע פגישות. חיבור מחדש של Outlook פעם אחת (כניסה אחת) מוסיף הרשאת יומן.")}</span><a href="/api/hub/outlook/connect" className={btnPrimary + " min-h-[44px] inline-flex items-center"}>📅 {tr("חבר יומן (פעם אחת)")}</a></Card>}
+      {cal === true && <div className="text-xs text-slate-500">📅 {tr("יומן Outlook מחובר — הסוכן מציע פגישות רק בזמנים פנויים.")}</div>}
       <AgentGuard state={guard.state} spent={guard.spent} last={guard.last} onChange={setState} />
       <TokenMeter usage={list[0]?.usage} sessionTokens={toks || state.spend.tokens} sessionCost={total || state.spend.cost} busy={busy === "run"} />
       {items !== null && list.length === 0 && <Card className="text-sm text-slate-500">{st === "pending" ? "✓ " + tr("אין פעולות ממתינות. הסוכן רץ כל 30 דקות.") : tr("אין כרטיסים.")}</Card>}
@@ -60,6 +63,10 @@ export default function AgentPage() {
             <li key={i} className={"rounded-lg border p-2 " + (a.done ? "bg-emerald-50 opacity-70" : "bg-white")}>
               <div className="flex flex-wrap items-center gap-2"><span className="text-sm font-medium flex-1">{ICON[a.kind] || "•"} {a.title}{a.to ? <span className="text-xs text-slate-500" dir="ltr"> · {a.to}</span> : null}</span>
                 {link(a) && <a href={link(a)} target={a.kind === "whatsapp" ? "_blank" : undefined} rel="noreferrer" className={btnPrimary + " min-h-[40px] inline-flex items-center"} onClick={() => !a.done && patch({ id: x.id, action: i, done: true })}>{a.kind === "call" ? tr("חייג") : a.kind === "whatsapp" ? "WhatsApp" : tr("פתח מייל")}</a>}
+                {a.kind === "meeting" && <span className="text-xs bg-sky-50 border border-sky-200 rounded px-2 py-1" dir="ltr">📅 {when(a.start)}{a.location ? " · " + a.location : ""}</span>}
+                {a.kind === "meeting" && !a.done && <button className={btnPrimary + " min-h-[40px]"} onClick={() => patch({ id: x.id, meeting: i, invite: false })}>📅 {tr("ליומן שלי")}</button>}
+                {a.kind === "meeting" && !a.done && a.to && <button className={btnGhost + " min-h-[40px]"} onClick={() => patch({ id: x.id, meeting: i, invite: true })}>📨 {tr("שלח הזמנה")}</button>}
+                {a.kind === "meeting" && a.link && <a href={a.link} target="_blank" rel="noreferrer" className="text-xs underline">{tr("פתח ביומן")}</a>}
                 {a.kind === "task" && !a.done && <button className={btnPrimary + " min-h-[40px]"} onClick={() => patch({ id: x.id, task: i })}>🔔 {tr("למשימות")}</button>}
                 <button className={btnGhost + " min-h-[40px]"} onClick={() => patch({ id: x.id, action: i, done: !a.done })}>{a.done ? "↩" : "✓"}</button>
                 {a.body && <button className={btnGhost + " min-h-[40px]"} onClick={() => setOpen({ ...open, [x.id + i]: !open[x.id + i] })}>{open[x.id + i] ? "▾" : "▸"}</button>}</div>
