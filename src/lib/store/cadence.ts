@@ -1,4 +1,4 @@
-// cadence.ts (src/lib/store/cadence.ts) · updated 29.10.2026 05:45 (Asia/Jerusalem) — FIX duplicate tasks: ONE open daily task per lead that rolls forward to today (rollDaily) instead of a new copy every day · 19.10.2026 11:45 — leads with an open playbook step get no generic daily/weekly task · 09.10.2026 09:40
+// cadence.ts (src/lib/store/cadence.ts) · updated 16.11.2026 16:55 (Asia/Jerusalem) — v1.12.0 automatic per-customer daily / weekly tasks SWITCHED OFF (Avshi: real process only — tasks come from projects, mails, meetings, follow-up bot) · 29.10.2026 05:45 — FIX duplicate tasks: ONE open daily task per lead that rolls forward to today (rollDaily) instead of a new copy every day · 19.10.2026 11:45 — leads with an open playbook step get no generic daily/weekly task · 09.10.2026 09:40
 // Pure scheduling logic: given leads + existing tasks, return tasks to add. Rules live in config/cadence.ts.
 import { DAILY_BY_STAGE, WEEKLY_TITLE, WEEKLY_EVERY_DAYS } from "@/config/cadence";
 import { isClosed } from "@/config/stages";
@@ -7,8 +7,9 @@ import type { Lead, Task } from "@/lib/types";
 export function dailyTitle(l: Lead): string {
   return (DAILY_BY_STAGE[l.stage] || "מעקב").replace("{role}", l.contact_role || "").replace("{dept}", l.department || "");
 }
+export const AUTO_SCHEDULE = false; // 16.11.2026 — off; set true to bring the per-customer daily / weekly tasks back
 export function buildSchedule(leads: Lead[], tasks: Task[], today: string): Task[] {
-  const add: Task[] = [];
+  const add: Task[] = []; if (!AUTO_SCHEDULE) return add;
   for (const l of leads) {
     if (isClosed(l.stage)) continue;
     if (tasks.some((t) => t.lead_id === l.id && !t.done && (t.kind || "").startsWith("plan:"))) continue;

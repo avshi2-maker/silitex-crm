@@ -1,63 +1,57 @@
 "use client";
-// page.tsx (src/app/page.tsx) · updated 08.11.2026 13:00 (Asia/Jerusalem) — v1.7.2 ⚙ demo-data button removed · 15.10.2026 14:30 — dashboard (+ open offers) + ⚡ competitor-code quick match
+// page.tsx (src/app/page.tsx) · updated 16.11.2026 16:50 (Asia/Jerusalem) — v1.12.0 REAL PROCESS ONLY: demo blocks removed (pipeline $ potential "19 accounts", lab / pilot / R&D / purchasing stage counters, stage bars, Tier-1 targets, priorities card, "create daily/weekly schedule" link); now: 📁 open projects (stage, ⏰ stall, 🇮🇹 answer in), 🔔 today's tasks, 🆕 new customers (14 days), offers · 08.11.2026 13:00 — v1.7.2 ⚙ demo-data button removed
 import Link from "next/link";
-import { useStore, STAGES, isClosed } from "@/lib/store";
-import { PRODUCTS, OFFSETS } from "@/lib/data";
+import { useStore } from "@/lib/store";
+import { useProjects } from "@/lib/use-projects";
 import { Card, H1, Stat, Badge } from "@/components/ui";
-import { fmtUsd, todayIso, fmtDate } from "@/lib/format";
-import PrioritiesCard from "@/components/PrioritiesCard";
+import { todayIso, fmtDate, addDays } from "@/lib/format";
+import { ENDED } from "@/config/projects";
+import { stageText, stallInfo } from "@/lib/projects";
 import OffersCard from "@/components/OffersCard";
-import { useLang } from "@/i18n";
 import QuickMatch from "@/components/QuickMatch";
+import { useLang } from "@/i18n";
 export default function Dashboard() {
   const { t: tr } = useLang();
-  const { state, ready } = useStore();
+  const { state, ready } = useStore(); const { list } = useProjects({ lite: true });
   if (!ready) return null;
-  const today = todayIso();
-  const open = state.leads.filter((l) => !isClosed(l.stage));
-  const pipelineUsd = open.reduce((a, l) => a + l.value_usd, 0);
-  const due = state.tasks.filter((t) => !t.done && t.due <= today);
-  const inField = state.samples.filter((x) => ["shipped", "in_lab"].includes(x.status)).length;
-  const won = state.leads.filter((l) => l.stage === "won");
+  const today = todayIso(); const since = addDays(today, -14);
+  const projects = (list || []).filter((p) => !ENDED.includes(p.stage)).sort((a, b) => b.opened_at.localeCompare(a.opened_at));
+  const stalled = projects.filter((p) => stallInfo(p).stalled);
+  const waiting = projects.filter((p) => p.stage === "silitex");
+  const answered = projects.filter((p) => p.silitex_answer && p.stage === "offer");
+  const due = state.tasks.filter((t) => !t.done && t.due <= today).sort((a, b) => a.due.localeCompare(b.due));
+  const fresh = state.leads.filter((l) => (l.created_at || "").slice(0, 10) >= since).sort((a, b) => (b.created_at || "").localeCompare(a.created_at || ""));
   return (
     <div className="space-y-6">
-      <div className="flex items-start justify-between"><H1 sub={tr("היום ") + fmtDate(new Date())}>{tr("לוח בקרה — Silitex ישראל")}</H1></div>
+      <H1 sub={tr("היום ") + fmtDate(new Date()) + " · " + tr("רק תהליכים אמיתיים פתוחים")}>{tr("לוח בקרה — Silitex ישראל")}</H1>
       <QuickMatch />
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <Stat label={tr("מוצרים בקטלוג")} value={PRODUCTS.length} hint={OFFSETS.rows.length + tr(" קטגוריות מקבילות")} />
-        <Stat label={tr("לקוחות פוטנציאליים פתוחים")} value={open.length} hint={state.leads.length + tr(" סה״כ")} />
-        <Stat label={tr("פוטנציאל שנתי בצנרת")} value={fmtUsd(pipelineUsd)} hint={tr("לפי חשבונות (19)")} />
-        <Stat label={tr("דגימות בשטח")} value={inField} hint={won.length + " " + tr("נסגרו ✓")} />
-        <Stat label={tr("משימות להיום")} value={due.length} hint={state.tasks.filter((t) => !t.done).length + tr(" פתוחות")} />
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Stat label={"🧪 " + tr("בבדיקת מעבדה")} value={state.leads.filter((l) => l.stage === "sample").length} hint={state.samples.filter((x) => x.status === "in_lab").length + " " + tr("דגימות במעבדה")} />
-        <Stat label={"🏭 " + tr("פיילוט במפעל")} value={state.leads.filter((l) => l.stage === "pilot").length} hint={tr("ניסוי בקו הייצור")} />
-        <Stat label={"✅ " + tr("אושר במו\"פ")} value={state.leads.filter((l) => l.stage === "rd_approved").length} hint={tr("מוכן לרכש")} />
-        <Stat label={"🤝 " + tr("ברכש")} value={state.leads.filter((l) => ["rfq", "quote", "negotiation"].includes(l.stage)).length} hint={tr("RFQ / הצעה / מו\"מ")} />
+        <Stat label={"📁 " + tr("פרויקטים פתוחים")} value={list === null ? "…" : projects.length} hint={"#SPR"} />
+        <Stat label={"🇮🇹 " + tr("ממתין ל-Silitex")} value={waiting.length} hint={answered.length + " " + tr("תשובה הגיעה")} />
+        <Stat label={"⏰ " + tr("תקועים")} value={stalled.length} hint={tr("לקדם או ⏸ לדחות")} />
+        <Stat label={"🔔 " + tr("משימות להיום")} value={due.length} hint={state.tasks.filter((t) => !t.done).length + tr(" פתוחות")} />
+        <Stat label={"🆕 " + tr("לקוחות חדשים (14 יום)")} value={fresh.length} hint={state.leads.length + tr(" סה״כ")} />
       </div>
       <div className="grid md:grid-cols-2 gap-4">
         <Card>
-          <h3 className="font-bold mb-2">{tr("צנרת לפי שלב")}</h3>
-          <div className="space-y-1">
-            {STAGES.map((s) => { const n = state.leads.filter((l) => l.stage === s.key).length; return (<div key={s.key} className="flex items-center gap-2 text-sm"><span className="w-28">{tr(s.he)}</span><div className="flex-1 bg-slate-100 rounded h-3"><div className="bg-brand-500 h-3 rounded" style={{ width: (n / Math.max(1, state.leads.length)) * 100 + "%" }} /></div><span className="w-6 text-left">{n}</span></div>); })}
-          </div>
-          <Link href="/pipeline" className="text-sm text-brand-500 mt-2 inline-block">{tr("לצנרת →")}</Link>
+          <div className="flex items-center mb-2"><h3 className="font-bold flex-1">📁 {tr("פרויקטים פתוחים")}</h3><Link href="/projects" className="text-sm text-brand-500">{tr("לכל הפרויקטים →")}</Link></div>
+          {list !== null && projects.length === 0 && <p className="text-sm text-slate-500">{tr("אין פרויקטים פתוחים.")}</p>}
+          <ul className="space-y-1 text-sm">{projects.slice(0, 10).map((p) => { const s = stallInfo(p); return (
+            <li key={p.id} className="flex flex-wrap items-center gap-2"><Link href={"/projects/" + p.id} className="font-mono text-brand-700 hover:underline" dir="ltr">#{p.id}</Link><span className="truncate max-w-[12rem]">{p.lead_name}</span><span className="text-xs text-slate-500">{stageText(p.stage)}</span>{s.stalled && <Badge tone="red">⏰ {s.days}</Badge>}{s.held && <Badge tone="amber">⏸</Badge>}{p.silitex_answer && <Badge tone="green">🇮🇹 {tr("תשובה הגיעה")}</Badge>}</li>); })}</ul>
         </Card>
         <Card>
-          <h3 className="font-bold mb-2">{tr("משימות להיום")}</h3>
-          {due.length === 0 && <p className="text-sm text-slate-500">{tr("אין משימות. ")}<Link href="/schedule" className="text-brand-500">{tr("צור לוח יומי/שבועי →")}</Link></p>}
-          <ul className="space-y-1 text-sm">{due.slice(0, 8).map((t) => (<li key={t.id} className="flex gap-2"><Badge tone={t.cadence === "weekly" ? "amber" : "blue"}>{t.cadence === "weekly" ? tr("שבועי") : tr("יומי")}</Badge><Link href={"/leads/" + t.lead_id} className="hover:underline">{t.lead_name}</Link><span className="text-slate-500 truncate">— {t.title}</span></li>))}</ul>
+          <h3 className="font-bold mb-2">🔔 {tr("משימות להיום")}</h3>
+          {due.length === 0 && <p className="text-sm text-slate-500">{tr("אין משימות להיום.")}</p>}
+          <ul className="space-y-1 text-sm">{due.slice(0, 10).map((t) => (<li key={t.id} className="flex gap-2">{t.due < today && <Badge tone="red">{fmtDate(t.due)}</Badge>}<Link href={"/leads/" + t.lead_id} className="hover:underline whitespace-nowrap">{t.lead_name}</Link><span className="text-slate-500 truncate">— {t.title}</span></li>))}</ul>
         </Card>
       </div>
-      <OffersCard docs={state.docs} />
-      <PrioritiesCard />
       <Card>
-        <h3 className="font-bold mb-2">{tr("לקוחות Tier 1 — פנייה מיידית")}</h3>
-        <div className="grid md:grid-cols-3 gap-2">
-          {state.leads.filter((l) => /Tier 1/.test(l.tier)).map((l) => (<Link key={l.id} href={"/leads/" + l.id} className="border rounded-lg p-3 hover:bg-slate-50"><div className="font-medium">{l.name}</div><div className="text-xs text-slate-500">{l.industry}</div><div className="text-xs mt-1">{fmtUsd(l.value_usd)}{tr(" / שנה · ")}{l.volume_tons}{tr(" טון")}</div></Link>))}
-        </div>
+        <h3 className="font-bold mb-2">🆕 {tr("לקוחות חדשים (14 יום)")}</h3>
+        {fresh.length === 0 && <p className="text-sm text-slate-500">{tr("אין לקוחות חדשים.")}</p>}
+        <div className="grid md:grid-cols-3 gap-2">{fresh.slice(0, 9).map((l) => { const p = projects.find((x) => x.lead_id === l.id); return (
+          <Link key={l.id} href={"/leads/" + l.id} className="border rounded-lg p-3 hover:bg-slate-50"><div className="font-medium truncate">{l.name}</div><div className="text-xs text-slate-500">{l.industry} · {l.source || "—"} · {fmtDate(l.created_at)}</div><div className="text-xs mt-1">{p ? <span className="text-brand-700" dir="ltr">📁 #{p.id}</span> : <span className="text-amber-700">{tr("אין פרויקט — 📁 לפתוח")}</span>}</div></Link>); })}</div>
       </Card>
+      <OffersCard docs={state.docs} />
     </div>
   );
 }
