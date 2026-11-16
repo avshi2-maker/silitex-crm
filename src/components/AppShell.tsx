@@ -1,6 +1,7 @@
 "use client";
-// AppShell.tsx (src/components/AppShell.tsx) · updated 28.10.2026 18:15 (Asia/Jerusalem) — menu collapsed (◀ ▶) → page uses the full screen width · 26.10.2026 05:50 — /outlook-callback renders bare (Microsoft sign-in popup) · 24.10.2026 06:00 — loads radar-added industries on start · 23.10.2026 08:30 — + 📞 QuickBrief (Ctrl+K customer brief) · 06:55 — + ScanPulse (live server-scan signal + timer on every page) · 22.10.2026 17:20 (Asia/Jerusalem) — + SaveToast (green save echo on every page) · 18.10.2026 18:15 (Asia/Jerusalem) — CRM frame (sidebar, floating notes, footer) around every page — EXCEPT the public portal (/he /en /ru), which renders bare with its own header/footer.
+// AppShell.tsx (src/components/AppShell.tsx) · updated 16.11.2026 20:30 (Asia/Jerusalem) — v1.14.2 🚨 SecurityNudge on top of every page · 28.10.2026 18:15 — menu collapsed (◀ ▶) → page uses the full screen width · 26.10.2026 05:50 — /outlook-callback renders bare (Microsoft sign-in popup) · 24.10.2026 06:00 — loads radar-added industries on start · 23.10.2026 08:30 — + 📞 QuickBrief (Ctrl+K customer brief) · 06:55 — + ScanPulse (live server-scan signal + timer on every page) · 22.10.2026 17:20 (Asia/Jerusalem) — + SaveToast (green save echo on every page) · 18.10.2026 18:15 (Asia/Jerusalem) — CRM frame (sidebar, floating notes, footer) around every page — EXCEPT the public portal (/he /en /ru), which renders bare with its own header/footer.
 import type { ReactNode } from "react";
+import SecurityNudge from "./agent/SecurityNudge";
 import { usePathname } from "next/navigation";
 import Nav from "./Nav";
 import AskSapirim from "./AskSapirim";
@@ -28,6 +29,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
       <ScanPulse />
       <QuickBrief />
       <main className={"flex-1 min-w-0 p-6 " + (wide ? "max-w-none" : "max-w-[1400px]")}>
+        <SecurityNudge />
         {children}
         <footer className="mt-10 text-[11px] text-slate-400 print:hidden">Silitex CRM {BUILD} · mockup</footer>
       </main>

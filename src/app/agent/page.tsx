@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/agent/page.tsx) · updated 16.11.2026 20:05 (Asia/Jerusalem) — v1.14.1 🛡 guard panel (pause, $ cap, per-sender cap, last run) + 🛡 blocked tab · created 16.11.2026 19:25 — v1.14.0 🤖 Back-office agent — "only my last click". Mobile-first.
+// page.tsx (src/app/agent/page.tsx) · updated 16.11.2026 20:30 (Asia/Jerusalem) — v1.14.2 🚨 security review on top (forced check + close) · 20:05 — v1.14.1 🛡 guard panel (pause, $ cap, per-sender cap, last run) + 🛡 blocked tab · created 16.11.2026 19:25 — v1.14.0 🤖 Back-office agent — "only my last click". Mobile-first.
 // Every new mail (synced from Outlook every 15 min) is read by the agent every 30 min → a card: who · what · urgency + ready actions:
 // ✉ mail (opens prepared mail) · 📱 WhatsApp · 📞 call · 🔔 → task · 📦 draft order made from the mail. Each action: one click to do it, then ✓.
 // Nothing is sent by itself. ▶ run now · token + cost meter · export bar of the open cards.
@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { Card, H1, Badge, btnPrimary, btnGhost } from "@/components/ui";
 import TokenMeter from "@/components/TokenMeter";
+import SecurityReview from "@/components/agent/SecurityReview";
 import AgentGuard, { type GuardState, type LastRun } from "@/components/agent/AgentGuard";
 import ExportBar from "@/components/ExportBar";
 import { useStore } from "@/lib/store";
@@ -40,6 +41,7 @@ export default function AgentPage() {
         <button className={btnPrimary + " min-h-[44px] ms-auto"} disabled={!!busy} onClick={run}>▶ {busy ? tr("קורא מיילים…") : tr("הרץ עכשיו")}</button>
       </div>
       {msg && <div className="text-sm text-slate-600">{msg}</div>}
+      <SecurityReview />
       <AgentGuard state={guard.state} spent={guard.spent} last={guard.last} onChange={setState} />
       <TokenMeter usage={list[0]?.usage} sessionTokens={toks || state.spend.tokens} sessionCost={total || state.spend.cost} busy={busy === "run"} />
       {items !== null && list.length === 0 && <Card className="text-sm text-slate-500">{st === "pending" ? "✓ " + tr("אין פעולות ממתינות. הסוכן רץ כל 30 דקות.") : tr("אין כרטיסים.")}</Card>}

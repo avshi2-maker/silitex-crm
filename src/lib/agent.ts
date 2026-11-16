@@ -1,4 +1,4 @@
-// agent.ts (src/lib/agent.ts) · updated 16.11.2026 19:55 (Asia/Jerusalem) — v1.14.1 🛡 guards (lib/agent-guard): spam / bulk / flood screened before any AI cost, daily $ cap, ⏸ pause, mail fenced as untrusted, actions only to known people · created 16.11.2026 19:10 — v1.14.0 🤖 back-office agent — server only
+// agent.ts (src/lib/agent.ts) · updated 16.11.2026 20:20 (Asia/Jerusalem) — v1.14.2 🚨 security events (flood / manipulation attempt / actions to strangers removed) flagged security=true → red nudge on every page until reviewed + instant WhatsApp · 19:55 — v1.14.1 🛡 guards (lib/agent-guard): spam / bulk / flood screened before any AI cost, daily $ cap, ⏸ pause, mail fenced as untrusted, actions only to known people · created 16.11.2026 19:10 — v1.14.0 🤖 back-office agent — server only
 // Every 30 min (cron) + "▶ run now": each NEW incoming mail already synced from Outlook into the Hub (no new Outlook login — the agent only reads the CRM copy)
 // → Claude reads it with its customer / project / thread context → a card in /agent: Hebrew summary, urgency, and up to 3 ready actions
 // (✉ mail customer · ✉ mail Federica / Silitex · 📱 WhatsApp · 📞 call · 🔔 task). A customer asking for a sample / ordering → a DRAFT order is
@@ -47,7 +47,7 @@ export async function runAgent(sb: SB, opts: { notify?: boolean } = {}): Promise
   const knownMail = new Set([...contacts.map((c) => addr(c.email || "")), ...leadMails].filter(Boolean));
   const todayRows = ((await sb.from("agent_items").select("sender").gte("created_at", ilDayStart())).data || []) as { sender: string }[];
   const perSender = new Map<string, number>(); for (const r of todayRows) { const k = addr(r.sender); perSender.set(k, (perSender.get(k) || 0) + 1); }
-  let blocked = 0, dropped = 0, stopped = "";
+  let blocked = 0, dropped = 0, stopped = ""; const alarms: string[] = [];
   const since = [new Date(Date.now() - LOOKBACK_DAYS * 864e5).toISOString(), GO_LIVE].sort().at(-1)!;
   const msgs = ((await sb.from("hub_messages").select("id,thread_id,at,from,to,body").eq("direction", "in").gt("at", since).order("at", { ascending: true }).limit(60)).data || []) as { id: string; thread_id: string; at: string; from: string; to: string; body: string }[];
   const seen = new Set(((await sb.from("agent_items").select("msg_id").in("msg_id", msgs.map((m) => m.id))).data || []).map((x) => x.msg_id));
@@ -61,7 +61,7 @@ export async function runAgent(sb: SB, opts: { notify?: boolean } = {}): Promise
     const lead = (prj?.lead_id || leadId) ? (await sb.from("leads").select("id,name,industry,contact_name,contact_phone,contact_email").eq("id", prj?.lead_id || leadId).maybeSingle()).data : null;
     const known = knownMail.has(from) || !!prj || !!lead;
     const why = screen(m, known, perSender.get(from) || 0, known ? st.per_sender_day * 4 : st.per_sender_day); // known people (customers, Silitex) get 4× the daily limit perSender.set(from, (perSender.get(from) || 0) + 1);
-    if (why) { blocked++; await sb.from("agent_items").insert({ id, msg_id: m.id, thread_id: m.thread_id, project_id: prj?.id || null, lead_id: lead?.id || null, lead_name: lead?.name || "", subject: th?.subject || "", sender: m.from, msg_at: m.at, intent: "spam", urgency: "low", summary: "🛡 " + why, actions: [], status: "blocked" }); continue; }
+    if (why) { blocked++; await sb.from("agent_items").insert({ id, msg_id: m.id, thread_id: m.thread_id, project_id: prj?.id || null, lead_id: lead?.id || null, lead_name: lead?.name || "", subject: th?.subject || "", sender: m.from, msg_at: m.at, intent: "spam", urgency: "low", summary: "🛡 " + why, actions: [], status: "blocked", security: /הצפה/.test(why) }); if (/הצפה/.test(why)) alarms.push("🚨 " + why + " — " + m.from); continue; }
     if (spent + 0.05 > st.daily_usd) { stopped = "💰 תקרת עלות יומית $" + st.daily_usd + " הושגה — ממשיך מחר"; break; }
     const prev = ((await sb.from("hub_messages").select("at,from,direction,body").eq("thread_id", m.thread_id).lt("at", m.at).order("at", { ascending: false }).limit(3)).data || []) as { at: string; from: string; direction: string; body: string }[];
     const ctx = ["Today: " + todayIso(), "Thread: " + (th?.subject || ""), prj ? "Project: #" + prj.id + " · v" + prj.version + " · stage " + prj.stage + " · tag [#" + prj.id + " · v" + prj.version + "] · " + (prj.description || "") + (prj.silitex_answer ? " · Silitex answer: " + JSON.stringify(prj.silitex_answer) : "") : "No project.",
@@ -84,9 +84,11 @@ export async function runAgent(sb: SB, opts: { notify?: boolean } = {}): Promise
     const chk = checkActions(junk ? [] : (Array.isArray(a.actions) ? a.actions : []), allowMail, allowPhone); dropped += chk.dropped;
     const actions: AgentAction[] = chk.ok.map((x) => ({ ...x, done: false }));
     const ins = await sb.from("agent_items").insert({ id, msg_id: m.id, thread_id: m.thread_id, project_id: prj?.id || null, lead_id: lead?.id || leadId || null, lead_name: lead?.name || prj?.lead_name || "", subject: th?.subject || "", sender: m.from, msg_at: m.at,
-      intent: a.intent || "other", urgency: a.urgency || "normal", summary: (a.summary || "") + (chk.dropped ? " · 🛡 " + chk.dropped + " פעולות לנמען לא מוכר הוסרו" : ""), actions, order_id: orderId, status: (junk && /⚠/.test(a.summary || "")) ? "blocked" : junk || (!actions.length && !orderId) ? "skipped" : "pending", usage: r.usage });
+      intent: a.intent || "other", urgency: a.urgency || "normal", summary: (a.summary || "") + (chk.dropped ? " · 🛡 " + chk.dropped + " פעולות לנמען לא מוכר הוסרו" : ""), actions, order_id: orderId, status: (junk && /⚠/.test(a.summary || "")) ? "blocked" : junk || (!actions.length && !orderId) ? "skipped" : "pending", usage: r.usage, security: (junk && /⚠/.test(a.summary || "")) || chk.dropped > 0 });
+    if ((junk && /⚠/.test(a.summary || "")) || chk.dropped > 0) alarms.push("🚨 " + ((junk && /⚠/.test(a.summary || "")) ? "ניסיון הטעיה" : chk.dropped + " פעולות לנמען לא מוכר הוסרו") + " — " + m.from);
     if (!ins.error && !junk && (actions.length || orderId)) { cards++; fresh.push((a.urgency === "high" ? "🔴 " : "• ") + (lead?.name || prj?.lead_name || m.from.replace(/<[^>]+>/g, "").trim()) + " — " + (a.summary || th?.subject || "")); }
   }
+  if (alarms.length) await sendWhatsApp("🚨 סוכן משרד — אירוע אבטחה (" + alarms.length + "):\n" + alarms.slice(0, 5).join("\n") + "\nלבדוק ולסגור → " + (process.env.NEXT_PUBLIC_SITE_URL || "https://silitex.marble-art.co.il") + "/agent#security").catch(() => null);
   if (opts.notify && fresh.length) await sendWhatsApp("🤖 סוכן משרד — " + fresh.length + " פעולות ממתינות לאישורך:\n" + fresh.slice(0, 6).join("\n") + "\n→ " + (process.env.NEXT_PUBLIC_SITE_URL || "https://silitex.marble-art.co.il") + "/agent").catch(() => null);
   const result: AgentRun = { read: todo.length, cards, orders, cost, blocked, dropped, ...(stopped ? { stopped } : {}) };
   await sb.from("agent_state").update({ last_run: new Date().toISOString(), last_result: result, updated_at: new Date().toISOString() }).eq("id", "main");
