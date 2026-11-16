@@ -1,6 +1,7 @@
 "use client";
-// page.tsx (src/app/page.tsx) · updated 16.11.2026 16:50 (Asia/Jerusalem) — v1.12.0 REAL PROCESS ONLY: demo blocks removed (pipeline $ potential "19 accounts", lab / pilot / R&D / purchasing stage counters, stage bars, Tier-1 targets, priorities card, "create daily/weekly schedule" link); now: 📁 open projects (stage, ⏰ stall, 🇮🇹 answer in), 🔔 today's tasks, 🆕 new customers (14 days), offers · 08.11.2026 13:00 — v1.7.2 ⚙ demo-data button removed
+// page.tsx (src/app/page.tsx) · updated 16.11.2026 19:30 (Asia/Jerusalem) — v1.14.0 🤖 agent cards waiting (link to /agent) · 16:50 — v1.12.0 REAL PROCESS ONLY: demo blocks removed (pipeline $ potential "19 accounts", lab / pilot / R&D / purchasing stage counters, stage bars, Tier-1 targets, priorities card, "create daily/weekly schedule" link); now: 📁 open projects (stage, ⏰ stall, 🇮🇹 answer in), 🔔 today's tasks, 🆕 new customers (14 days), offers · 08.11.2026 13:00 — v1.7.2 ⚙ demo-data button removed
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useStore } from "@/lib/store";
 import { useProjects } from "@/lib/use-projects";
 import { Card, H1, Stat, Badge } from "@/components/ui";
@@ -13,6 +14,7 @@ import { useLang } from "@/i18n";
 export default function Dashboard() {
   const { t: tr } = useLang();
   const { state, ready } = useStore(); const { list } = useProjects({ lite: true });
+  const [agent, setAgent] = useState<number | null>(null); useEffect(() => { fetch("/api/agent?status=pending", { cache: "no-store" }).then((r) => r.json()).then((j) => setAgent((j.items || []).length)).catch(() => setAgent(0)); }, []);
   if (!ready) return null;
   const today = todayIso(); const since = addDays(today, -14);
   const projects = (list || []).filter((p) => !ENDED.includes(p.stage)).sort((a, b) => b.opened_at.localeCompare(a.opened_at));
@@ -24,6 +26,7 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <H1 sub={tr("היום ") + fmtDate(new Date()) + " · " + tr("רק תהליכים אמיתיים פתוחים")}>{tr("לוח בקרה — Silitex ישראל")}</H1>
+      <Link href="/agent" className="flex items-center gap-3 rounded-xl border-2 border-violet-300 bg-violet-50 p-4 hover:bg-violet-100"><span className="text-3xl">🤖</span><div className="flex-1"><div className="font-bold">{tr("סוכן משרד")}</div><div className="text-sm text-slate-600">{tr("פעולות ממתינות לאישורך")}</div></div><span className="text-3xl font-extrabold">{agent === null ? "…" : agent}</span></Link>
       <QuickMatch />
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <Stat label={"📁 " + tr("פרויקטים פתוחים")} value={list === null ? "…" : projects.length} hint={"#SPR"} />

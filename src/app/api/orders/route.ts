@@ -1,4 +1,4 @@
-// route.ts (src/app/api/orders/route.ts) · created 16.11.2026 17:15 (Asia/Jerusalem) — v1.13.0 📦 Orders (behind the PIN gate)
+// route.ts (src/app/api/orders/route.ts) · updated 16.11.2026 18:45 (Asia/Jerusalem) — v1.14.0 create via lib/orders-server · created 16.11.2026 17:15 — v1.13.0 📦 Orders (behind the PIN gate)
 // GET → all orders (newest first) · ?id=ORD-S-0001 → one · ?project=SPR-0001 → that project's orders
 // POST {kind, project_id?, lead_id?} → new order with its own number (ORD-S / ORD-P from DB sequences), pre-filled from the project's
 //      Silitex answer (grade, price, pack) and the customer card (company, contact, e-mail, phone, address)
@@ -6,6 +6,7 @@
 //      a sample order cannot move to "sent to Silitex" before the customer's signed copy is back.
 import { NextResponse } from "next/server";
 import { serviceClient } from "@/lib/server-data";
+import { createOrder } from "@/lib/orders-server";
 import { fmtDate, todayIso } from "@/lib/format";
 import { orderStage, stageNo } from "@/config/orders";
 import { fmtEur, orderTotal } from "@/lib/orders";
@@ -25,23 +26,8 @@ export async function POST(req: Request) {
   const sb = serviceClient(); if (!sb) return NextResponse.json({ error: "no supabase" }, { status: 500 });
   const b = (await req.json().catch(() => ({}))) as { kind?: string; project_id?: string; lead_id?: string };
   const kind = b.kind === "product" ? "product" : "sample";
-  const prj = b.project_id ? (await sb.from("projects").select("*").eq("id", b.project_id).maybeSingle()).data : null;
-  const leadId = (prj?.lead_id as string) || b.lead_id; if (!leadId) return NextResponse.json({ error: "project_id or lead_id required" }, { status: 400 });
-  const lead = (await sb.from("leads").select("id,name,contact_name,contact_role,contact_email,contact_phone,address,city").eq("id", leadId).maybeSingle()).data;
-  const ans = (prj?.silitex_answer || {}) as { grade?: string; code?: string; price?: string; pack?: string };
-  const firstPrice = Number(String(ans.price || "").match(/(\d+[.,]\d+|\d+)/)?.[0]?.replace(",", ".") || 0);
-  const firstPack = String(ans.pack || "").split("/")[0].trim();
-  const kgPack = Number(firstPack.match(/(\d+)\s*kg/i)?.[1] || 0);
-  const line = kind === "sample" ? { code: ans.code || "", product: ans.grade || "", pack: "sample", qty: 1, kg: 1 } : { code: ans.code || "", product: ans.grade || "", pack: firstPack || "", qty: 1, kg: kgPack || 0, price: firstPrice || undefined };
-  const id = (await sb.rpc("next_order_id", { k: kind })).data as string | null; if (!id) return NextResponse.json({ error: "numbering failed" }, { status: 500 });
-  const now = new Date().toISOString();
-  const row = { id, kind, project_id: prj?.id || null, lead_id: leadId, lead_name: (lead?.name as string) || (prj?.lead_name as string) || "", stage: "draft", lines: [line],
-    customer: { company: lead?.name || "", contact: lead?.contact_name || "", role: lead?.contact_role || "", email: lead?.contact_email || "", phone: lead?.contact_phone || "", address: [lead?.address, lead?.city].filter(Boolean).join(", ") },
-    shipping: { consignee: "Avshalom Sapir - Sapirim", courier: "DHL / FedEx" }, bank: { currency: "EUR" },
-    history: [{ at: now, text: "📝 נפתחה " + (kind === "product" ? "הזמנת מוצר" : "הזמנת דוגמה") + (prj ? " · #" + prj.id : "") }], created_at: now, updated_at: now };
-  const r = await sb.from("orders").insert(row).select("*").single(); if (r.error) return NextResponse.json({ error: r.error.message }, { status: 500 });
-  await sb.from("activities").insert({ id: "act-ord-" + id + "-" + Date.now().toString(36), lead_id: leadId, at: now, kind: "order", text: "📦 " + id + " נפתחה" + (prj ? " · #" + prj.id : "") });
-  return NextResponse.json({ order: r.data });
+  try { return NextResponse.json({ order: await createOrder(sb, { kind, project_id: b.project_id, lead_id: b.lead_id }) }); }
+  catch (e: unknown) { return NextResponse.json({ error: e instanceof Error ? e.message : "create failed" }, { status: 400 }); }
 }
 
 export async function PATCH(req: Request) {

@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/orders/[id]/page.tsx) · created 16.11.2026 18:00 (Asia/Jerusalem) — v1.13.0 📦 Order card: number + project + stepper · the template (customer, lines, shipping)
+// page.tsx (src/app/orders/[id]/page.tsx) · updated 16.11.2026 19:00 (Asia/Jerusalem) — v1.14.0 ✨ fill from the customer's mail · created 16.11.2026 18:00 — v1.13.0 📦 Order card: number + project + stepper · the template (customer, lines, shipping)
 // SAMPLE: ① ✍ customer form + short mail (view → confirm → sign → mail back) → ② 🇮🇹 order to Silitex (locked until signed) → ③ 🚚
 // PRODUCT: ① 🇮🇹 order to Silitex → ② 🏦 proforma + bank text + task → ③ 🚚 · history + export bar
 import { use } from "react";
@@ -12,6 +12,8 @@ import { kindHe, orderText } from "@/lib/orders";
 import { fmtDate } from "@/lib/format";
 import OrderSteps from "@/components/orders/OrderSteps";
 import OrderForm from "@/components/orders/OrderForm";
+import OrderFill from "@/components/orders/OrderFill";
+import { useStore } from "@/lib/store";
 import OrderCustomer from "@/components/orders/OrderCustomer";
 import OrderSilitex from "@/components/orders/OrderSilitex";
 import OrderBank from "@/components/orders/OrderBank";
@@ -22,7 +24,7 @@ import type { Order } from "@/lib/types";
 
 export default function OrderPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params); const { t: tr } = useLang();
-  const { list, patch } = useOrders({ id }); const o = (list || []).find((x) => x.id === id);
+  const { list, patch, reload } = useOrders({ id }); const { state, addSpend } = useStore(); const o = (list || []).find((x) => x.id === id);
   const { list: prjs } = useProjects({ id: o?.project_id || "-" }); const p = (prjs || []).find((x) => x.id === o?.project_id);
   if (list === null) return <div className="text-sm text-slate-500">⏳ {tr("טוען…")}</div>;
   if (!o) return <Card><b>{tr("הזמנה לא נמצאה")}: {id}</b> · <Link href="/orders" className="underline">{tr("חזרה להזמנות")}</Link></Card>;
@@ -35,6 +37,7 @@ export default function OrderPage({ params }: { params: Promise<{ id: string }> 
         {o.project_id && <Link href={"/projects/" + o.project_id} className="font-mono underline" dir="ltr">📁 #{o.project_id} · v{v}</Link>}
         <Badge tone={o.stage === "pay" ? "amber" : "blue"}>{s.icon} {tr(s.he)}</Badge></div>
       <OrderSteps o={o} onStage={(st) => { if (st !== o.stage) save({ stage: st }).catch(() => {}); }} />
+      <OrderFill o={o} spend={state.spend} addSpend={addSpend} onDone={reload} />
       <OrderForm key={o.updated_at} o={o} onSave={(x) => save(x, "💾 פרטי ההזמנה עודכנו")} />
       {o.kind === "sample" && <OrderCustomer o={o} version={v} onSave={save} />}
       <OrderSilitex o={o} team={p?.team || []} version={v} onSave={save} />

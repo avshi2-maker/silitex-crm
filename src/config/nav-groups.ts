@@ -1,10 +1,10 @@
-// nav-groups.ts (src/config/nav-groups.ts) · updated 16.11.2026 18:10 (Asia/Jerusalem) — + /orders · 10.11.2026 14:10 — + /projects · 08.11.2026 16:30 — + /insight · 28.10.2026 10:40 — + /expo-ready · 27.10.2026 05:10 — + /sales-meetings · 26.10.2026 10:55 + /nusil · created 25.10.2026 04:45
+// nav-groups.ts (src/config/nav-groups.ts) · updated 16.11.2026 19:30 (Asia/Jerusalem) — + /agent first in the daily routine · 18:10 — + /orders · 10.11.2026 14:10 — + /projects · 08.11.2026 16:30 — + /insight · 28.10.2026 10:40 — + /expo-ready · 27.10.2026 05:10 — + /sales-meetings · 26.10.2026 10:55 + /nusil · created 25.10.2026 04:45
 // MENU BY WORK ORDER (owner view): Dashboard, then 6 groups — daily routine, customers & sales, finding new customers (open by default),
 // products & knowledge, Silitex partnership, promotion & reports (closed by default, one click opens, remembered per browser).
 // Each group lists its pages in display order. A page not listed falls into the last group so nothing ever disappears.
 export type NavGroup = { id: string; he: string; open: boolean; hrefs: string[] };
 export const NAV_GROUPS: NavGroup[] = [
-  { id: "daily", he: "שגרה יומית", open: true, hrefs: ["/today", "/insight", "/schedule", "/brief", "/hub", "/visits", "/capture", "/field"] },
+  { id: "daily", he: "שגרה יומית", open: true, hrefs: ["/agent", "/today", "/insight", "/schedule", "/brief", "/hub", "/visits", "/capture", "/field"] },
   { id: "sales", he: "לקוחות ומכירות", open: true, hrefs: ["/leads", "/projects", "/orders", "/sheet", "/sales-meetings", "/pipeline", "/potential", "/scan", "/logistics", "/satisfaction", "/federica"] },
   { id: "hunt", he: "איתור לקוחות חדשים", open: true, hrefs: ["/leads/prompt", "/radar", "/sniper", "/market", "/matrix", "/competitors"] },
   { id: "know", he: "מוצרים וידע", open: false, hrefs: ["/products", "/pricelist", "/offsets", "/nusil", "/ask", "/formulations", "/faq", "/kb"] },
