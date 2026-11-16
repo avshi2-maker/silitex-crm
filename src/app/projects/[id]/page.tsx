@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/projects/[id]/page.tsx) · updated 10.11.2026 14:10 (Asia/Jerusalem) — v1.10.0 ✉ customer mail (own text / ✨ quote from the Silitex answer) · 📷 PO / invoice photo · ⏰ stall · created 13:35 — v1.9.8 📁 Project card — the whole A–Z on one page
+// page.tsx (src/app/projects/[id]/page.tsx) · updated 16.11.2026 18:10 (Asia/Jerusalem) — v1.13.0 📦 project orders card (➕ sample / product order) · 10.11.2026 14:10 — v1.10.0 ✉ customer mail (own text / ✨ quote from the Silitex answer) · 📷 PO / invoice photo · ⏰ stall · created 13:35 — v1.9.8 📁 Project card — the whole A–Z on one page
 // number + description · stepper · quote / PO / invoice · team · send with the number · ALL correspondence (synced from the Hub, nothing retyped) · history + tasks · export bar
 import { use, useEffect } from "react";
 import Link from "next/link";
@@ -14,6 +14,7 @@ import ProjectTeam from "@/components/projects/ProjectTeam";
 import ProjectActions from "@/components/projects/ProjectActions";
 import ProjectCustomerMail from "@/components/projects/ProjectCustomerMail";
 import ProjectHistory from "@/components/projects/ProjectHistory";
+import ProjectOrders from "@/components/projects/ProjectOrders";
 import CorrespondenceCard from "@/components/leads/CorrespondenceCard";
 import ExportBar from "@/components/ExportBar";
 import { useLang } from "@/i18n";
@@ -34,6 +35,7 @@ export default function ProjectPage({ params }: { params: Promise<{ id: string }
       <ProjectHead key={p.id + p.version} p={p} lead={lead} onSave={save} />
       <ProjectSteps p={p} onStage={(stage) => { if (stage !== p.stage) save({ stage }).catch(() => {}); }} />
       <ProjectDocs key={"d" + p.version} p={p} onSave={(x) => save(x)} spend={state.spend} addSpend={addSpend} onFile={reload} />
+      <ProjectOrders p={p} />
       <ProjectCustomerMail p={p} lead={lead} spend={state.spend} addSpend={addSpend} onLog={(t) => addActivity(p.lead_id, "mail", "#" + p.id + " · " + t)} onQuote={(q) => save({ quote_ref: q, quote_at: new Date().toISOString().slice(0, 10) })} />
       <div className="grid gap-4 lg:grid-cols-3 items-start">
         <div className="space-y-4"><ProjectTeam p={p} contacts={state.contacts} onSave={(team) => save({ team })} /><ProjectActions p={p} lead={lead} onLog={(t) => addActivity(p.lead_id, "project", "#" + p.id + " · " + t)} /></div>

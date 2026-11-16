@@ -1,4 +1,4 @@
-// types.ts (src/lib/types.ts) · updated 10.11.2026 13:20 (Asia/Jerusalem) — v1.10.0 Project files / silitex_answer / hold_until · 12:30 — v1.9.8 + Project, ThreadRefs.project · 10.10.2026 05:50
+// types.ts (src/lib/types.ts) · updated 16.11.2026 17:05 (Asia/Jerusalem) — v1.13.0 Order / OrderLine · 10.11.2026 13:20 — v1.10.0 Project files / silitex_answer / hold_until · 12:30 — v1.9.8 + Project, ThreadRefs.project · 10.10.2026 05:50
 export type Product = {
   id: string; product_name: string; brand_family: string; category_sector: string;
   application_field: string; appearance: string; active_content_pct: string; active_matter_type: string;
@@ -45,3 +45,15 @@ export type ProjectMember = { name: string; email: string; org: string; role: "t
 export type Project = { id: string; lead_id: string; lead_name: string; opened_at: string; version: number; description: string; request: string; stage: string; quote_ref?: string | null; quote_at?: string | null; po_sample?: string | null; po_sample_at?: string | null; po_product?: string | null; po_product_at?: string | null; invoice?: string | null; invoice_at?: string | null; team: ProjectMember[]; history: { v: number; at: string; text: string }[]; source: string; notes?: string | null; created_at: string; updated_at: string; files?: ProjectFile[]; silitex_answer?: SilitexAnswer | null; answer_at?: string | null; answer_msg?: string | null; hold_until?: string | null };
 export type ProjectFile = { kind: string; url: string; name: string; at: string; text?: string };
 export type SilitexAnswer = { grade?: string; price?: string; currency?: string; unit?: string; moq?: string; lead_time?: string; pack?: string; tds?: boolean; sds?: boolean; sample?: string; notes?: string; from?: string; at?: string };
+
+// 📦 Orders (v1.13.0, 16.11.2026) — supabase/orders.sql
+export type OrderLine = { code: string; product: string; pack: string; qty: number; kg: number; price?: number };
+export type Order = {
+  id: string; kind: "sample" | "product"; project_id?: string | null; lead_id: string; lead_name: string; stage: string;
+  lines: OrderLine[]; customer: { company?: string; contact?: string; role?: string; email?: string; phone?: string; address?: string };
+  customer_po?: string | null; incoterm: string; payment_terms?: string | null;
+  shipping: { consignee?: string; address?: string; courier?: string; account?: string; dg?: string; docs?: string; notes?: string };
+  bank: { amount?: string; currency?: string; bank?: string; iban?: string; swift?: string; proforma?: string };
+  silitex_ref?: string | null; tracking?: string | null; files: { kind: string; url: string; name: string; at: string }[];
+  history: { at: string; text: string }[]; notes?: string | null; created_at: string; updated_at: string;
+};
