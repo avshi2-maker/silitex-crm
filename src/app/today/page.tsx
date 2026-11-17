@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/today/page.tsx) · updated 08.11.2026 12:35 (Asia/Jerusalem) — v1.7.1 "customers with no next step" collapsed to one line (▸ show) · 08.11.2026 07:15 — v1.6.0 🔔 follow-up bot (customer mails without answer → task on the reminder day) + ✉ reminder button on 🔔 tasks (AI friendly reminder → Outlook draft) · 22.10.2026 07:50 — quick add: pick a SUPPLIER / partner too (Pini 🧑‍🔬 on top, Silitex) → task with his name, link to the Hub · 21.10.2026 17:10 (Asia/Jerusalem) — + 📮 Friday-report ticker (Silitex open questions) · 11:30 — + 🎯 daily hunt: 5 leads without a contact person (rotating, best priority first) · 19.10.2026 12:05 — idle customers A→Z · waiting list = all playbook steps owed by others + e-mails waiting for Silitex / customer reply (from the Hub, red after 2 days = follow up) · 🗑️ delete a task · 11:45 — playbook steps: step badge + owner, ✓ opens the next step automatically, steps owned by Silitex / customer / Pini in "waiting for others" · 17.10.2026 08:15 — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
+// page.tsx (src/app/today/page.tsx) · updated 17.11.2026 18:10 (Asia/Jerusalem) — v1.18.1 🗑 clean waiting mails: per row + "older than 30 days" + all, with ↩ undo (thread closed, mails kept) · 08.11.2026 12:35 — v1.7.1 "customers with no next step" collapsed to one line (▸ show) · 08.11.2026 07:15 — v1.6.0 🔔 follow-up bot (customer mails without answer → task on the reminder day) + ✉ reminder button on 🔔 tasks (AI friendly reminder → Outlook draft) · 22.10.2026 07:50 — quick add: pick a SUPPLIER / partner too (Pini 🧑‍🔬 on top, Silitex) → task with his name, link to the Hub · 21.10.2026 17:10 (Asia/Jerusalem) — + 📮 Friday-report ticker (Silitex open questions) · 11:30 — + 🎯 daily hunt: 5 leads without a contact person (rotating, best priority first) · 19.10.2026 12:05 — idle customers A→Z · waiting list = all playbook steps owed by others + e-mails waiting for Silitex / customer reply (from the Hub, red after 2 days = follow up) · 🗑️ delete a task · 11:45 — playbook steps: step badge + owner, ✓ opens the next step automatically, steps owned by Silitex / customer / Pini in "waiting for others" · 17.10.2026 08:15 — "My day": every open task (leads, follow-ups, Silitex meetings) by overdue / today / next 7 days; ✓ opens one form → log on the lead + stage + next step; active leads with no next step; quick add; call / WhatsApp links
 import { useState } from "react";
 import Link from "next/link";
 import { useStore, stageHe } from "@/lib/store";
@@ -28,6 +28,9 @@ export default function TodayPage() {
   const { state, ready, completeTask, toggleTask, addTask, advancePlan, removeTask } = useStore();
   const [mails, setMails] = useState<Thread[]>([]);
   useEffect(() => { fetch("/api/hub/ingest", { cache: "no-store" }).then((r) => r.json()).then((j) => setMails(((j.threads || []) as Thread[]).filter((t) => t.status === "waiting_silitex"))).catch(() => {}); }, []);
+  const [gone, setGone] = useState<Thread[]>([]); const [cleanErr, setCleanErr] = useState("");
+  const closeMails = async (ts: Thread[], undo = false) => { setCleanErr(""); if (!undo) { setMails((m) => m.filter((x) => !ts.some((t) => t.id === x.id))); setGone(ts); } else { setMails((m) => [...m, ...ts]); setGone([]); }
+    const r = await fetch("/api/hub/threads-close", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ids: ts.map((t) => t.id), undo }) }).catch(() => null); if (!r?.ok) setCleanErr(tr("הניקוי לא נשמר — נסה שוב")); };
   const [pnote, setPnote] = useState(""); const [rem, setRem] = useState(""); const [showIdle, setShowIdle] = useState(false);
   const [open, setOpen] = useState(""); const [q, setQ] = useState({ lead: "", title: "", due: todayIso() }); const [plan, setPlan] = useState<Record<string, string>>({});
   if (!ready) return null;
@@ -40,6 +43,7 @@ export default function TodayPage() {
       <span className="text-lg">✉️</span>
       <div className="flex-1 min-w-[12rem]"><div className="font-medium" dir="auto">{m.subject}</div><div className="text-xs text-slate-500">{m.refs?.lead_name || (m.dept === "il" ? tr("לקוח") : "Silitex")} · {tr("נשלח")} {fmtDate(m.last_at.slice(0, 10))} · <span className={late ? "text-red-600 font-bold" : ""}><span dir="ltr">{d}</span> {tr("ימים בלי תשובה")}{late ? " — " + tr("לשלוח תזכורת") : ""}</span></div></div>
       <Link href="/hub" className={btnGhost + " text-xs"}>{tr("פתח ב-Hub")}</Link>
+      <button className={btnGhost + " text-xs"} title={tr("לא מחכה יותר לתשובה — המייל נשאר בהיסטוריה")} onClick={() => closeMails([m])}>🗑 {tr("נקה")}</button>
     </li>); };
   const waitsOthers = (t: Task) => { const p = parsePlan(t.kind); return !!p && p.owner !== "me"; };
   const mineOpen = openTasks.filter((t) => !waitsOthers(t));
@@ -100,7 +104,12 @@ export default function TodayPage() {
         <label className="text-xs text-slate-500">{tr("תאריך")}<input type="date" className={inputCls + " mt-1"} value={q.due} onChange={(e) => setQ({ ...q, due: e.target.value })} /></label>
         <button className={btnPrimary} onClick={addQuick}>+ {tr("הוסף")}</button>
       </Card>
-      {groups.map((g) => (
+      {mails.length > 0 && <Card className="text-sm flex flex-wrap items-center gap-2 border-amber-300 bg-amber-50"><span className="flex-1">✉️ <span dir="ltr">{mails.length}</span> {tr("מיילים ממתינים לתשובה")}</span>
+          <button className={btnGhost + " text-xs"} disabled={!mails.some((m) => waitingDays(m) > 30)} onClick={() => { const old = mails.filter((m) => waitingDays(m) > 30); if (old.length && window.confirm(tr("לנקות") + " " + old.length + " " + tr("מיילים שממתינים יותר מ-30 יום? (המיילים נשארים בהיסטוריה, אפשר לבטל)"))) closeMails(old); }}>🧹 {tr("נקה ישנים מ-30 יום")} (<span dir="ltr">{mails.filter((m) => waitingDays(m) > 30).length}</span>)</button>
+          <button className={btnGhost + " text-xs"} onClick={() => { if (window.confirm(tr("לנקות את כל") + " " + mails.length + " " + tr("המיילים הממתינים? (המיילים נשארים בהיסטוריה, אפשר לבטל)"))) closeMails(mails); }}>🗑 {tr("נקה הכל")} (<span dir="ltr">{mails.length}</span>)</button></Card>}
+        {gone.length > 0 && <Card className="text-sm flex items-center gap-2 bg-slate-800 text-white"><span className="flex-1">🗑 {tr("נוקו")} <span dir="ltr">{gone.length}</span></span><button className="text-xs rounded px-3 py-1 bg-white text-slate-900 font-bold" onClick={() => closeMails(gone, true)}>↩ {tr("בטל")}</button><button className="text-xs px-2" onClick={() => setGone([])}>✕</button></Card>}
+        {cleanErr && <div className="text-sm text-red-600">{cleanErr}</div>}
+        {groups.map((g) => (
         <Card key={g.key} className="space-y-2">
           <h2 className="font-bold">{tr(g.he)} <Badge tone={g.tone}>{g.items.length + (g.key === "wait" ? mails.length : g.key === "late" ? lateMails.length : 0)}</Badge></h2>
           {g.items.length === 0 && !(g.key === "wait" && mails.length) && !(g.key === "late" && lateMails.length) ? <p className="text-sm text-slate-400">—</p> : <ul className="space-y-2">{g.items.map((t) => row(t))}{(g.key === "wait" ? mails : g.key === "late" ? lateMails : []).map(mailRow)}</ul>}
