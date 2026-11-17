@@ -44,3 +44,15 @@ export async function createEvent(m: MeetingDraft, invite: boolean): Promise<{ i
   const r = await fetch("https://graph.microsoft.com/v1.0/me/events", { method: "POST", headers: { Authorization: "Bearer " + tok, "Content-Type": "application/json" }, body: JSON.stringify(body) });
   const j = await r.json(); if (!r.ok) throw new Error(j.error?.message || "event error"); return { id: j.id, link: j.webLink };
 }
+
+export type DayEvent = { subject: string; start: string; end: string; allDay: boolean; location: string; link: string; online: string };
+/** 📅 v1.16.0 (17.11.2026) — your Outlook events from today 00:00 (Israel) for `days` days, for the Sapirim Hub "My day" + 08:00 push. Read-only. */
+export async function dayEvents(days = 1): Promise<DayEvent[] | null> {
+  if (!(await calendarGranted())) return null;
+  const tok = await accessToken(); const w = il(new Date());
+  const start = ilToDate(w.y + "-" + pad(w.m) + "-" + pad(w.d) + "T00:00"); const end = new Date(start.getTime() + Math.max(1, Math.min(14, days)) * 864e5);
+  const r = await fetch("https://graph.microsoft.com/v1.0/me/calendarView?startDateTime=" + start.toISOString() + "&endDateTime=" + end.toISOString() + "&$select=subject,start,end,isAllDay,location,webLink,showAs,isCancelled,onlineMeeting&$orderby=start/dateTime&$top=100", { headers: { Authorization: "Bearer " + tok, Prefer: 'outlook.timezone="UTC"' } });
+  const j = await r.json(); if (!r.ok) throw new Error(j.error?.message || "calendar error");
+  type E = { subject?: string; start: { dateTime: string }; end: { dateTime: string }; isAllDay?: boolean; location?: { displayName?: string }; webLink?: string; isCancelled?: boolean; onlineMeeting?: { joinUrl?: string } | null };
+  return ((j.value || []) as E[]).filter((e) => !e.isCancelled).map((e) => ({ subject: e.subject || "(ללא נושא)", start: local(new Date(e.start.dateTime + "Z")), end: local(new Date(e.end.dateTime + "Z")), allDay: !!e.isAllDay, location: e.location?.displayName || "", link: e.webLink || "", online: e.onlineMeeting?.joinUrl || "" }));
+}
