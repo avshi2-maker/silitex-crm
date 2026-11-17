@@ -1,4 +1,4 @@
-// outlook.ts (src/lib/outlook.ts) · updated 16.11.2026 21:10 (Asia/Jerusalem) — v1.15.0 📅 + Calendars.ReadWrite on the NEXT connect only (granted scope saved in hub_tokens.scope; refresh keeps using what was granted, so mail sync never breaks before you reconnect) · 08.11.2026 13:00 — v1.7.2 drafts are skipped (an unsent draft was stored as an "incoming" mail with no sender) + one copy per real mail (internetMessageId) · 26.10.2026 06:10 — v0.94.1 also syncs mails with saved contacts (Pini on walla.com, partners) · 19.10.2026 12:20 — deep sync (days) for new customers' past mails · also reads the Sent Items folder explicitly + 3-day overlap on every sync (sent mails never missed; duplicates skipped) · 10.10.2026 07:30 — server only · PKCE public client (no client secret)
+// outlook.ts (src/lib/outlook.ts) · updated 17.11.2026 17:55 (Asia/Jerusalem) — v1.18.0 ✅ + Tasks.ReadWrite (Microsoft To Do) on the next connect; saved scope = exactly what was granted · 16.11.2026 21:10 — v1.15.0 📅 + Calendars.ReadWrite on the NEXT connect only (granted scope saved in hub_tokens.scope; refresh keeps using what was granted, so mail sync never breaks before you reconnect) · 08.11.2026 13:00 — v1.7.2 drafts are skipped (an unsent draft was stored as an "incoming" mail with no sender) + one copy per real mail (internetMessageId) · 26.10.2026 06:10 — v0.94.1 also syncs mails with saved contacts (Pini on walla.com, partners) · 19.10.2026 12:20 — deep sync (days) for new customers' past mails · also reads the Sent Items folder explicitly + 3-day overlap on every sync (sent mails never missed; duplicates skipped) · 10.10.2026 07:30 — server only · PKCE public client (no client secret)
 // v1.10.1 10.11.2026 13:50 (Asia/Jerusalem): mails with a #SPR project tag are always pulled · Microsoft Graph (delegated, single mailbox): OAuth URLs, token refresh (stored in Supabase hub_tokens), pull messages to/from HUB_MAIL_DOMAIN since last sync.
 import { createHash, randomBytes } from "crypto";
 import { serviceClient } from "./server-data";
@@ -6,7 +6,7 @@ import type { InMsg } from "./hub-ingest";
 import { leadMatcher, type LeadLite } from "./hub-match";
 const T = () => process.env.MS_TENANT_ID || "common";
 const SCOPE = "offline_access User.Read Mail.Read"; // granted until 16.11.2026
-export const SCOPE_FULL = SCOPE + " Calendars.ReadWrite"; // v1.15.0 asked on every new connect
+export const SCOPE_FULL = SCOPE + " Calendars.ReadWrite Tasks.ReadWrite"; // v1.15.0 calendar · v1.18.0 + To Do tasks — asked on every new connect
 export const DOMAIN = () => (process.env.HUB_MAIL_DOMAIN || "silitex.it").toLowerCase();
 export const configured = () => !!process.env.MS_CLIENT_ID;
 const b64url = (b: Buffer) => b.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
@@ -22,10 +22,14 @@ async function tokenCall(body: Record<string, string>, scope = SCOPE) {
   const j = await r.json(); if (!r.ok) throw new Error(j.error_description || j.error || "token error"); return j as { access_token: string; refresh_token?: string };
 }
 export async function exchangeCode(code: string, origin: string, verifier: string) { return tokenCall({ grant_type: "authorization_code", code, redirect_uri: redirectUri(origin), code_verifier: verifier }, SCOPE_FULL) as Promise<{ access_token: string; refresh_token?: string; scope?: string }>; }
-export async function saveToken(refresh: string, account: string, granted?: string) { const sb = serviceClient(); if (!sb) throw new Error("no supabase"); await sb.from("hub_tokens").upsert({ id: "outlook", refresh_token: refresh, account, scope: /calendars\.readwrite/i.test(granted || "") ? SCOPE_FULL : SCOPE, updated_at: new Date().toISOString() }); }
+export async function saveToken(refresh: string, account: string, granted?: string) { const sb = serviceClient(); if (!sb) throw new Error("no supabase"); await sb.from("hub_tokens").upsert({ id: "outlook", refresh_token: refresh, account, scope: grantedScope(granted), updated_at: new Date().toISOString() }); }
 export async function status() { const sb = serviceClient(); if (!sb) return null; return (await sb.from("hub_tokens").select("account,last_sync,updated_at,last_result,scope").eq("id", "outlook").maybeSingle()).data; }
 /** 📅 true once the Calendars.ReadWrite permission was granted on a reconnect */
 export async function calendarGranted(): Promise<boolean> { const s = await status(); return /calendars\.readwrite/i.test(s?.scope || ""); }
+/** ✅ v1.18.0 true once Tasks.ReadWrite (Microsoft To Do) was granted on a reconnect */
+export async function tasksGranted(): Promise<boolean> { const s = await status(); return /tasks\.readwrite/i.test(s?.scope || ""); }
+/** the scope string to keep refreshing with = only what Microsoft really granted (mail always; calendar / tasks when given) */
+function grantedScope(g?: string): string { const x = g || ""; return SCOPE + (/calendars\.readwrite/i.test(x) ? " Calendars.ReadWrite" : "") + (/tasks\.readwrite/i.test(x) ? " Tasks.ReadWrite" : ""); }
 export async function accessToken(): Promise<string> {
   const sb = serviceClient(); if (!sb) throw new Error("no supabase");
   const row = (await sb.from("hub_tokens").select("refresh_token,scope").eq("id", "outlook").maybeSingle()).data; if (!row?.refresh_token) throw new Error("Outlook not connected");
