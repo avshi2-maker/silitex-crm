@@ -1,9 +1,10 @@
-// outlook.ts (src/lib/outlook.ts) · updated 17.11.2026 17:55 (Asia/Jerusalem) — v1.18.0 ✅ + Tasks.ReadWrite (Microsoft To Do) on the next connect; saved scope = exactly what was granted · 16.11.2026 21:10 — v1.15.0 📅 + Calendars.ReadWrite on the NEXT connect only (granted scope saved in hub_tokens.scope; refresh keeps using what was granted, so mail sync never breaks before you reconnect) · 08.11.2026 13:00 — v1.7.2 drafts are skipped (an unsent draft was stored as an "incoming" mail with no sender) + one copy per real mail (internetMessageId) · 26.10.2026 06:10 — v0.94.1 also syncs mails with saved contacts (Pini on walla.com, partners) · 19.10.2026 12:20 — deep sync (days) for new customers' past mails · also reads the Sent Items folder explicitly + 3-day overlap on every sync (sent mails never missed; duplicates skipped) · 10.10.2026 07:30 — server only · PKCE public client (no client secret)
+// outlook.ts (src/lib/outlook.ts) · updated 20.11.2026 08:55 (Asia/Jerusalem) — v1.21.0 ✉️ incoming mails that are NOT Silitex business are handed to the Sapirim Hub (/api/wa/mail) → routed to the right tab (sinks / Artfloor / AI / TCM …) · 17.11.2026 17:55 — v1.18.0 ✅ + Tasks.ReadWrite (Microsoft To Do) on the next connect; saved scope = exactly what was granted · 16.11.2026 21:10 — v1.15.0 📅 + Calendars.ReadWrite on the NEXT connect only (granted scope saved in hub_tokens.scope; refresh keeps using what was granted, so mail sync never breaks before you reconnect) · 08.11.2026 13:00 — v1.7.2 drafts are skipped (an unsent draft was stored as an "incoming" mail with no sender) + one copy per real mail (internetMessageId) · 26.10.2026 06:10 — v0.94.1 also syncs mails with saved contacts (Pini on walla.com, partners) · 19.10.2026 12:20 — deep sync (days) for new customers' past mails · also reads the Sent Items folder explicitly + 3-day overlap on every sync (sent mails never missed; duplicates skipped) · 10.10.2026 07:30 — server only · PKCE public client (no client secret)
 // v1.10.1 10.11.2026 13:50 (Asia/Jerusalem): mails with a #SPR project tag are always pulled · Microsoft Graph (delegated, single mailbox): OAuth URLs, token refresh (stored in Supabase hub_tokens), pull messages to/from HUB_MAIL_DOMAIN since last sync.
 import { createHash, randomBytes } from "crypto";
 import { serviceClient } from "./server-data";
 import type { InMsg } from "./hub-ingest";
-import { leadMatcher, type LeadLite } from "./hub-match";
+import { leadMatcher, isOurs, type LeadLite } from "./hub-match";
+import { forwardMailsToHub } from "./hub-forward";
 const T = () => process.env.MS_TENANT_ID || "common";
 const SCOPE = "offline_access User.Read Mail.Read"; // granted until 16.11.2026
 export const SCOPE_FULL = SCOPE + " Calendars.ReadWrite Tasks.ReadWrite"; // v1.15.0 calendar · v1.18.0 + To Do tasks — asked on every new connect
@@ -39,7 +40,8 @@ export async function accessToken(): Promise<string> {
 }
 export async function me(access: string): Promise<string> { const r = await fetch("https://graph.microsoft.com/v1.0/me?$select=mail,userPrincipalName", { headers: { Authorization: "Bearer " + access } }); const j = await r.json(); return j.mail || j.userPrincipalName || ""; }
 type GMsg = { id: string; internetMessageId?: string; isDraft?: boolean; conversationId?: string; subject?: string; receivedDateTime: string; sentDateTime?: string; from?: { emailAddress?: { address?: string; name?: string } }; toRecipients?: { emailAddress?: { address?: string } }[]; ccRecipients?: { emailAddress?: { address?: string } }[]; body?: { content?: string } };
-export async function pull(sinceIso: string, max = 200, leads: LeadLite[] = [], people: string[] = []): Promise<InMsg[]> {
+export type OtherMail = { id: string; from: string; name: string | null; subject: string; body: string; at: string };
+export async function pull(sinceIso: string, max = 200, leads: LeadLite[] = [], people: string[] = [], others: OtherMail[] = []): Promise<InMsg[]> {
   const access = await accessToken(); const dom = DOMAIN(); const out: InMsg[] = []; const isLead = leadMatcher(leads);
   const sel = "$select=id,internetMessageId,isDraft,conversationId,subject,receivedDateTime,sentDateTime,from,toRecipients,ccRecipients,body&$top=50";
   // all folders (inbox + others) AND the Sent Items folder explicitly — mails you send from Outlook 365 are always picked up
@@ -53,7 +55,7 @@ export async function pull(sinceIso: string, max = 200, leads: LeadLite[] = [], 
     for (const m of j.value || []) {
       const key = m.internetMessageId || m.id; if (m.isDraft || seen.has(key)) continue; seen.add(key); // same mail in two folders = one copy; drafts never
       const addrs = [m.from?.emailAddress?.address, ...(m.toRecipients || []).map((x) => x.emailAddress?.address), ...(m.ccRecipients || []).map((x) => x.emailAddress?.address)].filter(Boolean).map((a) => String(a).toLowerCase());
-      if (!addrs.some((a) => a.endsWith("@" + dom) || a.endsWith("." + dom) || people.includes(a) || !!isLead(a)) && !/SPR-\d{4}/i.test(m.subject || "")) continue; // v1.10.1 + any mail tagged with a 📁 project number (customer with no e-mail on the card yet, e.g. a WhatsApp lead) // + saved contacts (Pini @walla, partners) even on private mail domains
+      if (!addrs.some((a) => a.endsWith("@" + dom) || a.endsWith("." + dom) || people.includes(a) || !!isLead(a)) && !/SPR-\d{4}/i.test(m.subject || "")) { const fa = m.from?.emailAddress?.address || ""; if (fa && !isOurs(fa) && others.length < 60) others.push({ id: m.internetMessageId || m.id, from: fa, name: m.from?.emailAddress?.name || null, subject: m.subject || "", body: (m.body?.content || "").replace(/\r/g, "").trim().slice(0, 8000), at: m.receivedDateTime }); continue; } // v1.21.0 not Silitex → the Hub sorts it // v1.10.1 + any mail tagged with a 📁 project number (customer with no e-mail on the card yet, e.g. a WhatsApp lead) // + saved contacts (Pini @walla, partners) even on private mail domains
       out.push({ id: m.id, conversationId: m.conversationId, subject: m.subject || "(no subject)", at: m.sentDateTime || m.receivedDateTime, from: (m.from?.emailAddress?.name ? m.from.emailAddress.name + " <" + m.from.emailAddress.address + ">" : m.from?.emailAddress?.address) || "", to: (m.toRecipients || []).map((x) => x.emailAddress?.address).filter(Boolean).join(", "), body: (m.body?.content || "").replace(/\r/g, "").trim() });
     }
     url = j["@odata.nextLink"] || null;
@@ -66,7 +68,8 @@ export async function syncNow(days = 0): Promise<{ pulled: number; added: number
   const since = days > 0 ? new Date(Date.now() - days * 864e5).toISOString() : st?.last_sync ? new Date(new Date(st.last_sync).getTime() - 3 * 864e5).toISOString() : new Date(Date.now() - 30 * 864e5).toISOString(); // 3-day overlap: nothing is missed, duplicates are skipped (external_id is unique)
   const { matchLeads } = await import("./hub-ingest"); const leads = await matchLeads(sb);
   const people = (((await sb.from("silitex_contacts").select("email")).data || []) as { email?: string }[]).map((c) => String(c.email || "").toLowerCase().trim()).filter((e) => e.includes("@") && !/^info@/.test(e));
-  const msgs = await pull(since, days > 0 ? 600 : 200, leads, people); const { ingest } = await import("./hub-ingest"); const r = await ingest(msgs);
-  await sb.from("hub_tokens").update({ last_sync: new Date().toISOString(), last_result: "pulled " + msgs.length + ", added " + r.added }).eq("id", "outlook");
+  const others: OtherMail[] = []; const msgs = await pull(since, days > 0 ? 600 : 200, leads, people, others); const { ingest } = await import("./hub-ingest"); const r = await ingest(msgs);
+  const hub = days > 0 ? null : await forwardMailsToHub(others); // v1.21.0 (not on deep re-syncs — the Hub dedupes anyway)
+  await sb.from("hub_tokens").update({ last_sync: new Date().toISOString(), last_result: "pulled " + msgs.length + ", added " + r.added + (hub ? ", hub " + hub : "") }).eq("id", "outlook");
   return { pulled: msgs.length, ...r, since };
 }
