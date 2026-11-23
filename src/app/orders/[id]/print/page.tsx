@@ -1,7 +1,7 @@
 "use client";
-// page.tsx (src/app/orders/[id]/print/page.tsx) · updated 23.11.2026 09:55 (Asia/Jerusalem) — v1.21.1 one A4 portrait page (forced @page, tighter spacing, 3-col signature block) · created 16.11.2026 18:05 — v1.13.0 ✍ the customer's A4 form (Hebrew, RTL): order no. + project ref + date, from / to,
+// page.tsx (src/app/orders/[id]/print/page.tsx) · updated 23.11.2026 10:10 (Asia/Jerusalem) — v1.21.2 PDF file name = order no. + customer · 09:55 v1.21.1 one A4 portrait page (forced @page, tighter spacing, 3-col signature block) · created 16.11.2026 18:05 — v1.13.0 ✍ the customer's A4 form (Hebrew, RTL): order no. + project ref + date, from / to,
 // products, delivery, sample terms, signature block (name · role · signature · stamp · date). 🖨 print / save as PDF → attach to the short mail → customer signs and mails it back.
-import { use } from "react";
+import { use, useEffect } from "react";
 import { useOrders } from "@/lib/use-orders";
 import { kindHe, lineTotal, orderTotal, fmtEur } from "@/lib/orders";
 import { SAMPLE_TERMS } from "@/config/orders";
@@ -10,6 +10,8 @@ import { fmtDate } from "@/lib/format";
 
 export default function OrderPrint({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params); const { list } = useOrders({ id }); const o = (list || []).find((x) => x.id === id);
+  // the PDF file name = the page title → "ORD-S-0001_Sabonitzeit.pdf" instead of "Silitex CRM · Israel.pdf"
+  useEffect(() => { if (!o) return; const prev = document.title; const who = (o.customer?.company || o.lead_name || "").replace(/[\\/:*?"<>|]+/g, " ").trim(); document.title = [o.id, who].filter(Boolean).join("_"); return () => { document.title = prev; }; }, [o]);
   if (list === null) return <div className="p-6 text-sm">⏳</div>;
   if (!o) return <div className="p-6 text-sm">לא נמצא: {id}</div>;
   const product = o.kind === "product"; const c = o.customer || {};
