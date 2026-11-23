@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/orders/[id]/page.tsx) · updated 23.11.2026 10:20 (Asia/Jerusalem) — v1.21.3 🖨 big "PDF form" button in the header · 16.11.2026 19:00 — v1.14.0 ✨ fill from the customer's mail · created 16.11.2026 18:00 — v1.13.0 📦 Order card: number + project + stepper · the template (customer, lines, shipping)
+// page.tsx (src/app/orders/[id]/page.tsx) · updated 23.11.2026 10:30 (Asia/Jerusalem) — v1.22.0 header button = 💾 save PDF (one click, straight to Downloads) · 10:20 v1.21.3 🖨 big "PDF form" button in the header · 16.11.2026 19:00 — v1.14.0 ✨ fill from the customer's mail · created 16.11.2026 18:00 — v1.13.0 📦 Order card: number + project + stepper · the template (customer, lines, shipping)
 // SAMPLE: ① ✍ customer form + short mail (view → confirm → sign → mail back) → ② 🇮🇹 order to Silitex (locked until signed) → ③ 🚚
 // PRODUCT: ① 🇮🇹 order to Silitex → ② 🏦 proforma + bank text + task → ③ 🚚 · history + export bar
 import { use } from "react";
@@ -30,14 +30,14 @@ export default function OrderPage({ params }: { params: Promise<{ id: string }> 
   if (!o) return <Card><b>{tr("הזמנה לא נמצאה")}: {id}</b> · <Link href="/orders" className="underline">{tr("חזרה להזמנות")}</Link></Card>;
   const save = (x: Partial<Order>, note?: string) => patch(o.id, x, note);
   const s = orderStage(o.kind, o.stage); const v = p?.version || 1;
-  const printHref = "/orders/" + o.id + "/print"; const printCls = "min-h-[44px] inline-flex items-center px-4 rounded-lg bg-slate-900 text-white font-bold";
+  const printHref = "/orders/" + o.id + "/print?dl=1"; const printCls = "min-h-[44px] inline-flex items-center px-4 rounded-lg bg-slate-900 text-white font-bold";
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-3"><Link href="/orders" className="text-sm underline text-slate-500">→ {tr("כל ההזמנות")}</Link>
         <div className="flex-1"><H1 sub={o.lead_name}>{o.kind === "sample" ? "🧪" : "📦"} <span dir="ltr">{o.id}</span> · {tr(kindHe(o.kind))}</H1></div>
         {o.project_id && <Link href={"/projects/" + o.project_id} className="font-mono underline" dir="ltr">📁 #{o.project_id} · v{v}</Link>}
         <Badge tone={o.stage === "pay" ? "amber" : "blue"}>{s.icon} {tr(s.he)}</Badge>
-        <a href={printHref} target="_blank" rel="noreferrer" className={printCls}>🖨 {tr("טופס PDF / שמירה")}</a></div>
+        <a href={printHref} target="_blank" rel="noreferrer" className={printCls}>💾 {tr("שמור PDF")}</a></div>
       <OrderSteps o={o} onStage={(st) => { if (st !== o.stage) save({ stage: st }).catch(() => {}); }} />
       <OrderFill o={o} spend={state.spend} addSpend={addSpend} onDone={reload} />
       <OrderForm key={o.updated_at} o={o} onSave={(x) => save(x, "💾 פרטי ההזמנה עודכנו")} />

@@ -2388,6 +2388,7 @@ export const EN: Record<string, string> = {
   "פרויקט · לקוח": "Project · customer",
   "פתח טופס ללקוח": "Open the customer form",
   "טופס PDF / שמירה": "PDF form / save",
+  "שמור PDF": "Save PDF",
   "פתח מייל ל-Silitex": "Open mail to Silitex",
   "קוד": "Code",
   "ק״ג": "kg",
