@@ -1,9 +1,8 @@
 "use client";
-// page.tsx (src/app/orders/[id]/print/page.tsx) · updated 23.11.2026 10:30 (Asia/Jerusalem) — v1.22.0 💾 one-click PDF download (no Save as) · auto on ?dl=1 · 10:10 v1.21.2 PDF file name = order no. + customer · 09:55 v1.21.1 one A4 portrait page (forced @page, tighter spacing, 3-col signature block) · created 16.11.2026 18:05 — v1.13.0 ✍ the customer's A4 form (Hebrew, RTL): order no. + project ref + date, from / to,
+// page.tsx (src/app/orders/[id]/print/page.tsx) · updated 23.11.2026 10:55 (Asia/Jerusalem) — v1.23.0 💾 = "Save as" window → PDF · sheet marked data-pdf-sheet for the order page's hidden-frame save · 10:30 v1.22.0 one-click PDF download · 10:10 v1.21.2 PDF file name = order no. + customer · 09:55 v1.21.1 one A4 portrait page (forced @page, tighter spacing, 3-col signature block) · created 16.11.2026 18:05 — v1.13.0 ✍ the customer's A4 form (Hebrew, RTL): order no. + project ref + date, from / to,
 // products, delivery, sample terms, signature block (name · role · signature · stamp · date). 🖨 print / save as PDF → attach to the short mail → customer signs and mails it back.
 import { use, useEffect, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { downloadOnePagePdf } from "@/lib/pdf-download";
+import { savePdfAs, onePagePdfBlob, type SaveResult } from "@/lib/pdf-download";
 import { useOrders } from "@/lib/use-orders";
 import { kindHe, lineTotal, orderTotal, fmtEur } from "@/lib/orders";
 import { SAMPLE_TERMS } from "@/config/orders";
@@ -12,12 +11,11 @@ import { fmtDate } from "@/lib/format";
 
 export default function OrderPrint({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params); const { list } = useOrders({ id }); const o = (list || []).find((x) => x.id === id);
-  const sheet = useRef<HTMLDivElement>(null); const [dl, setDl] = useState<"" | "busy" | "done" | "err">(""); const auto = useSearchParams().get("dl") === "1"; const fired = useRef(false);
+  const sheet = useRef<HTMLDivElement>(null); const [dl, setDl] = useState<"" | "busy" | SaveResult | "err">("");
   const fileName = o ? [o.id, (o.customer?.company || o.lead_name || "").trim()].filter(Boolean).join("_") : "";
   // the print-window file name = the page title → "ORD-S-0001_Sabonitzeit.pdf" instead of "Silitex CRM · Israel.pdf"
   useEffect(() => { if (!fileName) return; const prev = document.title; document.title = fileName; return () => { document.title = prev; }; }, [fileName]);
-  const download = async () => { if (!sheet.current || !fileName) return; setDl("busy"); try { await downloadOnePagePdf(sheet.current, fileName); setDl("done"); } catch { setDl("err"); } };
-  useEffect(() => { if (auto && o && !fired.current) { fired.current = true; const t = setTimeout(download, 600); return () => clearTimeout(t); } }, [auto, o]); // eslint-disable-line react-hooks/exhaustive-deps
+  const download = () => { const el = sheet.current; if (!el || !fileName) return; setDl("busy"); savePdfAs(fileName, () => onePagePdfBlob(el)).then(setDl, () => setDl("err")); };
   if (list === null) return <div className="p-6 text-sm">⏳</div>;
   if (!o) return <div className="p-6 text-sm">לא נמצא: {id}</div>;
   const product = o.kind === "product"; const c = o.customer || {};
@@ -31,8 +29,8 @@ export default function OrderPrint({ params }: { params: Promise<{ id: string }>
       <div className="flex flex-wrap items-center gap-2 p-4 print:hidden">
         <button onClick={download} disabled={dl === "busy"} className={dlCls}>{dl === "busy" ? "⏳ מכין PDF…" : "💾 שמור PDF"}</button>
         <button onClick={() => window.print()} className={prCls}>🖨 הדפס</button>
-        <span className="text-xs text-slate-600">{dl === "done" ? "✓ נשמר בתיקיית ההורדות (Downloads): " + fileName + ".pdf — צרף אותו למייל ללקוח." : dl === "err" ? "⚠ השמירה נכשלה — נסה שוב או השתמש בהדפס." : "הקובץ יורד ישר לתיקיית ההורדות (Downloads)."}</span></div>
-      <div ref={sheet} className="bg-white text-[13px] leading-relaxed text-slate-900 p-8 print:p-0 print:text-[12px] print:leading-snug space-y-4 print:space-y-2.5">
+        <span className="text-xs text-slate-600">{dl === "saved" ? "✓ נשמר בתיקייה שבחרת: " + fileName + ".pdf — צרף אותו למייל ללקוח." : dl === "downloads" ? "✓ נשמר בתיקיית ההורדות (Downloads): " + fileName + ".pdf — צרף אותו למייל ללקוח." : dl === "err" ? "⚠ השמירה נכשלה — נסה שוב או השתמש בהדפס." : "לחיצה על 💾 פותחת חלון \"שמירה בשם\" — בחר תיקייה ושמור."}</span></div>
+      <div ref={sheet} data-pdf-sheet="" data-ready="1" className="bg-white text-[13px] leading-relaxed text-slate-900 p-8 print:p-0 print:text-[12px] print:leading-snug space-y-4 print:space-y-2.5">
       <header className="flex items-start justify-between gap-4 border-b-2 border-slate-900 pb-3 print:pb-2">
         <div><h1 className="text-xl font-extrabold">{kindHe(o.kind)} — לאישור וחתימה</h1><div className="text-slate-600">ספירים — Silitex ישראל</div></div>
         <div className="text-left" dir="ltr"><div className="font-mono font-bold text-lg">{o.id}</div>{o.project_id && <div className="font-mono">#{o.project_id}</div>}<div>{fmtDate(new Date())}</div></div>
