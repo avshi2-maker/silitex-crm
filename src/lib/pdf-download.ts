@@ -1,4 +1,4 @@
-// pdf-download.ts (src/lib/pdf-download.ts) · updated 23.11.2026 11:20 (Asia/Jerusalem) — v1.23.1 FIX squeezed PDF: snapshot always laid out at full A4 width (800px sheet, 1280px window) · 10:55 v1.23.0 💾 = "Save as" window (choose folder + name) → real PDF file · created 23.11.2026 10:30 v1.22.0
+// pdf-download.ts (src/lib/pdf-download.ts) · updated 23.11.2026 11:50 (Asia/Jerusalem) — v1.24.0 waits for images (logos) before the snapshot · 11:20 v1.23.1 FIX squeezed PDF: snapshot always laid out at full A4 width (800px sheet, 1280px window) · 10:55 v1.23.0 💾 = "Save as" window (choose folder + name) → real PDF file · created 23.11.2026 10:30 v1.22.0
 // snapshot an element (Hebrew renders as-is, it is a picture of the page) → ONE A4 portrait page, scaled down if taller.
 // Save flow: the Windows "Save as" window opens FIRST (on the click), then the PDF is built and written into the file you chose.
 // Browsers without the Save-as API (Firefox / Safari / phone) → the file goes to Downloads as before.
@@ -12,6 +12,7 @@ export const safeName = (s: string) => s.replace(/[\\/:*?"<>|]+/g, " ").replace(
 export async function onePagePdfBlob(el: HTMLElement): Promise<Blob> {
   const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import("html2canvas"), import("jspdf")]);
   if (el.ownerDocument.fonts?.ready) await el.ownerDocument.fonts.ready;
+  await Promise.all(Array.from(el.querySelectorAll("img")).map((i) => (i.complete ? null : i.decode().catch(() => null)))); // logos loaded before the snapshot
   const canvas = await html2canvas(el, { scale: 2, backgroundColor: "#ffffff", useCORS: true, windowWidth: 1280, width: SHEET_W,
     onclone: (_d, c) => { c.style.width = SHEET_W + "px"; c.style.maxWidth = "none"; c.style.minWidth = SHEET_W + "px"; c.style.boxSizing = "border-box"; } }); // never narrower than A4 (was: the frame width → the form collapsed into a strip)
   const pdf = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });

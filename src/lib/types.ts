@@ -55,5 +55,5 @@ export type Order = {
   shipping: { consignee?: string; address?: string; courier?: string; account?: string; dg?: string; docs?: string; notes?: string };
   bank: { amount?: string; currency?: string; bank?: string; iban?: string; swift?: string; proforma?: string };
   silitex_ref?: string | null; tracking?: string | null; files: { kind: string; url: string; name: string; at: string }[];
-  history: { at: string; text: string }[]; notes?: string | null; created_at: string; updated_at: string;
+  history: { at: string; text: string }[]; notes?: string | null; terms?: string[] | null; created_at: string; updated_at: string;
 };

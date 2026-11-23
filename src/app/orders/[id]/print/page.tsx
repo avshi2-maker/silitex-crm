@@ -1,11 +1,11 @@
 "use client";
-// page.tsx (src/app/orders/[id]/print/page.tsx) · updated 23.11.2026 10:55 (Asia/Jerusalem) — v1.23.0 💾 = "Save as" window → PDF · sheet marked data-pdf-sheet for the order page's hidden-frame save · 10:30 v1.22.0 one-click PDF download · 10:10 v1.21.2 PDF file name = order no. + customer · 09:55 v1.21.1 one A4 portrait page (forced @page, tighter spacing, 3-col signature block) · created 16.11.2026 18:05 — v1.13.0 ✍ the customer's A4 form (Hebrew, RTL): order no. + project ref + date, from / to,
+// page.tsx (src/app/orders/[id]/print/page.tsx) · updated 23.11.2026 11:50 (Asia/Jerusalem) — v1.24.0 Sapirim + Silitex logos on top · terms = the order's own (editable) or the default · 10:55 v1.23.0 💾 = "Save as" window → PDF · sheet marked data-pdf-sheet for the order page's hidden-frame save · 10:30 v1.22.0 one-click PDF download · 10:10 v1.21.2 PDF file name = order no. + customer · 09:55 v1.21.1 one A4 portrait page (forced @page, tighter spacing, 3-col signature block) · created 16.11.2026 18:05 — v1.13.0 ✍ the customer's A4 form (Hebrew, RTL): order no. + project ref + date, from / to,
 // products, delivery, sample terms, signature block (name · role · signature · stamp · date). 🖨 print / save as PDF → attach to the short mail → customer signs and mails it back.
 import { use, useEffect, useRef, useState } from "react";
 import { savePdfAs, onePagePdfBlob, type SaveResult } from "@/lib/pdf-download";
 import { useOrders } from "@/lib/use-orders";
 import { kindHe, lineTotal, orderTotal, fmtEur } from "@/lib/orders";
-import { SAMPLE_TERMS } from "@/config/orders";
+import { defaultTerms } from "@/config/orders";
 import { OWNER } from "@/config/app";
 import { fmtDate } from "@/lib/format";
 
@@ -18,7 +18,7 @@ export default function OrderPrint({ params }: { params: Promise<{ id: string }>
   const download = () => { const el = sheet.current; if (!el || !fileName) return; setDl("busy"); savePdfAs(fileName, () => onePagePdfBlob(el)).then(setDl, () => setDl("err")); };
   if (list === null) return <div className="p-6 text-sm">⏳</div>;
   if (!o) return <div className="p-6 text-sm">לא נמצא: {id}</div>;
-  const product = o.kind === "product"; const c = o.customer || {};
+  const product = o.kind === "product"; const c = o.customer || {}; const terms = o.terms ?? defaultTerms(o.kind);
   const box = "border border-slate-300 rounded-lg p-3 print:p-2";
   const sig = (label: string) => <div><div className="h-8 border-b border-slate-500" /><div className="text-[11px] text-slate-600 mt-0.5">{label}</div></div>;
   const dlCls = "min-h-[44px] px-5 rounded-lg bg-pink-600 text-white font-bold disabled:opacity-60"; const prCls = "min-h-[44px] px-4 rounded-lg border border-slate-300 bg-white";
@@ -31,6 +31,7 @@ export default function OrderPrint({ params }: { params: Promise<{ id: string }>
         <button onClick={() => window.print()} className={prCls}>🖨 הדפס</button>
         <span className="text-xs text-slate-600">{dl === "saved" ? "✓ נשמר בתיקייה שבחרת: " + fileName + ".pdf — צרף אותו למייל ללקוח." : dl === "downloads" ? "✓ נשמר בתיקיית ההורדות (Downloads): " + fileName + ".pdf — צרף אותו למייל ללקוח." : dl === "err" ? "⚠ השמירה נכשלה — נסה שוב או השתמש בהדפס." : "לחיצה על 💾 פותחת חלון \"שמירה בשם\" — בחר תיקייה ושמור."}</span></div>
       <div ref={sheet} data-pdf-sheet="" data-ready="1" className="bg-white text-[13px] leading-relaxed text-slate-900 p-8 print:p-0 print:text-[12px] print:leading-snug space-y-4 print:space-y-2.5">
+      <div className="flex items-center justify-between gap-4"><img src="/logos/sapirim.png" alt="Sapirim" className="h-12 w-auto" /><img src="/logos/silitex.png" alt="Silitex" className="h-11 w-auto" /></div>
       <header className="flex items-start justify-between gap-4 border-b-2 border-slate-900 pb-3 print:pb-2">
         <div><h1 className="text-xl font-extrabold">{kindHe(o.kind)} — לאישור וחתימה</h1><div className="text-slate-600">ספירים — Silitex ישראל</div></div>
         <div className="text-left" dir="ltr"><div className="font-mono font-bold text-lg">{o.id}</div>{o.project_id && <div className="font-mono">#{o.project_id}</div>}<div>{fmtDate(new Date())}</div></div>
@@ -45,7 +46,7 @@ export default function OrderPrint({ params }: { params: Promise<{ id: string }>
         {product && <tfoot><tr><td colSpan={6} className="border p-2 font-bold">סה״כ ({o.incoterm})</td><td className="border p-2 font-bold" dir="ltr">{fmtEur(orderTotal(o))}</td></tr></tfoot>}
       </table>
       <section className={box}><b>משלוח</b><div>כתובת למשלוח: {o.shipping?.address || c.address || "________________________"}</div><div>איש קשר לקבלה: {c.contact || "________________"} · {c.phone || "____________"}</div>{product && o.customer_po && <div>PO של הלקוח: {o.customer_po}</div>}</section>
-      {!product && <section className={box}><b>תנאי הדוגמה</b><ol className="list-decimal ps-5 space-y-1 print:space-y-0 mt-1">{SAMPLE_TERMS.map((t, i) => <li key={i}>{t}</li>)}</ol></section>}
+      {terms.length > 0 && <section className={box}><b>{product ? "תנאי ההזמנה" : "תנאי הדוגמה"}</b><ol className="list-decimal ps-5 space-y-1 print:space-y-0 mt-1">{terms.map((t, i) => <li key={i}>{t}</li>)}</ol></section>}
       {product && o.payment_terms && <section className={box}><b>תנאי תשלום</b><div>{o.payment_terms}</div></section>}
       <section className="border-2 border-slate-900 rounded-lg p-4 space-y-4 print:p-3 print:space-y-2 break-inside-avoid">
         <b>אישור הלקוח — אני מאשר/ת את פרטי ההזמנה</b>

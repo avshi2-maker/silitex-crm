@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/orders/[id]/page.tsx) · updated 23.11.2026 10:55 (Asia/Jerusalem) — v1.23.0 both 💾 = "Save as" window → PDF of the A4 form, right here (no new tab) · 10:35 v1.22.1 bottom 💾 = PDF form too · 10:30 v1.22.0 header button = 💾 save PDF (one click, straight to Downloads) · 10:20 v1.21.3 🖨 big "PDF form" button in the header · 16.11.2026 19:00 — v1.14.0 ✨ fill from the customer's mail · created 16.11.2026 18:00 — v1.13.0 📦 Order card: number + project + stepper · the template (customer, lines, shipping)
+// page.tsx (src/app/orders/[id]/page.tsx) · updated 23.11.2026 11:50 (Asia/Jerusalem) — v1.24.0 ✍ editable terms card (prints on the form) · 10:55 v1.23.0 both 💾 = "Save as" window → PDF of the A4 form, right here (no new tab) · 10:35 v1.22.1 bottom 💾 = PDF form too · 10:30 v1.22.0 header button = 💾 save PDF (one click, straight to Downloads) · 10:20 v1.21.3 🖨 big "PDF form" button in the header · 16.11.2026 19:00 — v1.14.0 ✨ fill from the customer's mail · created 16.11.2026 18:00 — v1.13.0 📦 Order card: number + project + stepper · the template (customer, lines, shipping)
 // SAMPLE: ① ✍ customer form + short mail (view → confirm → sign → mail back) → ② 🇮🇹 order to Silitex (locked until signed) → ③ 🚚
 // PRODUCT: ① 🇮🇹 order to Silitex → ② 🏦 proforma + bank text + task → ③ 🚚 · history + export bar
 import { use } from "react";
@@ -13,6 +13,7 @@ import { fmtDate } from "@/lib/format";
 import OrderSteps from "@/components/orders/OrderSteps";
 import OrderForm from "@/components/orders/OrderForm";
 import OrderFill from "@/components/orders/OrderFill";
+import OrderTerms from "@/components/orders/OrderTerms";
 import { useStore } from "@/lib/store";
 import OrderCustomer from "@/components/orders/OrderCustomer";
 import OrderSilitex from "@/components/orders/OrderSilitex";
@@ -44,6 +45,7 @@ export default function OrderPage({ params }: { params: Promise<{ id: string }> 
       <OrderSteps o={o} onStage={(st) => { if (st !== o.stage) save({ stage: st }).catch(() => {}); }} />
       <OrderFill o={o} spend={state.spend} addSpend={addSpend} onDone={reload} />
       <OrderForm key={o.updated_at} o={o} onSave={(x) => save(x, "💾 פרטי ההזמנה עודכנו")} />
+      <OrderTerms key={"t" + o.updated_at} o={o} onSave={save} />
       {o.kind === "sample" && <OrderCustomer o={o} version={v} onSave={save} />}
       <OrderSilitex o={o} team={p?.team || []} version={v} onSave={save} />
       {o.kind === "product" && <OrderBank key={"b" + o.updated_at} o={o} onSave={save} />}

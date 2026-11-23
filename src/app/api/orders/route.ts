@@ -12,7 +12,7 @@ import { orderStage, stageNo } from "@/config/orders";
 import { fmtEur, orderTotal } from "@/lib/orders";
 import type { Order } from "@/lib/types";
 export const runtime = "nodejs"; export const dynamic = "force-dynamic";
-const FIELDS = ["stage", "lines", "customer", "customer_po", "incoterm", "payment_terms", "shipping", "bank", "silitex_ref", "tracking", "files", "notes"] as const;
+const FIELDS = ["stage", "lines", "customer", "customer_po", "incoterm", "payment_terms", "shipping", "bank", "silitex_ref", "tracking", "files", "notes", "terms"] as const; // v1.24.0 + terms (23.11.2026)
 
 export async function GET(req: Request) {
   const sb = serviceClient(); if (!sb) return NextResponse.json({ orders: [], note: "no supabase" });

@@ -38,5 +38,7 @@ export const SAMPLE_TERMS = [
   "בקשת הדוגמה אינה מחייבת את הלקוח בהזמנה מסחרית.",
   "נשמח לקבל משוב ותוצאות בדיקה, כדי להתאים את המוצר והמחיר להמשך.",
 ];
+/** default terms printed on the form when the order has none of its own (v1.24.0: editable per order on the order page) */
+export const defaultTerms = (kind: "sample" | "product"): string[] => (kind === "sample" ? SAMPLE_TERMS : []);
 export const DEFAULT_SHIP_DOCS = "Commercial invoice · Packing list · Batch CoA · SDS · EUR.1";
 export const SILITEX_LEGAL = { name: "SILITEX S.r.l.", address: "Viale dell'Industria 34, 37044 Cologna Veneta (VR), Italy", vat: "IT02644870236" };
