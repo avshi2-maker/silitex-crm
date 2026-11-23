@@ -1,5 +1,5 @@
 "use client";
-// AppShell.tsx (src/components/AppShell.tsx) · updated 16.11.2026 20:30 (Asia/Jerusalem) — v1.14.2 🚨 SecurityNudge on top of every page · 28.10.2026 18:15 — menu collapsed (◀ ▶) → page uses the full screen width · 26.10.2026 05:50 — /outlook-callback renders bare (Microsoft sign-in popup) · 24.10.2026 06:00 — loads radar-added industries on start · 23.10.2026 08:30 — + 📞 QuickBrief (Ctrl+K customer brief) · 06:55 — + ScanPulse (live server-scan signal + timer on every page) · 22.10.2026 17:20 (Asia/Jerusalem) — + SaveToast (green save echo on every page) · 18.10.2026 18:15 (Asia/Jerusalem) — CRM frame (sidebar, floating notes, footer) around every page — EXCEPT the public portal (/he /en /ru), which renders bare with its own header/footer.
+// AppShell.tsx (src/components/AppShell.tsx) · updated 23.11.2026 11:20 (Asia/Jerusalem) — v1.23.1 …/print pages render bare (no side menu → clean A4 form + PDF) · 16.11.2026 20:30 — v1.14.2 🚨 SecurityNudge on top of every page · 28.10.2026 18:15 — menu collapsed (◀ ▶) → page uses the full screen width · 26.10.2026 05:50 — /outlook-callback renders bare (Microsoft sign-in popup) · 24.10.2026 06:00 — loads radar-added industries on start · 23.10.2026 08:30 — + 📞 QuickBrief (Ctrl+K customer brief) · 06:55 — + ScanPulse (live server-scan signal + timer on every page) · 22.10.2026 17:20 (Asia/Jerusalem) — + SaveToast (green save echo on every page) · 18.10.2026 18:15 (Asia/Jerusalem) — CRM frame (sidebar, floating notes, footer) around every page — EXCEPT the public portal (/he /en /ru), which renders bare with its own header/footer.
 import type { ReactNode } from "react";
 import SecurityNudge from "./agent/SecurityNudge";
 import { usePathname } from "next/navigation";
@@ -19,7 +19,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
   useEffect(() => { if (!PORTAL_PATH.test(window.location.pathname)) refreshExtra(); }, []);
   const [wide, setWide] = useState(false); // side menu collapsed → no 1400px cap
   useEffect(() => { const read = () => { try { setWide(localStorage.getItem(NAV_MINI_KEY) === "1"); } catch {} }; read(); window.addEventListener("silitex-nav-mini", read); return () => window.removeEventListener("silitex-nav-mini", read); }, []); // 🛰️ radar-added industries → every pick-list
-  if (PORTAL_PATH.test(path) || path.startsWith("/outlook-callback")) return <>{children}</>;
+  if (PORTAL_PATH.test(path) || path.startsWith("/outlook-callback") || path.endsWith("/print")) return <>{children}</>;
   return (
     <div className="flex min-h-screen">
       <Nav />

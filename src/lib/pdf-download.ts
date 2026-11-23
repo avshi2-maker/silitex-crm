@@ -1,17 +1,19 @@
-// pdf-download.ts (src/lib/pdf-download.ts) · updated 23.11.2026 10:55 (Asia/Jerusalem) — v1.23.0 💾 = "Save as" window (choose folder + name) → real PDF file · created 23.11.2026 10:30 v1.22.0
+// pdf-download.ts (src/lib/pdf-download.ts) · updated 23.11.2026 11:20 (Asia/Jerusalem) — v1.23.1 FIX squeezed PDF: snapshot always laid out at full A4 width (800px sheet, 1280px window) · 10:55 v1.23.0 💾 = "Save as" window (choose folder + name) → real PDF file · created 23.11.2026 10:30 v1.22.0
 // snapshot an element (Hebrew renders as-is, it is a picture of the page) → ONE A4 portrait page, scaled down if taller.
 // Save flow: the Windows "Save as" window opens FIRST (on the click), then the PDF is built and written into the file you chose.
 // Browsers without the Save-as API (Firefox / Safari / phone) → the file goes to Downloads as before.
 type Handle = { createWritable: () => Promise<{ write: (d: Blob | ArrayBuffer) => Promise<void>; close: () => Promise<void> }> };
 type Picker = (o: { suggestedName: string; types: { description: string; accept: Record<string, string[]> }[] }) => Promise<Handle>;
 
+const SHEET_W = 800; // px — the A4 form width
 export const safeName = (s: string) => s.replace(/[\\/:*?"<>|]+/g, " ").replace(/\s+/g, " ").trim() || "document";
 
 /** the PDF bytes of one element, one A4 portrait page */
 export async function onePagePdfBlob(el: HTMLElement): Promise<Blob> {
   const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import("html2canvas"), import("jspdf")]);
   if (el.ownerDocument.fonts?.ready) await el.ownerDocument.fonts.ready;
-  const canvas = await html2canvas(el, { scale: 2, backgroundColor: "#ffffff", useCORS: true, windowWidth: el.scrollWidth });
+  const canvas = await html2canvas(el, { scale: 2, backgroundColor: "#ffffff", useCORS: true, windowWidth: 1280, width: SHEET_W,
+    onclone: (_d, c) => { c.style.width = SHEET_W + "px"; c.style.maxWidth = "none"; c.style.minWidth = SHEET_W + "px"; c.style.boxSizing = "border-box"; } }); // never narrower than A4 (was: the frame width → the form collapsed into a strip)
   const pdf = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
   const margin = 10; const maxW = 210 - margin * 2; const maxH = 297 - margin * 2;
   const ratio = canvas.height / canvas.width;
@@ -48,7 +50,7 @@ export async function downloadOnePagePdf(el: HTMLElement, name: string): Promise
 export function pdfFromHiddenPage(src: string, timeoutMs = 20000): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const f = document.createElement("iframe");
-    f.style.cssText = "position:fixed;left:-10000px;top:0;width:820px;height:1200px;border:0;visibility:hidden";
+    f.style.cssText = "position:fixed;left:-10000px;top:0;width:1280px;height:1600px;border:0;visibility:hidden";
     f.src = src; document.body.appendChild(f);
     const t0 = Date.now(); const done = () => setTimeout(() => f.remove(), 100);
     const tick = () => {
