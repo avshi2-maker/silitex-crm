@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/orders/[id]/page.tsx) · updated 23.11.2026 10:30 (Asia/Jerusalem) — v1.22.0 header button = 💾 save PDF (one click, straight to Downloads) · 10:20 v1.21.3 🖨 big "PDF form" button in the header · 16.11.2026 19:00 — v1.14.0 ✨ fill from the customer's mail · created 16.11.2026 18:00 — v1.13.0 📦 Order card: number + project + stepper · the template (customer, lines, shipping)
+// page.tsx (src/app/orders/[id]/page.tsx) · updated 23.11.2026 10:35 (Asia/Jerusalem) — v1.22.1 bottom 💾 = PDF form too · 10:30 v1.22.0 header button = 💾 save PDF (one click, straight to Downloads) · 10:20 v1.21.3 🖨 big "PDF form" button in the header · 16.11.2026 19:00 — v1.14.0 ✨ fill from the customer's mail · created 16.11.2026 18:00 — v1.13.0 📦 Order card: number + project + stepper · the template (customer, lines, shipping)
 // SAMPLE: ① ✍ customer form + short mail (view → confirm → sign → mail back) → ② 🇮🇹 order to Silitex (locked until signed) → ③ 🚚
 // PRODUCT: ① 🇮🇹 order to Silitex → ② 🏦 proforma + bank text + task → ③ 🚚 · history + export bar
 import { use } from "react";
@@ -30,7 +30,7 @@ export default function OrderPage({ params }: { params: Promise<{ id: string }> 
   if (!o) return <Card><b>{tr("הזמנה לא נמצאה")}: {id}</b> · <Link href="/orders" className="underline">{tr("חזרה להזמנות")}</Link></Card>;
   const save = (x: Partial<Order>, note?: string) => patch(o.id, x, note);
   const s = orderStage(o.kind, o.stage); const v = p?.version || 1;
-  const printHref = "/orders/" + o.id + "/print?dl=1"; const printCls = "min-h-[44px] inline-flex items-center px-4 rounded-lg bg-slate-900 text-white font-bold";
+  const printHref = "/orders/" + o.id + "/print?dl=1"; const openPdf = () => window.open(printHref, "_blank"); const openPrint = () => window.open("/orders/" + o.id + "/print", "_blank"); const printCls = "min-h-[44px] inline-flex items-center px-4 rounded-lg bg-slate-900 text-white font-bold";
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-3"><Link href="/orders" className="text-sm underline text-slate-500">→ {tr("כל ההזמנות")}</Link>
@@ -47,7 +47,7 @@ export default function OrderPage({ params }: { params: Promise<{ id: string }> 
       <OrderShipping key={"s" + o.updated_at} o={o} onSave={save} />
       <Card className="space-y-2"><b>🕑 {tr("היסטוריה")}</b>
         <ul className="text-sm space-y-1">{[...(o.history || [])].reverse().map((h, i) => <li key={i}><span className="text-xs text-slate-500">{fmtDate(h.at)} {new Date(h.at).toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Jerusalem" })}</span> — {h.text}</li>)}</ul>
-        <ExportBar title={kindHe(o.kind) + " " + o.id + " — " + o.lead_name} text={orderText(o)} filename={o.id} />
+        <ExportBar title={kindHe(o.kind) + " " + o.id + " — " + o.lead_name} text={orderText(o)} filename={o.id} onSave={openPdf} saveLabel={"💾 " + tr("שמור PDF")} onPrint={openPrint} />
       </Card>
     </div>
   );
