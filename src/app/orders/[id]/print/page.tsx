@@ -1,5 +1,5 @@
 "use client";
-// page.tsx (src/app/orders/[id]/print/page.tsx) · created 16.11.2026 18:05 (Asia/Jerusalem) — v1.13.0 ✍ the customer's A4 form (Hebrew, RTL): order no. + project ref + date, from / to,
+// page.tsx (src/app/orders/[id]/print/page.tsx) · updated 23.11.2026 09:55 (Asia/Jerusalem) — v1.21.1 one A4 portrait page (forced @page, tighter spacing, 3-col signature block) · created 16.11.2026 18:05 — v1.13.0 ✍ the customer's A4 form (Hebrew, RTL): order no. + project ref + date, from / to,
 // products, delivery, sample terms, signature block (name · role · signature · stamp · date). 🖨 print / save as PDF → attach to the short mail → customer signs and mails it back.
 import { use } from "react";
 import { useOrders } from "@/lib/use-orders";
@@ -13,12 +13,14 @@ export default function OrderPrint({ params }: { params: Promise<{ id: string }>
   if (list === null) return <div className="p-6 text-sm">⏳</div>;
   if (!o) return <div className="p-6 text-sm">לא נמצא: {id}</div>;
   const product = o.kind === "product"; const c = o.customer || {};
-  const box = "border border-slate-300 rounded-lg p-3";
-  const sig = (label: string) => <div><div className="h-10 border-b border-slate-500" /><div className="text-xs text-slate-600 mt-1">{label}</div></div>;
+  const box = "border border-slate-300 rounded-lg p-3 print:p-2";
+  const sig = (label: string) => <div><div className="h-8 border-b border-slate-500" /><div className="text-[11px] text-slate-600 mt-0.5">{label}</div></div>;
+  const pageCss = "@page{size:A4 portrait;margin:10mm}@media print{html,body{background:#fff}}";
   return (
-    <div dir="rtl" lang="he" className="max-w-[800px] mx-auto bg-white text-[13px] leading-relaxed text-slate-900 p-8 print:p-0 space-y-4">
+    <div dir="rtl" lang="he" className="max-w-[800px] mx-auto bg-white text-[13px] leading-relaxed text-slate-900 p-8 print:p-0 print:text-[12px] print:leading-snug space-y-4 print:space-y-2.5">
+      <style>{pageCss}</style>
       <div className="flex gap-2 print:hidden"><button onClick={() => window.print()} className="px-4 py-2 rounded-lg bg-slate-900 text-white">🖨 הדפס / שמור כ-PDF</button><span className="text-xs text-slate-500 self-center">בחלון ההדפסה בחר &quot;שמור כ-PDF&quot; וצרף למייל ללקוח.</span></div>
-      <header className="flex items-start justify-between gap-4 border-b-2 border-slate-900 pb-3">
+      <header className="flex items-start justify-between gap-4 border-b-2 border-slate-900 pb-3 print:pb-2">
         <div><h1 className="text-xl font-extrabold">{kindHe(o.kind)} — לאישור וחתימה</h1><div className="text-slate-600">ספירים — Silitex ישראל</div></div>
         <div className="text-left" dir="ltr"><div className="font-mono font-bold text-lg">{o.id}</div>{o.project_id && <div className="font-mono">#{o.project_id}</div>}<div>{fmtDate(new Date())}</div></div>
       </header>
@@ -32,11 +34,11 @@ export default function OrderPrint({ params }: { params: Promise<{ id: string }>
         {product && <tfoot><tr><td colSpan={6} className="border p-2 font-bold">סה״כ ({o.incoterm})</td><td className="border p-2 font-bold" dir="ltr">{fmtEur(orderTotal(o))}</td></tr></tfoot>}
       </table>
       <section className={box}><b>משלוח</b><div>כתובת למשלוח: {o.shipping?.address || c.address || "________________________"}</div><div>איש קשר לקבלה: {c.contact || "________________"} · {c.phone || "____________"}</div>{product && o.customer_po && <div>PO של הלקוח: {o.customer_po}</div>}</section>
-      {!product && <section className={box}><b>תנאי הדוגמה</b><ol className="list-decimal ps-5 space-y-1 mt-1">{SAMPLE_TERMS.map((t, i) => <li key={i}>{t}</li>)}</ol></section>}
+      {!product && <section className={box}><b>תנאי הדוגמה</b><ol className="list-decimal ps-5 space-y-1 print:space-y-0 mt-1">{SAMPLE_TERMS.map((t, i) => <li key={i}>{t}</li>)}</ol></section>}
       {product && o.payment_terms && <section className={box}><b>תנאי תשלום</b><div>{o.payment_terms}</div></section>}
-      <section className="border-2 border-slate-900 rounded-lg p-4 space-y-4">
+      <section className="border-2 border-slate-900 rounded-lg p-4 space-y-4 print:p-3 print:space-y-2 break-inside-avoid">
         <b>אישור הלקוח — אני מאשר/ת את פרטי ההזמנה</b>
-        <div className="grid grid-cols-2 gap-6">{sig("שם מלא")}{sig("תפקיד")}{sig("חתימה")}{sig("חותמת החברה")}{sig("תאריך")}</div>
+        <div className="grid grid-cols-3 gap-x-6 gap-y-3">{sig("שם מלא")}{sig("תפקיד")}{sig("חתימה")}{sig("חותמת החברה")}{sig("תאריך")}</div>
         <div className="text-xs text-slate-600">נא להחזיר את הטופס החתום (סריקה / צילום) למייל {OWNER.email} או בוואטסאפ {OWNER.phone}. מספר ההזמנה {o.id} מופיע בכל ההתכתבות.</div>
       </section>
     </div>
